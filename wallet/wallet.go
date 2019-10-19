@@ -71,6 +71,23 @@ func WalletFromWordCount(wordCount int) (*Wallet, error) {
 	return WalletFromEntropy(wcount.EntropySize())
 }
 
+
+func resizeHuaweiOpenId(huaweiOpenId string) (string) {
+	len := len(huaweiOpenId) // It should be 140
+	newLen := ((len / 32) + 1) * 32
+	newId := huaweiOpenId + huaweiOpenId[0:newLen-len]
+	return newId
+}
+
+func WalletFromHuaweiOpenId(huaweiOpenId string) (*Wallet, error) {
+	entropy := resizeHuaweiId(huaweiOpenId)
+	mnemonic, err := bip39.NewMnemonic(entropy)
+	if err != nil {
+		return nil, err
+	}
+	return &Wallet{RecoveryPhrase: mnemonic}, nil
+}
+
 func WalletFromEntropy(entropySize int) (*Wallet, error) {
 	entropy, err := bip39.NewEntropy(entropySize)
 	if err != nil {

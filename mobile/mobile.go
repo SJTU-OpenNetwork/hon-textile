@@ -51,6 +51,15 @@ func NewWallet(wordCount int) (string, error) {
 	return w.RecoveryPhrase, nil
 }
 
+// NewWalletFromHuaweiOpenId creates a brand new wallet using huawei open id and returns its recovery phrase
+func NewWalletFromHuaweiOpenId(huaweiOpenId string) (string, error) {
+	w, err := wallet.WalletFromHuaweiOpenId(huaweiOpenId)
+	if err != nil {
+		return "", err
+	}
+	return w.RecoveryPhrase, nil
+}
+
 // WalletAccountAt derives the account at the given index
 func WalletAccountAt(mnemonic string, index int, passphrase string) ([]byte, error) {
 	w := wallet.WalletFromMnemonic(mnemonic)
@@ -71,6 +80,7 @@ type InitConfig struct {
 	BaseRepoPath string
 	LogToDisk    bool
 	Debug        bool
+	IsPrivate    bool
 }
 
 // MigrateConfig is used to define options during a major migration
@@ -150,6 +160,7 @@ func (conf InitConfig) coreInitConfig() (core.InitConfig, error) {
 		IsMobile:     true,
 		LogToDisk:    conf.LogToDisk,
 		Debug:        conf.Debug,
+		IsPrivate:	  conf.IsPrivate,
 	}, nil
 }
 
