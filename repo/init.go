@@ -94,6 +94,30 @@ func Init(repoPath string, mobile bool, server bool) error {
 	return initializeIpnsKeyspace(repoPath)
 }
 
+func InitPrivate(repoPath string, mobile bool, server bool) error {
+	// write swarm key
+    err = writeSwarmKey(repoPath)
+    if err != nil {
+        return err
+    }
+
+    Init(repoPath, mobile, server)
+}
+
+//Write the swarm key for ipfs private network
+func writeSwarmKey(repoPath string) (error){
+        swarm, err := os.Create(path.Join(repoPath, "swarm.key"))
+        if err != nil {
+                return err
+        }
+        defer swarm.Close()
+        data := []byte("/key/swarm/psk/1.0.0/\n/base16/\n7894ae706f3b54675785afd43a5a554463744e89594ab6e274fb817ccd9a58d4")
+        if _, err := swarm.Write(data); err != nil {
+                return err
+        }
+        return nil
+}
+
 func LoadPlugins(repoPath string) (*loader.PluginLoader, error) {
 	// check if repo is accessible before loading plugins
 	_, err := checkPermissions(repoPath)

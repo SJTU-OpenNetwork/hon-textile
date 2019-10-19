@@ -67,6 +67,7 @@ type InitConfig struct {
 	CafeOpen        bool
 	CafeURL         string
 	CafeNeighborURL string
+	IsPrivate		bool
 }
 
 // MigrateConfig is used to define options during a major migration
@@ -185,7 +186,12 @@ func InitRepo(conf InitConfig) error {
 	}
 
 	// init repo
-	err = repo.Init(repoPath, conf.IsMobile, conf.IsServer)
+	if conf.IsPrivate {
+		err = repo.InitPrivate(repoPath, conf.IsMobile, conf.IsServer)
+	}
+	else {
+		err = repo.Init(repoPath, conf.IsMobile, conf.IsServer)
+	}
 	if err != nil {
 		return err
 	}

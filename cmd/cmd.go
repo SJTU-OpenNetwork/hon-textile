@@ -465,6 +465,7 @@ Stacks may include:
 	initAccountSeed := initCmd.Arg("account-seed", "The account seed to use, if you do not have one, refer to: textile wallet --help").Required().String()
 	initPin := initCmd.Flag("pin", "Specify a pin for datastore encryption").Short('p').String()
 	initIpfsServerMode := initCmd.Flag("server", "Apply IPFS server profile").Bool()
+	initPrivateMode := initCmd.Flag("private", "Use private netwrok").Bool()
 	initIpfsSwarmPorts := initCmd.Flag("swarm-ports", "Set the swarm ports (TCP,WS). A random TCP port is chosen by default").String()
 	initLogFiles := initCmd.Flag("log-files", "If true, writes logs to rolling files, if false, writes logs to stdout").Default("false").Bool()
 	initApiBindAddr := initCmd.Flag("api-bind-addr", "Set the local API address").Default("127.0.0.1:40600").String()
@@ -514,6 +515,7 @@ Stacks may include:
 			CafeOpen:        *initCafe || *initCafeOpen,
 			CafeURL:         *initCafeURL,
 			CafeNeighborURL: *initCafeNeighborURL,
+			IsPrivate:		 *initPrivateMode,
 		}
 
 		return InitCommand(config)
