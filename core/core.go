@@ -67,7 +67,7 @@ type InitConfig struct {
 	CafeOpen        bool
 	CafeURL         string
 	CafeNeighborURL string
-	IsPrivate		bool
+	IsPrivate       bool
 }
 
 // MigrateConfig is used to define options during a major migration

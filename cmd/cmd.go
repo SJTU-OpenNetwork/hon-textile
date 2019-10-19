@@ -515,7 +515,7 @@ Stacks may include:
 			CafeOpen:        *initCafe || *initCafeOpen,
 			CafeURL:         *initCafeURL,
 			CafeNeighborURL: *initCafeNeighborURL,
-			IsPrivate:		 *initPrivateMode,
+			IsPrivate:       *initPrivateMode,
 		}
 
 		return InitCommand(config)
