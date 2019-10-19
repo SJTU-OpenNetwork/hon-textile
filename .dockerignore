@@ -1,0 +1,11 @@
+Dockerfile
+
+.github
+.circleci
+dist
+tray
+mobile
+
+*.aar
+*.jar
+*.framework

@@ -1,0 +1,66 @@
+**/node_modules/*
+dist/textile
+dist/go-textile-*
+
+# Output of the go coverage tool, specifically when used with LiteIDE
+*.out
+
+# Project-local glide cache, RE: https://github.com/Masterminds/glide/issues/736
+.glide/
+
+# Compiled Object files, Static and Dynamic libs (Shared Objects)
+*.o
+*.a
+*.so
+*.pyc
+*.dylib
+*.dll
+
+# Folders
+_obj
+_test
+__pycache__
+
+# Architecture specific extensions/prefixes
+*.[568vq]
+[568vq].out
+
+*.cgo1.go
+*.cgo2.c
+_cgo_defun.c
+_cgo_gotypes.go
+_cgo_export.*
+
+_testmain.go
+
+*.exe
+*.syso
+*.test
+*.prof
+.idea/
+.gx/
+.ipfs
+.textile*
+
+# Development environment files
+.ackrc
+.tags*
+*.sw?
+
+# macOS
+.DS_Store
+
+# Mobile
+*.aar
+*.jar
+*.framework
+mobile/dist
+
+# keys
+*.pem
+
+# Swarm
+docker-compose.swarm.yml
+
+# VSCode
+launch.json

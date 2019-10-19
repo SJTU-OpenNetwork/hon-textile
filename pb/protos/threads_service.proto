@@ -1,0 +1,81 @@
+syntax = "proto3";
+option java_package = "io.textile.pb";
+option go_package = "pb";
+
+import "google/protobuf/any.proto";
+import "google/protobuf/timestamp.proto";
+import "model.proto";
+
+// for wire transport
+message ThreadEnvelope {
+    string thread    = 1;
+    string hash      = 2 [deprecated = true]; // hash of encrypted block
+    bytes ciphertext = 3 [deprecated = true]; // encrypted ThreadBlock, also stored on ipfs for recovery
+    bytes sig        = 4; // account signature
+    bytes node       = 5; // block node (v2)
+    bytes block      = 6; // block (v2)
+}
+
+message ThreadEnvelopeAck {
+    string id = 1;
+}
+
+message ThreadBlock {
+    ThreadBlockHeader header    = 1;
+    Block.BlockType type        = 2;
+    google.protobuf.Any payload = 3; // nil for some types
+}
+
+message ThreadBlockHeader {
+    google.protobuf.Timestamp date = 1;
+    repeated string parents        = 2 [deprecated = true];
+    string author                  = 3;
+    string address                 = 4;
+}
+
+message ThreadAdd { // not kept on-chain
+    Peer inviter   = 1;
+    Thread thread  = 2;
+    string invitee = 3;
+}
+
+message ThreadIgnore {
+	option deprecated = true;
+    string target = 1;
+}
+
+message ThreadFlag {
+	option deprecated = true;
+    string target = 1;
+}
+
+message ThreadJoin {
+    string inviter = 1;
+    Peer peer      = 2;
+}
+
+message ThreadAnnounce {
+    Peer peer   = 1;
+    string name = 2; // new thread name
+}
+
+message ThreadMessage {
+    string body = 1;
+}
+
+message ThreadFiles {
+    string target            = 1 [deprecated = true]; // top-level file hash
+    string body              = 2;
+    map<string, string> keys = 3; // hash: key
+}
+
+message ThreadComment {
+    option deprecated = true;
+    string target = 1;
+    string body   = 2;
+}
+
+message ThreadLike {
+    option deprecated = true;
+    string target = 1;
+}

@@ -1,0 +1,40 @@
+syntax = "proto3";
+option java_package = "io.textile.pb";
+option go_package = "pb";
+
+import "query.proto";
+import "message.proto";
+
+message MobileWalletAccount {
+    string seed    = 1;
+    string address = 2;
+}
+
+enum MobileEventType {
+    NODE_START  = 0;
+    NODE_ONLINE = 1;
+    NODE_STOP   = 2;
+
+    ACCOUNT_UPDATE = 10;
+    THREAD_UPDATE  = 11;
+    NOTIFICATION   = 12;
+
+    QUERY_RESPONSE = 20;
+
+    CAFE_SYNC_GROUP_UPDATE   = 30;
+    CAFE_SYNC_GROUP_COMPLETE = 31;
+    CAFE_SYNC_GROUP_FAILED   = 32;
+}
+
+message MobileQueryEvent {
+    string id        = 1;
+    Type type        = 2;
+    QueryResult data = 3;
+    Error error      = 4;
+
+    enum Type {
+        DATA  = 0;
+        DONE  = 1;
+        ERROR = 2;
+    }
+}

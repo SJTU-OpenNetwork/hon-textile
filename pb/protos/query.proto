@@ -1,0 +1,74 @@
+syntax = "proto3";
+option java_package = "io.textile.pb";
+option go_package = "pb";
+
+import "google/protobuf/any.proto";
+import "google/protobuf/timestamp.proto";
+
+message QueryOptions {
+    bool localOnly          = 1; // local only
+    bool remoteOnly         = 6; // remote only
+    int32 limit             = 2;
+    int32 wait              = 3;
+    FilterType filter       = 4;
+    repeated string exclude = 5;
+
+    enum FilterType {
+        NO_FILTER  = 0; // show all results
+        HIDE_OLDER = 1; // hide older results for the same id
+    }
+}
+
+message Query {
+    string id                   = 1;
+    string token                = 2;
+    Type type                   = 3;
+    QueryOptions options        = 4;
+    google.protobuf.Any payload = 5;
+
+    enum Type {
+        THREAD_SNAPSHOTS = 0;
+        CONTACTS         = 1;
+    }
+}
+
+message PubSubQuery {
+    string id                   = 1;
+    Query.Type type             = 2;
+    google.protobuf.Any payload = 3;
+    ResponseType responseType   = 4;
+    repeated string exclude     = 5;
+    string topic                = 6;
+    int32 timeout               = 7; // pubsub response connect timeout
+
+    enum ResponseType {
+        P2P    = 0;
+        PUBSUB = 1;
+    }
+}
+
+message QueryResult {
+    string id                      = 1;
+    google.protobuf.Timestamp date = 2;
+    bool local                     = 3;
+    google.protobuf.Any value      = 4;
+}
+
+message QueryResults {
+    Query.Type type            = 1;
+    repeated QueryResult items = 2;
+}
+
+message PubSubQueryResults {
+    string id            = 1;
+    QueryResults results = 2;
+}
+
+message ContactQuery {
+    string address  = 1;
+    string name     = 2;
+}
+
+message ThreadSnapshotQuery {
+    string address = 1;
+}

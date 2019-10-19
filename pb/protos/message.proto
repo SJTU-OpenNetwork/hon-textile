@@ -1,0 +1,68 @@
+syntax = "proto3";
+option java_package = "io.textile.pb";
+option go_package = "pb";
+
+import "google/protobuf/any.proto";
+
+message Message {
+    Type type                   = 1;
+    google.protobuf.Any payload = 2;
+    int32 request               = 3; // optional
+    bool response               = 4; // optional
+
+    enum Type {
+        PING = 0;
+        PONG = 1;
+
+        THREAD_ENVELOPE     = 10;
+        THREAD_ENVELOPE_ACK = 11;
+
+        CAFE_CHALLENGE           = 50;
+        CAFE_NONCE               = 51;
+        CAFE_REGISTRATION        = 52;
+        CAFE_DEREGISTRATION      = 72;
+        CAFE_DEREGISTRATION_ACK  = 73;
+        CAFE_SESSION             = 53;
+        CAFE_REFRESH_SESSION     = 54;
+        CAFE_STORE               = 55;
+        CAFE_STORE_ACK           = 59;
+        CAFE_UNSTORE             = 74;
+        CAFE_UNSTORE_ACK         = 75;
+        CAFE_OBJECT              = 56;
+        CAFE_OBJECT_LIST         = 57;
+        CAFE_STORE_THREAD        = 58;
+        CAFE_STORE_THREAD_ACK    = 76;
+        CAFE_UNSTORE_THREAD      = 77;
+        CAFE_UNSTORE_THREAD_ACK  = 78;
+        CAFE_DELIVER_MESSAGE     = 60;
+        CAFE_CHECK_MESSAGES      = 61;
+        CAFE_MESSAGES            = 62;
+        CAFE_DELETE_MESSAGES     = 63;
+        CAFE_DELETE_MESSAGES_ACK = 64;
+        CAFE_YOU_HAVE_MAIL       = 65;
+        CAFE_PUBLISH_PEER        = 66;
+        CAFE_PUBLISH_PEER_ACK    = 67;
+        CAFE_QUERY               = 70;
+        CAFE_QUERY_RES           = 71;
+
+        CAFE_PUBSUB_QUERY     = 102;
+        CAFE_PUBSUB_QUERY_RES = 103;
+
+        ERROR = 500;
+
+        CAFE_CONTACT_QUERY            = 68 [deprecated = true];
+        CAFE_CONTACT_QUERY_RES        = 69 [deprecated = true];
+        CAFE_PUBSUB_CONTACT_QUERY     = 100 [deprecated = true];
+        CAFE_PUBSUB_CONTACT_QUERY_RES = 101 [deprecated = true];
+    }
+}
+
+message Envelope {
+    Message message = 1;
+    bytes sig       = 2;
+}
+
+message Error {
+    uint32 code    = 1;
+    string message = 2;
+}

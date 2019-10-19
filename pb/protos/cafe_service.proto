@@ -1,0 +1,113 @@
+syntax = "proto3";
+option java_package = "io.textile.pb";
+option go_package = "pb";
+
+import "model.proto";
+
+message CafeChallenge {
+    string address = 1;
+}
+
+message CafeNonce {
+    string value = 1;
+}
+
+message CafeRegistration {
+    string address = 1;
+    string value   = 2;
+    string nonce   = 3;
+    bytes sig      = 4;
+    string token   = 5;
+}
+
+message CafeDeregistration {
+    string token = 1;
+}
+
+message CafeDeregistrationAck {
+    string id = 1;
+}
+
+message CafeRefreshSession {
+    string access  = 1;
+    string refresh = 2;
+}
+
+message CafePublishPeer {
+    string token = 1;
+    Peer peer    = 2;
+}
+
+message CafePublishPeerAck {
+    string id = 1;
+}
+
+message CafeStore {
+    string token         = 1;
+    repeated string cids = 2;
+}
+
+message CafeStoreAck {
+    string id = 1;
+}
+
+message CafeUnstore {
+    string token         = 1;
+    repeated string cids = 2;
+}
+
+message CafeUnstoreAck {
+    repeated string cids = 1;
+}
+
+message CafeObjectList {
+    repeated string cids = 1;
+}
+
+message CafeObject {
+    string token = 1;
+    string cid   = 2;
+    bytes  data  = 3;
+    bytes  node  = 4;
+}
+
+message CafeStoreThread {
+    string token     = 1;
+    string id        = 2;
+    bytes ciphertext = 3; // encrypted Thread
+}
+
+message CafeStoreThreadAck {
+    string id = 1;
+}
+
+message CafeUnstoreThread {
+    string token = 1;
+    string id    = 2;
+}
+
+message CafeUnstoreThreadAck {
+    string id = 1;
+}
+
+message CafeDeliverMessage {
+    string id     = 1;
+    string client = 2;
+    bytes env     = 3;
+}
+
+message CafeCheckMessages {
+    string token = 1;
+}
+
+message CafeMessages {
+    repeated CafeMessage messages = 1;
+}
+
+message CafeDeleteMessages {
+    string token = 1;
+}
+
+message CafeDeleteMessagesAck {
+    bool more = 1;
+}
