@@ -11,9 +11,9 @@ import (
 	icid "github.com/ipfs/go-cid"
 	"github.com/libp2p/go-libp2p-core/peerstore"
 	"github.com/segmentio/ksuid"
-	"github.com/textileio/go-textile/core"
-	"github.com/textileio/go-textile/ipfs"
-	"github.com/textileio/go-textile/pb"
+	"github.com/SJTU-OpenNetwork/hon-textile/core"
+	"github.com/SJTU-OpenNetwork/hon-textile/ipfs"
+	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 )
 
 var cafesTestVars = struct {

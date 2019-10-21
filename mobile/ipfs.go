@@ -4,8 +4,8 @@ import (
 	"bytes"
 
 	ipld "github.com/ipfs/go-ipld-format"
-	"github.com/textileio/go-textile/core"
-	"github.com/textileio/go-textile/ipfs"
+	"github.com/SJTU-OpenNetwork/hon-textile/core"
+	"github.com/SJTU-OpenNetwork/hon-textile/ipfs"
 )
 
 // PeerId returns the ipfs peer id

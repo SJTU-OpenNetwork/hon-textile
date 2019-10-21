@@ -4,9 +4,9 @@ import (
 	"os"
 	"testing"
 
-	"github.com/textileio/go-textile/core"
-	. "github.com/textileio/go-textile/gateway"
-	"github.com/textileio/go-textile/keypair"
+	"github.com/SJTU-OpenNetwork/hon-textile/core"
+	. "github.com/SJTU-OpenNetwork/hon-textile/gateway"
+	"github.com/SJTU-OpenNetwork/hon-textile/keypair"
 )
 
 var initConfig = core.InitConfig{

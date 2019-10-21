@@ -6,8 +6,8 @@ import (
 	"strings"
 
 	"github.com/gin-gonic/gin"
-	"github.com/textileio/go-textile/core"
-	pb "github.com/textileio/go-textile/pb"
+	"github.com/SJTU-OpenNetwork/hon-textile/core"
+	pb "github.com/SJTU-OpenNetwork/hon-textile/pb"
 )
 
 // getThreadsObserve godoc

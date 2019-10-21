@@ -4,12 +4,12 @@ import (
 	"github.com/golang/protobuf/proto"
 	logging "github.com/ipfs/go-log"
 	mh "github.com/multiformats/go-multihash"
-	"github.com/textileio/go-textile/broadcast"
-	"github.com/textileio/go-textile/common"
-	"github.com/textileio/go-textile/core"
-	"github.com/textileio/go-textile/keypair"
-	"github.com/textileio/go-textile/pb"
-	"github.com/textileio/go-textile/wallet"
+	"github.com/SJTU-OpenNetwork/hon-textile/broadcast"
+	"github.com/SJTU-OpenNetwork/hon-textile/common"
+	"github.com/SJTU-OpenNetwork/hon-textile/core"
+	"github.com/SJTU-OpenNetwork/hon-textile/keypair"
+	"github.com/SJTU-OpenNetwork/hon-textile/pb"
+	"github.com/SJTU-OpenNetwork/hon-textile/wallet"
 )
 
 var log = logging.Logger("tex-mobile")

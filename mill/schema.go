@@ -5,8 +5,8 @@ import (
 	"encoding/json"
 
 	"github.com/golang/protobuf/jsonpb"
-	"github.com/textileio/go-textile/pb"
-	"github.com/textileio/go-textile/schema"
+	"github.com/SJTU-OpenNetwork/hon-textile/pb"
+	"github.com/SJTU-OpenNetwork/hon-textile/schema"
 	"github.com/xeipuuv/gojsonschema"
 )
 

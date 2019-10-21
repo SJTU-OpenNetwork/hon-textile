@@ -7,9 +7,9 @@ import (
 	"strings"
 
 	"github.com/gin-gonic/gin"
-	"github.com/textileio/go-textile/core"
-	"github.com/textileio/go-textile/ipfs"
-	"github.com/textileio/go-textile/pb"
+	"github.com/SJTU-OpenNetwork/hon-textile/core"
+	"github.com/SJTU-OpenNetwork/hon-textile/ipfs"
+	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 )
 
 func getBlock(node *core.Textile, id string) (*pb.Block, error, int) {

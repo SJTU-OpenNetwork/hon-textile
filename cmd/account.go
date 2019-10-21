@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/textileio/go-textile/pb"
+	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 )
 
 func getAccount() (string, *pb.Contact, error) {

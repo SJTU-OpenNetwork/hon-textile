@@ -15,9 +15,9 @@ import (
 
 	ipfspath "github.com/ipfs/go-path"
 	"github.com/mitchellh/go-homedir"
-	"github.com/textileio/go-textile/core"
-	"github.com/textileio/go-textile/pb"
-	"github.com/textileio/go-textile/schema"
+	"github.com/SJTU-OpenNetwork/hon-textile/core"
+	"github.com/SJTU-OpenNetwork/hon-textile/pb"
+	"github.com/SJTU-OpenNetwork/hon-textile/schema"
 )
 
 var errNothingToAdd = fmt.Errorf("nothing to add")

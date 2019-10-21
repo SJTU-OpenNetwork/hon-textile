@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	ipld "github.com/ipfs/go-ipld-format"
-	"github.com/textileio/go-textile/pb"
+	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 )
 
 // ErrFileValidationFailed indicates dag schema validation failed

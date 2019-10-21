@@ -7,9 +7,9 @@ import (
 	"github.com/golang/protobuf/proto"
 	"github.com/ipfs/go-ipfs/core"
 	"github.com/libp2p/go-libp2p-core/peer"
-	"github.com/textileio/go-textile/ipfs"
-	"github.com/textileio/go-textile/pb"
-	"github.com/textileio/go-textile/repo"
+	"github.com/SJTU-OpenNetwork/hon-textile/ipfs"
+	"github.com/SJTU-OpenNetwork/hon-textile/pb"
+	"github.com/SJTU-OpenNetwork/hon-textile/repo"
 )
 
 // cafeInFlushGroupSize is the size of concurrently processed messages

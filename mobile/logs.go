@@ -2,7 +2,7 @@ package mobile
 
 import (
 	"github.com/golang/protobuf/proto"
-	"github.com/textileio/go-textile/pb"
+	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 )
 
 // SetLogLevel calls core SetLogLevel

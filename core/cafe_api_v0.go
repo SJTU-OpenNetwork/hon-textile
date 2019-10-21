@@ -14,8 +14,8 @@ import (
 	cid "github.com/ipfs/go-cid"
 	uio "github.com/ipfs/go-unixfs/io"
 	peer "github.com/libp2p/go-libp2p-core/peer"
-	"github.com/textileio/go-textile/ipfs"
-	"github.com/textileio/go-textile/pb"
+	"github.com/SJTU-OpenNetwork/hon-textile/ipfs"
+	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 )
 
 // pin take raw data or a tarball and pins it to the local ipfs node.

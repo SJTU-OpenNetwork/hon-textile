@@ -13,11 +13,11 @@ import (
 	icid "github.com/ipfs/go-cid"
 	iface "github.com/ipfs/interface-go-ipfs-core"
 	"github.com/segmentio/ksuid"
-	"github.com/textileio/go-textile/core"
-	"github.com/textileio/go-textile/ipfs"
-	"github.com/textileio/go-textile/pb"
-	"github.com/textileio/go-textile/repo/db"
-	"github.com/textileio/go-textile/util"
+	"github.com/SJTU-OpenNetwork/hon-textile/core"
+	"github.com/SJTU-OpenNetwork/hon-textile/ipfs"
+	"github.com/SJTU-OpenNetwork/hon-textile/pb"
+	"github.com/SJTU-OpenNetwork/hon-textile/repo/db"
+	"github.com/SJTU-OpenNetwork/hon-textile/util"
 )
 
 // RegisterCafe is the async flavor of registerCafe

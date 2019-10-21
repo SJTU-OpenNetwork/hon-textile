@@ -10,7 +10,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/textileio/go-textile/keypair"
+	"github.com/SJTU-OpenNetwork/hon-textile/keypair"
 )
 
 const testPeerID = "QmQA7swSsZKoayPHaTPgzZ1u3SCQjLvLyKcN6RRMmTbLau"

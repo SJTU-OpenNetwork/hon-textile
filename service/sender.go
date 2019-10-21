@@ -11,7 +11,7 @@ import (
 	inet "github.com/libp2p/go-libp2p-core/network"
 	"github.com/libp2p/go-libp2p-core/peer"
 	"github.com/libp2p/go-msgio"
-	"github.com/textileio/go-textile/pb"
+	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 )
 
 func (srv *Service) updateFromMessage(ctx context.Context, p peer.ID) error {

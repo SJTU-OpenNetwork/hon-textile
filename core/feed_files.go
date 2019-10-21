@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"strconv"
 
-	"github.com/textileio/go-textile/ipfs"
-	"github.com/textileio/go-textile/pb"
+	"github.com/SJTU-OpenNetwork/hon-textile/ipfs"
+	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 )
 
 func (t *Textile) Files(offset string, limit int, threadId string) (*pb.FilesList, error) {

@@ -4,9 +4,9 @@ import (
 	"sync"
 
 	"github.com/segmentio/ksuid"
-	"github.com/textileio/go-textile/broadcast"
-	"github.com/textileio/go-textile/pb"
-	"github.com/textileio/go-textile/util"
+	"github.com/SJTU-OpenNetwork/hon-textile/broadcast"
+	"github.com/SJTU-OpenNetwork/hon-textile/pb"
+	"github.com/SJTU-OpenNetwork/hon-textile/util"
 )
 
 // queryResultSet holds a unique set of search results

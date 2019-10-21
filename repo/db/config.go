@@ -6,9 +6,9 @@ import (
 	"sync"
 	"time"
 
-	"github.com/textileio/go-textile/keypair"
-	"github.com/textileio/go-textile/repo"
-	"github.com/textileio/go-textile/strkey"
+	"github.com/SJTU-OpenNetwork/hon-textile/keypair"
+	"github.com/SJTU-OpenNetwork/hon-textile/repo"
+	"github.com/SJTU-OpenNetwork/hon-textile/strkey"
 )
 
 type ConfigDB struct {

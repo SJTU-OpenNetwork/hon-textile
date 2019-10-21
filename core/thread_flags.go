@@ -3,7 +3,7 @@ package core
 import (
 	"github.com/golang/protobuf/ptypes"
 	mh "github.com/multiformats/go-multihash"
-	"github.com/textileio/go-textile/pb"
+	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 )
 
 // AddFlag adds an outgoing flag block targeted at another block to flag

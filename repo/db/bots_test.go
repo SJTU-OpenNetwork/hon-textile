@@ -5,8 +5,8 @@ import (
 	"sync"
 	"testing"
 
-	"github.com/textileio/go-textile/pb"
-	"github.com/textileio/go-textile/repo"
+	"github.com/SJTU-OpenNetwork/hon-textile/pb"
+	"github.com/SJTU-OpenNetwork/hon-textile/repo"
 )
 
 var botStore repo.Botstore

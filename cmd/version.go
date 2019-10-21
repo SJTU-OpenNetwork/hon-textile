@@ -3,7 +3,7 @@ package cmd
 import (
 	"fmt"
 
-	"github.com/textileio/go-textile/common"
+	"github.com/SJTU-OpenNetwork/hon-textile/common"
 )
 
 func Version(git bool) error {

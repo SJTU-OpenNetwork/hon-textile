@@ -4,8 +4,8 @@ import (
 	libp2pc "github.com/libp2p/go-libp2p-core/crypto"
 	pb "github.com/libp2p/go-libp2p-core/crypto/pb"
 	peer "github.com/libp2p/go-libp2p-core/peer"
-	"github.com/textileio/go-textile/crypto"
-	"github.com/textileio/go-textile/strkey"
+	"github.com/SJTU-OpenNetwork/hon-textile/crypto"
+	"github.com/SJTU-OpenNetwork/hon-textile/strkey"
 	"golang.org/x/crypto/ed25519"
 )
 

@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	mh "github.com/multiformats/go-multihash"
-	"github.com/textileio/go-textile/pb"
+	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 )
 
 // Notifications lists notifications

@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/textileio/go-textile/cmd"
+	"github.com/SJTU-OpenNetwork/hon-textile/cmd"
 )
 
 func main() {

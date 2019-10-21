@@ -6,9 +6,9 @@ import (
 	"github.com/golang/protobuf/ptypes"
 	"github.com/ipfs/go-ipfs/core"
 	"github.com/segmentio/ksuid"
-	"github.com/textileio/go-textile/ipfs"
-	"github.com/textileio/go-textile/pb"
-	"github.com/textileio/go-textile/repo"
+	"github.com/SJTU-OpenNetwork/hon-textile/ipfs"
+	"github.com/SJTU-OpenNetwork/hon-textile/pb"
+	"github.com/SJTU-OpenNetwork/hon-textile/repo"
 )
 
 // blockFlushGroupSize is the size of concurrently processed messages

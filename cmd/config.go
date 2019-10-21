@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/textileio/go-textile/util"
+	"github.com/SJTU-OpenNetwork/hon-textile/util"
 )
 
 func Config(name string, value string) error {

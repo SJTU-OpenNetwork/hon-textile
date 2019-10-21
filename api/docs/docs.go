@@ -18,7 +18,7 @@ var doc = `{
     "info": {
         "description": "Textile's HTTP REST API Documentation",
         "title": "Textile REST API",
-        "termsOfService": "https://github.com/textileio/go-textile/blob/master/TERMS",
+        "termsOfService": "https://github.com/SJTU-OpenNetwork/hon-textile/blob/master/TERMS",
         "contact": {
             "name": "Textile",
             "url": "https://textile.io/",
@@ -26,7 +26,7 @@ var doc = `{
         },
         "license": {
             "name": "MIT License",
-            "url": "https://github.com/textileio/go-textile/blob/master/LICENSE"
+            "url": "https://github.com/SJTU-OpenNetwork/hon-textile/blob/master/LICENSE"
         },
         "version": "0"
     },

@@ -7,7 +7,7 @@ import (
 
 	libp2pc "github.com/libp2p/go-libp2p-core/crypto"
 	peer "github.com/libp2p/go-libp2p-core/peer"
-	"github.com/textileio/go-textile/strkey"
+	"github.com/SJTU-OpenNetwork/hon-textile/strkey"
 )
 
 var (

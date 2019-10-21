@@ -10,8 +10,8 @@ import (
 
 	native "github.com/ipfs/go-ipfs-config"
 	_ "github.com/mutecomm/go-sqlcipher"
-	"github.com/textileio/go-textile/crypto"
-	"github.com/textileio/go-textile/ipfs"
+	"github.com/SJTU-OpenNetwork/hon-textile/crypto"
+	"github.com/SJTU-OpenNetwork/hon-textile/ipfs"
 )
 
 type thread struct {

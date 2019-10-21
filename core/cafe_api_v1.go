@@ -18,10 +18,10 @@ import (
 	"github.com/ipfs/go-ipfs/pin"
 	"github.com/libp2p/go-libp2p-core/peer"
 	"github.com/segmentio/ksuid"
-	"github.com/textileio/go-textile/ipfs"
-	"github.com/textileio/go-textile/jwt"
-	"github.com/textileio/go-textile/keypair"
-	"github.com/textileio/go-textile/pb"
+	"github.com/SJTU-OpenNetwork/hon-textile/ipfs"
+	"github.com/SJTU-OpenNetwork/hon-textile/jwt"
+	"github.com/SJTU-OpenNetwork/hon-textile/keypair"
+	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 )
 
 // GET /sessions/challenge/?account_addr=<address> (header=>token)

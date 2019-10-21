@@ -8,10 +8,10 @@ import (
 	peer "github.com/libp2p/go-libp2p-core/peer"
 	"github.com/mr-tron/base58/base58"
 	mh "github.com/multiformats/go-multihash"
-	"github.com/textileio/go-textile/crypto"
-	"github.com/textileio/go-textile/ipfs"
-	"github.com/textileio/go-textile/pb"
-	"github.com/textileio/go-textile/util"
+	"github.com/SJTU-OpenNetwork/hon-textile/crypto"
+	"github.com/SJTU-OpenNetwork/hon-textile/ipfs"
+	"github.com/SJTU-OpenNetwork/hon-textile/pb"
+	"github.com/SJTU-OpenNetwork/hon-textile/util"
 )
 
 // ErrContactNotFound indicates a local contact was not found

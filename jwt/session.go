@@ -11,7 +11,7 @@ import (
 	peer "github.com/libp2p/go-libp2p-core/peer"
 	protocol "github.com/libp2p/go-libp2p-core/protocol"
 	"github.com/segmentio/ksuid"
-	"github.com/textileio/go-textile/pb"
+	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 )
 
 var ErrClaimsInvalid = fmt.Errorf("claims invalid")

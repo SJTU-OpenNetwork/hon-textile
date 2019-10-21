@@ -6,8 +6,8 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	"github.com/textileio/go-textile/keypair"
-	. "github.com/textileio/go-textile/wallet"
+	"github.com/SJTU-OpenNetwork/hon-textile/keypair"
+	. "github.com/SJTU-OpenNetwork/hon-textile/wallet"
 )
 
 func ExampleDeriveFromPath() {

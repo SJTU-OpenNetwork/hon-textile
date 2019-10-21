@@ -3,7 +3,7 @@ package cmd
 import (
 	"fmt"
 
-	"github.com/textileio/go-textile/core"
+	"github.com/SJTU-OpenNetwork/hon-textile/core"
 )
 
 // Grab the repo path and migrate it to the latest version, passing the decryption pincode

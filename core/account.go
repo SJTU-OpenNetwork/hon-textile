@@ -5,9 +5,9 @@ import (
 	"time"
 
 	"github.com/golang/protobuf/ptypes"
-	"github.com/textileio/go-textile/broadcast"
-	"github.com/textileio/go-textile/keypair"
-	"github.com/textileio/go-textile/pb"
+	"github.com/SJTU-OpenNetwork/hon-textile/broadcast"
+	"github.com/SJTU-OpenNetwork/hon-textile/keypair"
+	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 )
 
 // Account returns account keypair

@@ -5,8 +5,8 @@ import (
 
 	cid "github.com/ipfs/go-cid"
 	peer "github.com/libp2p/go-libp2p-core/peer"
-	"github.com/textileio/go-textile/ipfs"
-	"github.com/textileio/go-textile/pb"
+	"github.com/SJTU-OpenNetwork/hon-textile/ipfs"
+	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 )
 
 // RegisterCafe registers this account with another peer (the "cafe"),

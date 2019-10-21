@@ -7,7 +7,7 @@ import (
 	"strings"
 
 	"github.com/golang/protobuf/ptypes"
-	"github.com/textileio/go-textile/pb"
+	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 )
 
 func InviteCreate(threadID string, address string, wait int) error {

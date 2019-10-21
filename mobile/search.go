@@ -2,8 +2,8 @@ package mobile
 
 import (
 	"github.com/segmentio/ksuid"
-	"github.com/textileio/go-textile/broadcast"
-	"github.com/textileio/go-textile/pb"
+	"github.com/SJTU-OpenNetwork/hon-textile/broadcast"
+	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 )
 
 // SearchHandle is used to cancel an async search request

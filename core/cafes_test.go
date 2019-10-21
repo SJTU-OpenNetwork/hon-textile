@@ -9,9 +9,9 @@ import (
 	icid "github.com/ipfs/go-cid"
 	"github.com/libp2p/go-libp2p-core/peerstore"
 	"github.com/segmentio/ksuid"
-	"github.com/textileio/go-textile/ipfs"
-	"github.com/textileio/go-textile/pb"
-	"github.com/textileio/go-textile/schema/textile"
+	"github.com/SJTU-OpenNetwork/hon-textile/ipfs"
+	"github.com/SJTU-OpenNetwork/hon-textile/pb"
+	"github.com/SJTU-OpenNetwork/hon-textile/schema/textile"
 )
 
 var cafeVars = struct {

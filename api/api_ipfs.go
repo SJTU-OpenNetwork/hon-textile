@@ -5,8 +5,8 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/mr-tron/base58/base58"
-	"github.com/textileio/go-textile/crypto"
-	"github.com/textileio/go-textile/ipfs"
+	"github.com/SJTU-OpenNetwork/hon-textile/crypto"
+	"github.com/SJTU-OpenNetwork/hon-textile/ipfs"
 )
 
 // ipfsId godoc

@@ -6,13 +6,13 @@ import (
 	"path"
 	"testing"
 
-	"github.com/textileio/go-textile/keypair"
-	"github.com/textileio/go-textile/util"
+	"github.com/SJTU-OpenNetwork/hon-textile/keypair"
+	"github.com/SJTU-OpenNetwork/hon-textile/util"
 
 	"github.com/segmentio/ksuid"
-	"github.com/textileio/go-textile/mill"
-	"github.com/textileio/go-textile/pb"
-	"github.com/textileio/go-textile/schema/textile"
+	"github.com/SJTU-OpenNetwork/hon-textile/mill"
+	"github.com/SJTU-OpenNetwork/hon-textile/pb"
+	"github.com/SJTU-OpenNetwork/hon-textile/schema/textile"
 )
 
 var vars = struct {

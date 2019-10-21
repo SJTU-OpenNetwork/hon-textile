@@ -11,12 +11,12 @@ import (
 	nsds "github.com/ipfs/go-datastore/namespace"
 	query "github.com/ipfs/go-datastore/query"
 	"github.com/mr-tron/base58/base58"
-	tbots "github.com/textileio/go-textile-bots"
-	shared "github.com/textileio/go-textile-core/bots"
-	pb "github.com/textileio/go-textile-core/bots/pb"
-	core "github.com/textileio/go-textile/core"
-	"github.com/textileio/go-textile/crypto"
-	ipfs "github.com/textileio/go-textile/ipfs"
+	tbots "github.com/SJTU-OpenNetwork/hon-textile-bots"
+	shared "github.com/SJTU-OpenNetwork/hon-textile-core/bots"
+	pb "github.com/SJTU-OpenNetwork/hon-textile-core/bots/pb"
+	core "github.com/SJTU-OpenNetwork/hon-textile/core"
+	"github.com/SJTU-OpenNetwork/hon-textile/crypto"
+	ipfs "github.com/SJTU-OpenNetwork/hon-textile/ipfs"
 )
 
 // BotIpfsHandler implements shared.IpfsHandler. Extends it by hanging on the the botID

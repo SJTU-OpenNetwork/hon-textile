@@ -11,14 +11,14 @@ import (
 	libp2pc "github.com/libp2p/go-libp2p-core/crypto"
 	peer "github.com/libp2p/go-libp2p-core/peer"
 	mh "github.com/multiformats/go-multihash"
-	"github.com/textileio/go-textile/broadcast"
-	"github.com/textileio/go-textile/ipfs"
-	"github.com/textileio/go-textile/keypair"
-	"github.com/textileio/go-textile/mill"
-	"github.com/textileio/go-textile/pb"
-	"github.com/textileio/go-textile/repo/db"
-	"github.com/textileio/go-textile/schema/textile"
-	"github.com/textileio/go-textile/util"
+	"github.com/SJTU-OpenNetwork/hon-textile/broadcast"
+	"github.com/SJTU-OpenNetwork/hon-textile/ipfs"
+	"github.com/SJTU-OpenNetwork/hon-textile/keypair"
+	"github.com/SJTU-OpenNetwork/hon-textile/mill"
+	"github.com/SJTU-OpenNetwork/hon-textile/pb"
+	"github.com/SJTU-OpenNetwork/hon-textile/repo/db"
+	"github.com/SJTU-OpenNetwork/hon-textile/schema/textile"
+	"github.com/SJTU-OpenNetwork/hon-textile/util"
 )
 
 // ErrThreadNotFound indicates thread is not found in the loaded list

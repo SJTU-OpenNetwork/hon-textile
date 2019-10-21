@@ -3,7 +3,7 @@ package core
 import (
 	"fmt"
 
-	"github.com/textileio/go-textile/pb"
+	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 )
 
 func (t *Textile) Messages(offset string, limit int, threadId string) (*pb.TextList, error) {

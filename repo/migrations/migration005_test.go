@@ -12,7 +12,7 @@ import (
 	"testing"
 
 	libp2pc "github.com/libp2p/go-libp2p-core/crypto"
-	"github.com/textileio/go-textile/crypto"
+	"github.com/SJTU-OpenNetwork/hon-textile/crypto"
 )
 
 func initAt004(db *sql.DB, pin string) error {

@@ -23,11 +23,11 @@ import (
 	peer "github.com/libp2p/go-libp2p-core/peer"
 	protocol "github.com/libp2p/go-libp2p-core/protocol"
 	"github.com/libp2p/go-msgio"
-	"github.com/textileio/go-textile/crypto"
-	"github.com/textileio/go-textile/ipfs"
-	"github.com/textileio/go-textile/keypair"
-	"github.com/textileio/go-textile/pb"
-	"github.com/textileio/go-textile/util"
+	"github.com/SJTU-OpenNetwork/hon-textile/crypto"
+	"github.com/SJTU-OpenNetwork/hon-textile/ipfs"
+	"github.com/SJTU-OpenNetwork/hon-textile/keypair"
+	"github.com/SJTU-OpenNetwork/hon-textile/pb"
+	"github.com/SJTU-OpenNetwork/hon-textile/util"
 )
 
 var log = logging.Logger("tex-service")

@@ -7,7 +7,7 @@ import (
 	"os"
 	"path"
 
-	"github.com/textileio/go-textile/common"
+	"github.com/SJTU-OpenNetwork/hon-textile/common"
 )
 
 // Config is used to load textile config files.

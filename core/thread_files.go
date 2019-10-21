@@ -13,12 +13,12 @@ import (
 	"github.com/mr-tron/base58/base58"
 	mh "github.com/multiformats/go-multihash"
 	"github.com/segmentio/ksuid"
-	"github.com/textileio/go-textile/crypto"
-	"github.com/textileio/go-textile/ipfs"
-	"github.com/textileio/go-textile/pb"
-	"github.com/textileio/go-textile/repo/db"
-	"github.com/textileio/go-textile/schema"
-	"github.com/textileio/go-textile/util"
+	"github.com/SJTU-OpenNetwork/hon-textile/crypto"
+	"github.com/SJTU-OpenNetwork/hon-textile/ipfs"
+	"github.com/SJTU-OpenNetwork/hon-textile/pb"
+	"github.com/SJTU-OpenNetwork/hon-textile/repo/db"
+	"github.com/SJTU-OpenNetwork/hon-textile/schema"
+	"github.com/SJTU-OpenNetwork/hon-textile/util"
 	"github.com/xeipuuv/gojsonschema"
 )
 

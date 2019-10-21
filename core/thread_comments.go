@@ -5,7 +5,7 @@ import (
 
 	"github.com/golang/protobuf/ptypes"
 	mh "github.com/multiformats/go-multihash"
-	"github.com/textileio/go-textile/pb"
+	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 )
 
 // AddComment adds an outgoing comment block

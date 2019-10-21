@@ -3,7 +3,7 @@ package cmd
 import (
 	"fmt"
 
-	"github.com/textileio/go-textile/core"
+	"github.com/SJTU-OpenNetwork/hon-textile/core"
 )
 
 func InitCommand(config core.InitConfig) error {

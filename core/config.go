@@ -10,7 +10,7 @@ import (
 	"github.com/ipfs/go-ipfs/repo"
 	"github.com/ipfs/go-ipfs/repo/fsrepo"
 	"github.com/rs/cors"
-	"github.com/textileio/go-textile/repo/config"
+	"github.com/SJTU-OpenNetwork/hon-textile/repo/config"
 )
 
 const minPort = 1024

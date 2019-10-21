@@ -9,7 +9,7 @@ import (
 	"strconv"
 
 	"github.com/gin-gonic/gin"
-	"github.com/textileio/go-textile/repo/config"
+	"github.com/SJTU-OpenNetwork/hon-textile/repo/config"
 )
 
 // botsList lists all running bots

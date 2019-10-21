@@ -6,8 +6,8 @@ import (
 
 	"github.com/golang/protobuf/ptypes"
 	"github.com/mr-tron/base58/base58"
-	"github.com/textileio/go-textile/crypto"
-	"github.com/textileio/go-textile/pb"
+	"github.com/SJTU-OpenNetwork/hon-textile/crypto"
+	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 	"golang.org/x/crypto/bcrypt"
 )
 

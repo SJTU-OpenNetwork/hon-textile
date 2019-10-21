@@ -6,10 +6,10 @@ import (
 
 	"github.com/gin-gonic/gin"
 	ipld "github.com/ipfs/go-ipld-format"
-	"github.com/textileio/go-textile/core"
-	"github.com/textileio/go-textile/ipfs"
-	"github.com/textileio/go-textile/pb"
-	"github.com/textileio/go-textile/schema"
+	"github.com/SJTU-OpenNetwork/hon-textile/core"
+	"github.com/SJTU-OpenNetwork/hon-textile/ipfs"
+	"github.com/SJTU-OpenNetwork/hon-textile/pb"
+	"github.com/SJTU-OpenNetwork/hon-textile/schema"
 )
 
 // addThreadFiles godoc

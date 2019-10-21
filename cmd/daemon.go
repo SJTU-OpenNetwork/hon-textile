@@ -10,14 +10,14 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/textileio/go-textile/api"
-	"github.com/textileio/go-textile/bots"
-	"github.com/textileio/go-textile/common"
-	"github.com/textileio/go-textile/core"
-	"github.com/textileio/go-textile/gateway"
-	"github.com/textileio/go-textile/pb"
-	"github.com/textileio/go-textile/repo"
-	"github.com/textileio/go-textile/util"
+	"github.com/SJTU-OpenNetwork/hon-textile/api"
+	"github.com/SJTU-OpenNetwork/hon-textile/bots"
+	"github.com/SJTU-OpenNetwork/hon-textile/common"
+	"github.com/SJTU-OpenNetwork/hon-textile/core"
+	"github.com/SJTU-OpenNetwork/hon-textile/gateway"
+	"github.com/SJTU-OpenNetwork/hon-textile/pb"
+	"github.com/SJTU-OpenNetwork/hon-textile/repo"
+	"github.com/SJTU-OpenNetwork/hon-textile/util"
 )
 
 // Start the daemon against the user repository

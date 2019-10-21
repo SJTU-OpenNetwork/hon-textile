@@ -10,9 +10,9 @@ import (
 
 	"github.com/golang/protobuf/jsonpb"
 	structpb "github.com/golang/protobuf/ptypes/struct"
-	"github.com/textileio/go-textile/pb"
-	"github.com/textileio/go-textile/repo"
-	"github.com/textileio/go-textile/util"
+	"github.com/SJTU-OpenNetwork/hon-textile/pb"
+	"github.com/SJTU-OpenNetwork/hon-textile/repo"
+	"github.com/SJTU-OpenNetwork/hon-textile/util"
 )
 
 type FileDB struct {

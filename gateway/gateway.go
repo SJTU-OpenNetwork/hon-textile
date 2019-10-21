@@ -20,14 +20,14 @@ import (
 	peer "github.com/libp2p/go-libp2p-core/peer"
 	"github.com/mr-tron/base58/base58"
 	gincors "github.com/rs/cors/wrapper/gin"
-	"github.com/textileio/go-textile/bots"
-	"github.com/textileio/go-textile/core"
-	"github.com/textileio/go-textile/crypto"
-	"github.com/textileio/go-textile/gateway/static/css"
-	"github.com/textileio/go-textile/gateway/templates"
-	"github.com/textileio/go-textile/ipfs"
-	"github.com/textileio/go-textile/pb"
-	"github.com/textileio/go-textile/util"
+	"github.com/SJTU-OpenNetwork/hon-textile/bots"
+	"github.com/SJTU-OpenNetwork/hon-textile/core"
+	"github.com/SJTU-OpenNetwork/hon-textile/crypto"
+	"github.com/SJTU-OpenNetwork/hon-textile/gateway/static/css"
+	"github.com/SJTU-OpenNetwork/hon-textile/gateway/templates"
+	"github.com/SJTU-OpenNetwork/hon-textile/ipfs"
+	"github.com/SJTU-OpenNetwork/hon-textile/pb"
+	"github.com/SJTU-OpenNetwork/hon-textile/util"
 )
 
 var log = logging.Logger("tex-gateway")

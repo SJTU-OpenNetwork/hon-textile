@@ -6,8 +6,8 @@ import (
 
 	"github.com/chzyer/readline"
 	"github.com/golang/protobuf/ptypes"
-	"github.com/textileio/go-textile/core"
-	"github.com/textileio/go-textile/pb"
+	"github.com/SJTU-OpenNetwork/hon-textile/core"
+	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 )
 
 func Chat(threadID string) error {

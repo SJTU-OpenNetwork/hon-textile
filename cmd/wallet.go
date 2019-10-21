@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/textileio/go-textile/wallet"
+	"github.com/SJTU-OpenNetwork/hon-textile/wallet"
 )
 
 func WalletInit(words int, passphrase string) error {

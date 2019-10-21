@@ -3,7 +3,7 @@ package cmd
 import (
 	"net/http"
 
-	"github.com/textileio/go-textile/pb"
+	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 )
 
 func Summary() error {

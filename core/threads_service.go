@@ -14,14 +14,14 @@ import (
 	protocol "github.com/libp2p/go-libp2p-core/protocol"
 	mh "github.com/multiformats/go-multihash"
 	"github.com/segmentio/ksuid"
-	"github.com/textileio/go-textile/broadcast"
-	"github.com/textileio/go-textile/crypto"
-	"github.com/textileio/go-textile/ipfs"
-	"github.com/textileio/go-textile/keypair"
-	"github.com/textileio/go-textile/pb"
-	"github.com/textileio/go-textile/repo"
-	"github.com/textileio/go-textile/repo/db"
-	"github.com/textileio/go-textile/service"
+	"github.com/SJTU-OpenNetwork/hon-textile/broadcast"
+	"github.com/SJTU-OpenNetwork/hon-textile/crypto"
+	"github.com/SJTU-OpenNetwork/hon-textile/ipfs"
+	"github.com/SJTU-OpenNetwork/hon-textile/keypair"
+	"github.com/SJTU-OpenNetwork/hon-textile/pb"
+	"github.com/SJTU-OpenNetwork/hon-textile/repo"
+	"github.com/SJTU-OpenNetwork/hon-textile/repo/db"
+	"github.com/SJTU-OpenNetwork/hon-textile/service"
 )
 
 // ErrInvalidThreadBlock is a catch all error for malformed / invalid blocks

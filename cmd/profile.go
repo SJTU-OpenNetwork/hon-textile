@@ -3,8 +3,8 @@ package cmd
 import (
 	"net/http"
 
-	"github.com/textileio/go-textile/keypair"
-	"github.com/textileio/go-textile/pb"
+	"github.com/SJTU-OpenNetwork/hon-textile/keypair"
+	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 )
 
 func ProfileGet() error {

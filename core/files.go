@@ -14,12 +14,12 @@ import (
 	ipld "github.com/ipfs/go-ipld-format"
 	uio "github.com/ipfs/go-unixfs/io"
 	"github.com/mr-tron/base58/base58"
-	"github.com/textileio/go-textile/crypto"
-	"github.com/textileio/go-textile/ipfs"
-	m "github.com/textileio/go-textile/mill"
-	"github.com/textileio/go-textile/pb"
-	"github.com/textileio/go-textile/repo/db"
-	"github.com/textileio/go-textile/schema"
+	"github.com/SJTU-OpenNetwork/hon-textile/crypto"
+	"github.com/SJTU-OpenNetwork/hon-textile/ipfs"
+	m "github.com/SJTU-OpenNetwork/hon-textile/mill"
+	"github.com/SJTU-OpenNetwork/hon-textile/pb"
+	"github.com/SJTU-OpenNetwork/hon-textile/repo/db"
+	"github.com/SJTU-OpenNetwork/hon-textile/schema"
 )
 
 var ErrFileNotFound = fmt.Errorf("file not found")

@@ -14,8 +14,8 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/libp2p/go-libp2p-core/peer"
 	"github.com/mr-tron/base58/base58"
-	"github.com/textileio/go-textile/jwt"
-	"github.com/textileio/go-textile/pb"
+	"github.com/SJTU-OpenNetwork/hon-textile/jwt"
+	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 	"golang.org/x/crypto/bcrypt"
 )
 

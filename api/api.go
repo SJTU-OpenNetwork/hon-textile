@@ -21,13 +21,13 @@ import (
 	gincors "github.com/rs/cors/wrapper/gin"
 	swagger "github.com/swaggo/gin-swagger"
 	sfiles "github.com/swaggo/gin-swagger/swaggerFiles"
-	"github.com/textileio/go-textile/api/docs"
-	"github.com/textileio/go-textile/bots"
-	"github.com/textileio/go-textile/common"
-	"github.com/textileio/go-textile/core"
-	ipfsutil "github.com/textileio/go-textile/ipfs"
-	m "github.com/textileio/go-textile/mill"
-	"github.com/textileio/go-textile/pb"
+	"github.com/SJTU-OpenNetwork/hon-textile/api/docs"
+	"github.com/SJTU-OpenNetwork/hon-textile/bots"
+	"github.com/SJTU-OpenNetwork/hon-textile/common"
+	"github.com/SJTU-OpenNetwork/hon-textile/core"
+	ipfsutil "github.com/SJTU-OpenNetwork/hon-textile/ipfs"
+	m "github.com/SJTU-OpenNetwork/hon-textile/mill"
+	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 )
 
 // apiVersion is the api version
@@ -75,14 +75,14 @@ func (a *Api) Addr() string {
 // @title Textile REST API
 // @version 0
 // @description Textile's HTTP REST API Documentation
-// @termsOfService https://github.com/textileio/go-textile/blob/master/TERMS
+// @termsOfService https://github.com/SJTU-OpenNetwork/hon-textile/blob/master/TERMS
 
 // @contact.name Textile
 // @contact.url https://textile.io/
 // @contact.email contact@textile.io
 
 // @license.name MIT License
-// @license.url https://github.com/textileio/go-textile/blob/master/LICENSE
+// @license.url https://github.com/SJTU-OpenNetwork/hon-textile/blob/master/LICENSE
 
 // @securityDefinitions.basic BasicAuth
 // @Security BasicAuth

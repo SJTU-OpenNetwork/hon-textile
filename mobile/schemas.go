@@ -3,9 +3,9 @@ package mobile
 import (
 	"github.com/golang/protobuf/jsonpb"
 	"github.com/golang/protobuf/proto"
-	"github.com/textileio/go-textile/core"
-	"github.com/textileio/go-textile/mill"
-	"github.com/textileio/go-textile/pb"
+	"github.com/SJTU-OpenNetwork/hon-textile/core"
+	"github.com/SJTU-OpenNetwork/hon-textile/mill"
+	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 )
 
 // AddSchema adds a new schema via schema mill

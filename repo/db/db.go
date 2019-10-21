@@ -9,7 +9,7 @@ import (
 	"github.com/golang/protobuf/jsonpb"
 	logging "github.com/ipfs/go-log"
 	_ "github.com/mutecomm/go-sqlcipher"
-	"github.com/textileio/go-textile/repo"
+	"github.com/SJTU-OpenNetwork/hon-textile/repo"
 )
 
 var log = logging.Logger("tex-datastore")

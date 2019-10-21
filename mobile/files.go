@@ -11,17 +11,17 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/textileio/go-textile/util"
+	"github.com/SJTU-OpenNetwork/hon-textile/util"
 
 	"github.com/golang/protobuf/proto"
 	ipld "github.com/ipfs/go-ipld-format"
 	ipfspath "github.com/ipfs/go-path"
 	mh "github.com/multiformats/go-multihash"
-	"github.com/textileio/go-textile/core"
-	"github.com/textileio/go-textile/ipfs"
-	"github.com/textileio/go-textile/mill"
-	"github.com/textileio/go-textile/pb"
-	"github.com/textileio/go-textile/schema"
+	"github.com/SJTU-OpenNetwork/hon-textile/core"
+	"github.com/SJTU-OpenNetwork/hon-textile/ipfs"
+	"github.com/SJTU-OpenNetwork/hon-textile/mill"
+	"github.com/SJTU-OpenNetwork/hon-textile/pb"
+	"github.com/SJTU-OpenNetwork/hon-textile/schema"
 )
 
 var fileConfigOpt fileConfigOption

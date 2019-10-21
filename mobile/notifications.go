@@ -2,7 +2,7 @@ package mobile
 
 import (
 	"github.com/golang/protobuf/proto"
-	"github.com/textileio/go-textile/core"
+	"github.com/SJTU-OpenNetwork/hon-textile/core"
 )
 
 // Notifications call core Notifications

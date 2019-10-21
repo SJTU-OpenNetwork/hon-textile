@@ -5,7 +5,7 @@ import (
 
 	"github.com/golang/protobuf/proto"
 	mh "github.com/multiformats/go-multihash"
-	"github.com/textileio/go-textile/core"
+	"github.com/SJTU-OpenNetwork/hon-textile/core"
 )
 
 // Profile calls core Profile

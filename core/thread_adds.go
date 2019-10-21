@@ -3,8 +3,8 @@ package core
 import (
 	peer "github.com/libp2p/go-libp2p-core/peer"
 	mh "github.com/multiformats/go-multihash"
-	"github.com/textileio/go-textile/crypto"
-	"github.com/textileio/go-textile/pb"
+	"github.com/SJTU-OpenNetwork/hon-textile/crypto"
+	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 )
 
 // AddInvite creates an outgoing add block, which is sent directly to the recipient

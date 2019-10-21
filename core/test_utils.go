@@ -8,9 +8,9 @@ import (
 	"path/filepath"
 
 	libp2pc "github.com/libp2p/go-libp2p-core/crypto"
-	"github.com/textileio/go-textile/keypair"
-	"github.com/textileio/go-textile/mill"
-	"github.com/textileio/go-textile/pb"
+	"github.com/SJTU-OpenNetwork/hon-textile/keypair"
+	"github.com/SJTU-OpenNetwork/hon-textile/mill"
+	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 )
 
 func CreateAndStartPeer(conf InitConfig, wait bool) (*Textile, error) {

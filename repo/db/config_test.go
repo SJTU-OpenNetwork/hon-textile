@@ -6,7 +6,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/textileio/go-textile/wallet"
+	"github.com/SJTU-OpenNetwork/hon-textile/wallet"
 )
 
 var testDB *SQLiteDatastore

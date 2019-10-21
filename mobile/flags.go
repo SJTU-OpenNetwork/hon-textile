@@ -1,6 +1,6 @@
 package mobile
 
-import "github.com/textileio/go-textile/core"
+import "github.com/SJTU-OpenNetwork/hon-textile/core"
 
 // AddFlag adds a flag targeted at the given block
 func (m *Mobile) AddFlag(blockId string) (string, error) {

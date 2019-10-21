@@ -4,8 +4,8 @@ import (
 	"database/sql"
 	"sync"
 
-	"github.com/textileio/go-textile/pb"
-	"github.com/textileio/go-textile/repo"
+	"github.com/SJTU-OpenNetwork/hon-textile/pb"
+	"github.com/SJTU-OpenNetwork/hon-textile/repo"
 )
 
 type ThreadPeerDB struct {

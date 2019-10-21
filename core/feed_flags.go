@@ -3,7 +3,7 @@ package core
 import (
 	"strings"
 
-	"github.com/textileio/go-textile/pb"
+	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 )
 
 func (t *Textile) flag(block *pb.Block, opts feedItemOpts) (*pb.Flag, error) {
