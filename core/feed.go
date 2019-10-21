@@ -302,6 +302,8 @@ func GetFeedItemPayload(item *pb.FeedItem) (FeedItemPayload, error) {
 		payload = new(pb.Comment)
 	case pb.Block_LIKE:
 		payload = new(pb.Like)
+	case pb.Block_ADDADMIN:
+		payload = new(pb.AddAdmin)
 	default:
 		return nil, fmt.Errorf("unable to parse payload")
 	}

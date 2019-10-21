@@ -68,6 +68,8 @@ var ErrBlockWrongType = fmt.Errorf("block type is not the type requested")
 // errReloadFailed indicates an error occurred during thread reload
 var errThreadReload = fmt.Errorf("could not re-load thread")
 
+var ErrNotAdmin = fmt.Errorf("not an admin of the thread")
+
 // ThreadConfig is used to construct a Thread
 type ThreadConfig struct {
 	RepoPath       string
@@ -168,6 +170,16 @@ func (t *Thread) LatestFiles() *pb.Block {
 // Peers returns locally known peers in this thread
 func (t *Thread) Peers() []pb.ThreadPeer {
 	return t.datastore.ThreadPeers().ListByThread(t.Id)
+}
+
+// Admins returns locally known admins in this thread
+func (t *Thread) Admins() []pb.ThreadPeer {
+    return t.datastore.ThreadPeers().ListAdminByThread(t.id)
+}
+
+// NonAdmins returns locally known none-admins in this thread
+func (t *Thread) NonAdmins() []pb.ThreadPeer {
+    return t.datastore.ThreadPeers().ListNonAdminByThread(t.id)
 }
 
 // Encrypt data with thread public key
@@ -379,7 +391,7 @@ func (t *Thread) handle(bnode *blockNode, replace bool) (*pb.Block, error) {
 }
 
 // addOrUpdatePeer collects and saves thread peers
-func (t *Thread) addOrUpdatePeer(peer *pb.Peer, welcomed bool) error {
+func (t *Thread) addOrUpdatePeer(peer *pb.Peer, welcomed bool, admin bool) error {
 	if peer.Id == t.node().Identity.Pretty() {
 		return nil
 	}
@@ -388,6 +400,7 @@ func (t *Thread) addOrUpdatePeer(peer *pb.Peer, welcomed bool) error {
 		Id:       peer.Id,
 		Thread:   t.Id,
 		Welcomed: welcomed,
+        Admin:    admin,
 	})
 	if err != nil {
 		if !db.ConflictError(err) {

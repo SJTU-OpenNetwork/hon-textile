@@ -79,3 +79,7 @@ message ThreadLike {
     option deprecated = true;
     string target = 1;
 }
+
+message ThreadAddAdmin {
+    string target = 1
+}

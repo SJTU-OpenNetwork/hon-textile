@@ -23,7 +23,7 @@ func (c *ThreadPeerDB) Add(peer *pb.ThreadPeer) error {
 	if err != nil {
 		return err
 	}
-	stm := `insert into thread_peers(id, threadId, welcomed) values(?,?,?)`
+	stm := `insert into thread_peers(id, threadId, welcomed, admin) values(?,?,?,?)`
 	stmt, err := tx.Prepare(stm)
 	if err != nil {
 		log.Errorf("error in tx prepare: %s", err)
@@ -34,6 +34,7 @@ func (c *ThreadPeerDB) Add(peer *pb.ThreadPeer) error {
 		peer.Id,
 		peer.Thread,
 		false,
+        false,
 	)
 	if err != nil {
 		_ = tx.Rollback()
@@ -122,8 +123,8 @@ func (c *ThreadPeerDB) handleQuery(stm string) []pb.ThreadPeer {
 	}
 	for rows.Next() {
 		var id, threadId string
-		var welcomedInt int
-		if err := rows.Scan(&id, &threadId, &welcomedInt); err != nil {
+		var welcomedInt, adminInt int
+		if err := rows.Scan(&id, &threadId, &welcomedInt, &adminInt); err != nil {
 			log.Errorf("error in db scan: %s", err)
 			continue
 		}
@@ -131,11 +132,45 @@ func (c *ThreadPeerDB) handleQuery(stm string) []pb.ThreadPeer {
 		if welcomedInt == 1 {
 			welcomed = true
 		}
+        admin := false
+        if adminInt == 1 {
+            admin = true
+        }
 		list = append(list, pb.ThreadPeer{
 			Id:       id,
 			Thread:   threadId,
 			Welcomed: welcomed,
+            Admin:    admin,
 		})
 	}
 	return list
+}
+
+
+func (c *ThreadPeerDB) SetAdmin(id string, threadId string) error {
+	c.lock.Lock()
+	defer c.lock.Unlock()
+	_, err := c.db.Exec("update thread_peers set admin=1 where id=? and threadId=?", id, threadId)
+	return err
+}
+
+func RemoveAdmin(id string, threadId string) error {
+	c.lock.Lock()
+	defer c.lock.Unlock()
+	_, err := c.db.Exec("update thread_peers set admin=0 where id=? and threadId=?", id, threadId)
+	return err
+}
+
+func (c *ThreadPeerDB) ListAdminByThread(threadId string) []pb.ThreadPeer {
+	c.lock.Lock()
+	defer c.lock.Unlock()
+	stm := "select * from thread_peers where threadId='" + threadId + "' and admin=1;"
+	return c.handleQuery(stm)
+}
+
+func ListNonAdminByThread(threadId string) []pb.ThreadPeer {
+	c.lock.Lock()
+	defer c.lock.Unlock()
+	stm := "select * from thread_peers where threadId='" + threadId + "' and admin=0;"
+	return c.handleQuery(stm)
 }

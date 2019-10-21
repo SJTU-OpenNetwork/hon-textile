@@ -285,6 +285,19 @@ func (t *Textile) RenameThread(id string, name string) error {
 	return err
 }
 
+func (t *Textile) AddAdmin(tid string, pid string) error {
+    thread := t.Thread(tid)
+	if thread == nil {
+		return ErrThreadNotFound
+	}
+
+    // if t is admin?
+
+    // call datastore addadmin
+
+    // create block
+}
+
 // Thread get a thread by id from loaded threads
 func (t *Textile) Thread(id string) *Thread {
 	for _, thread := range t.loadedThreads {

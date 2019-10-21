@@ -92,6 +92,7 @@ message ThreadPeer {
     string id     = 1;
     string thread = 2;
     bool welcomed = 3;
+    bool admin    = 4;
 }
 
 // BLOCKS //
@@ -122,6 +123,8 @@ message Block {
         LIKE     = 9;
 
         ADD = 50;
+
+        ADDADMIN    = 100;
     }
 
 	enum BlockStatus {
@@ -220,6 +223,8 @@ message Notification {
         FILES_ADDED         = 5;
         COMMENT_ADDED       = 6;
         LIKE_ADDED          = 7;
+
+        ADMIN_ADDED         = 100;
     }
 
     // view info

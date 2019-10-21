@@ -108,6 +108,11 @@ type ThreadPeerStore interface {
 	Delete(id string, thread string) error
 	DeleteById(id string) error
 	DeleteByThread(thread string) error
+    
+    SetAdmin(id string, thread string) error
+    RemoveAdmin(id string, thread string) error
+    ListAdminByThread(threadId string) []pb.ThreadPeer
+    ListNonAdminByThread(threadId string) []pb.ThreadPeer
 }
 
 type BlockStore interface {
