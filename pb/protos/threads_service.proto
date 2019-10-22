@@ -81,9 +81,9 @@ message ThreadLike {
 }
 
 message ThreadAddAdmin {
-    string target = 1
+    string target = 1;
 }
 
 message ThreadRemovePeer {
-    string target = 1
+    string target = 1;
 }

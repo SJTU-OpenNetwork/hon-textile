@@ -160,7 +160,7 @@ func (m *Mobile) ThreadNonAdmins(id string) ([]byte, error) {
 // ThreadAddAdmin calls core ThreadAddAdmin
 func (m *Mobile) ThreadAddAdmin(threadId string, peerId string) error {
 	if !m.node.Started() {
-		return nil, core.ErrStopped
+		return core.ErrStopped
 	}
     return m.node.ThreadAddAdmin(threadId, peerId)
 }

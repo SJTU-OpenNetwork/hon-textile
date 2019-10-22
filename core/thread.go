@@ -173,12 +173,22 @@ func (t *Thread) Peers() []pb.ThreadPeer {
 
 // Admins returns locally known admins in this thread
 func (t *Thread) Admins() []pb.ThreadPeer {
-    return t.datastore.ThreadPeers().ListAdminByThread(t.id)
+    return t.datastore.ThreadPeers().ListAdminByThread(t.Id)
 }
 
 // NonAdmins returns locally known none-admins in this thread
 func (t *Thread) NonAdmins() []pb.ThreadPeer {
-    return t.datastore.ThreadPeers().ListNonAdminByThread(t.id)
+    return t.datastore.ThreadPeers().ListNonAdminByThread(t.Id)
+}
+
+func (t *Thread) IsAdmin(id string) bool {
+    admins := t.Admins()
+    for _, admin := range admins {
+        if id == admin.Id {
+            return true
+        }
+    }
+    return false
 }
 
 // Encrypt data with thread public key
@@ -352,7 +362,7 @@ func (t *Thread) handle(bnode *blockNode, replace bool) (*pb.Block, error) {
 	case pb.Block_LIKE:
 		res, err = t.handleLikeBlock(block)
     case pb.Block_ADDADMIN:
-        res, err = t.handleAddAdminBlock(blcok)
+        res, err = t.handleAddAdminBlock(block)
 	default:
 		err = fmt.Errorf("invalid type: %s", block.Type)
 	}

@@ -1,4 +1,4 @@
-module github.com/textileio/go-textile
+module github.com/SJTU-OpenNetwork/hon-textile
 
 go 1.13
 

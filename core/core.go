@@ -188,10 +188,10 @@ func InitRepo(conf InitConfig) error {
 	// init repo
 	if conf.IsPrivate {
 		err = repo.InitPrivate(repoPath, conf.IsMobile, conf.IsServer)
-	}
-	else {
+	} else {
 		err = repo.Init(repoPath, conf.IsMobile, conf.IsServer)
 	}
+
 	if err != nil {
 		return err
 	}

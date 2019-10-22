@@ -15,18 +15,18 @@ lint:
 	golint `go list ./... | grep -v /vendor/`
 
 textile:
-	$(eval FLAGS := $$(shell govvv -flags | sed 's/main/github.com\/textileio\/go-textile\/common/g'))
-	go install -ldflags "-w $(FLAGS)" github.com/textileio/go-textile/cmd/textile
+	$(eval FLAGS := $$(shell govvv -flags | sed 's/main/github.com\/SJTU-OpenNetwork\/hon-textile\/common/g'))
+	go install -ldflags "-w $(FLAGS)" github.com/SJTU-OpenNetwork/hon-textile/cmd/textile
 
 ios:
-	$(eval FLAGS := $$(shell govvv -flags | sed 's/main/github.com\/textileio\/go-textile\/common/g'))
-	env go111module=off gomobile bind -ldflags "-w $(FLAGS)" -v -target=ios github.com/textileio/go-textile/mobile github.com/textileio/go-textile/core
+	$(eval FLAGS := $$(shell govvv -flags | sed 's/main/github.com\/SJTU-OpenNetwork\/hon-textile\/common/g'))
+	env go111module=off gomobile bind -ldflags "-w $(FLAGS)" -v -target=ios github.com/SJTU-OpenNetwork/hon-textile/mobile github.com/SJTU-OpenNetwork/hon-textile/core
 	mkdir -p mobile/dist/ios/ && cp -r Mobile.framework mobile/dist/ios/
 	rm -rf Mobile.framework
 
 android:
-	$(eval FLAGS := $$(shell govvv -flags | sed 's/main/github.com\/textileio\/go-textile\/common/g'))
-	env go111module=off gomobile bind -ldflags "-w $(FLAGS)" -v -target=android -o mobile.aar github.com/textileio/go-textile/mobile github.com/textileio/go-textile/core
+	$(eval FLAGS := $$(shell govvv -flags | sed 's/main/github.com\/SJTU-OpenNetwork\/hon-textile\/common/g'))
+	env go111module=off gomobile bind -ldflags "-w $(FLAGS)" -v -target=android -o mobile.aar github.com/SJTU-OpenNetwork/hon-textile/mobile github.com/SJTU-OpenNetwork/hon-textile/core
 	mkdir -p mobile/dist/android/ && mv mobile.aar mobile/dist/android/
 
 protos:

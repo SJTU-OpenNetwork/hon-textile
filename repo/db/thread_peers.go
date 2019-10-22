@@ -147,17 +147,10 @@ func (c *ThreadPeerDB) handleQuery(stm string) []pb.ThreadPeer {
 }
 
 
-func (c *ThreadPeerDB) AddAdmin(threadId string, peerId) error {
+func (c *ThreadPeerDB) AddAdmin(threadId string, peerId string) error {
 	c.lock.Lock()
 	defer c.lock.Unlock()
-	_, err := c.db.Exec("update thread_peers set admin=1 where id=? and threadId=?", id, threadId)
-	return err
-}
-
-func RemoveAdmin(id string, threadId string) error {
-	c.lock.Lock()
-	defer c.lock.Unlock()
-	_, err := c.db.Exec("update thread_peers set admin=0 where id=? and threadId=?", id, threadId)
+	_, err := c.db.Exec("update thread_peers set admin=1 where id=? and threadId=?", peerId, threadId)
 	return err
 }
 
@@ -168,7 +161,7 @@ func (c *ThreadPeerDB) ListAdminByThread(threadId string) []pb.ThreadPeer {
 	return c.handleQuery(stm)
 }
 
-func ListNonAdminByThread(threadId string) []pb.ThreadPeer {
+func (c *ThreadPeerDB) ListNonAdminByThread(threadId string) []pb.ThreadPeer {
 	c.lock.Lock()
 	defer c.lock.Unlock()
 	stm := "select * from thread_peers where threadId='" + threadId + "' and admin=0;"

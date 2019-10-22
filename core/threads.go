@@ -288,27 +288,31 @@ func (t *Textile) RenameThread(id string, name string) error {
 	return err
 }
 
-func (t *Textile) AddAdmin(threadId string, peerId string) error {
+func (t *Textile) ThreadAddAdmin(threadId string, peerId string) error {
     thread := t.Thread(threadId)
 	if thread == nil {
 		return ErrThreadNotFound
 	}
 
     // if t is admin?
-    if !t.IsAdmin(tid, t.account.Address())
+    admin := thread.IsAdmin(t.account.Address())
+    if !admin {
         return ErrNotAdmin
+    }
 
     // call thread addadmin
     thread.AddAdmin(peerId)
 
     // create block
+    return nil
 }
 
-func (t *Textile) IsAdmin(tid string, pid string) error {
-    thread := t.Thread(tid)
+func (t *Textile) IsAdmin(threadId string, peerId string) (bool, error) {
+    thread := t.Thread(threadId)
 	if thread == nil {
-		return ErrThreadNotFound
-    return thread.IsAdmin(pid)
+		return false, ErrThreadNotFound
+    }
+    return thread.IsAdmin(peerId), nil
 }
 
 // Thread get a thread by id from loaded threads
@@ -349,6 +353,40 @@ func (t *Textile) ThreadPeers(id string) (*pb.PeerList, error) {
 	}
 
 	return peers, nil
+}
+
+// ThreadAdmins returns a list of thread admins
+func (t *Textile) ThreadAdmins(id string) (*pb.PeerList, error) {
+	thread := t.Thread(id)
+	if thread == nil {
+		return nil, ErrThreadNotFound
+	}
+
+	admins := &pb.PeerList{Items: make([]*pb.Peer, 0)}
+	for _, tp := range thread.Admins() {
+		p := t.datastore.Peers().Get(tp.Id)
+		if p != nil {
+			admins.Items = append(admins.Items, p)
+		}
+	}
+	return admins, nil
+}
+
+// ThreadAdmins returns a list of thread admins
+func (t *Textile) ThreadNonAdmins(id string) (*pb.PeerList, error) {
+	thread := t.Thread(id)
+	if thread == nil {
+		return nil, ErrThreadNotFound
+	}
+
+	nonAdmins := &pb.PeerList{Items: make([]*pb.Peer, 0)}
+	for _, tp := range thread.NonAdmins() {
+		p := t.datastore.Peers().Get(tp.Id)
+		if p != nil {
+			nonAdmins.Items = append(nonAdmins.Items, p)
+		}
+	}
+	return nonAdmins, nil
 }
 
 // RemoveThread removes a thread

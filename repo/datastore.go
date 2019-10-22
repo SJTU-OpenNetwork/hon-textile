@@ -110,7 +110,6 @@ type ThreadPeerStore interface {
 	DeleteByThread(thread string) error
     
     AddAdmin(id string, thread string) error
-    RemoveAdmin(id string, thread string) error
     ListAdminByThread(threadId string) []pb.ThreadPeer
     ListNonAdminByThread(threadId string) []pb.ThreadPeer
 }

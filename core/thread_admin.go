@@ -1,24 +1,23 @@
 package core
 
 import (
-	"fmt"
-
 	mh "github.com/multiformats/go-multihash"
 	"github.com/SJTU-OpenNetwork/hon-textile/pb"
+	"github.com/golang/protobuf/ptypes"
 )
 
 func (t *Thread) AddAdmin(peerId string) (mh.Multihash, error) {
 	t.lock.Lock()
 	defer t.lock.Unlock()
 
-	err := t.datastore.ThreadPeers().AddAdmin(t.Id, peerId)
+	//err := t.datastore.ThreadPeers().AddAdmin(t.Id, peerId)
 
-	res, err := t.commitBlock(nil, pb.Block_ADMIN, true, nil)
+	res, err := t.commitBlock(nil, pb.Block_ADDADMIN, true, nil)
 	if err != nil {
 		return nil, err
 	}
 
-    log.Debugf("added ADDADMIN to %s for %s", target, t.Id)
+    log.Debugf("added ADDADMIN to %s for %s", peerId, t.Id)
 
 	return res.hash, nil
 }
