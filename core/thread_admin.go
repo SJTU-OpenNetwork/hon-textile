@@ -7,13 +7,11 @@ import (
 	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 )
 
-func (t *Thread) AddAdmin(target string) (mh.Multihash, error) {
+func (t *Thread) AddAdmin(peerId string) (mh.Multihash, error) {
 	t.lock.Lock()
 	defer t.lock.Unlock()
 
-	if !t.readable(t.config.Account.Address) {
-		return nil, ErrNotReadable
-	}
+	err := t.datastore.ThreadPeers().AddAdmin(t.Id, peerId)
 
 	res, err := t.commitBlock(nil, pb.Block_ADMIN, true, nil)
 	if err != nil {
@@ -25,8 +23,8 @@ func (t *Thread) AddAdmin(target string) (mh.Multihash, error) {
 	return res.hash, nil
 }
 
-// handleLeaveBlock handles an incoming leave block
-func (t *Thread) handleSetAdminBlock(block *pb.ThreadBlock) (handleResult, error) {
+// handleAddAdminBlock handles an incoming add admin block
+func (t *Thread) handleAddAdminBlock(block *pb.ThreadBlock) (handleResult, error) {
 	var res handleResult
 
 	if !t.readable(t.config.Account.Address) {
@@ -44,7 +42,7 @@ func (t *Thread) handleSetAdminBlock(block *pb.ThreadBlock) (handleResult, error
 		}
 	}
 
-	err := t.datastore.ThreadPeers().SetAdmin(msg.Target, t.Id)
+	err := t.datastore.ThreadPeers().AddAdmin(t.Id, msg.Target)
 	if err != nil {
 		return res, err
 	}

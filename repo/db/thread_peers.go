@@ -147,7 +147,7 @@ func (c *ThreadPeerDB) handleQuery(stm string) []pb.ThreadPeer {
 }
 
 
-func (c *ThreadPeerDB) SetAdmin(id string, threadId string) error {
+func (c *ThreadPeerDB) AddAdmin(threadId string, peerId) error {
 	c.lock.Lock()
 	defer c.lock.Unlock()
 	_, err := c.db.Exec("update thread_peers set admin=1 where id=? and threadId=?", id, threadId)

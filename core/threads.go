@@ -30,6 +30,9 @@ var ErrThreadLoaded = fmt.Errorf("thread is loaded")
 // emptyThreadKey indicates "" was used for a thread key
 var emptyThreadKey = fmt.Errorf("thread key cannot by empty")
 
+// ErrNotAdmin inicates non-admin try to do something that only admins can do 
+var ErrNotAdmin = fmt.Errorf("not an admin of the thread")
+
 // AddThread adds a thread with a given name and secret key
 func (t *Textile) AddThread(conf pb.AddThreadConfig, sk libp2pc.PrivKey, initiator string, join bool, inviteAccount bool) (*Thread, error) {
 	conf.Key = strings.TrimSpace(conf.Key)
@@ -285,17 +288,27 @@ func (t *Textile) RenameThread(id string, name string) error {
 	return err
 }
 
-func (t *Textile) AddAdmin(tid string, pid string) error {
-    thread := t.Thread(tid)
+func (t *Textile) AddAdmin(threadId string, peerId string) error {
+    thread := t.Thread(threadId)
 	if thread == nil {
 		return ErrThreadNotFound
 	}
 
     // if t is admin?
+    if !t.IsAdmin(tid, t.account.Address())
+        return ErrNotAdmin
 
-    // call datastore addadmin
+    // call thread addadmin
+    thread.AddAdmin(peerId)
 
     // create block
+}
+
+func (t *Textile) IsAdmin(tid string, pid string) error {
+    thread := t.Thread(tid)
+	if thread == nil {
+		return ErrThreadNotFound
+    return thread.IsAdmin(pid)
 }
 
 // Thread get a thread by id from loaded threads

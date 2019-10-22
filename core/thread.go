@@ -68,7 +68,6 @@ var ErrBlockWrongType = fmt.Errorf("block type is not the type requested")
 // errReloadFailed indicates an error occurred during thread reload
 var errThreadReload = fmt.Errorf("could not re-load thread")
 
-var ErrNotAdmin = fmt.Errorf("not an admin of the thread")
 
 // ThreadConfig is used to construct a Thread
 type ThreadConfig struct {
@@ -352,6 +351,8 @@ func (t *Thread) handle(bnode *blockNode, replace bool) (*pb.Block, error) {
 		res, err = t.handleCommentBlock(block)
 	case pb.Block_LIKE:
 		res, err = t.handleLikeBlock(block)
+    case pb.Block_ADDADMIN:
+        res, err = t.handleAddAdminBlock(blcok)
 	default:
 		err = fmt.Errorf("invalid type: %s", block.Type)
 	}

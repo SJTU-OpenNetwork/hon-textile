@@ -129,6 +129,42 @@ func (m *Mobile) ThreadPeers(id string) ([]byte, error) {
 	return proto.Marshal(peers)
 }
 
+// ThreadPeers calls core ThreadPeers
+func (m *Mobile) ThreadAdmins(id string) ([]byte, error) {
+	if !m.node.Started() {
+		return nil, core.ErrStopped
+	}
+
+	peers, err := m.node.ThreadAdmins(id)
+	if err != nil {
+		return nil, err
+	}
+
+	return proto.Marshal(peers)
+}
+
+// ThreadPeers calls core ThreadPeers
+func (m *Mobile) ThreadNonAdmins(id string) ([]byte, error) {
+	if !m.node.Started() {
+		return nil, core.ErrStopped
+	}
+
+	peers, err := m.node.ThreadNonAdmins(id)
+	if err != nil {
+		return nil, err
+	}
+
+	return proto.Marshal(peers)
+}
+
+// ThreadAddAdmin calls core ThreadAddAdmin
+func (m *Mobile) ThreadAddAdmin(threadId string, peerId string) error {
+	if !m.node.Started() {
+		return nil, core.ErrStopped
+	}
+    return m.node.ThreadAddAdmin(threadId, peerId)
+}
+
 // RemoveThread call core RemoveThread
 func (m *Mobile) RemoveThread(id string) (string, error) {
 	if !m.node.Started() {
