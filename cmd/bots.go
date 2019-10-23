@@ -9,7 +9,7 @@ import (
 	"strconv"
 
 	libp2pc "github.com/libp2p/go-libp2p-core/crypto"
-	shared "github.com/SJTU-OpenNetwork/hon-textile-core/bots"
+	shared "github.com/textileio/go-textile-core/bots"
 	"github.com/SJTU-OpenNetwork/hon-textile/ipfs"
 )
 
