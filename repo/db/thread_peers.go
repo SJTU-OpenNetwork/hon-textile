@@ -34,7 +34,7 @@ func (c *ThreadPeerDB) Add(peer *pb.ThreadPeer) error {
 		peer.Id,
 		peer.Thread,
 		false,
-        false,
+        peer.Admin,
 	)
 	if err != nil {
 		_ = tx.Rollback()

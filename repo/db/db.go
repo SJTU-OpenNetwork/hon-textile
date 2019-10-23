@@ -228,7 +228,7 @@ func initDatabaseTables(db *sql.DB, pin string) error {
     create table threads (id text primary key not null, key text not null, sk blob not null, name text not null, schema text not null, initiator text not null, type integer not null, state integer not null, head text not null, members text not null, sharing integer not null);
     create unique index thread_key on threads (key);
 
-    create table thread_peers (id text not null, threadId text not null, welcomed integer not null, primary key (id, threadId));
+    create table thread_peers (id text not null, threadId text not null, welcomed integer not null, admin integer not null, primary key (id, threadId));
     create index thread_peer_id on thread_peers (id);
     create index thread_peer_threadId on thread_peers (threadId);
     create index thread_peer_welcomed on thread_peers (welcomed);

@@ -27,6 +27,7 @@ func TestThreadPeerDB_Add(t *testing.T) {
 		Id:       "abc",
 		Thread:   ksuid.New().String(),
 		Welcomed: false,
+        Admin:    true,
 	})
 	if err != nil {
 		t.Error(err)
@@ -178,5 +179,63 @@ func TestThreadPeerDB_DeleteByThread(t *testing.T) {
 	err = stmt.QueryRow("bar2").Scan(&id)
 	if err == nil {
 		t.Error("delete failed")
+	}
+}
+
+func TestThreadPeerDB_ListAdminByThread(t *testing.T) {
+	setupThreadPeerDB()
+    err := threadPeerStore.Add(&pb.ThreadPeer{
+		Id:       ksuid.New().String(),
+		Thread:   "test_admin",
+		Welcomed: false,
+        Admin:    true,
+	})
+	if err != nil {
+		t.Error(err)
+	}
+	filtered := threadPeerStore.ListAdminByThread("test_admin")
+	if len(filtered) != 1 {
+		t.Errorf("returned incorrect number of peers, expected 1, got %d",len(filtered))
+		return
+	}
+}
+
+func TestThreadPeerDB_ListNonAdminByThread(t *testing.T) {
+	setupThreadPeerDB()
+	err := threadPeerStore.Add(&pb.ThreadPeer{
+		Id:       ksuid.New().String(),
+		Thread:   "test_nonadmin",
+		Welcomed: false,
+        Admin:    false,
+	})
+	if err != nil {
+		t.Error(err)
+	}
+	filtered := threadPeerStore.ListNonAdminByThread("test_nonadmin")
+	if len(filtered) != 1 {
+		t.Errorf("returned incorrect number of peers, expected 1, got %d",len(filtered))
+		return
+	}
+}
+
+func TestThreadPeerDB_AddAdmin(t *testing.T) {
+	setupThreadPeerDB()
+	err := threadPeerStore.Add(&pb.ThreadPeer{
+		Id:       "1001",
+		Thread:   "test_add",
+		Welcomed: false,
+        Admin:    false,
+	})
+	if err != nil {
+		t.Error(err)
+	}
+    err = threadPeerStore.AddAdmin("test_add", "1001")
+	if err != nil {
+		t.Error(err)
+	}
+	filtered := threadPeerStore.ListAdminByThread("test_add")
+	if len(filtered) != 1 {
+        t.Errorf("returned incorrect number of peers, expected 1, got %d",len(filtered))
+		return
 	}
 }
