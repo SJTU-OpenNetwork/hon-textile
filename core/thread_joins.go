@@ -43,8 +43,8 @@ func (t *Thread) join(inviter string) (mh.Multihash, error) {
 	}
 
     // insert myself to thread_peers, which is different with go-textile
-    isInitiator := self.Id == t.initiator
-	err = t.addOrUpdatePeer(self, false, isInitiator)
+    isInitiator := self.Address == t.initiator
+    err = t.addOrUpdatePeer(self, false, isInitiator)
 	if err != nil {
 		return res.hash, err
 	}

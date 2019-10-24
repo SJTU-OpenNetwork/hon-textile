@@ -403,9 +403,9 @@ func (t *Thread) handle(bnode *blockNode, replace bool) (*pb.Block, error) {
 
 // addOrUpdatePeer collects and saves thread peers
 func (t *Thread) addOrUpdatePeer(peer *pb.Peer, welcomed bool, admin bool) error {
-	if peer.Id == t.node().Identity.Pretty() {
-		return nil
-	}
+//	if peer.Id == t.node().Identity.Pretty() {
+//		return nil
+//	}
 
 	err := t.datastore.ThreadPeers().Add(&pb.ThreadPeer{
 		Id:       peer.Id,
