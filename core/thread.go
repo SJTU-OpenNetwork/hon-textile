@@ -418,7 +418,7 @@ func (t *Thread) addOrUpdatePeer(peer *pb.Peer, welcomed bool, admin bool) error
 			return err
 		}
 	}
-
+    log.Debugf("addOrUpdatePeer, thread; %s, peer: %s, admin: %d", t.Id, peer.Id, admin)
 	return t.addPeer(peer)
 }
 

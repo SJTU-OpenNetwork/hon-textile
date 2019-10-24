@@ -10,7 +10,10 @@ func (t *Thread) AddAdmin(peerId string) (mh.Multihash, error) {
 	t.lock.Lock()
 	defer t.lock.Unlock()
 
-	//err := t.datastore.ThreadPeers().AddAdmin(t.Id, peerId)
+	err := t.datastore.ThreadPeers().AddAdmin(t.Id, peerId)
+	if err != nil {
+		return nil, err
+	}
 
 	res, err := t.commitBlock(nil, pb.Block_ADDADMIN, true, nil)
 	if err != nil {

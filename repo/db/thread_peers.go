@@ -36,6 +36,7 @@ func (c *ThreadPeerDB) Add(peer *pb.ThreadPeer) error {
 		false,
         peer.Admin,
 	)
+    log.Debugf("ThreadPeerDB: Add (%s, %s, %d, %d)", peer.Id, peer.Thread, false, peer.Admin)
 	if err != nil {
 		_ = tx.Rollback()
 		return err

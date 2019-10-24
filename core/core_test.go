@@ -233,6 +233,26 @@ func TestTextile_AddThread(t *testing.T) {
 	if forced.Key != vars.thread.Key+"_1" {
 		t.Fatal("add thread with same key and force resulted in bad key")
 	}
+
+    t.Logf("thread id: %s", vars.thread.Id)
+    peers, err := vars.node.ThreadPeers(vars.thread.Id)
+    t.Logf("num of peers: %d", len(peers.Items))
+
+    admins, err := vars.node.ThreadAdmins(vars.thread.Id)
+	if err != nil {
+		t.Fatalf("get admin fail: %s", err)
+	}
+    for _, admin:= range admins.Items {
+        t.Logf("admin: %s", admin.Id)
+    }
+
+    nonadmins, err := vars.node.ThreadNonAdmins(vars.thread.Id)
+	if err != nil {
+		t.Fatalf("get non-admin fail: %s", err)
+	}
+    for _, nadmin:= range nonadmins.Items {
+        t.Logf("non-admin: %s", nadmin.Id)
+    }
 }
 
 func TestTextile_RenameThread(t *testing.T) {

@@ -42,7 +42,14 @@ func (t *Thread) join(inviter string) (mh.Multihash, error) {
 		return nil, err
 	}
 
-	log.Debugf("added JOIN to %s: %s", t.Id, res.hash.B58String())
+    // insert myself to thread_peers, which is different with go-textile
+    isInitiator := self.Id == t.initiator
+	err = t.addOrUpdatePeer(self, false, isInitiator)
+	if err != nil {
+		return res.hash, err
+	}
+
+    log.Debugf("added JOIN to %s: %s", t.Id, res.hash.B58String())
 
 	return res.hash, nil
 }
@@ -71,11 +78,12 @@ func (t *Thread) handleJoinBlock(block *pb.ThreadBlock) (handleResult, error) {
 
 	// collect author as an unwelcomed peer
 	if msg.Peer != nil {
-        creator := msg.Peer.Id == t.initiator
-		err = t.addOrUpdatePeer(msg.Peer, false, creator)
+        isInitiator := msg.Peer.Id == t.initiator
+		err = t.addOrUpdatePeer(msg.Peer, false, isInitiator)
 		if err != nil {
 			return res, err
 		}
+	    log.Debugf("handle JOIN block to %s: %s, isInitiator=%d", t.Id, msg.Peer.Id, isInitiator)
 	}
 
 	return res, nil
