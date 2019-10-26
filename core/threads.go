@@ -33,6 +33,9 @@ var emptyThreadKey = fmt.Errorf("thread key cannot by empty")
 // ErrNotAdmin inicates non-admin try to do something that only admins can do 
 var ErrNotAdmin = fmt.Errorf("not an admin of the thread")
 
+// ErrRemoveSelf indecates an admin try to remove itself from a thread, try use leave
+var ErrRemoveSelf = fmt.Errorf("do not use RemovePeer, try use thread.leave")
+
 // AddThread adds a thread with a given name and secret key
 func (t *Textile) AddThread(conf pb.AddThreadConfig, sk libp2pc.PrivKey, initiator string, join bool, inviteAccount bool) (*Thread, error) {
 	conf.Key = strings.TrimSpace(conf.Key)
@@ -295,24 +298,69 @@ func (t *Textile) ThreadAddAdmin(threadId string, peerId string) error {
 	}
 
     // if t is admin?
-    admin := thread.IsAdmin(t.account.Address())
+    admin, err := t.IsAdminByAddress(threadId, t.account.Address())
+    if err != nil{
+        return err
+    }
     if !admin {
         return ErrNotAdmin
     }
 
-    // call thread addadmin
+    // call thread AddAdmin
     thread.AddAdmin(peerId)
 
     // create block
     return nil
 }
 
-func (t *Textile) IsAdmin(threadId string, peerId string) (bool, error) {
+func (t *Textile) ThreadRemovePeer(threadId string, peerId string) error {
+    thread := t.Thread(threadId)
+	if thread == nil {
+		return ErrThreadNotFound
+	}
+
+    // if t is admin?
+    admin, err := t.IsAdminByAddress(threadId, t.account.Address())
+    if err != nil{
+        return err
+    }
+    if !admin {
+        return ErrNotAdmin
+    }
+
+    // call thread RemovePeer
+    thread.RemovePeer(peerId)
+
+    // create block
+    return nil
+}
+
+// check if peer is admin by peer id
+func (t *Textile) IsAdminById(threadId string, peerId string) (bool, error) {
+    peer := t.datastore.Peers().Get(peerId)
+    return t.IsAdminByAddress(threadId, peer.Address)
+}
+
+// check if peer is admin by peer address
+func (t *Textile) IsAdminByAddress(threadId string, peerAddr string) (bool, error) {
     thread := t.Thread(threadId)
 	if thread == nil {
 		return false, ErrThreadNotFound
     }
-    return thread.IsAdmin(peerId), nil
+    admins, err := t.ThreadAdmins(threadId)
+    if err != nil{
+        return false, err
+    }
+
+    for _,admin := range admins.Items{
+        if peerAddr == admin.Address{
+            return true, nil
+        }
+    }
+    if peerAddr == thread.initiator{
+        return true, nil
+    }
+    return false, nil
 }
 
 // Thread get a thread by id from loaded threads

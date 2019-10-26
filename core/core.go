@@ -449,6 +449,15 @@ func (t *Textile) Start() error {
 		for _, p := range boots {
 			t.node.Peerstore.AddAddrs(p.ID, p.Addrs, peerstore.PermanentAddrTTL)
 		}
+
+		// ensure the peer table is not empty by adding hon bootstraps
+		boots, err = config.OpennetBootstrapPeers()
+		if err != nil {
+			log.Errorf(err.Error())
+		}
+		for _, p := range boots {
+			t.node.Peerstore.AddAddrs(p.ID, p.Addrs, peerstore.PermanentAddrTTL)
+		}
 	}()
 
 	for _, mod := range t.datastore.Threads().List().Items {

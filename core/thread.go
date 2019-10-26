@@ -181,15 +181,15 @@ func (t *Thread) NonAdmins() []pb.ThreadPeer {
     return t.datastore.ThreadPeers().ListNonAdminByThread(t.Id)
 }
 
-func (t *Thread) IsAdmin(id string) bool {
-    admins := t.Admins()
-    for _, admin := range admins {
-        if id == admin.Id {
-            return true
-        }
-    }
-    return false
-}
+//func (t *Thread) IsAdmin(id string) bool {
+//    admins := t.Admins()
+//    for _, admin := range admins {
+//        if id == admin.Id {
+//            return true
+//        }
+//    }
+//    return false
+//}
 
 // Encrypt data with thread public key
 func (t *Thread) Encrypt(data []byte) ([]byte, error) {
@@ -363,6 +363,8 @@ func (t *Thread) handle(bnode *blockNode, replace bool) (*pb.Block, error) {
 		res, err = t.handleLikeBlock(block)
     case pb.Block_ADDADMIN:
         res, err = t.handleAddAdminBlock(block)
+    case pb.Block_REMOVEPEER:
+        res, err = t.handleRemovePeerBlock(block)
 	default:
 		err = fmt.Errorf("invalid type: %s", block.Type)
 	}

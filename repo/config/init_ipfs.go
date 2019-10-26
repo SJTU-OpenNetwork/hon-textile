@@ -55,7 +55,7 @@ var DefaultBootstrapAddresses = []string{
 // DefaultHuaweiBootstrapAddresses are the addresses of nodes run by the SJTU opennetwork team.
 var DefaultOpennetBootstrapAddresses = []string{
 	"/ip4/159.138.132.28/tcp/48487/ipfs/12D3KooWHS9NbK2N7uPtYoQ3YPtFCgPX9G138REeJ1QxMTGuvpxc",  // HW3 
-	"/ip4/159.138.130.106/tcp/13658/ipfs/12D3KooWPCsnXD9hcvfEdCCJHMsiGbKTYNQkFdLuNgLjXG64RcwZ",   // HW4
+	"/ip4/159.138.130.106/tcp/36387/ipfs/12D3KooWGsaEnG3tZyWwBXqfm8wd93WogDeLarMQetPdVzwZFLc1",   // HW4
 	"/ip4/159.138.130.129/tcp/4277/ipfs/12D3KooWDZuZ8sppVD37gAZVYbNrfUNqSyT2Ra8wDLXifuEgDQvC",  // HW5
 	"/ip4/159.138.58.61/tcp/41806/ipfs/12D3KooWBZ8UJeFcK7VgyrNk5s3M2PRpfpTzb1LJqMYazC3NDX8e",  // HW6
 	"/ip4/202.120.38.100/tcp/22612/ipfs/12D3KooWMsnTufaczYVEMYEo3q3PP9XrkJvHMEfQark6sZoEVm9U",   // LAB-100

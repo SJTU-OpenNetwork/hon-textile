@@ -125,6 +125,7 @@ message Block {
         ADD = 50;
 
         ADDADMIN    = 100;
+        REMOVEPEER  = 101;
     }
 
 	enum BlockStatus {

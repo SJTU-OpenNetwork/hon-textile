@@ -165,6 +165,30 @@ func (m *Mobile) ThreadAddAdmin(threadId string, peerId string) error {
     return m.node.ThreadAddAdmin(threadId, peerId)
 }
 
+// IsAdminById calls core IsAdminById
+func (m *Mobile) IsAdminById(threadId string, peerId string) (bool, error) {
+	if !m.node.Started() {
+		return false, core.ErrStopped
+	}
+    return m.node.IsAdminById(threadId, peerId)
+}
+
+// IsAdminByAddress calls core IsAdminByAddress
+func (m *Mobile) IsAdminByAddress(threadId string, peerAddr string) (bool, error) {
+	if !m.node.Started() {
+		return false, core.ErrStopped
+	}
+    return m.node.IsAdminByAddress(threadId, peerAddr)
+}
+
+// RemovePeer calls core RemovePeer
+func (m *Mobile) ThreadRemovePeer(threadId string, peerId string) error {
+	if !m.node.Started() {
+		return core.ErrStopped
+	}
+    return m.node.ThreadRemovePeer(threadId, peerId)
+}
+
 // RemoveThread call core RemoveThread
 func (m *Mobile) RemoveThread(id string) (string, error) {
 	if !m.node.Started() {
