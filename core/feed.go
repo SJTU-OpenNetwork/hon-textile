@@ -18,6 +18,8 @@ var flatFeedTypes = []pb.Block_BlockType{
 	pb.Block_TEXT,
 	pb.Block_COMMENT,
 	pb.Block_LIKE,
+	pb.Block_ADDADMIN,
+	pb.Block_REMOVEPEER,
 }
 
 var annotatedFeedTypes = []pb.Block_BlockType{
@@ -167,6 +169,10 @@ func (t *Textile) feedItem(block *pb.Block, opts feedItemOpts) (*pb.FeedItem, er
 		payload, err = t.comment(block, opts)
 	case pb.Block_LIKE:
 		payload, err = t.like(block, opts)
+	case pb.Block_ADDADMIN:
+		payload, err = t.addAdmin(block, opts)
+	case pb.Block_REMOVEPEER:
+		payload, err = t.removePeer(block, opts)
 	default:
 		return nil, nil
 	}

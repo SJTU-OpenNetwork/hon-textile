@@ -226,6 +226,7 @@ message Notification {
         LIKE_ADDED          = 7;
 
         ADMIN_ADDED         = 100;
+        PEER_REMOVED        = 101;
     }
 
     // view info
