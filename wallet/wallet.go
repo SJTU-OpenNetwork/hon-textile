@@ -2,6 +2,7 @@ package wallet
 
 import (
 	"fmt"
+    "crypto/sha256"
 
 	"github.com/SJTU-OpenNetwork/hon-textile/keypair"
 	"github.com/tyler-smith/go-bip39"
@@ -73,10 +74,8 @@ func WalletFromWordCount(wordCount int) (*Wallet, error) {
 
 
 func EntropyFromHuaweiOpenId(huaweiOpenId string) (string) {
-	len := len(huaweiOpenId) // It should be 140
-	newLen := ((len / 32) + 1) * 32
-	newId := huaweiOpenId + huaweiOpenId[0:newLen-len]
-	return newId
+    entropy := sha256.Sum256([]byte(huaweiOpenId))
+    return string(entropy[:])
 }
 
 func WalletFromHuaweiOpenId(huaweiOpenId string) (*Wallet, error) {

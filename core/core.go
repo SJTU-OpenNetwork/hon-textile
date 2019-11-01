@@ -293,7 +293,6 @@ func NewTextile(conf RunConfig) (*Textile, error) {
 	if conf.Debug {
 		logLevel = getTextileDebugLevels()
 	}
-	log.Debug("in NewTextile")
 	node.writer, err = setLogLevels(node.repoPath, logLevel,
 		node.config.Logs.LogToDisk, !node.config.IsMobile)
 	if err != nil {
@@ -303,25 +302,20 @@ func NewTextile(conf RunConfig) (*Textile, error) {
 	// run all minor repo migrations if needed
 	err = repo.MigrateUp(node.repoPath, node.pinCode, false)
 	if err != nil {
-	    log.Debug("migration fail!")
 		return nil, err
 	}
 
 	sqliteDb, err := db.Create(node.repoPath, node.pinCode)
 	if err != nil {
-	    log.Debug("db create fail!")
 		return nil, err
 	}
 	node.datastore = sqliteDb
 
 	accnt, err := node.datastore.Config().GetAccount()
 	if err != nil {
-	    log.Debug("get account fail!")
 		return nil, err
 	}
 	node.account = accnt
-	log.Debug("out NewTextile!")
-    
 	return node, nil
 }
 
@@ -333,7 +327,6 @@ func (t *Textile) Start() error {
 		return ErrStarted
 	}
 	log.Info("starting node...")
-	log.Debug("starting node...")
 
 	t.online = make(chan struct{})
 	t.done = make(chan struct{})
@@ -767,7 +760,6 @@ func (t *Textile) cafeService() *CafeService {
 
 // createNode constructs an IpfsNode
 func (t *Textile) createNode() error {
-	log.Debug("in crateNode()")
     rep, err := fsrepo.Open(t.repoPath)
 	if err != nil {
 		return err
@@ -803,7 +795,6 @@ func (t *Textile) createNode() error {
 		fx.Extract(n),
 	)
 
-	log.Debug("after new ipfs node")
 
 	var once sync.Once
 	var stopErr error
@@ -833,8 +824,6 @@ func (t *Textile) createNode() error {
 	if err := app.Start(ctx); err != nil {
 		return err
 	}
-	log.Debug("start ipfs")
-
 	t.node = n
 
 	return nil
