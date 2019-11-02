@@ -78,7 +78,7 @@ func (t *Thread) handleJoinBlock(block *pb.ThreadBlock) (handleResult, error) {
 
 	// collect author as an unwelcomed peer
 	if msg.Peer != nil {
-        isInitiator := msg.Peer.Id == t.initiator
+        isInitiator := msg.Peer.Address == t.initiator
 		err = t.addOrUpdatePeer(msg.Peer, false, isInitiator)
 		if err != nil {
 			return res, err

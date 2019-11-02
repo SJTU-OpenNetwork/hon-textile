@@ -26,7 +26,23 @@ func (t *Thread) RemovePeer(peerId string) (mh.Multihash, error) {
 		return nil, err
 	}
 
-	res, err := t.commitBlock(nil, pb.Block_REMOVEPEER, true, nil)
+	msg := &pb.ThreadRemovePeer{
+		Target: peerId,
+	}
+	res, err := t.commitBlock(msg, pb.Block_REMOVEPEER, true, nil)
+	if err != nil {
+		return nil, err
+	}
+
+    err = t.indexBlock(&pb.Block{
+		Id:     res.hash.B58String(),
+		Thread: t.Id,
+		Author: res.header.Author,
+		Type:   pb.Block_ADDADMIN,
+		Date:   res.header.Date,
+		Target: peerId,
+		Status: pb.Block_QUEUED,
+	}, false)
 	if err != nil {
 		return nil, err
 	}
@@ -55,8 +71,10 @@ func (t *Thread) handleRemovePeerBlock(block *pb.ThreadBlock) (handleResult, err
 		}
 	}
 
-    peer := t.datastore.Peers().Get(block.Header.Author)
+    log.Debugf("handling remove peer, target: %s", msg.Target)
+    peer := t.datastore.Peers().Get(msg.Target)
     if peer.Address == t.account.Address(){
+        log.Debugf("handling remove peer, target is me!", msg.Target)
 	    // cleanup
 	    query := fmt.Sprintf("threadId='%s'", t.Id)
 	    for _, block := range t.datastore.Blocks().List("", -1, query).Items {
@@ -79,11 +97,11 @@ func (t *Thread) handleRemovePeerBlock(block *pb.ThreadBlock) (handleResult, err
 	    }
     } else {
         // do remove peer from local db
-	    err := t.datastore.ThreadPeers().Delete(block.Header.Author, t.Id)
+	    err := t.datastore.ThreadPeers().Delete(msg.Target, t.Id)
 	    if err != nil {
 		    return res, err
 	    }
-	    err = t.datastore.Notifications().DeleteByActor(block.Header.Author)
+	    err = t.datastore.Notifications().DeleteByActor(msg.Target)
 	    if err != nil {
 		    return res, err
 	    }

@@ -6,9 +6,9 @@ import (
 	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 )
 
-// Profile returns this node's own peer
+// Profile returns this node's own peer? No! We let it return the best peer!
 func (t *Textile) Profile() *pb.Peer {
-	return t.datastore.Peers().Get(t.node.Identity.Pretty())
+	return t.datastore.Peers().GetBestUser(t.node.Identity.Pretty())
 }
 
 // Username returns profile username

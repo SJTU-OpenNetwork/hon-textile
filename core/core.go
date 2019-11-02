@@ -258,7 +258,6 @@ func MigrateRepo(conf MigrateConfig) error {
 
 // NewTextile runs a node out of an initialized repo
 func NewTextile(conf RunConfig) (*Textile, error) {
-	fmt.Printf("in NewTextile=====================")
     if !fsrepo.IsInitialized(conf.RepoPath) {
 		return nil, repo.ErrRepoDoesNotExist
 	}

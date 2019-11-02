@@ -15,7 +15,23 @@ func (t *Thread) AddAdmin(peerId string) (mh.Multihash, error) {
 		return nil, err
 	}
 
-	res, err := t.commitBlock(nil, pb.Block_ADDADMIN, true, nil)
+	msg := &pb.ThreadAddAdmin{
+		Target: peerId,
+	}
+	res, err := t.commitBlock(msg, pb.Block_ADDADMIN, true, nil)
+	if err != nil {
+		return nil, err
+	}
+
+    err = t.indexBlock(&pb.Block{
+		Id:     res.hash.B58String(),
+		Thread: t.Id,
+		Author: res.header.Author,
+		Type:   pb.Block_ADDADMIN,
+		Date:   res.header.Date,
+		Target: peerId,
+		Status: pb.Block_QUEUED,
+	}, false)
 	if err != nil {
 		return nil, err
 	}
