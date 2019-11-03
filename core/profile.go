@@ -8,12 +8,15 @@ import (
 
 // Profile returns this node's own peer? No! We let it return the best peer!
 func (t *Textile) Profile() *pb.Peer {
-	return t.datastore.Peers().GetBestUser(t.node.Identity.Pretty())
+	return t.datastore.Peers().Get(t.node.Identity.Pretty())
 }
 
+func (t *Textile) AccountProfile() *pb.User {
+	return t.datastore.Peers().GetBestUser(t.node.Identity.Pretty())
+}
 // Username returns profile username
 func (t *Textile) Name() string {
-	self := t.Profile()
+	self := t.AccountProfile()
 	if self == nil {
 		return ""
 	}
@@ -42,7 +45,7 @@ func (t *Textile) SetName(name string) error {
 
 // Avatar returns profile avatar
 func (t *Textile) Avatar() string {
-	self := t.Profile()
+	self := t.AccountProfile()
 	if self == nil {
 		return ""
 	}

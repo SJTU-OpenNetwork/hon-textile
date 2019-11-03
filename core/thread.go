@@ -710,7 +710,7 @@ func (t *Thread) updateHead(heads []string, store bool) error {
 // sendWelcome sends the latest HEAD block to a set of peers
 func (t *Thread) sendWelcome() error {
 	peers := t.datastore.ThreadPeers().ListUnwelcomedByThread(t.Id)
-	if len(peers) == 0 {
+	if len(peers) == 0 || (len(peers) ==1 && peers[0].Id == t.node().Identity.Pretty()){
 		return nil
 	}
 
@@ -745,6 +745,9 @@ func (t *Thread) sendWelcome() error {
 		}
 
 		for _, tp := range peers {
+            if tp.Id == t.node().Identity.Pretty() {
+                continue;
+            }
 			err = t.blockOutbox.Add(tp.Id, env)
 			if err != nil {
 				return err
@@ -790,6 +793,9 @@ func (t *Thread) post(index *pb.Block) error {
 	}
 
 	for _, tp := range peers {
+        if tp.Id == t.node().Identity.Pretty() {
+            continue;
+        }
 		err = t.blockOutbox.Add(tp.Id, env)
 		if err != nil {
 			return err

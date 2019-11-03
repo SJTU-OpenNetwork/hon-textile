@@ -27,7 +27,8 @@ func Publish(node *core.IpfsNode, topic string, data []byte) error {
 	defer pcancel()
 
 	log.Debugf("publishing to topic %s", topic)
-	return api.PubSub().Publish(ctx, topic, data)
+	err = api.PubSub().Publish(ctx, topic, data) 
+    return err
 }
 
 // Subscribe subscribes to a topic
