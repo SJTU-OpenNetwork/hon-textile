@@ -173,6 +173,7 @@ func (c *PeerDB) List(query string) []*pb.Peer {
 func (c *PeerDB) Find(address string, name string, exclude []string) []*pb.Peer {
 	c.lock.Lock()
 	defer c.lock.Unlock()
+
 	if address == "" && name == "" {
 		return nil
 	}

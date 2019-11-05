@@ -65,6 +65,90 @@ func (t *Textile) ContactThreads(address string) (*pb.ThreadList, error) {
 	return list, nil
 }
 
+func (t *Textile) DiscoverContacts(options *pb.QueryOptions) (<-chan *pb.QueryResult, <-chan error, *broadcast.Broadcaster, error) {
+    query := &pb.ContactQuery{
+        Address: "",
+        Name:    "",
+    }
+	payload, err := proto.Marshal(query)
+	if err != nil {
+		return nil, nil, nil, err
+	}
+
+	// settings required for contacts
+	options.Filter = pb.QueryOptions_HIDE_OLDER
+
+	self := t.Profile()
+	if self != nil {
+		options.Exclude = append(options.Exclude, self.Id)
+	}
+
+    resCh, errCh, cancel := t.searchByPubsub(&pb.Query{
+		Type:    pb.Query_CONTACTS,
+		Options: options,
+		Payload: &any.Any{
+			TypeUrl: "/ContactQuery",
+			Value:   payload,
+		},
+	})
+
+    tresCh, terrCh := t.peers2Contacts(resCh, errCh)
+
+	return tresCh, terrCh, cancel, nil
+}
+
+func (t *Textile) peers2Contacts(resCh <-chan *pb.QueryResult, errCh <-chan error) (<-chan *pb.QueryResult, <-chan error){
+	// transform and results into contacts
+	contacts := make(map[string]*pb.Contact)
+	tresCh := make(chan *pb.QueryResult)
+	terrCh := make(chan error)
+	go func() {
+		for {
+			select {
+			case res, ok := <-resCh:
+				if !ok {
+					close(tresCh)
+					return
+				}
+
+				peer := new(pb.Peer)
+				err := ptypes.UnmarshalAny(res.Value, peer)
+				if err != nil {
+					terrCh <- err
+					break
+				}
+
+				if _, ok := contacts[peer.Address]; !ok {
+					contacts[peer.Address] = &pb.Contact{
+						Address: peer.Address,
+						Name:    peer.Name,
+						Avatar:  peer.Avatar,
+					}
+				}
+				contacts[peer.Address].Peers = append(contacts[peer.Address].Peers, peer)
+
+				value, err := proto.Marshal(ensureContactUser(contacts[peer.Address]))
+				if err != nil {
+					terrCh <- err
+					break
+				}
+
+				res.Id = peer.Address
+				res.Value = &any.Any{
+					TypeUrl: "/Contact",
+					Value:   value,
+				}
+				tresCh <- res
+
+			case err := <-errCh:
+				terrCh <- err
+			}
+		}
+	}()
+
+	return tresCh, terrCh
+}
+
 // SearchContacts searches the network for peers and returns contacts
 func (t *Textile) SearchContacts(query *pb.ContactQuery, options *pb.QueryOptions) (<-chan *pb.QueryResult, <-chan error, *broadcast.Broadcaster, error) {
 	payload, err := proto.Marshal(query)

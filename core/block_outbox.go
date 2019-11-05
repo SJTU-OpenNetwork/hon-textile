@@ -122,19 +122,22 @@ func (q *BlockOutbox) handle(msg pb.BlockMessage) error {
 		if connected {
 			log.Debugf("sending block message direct to %s", msg.Peer)
 			err = q.service().SendMessage(nil, msg.Peer, msg.Env)
+            log.Debugf("sending error: %s", err)
 		}
 	}
 
 
 	if !connected || err != nil {
 		// 2) attempt to reach the peer via pubsub
-		//if online {
-		//	log.Debugf("publishing block message to %s", msg.Peer)
-		//	err = q.service().SendPubSubMessage(msg)
-		//}
+		
+//        if online {
+//			log.Debugf("publishing block message to %s", msg.Peer)
+//			err = q.service().SendPubSubMessage(msg)
+//            log.Debugf("pubsub error: %s", err)
+//		}
 
 		// 3) add offline inbox requests
-		//if !online || err != nil {
+//		if !online || err != nil {
 			contact := q.datastore.Peers().Get(msg.Peer)
 			if contact != nil && len(contact.Inboxes) > 0 {
 				log.Debugf("sending block message for %s to %s", msg.Peer, contact.Inboxes)
@@ -143,7 +146,7 @@ func (q *BlockOutbox) handle(msg pb.BlockMessage) error {
 					return err
 				}
 			}
-		//}
+//		}
 	}
 	return nil
 }

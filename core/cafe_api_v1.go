@@ -564,7 +564,9 @@ func (c *cafeApi) deliverMessage(g *gin.Context) {
 }
 
 func (c *cafeApi) search(g *gin.Context) {
-	from := g.GetString("from")
+	log.Debug("cafeApi search")
+    
+    from := g.GetString("from")
 
 	pid, err := peer.IDB58Decode(from)
 	if err != nil {

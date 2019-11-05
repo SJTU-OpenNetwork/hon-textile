@@ -68,6 +68,45 @@ func (s *queryResultSet) Full() bool {
 	return len(s.items) >= int(s.options.Limit)
 }
 
+
+// Search searches the network based on the given query
+func (t *Textile) searchByPubsub(query *pb.Query) (<-chan *pb.QueryResult, <-chan error, *broadcast.Broadcaster) {
+	query = queryDefaults(query)
+	query.Id = ksuid.New().String()
+
+	var searchChs []chan *pb.QueryResult
+
+    // remote results channel(s)
+	clientCh := make(chan *pb.QueryResult)
+	searchChs = append(searchChs, clientCh)
+
+	resultCh := mergeQueryResults(searchChs)
+	errCh := make(chan error)
+	cancel := broadcast.NewBroadcaster(0)
+
+	go func() {
+		defer func() {
+			for _, ch := range searchChs {
+				close(ch)
+			}
+		}()
+		results := newQueryResultSet(query.Options)
+
+		canceler := cancel.Listen()
+		if err := t.cafe.searchPubSub(query, func(res *pb.QueryResults) bool {
+			for _, n := range results.Add(res.Items...) {
+				clientCh <- n
+			}
+			return results.Full()
+		}, canceler.Ch, false); err != nil {
+			errCh <- err
+			return
+		}
+	}()
+
+	return resultCh, errCh, cancel
+}
+
 // Search searches the network based on the given query
 func (t *Textile) search(query *pb.Query) (<-chan *pb.QueryResult, <-chan error, *broadcast.Broadcaster) {
 	query = queryDefaults(query)

@@ -80,6 +80,25 @@ func (m *Mobile) ContactThreads(address string) ([]byte, error) {
 	return proto.Marshal(thrds)
 }
 
+// DiscoverContacts calls core DiscoverContacts
+func (m *Mobile) DiscoverContacts(options []byte) (*SearchHandle, error) {
+	if !m.node.Online() {
+		return nil, core.ErrOffline
+	}
+
+	moptions := new(pb.QueryOptions)
+	if err := proto.Unmarshal(options, moptions); err != nil {
+		return nil, err
+	}
+
+	resCh, errCh, cancel, err := m.node.DiscoverContacts(moptions)
+	if err != nil {
+		return nil, err
+	}
+
+	return m.handleSearchStream(resCh, errCh, cancel)
+}
+
 // SearchContacts calls core SearchContacts
 func (m *Mobile) SearchContacts(query []byte, options []byte) (*SearchHandle, error) {
 	if !m.node.Online() {

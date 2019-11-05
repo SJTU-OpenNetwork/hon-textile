@@ -576,10 +576,17 @@ func (h *CafeService) searchLocal(qtype pb.Query_Type, options *pb.QueryOptions,
 		err := ptypes.UnmarshalAny(payload, q)
 		if err != nil {
 			return nil, err
-		}
-
-		peers := h.datastore.Peers().Find(q.Address, q.Name, options.Exclude)
-		for _, p := range peers {
+		} 
+        var peers []*pb.Peer
+        if q.Address == "" && q.Name == "" {
+            peerId := h.service.Node().Identity.Pretty()
+            p := h.datastore.Peers().Get(peerId)
+            peers = []*pb.Peer{p}
+        } else {
+		    peers = h.datastore.Peers().Find(q.Address, q.Name, options.Exclude)
+        }
+        log.Debugf("In local search, find %d peers", len(peers))
+        for _, p := range peers {
 			value, err := proto.Marshal(p)
 			if err != nil {
 				return nil, err
