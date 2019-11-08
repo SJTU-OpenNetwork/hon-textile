@@ -506,6 +506,8 @@ func (m *Mobile) WriteCafeRequest(group string, cb ProtoCallback) {
 // - store: PUT /store, body => multipart, one file per req
 // - unstore: DELETE /store/:cid, body => noop
 // - store thread: PUT /threads/:id, body => encrypted thread object (snapshot)
+// - store video: PUT /videos, body => message
+// - store videoChunk: PUT /videoChunks, body => message
 // - unstore thread: DELETE /threads/:id, body => noop
 // - deliver message: POST /inbox/:pid, body => encrypted message
 func (m *Mobile) writeCafeRequest(group string) ([]byte, error) {
@@ -624,6 +626,11 @@ func (m *Mobile) writeCafeRequest(group string) ([]byte, error) {
 					hreq.Type = pb.CafeHTTPRequest_DELETE
 					hreq.Url += "/store/" + req.Target
 					body = []byte("noop")
+
+//                case pb.CafeRequest_STORE_VIDEO:
+//                    // TODO
+//					hreq.Type = pb.CafeHTTPRequest_PUT
+//					hreq.Url += "/videos/" + req.Target
 
 				case pb.CafeRequest_STORE_THREAD:
 					hreq.Type = pb.CafeHTTPRequest_PUT

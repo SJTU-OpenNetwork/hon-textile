@@ -4,7 +4,6 @@ import (
 	mh "github.com/multiformats/go-multihash"
 	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 	"github.com/golang/protobuf/ptypes"
-    "fmt"
 )
 
 func (t *Thread) RemovePeer(peerId string) (mh.Multihash, error) {
@@ -38,7 +37,7 @@ func (t *Thread) RemovePeer(peerId string) (mh.Multihash, error) {
 		Id:     res.hash.B58String(),
 		Thread: t.Id,
 		Author: res.header.Author,
-		Type:   pb.Block_ADDADMIN,
+		Type:   pb.Block_REMOVEPEER,
 		Date:   res.header.Date,
 		Target: peerId,
 		Status: pb.Block_QUEUED,
@@ -75,26 +74,26 @@ func (t *Thread) handleRemovePeerBlock(block *pb.ThreadBlock) (handleResult, err
     peer := t.datastore.Peers().Get(msg.Target)
     if peer.Address == t.account.Address(){
         log.Debugf("handling remove peer, target is me!", msg.Target)
-	    // cleanup
-	    query := fmt.Sprintf("threadId='%s'", t.Id)
-	    for _, block := range t.datastore.Blocks().List("", -1, query).Items {
-            err := t.ignoreBlockTarget(block)
-	        if err != nil {
-	            return res, err
-	        }
-	    }
-        err := t.datastore.Blocks().DeleteByThread(t.Id)
-	    if err != nil {
-	        return res, err
-	    }
-	    err = t.datastore.ThreadPeers().DeleteByThread(t.Id)
-	    if err != nil {
-	        return res, err
-	    }
-	    err = t.datastore.Notifications().DeleteBySubject(t.Id)
-	    if err != nil {
-	        return res, err
-	    }
+	    // do nothing, let uper level api handle this
+//	    query := fmt.Sprintf("threadId='%s'", t.Id)
+//	    for _, block := range t.datastore.Blocks().List("", -1, query).Items {
+//            err := t.ignoreBlockTarget(block)
+//	        if err != nil {
+//	            return res, err
+//	        }
+//	    }
+//        err := t.datastore.Blocks().DeleteByThread(t.Id)
+//	    if err != nil {
+//	        return res, err
+//	    }
+//	    err = t.datastore.ThreadPeers().DeleteByThread(t.Id)
+//	    if err != nil {
+//	        return res, err
+//	    }
+//	    err = t.datastore.Notifications().DeleteBySubject(t.Id)
+//	    if err != nil {
+//	        return res, err
+//	    }
     } else {
         // do remove peer from local db
 	    err := t.datastore.ThreadPeers().Delete(msg.Target, t.Id)

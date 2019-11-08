@@ -462,11 +462,13 @@ func (t *Textile) RemoveThread(id string) (mh.Multihash, error) {
 	// delete backups
 	err = t.cafeOutbox.Add(thread.Id, pb.CafeRequest_UNSTORE_THREAD)
 	if err != nil {
+        log.Warning(err)
 		return nil, err
 	}
 
 	err = t.datastore.Threads().Delete(thread.Id)
 	if err != nil {
+        log.Warning(err)
 		return nil, err
 	}
 

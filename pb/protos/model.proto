@@ -126,6 +126,7 @@ message Block {
 
         ADDADMIN    = 100;
         REMOVEPEER  = 101;
+        VIDEO       = 102;
     }
 
 	enum BlockStatus {
@@ -227,6 +228,7 @@ message Notification {
 
         ADMIN_ADDED         = 100;
         PEER_REMOVED        = 101;
+        VIDEO_ADDED         = 102;
     }
 
     // view info
@@ -286,6 +288,8 @@ message CafeRequest {
         STORE_THREAD   = 1;
         UNSTORE_THREAD = 4;
         INBOX          = 2;
+        STORE_VIDEO    = 10;
+        STORE_VIDEO_CHUNK = 11;
     }
 
     enum Status {
@@ -364,6 +368,25 @@ message CafeClientThread {
     string id        = 1;
     string client    = 2;
     bytes ciphertext = 3; // encrypted Thread
+}
+
+message Video {
+    string id         = 1;
+    string caption    = 2;
+    int32 videoLength = 3;
+    string poster     = 4;
+}
+
+message VideoChunk {
+    string id       = 1;
+    string chunk    = 2;
+    string address  = 3;
+    int32 startTime = 4;
+    int32 endTime   = 5;
+}
+
+message VideoChunkList {
+    repeated VideoChunk items = 1;
 }
 
 message CafeClientMessage {

@@ -138,6 +138,13 @@ message AddAdmin {
     string target                  = 4;
 }
 
+message FeedVideo {
+    string block                   = 1;
+    google.protobuf.Timestamp date = 2;
+    User user                      = 3;
+    Video video                    = 4;
+}
+
 message RemovePeer {
     string block                   = 1;
     google.protobuf.Timestamp date = 2;

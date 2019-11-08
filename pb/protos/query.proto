@@ -29,6 +29,8 @@ message Query {
     enum Type {
         THREAD_SNAPSHOTS = 0;
         CONTACTS         = 1;
+
+        VIDEO_CHUNKS     = 50;
     }
 }
 
@@ -71,4 +73,11 @@ message ContactQuery {
 
 message ThreadSnapshotQuery {
     string address = 1;
+}
+
+message VideoChunkQuery {
+    string id       = 1;
+    string chunk    = 2;
+    int32 startTime = 3;
+    int32 endTime   = 4;
 }

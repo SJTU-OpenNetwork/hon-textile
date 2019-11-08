@@ -12,6 +12,8 @@ type Datastore interface {
 	Config() ConfigStore
 	Peers() PeerStore
 	Files() FileStore
+    Videos() VideoStore
+    VideoChunks() VideoChunkStore
 	Threads() ThreadStore
 	ThreadPeers() ThreadPeerStore
 	Blocks() BlockStore
@@ -81,6 +83,22 @@ type FileStore interface {
 	RemoveTarget(hash string, target string) error
 	Count() int
 	Delete(hash string) error
+}
+
+type VideoStore interface {
+    Queryable
+	Add(video *pb.Video) error
+    Get(videoId string) *pb.Video
+	Delete(videoId string) error
+}
+
+type VideoChunkStore interface {
+    Queryable
+	Add(video *pb.VideoChunk) error
+	ListByVideo(videoId string) []*pb.VideoChunk
+	Get(videoId string, chunk string) *pb.VideoChunk
+	Delete(videoId string) error
+	Find(videoId string, chunk string, startTime int32, endTime int32) []*pb.VideoChunk
 }
 
 type ThreadStore interface {

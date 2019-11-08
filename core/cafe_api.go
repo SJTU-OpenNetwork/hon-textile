@@ -116,6 +116,12 @@ func (c *cafeApi) start() {
 		threads.DELETE("/:id", c.unstoreThread)
 	}
 
+//    videos := v1.Group("/videos", c.validateToken)
+//    {
+//        videos.PUT("", c.storeVideo)
+//        videos.POST("", c.storeVideoChunk)
+//    }
+
 	inbox := v1.Group("/inbox")
 	{
 		inbox.GET("/:pid", c.validateToken, c.checkMessages)
@@ -178,7 +184,6 @@ func (c *cafeApi) stop() error {
 
 // validateToken aborts the request if the token is invalid
 func (c *cafeApi) validateToken(g *gin.Context) {
-    log.Debug("validateToken")
 	auth := strings.Split(g.Request.Header.Get("Authorization"), " ")
 	if len(auth) < 2 {
 		log.Warning("missing token")

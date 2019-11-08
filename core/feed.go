@@ -20,6 +20,7 @@ var flatFeedTypes = []pb.Block_BlockType{
 	pb.Block_LIKE,
 	pb.Block_ADDADMIN,
 	pb.Block_REMOVEPEER,
+	pb.Block_VIDEO,
 }
 
 var annotatedFeedTypes = []pb.Block_BlockType{
@@ -173,6 +174,8 @@ func (t *Textile) feedItem(block *pb.Block, opts feedItemOpts) (*pb.FeedItem, er
 		payload, err = t.addAdmin(block, opts)
 	case pb.Block_REMOVEPEER:
 		payload, err = t.removePeer(block, opts)
+	case pb.Block_VIDEO:
+		payload, err = t.feedVideo(block, opts)
 	default:
 		return nil, nil
 	}
@@ -310,6 +313,8 @@ func GetFeedItemPayload(item *pb.FeedItem) (FeedItemPayload, error) {
 		payload = new(pb.Like)
 	case pb.Block_ADDADMIN:
 		payload = new(pb.AddAdmin)
+	case pb.Block_VIDEO:
+		payload = new(pb.FeedVideo)
 	default:
 		return nil, fmt.Errorf("unable to parse payload")
 	}

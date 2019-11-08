@@ -181,6 +181,7 @@ func (t *Textile) SearchContacts(query *pb.ContactQuery, options *pb.QueryOption
 		for {
 			select {
 			case res, ok := <-resCh:
+                log.Debug("find Peer!")
 				if !ok {
 					close(tresCh)
 					return
@@ -189,6 +190,7 @@ func (t *Textile) SearchContacts(query *pb.ContactQuery, options *pb.QueryOption
 				peer := new(pb.Peer)
 				err := ptypes.UnmarshalAny(res.Value, peer)
 				if err != nil {
+                    log.Warning(err)
 					terrCh <- err
 					break
 				}
@@ -204,6 +206,7 @@ func (t *Textile) SearchContacts(query *pb.ContactQuery, options *pb.QueryOption
 
 				value, err := proto.Marshal(ensureContactUser(contacts[peer.Address]))
 				if err != nil {
+                    log.Warning(err)
 					terrCh <- err
 					break
 				}
@@ -213,6 +216,7 @@ func (t *Textile) SearchContacts(query *pb.ContactQuery, options *pb.QueryOption
 					TypeUrl: "/Contact",
 					Value:   value,
 				}
+                log.Debug("find peer with id: %s", res.Id)
 				tresCh <- res
 
 			case err := <-errCh:

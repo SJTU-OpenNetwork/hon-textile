@@ -56,9 +56,11 @@ func (m *Mobile) handleSearchStream(resultCh <-chan *pb.QueryResult, errCh <-cha
 
 			case res, ok := <-resultCh:
 				if !ok {
+                    log.Warning("wrror in handleSearchStream")
 					doneFn()
 					return
 				}
+                log.Debug("should notify")
 				m.notify(pb.MobileEventType_QUERY_RESPONSE, &pb.MobileQueryEvent{
 					Id:   id,
 					Type: pb.MobileQueryEvent_DATA,

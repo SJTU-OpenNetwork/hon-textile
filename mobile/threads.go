@@ -162,7 +162,12 @@ func (m *Mobile) ThreadAddAdmin(threadId string, peerId string) error {
 	if !m.node.Started() {
 		return core.ErrStopped
 	}
-    return m.node.ThreadAddAdmin(threadId, peerId)
+    err := m.node.ThreadAddAdmin(threadId, peerId)
+	if err != nil {
+		return err
+	}
+	m.node.FlushCafes()
+    return nil
 }
 
 // IsAdminById calls core IsAdminById
@@ -186,7 +191,12 @@ func (m *Mobile) ThreadRemovePeer(threadId string, peerId string) error {
 	if !m.node.Started() {
 		return core.ErrStopped
 	}
-    return m.node.ThreadRemovePeer(threadId, peerId)
+    err := m.node.ThreadRemovePeer(threadId, peerId)
+	if err != nil {
+		return err
+	}
+	m.node.FlushCafes()
+    return nil
 }
 
 // RemoveThread call core RemoveThread

@@ -26,6 +26,8 @@ type SQLiteDatastore struct {
 	config             repo.ConfigStore
 	peers              repo.PeerStore
 	files              repo.FileStore
+    videos             repo.VideoStore
+    videoChunks        repo.VideoChunkStore
 	threads            repo.ThreadStore
 	threadPeers        repo.ThreadPeerStore
 	blocks             repo.BlockStore
@@ -64,6 +66,8 @@ func Create(repoPath, pin string) (*SQLiteDatastore, error) {
 		config:             NewConfigStore(conn, lock, dbPath),
 		peers:              NewPeerStore(conn, lock),
 		files:              NewFileStore(conn, lock),
+		videos:             NewVideoStore(conn, lock),
+		videoChunks:        NewVideoChunkStore(conn, lock),
 		threads:            NewThreadStore(conn, lock),
 		threadPeers:        NewThreadPeerStore(conn, lock),
 		blocks:             NewBlockStore(conn, lock),
@@ -102,6 +106,14 @@ func (d *SQLiteDatastore) Peers() repo.PeerStore {
 
 func (d *SQLiteDatastore) Files() repo.FileStore {
 	return d.files
+}
+
+func (d *SQLiteDatastore) Videos() repo.VideoStore {
+	return d.videos
+}
+
+func (d *SQLiteDatastore) VideoChunks() repo.VideoChunkStore {
+	return d.videoChunks
 }
 
 func (d *SQLiteDatastore) Threads() repo.ThreadStore {
@@ -224,6 +236,12 @@ func initDatabaseTables(db *sql.DB, pin string) error {
     create table files (mill text not null, checksum text not null, source text not null, opts text not null, hash text not null, key text not null, media text not null, name text not null, size integer not null, added integer not null, meta blob, targets text, primary key (mill, checksum));
     create index file_hash on files (hash);
     create unique index file_mill_source_opts on files (mill, source, opts);
+
+    create table videos (id text not null, caption text not null, videoLength integer not null, poster text not null, primary key(id));
+    create index video_id on videos (id);
+
+    create table video_chunks (id text not null, chunk text not null, address text not null, startTime integer, endTime integer, primary key (id, chunk));
+    create unique index video_chunks_id on video_chunks (id, chunk);
 
     create table threads (id text primary key not null, key text not null, sk blob not null, name text not null, schema text not null, initiator text not null, type integer not null, state integer not null, head text not null, members text not null, sharing integer not null);
     create unique index thread_key on threads (key);

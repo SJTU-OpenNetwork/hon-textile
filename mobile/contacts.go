@@ -115,9 +115,11 @@ func (m *Mobile) SearchContacts(query []byte, options []byte) (*SearchHandle, er
 	}
 
 	resCh, errCh, cancel, err := m.node.SearchContacts(mquery, moptions)
-	if err != nil {
+	log.Debug("after search")
+    if err != nil {
+        log.Warning(err)
 		return nil, err
 	}
-
+    log.Debug("go to handleSearchStream")
 	return m.handleSearchStream(resCh, errCh, cancel)
 }

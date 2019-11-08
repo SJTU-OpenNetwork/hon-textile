@@ -87,3 +87,4 @@ message ThreadAddAdmin {
 message ThreadRemovePeer {
     string target = 1;
 }
+

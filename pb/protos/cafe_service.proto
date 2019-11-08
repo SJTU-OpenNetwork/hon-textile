@@ -90,6 +90,25 @@ message CafeUnstoreThreadAck {
     string id = 1;
 }
 
+message CafePublishVideo {
+    string token      = 1;
+    Video video       = 2;
+}
+
+message CafePublishVideoAck {
+    string id = 1;
+}
+
+message CafePublishVideoChunk {
+    string token     = 1;
+    VideoChunk chunk = 2;
+}
+
+message CafePublishVideoChunkAck {
+    string id      = 1;
+    string chunk   = 2;
+}
+
 message CafeDeliverMessage {
     string id     = 1;
     string client = 2;
