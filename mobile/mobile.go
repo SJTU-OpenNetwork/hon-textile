@@ -352,9 +352,7 @@ func (m *Mobile) notify(etype pb.MobileEventType, msg proto.Message) {
 			log.Error(err.Error())
 			return
 		}
-        log.Debug(data)
 	}
-    log.Debug(etype.String())
 	m.messenger.Notify(&Event{
 		Name: etype.String(),
 		Type: int32(etype),

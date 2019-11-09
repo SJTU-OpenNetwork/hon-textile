@@ -13,7 +13,7 @@ func (t *Textile) addAdmin(block *pb.Block, opts feedItemOpts) (*pb.AddAdmin, er
 		Block: block.Id,
 		Date:  block.Date,
 		User:  t.PeerUser(block.Author),
-	    Target:block.Target,
+	    Target:block.Body,
     }
 
 	return item, nil

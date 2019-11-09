@@ -211,6 +211,15 @@ func (h *ThreadsService) Handle(env *pb.Envelope, pid peer.ID) (*pb.Envelope, er
 	case pb.Block_LIKE:
 		note.Type = pb.Notification_LIKE_ADDED
 		note.Body = "added a like"
+    case pb.Block_REMOVEPEER:
+        note.Type = pb.Notification_PEER_REMOVED
+        note.Body = "removed a peer"
+    case pb.Block_ADDADMIN:
+        note.Type = pb.Notification_ADMIN_ADDED
+        note.Body = "add an admin"
+    case pb.Block_VIDEO:
+        note.Type = pb.Notification_VIDEO_ADDED
+        note.Body = "add a video"
 	default:
 		send = false
 	}

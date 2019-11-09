@@ -28,6 +28,8 @@ var annotatedFeedTypes = []pb.Block_BlockType{
 	pb.Block_LEAVE,
 	pb.Block_FILES,
 	pb.Block_TEXT,
+	pb.Block_REMOVEPEER,
+	pb.Block_VIDEO,
 }
 
 type feedStack struct {

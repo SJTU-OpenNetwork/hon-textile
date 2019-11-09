@@ -365,6 +365,8 @@ func (t *Thread) handle(bnode *blockNode, replace bool) (*pb.Block, error) {
         res, err = t.handleAddAdminBlock(block)
     case pb.Block_REMOVEPEER:
         res, err = t.handleRemovePeerBlock(block)
+    case pb.Block_VIDEO:
+        res, err = t.handleAddVideoBlock(block)
 	default:
 		err = fmt.Errorf("invalid type: %s", block.Type)
 	}
@@ -761,25 +763,31 @@ func (t *Thread) sendWelcome() error {
 
 // post publishes an encrypted message to thread peers
 func (t *Thread) post(index *pb.Block) error {
+    log.Debugf("posting block with type %d", index.Type)
 	nhash, err := t.commitNode(index, nil, index.Type != pb.Block_ADD)
 	if err != nil {
+        log.Warning(err)
 		return err
 	}
 	ndata, err := ipfs.ObjectAtPath(t.node(), nhash.B58String())
 	if err != nil {
+        log.Warning(err)
 		return err
 	}
 	ciphertext, err := ipfs.DataAtPath(t.node(), index.Id)
 	if err != nil {
+        log.Warning(err)
 		return err
 	}
 
 	sig, err := t.account.Sign(ciphertext)
 	if err != nil {
+        log.Warning(err)
 		return err
 	}
 	env, err := t.service().NewEnvelope(t.Id, ndata, ciphertext, sig)
 	if err != nil {
+        log.Warning(err)
 		return err
 	}
 
@@ -798,6 +806,7 @@ func (t *Thread) post(index *pb.Block) error {
         }
 		err = t.blockOutbox.Add(tp.Id, env)
 		if err != nil {
+            log.Warning(err)
 			return err
 		}
 	}

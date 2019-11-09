@@ -29,7 +29,7 @@ func (t *Thread) AddAdmin(peerId string) (mh.Multihash, error) {
 		Author: res.header.Author,
 		Type:   pb.Block_ADDADMIN,
 		Date:   res.header.Date,
-		Target: peerId,
+		Body:   peerId,
 		Status: pb.Block_QUEUED,
 	}, false)
 	if err != nil {
@@ -37,7 +37,6 @@ func (t *Thread) AddAdmin(peerId string) (mh.Multihash, error) {
 	}
 
     log.Debugf("added ADDADMIN to %s for %s", peerId, t.Id)
-
 	return res.hash, nil
 }
 
@@ -64,6 +63,7 @@ func (t *Thread) handleAddAdminBlock(block *pb.ThreadBlock) (handleResult, error
 	if err != nil {
 		return res, err
 	}
-
+    res.body = msg.Target
+    log.Debugf("handling add admin: %s", msg.Target)
 	return res, nil
 }

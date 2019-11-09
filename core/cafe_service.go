@@ -1201,6 +1201,26 @@ func (h *CafeService) handlePublishVideo(env *pb.Envelope, pid peer.ID) (*pb.Env
 		return h.service.NewError(500, err.Error(), env.Message.Request)
 	}
 
+    go func() {
+	    links, err := ipfs.LinksAtPath(h.service.Node(), store.Video.Poster)
+	    if err != nil {
+		    log.Warning(err)
+		    return
+	    }
+        for _, index := range links {
+            node, err := ipfs.NodeAtLink(h.service.Node(), index)
+	        if err != nil {
+		        log.Warning(err)
+		        return
+	        }
+            err = ipfs.PinNode(h.service.Node(), node, true)
+	        if err != nil {
+		        log.Warning(err)
+		        return
+            }
+	    }
+    }()
+
 	res := &pb.CafePublishVideoAck{
         Id:      store.Video.Id,
     }

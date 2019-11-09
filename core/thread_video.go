@@ -40,7 +40,6 @@ func (t *Thread) AddVideo(video *pb.Video) (mh.Multihash, error) {
 	}
 
     log.Debugf("added video %s, caption: %s", video.Id, video.Caption)
-
 	return res.hash, nil
 }
 
@@ -69,5 +68,11 @@ func (t *Thread) handleAddVideoBlock(block *pb.ThreadBlock) (handleResult, error
 		return res, err
 	}
 
+    body, err := proto.Marshal(msg)
+    if err != nil {
+        log.Warning(err)
+        return res, err
+    }
+    res.body = string(body)
 	return res, nil
 }
