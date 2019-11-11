@@ -65,3 +65,26 @@ func (m *Mobile) dataAtPath(pth string) ([]byte, string, error) {
 
 	return data, media, nil
 }
+
+// IpfsAddData is the async version of ipfsAddData
+func (m *Mobile) IpfsAddData(data []byte, pin bool, hashOnly bool, cb IpfsAddDataCallback) {
+	m.node.WaitAdd(1, "Mobile.IpfsAddData")
+	go func() {
+		defer m.node.WaitDone("Mobile.IpfsAddData")
+		cb.Call(m.ipfsAddData(data, pin, hashOnly))
+	}()
+}
+
+// ipfsAddData calls core AddData
+func (m *Mobile) ipfsAddData(data []byte, pin bool, hashOnly bool) (string, error) {
+	if !m.node.Started() {
+		return "", core.ErrStopped
+	}
+
+	path, err := m.node.AddData(data, pin, hashOnly)
+	if err != nil {
+		return "", err
+	}
+
+	return path, nil
+}

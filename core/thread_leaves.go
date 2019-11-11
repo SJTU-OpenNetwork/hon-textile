@@ -16,6 +16,27 @@ func (t *Thread) leave() (mh.Multihash, error) {
 		return nil, ErrNotReadable
 	}
 
+	// cleanup
+	query := fmt.Sprintf("threadId='%s'", t.Id)
+	for _, block := range t.datastore.Blocks().List("", -1, query).Items {
+        err := t.ignoreBlockTarget(block)
+		if err != nil {
+			return nil, err
+		}
+	}
+    err := t.datastore.Blocks().DeleteByThread(t.Id)
+	if err != nil {
+		return nil, err
+	}
+//	err = t.datastore.ThreadPeers().DeleteByThread(t.Id)
+//	if err != nil {
+//		return nil, err
+//	}
+	err = t.datastore.Notifications().DeleteBySubject(t.Id)
+	if err != nil {
+		return nil, err
+	}
+
 	res, err := t.commitBlock(nil, pb.Block_LEAVE, true, nil)
 	if err != nil {
 		return nil, err
@@ -32,28 +53,6 @@ func (t *Thread) leave() (mh.Multihash, error) {
 	if err != nil {
 		return nil, err
 	}
-
-	// cleanup
-	query := fmt.Sprintf("threadId='%s'", t.Id)
-	for _, block := range t.datastore.Blocks().List("", -1, query).Items {
-		err = t.ignoreBlockTarget(block)
-		if err != nil {
-			return nil, err
-		}
-	}
-	err = t.datastore.Blocks().DeleteByThread(t.Id)
-	if err != nil {
-		return nil, err
-	}
-	err = t.datastore.ThreadPeers().DeleteByThread(t.Id)
-	if err != nil {
-		return nil, err
-	}
-	err = t.datastore.Notifications().DeleteBySubject(t.Id)
-	if err != nil {
-		return nil, err
-	}
-
 	log.Debugf("added LEAVE to %s: %s", t.Id, res.hash.B58String())
 
 	return res.hash, nil

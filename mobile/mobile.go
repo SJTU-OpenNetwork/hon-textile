@@ -42,6 +42,11 @@ type DataCallback interface {
 	Call(data []byte, media string, err error)
 }
 
+// IpfsAddDataCallback is used for asyc methods that add raw data to ipfs
+type IpfsAddDataCallback interface {
+	Call(path string, err error)
+}
+
 // NewWallet creates a brand new wallet and returns its recovery phrase
 func NewWallet(wordCount int) (string, error) {
 	w, err := wallet.WalletFromWordCount(wordCount)

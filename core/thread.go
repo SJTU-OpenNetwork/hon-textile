@@ -766,28 +766,28 @@ func (t *Thread) post(index *pb.Block) error {
     log.Debugf("posting block with type %d", index.Type)
 	nhash, err := t.commitNode(index, nil, index.Type != pb.Block_ADD)
 	if err != nil {
-        log.Warning(err)
+        log.Error(err)
 		return err
 	}
 	ndata, err := ipfs.ObjectAtPath(t.node(), nhash.B58String())
 	if err != nil {
-        log.Warning(err)
+        log.Error(err)
 		return err
 	}
 	ciphertext, err := ipfs.DataAtPath(t.node(), index.Id)
 	if err != nil {
-        log.Warning(err)
+        log.Error(err)
 		return err
 	}
 
 	sig, err := t.account.Sign(ciphertext)
 	if err != nil {
-        log.Warning(err)
+        log.Error(err)
 		return err
 	}
 	env, err := t.service().NewEnvelope(t.Id, ndata, ciphertext, sig)
 	if err != nil {
-        log.Warning(err)
+        log.Error(err)
 		return err
 	}
 
@@ -806,10 +806,27 @@ func (t *Thread) post(index *pb.Block) error {
         }
 		err = t.blockOutbox.Add(tp.Id, env)
 		if err != nil {
-            log.Warning(err)
+            log.Error(err)
 			return err
 		}
 	}
+
+    // the remove peer block must be sent to the target
+    if index.Type == pb.Block_REMOVEPEER {
+		err = t.blockOutbox.Add(index.Body, env)
+		if err != nil {
+            log.Error(err)
+			return err
+		}
+    }
+
+    // clear thread peers after sending LEAVE message
+    if index.Type == pb.Block_LEAVE {
+	    err = t.datastore.ThreadPeers().DeleteByThread(t.Id)
+	    if err != nil {
+            log.Error(err)
+	    }
+    }
 
 	// delete add blocks as they are no longer needed
 	if index.Type == pb.Block_ADD {

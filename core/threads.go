@@ -440,7 +440,8 @@ func (t *Textile) ThreadNonAdmins(id string) (*pb.PeerList, error) {
 // RemoveThread removes a thread
 // @todo rename to abandon to be consistent with CLI+API
 func (t *Textile) RemoveThread(id string) (mh.Multihash, error) {
-	var thread *Thread
+	
+    var thread *Thread
 	var index int
 	for i, th := range t.loadedThreads {
 		if th.Id == id {

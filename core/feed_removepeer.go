@@ -13,7 +13,7 @@ func (t *Textile) removePeer(block *pb.Block, opts feedItemOpts) (*pb.RemovePeer
 		Block: block.Id,
 		Date:  block.Date,
 		User:  t.PeerUser(block.Author),
-	    Target:block.Target,
+	    Target:block.Body,
     }
 
 	return item, nil

@@ -1,6 +1,7 @@
 package core
 
 import (
+    "bytes"
 	"context"
 	"fmt"
 	"io"
@@ -657,6 +658,17 @@ func (t *Textile) RepoPath() string {
 // DataAtPath returns raw data behind an ipfs path
 func (t *Textile) DataAtPath(path string) ([]byte, error) {
 	return ipfs.DataAtPath(t.node, path)
+}
+
+// AddData add data to ipfs network
+func (t *Textile) AddData(data []byte, pin bool, hashOnly bool) (string, error) {
+    r := bytes.NewReader(data)
+    id, err := ipfs.AddData(t.node, r, pin, hashOnly)
+    if err != nil {
+        log.Error(err)
+        return "", err
+    }
+    return id.Hash().B58String(), nil
 }
 
 // LinksAtPath returns ipld links behind an ipfs path

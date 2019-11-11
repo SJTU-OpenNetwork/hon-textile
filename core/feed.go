@@ -28,7 +28,6 @@ var annotatedFeedTypes = []pb.Block_BlockType{
 	pb.Block_LEAVE,
 	pb.Block_FILES,
 	pb.Block_TEXT,
-	pb.Block_REMOVEPEER,
 	pb.Block_VIDEO,
 }
 
@@ -315,6 +314,8 @@ func GetFeedItemPayload(item *pb.FeedItem) (FeedItemPayload, error) {
 		payload = new(pb.Like)
 	case pb.Block_ADDADMIN:
 		payload = new(pb.AddAdmin)
+	case pb.Block_REMOVEPEER:
+		payload = new(pb.RemovePeer)
 	case pb.Block_VIDEO:
 		payload = new(pb.FeedVideo)
 	default:

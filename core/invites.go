@@ -217,7 +217,8 @@ func (t *Textile) handleThreadAdd(plaintext []byte, parents []string) (mh.Multih
 	}
 
 	// mark welcomed, sending a join soon
-	err = thread.addOrUpdatePeer(msg.Inviter, true, false)
+    isInitiator := msg.Thread.Initiator == msg.Inviter.Address
+	err = thread.addOrUpdatePeer(msg.Inviter, true, isInitiator)
 	if err != nil {
 		return nil, err
 	}

@@ -22,12 +22,10 @@ func (t *Thread) RemovePeer(peerId string) (mh.Multihash, error) {
 	err := t.datastore.ThreadPeers().Delete(peerId, t.Id)
 	if err != nil {
         log.Warning(ErrRemoveSelf)
-	//	return nil, err
 	}
 	err = t.datastore.Notifications().DeleteByActor(peerId)
 	if err != nil {
         log.Warning(err)
-	//	return nil, err
 	}
 
 	msg := &pb.ThreadRemovePeer{
@@ -45,11 +43,11 @@ func (t *Thread) RemovePeer(peerId string) (mh.Multihash, error) {
 		Author: res.header.Author,
 		Type:   pb.Block_REMOVEPEER,
 		Date:   res.header.Date,
-		Target: peerId,
 		Status: pb.Block_QUEUED,
+        Body:   peerId,
 	}, false)
 	if err != nil {
-        log.Warning(err)
+        log.Error(err)
 		return nil, err
 	}
 
@@ -104,13 +102,13 @@ func (t *Thread) handleRemovePeerBlock(block *pb.ThreadBlock) (handleResult, err
         // do remove peer from local db
 	    err := t.datastore.ThreadPeers().Delete(msg.Target, t.Id)
 	    if err != nil {
-		    return res, err
+		    log.Debug(err)
 	    }
 	    err = t.datastore.Notifications().DeleteByActor(msg.Target)
 	    if err != nil {
-		    return res, err
+		    log.Debug(err)
 	    }
     }
-    res.oldTarget = msg.Target
+    res.body = msg.Target
 	return res, nil
 }
