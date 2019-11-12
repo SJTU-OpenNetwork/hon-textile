@@ -88,3 +88,4 @@ func (m *Mobile) ipfsAddData(data []byte, pin bool, hashOnly bool) (string, erro
 
 	return path, nil
 }
+

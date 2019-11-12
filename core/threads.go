@@ -19,6 +19,7 @@ import (
 	"github.com/SJTU-OpenNetwork/hon-textile/repo/db"
 	"github.com/SJTU-OpenNetwork/hon-textile/schema/textile"
 	"github.com/SJTU-OpenNetwork/hon-textile/util"
+    "github.com/segmentio/ksuid"
 )
 
 // ErrThreadNotFound indicates thread is not found in the loaded list
@@ -497,6 +498,17 @@ func (t *Textile) ThreadByKey(key string) *Thread {
 	return nil
 }
 
+// ThreadByName get a thread by name from loaded threads
+// WILL BE REMOVED!!!!
+func (t *Textile) ThreadByName(name string) *Thread {
+	for _, thread := range t.loadedThreads {
+		if thread.Name == name {
+			return thread
+		}
+	}
+	return nil
+}
+
 // ThreadView returns a thread with expanded view properties
 func (t *Textile) ThreadView(id string) (*pb.Thread, error) {
 	thread := t.Thread(id)
@@ -613,6 +625,39 @@ func (t *Textile) SearchThreadSnapshots(query *pb.ThreadSnapshotQuery, options *
 	}()
 
 	return tresCh, terrCh, cancel, nil
+}
+
+func (t *Textile) StoreThread() *Thread {
+	return t.ThreadByName("!@#$1234StoreThread")
+}
+
+func (t *Textile) addStoreThread() error {
+    x := t.StoreThread()
+    if x != nil {
+        return nil
+    }
+	sf, err := t.AddSchema(textile.Blob, "store")
+	if err != nil {
+		return err
+	}
+    key := ksuid.New().String()
+    log.Debugf("=====key: %s", key)
+	config := pb.AddThreadConfig{
+		Key:  ksuid.New().String(),
+		Name: "!@#$1234StoreThread",
+		Schema: &pb.AddThreadConfig_Schema{
+			Id: sf.Hash,
+		},
+		Type:    pb.Thread_OPEN,
+		Sharing: pb.Thread_SHARED,
+        Whitelist: []string{},
+	}
+	sk, err := t.account.LibP2PPrivKey()
+	if err != nil {
+		return err
+	}
+	_, err = t.AddThread(config, sk, t.account.Address(), true, false)
+    return err
 }
 
 // addAccountThread adds a thread with seed representing the state of the account

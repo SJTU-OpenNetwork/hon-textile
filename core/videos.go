@@ -12,7 +12,9 @@ import (
 var ErrVideoNotFound = fmt.Errorf("video not found")
 
 func (t *Textile) AddVideo(video *pb.Video) error {
+    log.Debug("In AddVideo")
     err := t.datastore.Videos().Add(video)
+    log.Debug("After Datastore AddVideo")
 	if err != nil {
         log.Debug("should not get here!")
 		return err
@@ -95,7 +97,8 @@ func (t *Textile) RemoveVideo(id string) error {
 
 // SearchVideoChunks searches the network for videoChunks
 func (t *Textile) SearchVideoChunks(query *pb.VideoChunkQuery, options *pb.QueryOptions) (<-chan *pb.QueryResult, <-chan error, *broadcast.Broadcaster, error) {
-	payload, err := proto.Marshal(query)
+	log.Debug("in searchVideoChunks")
+    payload, err := proto.Marshal(query)
 	if err != nil {
 		return nil, nil, nil, err
 	}
@@ -104,7 +107,7 @@ func (t *Textile) SearchVideoChunks(query *pb.VideoChunkQuery, options *pb.Query
 	options.Filter = pb.QueryOptions_HIDE_OLDER
 
 	resCh, errCh, cancel := t.search(&pb.Query{
-		Type:    pb.Query_CONTACTS,
+		Type:    pb.Query_VIDEO_CHUNKS,
 		Options: options,
 		Payload: &any.Any{
 			TypeUrl: "/VideoChunkQuery",

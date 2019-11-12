@@ -364,3 +364,4 @@ func (m *Mobile) notify(etype pb.MobileEventType, msg proto.Message) {
 		Data: data,
 	})
 }
+

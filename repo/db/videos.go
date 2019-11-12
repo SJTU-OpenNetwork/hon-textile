@@ -18,18 +18,21 @@ func NewVideoStore(db *sql.DB, lock *sync.Mutex) repo.VideoStore {
 
 func (c *VideoDB) Add(video *pb.Video) error {
 	c.lock.Lock()
-	defer c.lock.Unlock()
+	log.Debug("Get Lock")
+    defer c.lock.Unlock()
 	tx, err := c.db.Begin()
 	if err != nil {
 		return err
 	}
 
-    v := c.Get(video.Id)
-    if v != nil {
+	stm := "select * from videos where id='" + video.Id + "';"
+    res := c.handleQuery(stm)
+    if len(res) > 0 {
         return nil
     }
 
-	stm := `insert into videos(id, caption, videoLength, poster) values(?,?,?,?)`
+	log.Debug("After Search")
+	stm = `insert into videos(id, caption, videoLength, poster) values(?,?,?,?)`
 	stmt, err := tx.Prepare(stm)
 	if err != nil {
 		log.Errorf("error in tx prepare: %s", err)

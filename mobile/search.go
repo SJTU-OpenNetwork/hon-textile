@@ -56,7 +56,7 @@ func (m *Mobile) handleSearchStream(resultCh <-chan *pb.QueryResult, errCh <-cha
 
 			case res, ok := <-resultCh:
 				if !ok {
-                    log.Warning("wrror in handleSearchStream")
+                    log.Warning("error in handleSearchStream")
 					doneFn()
 					return
 				}

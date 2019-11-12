@@ -479,6 +479,12 @@ func (t *Textile) Start() error {
 	log.Infof("peer id: %s", t.node.Identity.Pretty())
 	log.Infof("account address: %s", t.account.Address())
 
+//    err = t.addStoreThread()
+//    if err != nil {
+//        log.Error(err)
+//        return err
+//    }
+
 	return t.addAccountThread()
 }
 

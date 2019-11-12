@@ -862,6 +862,30 @@ func TestMobile_SearchContacts(t *testing.T) {
 	handle.Cancel()
 }
 
+func TestMobile_SearchVideoChunks(t *testing.T) {
+	query, err := proto.Marshal(&pb.VideoChunkQuery{Id: "FC7506C88119BEC55B069DD4C3A388084767274B9E71BFF1826AE6C0F5C6E078"})
+	if err != nil {
+		t.Fatal(err)
+	}
+	opts, err := proto.Marshal(&pb.QueryOptions{
+		Wait:  10,
+		Limit: 10,
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	handle, err := testVars.mobile1.SearchVideoChunks(query, opts)
+	if err != nil {
+		t.Fatal(err)
+	}
+	fmt.Println(fmt.Sprintf("query ID: %s", handle.Id))
+
+	timer := time.NewTimer(3 * time.Second)
+	<-timer.C
+
+	handle.Cancel()
+}
+
 func TestMobile_Stop(t *testing.T) {
 	thrd, err := addTestThread(testVars.mobile1, &pb.AddThreadConfig{
 		Key:  ksuid.New().String(),

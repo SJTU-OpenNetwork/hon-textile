@@ -25,12 +25,13 @@ func (c *VideoChunkDB) Add(video *pb.VideoChunk) error {
 		return err
 	}
 	
-    ch := c.Get(video.Id, video.Chunk)
-    if ch != nil {
+	stm := "select * from video_chunks where id='" + video.Id + "' and chunk='" + video.Chunk + "';"
+    res := c.handleQuery(stm)
+	if len(res) > 0 {
         return nil
     }
     
-    stm := `insert into video_chunks(id, chunk, address, startTime, endTime) values(?,?,?,?,?)`
+    stm = `insert into video_chunks(id, chunk, address, startTime, endTime) values(?,?,?,?,?)`
 	stmt, err := tx.Prepare(stm)
 	if err != nil {
 		log.Errorf("error in tx prepare: %s", err)
@@ -81,20 +82,25 @@ func (c *VideoChunkDB) Find(videoId string, chunk string, startTime int32, endTi
         return nil
     }
     if chunk == "" && startTime == -1 && endTime == -1 {
+        log.Debug("find all!")
         return c.ListByVideo(videoId)
     }
     if chunk != "" {
+        log.Debug("find chunk!")
 	    stm := fmt.Sprintf("select * from video_chunks where id='%s' and chunk='%s'", videoId, chunk)
 	    return c.handleQuery(stm)
     }
     if startTime == -1 {
+        log.Debug("find according to endTime!")
 	    stm := fmt.Sprintf("select * from video_chunks where id='%s' and endTime<=%d;", videoId, endTime)
         return c.handleQuery(stm)
     }
     if endTime == -1 {
+        log.Debug("find according to startTime!")
 	    stm := fmt.Sprintf("select * from video_chunks where id='%s' and startTime>=%d;", videoId, startTime)
         return c.handleQuery(stm)
     }
+    log.Debug("find according to time!")
 	stm := fmt.Sprintf("select * from video_chunks where id='%s' and startTime>=%d and endTime<=%d;", videoId, startTime, endTime)
     return c.handleQuery(stm)
 

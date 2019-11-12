@@ -362,6 +362,7 @@ func (h *CafeService) Search(query *pb.Query, cafeId string, reply func(*pb.Quer
 	}
 
 	addr := fmt.Sprintf("%s/api/%s/search", session.Cafe.Url, session.Cafe.Api)
+    log.Debug(addr)
 	renvCh, errCh, cancel := h.service.SendHTTPStreamRequest(addr, env, session.Access)
 	cancelFn := func() {
 		if cancel != nil {
@@ -1169,24 +1170,30 @@ func (h *CafeService) handlePublishVideoChunk(env *pb.Envelope, pid peer.ID) (*p
 //            }
 //	    }
 //    }()
+
 	links, err := ipfs.LinksAtPath(h.service.Node(), store.Chunk.Address)
 	if err == nil {
+        log.Debug("get links")
         for _, index := range links {
             node, err := ipfs.NodeAtLink(h.service.Node(), index)
 	        if err != nil {
-	            log.Warning(err)
+	            log.Error(err)
 	        }
             err = ipfs.PinNode(h.service.Node(), node, true)
 	        if err != nil {
-	            log.Warning(err)
+	            log.Error(err)
             }
+            log.Debug("After pin node")
         }
+    } else {
+        log.Error(err)
     }
 
 	res := &pb.CafePublishVideoChunkAck{
         Id:      store.Chunk.Id,
         Chunk:   store.Chunk.Chunk,
     }
+    
 	return h.service.NewEnvelope(pb.Message_CAFE_PUBLISH_VIDEO_CHUNK_ACK, res, &env.Message.Request, true)
 }
 
@@ -1210,6 +1217,7 @@ func (h *CafeService) handlePublishVideo(env *pb.Envelope, pid peer.ID) (*pb.Env
 		return h.service.NewError(403, errForbidden, env.Message.Request)
 	}
 
+    log.Debug("Add Video, %s", store.Video.Id)
 	err = h.datastore.Videos().Add(store.Video)
 	if err != nil {
         log.Warning(err)
@@ -1236,15 +1244,15 @@ func (h *CafeService) handlePublishVideo(env *pb.Envelope, pid peer.ID) (*pb.Env
    // }()
 	
     links, err := ipfs.LinksAtPath(h.service.Node(), store.Video.Poster)
-	if err == nil {
+    if err == nil {
         for _, index := range links {
             node, err := ipfs.NodeAtLink(h.service.Node(), index)
-	        if err != nil {
-	            log.Warning(err)
-	        }
+            if err != nil {
+                log.Error(err)
+            }
             err = ipfs.PinNode(h.service.Node(), node, true)
-	        if err != nil {
-	            log.Warning(err)
+            if err != nil {
+                log.Error(err)
             }
         }
     }
