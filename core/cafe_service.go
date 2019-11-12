@@ -351,7 +351,8 @@ func (h *CafeService) PublishVideoChunk(vchunk *pb.VideoChunk, cafeId string) er
 
 // Search performs a query via a cafe
 func (h *CafeService) Search(query *pb.Query, cafeId string, reply func(*pb.QueryResult), cancelCh <-chan interface{}) error {
-	session := h.datastore.CafeSessions().Get(cafeId)
+	log.Debug("in search")
+    session := h.datastore.CafeSessions().Get(cafeId)
 	if session == nil {
 		return fmt.Errorf("could not find session for cafe %s", cafeId)
 	}
