@@ -11,20 +11,12 @@ func (t *Thread) AddVideo(video *pb.Video) (mh.Multihash, error) {
 	t.lock.Lock()
 	defer t.lock.Unlock()
 
-    err := t.datastore.Videos().Add(video)
-	if err != nil {
-		return nil, err
-	}
-
 	res, err := t.commitBlock(video, pb.Block_VIDEO, true, nil)
 	if err != nil {
 		return nil, err
 	}
 
-    body, err := proto.Marshal(video)
-	if err != nil {
-		return nil, err
-	}
+    body := proto.MarshalTextString(video)
 
     err = t.indexBlock(&pb.Block{
 		Id:     res.hash.B58String(),
@@ -32,7 +24,7 @@ func (t *Thread) AddVideo(video *pb.Video) (mh.Multihash, error) {
 		Author: res.header.Author,
 		Type:   pb.Block_VIDEO,
 		Date:   res.header.Date,
-        Body:   string(body),
+        Body:   body,
 		Status: pb.Block_QUEUED,
 	}, false)
 	if err != nil {
@@ -65,14 +57,10 @@ func (t *Thread) handleAddVideoBlock(block *pb.ThreadBlock) (handleResult, error
 
 	err := t.datastore.Videos().Add(msg)
 	if err != nil {
-		return res, err
+        log.Warning(err)
 	}
 
-    body, err := proto.Marshal(msg)
-    if err != nil {
-        log.Warning(err)
-        return res, err
-    }
-    res.body = string(body)
+    body := proto.MarshalTextString(msg)
+    res.body = body
 	return res, nil
 }

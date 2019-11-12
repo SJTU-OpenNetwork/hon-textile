@@ -23,6 +23,12 @@ func (c *VideoDB) Add(video *pb.Video) error {
 	if err != nil {
 		return err
 	}
+
+    v := c.Get(video.Id)
+    if v != nil {
+        return nil
+    }
+
 	stm := `insert into videos(id, caption, videoLength, poster) values(?,?,?,?)`
 	stmt, err := tx.Prepare(stm)
 	if err != nil {

@@ -13,6 +13,8 @@ import (
 	"github.com/SJTU-OpenNetwork/hon-textile/mill"
 	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 	"github.com/SJTU-OpenNetwork/hon-textile/schema/textile"
+
+    "github.com/golang/protobuf/proto"
 )
 
 var vars = struct {
@@ -265,6 +267,27 @@ func TestTextile_RenameThread(t *testing.T) {
 	if thrd.Name != "new name" {
 		t.Fatal("error renaming thread")
 	}
+}
+
+func TestVideoMarshal(t *testing.T) {
+    video := &pb.Video {
+        Id: "123",
+        Caption: "test",
+        VideoLength: 1000,
+        Poster: "poster",
+    }
+
+    body := proto.MarshalTextString(video)
+
+    video2 := new(pb.Video)
+    err := proto.UnmarshalText(body, video2)
+    if err != nil {
+        t.Fatalf("error unmarshal video")
+    }
+
+    if video2.Poster != video.Poster {
+        t.Fatalf("Error in unmarshal")
+    }
 }
 
 func TestTextile_AddFile(t *testing.T) {

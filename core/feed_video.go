@@ -11,7 +11,7 @@ func (t *Textile) feedVideo(block *pb.Block, opts feedItemOpts) (*pb.FeedVideo, 
 	}
 
     msg := new(pb.Video)
-	err := proto.Unmarshal([]byte(block.Body), msg)
+	err := proto.UnmarshalText(block.Body, msg)
 	if err != nil {
 		return nil, err
 	}

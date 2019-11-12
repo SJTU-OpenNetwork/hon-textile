@@ -12,13 +12,9 @@ import (
 var ErrVideoNotFound = fmt.Errorf("video not found")
 
 func (t *Textile) AddVideo(video *pb.Video) error {
-	v := t.datastore.Videos().Get(video.Id)
-    if v != nil {
-        return nil
-    }
-
     err := t.datastore.Videos().Add(video)
 	if err != nil {
+        log.Debug("should not get here!")
 		return err
 	}
 	return nil
@@ -74,6 +70,7 @@ func (t *Textile) AddVideoChunk(vchunk *pb.VideoChunk) error {
 
     err := t.datastore.VideoChunks().Add(vchunk)
 	if err != nil {
+        log.Debug("should not get here!")
 		return err
 	}
 	return nil

@@ -1144,30 +1144,44 @@ func (h *CafeService) handlePublishVideoChunk(env *pb.Envelope, pid peer.ID) (*p
 		return h.service.NewError(403, errForbidden, env.Message.Request)
 	}
 
+    log.Debugf("Adding video %s, chunk %s", store.Chunk.Id, store.Chunk.Chunk)
 	err = h.datastore.VideoChunks().Add(store.Chunk)
 	if err != nil {
-		return h.service.NewError(500, err.Error(), env.Message.Request)
+        log.Warning(err)
 	}
 
-    go func() {
-	    links, err := ipfs.LinksAtPath(h.service.Node(), store.Chunk.Address)
-	    if err != nil {
-		    log.Warning(err)
-		    return
-	    }
+//    go func() {
+//	    links, err := ipfs.LinksAtPath(h.service.Node(), store.Chunk.Address)
+//	    if err != nil {
+//		    log.Warning(err)
+//		    return
+//	    }
+//        for _, index := range links {
+//            node, err := ipfs.NodeAtLink(h.service.Node(), index)
+//	        if err != nil {
+//		        log.Warning(err)
+//		        return
+//	        }
+//            err = ipfs.PinNode(h.service.Node(), node, true)
+//	        if err != nil {
+//		        log.Warning(err)
+//		        return
+//            }
+//	    }
+//    }()
+	links, err := ipfs.LinksAtPath(h.service.Node(), store.Chunk.Address)
+	if err == nil {
         for _, index := range links {
             node, err := ipfs.NodeAtLink(h.service.Node(), index)
 	        if err != nil {
-		        log.Warning(err)
-		        return
+	            log.Warning(err)
 	        }
             err = ipfs.PinNode(h.service.Node(), node, true)
 	        if err != nil {
-		        log.Warning(err)
-		        return
+	            log.Warning(err)
             }
-	    }
-    }()
+        }
+    }
 
 	res := &pb.CafePublishVideoChunkAck{
         Id:      store.Chunk.Id,
@@ -1198,29 +1212,42 @@ func (h *CafeService) handlePublishVideo(env *pb.Envelope, pid peer.ID) (*pb.Env
 
 	err = h.datastore.Videos().Add(store.Video)
 	if err != nil {
-		return h.service.NewError(500, err.Error(), env.Message.Request)
+        log.Warning(err)
 	}
 
-    go func() {
-	    links, err := ipfs.LinksAtPath(h.service.Node(), store.Video.Poster)
-	    if err != nil {
-		    log.Warning(err)
-		    return
-	    }
+   // go func() {
+   //     links, err := ipfs.LinksAtPath(h.service.Node(), store.Video.Poster)
+   //     if err != nil {
+   // 	    log.Warning(err)
+   // 	    return
+   //     }
+   //     for _, index := range links {
+   //         node, err := ipfs.NodeAtLink(h.service.Node(), index)
+   //         if err != nil {
+   // 	        log.Warning(err)
+   // 	        return
+   //         }
+   //         err = ipfs.PinNode(h.service.Node(), node, true)
+   //         if err != nil {
+   // 	        log.Warning(err)
+   // 	        return
+   //         }
+   //     }
+   // }()
+	
+    links, err := ipfs.LinksAtPath(h.service.Node(), store.Video.Poster)
+	if err == nil {
         for _, index := range links {
             node, err := ipfs.NodeAtLink(h.service.Node(), index)
 	        if err != nil {
-		        log.Warning(err)
-		        return
+	            log.Warning(err)
 	        }
             err = ipfs.PinNode(h.service.Node(), node, true)
 	        if err != nil {
-		        log.Warning(err)
-		        return
+	            log.Warning(err)
             }
-	    }
-    }()
-
+        }
+    }
 	res := &pb.CafePublishVideoAck{
         Id:      store.Video.Id,
     }

@@ -96,12 +96,12 @@ func Init(repoPath string, mobile bool, server bool) error {
 
 func InitPrivate(repoPath string, mobile bool, server bool) error {
 	// write swarm key
-    err := writeSwarmKey(repoPath)
+    err := Init(repoPath, mobile, server)
     if err != nil {
         return err
     }
 
-    return Init(repoPath, mobile, server)
+    return writeSwarmKey(repoPath)
 }
 
 //Write the swarm key for ipfs private network
