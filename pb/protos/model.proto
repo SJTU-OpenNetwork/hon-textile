@@ -167,6 +167,29 @@ message InviteList {
 
 // FILES //
 
+message SyncFile {
+    string peerAddress = 1;
+    string file        = 2;
+    Type type          = 3;
+    google.protobuf.Timestamp date = 4;
+    Operation operation = 5;
+
+    enum Type {
+        BLOB  = 0;
+        PHOTO = 1;
+        VIDEO = 2;
+    }
+
+    enum Operation {
+        ADD = 0;
+        REMOVE = 1;
+    }
+}
+
+message SyncFileList {
+    repeated SyncFile items = 1;
+}
+
 message FileIndex {
     string mill                     = 1;
     string checksum                 = 2;
@@ -288,8 +311,6 @@ message CafeRequest {
         STORE_THREAD   = 1;
         UNSTORE_THREAD = 4;
         INBOX          = 2;
-        STORE_VIDEO    = 10;
-        STORE_VIDEO_CHUNK = 11;
     }
 
     enum Status {
@@ -373,7 +394,7 @@ message CafeClientThread {
 message Video {
     string id         = 1;
     string caption    = 2;
-    int32 videoLength = 3;
+    int64 videoLength = 3;
     string poster     = 4;
 }
 
@@ -381,8 +402,8 @@ message VideoChunk {
     string id       = 1;
     string chunk    = 2;
     string address  = 3;
-    int32 startTime = 4;
-    int32 endTime   = 5;
+    int64 startTime = 4;
+    int64 endTime   = 5;
 }
 
 message VideoChunkList {

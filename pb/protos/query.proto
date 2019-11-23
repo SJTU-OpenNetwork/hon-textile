@@ -4,6 +4,7 @@ option go_package = "pb";
 
 import "google/protobuf/any.proto";
 import "google/protobuf/timestamp.proto";
+import "model.proto";
 
 message QueryOptions {
     bool localOnly          = 1; // local only
@@ -31,6 +32,8 @@ message Query {
         CONTACTS         = 1;
 
         VIDEO_CHUNKS     = 50;
+        VIDEO            = 51;
+        SYNC_FILE        = 52;
     }
 }
 
@@ -80,4 +83,13 @@ message VideoChunkQuery {
     string chunk    = 2;
     int32 startTime = 3;
     int32 endTime   = 4;
+}
+
+message VideoQuery {
+    string id = 1;
+}
+
+message SyncFileQuery {
+    string address = 1;
+    SyncFile.Type type = 2; 
 }

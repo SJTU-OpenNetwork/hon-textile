@@ -95,6 +95,27 @@ func (t *Textile) RemoveVideo(id string) error {
     return t.datastore.Videos().Delete(id)
 }
 
+// SearchVideo searches the network for a video
+func (t *Textile) SearchVideo(query *pb.VideoQuery, options *pb.QueryOptions) (<-chan *pb.QueryResult, <-chan error, *broadcast.Broadcaster, error) {
+	log.Debug("in searchVideo")
+    payload, err := proto.Marshal(query)
+	if err != nil {
+		return nil, nil, nil, err
+	}
+
+	options.Filter = pb.QueryOptions_HIDE_OLDER
+
+	resCh, errCh, cancel := t.search(&pb.Query{
+		Type:    pb.Query_VIDEO,
+		Options: options,
+		Payload: &any.Any{
+			TypeUrl: "/VideoQuery",
+			Value:   payload,
+		},
+	})
+	return resCh, errCh, cancel, nil
+}
+
 // SearchVideoChunks searches the network for videoChunks
 func (t *Textile) SearchVideoChunks(query *pb.VideoChunkQuery, options *pb.QueryOptions) (<-chan *pb.QueryResult, <-chan error, *broadcast.Broadcaster, error) {
 	log.Debug("in searchVideoChunks")
@@ -103,10 +124,9 @@ func (t *Textile) SearchVideoChunks(query *pb.VideoChunkQuery, options *pb.Query
 		return nil, nil, nil, err
 	}
 
-	// settings required for contacts
 	options.Filter = pb.QueryOptions_HIDE_OLDER
 
-	resCh, errCh, cancel := t.search(&pb.Query{
+	resCh, errCh, cancel := t.searchAll(&pb.Query{
 		Type:    pb.Query_VIDEO_CHUNKS,
 		Options: options,
 		Payload: &any.Any{
@@ -122,6 +142,7 @@ func (t *Textile) ChunksByVideoId(videoId string) *pb.VideoChunkList {
 	for _, c := range t.datastore.VideoChunks().ListByVideo(videoId) {
 		vchunks.Items = append(vchunks.Items, c)
 	}
+    log.Debugf ("chunk length: %d", len(vchunks.Items))
     return vchunks
 }
 

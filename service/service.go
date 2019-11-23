@@ -459,6 +459,10 @@ func (srv *Service) handleNewMessage(s inet.Stream) bool {
 	}
 }
 
+func (srv *Service) Listen(tag string) {
+    srv.listen(tag)
+}
+
 // listen subscribes to a tag for network-wide requests
 func (srv *Service) listen(tag string) {
 	topic := string(srv.handler.Protocol())

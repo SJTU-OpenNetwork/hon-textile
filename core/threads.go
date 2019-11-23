@@ -164,6 +164,9 @@ func (t *Textile) AddThread(conf pb.AddThreadConfig, sk libp2pc.PrivKey, initiat
 		}
 	}
 
+    // subscribe thread messages
+    t.threads.ListenOneThread(thread.Id)
+
 	log.Debugf("added a new thread %s with name %s", thread.Id, conf.Name)
 
 	return thread, nil

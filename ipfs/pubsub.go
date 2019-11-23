@@ -55,6 +55,11 @@ func Subscribe(node *core.IpfsNode, ctx context.Context, topic string, discover 
 	}
 }
 
+
+func ConnectToTopicReceiver(node *core.IpfsNode, ctx context.Context, topic string) error {
+    return connectToTopicReceiver(node, ctx, topic)
+}
+
 // connectToTopicReceiver attempts to connect with a pubsub topic's receiver
 func connectToTopicReceiver(node *core.IpfsNode, ctx context.Context, topic string) error {
 	api, err := coreapi.NewCoreAPI(node)

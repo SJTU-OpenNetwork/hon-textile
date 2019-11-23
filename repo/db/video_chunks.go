@@ -82,25 +82,20 @@ func (c *VideoChunkDB) Find(videoId string, chunk string, startTime int32, endTi
         return nil
     }
     if chunk == "" && startTime == -1 && endTime == -1 {
-        log.Debug("find all!")
         return c.ListByVideo(videoId)
     }
     if chunk != "" {
-        log.Debug("find chunk!")
 	    stm := fmt.Sprintf("select * from video_chunks where id='%s' and chunk='%s'", videoId, chunk)
 	    return c.handleQuery(stm)
     }
     if startTime == -1 {
-        log.Debug("find according to endTime!")
 	    stm := fmt.Sprintf("select * from video_chunks where id='%s' and endTime<=%d;", videoId, endTime)
         return c.handleQuery(stm)
     }
     if endTime == -1 {
-        log.Debug("find according to startTime!")
 	    stm := fmt.Sprintf("select * from video_chunks where id='%s' and startTime>=%d;", videoId, startTime)
         return c.handleQuery(stm)
     }
-    log.Debug("find according to time!")
 	stm := fmt.Sprintf("select * from video_chunks where id='%s' and startTime>=%d and endTime<=%d;", videoId, startTime, endTime)
     return c.handleQuery(stm)
 
@@ -129,5 +124,6 @@ func (c *VideoChunkDB) handleQuery(stm string) []*pb.VideoChunk {
             EndTime:   endTime,
 		})
 	}
+    log.Debug("DB: in search video chunk, got %d", len(list))
 	return list
 }

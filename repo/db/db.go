@@ -28,6 +28,7 @@ type SQLiteDatastore struct {
 	files              repo.FileStore
     videos             repo.VideoStore
     videoChunks        repo.VideoChunkStore
+    syncFiles          repo.SyncFileStore
 	threads            repo.ThreadStore
 	threadPeers        repo.ThreadPeerStore
 	blocks             repo.BlockStore
@@ -68,6 +69,7 @@ func Create(repoPath, pin string) (*SQLiteDatastore, error) {
 		files:              NewFileStore(conn, lock),
 		videos:             NewVideoStore(conn, lock),
 		videoChunks:        NewVideoChunkStore(conn, lock),
+        syncFiles:          NewSyncFileStore(conn, lock),
 		threads:            NewThreadStore(conn, lock),
 		threadPeers:        NewThreadPeerStore(conn, lock),
 		blocks:             NewBlockStore(conn, lock),
@@ -114,6 +116,10 @@ func (d *SQLiteDatastore) Videos() repo.VideoStore {
 
 func (d *SQLiteDatastore) VideoChunks() repo.VideoChunkStore {
 	return d.videoChunks
+}
+
+func (d *SQLiteDatastore) SyncFiles() repo.SyncFileStore {
+	return d.syncFiles
 }
 
 func (d *SQLiteDatastore) Threads() repo.ThreadStore {
@@ -242,6 +248,8 @@ func initDatabaseTables(db *sql.DB, pin string) error {
 
     create table video_chunks (id text not null, chunk text not null, address text not null, startTime integer, endTime integer, primary key (id, chunk));
     create unique index video_chunks_id on video_chunks (id, chunk);
+
+    create table sync_files (peer_address text not null, file text not null, type integer not null, date integer not null, operation integer not null);
 
     create table threads (id text primary key not null, key text not null, sk blob not null, name text not null, schema text not null, initiator text not null, type integer not null, state integer not null, head text not null, members text not null, sharing integer not null);
     create unique index thread_key on threads (key);

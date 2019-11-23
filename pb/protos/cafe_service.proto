@@ -99,14 +99,31 @@ message CafePublishVideoAck {
     string id = 1;
 }
 
+message CafeSendFile {
+    string name = 1;
+    int32 size = 2;
+    bytes data = 3;
+}
+
 message CafePublishVideoChunk {
     string token     = 1;
     VideoChunk chunk = 2;
+    CafeSendFile file = 3;
 }
 
 message CafePublishVideoChunkAck {
     string id      = 1;
     string chunk   = 2;
+}
+
+message CafeSyncFile {
+    string token = 1;
+    SyncFile file = 2;
+}
+
+message CafeSyncFileAck {
+    string peerAddress = 1;
+    string file = 2;
 }
 
 message CafeDeliverMessage {

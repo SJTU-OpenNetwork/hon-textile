@@ -886,6 +886,20 @@ func TestMobile_SearchVideoChunks(t *testing.T) {
 	handle.Cancel()
 }
 
+func TestMobile_SearchVideoChunksById(t *testing.T) {
+    vc, err := testVars.mobile1.ChunksByVideoId("FC7506C88119BEC55B069DD4C3A388084767274B9E71BFF1826AE6C0F5C6E078")
+    if err != nil {
+		t.Fatal(err)
+	}
+
+    chunklist := new (pb.VideoChunkList)
+    err = proto.Unmarshal(vc, chunklist)
+	if err != nil {
+		t.Fatal(err)
+	}
+    fmt.Println(fmt.Sprintf("=======Jerry: %d", len(chunklist.Items)))
+}
+
 func TestMobile_Stop(t *testing.T) {
 	thrd, err := addTestThread(testVars.mobile1, &pb.AddThreadConfig{
 		Key:  ksuid.New().String(),

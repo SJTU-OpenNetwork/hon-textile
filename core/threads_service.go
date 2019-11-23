@@ -31,7 +31,7 @@ var ErrInvalidThreadBlock = fmt.Errorf("invalid thread block")
 const threadsServiceProtocol = protocol.ID("/textile/threads/2.0.0")
 
 // sendMessageTimeout is the duration to wait on a message ack before bailing to an inbox
-const sendMessageTimeout = time.Millisecond * time.Duration(2500)
+const sendMessageTimeout = time.Millisecond * time.Duration(500)
 
 // ThreadService is a libp2p service for orchestrating a collection of files
 // with annotations amongst a group of peers
@@ -76,6 +76,19 @@ func (h *ThreadsService) Protocol() protocol.ID {
 // Start begins online services
 func (h *ThreadsService) Start() {
 	h.service.Start()
+    h.ListenThreads() //Subscribe topic for each thread
+}
+
+// Subscribe topic for each thread
+func (h *ThreadsService) ListenThreads() {
+    threads := h.datastore.Threads().List()
+    for _, thd := range threads.Items {
+	    go h.service.Listen("Thread/"+thd.Id)
+    }
+}
+
+func (h *ThreadsService) ListenOneThread(threadId string) {
+	go h.service.Listen("Thread/"+threadId)
 }
 
 // Ping pings another peer

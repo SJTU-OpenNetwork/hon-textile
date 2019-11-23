@@ -41,6 +41,7 @@ func DataAtPath(node *core.IpfsNode, pth string) ([]byte, error) {
 
 	f, err := api.Unixfs().Get(ctx, path.New(pth))
 	if err != nil {
+        log.Error(err)
 		return nil, err
 	}
 	defer f.Close()

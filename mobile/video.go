@@ -27,7 +27,12 @@ func (m *Mobile) ThreadAddVideo(thread string, video string) error {
 		return core.ErrStopped
 	}
 
-	return m.node.ThreadAddVideo(thread, video)
+    err := m.node.ThreadAddVideo(thread, video)
+    if err != nil {
+        return nil
+    }
+    m.node.FlushBlocks()
+    return nil
 }
 
 func (m *Mobile) PublishVideo(video []byte) error {
@@ -102,7 +107,6 @@ func (m *Mobile) ChunksByVideoId(id string) ([]byte, error) {
 	}
 
 	vchunks := m.node.ChunksByVideoId(id)
-
 	return proto.Marshal(vchunks)
 }
 
@@ -117,6 +121,29 @@ func (m *Mobile) RemoveVideo(id string) error {
 	}
 	return nil
 }
+
+func (m *Mobile) SearchVideo(query []byte, options []byte) (*SearchHandle, error) {
+	if !m.node.Online() {
+		return nil, core.ErrOffline
+	}
+
+	mquery := new(pb.VideoQuery)
+	if err := proto.Unmarshal(query, mquery); err != nil {
+		return nil, err
+	}
+	moptions := new(pb.QueryOptions)
+	if err := proto.Unmarshal(options, moptions); err != nil {
+		return nil, err
+	}
+
+	resCh, errCh, cancel, err := m.node.SearchVideo(mquery, moptions)
+    if err != nil {
+        log.Warning(err)
+		return nil, err
+	}
+	return m.handleSearchStream(resCh, errCh, cancel)
+}
+
 
 func (m *Mobile) SearchVideoChunks(query []byte, options []byte) (*SearchHandle, error) {
 	if !m.node.Online() {

@@ -107,6 +107,104 @@ func (t *Textile) searchByPubsub(query *pb.Query) (<-chan *pb.QueryResult, <-cha
 	return resultCh, errCh, cancel
 }
 
+// Search searches both locally, through pubsub and cafe
+func (t *Textile) searchAll(query *pb.Query) (<-chan *pb.QueryResult, <-chan error, *broadcast.Broadcaster) {
+	query = queryDefaults(query)
+	query.Id = ksuid.New().String()
+
+	var searchChs []chan *pb.QueryResult
+
+	// local results channel
+	localCh := make(chan *pb.QueryResult)
+	searchChs = append(searchChs, localCh)
+
+	// remote results channel(s)
+	var cafeChs []chan *pb.QueryResult
+	clientCh := make(chan *pb.QueryResult)
+	sessions := t.datastore.CafeSessions().List().Items
+	for range sessions {
+		cafeCh := make(chan *pb.QueryResult)
+		cafeChs = append(cafeChs, cafeCh)
+		searchChs = append(searchChs, cafeCh)
+	}
+	searchChs = append(searchChs, clientCh)
+
+	resultCh := mergeQueryResults(searchChs)
+	errCh := make(chan error)
+	cancel := broadcast.NewBroadcaster(0)
+
+	go func() {
+		defer func() {
+			for _, ch := range searchChs {
+				close(ch)
+			}
+		}()
+		results := newQueryResultSet(query.Options)
+
+		// search local
+		if !query.Options.RemoteOnly {
+            log.Debug("Search local")
+			var err error
+			results, err = t.cafe.searchLocal(query.Type, query.Options, query.Payload, true)
+			if err != nil {
+				errCh <- err
+				return
+			}
+			for _, res := range results.items {
+				localCh <- res
+			}
+		}
+
+		if query.Options.LocalOnly || results.Full() {
+			return
+		}
+
+        log.Debug("Search via pubsub")
+
+		// search via pubsub directly
+		canceler := cancel.Listen()
+		if err := t.cafe.searchPubSub(query, func(res *pb.QueryResults) bool {
+			for _, n := range results.Add(res.Items...) {
+				clientCh <- n
+			}
+			return results.Full()
+		}, canceler.Ch, false); err != nil {
+			errCh <- err
+			return
+		}
+
+        log.Debug("Search via cafes")
+		// search via cafes
+		wg := sync.WaitGroup{}
+		for i, session := range sessions {
+			canceler = cancel.Listen()
+
+			wg.Add(1)
+			go func(i int, cafeId string, canceler *broadcast.Listener) {
+				defer wg.Done()
+
+				// token must be attached per cafe session, use a new query
+				q := &pb.Query{}
+				*q = *query
+				if err := t.cafe.Search(q, cafeId, func(res *pb.QueryResult) {
+					for _, n := range results.Add(res) {
+						cafeChs[i] <- n
+					}
+					if results.Full() {
+						cancel.Close()
+					}
+				}, canceler.Ch); err != nil {
+					errCh <- err
+					return
+				}
+			}(i, session.Id, canceler)
+		}
+
+		wg.Wait()
+	}()
+
+	return resultCh, errCh, cancel
+}
 // Search searches the network based on the given query
 func (t *Textile) search(query *pb.Query) (<-chan *pb.QueryResult, <-chan error, *broadcast.Broadcaster) {
 	query = queryDefaults(query)
@@ -146,6 +244,7 @@ func (t *Textile) search(query *pb.Query) (<-chan *pb.QueryResult, <-chan error,
 
 		// search local
 		if !query.Options.RemoteOnly {
+            log.Debug("Search local")
 			var err error
 			results, err = t.cafe.searchLocal(query.Type, query.Options, query.Payload, true)
 			if err != nil {
@@ -163,6 +262,7 @@ func (t *Textile) search(query *pb.Query) (<-chan *pb.QueryResult, <-chan error,
 
 		// search the network
 		if len(sessions) == 0 {
+            log.Debug("Search via pubsub")
 
 			// search via pubsub directly
 			canceler := cancel.Listen()
@@ -177,7 +277,7 @@ func (t *Textile) search(query *pb.Query) (<-chan *pb.QueryResult, <-chan error,
 			}
 
 		} else {
-
+            log.Debug("Search via cafes")
 			// search via cafes
 			wg := sync.WaitGroup{}
 			for i, session := range sessions {

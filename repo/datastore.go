@@ -14,6 +14,7 @@ type Datastore interface {
 	Files() FileStore
     Videos() VideoStore
     VideoChunks() VideoChunkStore
+    SyncFiles() SyncFileStore
 	Threads() ThreadStore
 	ThreadPeers() ThreadPeerStore
 	Blocks() BlockStore
@@ -99,6 +100,13 @@ type VideoChunkStore interface {
 	Get(videoId string, chunk string) *pb.VideoChunk
 	Delete(videoId string) error
 	Find(videoId string, chunk string, startTime int32, endTime int32) []*pb.VideoChunk
+}
+
+type SyncFileStore interface {
+    Queryable
+    Add(file *pb.SyncFile) error
+    Delete(file *pb.SyncFile) error
+    ListByType (peerAddress string, fileType pb.SyncFile_Type) []*pb.SyncFile
 }
 
 type ThreadStore interface {

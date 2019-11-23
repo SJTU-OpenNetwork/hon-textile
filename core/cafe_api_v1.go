@@ -345,96 +345,6 @@ func (c *cafeApi) unstore(g *gin.Context) {
 	g.Status(http.StatusNoContent)
 }
 
-//func (c *cafeApi) storeVideo(g *gin.Context) {
-//	buf := bodyPool.Get().(*bytes.Buffer)
-//	defer func() {
-//		buf.Reset()
-//		bodyPool.Put(buf)
-//	}()
-//
-//	buf.Grow(bytes.MinRead)
-//	_, err := buf.ReadFrom(g.Request.Body)
-//	if err != nil && err != io.EOF {
-//		log.Warning(err)
-//		c.abort(g, http.StatusBadRequest, err)
-//		return
-//	}
-//
-//	body := buf.Bytes()
-//
-//	nvideo := new(pb.Video)
-//	err = proto.Unmarshal(body, nvideo)
-//	if err != nil {
-//		log.Warning(err)
-//		c.abort(g, http.StatusInternalServerError, err)
-//		return
-//	}
-//
-//	err = c.node.datastore.Video().AddOrUpdate(nvideo)
-//	if err != nil {
-//		log.Warning(err)
-//		c.abort(g, http.StatusInternalServerError, err)
-//		return
-//	}
-//
-//
-//	log.Debugf("stored video %s", nvideo.id)
-//
-//	g.Status(http.StatusNoContent)
-//}
-//
-//func (c *cafeApi) storeVideoChunk(g *gin.Context) {
-//	buf := bodyPool.Get().(*bytes.Buffer)
-//	defer func() {
-//		buf.Reset()
-//		bodyPool.Put(buf)
-//	}()
-//
-//	buf.Grow(bytes.MinRead)
-//	_, err := buf.ReadFrom(g.Request.Body)
-//	if err != nil && err != io.EOF {
-//		log.Warning(err)
-//		c.abort(g, http.StatusBadRequest, err)
-//		return
-//	}
-//
-//	body := buf.Bytes()
-//
-//	nchunk := new(pb.VideoChunk)
-//	err = proto.Unmarshal(body, nchunk)
-//	if err != nil {
-//		log.Warning(err)
-//		c.abort(g, http.StatusInternalServerError, err)
-//		return
-//	}
-//
-//    // TODO: pin chunk on cafe
-//	node, err := ipfs.NodeAtCid(c.node.Ipfs(), nchunk.Address)
-//	if err != nil {
-//		log.Warning(err)
-//		c.abort(g, http.StatusInternalServerError, err)
-//		return
-//	}
-//
-//    err = ipfs.PinNode(c.node.Ipfs(), node, true)
-//	if err != nil {
-//		log.Warning(err)
-//		c.abort(g, http.StatusInternalServerError, err)
-//		return
-//	}
-//
-//	err = c.node.datastore.VideoChunk().AddOrUpdate(nchunk)
-//	if err != nil {
-//		log.Warning(err)
-//		c.abort(g, http.StatusInternalServerError, err)
-//		return
-//	}
-//
-//	log.Debugf("stored video %s, chunk %d", nchunk.id, nchunk.chunkId)
-//
-//	g.Status(http.StatusNoContent)
-//}
-
 func (c *cafeApi) storeThread(g *gin.Context) {
 	from := g.GetString("from")
 	id := g.Param("id")
@@ -654,11 +564,12 @@ func (c *cafeApi) deliverMessage(g *gin.Context) {
 }
 
 func (c *cafeApi) search(g *gin.Context) {
+    log.Debug("in search")
     from := g.GetString("from")
 
 	pid, err := peer.IDB58Decode(from)
 	if err != nil {
-		log.Warning(err)
+		log.Error(err)
 		c.abort(g, http.StatusBadRequest, err)
 		return
 	}
@@ -672,7 +583,7 @@ func (c *cafeApi) search(g *gin.Context) {
 	buf.Grow(bytes.MinRead)
 	_, err = buf.ReadFrom(g.Request.Body)
 	if err != nil && err != io.EOF {
-		log.Warning(err)
+		log.Error(err)
 		c.abort(g, http.StatusBadRequest, err)
 		return
 	}
@@ -681,7 +592,7 @@ func (c *cafeApi) search(g *gin.Context) {
 	pmes := new(pb.Envelope)
 	err = proto.Unmarshal(buf.Bytes(), pmes)
 	if err != nil {
-		log.Warning(err)
+		log.Error(err)
 		c.abort(g, http.StatusBadRequest, err)
 		return
 	}

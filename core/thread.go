@@ -822,6 +822,7 @@ func (t *Thread) post(index *pb.Block) error {
 
     // clear thread peers after sending LEAVE message
     if index.Type == pb.Block_LEAVE {
+        log.Debug("in post, and the block type is LEAVE")
 	    err = t.datastore.ThreadPeers().DeleteByThread(t.Id)
 	    if err != nil {
             log.Error(err)
@@ -837,8 +838,10 @@ func (t *Thread) post(index *pb.Block) error {
 }
 
 // store adds a store thread request
+// !CAFE_LITE !TESTING
 func (t *Thread) store() error {
-	return t.cafeOutbox.Add(t.Id, pb.CafeRequest_STORE_THREAD)
+    return nil
+//	return t.cafeOutbox.Add(t.Id, pb.CafeRequest_STORE_THREAD)
 }
 
 // readable returns whether or not this thread is readable from the

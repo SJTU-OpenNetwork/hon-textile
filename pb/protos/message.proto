@@ -49,6 +49,8 @@ message Message {
         CAFE_PUBLISH_VIDEO_ACK     = 201;
         CAFE_PUBLISH_VIDEO_CHUNK   = 202;
         CAFE_PUBLISH_VIDEO_CHUNK_ACK = 203;
+        CAFE_SYNC_FILE     = 204;
+        CAFE_SYNC_FILE_ACK = 205;
 
         CAFE_PUBSUB_QUERY     = 102;
         CAFE_PUBSUB_QUERY_RES = 103;
