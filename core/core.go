@@ -421,6 +421,7 @@ func (t *Textile) Start() error {
 			return
 		}
 
+        ipfs.SwarmConnect(t.node, config.DefaultOpennetBootstrapAddresses)
 		t.threads.Start()
 		t.threads.online = true
 
@@ -459,7 +460,6 @@ func (t *Textile) Start() error {
 			t.node.Peerstore.AddAddrs(p.ID, p.Addrs, peerstore.PermanentAddrTTL)
 		}
 
-        ipfs.SwarmConnect(t.node, config.DefaultOpennetBootstrapAddresses)
 	}()
 
 	for _, mod := range t.datastore.Threads().List().Items {

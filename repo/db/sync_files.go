@@ -32,6 +32,7 @@ func (c *SyncFileDB) Add(file *pb.SyncFile) error {
 		log.Errorf("error in tx prepare: %s", err)
 		return err
 	}
+    log.Debug(stm)
 	defer stmt.Close()
 	_, err = stmt.Exec(
 		file.PeerAddress,

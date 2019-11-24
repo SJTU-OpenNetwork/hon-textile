@@ -407,11 +407,16 @@ func (h *CafeService) CafeFindIpfsAddr(query *pb.IpfsQuery, cafeId string) (*pb.
 		}, nil, false)
 	})
 	res := new(pb.CafeFindIpfsAddrAck)
-	err = ptypes.UnmarshalAny(renv.Message.Payload, res)
+    res.Result = new(pb.IpfsQueryResult)
+	if err != nil {
+        return res.Result, err
+    }
+
+    err = ptypes.UnmarshalAny(renv.Message.Payload, res)
 	if err != nil {
 		return nil, err
 	}
-	return res.Result, err
+	return res.Result, nil
 }
 
 // Search performs a query via a cafe
@@ -1425,11 +1430,13 @@ func (h *CafeService) handleCafeFindIpfsAddr(env *pb.Envelope, pid peer.ID) (*pb
         return nil, err
     }
     var peerMap map[string]string
+    peerMap = make(map[string]string)
     for _, sp := range peers.Peers {
         peerMap[sp.Peer] = sp.Addr
     }
 
     res := new(pb.CafeFindIpfsAddrAck)
+    res.Result = new(pb.IpfsQueryResult)
     for _, p := range store.Query.Items {
         addr, ok := peerMap[p]
         if ok {
