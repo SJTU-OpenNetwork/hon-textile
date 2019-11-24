@@ -93,3 +93,11 @@ message SyncFileQuery {
     string address = 1;
     SyncFile.Type type = 2; 
 }
+
+message IpfsQuery {
+    repeated string items = 1;
+}
+
+message IpfsQueryResult {
+    repeated string items = 1;
+}

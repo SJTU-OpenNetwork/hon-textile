@@ -3,6 +3,7 @@ option java_package = "sjtu.opennet.textilepb";
 option go_package = "pb";
 
 import "model.proto";
+import "query.proto";
 
 message CafeChallenge {
     string address = 1;
@@ -124,6 +125,15 @@ message CafeSyncFile {
 message CafeSyncFileAck {
     string peerAddress = 1;
     string file = 2;
+}
+
+message CafeFindIpfsAddr {
+    string token = 1;
+    IpfsQuery query = 2;
+}
+
+message CafeFindIpfsAddrAck {
+    IpfsQueryResult result = 1;
 }
 
 message CafeDeliverMessage {

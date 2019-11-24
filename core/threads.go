@@ -172,6 +172,31 @@ func (t *Textile) AddThread(conf pb.AddThreadConfig, sk libp2pc.PrivKey, initiat
 	return thread, nil
 }
 
+func (t *Textile) ConnectThreadPeers(tid string) error {
+	sessions := t.datastore.CafeSessions().List().Items
+	if len(sessions) == 0 {
+		return nil
+	}
+    peers, err := t.ThreadPeers(tid)
+    if err != nil {
+        return nil
+    }
+    query := new (pb.IpfsQuery)
+    for _, p := range peers.Items {
+        query.Items = append(query.Items, p.Id)
+    }
+
+    for _, session := range sessions {
+		result, err := t.cafe.CafeFindIpfsAddr(query, session.Id)
+        if err != nil {
+			return err
+        }
+        log.Debug(result.Items)
+        ipfs.SwarmConnect(t.node, result.Items)
+	}
+    return nil
+}
+
 // AddOrUpdateThread add or updates a thread directly, usually from a backup
 func (t *Textile) AddOrUpdateThread(thread *pb.Thread) error {
 	// check if we're allowed to get an invite

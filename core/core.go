@@ -442,7 +442,16 @@ func (t *Textile) Start() error {
 		log.Info("node is online")
 
 		// ensure the peer table is not empty by adding our bootstraps
-		boots, err := config.TextileBootstrapPeers()
+//  		boots, err := config.TextileBootstrapPeers()
+//  		if err != nil {
+//  			log.Errorf(err.Error())
+//  		}
+//  		for _, p := range boots {
+//  			t.node.Peerstore.AddAddrs(p.ID, p.Addrs, peerstore.PermanentAddrTTL)
+//  		}
+
+		// ensure the peer table is not empty by adding hon bootstraps
+        boots, err := config.OpennetCafes()
 		if err != nil {
 			log.Errorf(err.Error())
 		}
@@ -450,14 +459,7 @@ func (t *Textile) Start() error {
 			t.node.Peerstore.AddAddrs(p.ID, p.Addrs, peerstore.PermanentAddrTTL)
 		}
 
-		// ensure the peer table is not empty by adding hon bootstraps
-		boots, err = config.OpennetBootstrapPeers()
-		if err != nil {
-			log.Errorf(err.Error())
-		}
-		for _, p := range boots {
-			t.node.Peerstore.AddAddrs(p.ID, p.Addrs, peerstore.PermanentAddrTTL)
-		}
+        ipfs.SwarmConnect(t.node, config.DefaultOpennetBootstrapAddresses)
 	}()
 
 	for _, mod := range t.datastore.Threads().List().Items {
@@ -469,6 +471,7 @@ func (t *Textile) Start() error {
 				return err
 			}
 		}
+        t.ConnectThreadPeers(mod.Id)
 	}
 
 	go t.loadThreadSchemas()
@@ -1100,3 +1103,5 @@ func removeLocks(repoPath string) {
 	dsLockFile := filepath.Join(repoPath, "datastore", "LOCK")
 	_ = os.Remove(dsLockFile)
 }
+
+

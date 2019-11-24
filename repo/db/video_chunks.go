@@ -111,7 +111,7 @@ func (c *VideoChunkDB) handleQuery(stm string) []*pb.VideoChunk {
 	}
 	for rows.Next() {
 		var id, chunk, address string
-		var startTime, endTime int32
+		var startTime, endTime int64
 		if err := rows.Scan(&id, &chunk, &address, &startTime, &endTime); err != nil {
 			log.Errorf("error in db scan: %s", err)
 			continue

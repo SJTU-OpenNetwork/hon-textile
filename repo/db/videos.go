@@ -79,7 +79,7 @@ func (c *VideoDB) handleQuery(stm string) []*pb.Video {
 	}
 	for rows.Next() {
 		var id, caption, poster string
-		var videoLength int32
+		var videoLength int64
 		if err := rows.Scan(&id, &caption, &videoLength, &poster); err != nil {
 			log.Errorf("error in db scan: %s", err)
 			continue

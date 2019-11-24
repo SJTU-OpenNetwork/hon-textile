@@ -83,7 +83,7 @@ func (h *ThreadsService) Start() {
 func (h *ThreadsService) ListenThreads() {
     threads := h.datastore.Threads().List()
     for _, thd := range threads.Items {
-	    go h.service.Listen("Thread/"+thd.Id)
+	    h.ListenOneThread(thd.Id)
     }
 }
 

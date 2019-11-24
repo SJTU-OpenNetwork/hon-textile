@@ -68,6 +68,10 @@ var DefaultOpennetBootstrapAddresses = []string{
     "/ip4/202.120.38.100/tcp/4001/ipfs/QmZt8jsim548Y5UFN24GL9nX9x3eSS8QFMsbSRNMBAqKBb",
 }
 
+var OpennetCafeAddresses = []string{
+    "/ip4/202.120.38.131/tcp/37545/ipfs/12D3KooWFHtYTLmeG9mr9qCuBL81jNj5NRdZ1qRsnnyerG2X3BDr",
+}
+
 // TextileBootstrapPeers returns the (parsed) set of Textile bootstrap peers.
 func TextileBootstrapPeers() ([]peer.AddrInfo, error) {
 	ps, err := native.ParseBootstrapPeers(DefaultBootstrapAddresses)
@@ -87,6 +91,16 @@ This is a problem with the Textile codebase. Please report it to the dev team.`,
 	}
 	return ps, nil
 }
+
+func OpennetCafes() ([]peer.AddrInfo, error) {
+	ps, err := native.ParseBootstrapPeers(OpennetCafeAddresses)
+	if err != nil {
+		return nil, fmt.Errorf(`failed to parse hardcoded bootstrap peers: %s
+This is a problem with the Textile codebase. Please report it to the dev team.`, err)
+	}
+	return ps, nil
+}
+
 
 // InitIpfs create the IPFS config file
 func InitIpfs(identity native.Identity, mobile bool, server bool) (*native.Config, error) {

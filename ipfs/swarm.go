@@ -35,7 +35,7 @@ func SwarmConnect(node *core.IpfsNode, addrs []string) ([]string, error) {
 		}
 		output[i] += " success"
 	}
-
+    log.Debug(output)
 	return output, nil
 }
 

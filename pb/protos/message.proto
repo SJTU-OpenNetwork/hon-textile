@@ -51,6 +51,8 @@ message Message {
         CAFE_PUBLISH_VIDEO_CHUNK_ACK = 203;
         CAFE_SYNC_FILE     = 204;
         CAFE_SYNC_FILE_ACK = 205;
+        CAFE_FIND_IPFS_ADDR = 206;
+        CAFE_FIND_IPFS_ADDR_ACK = 207;
 
         CAFE_PUBSUB_QUERY     = 102;
         CAFE_PUBSUB_QUERY_RES = 103;

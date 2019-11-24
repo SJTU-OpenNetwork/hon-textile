@@ -123,7 +123,7 @@ func (c *cafeApi) start() {
 		inbox.POST("/:from/:to", c.deliverMessage)
 	}
 
-	search := v1.Group("/search", c.validateToken)
+    search := v1.Group("/search", c.validateToken)
 	{
 		search.POST("", c.search)
 	}

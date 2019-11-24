@@ -152,6 +152,8 @@ func (h *CafeService) Handle(env *pb.Envelope, pid peer.ID) (*pb.Envelope, error
 		return h.handlePublishVideoChunk(env, pid)
 	case pb.Message_CAFE_SYNC_FILE:
 		return h.handleSyncFile(env, pid)
+    case pb.Message_CAFE_FIND_IPFS_ADDR:
+        return h.handleCafeFindIpfsAddr(env, pid)
 	default:
 		return nil, nil
 	}
@@ -395,6 +397,21 @@ func (h *CafeService) PublishSyncFile(file *pb.SyncFile, cafeId string) error {
 		}, nil, false)
 	})
 	return err
+}
+
+func (h *CafeService) CafeFindIpfsAddr(query *pb.IpfsQuery, cafeId string) (*pb.IpfsQueryResult, error) {
+	renv, err := h.sendCafeRequest(cafeId, func(session *pb.CafeSession) (*pb.Envelope, error) {
+		return h.service.NewEnvelope(pb.Message_CAFE_FIND_IPFS_ADDR, &pb.CafeFindIpfsAddr{
+			Token: session.Access,
+		    Query: query,
+		}, nil, false)
+	})
+	res := new(pb.CafeFindIpfsAddrAck)
+	err = ptypes.UnmarshalAny(renv.Message.Payload, res)
+	if err != nil {
+		return nil, err
+	}
+	return res.Result, err
 }
 
 // Search performs a query via a cafe
@@ -1383,6 +1400,44 @@ func (h *CafeService) handleSyncFile(env *pb.Envelope, pid peer.ID) (*pb.Envelop
         File:   store.File.File,
     }
 	return h.service.NewEnvelope(pb.Message_CAFE_SYNC_FILE_ACK, res, &env.Message.Request, true)
+}
+
+func (h *CafeService) handleCafeFindIpfsAddr(env *pb.Envelope, pid peer.ID) (*pb.Envelope, error) {
+	store := new(pb.CafeFindIpfsAddr)
+	err := ptypes.UnmarshalAny(env.Message.Payload, store)
+	if err != nil {
+        log.Error(err)
+		return nil, err
+	}
+
+	rerr, err := h.authToken(pid, store.Token, false, env.Message.Request)
+	if err != nil {
+        log.Error(err)
+		return nil, err
+	}
+	if rerr != nil {
+        log.Error(err)
+		return rerr, nil
+	}
+
+    peers, err := ipfs.SwarmPeers(h.service.Node(), true, true, true, true)
+    if err != nil {
+        return nil, err
+    }
+    var peerMap map[string]string
+    for _, sp := range peers.Peers {
+        peerMap[sp.Peer] = sp.Addr
+    }
+
+    res := new(pb.CafeFindIpfsAddrAck)
+    for _, p := range store.Query.Items {
+        addr, ok := peerMap[p]
+        if ok {
+            res.Result.Items = append(res.Result.Items,addr)
+        }
+    }
+	return h.service.NewEnvelope(pb.Message_CAFE_FIND_IPFS_ADDR_ACK, res, &env.Message.Request, true)
+
 }
 
 // handleDeliverMessage receives an inbox message for a client
