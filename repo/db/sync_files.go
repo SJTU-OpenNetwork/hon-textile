@@ -38,7 +38,7 @@ func (c *SyncFileDB) Add(file *pb.SyncFile) error {
 		file.PeerAddress,
         file.File,
 		file.Type,
-        file.Date,
+        util.ProtoNanos(file.Date),
         file.Operation,
 	)
 	if err != nil {
