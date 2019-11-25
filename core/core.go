@@ -511,6 +511,26 @@ func (lwg *loggingWaitGroup) Wait(src string) {
 	lwg.wg.Wait()
 }
 
+func (t *Textile) TryConnect(peerId string) error{
+    sessions := t.datastore.CafeSessions().List().Items
+    if len(sessions) == 0 {
+        return nil
+    }
+
+    query := new (pb.IpfsQuery)
+    query.Items = append(query.Items, peerId)
+
+    for _, session := range sessions {
+        result, err := t.cafe.CafeFindIpfsAddr(query, session.Id)
+        if err != nil {
+            return err
+        }
+        log.Debug(result.Items)
+        ipfs.SwarmConnect(t.node, result.Items)
+    }
+    return nil
+}
+
 // stopGroup is used to block shutdown. Workers must add to the wait group counter
 // before Stop blocks on wait.
 var stopGroup = loggingWaitGroup{n: "stop"}

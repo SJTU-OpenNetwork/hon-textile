@@ -838,10 +838,8 @@ func (t *Thread) post(index *pb.Block) error {
 }
 
 // store adds a store thread request
-// !CAFE_LITE !TESTING
 func (t *Thread) store() error {
-    return nil
-//	return t.cafeOutbox.Add(t.Id, pb.CafeRequest_STORE_THREAD)
+	return t.cafeOutbox.Add(t.Id, pb.CafeRequest_STORE_THREAD)
 }
 
 // readable returns whether or not this thread is readable from the

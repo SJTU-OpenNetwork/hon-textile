@@ -40,22 +40,26 @@ func (m *Mobile) registerCafe(host string, token string) error {
 		host, core.CafeApiVersion, m.Address())
 	req, err := http.NewRequest(http.MethodGet, url, nil)
 	if err != nil {
+        log.Error(err)
 		return err
 	}
 	req.Header.Set("Authorization", "Basic "+token)
 	client := &http.Client{}
 	res, err := client.Do(req)
 	if err != nil {
+        log.Error(err)
 		return err
 	}
 	err = errorCheck(res)
 	if err != nil {
+        log.Error(err)
 		return err
 	}
 
 	snonce := new(pb.CafeClientNonce)
 	err = jsonpb.Unmarshal(res.Body, snonce)
 	if err != nil {
+        log.Error(err)
 		return err
 	}
 
@@ -63,6 +67,7 @@ func (m *Mobile) registerCafe(host string, token string) error {
 	nonce := ksuid.New().String()
 	sig, err := m.Sign([]byte(snonce.Value + nonce))
 	if err != nil {
+        log.Error(err)
 		return err
 	}
 
@@ -71,26 +76,31 @@ func (m *Mobile) registerCafe(host string, token string) error {
 		host, core.CafeApiVersion, pid, m.Address(), snonce.Value, nonce)
 	req, err = http.NewRequest(http.MethodPost, url, bytes.NewReader(sig))
 	if err != nil {
+        log.Error(err)
 		return err
 	}
 	req.Header.Set("Authorization", "Basic "+token)
 	res, err = client.Do(req)
 	if err != nil {
+        log.Error(err)
 		return err
 	}
 	err = errorCheck(res)
 	if err != nil {
+        log.Error(err)
 		return err
 	}
 
 	session := new(pb.CafeSession)
 	err = jsonpb.Unmarshal(res.Body, session)
 	if err != nil {
+        log.Error(err)
 		return err
 	}
 
 	// return existing session
 	if x := m.node.Datastore().CafeSessions().Get(session.Id); x != nil {
+        log.Debug("return existing session")
 		return nil
 	}
 
@@ -105,30 +115,33 @@ func (m *Mobile) registerCafe(host string, token string) error {
 	}
 
 	// sync all blocks and files target
-	err = m.node.CafeRequestThreadsContent(session.Id)
-	if err != nil {
-		return err
-	}
+//	err = m.node.CafeRequestThreadsContent(session.Id)
+//	if err != nil {
+//		return err
+//	}
 
 	for _, thrd := range m.node.Threads() {
 		_, err = thrd.Annouce(nil)
 		if err != nil {
+            log.Error(err)
 			return err
 		}
 	}
 
 	err = m.node.PublishPeer()
 	if err != nil {
+        log.Error(err)
 		return err
 	}
 
 	err = m.node.SnapshotThreads()
 	if err != nil {
+        log.Error(err)
 		return err
 	}
 
 	m.node.FlushCafes()
-
+    log.Debug("register cafe success")
 	return nil
 }
 

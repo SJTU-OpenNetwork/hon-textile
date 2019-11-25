@@ -1267,7 +1267,6 @@ func (h *CafeService) handlePublishVideoChunk(env *pb.Envelope, pid peer.ID) (*p
 	if err != nil {
         log.Error(err)
 	}
-    log.Debug("Starting pin node")
 
 ////    file := store.File
 ////    if file == nil || file.Size == 0 {
@@ -1427,6 +1426,7 @@ func (h *CafeService) handleCafeFindIpfsAddr(env *pb.Envelope, pid peer.ID) (*pb
 
     peers, err := ipfs.SwarmPeers(h.service.Node(), true, true, true, true)
     if err != nil {
+        log.Error(err)
         return nil, err
     }
     var peerMap map[string]string
@@ -1440,7 +1440,9 @@ func (h *CafeService) handleCafeFindIpfsAddr(env *pb.Envelope, pid peer.ID) (*pb
     for _, p := range store.Query.Items {
         addr, ok := peerMap[p]
         if ok {
+            addr += "/ipfs/"+p
             res.Result.Items = append(res.Result.Items,addr)
+            log.Debug("FindIpfsAddr:"+addr)
         }
     }
 	return h.service.NewEnvelope(pb.Message_CAFE_FIND_IPFS_ADDR_ACK, res, &env.Message.Request, true)

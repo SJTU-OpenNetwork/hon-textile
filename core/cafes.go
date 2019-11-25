@@ -34,10 +34,10 @@ func (t *Textile) RegisterCafe(id string, token string) (*pb.CafeSession, error)
 	}
 
 	// sync all blocks and files target
-	err = t.CafeRequestThreadsContent(session.Id)
-	if err != nil {
-		return nil, err
-	}
+//	err = t.CafeRequestThreadsContent(session.Id)
+//	if err != nil {
+//		return nil, err
+//	}
 
 	for _, thrd := range t.loadedThreads {
 		_, err = thrd.Annouce(nil)

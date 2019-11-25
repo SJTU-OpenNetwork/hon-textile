@@ -34,6 +34,7 @@ func (t *Textile) AddInvite(threadId string, address string) error {
 
 	var err error
 	for _, p := range peers {
+        t.TryConnect(p.Id)
 		_, err = thread.AddInvite(p)
 		if err != nil {
 			return err
