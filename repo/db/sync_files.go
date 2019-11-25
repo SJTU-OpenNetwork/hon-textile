@@ -26,7 +26,7 @@ func (c *SyncFileDB) Add(file *pb.SyncFile) error {
 		return err
 	}
 
-    stm := `insert or replace into sync_files(peer_address, file, type, date, exists) values(?,?,?,?,?)`
+    stm := `insert or replace into sync_files(peer_address, file, type, date, operation) values(?,?,?,?,?)`
 	stmt, err := tx.Prepare(stm)
 	if err != nil {
 		log.Errorf("error in tx prepare: %s", err)

@@ -2,15 +2,14 @@ package db
 
 import (
 	"database/sql"
-	"sync"
-	"testing"
-
-	"github.com/segmentio/ksuid"
 	"github.com/SJTU-OpenNetwork/hon-textile/pb"
+	"sync"
+
+	"testing"
 	"github.com/SJTU-OpenNetwork/hon-textile/repo"
 )
 
-var SyncFileStore repo.SyncFileStore
+var syncFileStore repo.SyncFileStore
 
 func init() {
 	setupSyncFileDB()
@@ -23,6 +22,12 @@ func setupSyncFileDB() {
 }
 
 func TestSyncFileDB_Add(t *testing.T) {
+	err := syncFileStore.Add(&pb.SyncFile{
+	})
+	if(err!=nil){
+		t.Error(err)
+	}
+	//syncFileStore
 }
 
 
