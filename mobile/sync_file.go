@@ -43,12 +43,12 @@ func (m *Mobile) PublishSyncFile(file []byte) error {
     return m.node.PublishSyncFile(model)
 }
 
-func (m *Mobile) ListSyncFile(address string, fileType pb.SyncFile_Type) ([]byte, error) {
+func (m *Mobile) ListSyncFile(address string, fileType int32) ([]byte, error) {
 	if !m.node.Started() {
 		return nil, core.ErrStopped
 	}
 
-	files := m.node.ListSyncFile(address, fileType)
+	files := m.node.ListSyncFile(address, pb.SyncFile_Type(fileType))
 	return proto.Marshal(files)
 }
 

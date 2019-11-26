@@ -7,13 +7,13 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/SJTU-OpenNetwork/hon-textile/core"
+	"github.com/SJTU-OpenNetwork/hon-textile/ipfs"
+	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 	"github.com/golang/protobuf/proto"
 	icid "github.com/ipfs/go-cid"
 	"github.com/libp2p/go-libp2p-core/peerstore"
 	"github.com/segmentio/ksuid"
-	"github.com/SJTU-OpenNetwork/hon-textile/core"
-	"github.com/SJTU-OpenNetwork/hon-textile/ipfs"
-	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 )
 
 var cafesTestVars = struct {
@@ -102,6 +102,28 @@ func TestMobile_ReregisterCafe(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+}
+
+func TestMobile_Register131Cafe(t *testing.T){
+	//Initilize Local Mobile Node
+	t.Logf("Test to connect 131 Cafe")
+	if(cafesTestVars.mobile == nil){
+		t.Logf("mobile node offline or not exists")
+		var err error
+		cafesTestVars.mobile, err = createAndStartPeer(InitConfig{
+			BaseRepoPath: cafesTestVars.mobilePath,
+			Debug:        true,
+		}, true, &testHandler{}, &testMessenger{})
+		if err != nil {
+			t.Fatal(err)
+		}
+		t.Logf("mobile node created with repopath %s", cafesTestVars.mobile.RepoPath)
+	} else{
+		t.Logf("mobile node repopath %s", cafesTestVars.mobile.RepoPath)
+
+	}
+
+
 }
 
 func TestMobile_RefreshCafeSession(t *testing.T) {
