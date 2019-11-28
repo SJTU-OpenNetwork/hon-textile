@@ -175,6 +175,7 @@ func (t *Textile) AddThread(conf pb.AddThreadConfig, sk libp2pc.PrivKey, initiat
 
 func (t *Textile) ConnectThreadPeers(tid string) error {
 	sessions := t.datastore.CafeSessions().List().Items
+    log.Debugf("we have %d sessions", len(sessions))
 	if len(sessions) == 0 {
 		return nil
 	}
@@ -182,11 +183,31 @@ func (t *Textile) ConnectThreadPeers(tid string) error {
     if err != nil {
         return nil
     }
-    query := new (pb.IpfsQuery)
-    for _, p := range peers.Items {
-        query.Items = append(query.Items, p.Id)
+
+    connectedPeers, err := ipfs.SwarmPeers(t.node, true, true, true, true)
+    if err != nil {
+        log.Error(err)
+        return err
+    }
+    var peerMap map[string]string
+    peerMap = make(map[string]string)
+    for _, sp := range connectedPeers.Peers {
+        peerMap[sp.Peer] = sp.Addr
+        log.Debug("Connections: %s", sp.Addr+"/ipfs/"+sp.Peer)
     }
 
+    query := new (pb.IpfsQuery)
+    for _, p := range peers.Items {
+        _, ok := peerMap[p.Id]
+        if !ok && p.Id != t.node.Identity.Pretty(){
+            query.Items = append(query.Items, p.Id)
+        }
+    }
+    log.Debug("Query:")
+    log.Debug(query.Items)
+    if len(query.Items) == 0 {
+        return nil
+    }
     for _, session := range sessions {
 		result, err := t.cafe.CafeFindIpfsAddr(query, session.Id)
         if err != nil {
@@ -339,7 +360,6 @@ func (t *Textile) ThreadAddAdmin(threadId string, peerId string) error {
     // call thread AddAdmin
     thread.AddAdmin(peerId)
 
-    // create block
     return nil
 }
 
@@ -360,8 +380,6 @@ func (t *Textile) ThreadRemovePeer(threadId string, peerId string) error {
 
     // call thread RemovePeer
     thread.RemovePeer(peerId)
-
-    // create block
     return nil
 }
 

@@ -201,6 +201,8 @@ func (t *Textile) handleThreadAdd(plaintext []byte, parents []string) (mh.Multih
 		return nil, nil
 	}
 
+    t.TryConnect(msg.Inviter.Id)
+
 	config := pb.AddThreadConfig{
 		Key:  msg.Thread.Key,
 		Name: msg.Thread.Name,

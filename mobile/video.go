@@ -27,7 +27,12 @@ func (m *Mobile) ThreadAddVideo(thread string, video string) error {
 		return core.ErrStopped
 	}
 
-    err := m.node.ThreadAddVideo(thread, video)
+    err := m.node.ConnectThreadPeers(thread)
+	if err != nil {
+        log.Error(err)
+	}
+
+    err = m.node.ThreadAddVideo(thread, video)
     if err != nil {
         return nil
     }
@@ -44,7 +49,7 @@ func (m *Mobile) PublishVideo(video []byte) error {
 	if err := proto.Unmarshal(video, model); err != nil {
 		return err
 	}
-    return m.node.PublishVideo(model)
+    return m.node.OLD_PublishVideo(model)
 }
 
 func (m *Mobile) PublishVideoChunk(vchunk []byte) error {
@@ -56,7 +61,7 @@ func (m *Mobile) PublishVideoChunk(vchunk []byte) error {
 	if err := proto.Unmarshal(vchunk, model); err != nil {
 		return err
 	}
-    return m.node.PublishVideoChunk(model)
+    return m.node.OLD_PublishVideoChunk(model)
 }
 
 func (m *Mobile) AddVideoChunk(vchunk []byte) error {

@@ -304,6 +304,11 @@ func (m *Mobile) shareFiles(data string, threadId string, caption string) (mh.Mu
 		return nil, err
 	}
 
+//    err = m.node.ConnectThreadPeers(threadId)
+//	if err != nil {
+//        log.Error(err)
+//	}
+
 	hash, err := thrd.AddFiles(node, "", caption, keys.Files)
 	if err != nil {
 		return nil, err

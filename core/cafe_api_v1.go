@@ -409,6 +409,62 @@ func (c *cafeApi) unstoreThread(g *gin.Context) {
 	g.Status(http.StatusNoContent)
 }
 
+func (c *cafeApi) handlePublishVideo(g *gin.Context) {
+    //TODO
+	from := g.GetString("from")
+	client := c.node.datastore.CafeClients().Get(from)
+	if client == nil {
+		log.Warning("client not found")
+		c.abort(g, http.StatusForbidden, nil)
+		return
+	}
+
+	buf := bodyPool.Get().(*bytes.Buffer)
+	defer func() {
+		buf.Reset()
+		bodyPool.Put(buf)
+	}()
+
+	buf.Grow(bytes.MinRead)
+	_, err := buf.ReadFrom(g.Request.Body)
+	if err != nil && err != io.EOF {
+		log.Warning(err)
+		c.abort(g, http.StatusBadRequest, err)
+		return
+	}
+
+
+	g.Status(http.StatusNoContent)
+}
+
+func (c *cafeApi) handlePublishVideoChunk(g *gin.Context) {
+    //TODO
+	from := g.GetString("from")
+	client := c.node.datastore.CafeClients().Get(from)
+	if client == nil {
+		log.Warning("client not found")
+		c.abort(g, http.StatusForbidden, nil)
+		return
+	}
+
+	buf := bodyPool.Get().(*bytes.Buffer)
+	defer func() {
+		buf.Reset()
+		bodyPool.Put(buf)
+	}()
+
+	buf.Grow(bytes.MinRead)
+	_, err := buf.ReadFrom(g.Request.Body)
+	if err != nil && err != io.EOF {
+		log.Warning(err)
+		c.abort(g, http.StatusBadRequest, err)
+		return
+	}
+
+
+	g.Status(http.StatusNoContent)
+}
+
 func (c *cafeApi) checkMessages(g *gin.Context) {
 	client := c.node.datastore.CafeClients().Get(g.GetString("from"))
 	if client == nil {

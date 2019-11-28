@@ -209,7 +209,11 @@ func InitRepo(conf InitConfig) error {
 	}()
 
 	// apply ipfs config opts
-	err = applySwarmPortConfigOption(rep, conf.SwarmPorts)
+//    if conf.IsServer && !conf.IsMobile{
+	    err = applySwarmPortConfigOption(rep, conf.SwarmPorts)
+//    } else {
+//	    err = applySwarmPortConfigOptionIpv6(rep, conf.SwarmPorts)
+//    }
 	if err != nil {
 		return err
 	}
@@ -509,6 +513,23 @@ func (lwg *loggingWaitGroup) Done(src string) {
 func (lwg *loggingWaitGroup) Wait(src string) {
 	log.Debugf("%s waiting (src=%s)", lwg.n, src)
 	lwg.wg.Wait()
+}
+
+func (t *Textile) TryConnectPeers(query *pb.IpfsQuery) error{
+    sessions := t.datastore.CafeSessions().List().Items
+    if len(sessions) == 0 {
+        return nil
+    }
+
+    for _, session := range sessions {
+        result, err := t.cafe.CafeFindIpfsAddr(query, session.Id)
+        if err != nil {
+            return err
+        }
+        log.Debug(result.Items)
+        ipfs.SwarmConnect(t.node, result.Items)
+    }
+    return nil
 }
 
 func (t *Textile) TryConnect(peerId string) error{

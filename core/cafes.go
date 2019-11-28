@@ -111,11 +111,27 @@ func (t *Textile) CafeSessions() *pb.CafeSessionList {
 	return t.datastore.CafeSessions().List()
 }
 
+func ignore(btype pb.Block_BlockType) bool {
+    switch btype {
+    case pb.Block_FILES:
+    case pb.Block_TEXT:
+    case pb.Block_VIDEO:
+        return true
+    }
+    return false
+}
+
 // CafeRequestThreadContent sync the entire thread conents (blocks and files) to the given cafe
 func (t *Textile) CafeRequestThreadsContent(cafe string) error {
 	for _, thrd := range t.loadedThreads {
 		blocks := t.Blocks("", -1, fmt.Sprintf("threadId='%s'", thrd.Id))
 		for _, b := range blocks.Items {
+
+
+            // do we need to store these?
+            if ignore(b.Type) {
+                continue
+            }
 
 			// store the block itself
 			err := t.cafeOutbox.Add(b.Id, pb.CafeRequest_STORE, cafeReqOpt.SyncGroup(b.Id), cafeReqOpt.Cafe(cafe))

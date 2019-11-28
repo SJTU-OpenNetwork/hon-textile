@@ -78,6 +78,8 @@ func (c *VideoChunkDB) Delete(videoId string) error {
 }
 
 func (c *VideoChunkDB) Find(videoId string, chunk string, startTime int32, endTime int32) []*pb.VideoChunk {
+	c.lock.Lock()
+	defer c.lock.Unlock()
     if videoId == "" {
         return nil
     }

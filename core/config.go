@@ -109,6 +109,35 @@ func applySwarmPortConfigOption(rep repo.Repo, ports string) error {
 	return rep.SetConfigKey("Addresses.Swarm", list)
 }
 
+func applySwarmPortConfigOptionIpv6(rep repo.Repo, ports string) error {
+	var parts []string
+	if ports != "" {
+		parts = strings.Split(ports, ",")
+	}
+	var tcp, ws string
+
+	switch len(parts) {
+	case 1:
+		tcp = parts[0]
+	case 2:
+		tcp = parts[0]
+		ws = parts[1]
+	default:
+		tcp = GetRandomPort()
+		ws = GetRandomPort()
+	}
+
+	list := []string{
+		fmt.Sprintf("/ip4/0.0.0.0/tcp/%s", tcp),
+		fmt.Sprintf("/ip6/::/tcp/%s", tcp),
+	}
+	if ws != "" {
+		list = append(list, fmt.Sprintf("/ip6/::/tcp/%s/ws", ws))
+	}
+
+	return rep.SetConfigKey("Addresses.Swarm", list)
+}
+
 // profile defines config settings for different environments
 type profile int
 

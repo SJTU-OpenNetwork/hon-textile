@@ -33,8 +33,18 @@ var DefaultServerFilters = []string{
 	"/ip6/2001:db8::/ipcidr/32",
 	"/ip6/fc00::/ipcidr/7",
 	"/ip6/fe80::/ipcidr/10",
+
+    "/ip4/202.120.40.0/ipcidr/24", //lab1219
+    "/ip4/112.0.0.0/ipcidr/4", //mobile
 }
 
+var NoIpv4Filters = []string{
+	"/ip6/100::/ipcidr/64",
+	"/ip6/2001:2::/ipcidr/48",
+	"/ip6/2001:db8::/ipcidr/32",
+	"/ip6/fc00::/ipcidr/7",
+	"/ip6/fe80::/ipcidr/10",
+}
 // DefaultBootstrapAddresses are the addresses of cafe nodes run by the Textile team.
 var DefaultBootstrapAddresses = []string{
 //	"/ip4/104.210.43.77/tcp/4001/ipfs/12D3KooWSdGmRz5JQidqrtmiPGVHkStXpbSAMnbCcW8abq6zuiDP",  // us-west
@@ -69,7 +79,8 @@ var DefaultOpennetBootstrapAddresses = []string{
 }
 
 var OpennetCafeAddresses = []string{
-    "/ip4/202.120.38.131/tcp/37545/ipfs/12D3KooWFHtYTLmeG9mr9qCuBL81jNj5NRdZ1qRsnnyerG2X3BDr",
+    //"/ip4/202.120.38.131/tcp/37545/ipfs/12D3KooWFHtYTLmeG9mr9qCuBL81jNj5NRdZ1qRsnnyerG2X3BDr",
+    "/ip4/159.138.58.61/tcp/26056/ipfs/12D3KooWKAwHi4WkUY5qbg2psSpDSZ4EsLwjaiCjC8ERajwZsXHc",
 }
 
 // TextileBootstrapPeers returns the (parsed) set of Textile bootstrap peers.
@@ -217,12 +228,13 @@ func InitIpfs(identity native.Identity, mobile bool, server bool) (*native.Confi
 }
 
 func addressesConfig(server bool) native.Addresses {
-	noAnnounce := make([]string, 0)
-	if server {
-		noAnnounce = DefaultServerFilters
-	}
+	noAnnounce := DefaultServerFilters
+	//noAnnounce := make([]string, 0)
+	//if server {
+	//	noAnnounce = DefaultServerFilters
+	//}
 	return native.Addresses{
-		Swarm:      []string{},
+		Swarm:      []string{"/ip6/::/tcp/4001"},
 		Announce:   []string{},
 		NoAnnounce: noAnnounce,
 		API:        []string{"/ip4/127.0.0.1/tcp/5001"},

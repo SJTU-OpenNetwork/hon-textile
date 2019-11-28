@@ -22,11 +22,14 @@ func SwarmConnect(node *core.IpfsNode, addrs []string) ([]string, error) {
 		return nil, err
 	}
 
+    log.Debug(pis)
+    log.Debug(len(pis))
 	ctx, cancel := context.WithTimeout(node.Context(), ConnectTimeout)
 	defer cancel()
 
 	output := make([]string, len(pis))
 	for i, pi := range pis {
+        log.Debug("Connecting to "+pi.ID.Pretty())
 		output[i] = "connect " + pi.ID.Pretty()
 
 		err := api.Swarm().Connect(ctx, pi)
@@ -136,6 +139,8 @@ func SwarmPeers(node *core.IpfsNode, verbose bool, latency bool, streams bool, d
 	sort.Sort(&out)
 	return &out, nil
 }
+
+
 
 // SwarmConnected returns whether or not the node has the peer in its current swarm
 func SwarmConnected(node *core.IpfsNode, peerId string) (bool, error) {

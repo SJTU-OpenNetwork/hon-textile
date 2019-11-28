@@ -409,7 +409,7 @@ func (h *CafeService) CafeFindIpfsAddr(query *pb.IpfsQuery, cafeId string) (*pb.
 	res := new(pb.CafeFindIpfsAddrAck)
     res.Result = new(pb.IpfsQueryResult)
 	if err != nil {
-        return res.Result, err
+        return nil, err
     }
 
     err = ptypes.UnmarshalAny(renv.Message.Payload, res)
@@ -1352,19 +1352,19 @@ func (h *CafeService) handlePublishVideo(env *pb.Envelope, pid peer.ID) (*pb.Env
    //     }
    // }()
 	
-    links, err := ipfs.LinksAtPath(h.service.Node(), store.Video.Poster)
-    if err == nil {
-        for _, index := range links {
-            node, err := ipfs.NodeAtLink(h.service.Node(), index)
-            if err != nil {
-                log.Error(err)
-            }
-            err = ipfs.PinNode(h.service.Node(), node, true)
-            if err != nil {
-                log.Error(err)
-            }
-        }
-    }
+   // links, err := ipfs.LinksAtPath(h.service.Node(), store.Video.Poster)
+   // if err == nil {
+   //     for _, index := range links {
+   //         node, err := ipfs.NodeAtLink(h.service.Node(), index)
+   //         if err != nil {
+   //             log.Error(err)
+   //         }
+   //         err = ipfs.PinNode(h.service.Node(), node, true)
+   //         if err != nil {
+   //             log.Error(err)
+   //         }
+   //     }
+   // }
 	res := &pb.CafePublishVideoAck{
         Id:      store.Video.Id,
     }

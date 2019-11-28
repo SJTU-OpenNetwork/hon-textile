@@ -44,7 +44,7 @@ type Service struct {
 }
 
 // DefaultTimeout is the context timeout for sending / requesting messages
-const DefaultTimeout = time.Second * 30
+const DefaultTimeout = time.Second * 10 //change from 30 to 10 2019.11.26
 
 // PeerStatus is the possible results from pinging another peer
 type PeerStatus string

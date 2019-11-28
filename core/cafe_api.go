@@ -116,6 +116,16 @@ func (c *cafeApi) start() {
 		threads.DELETE("/:id", c.unstoreThread)
 	}
 
+//    videos := v1.Group("/videos", c.validateToken)
+//    {
+//        videos.POST("", c.handlePublishVideo)
+//    }
+//    
+//    videoChunks := v1.Group("/videoChunks", c.validateToken)
+//    {
+//        videoChunks.POST("", c.handlePublishVideoChunk)
+//    }
+
 	inbox := v1.Group("/inbox")
 	{
 		inbox.GET("/:pid", c.validateToken, c.checkMessages)

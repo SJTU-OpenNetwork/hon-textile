@@ -640,10 +640,14 @@ func (m *Mobile) writeCafeRequest(group string) ([]byte, error) {
 					hreq.Url += "/store/" + req.Target
 					body = []byte("noop")
 
-//                case pb.CafeRequest_STORE_VIDEO:
+//                case pb.CafeRequest_PUBLISH_VIDEO:
 //                    // TODO
 //					hreq.Type = pb.CafeHTTPRequest_PUT
-//					hreq.Url += "/videos/" + req.Target
+//					hreq.Url += "/videos/"
+//                case pb.CafeRequest_PUBLISH_VIDEO_CHUNK:
+//                    // TODO
+//					hreq.Type = pb.CafeHTTPRequest_PUT
+//					hreq.Url += "/videos/"
 
 				case pb.CafeRequest_STORE_THREAD:
 					hreq.Type = pb.CafeHTTPRequest_PUT

@@ -38,7 +38,8 @@ func (t *Textile) ThreadAddVideo(threadId string, videoId string) error {
     return err
 }
 
-func (t *Textile) PublishVideo(video *pb.Video) error {
+// --------------- OLD METHOD ----------------------------
+func (t *Textile) OLD_PublishVideo(video *pb.Video) error {
 	sessions := t.datastore.CafeSessions().List().Items
 	if len(sessions) == 0 {
 		return nil
@@ -51,7 +52,13 @@ func (t *Textile) PublishVideo(video *pb.Video) error {
 	return nil
 }
 
-func (t *Textile) PublishVideoChunk(vchunk *pb.VideoChunk) error {
+// --------------- NEW METHOD ----------------------------
+func (t *Textile) PublishVideo(video string) error {
+    return nil //t.cafeOutbox.Add(video, pb.CafeRequest_PUBLISH_VIDEO)
+}
+
+// --------------- OLD METHOD ----------------------------
+func (t *Textile) OLD_PublishVideoChunk(vchunk *pb.VideoChunk) error {
 	sessions := t.datastore.CafeSessions().List().Items
 	if len(sessions) == 0 {
 		return nil
@@ -62,6 +69,11 @@ func (t *Textile) PublishVideoChunk(vchunk *pb.VideoChunk) error {
 		}
 	}
 	return nil
+}
+
+// --------------- NEW METHOD ----------------------------
+func (t *Textile) PublishVideoChunk(vchunk string) error {
+    return nil//t.cafeOutbox.Add(vchunk, pb.CafeRequest_PUBLISH_VIDEO_CHUNK)
 }
 
 func (t *Textile) AddVideoChunk(vchunk *pb.VideoChunk) error {

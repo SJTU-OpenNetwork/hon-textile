@@ -24,10 +24,10 @@ import (
 
 var log = logging.Logger("tex-ipfs")
 
-const DefaultTimeout = time.Second * 5
+const DefaultTimeout = time.Second * 2 //from 5 to 2 2019.11.27
 const PinTimeout = time.Minute
 const CatTimeout = time.Minute
-const ConnectTimeout = time.Second * 10
+const ConnectTimeout = time.Second * 5 //from 10 to 5 2019.11.27
 
 // DataAtPath return bytes under an ipfs path
 func DataAtPath(node *core.IpfsNode, pth string) ([]byte, error) {

@@ -31,7 +31,7 @@ var ErrInvalidThreadBlock = fmt.Errorf("invalid thread block")
 const threadsServiceProtocol = protocol.ID("/textile/threads/2.0.0")
 
 // sendMessageTimeout is the duration to wait on a message ack before bailing to an inbox
-const sendMessageTimeout = time.Millisecond * time.Duration(500)
+const sendMessageTimeout = time.Millisecond * time.Duration(1000) //from 2500 to 1000 2019.11.27
 
 // ThreadService is a libp2p service for orchestrating a collection of files
 // with annotations amongst a group of peers
