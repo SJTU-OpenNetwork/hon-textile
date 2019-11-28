@@ -525,12 +525,17 @@ func (lwg *loggingWaitGroup) Wait(src string) {
 }
 
 func getTarget(output string) string {
-    str := output[8:]
-    return xxx
+    str := strings.Split(output, " ")[1];
+    return str;
 }
 
 func getStatus(output string) bool {
-    return true
+	str := strings.Split(output, " ")[2];
+	if str=="success"{
+		return true
+	}else {
+		return false
+	}
 }
 
 func (t *Textile) TryConnectPeers(query *pb.IpfsQuery) (bool, error){
