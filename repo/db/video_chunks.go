@@ -18,25 +18,29 @@ func NewVideoChunkStore(db *sql.DB, lock *sync.Mutex) repo.VideoChunkStore {
 }
 
 func (c *VideoChunkDB) Add(video *pb.VideoChunk) error {
+    log.Debug("try get video lock")
 	c.lock.Lock()
 	defer c.lock.Unlock()
-	tx, err := c.db.Begin()
-	if err != nil {
-		return err
-	}
+    log.Debug("get video lock")
 	
 	stm := "select * from video_chunks where id='" + video.Id + "' and chunk='" + video.Chunk + "';"
     res := c.handleQuery(stm)
 	if len(res) > 0 {
+        log.Debug("out Add")
         return nil
     }
     
+    tx, err := c.db.Begin()
+	if err != nil {
+		return err
+	}
     stm = `insert into video_chunks(id, chunk, address, startTime, endTime) values(?,?,?,?,?)`
 	stmt, err := tx.Prepare(stm)
 	if err != nil {
 		log.Errorf("error in tx prepare: %s", err)
 		return err
 	}
+    log.Debug("after prepare")
 	defer stmt.Close()
 	_, err = stmt.Exec(
 		video.Id,
@@ -45,40 +49,53 @@ func (c *VideoChunkDB) Add(video *pb.VideoChunk) error {
 		video.StartTime,
 		video.EndTime,
 	)
+    log.Debug("after execute")
 	if err != nil {
 		_ = tx.Rollback()
+        log.Error(err)
 		return err
 	}
+    log.Debug("out Add")
 	return tx.Commit()
 }
 
 func (c *VideoChunkDB) ListByVideo(videoId string) []*pb.VideoChunk {
+    log.Debug("try get video lock")
 	c.lock.Lock()
+    log.Debug("get video lock")
 	defer c.lock.Unlock()
 	stm := "select * from video_chunks where id='" + videoId + "';"
+    log.Debug("out List")
 	return c.handleQuery(stm)
 }
 
 func (c *VideoChunkDB) Get(videoId string, chunk string) *pb.VideoChunk {
+    log.Debug("try get video lock")
 	c.lock.Lock()
+    log.Debug("get video lock")
 	defer c.lock.Unlock()
 	stm := "select * from video_chunks where id='" + videoId + "' and chunk='" + chunk + "';"
     res := c.handleQuery(stm)
 	if len(res) == 0 {
 		return nil
 	}
+    log.Debug("out GET")
 	return res[0]
 }
 
 func (c *VideoChunkDB) Delete(videoId string) error {
+    log.Debug("try get video lock")
 	c.lock.Lock()
+    log.Debug("get video lock")
 	defer c.lock.Unlock()
 	_, err := c.db.Exec("delete from video_chunks where id=?", videoId)
 	return err
 }
 
 func (c *VideoChunkDB) Find(videoId string, chunk string, startTime int32, endTime int32) []*pb.VideoChunk {
+    log.Debug("try get video lock")
 	c.lock.Lock()
+    log.Debug("get video lock")
 	defer c.lock.Unlock()
     if videoId == "" {
         return nil
@@ -112,6 +129,7 @@ func (c *VideoChunkDB) handleQuery(stm string) []*pb.VideoChunk {
 		return nil
 	}
 	for rows.Next() {
+        log.Debug("get Item")
 		var id, chunk, address string
 		var startTime, endTime int64
 		if err := rows.Scan(&id, &chunk, &address, &startTime, &endTime); err != nil {

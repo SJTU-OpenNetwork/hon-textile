@@ -163,7 +163,7 @@ func (conf InitConfig) coreInitConfig() (core.InitConfig, error) {
 		RepoPath:     conf.RepoPath,
 		BaseRepoPath: conf.BaseRepoPath,
 		IsMobile:     true,
-       // IsServer:     true,
+        IsServer:     true,
 		LogToDisk:    conf.LogToDisk,
 		Debug:        conf.Debug,
 		IsPrivate:	  conf.IsPrivate,

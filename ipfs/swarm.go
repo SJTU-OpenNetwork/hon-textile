@@ -34,9 +34,10 @@ func SwarmConnect(node *core.IpfsNode, addrs []string) ([]string, error) {
 
 		err := api.Swarm().Connect(ctx, pi)
 		if err != nil {
-			return nil, fmt.Errorf("%s failure: %s", output[i], err)
-		}
-		output[i] += " success"
+            output[i] += " failed"
+		} else {
+		    output[i] += " success"
+        }
 	}
     log.Debug(output)
 	return output, nil

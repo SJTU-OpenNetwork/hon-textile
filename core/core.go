@@ -86,6 +86,11 @@ type RunConfig struct {
 	Debug             bool
 }
 
+type Variables struct {
+    SwarmAddress    string
+    FailedAddresses []string
+}
+
 // Textile is the main Textile node structure
 type Textile struct {
 	repoPath          string
@@ -114,6 +119,7 @@ type Textile struct {
 	cancelSync        *broadcast.Broadcaster
 	lock              sync.Mutex
 	writer            io.Writer
+    variables         *Variables
 }
 
 // common errors
@@ -335,6 +341,8 @@ func (t *Textile) Start() error {
 	t.online = make(chan struct{})
 	t.done = make(chan struct{})
 
+    t.variables = new Variables
+
 	_, err := repo.LoadPlugins(t.repoPath)
 	if err != nil {
 		return err
@@ -464,6 +472,7 @@ func (t *Textile) Start() error {
 			t.node.Peerstore.AddAddrs(p.ID, p.Addrs, peerstore.PermanentAddrTTL)
 		}
 
+        t.variables.SwarmAddress = t.GetSwarmAddress(t.node.Identity.Pretty())
 	}()
 
 	for _, mod := range t.datastore.Threads().List().Items {
@@ -515,41 +524,95 @@ func (lwg *loggingWaitGroup) Wait(src string) {
 	lwg.wg.Wait()
 }
 
-func (t *Textile) TryConnectPeers(query *pb.IpfsQuery) error{
-    sessions := t.datastore.CafeSessions().List().Items
-    if len(sessions) == 0 {
-        return nil
+func getTarget(output string) string {
+    str := output[8:]
+    return xxx
+}
+
+func getStatus(output string) bool {
+    return true
+}
+
+func (t *Textile) TryConnectPeers(query *pb.IpfsQuery) (bool, error){
+    if len(query.Items) == 0 {
+        return true, nil
     }
 
-    for _, session := range sessions {
-        result, err := t.cafe.CafeFindIpfsAddr(query, session.Id)
-        if err != nil {
-            return err
-        }
-        log.Debug(result.Items)
-        ipfs.SwarmConnect(t.node, result.Items)
+    sessions := t.datastore.CafeSessions().List().Items
+    if len(sessions) == 0 {
+        return false, nil
     }
-    return nil
+
+    swarmAddress := t.GetSwarmAddress(t.node.Identity.Pretty())
+    if swarmAddress != t.variables.SwarmAddress {
+        t.variables.SwarmAddress = swarmAddress
+        t.variables.FailedAddress = []
+    }
+    var targets []string
+    complete := true
+    for _, session := range sessions {
+		result, err := t.cafe.CafeFindIpfsAddr(query, session.Id)
+        if err != nil {
+            log.Error(err)
+            continue
+        }
+        for _, item := range result.Items {
+            // TODO: remove item unable to connect
+            if item in t.variables.FailedAddress {
+                complete = false
+                continue
+            }
+
+            targets = append(targets, item)
+        }
+	}
+    //TODO remove duplicate items
+
+    // try ipfs connect
+    output, err := ipfs.SwarmConnect(t.node, targets)
+    if err != nil {
+        return false, err
+    }
+
+
+    for _, o := range output {
+        target := getTarget(o)
+        status := getStatus(o)
+        if !status {
+            complete = false
+            t.variables.FailedAddresses = append(target, t.variables.FailedAddresses)
+        }
+    }
+    return complete, nil
 }
 
 func (t *Textile) TryConnect(peerId string) error{
-    sessions := t.datastore.CafeSessions().List().Items
-    if len(sessions) == 0 {
-        return nil
-    }
-
     query := new (pb.IpfsQuery)
     query.Items = append(query.Items, peerId)
 
+    return t.TryConnectPeers(query)
+}
+
+func (t *Textile) GetSwarmAddress(peerId string) string {
+    sessions := t.datastore.CafeSessions().List().Items
+    if len(sessions) == 0 {
+        return ""
+    }
+    
+    query := new (pb.IpfsQuery)
+    query.Items = append(query.Items, peerId)
+    
     for _, session := range sessions {
         result, err := t.cafe.CafeFindIpfsAddr(query, session.Id)
         if err != nil {
-            return err
+            return ""
         }
-        log.Debug(result.Items)
-        ipfs.SwarmConnect(t.node, result.Items)
+        if len(result.Items) > 0{
+            return result.Items[0]
+        }
     }
-    return nil
+    return ""
+
 }
 
 // stopGroup is used to block shutdown. Workers must add to the wait group counter

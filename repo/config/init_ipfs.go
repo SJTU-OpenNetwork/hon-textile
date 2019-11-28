@@ -79,7 +79,7 @@ var DefaultOpennetBootstrapAddresses = []string{
 }
 
 var OpennetCafeAddresses = []string{
-    //"/ip4/202.120.38.131/tcp/37545/ipfs/12D3KooWFHtYTLmeG9mr9qCuBL81jNj5NRdZ1qRsnnyerG2X3BDr",
+    "/ip4/202.120.38.131/tcp/37545/ipfs/12D3KooWFHtYTLmeG9mr9qCuBL81jNj5NRdZ1qRsnnyerG2X3BDr",
     "/ip4/159.138.58.61/tcp/26056/ipfs/12D3KooWKAwHi4WkUY5qbg2psSpDSZ4EsLwjaiCjC8ERajwZsXHc",
 }
 

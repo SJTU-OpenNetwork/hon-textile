@@ -16,10 +16,10 @@ func (m *Mobile) AddMessage(threadId string, body string) (string, error) {
 		return "", core.ErrThreadNotFound
 	}
 
-//    err := m.node.ConnectThreadPeers(threadId)
-//	if err != nil {
-//        log.Error(err)
-//	}
+    err := m.node.ConnectThreadPeers(threadId)
+	if err != nil {
+        log.Error(err)
+	}
 
 	hash, err := thrd.AddMessage("", body)
 	if err != nil {

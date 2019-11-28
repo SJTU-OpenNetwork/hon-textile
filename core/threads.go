@@ -205,18 +205,13 @@ func (t *Textile) ConnectThreadPeers(tid string) error {
     }
     log.Debug("Query:")
     log.Debug(query.Items)
-    if len(query.Items) == 0 {
-        return nil
+
+    complete := t.TryConnectPeers(query)
+    if !complete{
+        t.threads.ListenOneThread(thread.Id)
     }
-    for _, session := range sessions {
-		result, err := t.cafe.CafeFindIpfsAddr(query, session.Id)
-        if err != nil {
-			return err
-        }
-        log.Debug(result.Items)
-        ipfs.SwarmConnect(t.node, result.Items)
-	}
     return nil
+
 }
 
 // AddOrUpdateThread add or updates a thread directly, usually from a backup

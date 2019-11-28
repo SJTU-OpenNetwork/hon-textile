@@ -222,6 +222,7 @@ func (h *CafeService) Register(cafeId string, token string) (*pb.CafeSession, er
 		return nil, err
 	}
 
+    log.Debug(session)
 	err = h.datastore.CafeSessions().AddOrUpdate(session)
 	if err != nil {
 		return nil, err
@@ -1248,14 +1249,16 @@ func (h *CafeService) handlePublishVideoChunk(env *pb.Envelope, pid peer.ID) (*p
         log.Error(err)
 		return nil, err
 	}
-
+    log.Debug("after get video")
 	rerr, err := h.authToken(pid, store.Token, false, env.Message.Request)
 	if err != nil {
+        log.Error(err)
 		return nil, err
 	}
 	if rerr != nil {
 		return rerr, nil
 	}
+    log.Debug("after authToken")
 
 	client := h.datastore.CafeClients().Get(pid.Pretty())
 	if client == nil {
