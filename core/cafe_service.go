@@ -384,9 +384,10 @@ func (h *CafeService) PublishVideoChunk(vchunk *pb.VideoChunk, cafeId string) er
 	res := new(pb.CafePublishVideoChunkAck)
 	err = ptypes.UnmarshalAny(renv.Message.Payload, res)
 	if err != nil {
+		log.Error(err)
 		return err
 	}
-    log.Debug("Receive Publish Video Chunk ACK: %s, chunk: %s", res.Id, res.Chunk)
+    log.Debug("VIDEOPIPELINE: %s chunk of video %s publish ack reveived", res.Chunk, res.Id)
 	return nil
 }
 
@@ -733,7 +734,7 @@ func (h *CafeService) searchLocal(qtype pb.Query_Type, options *pb.QueryOptions,
 		if err != nil {
 			return nil, err
 		}
-        vchunks := h.datastore.VideoChunks().Find(q.Id, q.Chunk, q.StartTime, q.EndTime)
+        vchunks := h.datastore.VideoChunks().Find(q.Id, q.Chunk, q.StartTime, q.EndTime, q.Index)
         for _, c := range vchunks {
 			value, err := proto.Marshal(c)
 			if err != nil {

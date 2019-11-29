@@ -404,6 +404,7 @@ message VideoChunk {
     string address  = 3;
     int64 startTime = 4;
     int64 endTime   = 5;
+    int64 index     = 6;
 }
 
 message VideoChunkList {
