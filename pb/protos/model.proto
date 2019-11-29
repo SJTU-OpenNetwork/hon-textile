@@ -22,6 +22,17 @@ message PeerList {
     repeated Peer items = 1;
 }
 
+message SwarmPeer {
+    string addr    = 1;
+    string id      = 2;
+    string latency = 3;
+    string muxer   = 4;
+}
+
+message SwarmPeerList {
+    repeated SwarmPeer items = 1;
+}
+
 message User {
     string address = 1;
     string name    = 2;

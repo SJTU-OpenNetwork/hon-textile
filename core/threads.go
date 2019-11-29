@@ -206,9 +206,9 @@ func (t *Textile) ConnectThreadPeers(tid string) error {
     log.Debug("Query:")
     log.Debug(query.Items)
 
-    complete := t.TryConnectPeers(query)
+    complete, err := t.TryConnectPeers(query)
     if !complete{
-        t.threads.ListenOneThread(thread.Id)
+        t.threads.ListenOneThread(tid)
     }
     return nil
 

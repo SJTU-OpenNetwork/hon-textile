@@ -150,6 +150,8 @@ func (h *CafeService) Handle(env *pb.Envelope, pid peer.ID) (*pb.Envelope, error
 		return h.handlePublishVideo(env, pid)
 	case pb.Message_CAFE_PUBLISH_VIDEO_CHUNK:
 		return h.handlePublishVideoChunk(env, pid)
+//    case pb.Message_CAFE_GET_VIDEO_CHUNK:
+//        return h.handleGetVideoChunk(env, pid)
 	case pb.Message_CAFE_SYNC_FILE:
 		return h.handleSyncFile(env, pid)
     case pb.Message_CAFE_FIND_IPFS_ADDR:
@@ -389,6 +391,24 @@ func (h *CafeService) PublishVideoChunk(vchunk *pb.VideoChunk, cafeId string) er
     log.Debug("Receive Publish Video Chunk ACK: %s, chunk: %s", res.Id, res.Chunk)
 	return nil
 }
+
+//func (h *CafeService) GetVideoChunk(query *pb.VideoChunkQuery, cafeId string) (*pb.VideoChunkList, error) {
+//	renv, err := h.sendCafeRequest(cafeId, func(session *pb.CafeSession) (*pb.Envelope, error) {
+//		return h.service.NewEnvelope(pb.Message_CAFE_GET_VIDEO_CHUNK, &pb.CafeGetVideoChunk{
+//			Token: session.Access,
+//			Query: query,
+//		}, nil, false)
+//	})
+//	if err != nil {
+//		return nil, err
+//	}
+//	res := new(pb.CafeGetVideoChunkAck)
+//	err = ptypes.UnmarshalAny(renv.Message.Payload, res)
+//	if err != nil {
+//		return nil, err
+//	}
+//	return res.Chunks, nil
+//}
 
 func (h *CafeService) PublishSyncFile(file *pb.SyncFile, cafeId string) error {
 	_, err := h.sendCafeRequest(cafeId, func(session *pb.CafeSession) (*pb.Envelope, error) {
@@ -1408,6 +1428,34 @@ func (h *CafeService) handleSyncFile(env *pb.Envelope, pid peer.ID) (*pb.Envelop
     }
 	return h.service.NewEnvelope(pb.Message_CAFE_SYNC_FILE_ACK, res, &env.Message.Request, true)
 }
+
+//func (h *CafeService) handleGetVideoChunks(env *pb.Envelope, pid peer.ID) (*pb.Envelope, error) {
+//	store := new(pb.CafeGetVideoChunks)
+//	err := ptypes.UnmarshalAny(env.Message.Payload, store)
+//	if err != nil {
+//        log.Error(err)
+//		return nil, err
+//	}
+//
+//	rerr, err := h.authToken(pid, store.Token, false, env.Message.Request)
+//	if err != nil {
+//        log.Error(err)
+//		return nil, err
+//	}
+//	if rerr != nil {
+//        log.Error(err)
+//		return rerr, nil
+//	}
+//
+//    chunks := h.datastore.VideoChunk().Find(store.Query.Id, store.Query.Chunk, store.Query.StartTime, store.Query.EndTime)
+//
+//
+//    res := &pb.CafeGetVideoChunksAck{
+//        Chunks: chunks,
+//    }
+//	return h.service.NewEnvelope(pb.Message_CAFE_GET_VIDEO_CHUNKS_ACK, res, &env.Message.Request, true)
+//
+//}
 
 func (h *CafeService) handleCafeFindIpfsAddr(env *pb.Envelope, pid peer.ID) (*pb.Envelope, error) {
 	store := new(pb.CafeFindIpfsAddr)

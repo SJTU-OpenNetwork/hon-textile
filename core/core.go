@@ -341,7 +341,7 @@ func (t *Textile) Start() error {
 	t.online = make(chan struct{})
 	t.done = make(chan struct{})
 
-    t.variables = new Variables
+    t.variables = new(Variables)
 
 	_, err := repo.LoadPlugins(t.repoPath)
 	if err != nil {
@@ -472,6 +472,8 @@ func (t *Textile) Start() error {
 			t.node.Peerstore.AddAddrs(p.ID, p.Addrs, peerstore.PermanentAddrTTL)
 		}
 
+        log.Debug("In start")
+        log.Debug(t.variables.SwarmAddress)
         t.variables.SwarmAddress = t.GetSwarmAddress(t.node.Identity.Pretty())
 	}()
 
@@ -484,7 +486,6 @@ func (t *Textile) Start() error {
 				return err
 			}
 		}
-        t.ConnectThreadPeers(mod.Id)
 	}
 
 	go t.loadThreadSchemas()
@@ -538,6 +539,15 @@ func getStatus(output string) bool {
 	}
 }
 
+func stringInSlice(a string, list []string) bool {
+    for _, b := range list {
+        if b == a {
+            return true
+        }
+    }
+    return false
+}
+
 func (t *Textile) TryConnectPeers(query *pb.IpfsQuery) (bool, error){
     if len(query.Items) == 0 {
         return true, nil
@@ -549,10 +559,13 @@ func (t *Textile) TryConnectPeers(query *pb.IpfsQuery) (bool, error){
     }
 
     swarmAddress := t.GetSwarmAddress(t.node.Identity.Pretty())
+    log.Debug(swarmAddress)
+    log.Debug(t.variables.SwarmAddress)
     if swarmAddress != t.variables.SwarmAddress {
         t.variables.SwarmAddress = swarmAddress
-        t.variables.FailedAddress = []
+        t.variables.FailedAddresses = append([]string{})
     }
+    log.Debug(t.variables.FailedAddresses)
     var targets []string
     complete := true
     for _, session := range sessions {
@@ -563,7 +576,7 @@ func (t *Textile) TryConnectPeers(query *pb.IpfsQuery) (bool, error){
         }
         for _, item := range result.Items {
             // TODO: remove item unable to connect
-            if item in t.variables.FailedAddress {
+            if stringInSlice(item, t.variables.FailedAddresses) {
                 complete = false
                 continue
             }
@@ -579,13 +592,14 @@ func (t *Textile) TryConnectPeers(query *pb.IpfsQuery) (bool, error){
         return false, err
     }
 
+    log.Debug(output)
 
     for _, o := range output {
         target := getTarget(o)
         status := getStatus(o)
         if !status {
             complete = false
-            t.variables.FailedAddresses = append(target, t.variables.FailedAddresses)
+            t.variables.FailedAddresses = append(t.variables.FailedAddresses, target)
         }
     }
     return complete, nil
@@ -595,10 +609,12 @@ func (t *Textile) TryConnect(peerId string) error{
     query := new (pb.IpfsQuery)
     query.Items = append(query.Items, peerId)
 
-    return t.TryConnectPeers(query)
+    _, err := t.TryConnectPeers(query)
+    return err
 }
 
 func (t *Textile) GetSwarmAddress(peerId string) string {
+    log.Debug("In GetSwarmAddress")
     sessions := t.datastore.CafeSessions().List().Items
     if len(sessions) == 0 {
         return ""
@@ -610,14 +626,36 @@ func (t *Textile) GetSwarmAddress(peerId string) string {
     for _, session := range sessions {
         result, err := t.cafe.CafeFindIpfsAddr(query, session.Id)
         if err != nil {
+            log.Error(err)
             return ""
         }
         if len(result.Items) > 0{
+            log.Debug(result.Items[0])
             return result.Items[0]
         }
     }
     return ""
 
+}
+
+func (t *Textile) ConnectedAddresses() (*pb.SwarmPeerList, error) {
+    connectedPeers, err := ipfs.SwarmPeers(t.node, true, true, true, true)
+    if err != nil {
+        log.Error(err)
+        return nil, err
+    }
+
+    result := &pb.SwarmPeerList{Items: make([]*pb.SwarmPeer, 0)}
+    for _, sp := range connectedPeers.Peers {
+        tmp := &pb.SwarmPeer{
+            Addr: sp.Addr,
+            Id:   sp.Peer,
+            Latency: sp.Latency,
+            Muxer: sp.Muxer,
+        }
+        result.Items = append(result.Items, tmp)
+    }
+    return result, nil
 }
 
 // stopGroup is used to block shutdown. Workers must add to the wait group counter
@@ -766,6 +804,11 @@ func (t *Textile) NotificationCh() <-chan *pb.Notification {
 // PeerId returns peer id
 func (t *Textile) PeerId() (peer.ID, error) {
 	return t.node.Identity, nil
+}
+
+// MySwarmAddress returns my swarm address
+func (t *Textile) MySwarmAddress() string {
+    return t.variables.SwarmAddress
 }
 
 // RepoPath returns the node's repo path

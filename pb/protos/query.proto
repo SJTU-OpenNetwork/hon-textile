@@ -81,8 +81,8 @@ message ThreadSnapshotQuery {
 message VideoChunkQuery {
     string id       = 1;
     string chunk    = 2;
-    int32 startTime = 3;
-    int32 endTime   = 4;
+    int64 startTime = 3;
+    int64 endTime   = 4;
 }
 
 message VideoQuery {

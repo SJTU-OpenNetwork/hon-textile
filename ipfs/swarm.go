@@ -2,7 +2,7 @@ package ipfs
 
 import (
 	"context"
-	"fmt"
+    //	"fmt"
 	"sort"
 
 	"github.com/ipfs/go-ipfs/core"

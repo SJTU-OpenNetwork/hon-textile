@@ -90,9 +90,15 @@ func (m *Mobile) registerCafe(host string, token string) error {
         log.Error(err)
 		return err
 	}
-
+	
 	session := new(pb.CafeSession)
 	err = jsonpb.Unmarshal(res.Body, session)
+	if err != nil {
+        log.Error(err)
+		return err
+	}
+    
+    err = m.node.PublishPeer()
 	if err != nil {
         log.Error(err)
 		return err
@@ -126,12 +132,6 @@ func (m *Mobile) registerCafe(host string, token string) error {
             log.Error(err)
 			return err
 		}
-	}
-
-	err = m.node.PublishPeer()
-	if err != nil {
-        log.Error(err)
-		return err
 	}
 
 	err = m.node.SnapshotThreads()

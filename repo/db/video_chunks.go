@@ -92,7 +92,7 @@ func (c *VideoChunkDB) Delete(videoId string) error {
 	return err
 }
 
-func (c *VideoChunkDB) Find(videoId string, chunk string, startTime int32, endTime int32) []*pb.VideoChunk {
+func (c *VideoChunkDB) Find(videoId string, chunk string, startTime int64, endTime int64) []*pb.VideoChunk {
     log.Debug("try get video lock")
 	c.lock.Lock()
     log.Debug("get video lock")

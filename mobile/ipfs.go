@@ -4,9 +4,39 @@ import (
 	"bytes"
 
 	ipld "github.com/ipfs/go-ipld-format"
+	"github.com/golang/protobuf/proto"
 	"github.com/SJTU-OpenNetwork/hon-textile/core"
 	"github.com/SJTU-OpenNetwork/hon-textile/ipfs"
 )
+
+func (m *Mobile) GetSwarmAddress(pid string) (string, error) {
+	if !m.node.Started() {
+		return "", core.ErrStopped
+    }
+
+    mpid, err := m.node.PeerId()
+    if err != nil {
+        log.Error(err)
+        return "", err
+    }
+    if pid == mpid.Pretty() {
+        log.Debug("Its me!")
+        log.Debug(m.node.MySwarmAddress())
+        return m.node.MySwarmAddress(), nil
+    }
+    return m.node.GetSwarmAddress(pid), nil
+}
+
+func (m *Mobile) ConnectedAddresses() ([]byte, error) {
+	if !m.node.Started() {
+		return nil, core.ErrStopped
+    }
+    swarmPeers, err := m.node.ConnectedAddresses()
+    if err != nil {
+        return nil, err
+    }
+	return proto.Marshal(swarmPeers)
+}
 
 // PeerId returns the ipfs peer id
 func (m *Mobile) PeerId() (string, error) {
