@@ -105,6 +105,17 @@ func (m *Mobile) GetVideoChunk(id string, chunk string) ([]byte, error) {
 	return proto.Marshal(vchunk)
 }
 
+func (m *Mobile) GetVideoChunkByIndex(id string, index int64)([]byte, error){
+	if !m.node.Started(){
+		return nil, core.ErrStopped
+	}
+
+	vchunk := m.node.GetVideoChunkByIndex(id, index)
+	if vchunk == nil {
+		return nil, nil
+	}
+	return proto.Marshal(vchunk)
+}
 
 func (m *Mobile) ChunksByVideoId(id string) ([]byte, error) {
 	if !m.node.Started() {

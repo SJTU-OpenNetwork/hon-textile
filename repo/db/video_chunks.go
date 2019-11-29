@@ -84,6 +84,22 @@ func (c *VideoChunkDB) Get(videoId string, chunk string) *pb.VideoChunk {
 	return res[0]
 }
 
+func (c *VideoChunkDB) GetByIndex(videoId string, index int64) *pb.VideoChunk{
+	log.Debugf("Get video by index %d", index)
+	log.Debug("try get video lock")
+	c.lock.Lock()
+	log.Debug("get video lock")
+	defer c.lock.Unlock()
+	stm := fmt.Sprintf("select * from video_chunks where id='%s' and index='%d'", videoId, index)
+	//stm := "select * from video_chunks where id='" + videoId + "' and index='" + index + "';"
+	res := c.handleQuery(stm)
+	if len(res) == 0 {
+		return nil
+	}
+	log.Debug("out GET")
+	return res[0]
+}
+
 func (c *VideoChunkDB) Delete(videoId string) error {
     log.Debug("try get video lock")
 	c.lock.Lock()
