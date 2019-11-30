@@ -76,6 +76,7 @@ func (c *VideoChunkDB) Get(videoId string, chunk string) *pb.VideoChunk {
     log.Debug("get video lock")
 	defer c.lock.Unlock()
 	stm := "select * from video_chunks where id='" + videoId + "' and chunk='" + chunk + "';"
+	log.Debugf("SQL: %s", stm)
     res := c.handleQuery(stm)
 	if len(res) == 0 {
 		return nil
@@ -92,6 +93,7 @@ func (c *VideoChunkDB) GetByIndex(videoId string, index int64) *pb.VideoChunk{
 	defer c.lock.Unlock()
 	stm := fmt.Sprintf("select * from video_chunks where id='%s' and cid='%d'", videoId, index)
 	//stm := "select * from video_chunks where id='" + videoId + "' and index='" + index + "';"
+	log.Debugf("SQL: %s", stm)
 	res := c.handleQuery(stm)
 	if len(res) == 0 {
 		return nil
@@ -114,17 +116,21 @@ func (c *VideoChunkDB) Find(videoId string, chunk string, startTime int64, endTi
 	c.lock.Lock()
     log.Debug("get video lock")
 	defer c.lock.Unlock()
+    log.Debugf("VIDEOPIPELINE: Try to find chunk with query:\nvideoId: %s\nchunk: %s\nstartTime: %d\nendTime: %d\nindex: %d",
+    	videoId, chunk, startTime, endTime, index)
     if videoId == "" {
         return nil
     }
 	if chunk != "" {
 		log.Debugf("VIDEOPIPELINE: Find video by chunk %s", chunk)
 		stm := fmt.Sprintf("select * from video_chunks where id='%s' and chunk='%s'", videoId, chunk)
+		log.Debugf("SQL: %s", stm)
 		return c.handleQuery(stm)
 	}
 	if index >= 0 {
 		log.Debugf("VIDEOPIPELINE: Find video by index %d", index)
 		stm := fmt.Sprintf("select * from video_chunks where id='%s' and cid='%d'", videoId, index)
+		log.Debugf("SQL: %s", stm)
 		return c.handleQuery(stm)
 	}
     if chunk == "" && startTime == -1 && endTime == -1 {
@@ -132,13 +138,16 @@ func (c *VideoChunkDB) Find(videoId string, chunk string, startTime int64, endTi
     }
     if startTime == -1 {
 	    stm := fmt.Sprintf("select * from video_chunks where id='%s' and endTime<=%d;", videoId, endTime)
+		log.Debugf("SQL: %s", stm)
         return c.handleQuery(stm)
     }
     if endTime == -1 {
 	    stm := fmt.Sprintf("select * from video_chunks where id='%s' and startTime>=%d;", videoId, startTime)
+		log.Debugf("SQL: %s", stm)
         return c.handleQuery(stm)
     }
 	stm := fmt.Sprintf("select * from video_chunks where id='%s' and startTime>=%d and endTime<=%d;", videoId, startTime, endTime)
+	log.Debugf("SQL: %s", stm)
     return c.handleQuery(stm)
 
     return nil

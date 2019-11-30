@@ -752,8 +752,10 @@ func (h *CafeService) searchLocal(qtype pb.Query_Type, options *pb.QueryOptions,
 		q := new(pb.VideoChunkQuery)
 		err := ptypes.UnmarshalAny(payload, q)
 		if err != nil {
+			log.Error("Error occur when search local video chunks")
 			return nil, err
 		}
+		log.Debugf("VIDEOPIPELINE: Search local video chunk with param:\nId: %s\nChunk: %s\nstartTime: %d\n endTime: %d\n index: %d", q.Id, q.Chunk, q.StartTime, q.EndTime, q.Index)
         vchunks := h.datastore.VideoChunks().Find(q.Id, q.Chunk, q.StartTime, q.EndTime, q.Index)
         for _, c := range vchunks {
 			value, err := proto.Marshal(c)
