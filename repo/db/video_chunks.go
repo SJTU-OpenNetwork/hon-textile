@@ -90,7 +90,7 @@ func (c *VideoChunkDB) GetByIndex(videoId string, index int64) *pb.VideoChunk{
 	c.lock.Lock()
 	log.Debug("get video lock")
 	defer c.lock.Unlock()
-	stm := fmt.Sprintf("select * from video_chunks where id='%s' and index='%d'", videoId, index)
+	stm := fmt.Sprintf("select * from video_chunks where id='%s' and cid='%d'", videoId, index)
 	//stm := "select * from video_chunks where id='" + videoId + "' and index='" + index + "';"
 	res := c.handleQuery(stm)
 	if len(res) == 0 {
@@ -126,7 +126,7 @@ func (c *VideoChunkDB) Find(videoId string, chunk string, startTime int64, endTi
     }
     if index >= 0 {
     	log.Debugf("Find video by index %d", index)
-    	stm := fmt.Sprintf("select * from video_chunks where id='%s' and index='%d'", videoId, index)
+    	stm := fmt.Sprintf("select * from video_chunks where id='%s' and cid='%d'", videoId, index)
 		return c.handleQuery(stm)
 	}
     if startTime == -1 {
@@ -153,8 +153,9 @@ func (c *VideoChunkDB) handleQuery(stm string) []*pb.VideoChunk {
 	for rows.Next() {
         log.Debug("get Item")
 		var id, chunk, address string
-		var startTime, endTime int64
-		if err := rows.Scan(&id, &chunk, &address, &startTime, &endTime); err != nil {
+		var startTime, endTime, cid int64
+
+		if err := rows.Scan(&id, &chunk, &address, &startTime, &endTime, &cid); err != nil {
 			log.Errorf("error in db scan: %s", err)
 			continue
 		}
@@ -164,6 +165,7 @@ func (c *VideoChunkDB) handleQuery(stm string) []*pb.VideoChunk {
 			Address:   address,
             StartTime: startTime,
             EndTime:   endTime,
+            Index:       cid,
 		})
 	}
     log.Debug("DB: in search video chunk, got %d", len(list))
