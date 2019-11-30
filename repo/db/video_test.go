@@ -14,7 +14,7 @@ var videoStore repo.VideoStore
 
 func init() {
 	setupVideoDB()
-}
+ }
 
 func setupVideoDB() {
 	conn, _ := sql.Open("sqlite3", ":memory:")
