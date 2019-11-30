@@ -639,8 +639,8 @@ func (t *Textile) GetSwarmAddress(peerId string) string {
 }
 
 func (t *Textile) ConnectCafes() error {
-    ipfs.SwarmConnect(config.OpennetCafeAddresses)
-    
+    _, err := ipfs.SwarmConnect(t.node, config.OpennetCafeAddresses)
+    return err
 }
 
 func (t *Textile) ConnectedAddresses() (*pb.SwarmPeerList, error) {
