@@ -638,6 +638,11 @@ func (t *Textile) GetSwarmAddress(peerId string) string {
 
 }
 
+func (t *Textile) ConnectCafes() error {
+    ipfs.SwarmConnect(config.OpennetCafeAddresses)
+    
+}
+
 func (t *Textile) ConnectedAddresses() (*pb.SwarmPeerList, error) {
     connectedPeers, err := ipfs.SwarmPeers(t.node, true, true, true, true)
     if err != nil {

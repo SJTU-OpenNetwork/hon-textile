@@ -247,7 +247,7 @@ func initDatabaseTables(db *sql.DB, pin string) error {
     create table videos (id text not null, caption text not null, videoLength integer not null, poster text not null, primary key(id));
     create index video_id on videos (id);
 
-    create table video_chunks (id text not null, chunk text not null, address text not null, startTime integer, endTime integer, primary key (id, chunk));
+    create table video_chunks (id text not null, chunk text not null, address text not null, startTime integer, endTime integer, index integer, primary key (id, chunk));
     create unique index video_chunks_id on video_chunks (id, chunk);
 
     create table sync_files (peer_address text not null, file text not null, type integer not null, date integer not null, operation integer not null);

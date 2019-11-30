@@ -83,6 +83,7 @@ message VideoChunkQuery {
     string chunk    = 2;
     int64 startTime = 3;
     int64 endTime   = 4;
+    int64 index     = 5;
 }
 
 message VideoQuery {

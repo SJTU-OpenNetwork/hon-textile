@@ -98,8 +98,9 @@ type VideoChunkStore interface {
 	Add(video *pb.VideoChunk) error
 	ListByVideo(videoId string) []*pb.VideoChunk
 	Get(videoId string, chunk string) *pb.VideoChunk
+    GetByIndex(videoId string, index int64) *pb.VideoChunk
 	Delete(videoId string) error
-	Find(videoId string, chunk string, startTime int64, endTime int64) []*pb.VideoChunk
+	Find(videoId string, chunk string, startTime int64, endTime int64, index int64) []*pb.VideoChunk
 }
 
 type SyncFileStore interface {

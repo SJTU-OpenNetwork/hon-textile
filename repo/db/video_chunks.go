@@ -34,7 +34,7 @@ func (c *VideoChunkDB) Add(video *pb.VideoChunk) error {
 	if err != nil {
 		return err
 	}
-    stm = `insert into video_chunks(id, chunk, address, startTime, endTime) values(?,?,?,?,?)`
+    stm = `insert into video_chunks(id, chunk, address, startTime, endTime, index) values(?,?,?,?,?,?)`
 	stmt, err := tx.Prepare(stm)
 	if err != nil {
 		log.Errorf("error in tx prepare: %s", err)
@@ -48,6 +48,7 @@ func (c *VideoChunkDB) Add(video *pb.VideoChunk) error {
 		video.Address,
 		video.StartTime,
 		video.EndTime,
+		video.Index,
 	)
     log.Debug("after execute")
 	if err != nil {
@@ -83,6 +84,22 @@ func (c *VideoChunkDB) Get(videoId string, chunk string) *pb.VideoChunk {
 	return res[0]
 }
 
+func (c *VideoChunkDB) GetByIndex(videoId string, index int64) *pb.VideoChunk{
+	log.Debugf("Get video by index %d", index)
+	log.Debug("try get video lock")
+	c.lock.Lock()
+	log.Debug("get video lock")
+	defer c.lock.Unlock()
+	stm := fmt.Sprintf("select * from video_chunks where id='%s' and index='%d'", videoId, index)
+	//stm := "select * from video_chunks where id='" + videoId + "' and index='" + index + "';"
+	res := c.handleQuery(stm)
+	if len(res) == 0 {
+		return nil
+	}
+	log.Debug("out GET")
+	return res[0]
+}
+
 func (c *VideoChunkDB) Delete(videoId string) error {
     log.Debug("try get video lock")
 	c.lock.Lock()
@@ -92,7 +109,7 @@ func (c *VideoChunkDB) Delete(videoId string) error {
 	return err
 }
 
-func (c *VideoChunkDB) Find(videoId string, chunk string, startTime int64, endTime int64) []*pb.VideoChunk {
+func (c *VideoChunkDB) Find(videoId string, chunk string, startTime int64, endTime int64, index int64) []*pb.VideoChunk {
     log.Debug("try get video lock")
 	c.lock.Lock()
     log.Debug("get video lock")
@@ -107,6 +124,11 @@ func (c *VideoChunkDB) Find(videoId string, chunk string, startTime int64, endTi
 	    stm := fmt.Sprintf("select * from video_chunks where id='%s' and chunk='%s'", videoId, chunk)
 	    return c.handleQuery(stm)
     }
+    if index >= 0 {
+    	log.Debugf("Find video by index %d", index)
+    	stm := fmt.Sprintf("select * from video_chunks where id='%s' and index='%d'", videoId, index)
+		return c.handleQuery(stm)
+	}
     if startTime == -1 {
 	    stm := fmt.Sprintf("select * from video_chunks where id='%s' and endTime<=%d;", videoId, endTime)
         return c.handleQuery(stm)

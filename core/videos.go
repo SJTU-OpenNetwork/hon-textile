@@ -98,6 +98,10 @@ func (t *Textile) GetVideoChunk(videoId string, chunk string) *pb.VideoChunk {
 	return t.datastore.VideoChunks().Get(videoId, chunk)
 }
 
+func (t *Textile) GetVideoChunkByIndex(videoId string, index int64) *pb.VideoChunk {
+	return t.datastore.VideoChunks().GetByIndex(videoId, index)
+}
+
 func (t *Textile) RemoveVideo(id string) error {
     err := t.datastore.VideoChunks().Delete(id)
     if err != nil{
