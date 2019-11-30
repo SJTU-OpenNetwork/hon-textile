@@ -64,13 +64,13 @@ var DefaultOpennetBootstrapAddresses = []string{
     "/ip4/159.138.130.129/tcp/4001/ipfs/QmZX8WVgJ3cQCW3bNcodXhmK34rmNkvqk8Zg9u7f3JEFgN",
     "/ip4/159.138.58.61/tcp/4001/ipfs/QmT2pfx89HyJ5eLVn15AV2JXuUEyQHpWMZxXjn3bZ997wc",
     "/ip4/159.138.130.106/tcp/4001/ipfs/QmXn48f5fbZJmqCaUN184UpFeK36jWMMc5knT7mjbjz7Co",
-    "/ip4/202.120.38.131/tcp/37545/ipfs/12D3KooWQzVGSYA5pLaVSvn9DbB2geRHyisvBHdb4ojPMkSG1Mo3",
+    "/ip4/202.120.38.131/tcp/20800/ipfs/12D3KooWHCB9oZDjAPtNpLS4RnN4WgjPnjHsPTctjE8NNChA9D4n",
     "/ip4/202.120.40.60/tcp/18790/ipfs/12D3KooWRE1NN3YbZthr9uiwJCfcAscGHBMJhjRmyu8HooPDTSBd", //laptop
     "/ip4/202.120.38.100/tcp/4001/ipfs/QmZt8jsim548Y5UFN24GL9nX9x3eSS8QFMsbSRNMBAqKBb",
 }
 
 var OpennetCafeAddresses = []string{
-    "/ip4/202.120.38.131/tcp/37545/ipfs/12D3KooWQzVGSYA5pLaVSvn9DbB2geRHyisvBHdb4ojPMkSG1Mo3",
+    "/ip4/202.120.38.131/tcp/20800/ipfs/12D3KooWHCB9oZDjAPtNpLS4RnN4WgjPnjHsPTctjE8NNChA9D4n",
     "/ip4/159.138.58.61/tcp/26056/ipfs/12D3KooWKAwHi4WkUY5qbg2psSpDSZ4EsLwjaiCjC8ERajwZsXHc",
 }
 
