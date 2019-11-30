@@ -34,7 +34,7 @@ func (c *VideoChunkDB) Add(video *pb.VideoChunk) error {
 	if err != nil {
 		return err
 	}
-    stm = `insert into video_chunks(id, chunk, address, startTime, endTime, index) values(?,?,?,?,?,?)`
+    stm = `insert into video_chunks(id, chunk, address, startTime, endTime, cid) values(?,?,?,?,?,?)`
 	stmt, err := tx.Prepare(stm)
 	if err != nil {
 		log.Errorf("error in tx prepare: %s", err)
