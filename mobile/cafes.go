@@ -422,6 +422,28 @@ func (m *Mobile) CafeSessions() ([]byte, error) {
 	return res, nil
 }
 
+//!!!!!
+func (m *Mobile) PublishPeerToCafe(id string, cb Callback){
+	m.node.WaitAdd(1, "Mobile.PublishPeerToCafe")
+	go func(){
+		defer m.node.WaitDone("Mobile.PublishPeerToCafe")
+		cb.Call(m.publishPeerToCafe(id))
+	}()
+}
+
+func (m *Mobile) publishPeerToCafe(id string) error{
+	if !m.node.Started() {
+		return core.ErrStopped
+	}
+
+	session := m.node.Datastore().CafeSessions().Get(id)
+	if session == nil {
+		return fmt.Errorf("session not found")
+	}
+	//m.node.cafe.PublishPeer()
+	return nil;
+}
+
 // CafeRequests paginates new requests
 func (m *Mobile) CafeRequests(limit int) ([]byte, error) {
 	if !m.node.Started() {

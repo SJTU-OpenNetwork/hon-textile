@@ -79,6 +79,21 @@ func (t *Textile) PublishPeer() error {
 	return nil
 }
 
+func (t *Textile) PublishPeerToCafe(id string) error{
+	self := t.datastore.Peers().Get(t.node.Identity.Pretty())
+	if self == nil{
+		return fmt.Errorf("peer not found")
+	}
+	session := t.datastore.CafeSessions().Get(id);
+	if session == nil{
+		return fmt.Errorf("session not found")
+	}
+	if err := t.cafe.PublishPeer(self, session.Id); err != nil {
+		return err
+	}
+	return nil
+}
+
 // UpdatePeerInboxes sets own peer inboxes from the current cafe sessions
 func (t *Textile) UpdatePeerInboxes() error {
 	var inboxes []*pb.Cafe
