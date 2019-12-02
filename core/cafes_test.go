@@ -116,6 +116,13 @@ func TestCore_RegisterCafe(t *testing.T) {
 	cafeVars.node.FlushCafes()
 }
 
+func TestCore_PublishPeerToCafe(t *testing.T){
+	err := cafeVars.node.PublishPeerToCafe(cafeVars.cafe.Ipfs().Identity.Pretty())
+	if err != nil{
+		t.Fatal(err)
+	}
+}
+
 func TestCore_HandleCafeRequests(t *testing.T) {
 	waitOnRequests(time.Second * 60)
 
