@@ -98,12 +98,6 @@ func (m *Mobile) registerCafe(host string, token string) error {
 		return err
 	}
     
-    err = m.node.PublishPeer()
-	if err != nil {
-        log.Error(err)
-		return err
-	}
-
 	// return existing session
 	if x := m.node.Datastore().CafeSessions().Get(session.Id); x != nil {
         log.Debug("return existing session")
@@ -114,6 +108,13 @@ func (m *Mobile) registerCafe(host string, token string) error {
 	if err != nil {
 		return err
 	}
+    
+    err = m.node.PublishPeer()
+	if err != nil {
+        log.Error(err)
+		return err
+	}
+
 
 	err = m.node.UpdatePeerInboxes()
 	if err != nil {

@@ -89,6 +89,7 @@ type RunConfig struct {
 type Variables struct {
     SwarmAddress    string
     FailedAddresses []string
+	lock            sync.Mutex
 }
 
 // Textile is the main Textile node structure
@@ -549,6 +550,8 @@ func stringInSlice(a string, list []string) bool {
 }
 
 func (t *Textile) TryConnectPeers(query *pb.IpfsQuery) (bool, error){
+	t.variables.lock.Lock()
+	defer t.variables.lock.Unlock()
     if len(query.Items) == 0 {
         return true, nil
     }
@@ -561,6 +564,12 @@ func (t *Textile) TryConnectPeers(query *pb.IpfsQuery) (bool, error){
     swarmAddress := t.GetSwarmAddress(t.node.Identity.Pretty())
     log.Debug(swarmAddress)
     log.Debug(t.variables.SwarmAddress)
+
+    if swarmAddress == "" {
+        t.ConnectCafes()
+        swarmAddress = t.GetSwarmAddress(t.node.Identity.Pretty())
+    }
+
     if swarmAddress != t.variables.SwarmAddress {
         t.variables.SwarmAddress = swarmAddress
         t.variables.FailedAddresses = append([]string{})
@@ -605,12 +614,16 @@ func (t *Textile) TryConnectPeers(query *pb.IpfsQuery) (bool, error){
     return complete, nil
 }
 
-func (t *Textile) TryConnect(peerId string) error{
+func (t *Textile) TryConnect(peerId string) {
     query := new (pb.IpfsQuery)
     query.Items = append(query.Items, peerId)
 
-    _, err := t.TryConnectPeers(query)
-    return err
+    go func() {
+        _, err := t.TryConnectPeers(query)
+        if err != nil {
+            log.Error(err)
+        }
+    }()
 }
 
 func (t *Textile) GetSwarmAddress(peerId string) string {

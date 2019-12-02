@@ -206,10 +206,12 @@ func (t *Textile) ConnectThreadPeers(tid string) error {
     log.Debug("Query:")
     log.Debug(query.Items)
 
-    complete, err := t.TryConnectPeers(query)
-    if !complete{
-        t.threads.ListenOneThread(tid)
-    }
+    go func(){
+        complete, err := t.TryConnectPeers(query)
+        if err != nil || !complete{
+            t.threads.ListenOneThread(tid)
+        }
+    }()
     return nil
 
 }
