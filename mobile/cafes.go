@@ -437,12 +437,12 @@ func (m *Mobile) publishPeerToCafe(id string) error{
 		return core.ErrStopped
 	}
 
-	session := m.node.Datastore().CafeSessions().Get(id)
-	if session == nil {
-		return fmt.Errorf("session not found")
-	}
+	//session := m.node.Datastore().CafeSessions().Get(id)
+	//if session == nil {
+	//	return fmt.Errorf("session not found")
+	//}
+	return m.node.PublishPeerToCafe(id);
 	//m.node.cafe.PublishPeer()
-	return nil;
 }
 
 // CafeRequests paginates new requests
