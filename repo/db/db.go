@@ -64,13 +64,14 @@ func Create(repoPath, pin string) (*SQLiteDatastore, error) {
 		}
 	}
 	lock := new(sync.Mutex)
-    videoChunkLock := new(sync.Mutex)
+    //videoChunkLock := new(sync.Mutex)
+    //videoLock := new(sync.Mutex)
 	return &SQLiteDatastore{
 		config:             NewConfigStore(conn, lock, dbPath),
 		peers:              NewPeerStore(conn, lock),
 		files:              NewFileStore(conn, lock),
 		videos:             NewVideoStore(conn, lock),
-		videoChunks:        NewVideoChunkStore(conn, videoChunkLock),
+		videoChunks:        NewVideoChunkStore(conn, lock),
         syncFiles:          NewSyncFileStore(conn, lock),
 		threads:            NewThreadStore(conn, lock),
 		threadPeers:        NewThreadPeerStore(conn, lock),

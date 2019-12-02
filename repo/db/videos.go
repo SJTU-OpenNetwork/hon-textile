@@ -46,6 +46,7 @@ func (c *VideoDB) Add(video *pb.Video) error {
         video.Poster,
 	)
 	if err != nil {
+        log.Error(err)
 		_ = tx.Rollback()
 		return err
 	}

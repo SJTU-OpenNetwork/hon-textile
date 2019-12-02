@@ -116,8 +116,9 @@ func (c *VideoChunkDB) Find(videoId string, chunk string, startTime int64, endTi
 	c.lock.Lock()
     log.Debug("get video lock")
 	defer c.lock.Unlock()
-    log.Debugf("VIDEOPIPELINE: Try to find chunk with query:\nvideoId: %s\nchunk: %s\nstartTime: %d\nendTime: %d\nindex: %d",
-    	videoId, chunk, startTime, endTime, index)
+
+    //log.Debugf("VIDEOPIPELINE: Try to find chunk with query:\nvideoId: %s\nchunk: %s\nstartTime: %d\nendTime: %d\nindex: %d",
+    //	videoId, chunk, startTime, endTime, index)
     if videoId == "" {
         return nil
     }
@@ -128,13 +129,16 @@ func (c *VideoChunkDB) Find(videoId string, chunk string, startTime int64, endTi
 		return c.handleQuery(stm)
 	}
 	if index >= 0 {
-		log.Debugf("VIDEOPIPELINE: Find video by index %d", index)
+		//log.Debugf("VIDEOPIPELINE: Find video by index %d", index)
 		stm := fmt.Sprintf("select * from video_chunks where id='%s' and cid='%d'", videoId, index)
 		log.Debugf("SQL: %s", stm)
-		return c.handleQuery(stm)
+        result := c.handleQuery(stm)
+        log.Debug("finish query")
+		return result
 	}
-    if chunk == "" && startTime == -1 && endTime == -1 {
-        return c.ListByVideo(videoId)
+    if startTime == -1 && endTime == -1 {
+	    stm := "select * from video_chunks where id='" + videoId + "';"
+	    return c.handleQuery(stm)
     }
     if startTime == -1 {
 	    stm := fmt.Sprintf("select * from video_chunks where id='%s' and endTime<=%d;", videoId, endTime)
@@ -149,19 +153,17 @@ func (c *VideoChunkDB) Find(videoId string, chunk string, startTime int64, endTi
 	stm := fmt.Sprintf("select * from video_chunks where id='%s' and startTime>=%d and endTime<=%d;", videoId, startTime, endTime)
 	log.Debugf("SQL: %s", stm)
     return c.handleQuery(stm)
-
-    return nil
 }
 
 func (c *VideoChunkDB) handleQuery(stm string) []*pb.VideoChunk {
 	var list []*pb.VideoChunk
 	rows, err := c.db.Query(stm)
+    log.Debug("Query finish!")
 	if err != nil {
 		log.Errorf("error in db query: %s", err)
 		return nil
 	}
 	for rows.Next() {
-        log.Debug("get Item")
 		var id, chunk, address string
 		var startTime, endTime, cid int64
 
@@ -178,6 +180,6 @@ func (c *VideoChunkDB) handleQuery(stm string) []*pb.VideoChunk {
             Index:       cid,
 		})
 	}
-    log.Debug("DB: in search video chunk, got %d", len(list))
+    log.Debug("VideoChunkDB: handleQuery, got %d", len(list))
 	return list
 }
