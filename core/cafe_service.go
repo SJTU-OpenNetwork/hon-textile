@@ -319,6 +319,7 @@ func (h *CafeService) DeleteMessages(cafeId string) error {
 
 // PublishPeer publishes the local peer's info
 func (h *CafeService) PublishPeer(peer *pb.Peer, cafeId string) error {
+	log.Debugf("Publish peer to %s", cafeId)
 	_, err := h.sendCafeRequest(cafeId, func(session *pb.CafeSession) (*pb.Envelope, error) {
 		return h.service.NewEnvelope(pb.Message_CAFE_PUBLISH_PEER, &pb.CafePublishPeer{
 			Token: session.Access,

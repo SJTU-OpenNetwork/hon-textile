@@ -424,6 +424,21 @@ func (m *Mobile) CafeSessions() ([]byte, error) {
 }
 
 //!!!!!
+func (m *Mobile) PublishPeer(cb Callback){
+	m.node.WaitAdd(1, "Mobile.PublishPeer")
+	go func(){
+		defer m.node.WaitDone("Mobile.PublishPeer")
+		cb.Call(m.publishPeer())
+	}()
+}
+
+func (m *Mobile) publishPeer() error{
+	if !m.node.Started(){
+		return core.ErrStopped
+	}
+	return m.node.PublishPeer();
+}
+
 func (m *Mobile) PublishPeerToCafe(id string, cb Callback){
 	m.node.WaitAdd(1, "Mobile.PublishPeerToCafe")
 	go func(){
