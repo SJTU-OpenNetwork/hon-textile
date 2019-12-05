@@ -29,7 +29,7 @@ func (c *VideoDB) Add(video *pb.Video) error {
     }
 
 	log.Debug("After Search")
-	stm = `insert into videos(id, caption, videoLength, poster) values(?,?,?,?)`
+	stm = `insert into videos(id, caption, videoLength, poster, width, height, rotation) values(?,?,?,?,?,?,?)`
 	tx, err := c.db.Begin()
 	if err != nil {
         log.Error(err)
@@ -46,6 +46,9 @@ func (c *VideoDB) Add(video *pb.Video) error {
         video.Caption,
 		video.VideoLength,
         video.Poster,
+        video.Width,
+        video.Height,
+        video.Rotation,
 	)
 	if err != nil {
         log.Error(err)
@@ -84,7 +87,8 @@ func (c *VideoDB) handleQuery(stm string) []*pb.Video {
 	for rows.Next() {
 		var id, caption, poster string
 		var videoLength int64
-		if err := rows.Scan(&id, &caption, &videoLength, &poster); err != nil {
+		var width, height, rotation int32
+		if err := rows.Scan(&id, &caption, &videoLength, &poster, &width, &height, &rotation); err != nil {
 			log.Errorf("error in db scan: %s", err)
 			continue
 		}
@@ -93,6 +97,9 @@ func (c *VideoDB) handleQuery(stm string) []*pb.Video {
             Caption:   caption,
             VideoLength: videoLength,
             Poster:      poster,
+            Width:		width,
+            Height:		height,
+            Rotation:	rotation,
 		})
 	}
 	return list

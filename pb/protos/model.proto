@@ -407,6 +407,10 @@ message Video {
     string caption    = 2;
     int64 videoLength = 3;
     string poster     = 4;
+    int32 width       = 5;
+    int32 height      = 6;
+    int32 rotation    = 7;
+
 }
 
 message VideoChunk {

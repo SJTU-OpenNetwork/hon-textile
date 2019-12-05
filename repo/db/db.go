@@ -246,7 +246,7 @@ func initDatabaseTables(db *sql.DB, pin string) error {
     create index file_hash on files (hash);
     create unique index file_mill_source_opts on files (mill, source, opts);
 
-    create table videos (id text not null, caption text not null, videoLength integer not null, poster text not null, primary key(id));
+    create table videos (id text not null, caption text not null, videoLength integer not null, poster text not null, width integer, height integer, rotation integer, primary key(id));
     create index video_id on videos (id);
 
     create table video_chunks (id text not null, chunk text not null, address text not null, startTime integer, endTime integer, cid integer, primary key (id, chunk));
