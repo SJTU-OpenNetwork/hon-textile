@@ -565,11 +565,6 @@ func (t *Textile) TryConnectPeers(query *pb.IpfsQuery) (bool, error){
     log.Debug(swarmAddress)
     log.Debug(t.variables.SwarmAddress)
 
-    if swarmAddress == "" {
-        t.ConnectCafes()
-        swarmAddress = t.GetSwarmAddress(t.node.Identity.Pretty())
-    }
-
     if swarmAddress != t.variables.SwarmAddress {
         t.variables.SwarmAddress = swarmAddress
         t.variables.FailedAddresses = append([]string{})
@@ -651,9 +646,17 @@ func (t *Textile) GetSwarmAddress(peerId string) string {
 
 }
 
-func (t *Textile) ConnectCafes() error {
-    _, err := ipfs.SwarmConnect(t.node, config.OpennetCafeAddresses)
-    return err
+func (t *Textile) ConnectCafes() {
+    go func(){
+	    t.variables.lock.Lock()
+	    defer t.variables.lock.Unlock()
+        _, err := ipfs.SwarmConnect(t.node, config.OpennetCafeAddresses)
+        if err != nil {
+            log.Error(err)
+            return
+        }
+        t.variables.SwarmAddress = t.GetSwarmAddress(t.node.Identity.Pretty())
+    }()
 }
 
 func (t *Textile) ConnectedAddresses() (*pb.SwarmPeerList, error) {
@@ -863,6 +866,7 @@ func (t *Textile) SetLogLevel(level *pb.LogLevel, color bool) error {
 
 // FlushBlocks flushes the block message outbox
 func (t *Textile) FlushBlocks() {
+    log.Debug("FlushBlocks")
 	query := fmt.Sprintf("status=%d", pb.Block_QUEUED)
 	queued := t.datastore.Blocks().List("", -1, query)
 	sort.SliceStable(queued.Items, func(i, j int) bool {
@@ -931,6 +935,7 @@ func (t *Textile) FlushBlocks() {
 
 // FlushCafes flushes the cafe request outbox
 func (t *Textile) FlushCafes() {
+    log.Debug("FlushCafes")
 	stopGroup.Add(1, "FlushCafes")
 	go func() {
 		defer stopGroup.Done("FlushCafes")
@@ -1045,6 +1050,7 @@ func (t *Textile) runJobs() {
 		case <-tick.C:
 			go t.flushQueues()
 			t.maybeSyncAccount()
+            t.ConnectCafes()
 
 		case <-t.done:
 			return

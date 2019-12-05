@@ -20,19 +20,21 @@ func (c *VideoDB) Add(video *pb.Video) error {
 	c.lock.Lock()
 	log.Debug("Get Lock")
     defer c.lock.Unlock()
-	tx, err := c.db.Begin()
-	if err != nil {
-		return err
-	}
 
 	stm := "select * from videos where id='" + video.Id + "';"
     res := c.handleQuery(stm)
     if len(res) > 0 {
+        log.Debug("already exist!")
         return nil
     }
 
 	log.Debug("After Search")
 	stm = `insert into videos(id, caption, videoLength, poster) values(?,?,?,?)`
+	tx, err := c.db.Begin()
+	if err != nil {
+        log.Error(err)
+		return err
+	}
 	stmt, err := tx.Prepare(stm)
 	if err != nil {
 		log.Errorf("error in tx prepare: %s", err)
@@ -50,6 +52,7 @@ func (c *VideoDB) Add(video *pb.Video) error {
 		_ = tx.Rollback()
 		return err
 	}
+    log.Debug("out add")
 	return tx.Commit()
 }
 

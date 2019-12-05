@@ -34,7 +34,8 @@ func (m *Mobile) ThreadAddVideo(thread string, video string) error {
 
     err = m.node.ThreadAddVideo(thread, video)
     if err != nil {
-        return nil
+        log.Error(err)
+        return err
     }
 	m.node.FlushCafes()
     //m.node.FlushBlocks()

@@ -18,10 +18,10 @@ func NewVideoChunkStore(db *sql.DB, lock *sync.Mutex) repo.VideoChunkStore {
 }
 
 func (c *VideoChunkDB) Add(video *pb.VideoChunk) error {
-    log.Debug("try get video lock")
+    //log.Debug("try get video lock")
 	c.lock.Lock()
 	defer c.lock.Unlock()
-    log.Debug("get video lock")
+    //log.Debug("get video lock")
 	
 	stm := "select * from video_chunks where id='" + video.Id + "' and chunk='" + video.Chunk + "';"
     res := c.handleQuery(stm)
@@ -40,7 +40,7 @@ func (c *VideoChunkDB) Add(video *pb.VideoChunk) error {
 		log.Errorf("error in tx prepare: %s", err)
 		return err
 	}
-    log.Debug("after prepare")
+    //log.Debug("after prepare")
 	defer stmt.Close()
 	_, err = stmt.Exec(
 		video.Id,
@@ -50,71 +50,71 @@ func (c *VideoChunkDB) Add(video *pb.VideoChunk) error {
 		video.EndTime,
 		video.Index,
 	)
-    log.Debug("after execute")
+    //log.Debug("after execute")
 	if err != nil {
 		_ = tx.Rollback()
         log.Error(err)
 		return err
 	}
-    log.Debug("out Add")
+    //log.Debug("out Add")
 	return tx.Commit()
 }
 
 func (c *VideoChunkDB) ListByVideo(videoId string) []*pb.VideoChunk {
-    log.Debug("try get video lock")
+    //log.Debug("try get video lock")
 	c.lock.Lock()
-    log.Debug("get video lock")
+    //log.Debug("get video lock")
 	defer c.lock.Unlock()
 	stm := "select * from video_chunks where id='" + videoId + "';"
-    log.Debug("out List")
+    //log.Debug("out List")
 	return c.handleQuery(stm)
 }
 
 func (c *VideoChunkDB) Get(videoId string, chunk string) *pb.VideoChunk {
-    log.Debug("try get video lock")
+    //log.Debug("try get video lock")
 	c.lock.Lock()
-    log.Debug("get video lock")
+    //log.Debug("get video lock")
 	defer c.lock.Unlock()
 	stm := "select * from video_chunks where id='" + videoId + "' and chunk='" + chunk + "';"
-	log.Debugf("SQL: %s", stm)
+	//log.Debugf("SQL: %s", stm)
     res := c.handleQuery(stm)
 	if len(res) == 0 {
 		return nil
 	}
-    log.Debug("out GET")
+    //log.Debug("out GET")
 	return res[0]
 }
 
 func (c *VideoChunkDB) GetByIndex(videoId string, index int64) *pb.VideoChunk{
-	log.Debugf("Get video by index %d", index)
-	log.Debug("try get video lock")
+	//log.Debugf("Get video by index %d", index)
+	//log.Debug("try get video lock")
 	c.lock.Lock()
-	log.Debug("get video lock")
+	//log.Debug("get video lock")
 	defer c.lock.Unlock()
 	stm := fmt.Sprintf("select * from video_chunks where id='%s' and cid='%d'", videoId, index)
 	//stm := "select * from video_chunks where id='" + videoId + "' and index='" + index + "';"
-	log.Debugf("SQL: %s", stm)
+	//log.Debugf("SQL: %s", stm)
 	res := c.handleQuery(stm)
 	if len(res) == 0 {
 		return nil
 	}
-	log.Debug("out GET")
+	//log.Debug("out GET")
 	return res[0]
 }
 
 func (c *VideoChunkDB) Delete(videoId string) error {
-    log.Debug("try get video lock")
+    //log.Debug("try get video lock")
 	c.lock.Lock()
-    log.Debug("get video lock")
+    //log.Debug("get video lock")
 	defer c.lock.Unlock()
 	_, err := c.db.Exec("delete from video_chunks where id=?", videoId)
 	return err
 }
 
 func (c *VideoChunkDB) Find(videoId string, chunk string, startTime int64, endTime int64, index int64) []*pb.VideoChunk {
-    log.Debug("try get video lock")
+    //log.Debug("try get video lock")
 	c.lock.Lock()
-    log.Debug("get video lock")
+    //log.Debug("get video lock")
 	defer c.lock.Unlock()
 
     //log.Debugf("VIDEOPIPELINE: Try to find chunk with query:\nvideoId: %s\nchunk: %s\nstartTime: %d\nendTime: %d\nindex: %d",
@@ -123,17 +123,17 @@ func (c *VideoChunkDB) Find(videoId string, chunk string, startTime int64, endTi
         return nil
     }
 	if chunk != "" {
-		log.Debugf("VIDEOPIPELINE: Find video by chunk %s", chunk)
+		//log.Debugf("VIDEOPIPELINE: Find video by chunk %s", chunk)
 		stm := fmt.Sprintf("select * from video_chunks where id='%s' and chunk='%s'", videoId, chunk)
-		log.Debugf("SQL: %s", stm)
+		//log.Debugf("SQL: %s", stm)
 		return c.handleQuery(stm)
 	}
 	if index >= 0 {
 		//log.Debugf("VIDEOPIPELINE: Find video by index %d", index)
 		stm := fmt.Sprintf("select * from video_chunks where id='%s' and cid='%d'", videoId, index)
-		log.Debugf("SQL: %s", stm)
+		//log.Debugf("SQL: %s", stm)
         result := c.handleQuery(stm)
-        log.Debug("finish query")
+        //log.Debug("finish query")
 		return result
 	}
     if startTime == -1 && endTime == -1 {
@@ -142,23 +142,23 @@ func (c *VideoChunkDB) Find(videoId string, chunk string, startTime int64, endTi
     }
     if startTime == -1 {
 	    stm := fmt.Sprintf("select * from video_chunks where id='%s' and endTime<=%d;", videoId, endTime)
-		log.Debugf("SQL: %s", stm)
+		//log.Debugf("SQL: %s", stm)
         return c.handleQuery(stm)
     }
     if endTime == -1 {
 	    stm := fmt.Sprintf("select * from video_chunks where id='%s' and startTime>=%d;", videoId, startTime)
-		log.Debugf("SQL: %s", stm)
+		//log.Debugf("SQL: %s", stm)
         return c.handleQuery(stm)
     }
 	stm := fmt.Sprintf("select * from video_chunks where id='%s' and startTime>=%d and endTime<=%d;", videoId, startTime, endTime)
-	log.Debugf("SQL: %s", stm)
+	//log.Debugf("SQL: %s", stm)
     return c.handleQuery(stm)
 }
 
 func (c *VideoChunkDB) handleQuery(stm string) []*pb.VideoChunk {
 	var list []*pb.VideoChunk
 	rows, err := c.db.Query(stm)
-    log.Debug("Query finish!")
+    //log.Debug("Query finish!")
 	if err != nil {
 		log.Errorf("error in db query: %s", err)
 		return nil
@@ -180,6 +180,6 @@ func (c *VideoChunkDB) handleQuery(stm string) []*pb.VideoChunk {
             Index:       cid,
 		})
 	}
-    log.Debug("VideoChunkDB: handleQuery, got %d", len(list))
+    //log.Debug("VideoChunkDB: handleQuery, got %d", len(list))
 	return list
 }
