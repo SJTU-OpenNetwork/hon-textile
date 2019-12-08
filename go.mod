@@ -4,6 +4,7 @@ go 1.13
 
 require (
 	github.com/agl/ed25519 v0.0.0-20170116200512-5312a6153412
+	github.com/ahmetb/govvv v0.2.0 // indirect
 	github.com/alecthomas/template v0.0.0-20160405071501-a0175ee3bccc
 	github.com/alecthomas/units v0.0.0-20190924025748-f65c72e2690d // indirect
 	github.com/chzyer/logex v1.1.10 // indirect

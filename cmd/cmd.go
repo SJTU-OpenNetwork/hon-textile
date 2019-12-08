@@ -17,19 +17,19 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/SJTU-OpenNetwork/hon-textile/core"
+	"github.com/SJTU-OpenNetwork/hon-textile/keypair"
+	"github.com/SJTU-OpenNetwork/hon-textile/pb"
+	"github.com/SJTU-OpenNetwork/hon-textile/util"
 	"github.com/fatih/color"
 	"github.com/golang/protobuf/jsonpb"
 	"github.com/golang/protobuf/proto"
 	logging "github.com/ipfs/go-log"
 	"github.com/mitchellh/go-homedir"
-	"github.com/SJTU-OpenNetwork/hon-textile/core"
-	"github.com/SJTU-OpenNetwork/hon-textile/keypair"
-	"github.com/SJTU-OpenNetwork/hon-textile/pb"
-	"github.com/SJTU-OpenNetwork/hon-textile/util"
 	"gopkg.in/alecthomas/kingpin.v2"
 )
 
-type cmdsMap map[string]func() error
+type cmdsMap map[string]func() error //cmdsMap类型,定义为key为string,value为func的map
 
 func threadBlocksCommand(cmds cmdsMap, parent *kingpin.CmdClause, names []string) *kingpin.CmdClause {
 	cmd := parent.Command(names[0], "Paginates blocks in a thread")
