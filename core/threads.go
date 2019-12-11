@@ -192,6 +192,9 @@ func (t *Textile) ConnectThreadPeers(tid string) error {
     var peerMap map[string]string
     peerMap = make(map[string]string)
     for _, sp := range connectedPeers.Peers {
+        if sp.Latency == "n/d" {
+            continue
+        }
         peerMap[sp.Peer] = sp.Addr
         log.Debug("Connections: %s", sp.Addr+"/ipfs/"+sp.Peer)
     }
