@@ -332,11 +332,12 @@ func (h *CafeService) PublishPeer(peer *pb.Peer, cafeId string) error {
 	return nil
 }
 
-func (h *CafeService) PublishVideo(video *pb.Video, cafeId string) error {
+func (h *CafeService) PublishVideo(video *pb.Video, cafeId string, store bool) error {
 	renv, err := h.sendCafeRequest(cafeId, func(session *pb.CafeSession) (*pb.Envelope, error) {
 		return h.service.NewEnvelope(pb.Message_CAFE_PUBLISH_VIDEO, &pb.CafePublishVideo{
 			Token: session.Access,
 			Video: video,
+			Store: store,
 		}, nil, false)
 	})
 	if err != nil {

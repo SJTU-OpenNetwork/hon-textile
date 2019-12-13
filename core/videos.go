@@ -39,13 +39,13 @@ func (t *Textile) ThreadAddVideo(threadId string, videoId string) error {
 }
 
 // --------------- OLD METHOD ----------------------------
-func (t *Textile) OLD_PublishVideo(video *pb.Video) error {
+func (t *Textile) OLD_PublishVideo(video *pb.Video, store bool) error {
 	sessions := t.datastore.CafeSessions().List().Items
 	if len(sessions) == 0 {
 		return nil
 	}
 	for _, session := range sessions {
-		if err := t.cafe.PublishVideo(video, session.Id); err != nil {
+		if err := t.cafe.PublishVideo(video, session.Id, store); err != nil {
 			return err
 		}
 	}

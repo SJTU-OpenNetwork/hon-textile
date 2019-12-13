@@ -94,6 +94,7 @@ message CafeUnstoreThreadAck {
 message CafePublishVideo {
     string token      = 1;
     Video video       = 2;
+    bool store      = 3;
 }
 
 message CafePublishVideoAck {

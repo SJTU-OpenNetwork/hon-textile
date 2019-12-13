@@ -42,7 +42,7 @@ func (m *Mobile) ThreadAddVideo(thread string, video string) error {
     return nil
 }
 
-func (m *Mobile) PublishVideo(video []byte) error {
+func (m *Mobile) PublishVideo(video []byte, store bool) error {
 	if !m.node.Started() {
 		return core.ErrStopped
 	}
@@ -51,7 +51,7 @@ func (m *Mobile) PublishVideo(video []byte) error {
 	if err := proto.Unmarshal(video, model); err != nil {
 		return err
 	}
-    return m.node.OLD_PublishVideo(model)
+    return m.node.OLD_PublishVideo(model,store)
 }
 
 func (m *Mobile) PublishVideoChunk(vchunk []byte) error {
