@@ -2,7 +2,7 @@ FROM golang:1.13.1-stretch
 MAINTAINER Sander Pick <sander@textile.io>
 
 # This is (in large part) copied (with love) from
-# https://hub.docker.com/r/ipfs/go-ipfs/dockerfile
+# https://hub.docker.com/r/SJTU-OpenNetwork/go-ipfs/dockerfile
 
 # Get source
 ENV SRC_DIR /go-textile

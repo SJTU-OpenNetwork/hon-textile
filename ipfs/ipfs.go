@@ -10,9 +10,9 @@ import (
 
 	icid "github.com/ipfs/go-cid"
 	files "github.com/ipfs/go-ipfs-files"
-	"github.com/ipfs/go-ipfs/core"
-	"github.com/ipfs/go-ipfs/core/coreapi"
-	"github.com/ipfs/go-ipfs/pin"
+	"github.com/SJTU-OpenNetwork/go-ipfs/core"
+	"github.com/SJTU-OpenNetwork/go-ipfs/core/coreapi"
+	"github.com/SJTU-OpenNetwork/go-ipfs/pin"
 	ipld "github.com/ipfs/go-ipld-format"
 	logging "github.com/ipfs/go-log"
 	dag "github.com/ipfs/go-merkledag"

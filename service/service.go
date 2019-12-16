@@ -16,7 +16,7 @@ import (
 	"github.com/golang/protobuf/proto"
 	"github.com/golang/protobuf/ptypes"
 	"github.com/golang/protobuf/ptypes/any"
-	"github.com/ipfs/go-ipfs/core"
+	"github.com/SJTU-OpenNetwork/go-ipfs/core"
 	logging "github.com/ipfs/go-log"
 	iface "github.com/ipfs/interface-go-ipfs-core"
 	inet "github.com/libp2p/go-libp2p-core/network"

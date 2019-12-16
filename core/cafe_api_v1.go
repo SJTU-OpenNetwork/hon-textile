@@ -15,7 +15,7 @@ import (
 	"github.com/golang/protobuf/proto"
 	"github.com/golang/protobuf/ptypes"
 	"github.com/ipfs/go-cid"
-	"github.com/ipfs/go-ipfs/pin"
+	"github.com/SJTU-OpenNetwork/go-ipfs/pin"
 	"github.com/libp2p/go-libp2p-core/peer"
 	"github.com/segmentio/ksuid"
 	"github.com/SJTU-OpenNetwork/hon-textile/ipfs"

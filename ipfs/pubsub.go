@@ -7,8 +7,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/ipfs/go-ipfs/core"
-	"github.com/ipfs/go-ipfs/core/coreapi"
+	"github.com/SJTU-OpenNetwork/go-ipfs/core"
+	"github.com/SJTU-OpenNetwork/go-ipfs/core/coreapi"
 	iface "github.com/ipfs/interface-go-ipfs-core"
 	"github.com/ipfs/interface-go-ipfs-core/options"
 	peer "github.com/libp2p/go-libp2p-core/peer"

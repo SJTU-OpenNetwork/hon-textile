@@ -7,8 +7,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/ipfs/go-ipfs/repo"
-	"github.com/ipfs/go-ipfs/repo/fsrepo"
+	"github.com/SJTU-OpenNetwork/go-ipfs/repo"
+	"github.com/SJTU-OpenNetwork/go-ipfs/repo/fsrepo"
 	"github.com/rs/cors"
 	"github.com/SJTU-OpenNetwork/hon-textile/repo/config"
 )

@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/ipfs/go-ipfs/core"
-	"github.com/ipfs/go-ipfs/core/coreapi"
+	"github.com/SJTU-OpenNetwork/go-ipfs/core"
+	"github.com/SJTU-OpenNetwork/go-ipfs/core/coreapi"
 	iface "github.com/ipfs/interface-go-ipfs-core"
 	"github.com/ipfs/interface-go-ipfs-core/options"
 	nsopts "github.com/ipfs/interface-go-ipfs-core/options/namesys"
