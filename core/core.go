@@ -540,6 +540,10 @@ func getStatus(output string) bool {
 	}
 }
 
+func getId(output string) string {
+    return strings.Split(output, "/")[5]
+}
+
 func stringInSlice(a string, list []string) bool {
     for _, b := range list {
         if b == a {
@@ -547,6 +551,23 @@ func stringInSlice(a string, list []string) bool {
         }
     }
     return false
+}
+
+func (t *Textile) TryConnectThroughRelay(ids []string) (bool, error){
+    var swarmAddress []string
+    complete := true
+    for _, id := range ids {
+        swarmAddress = append(swarmAddress, "/p2p-circuit/ipfs/"+id)
+    }
+    output, err := ipfs.SwarmConnect(t.node, swarmAddress)
+    for _, o := range output {
+        target := getTarget(o)
+        status := getStatus(o)
+        if !status {
+            complete = false
+        }
+    }
+    return complete, nil
 }
 
 func (t *Textile) TryConnectPeers(query *pb.IpfsQuery) (bool, error){
@@ -558,7 +579,7 @@ func (t *Textile) TryConnectPeers(query *pb.IpfsQuery) (bool, error){
 
     sessions := t.datastore.CafeSessions().List().Items
     if len(sessions) == 0 {
-        return false, nil
+        return t.TryConnectThroughRelay(query.Items)
     }
 
     swarmAddress := t.GetSwarmAddress(t.node.Identity.Pretty())
@@ -571,7 +592,8 @@ func (t *Textile) TryConnectPeers(query *pb.IpfsQuery) (bool, error){
     }
     log.Debug(t.variables.FailedAddresses)
     var targets []string
-    complete := true
+    var failedIds []string
+    
     for _, session := range sessions {
 		result, err := t.cafe.CafeFindIpfsAddr(query, session.Id)
         if err != nil {
@@ -581,7 +603,7 @@ func (t *Textile) TryConnectPeers(query *pb.IpfsQuery) (bool, error){
         for _, item := range result.Items {
             // TODO: remove item unable to connect
             if stringInSlice(item, t.variables.FailedAddresses) {
-                complete = false
+                failedIds = append(failedIds, getId(item)
                 continue
             }
 
@@ -597,16 +619,16 @@ func (t *Textile) TryConnectPeers(query *pb.IpfsQuery) (bool, error){
     }
 
     log.Debug(output)
-
     for _, o := range output {
         target := getTarget(o)
         status := getStatus(o)
         if !status {
             complete = false
             t.variables.FailedAddresses = append(t.variables.FailedAddresses, target)
+            failedIds = append(failedIds, getId(target)
         }
     }
-    return complete, nil
+    return t.TryConnectThroughRelay(failedIds)
 }
 
 func (t *Textile) TryConnect(peerId string) {

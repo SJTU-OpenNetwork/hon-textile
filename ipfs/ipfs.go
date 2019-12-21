@@ -147,7 +147,7 @@ func AddData(node *core.IpfsNode, reader io.Reader, pin bool, hashOnly bool) (*i
 	ctx, cancel := context.WithTimeout(node.Context(), PinTimeout)
 	defer cancel()
 
-	pth, err := api.Unixfs().Add(ctx, files.NewReaderFile(reader), options.Unixfs.HashOnly(hashOnly))
+	pth, err := api.Unixfs().Add(ctx, files.NewReaderFile(reader), options.Unixfs.HashOnly(hashOnly), options.Unixfs.Chunker("size-1048576"))
 	if err != nil {
 		return nil, err
 	}
