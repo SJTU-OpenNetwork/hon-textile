@@ -17,9 +17,9 @@ import (
 	logging "github.com/ipfs/go-log"
 	dag "github.com/ipfs/go-merkledag"
 	uio "github.com/ipfs/go-unixfs/io"
-	iface "github.com/ipfs/interface-go-ipfs-core"
-	"github.com/ipfs/interface-go-ipfs-core/options"
-	"github.com/ipfs/interface-go-ipfs-core/path"
+	iface "github.com/SJTU-OpenNetwork/interface-go-ipfs-core"
+	"github.com/SJTU-OpenNetwork/interface-go-ipfs-core/options"
+	"github.com/SJTU-OpenNetwork/interface-go-ipfs-core/path"
 )
 
 var log = logging.Logger("tex-ipfs")

@@ -7,10 +7,10 @@ import (
 
 	"github.com/SJTU-OpenNetwork/go-ipfs/core"
 	"github.com/SJTU-OpenNetwork/go-ipfs/core/coreapi"
-	iface "github.com/ipfs/interface-go-ipfs-core"
-	"github.com/ipfs/interface-go-ipfs-core/options"
-	nsopts "github.com/ipfs/interface-go-ipfs-core/options/namesys"
-	path "github.com/ipfs/interface-go-ipfs-core/path"
+	iface "github.com/SJTU-OpenNetwork/interface-go-ipfs-core"
+	"github.com/SJTU-OpenNetwork/interface-go-ipfs-core/options"
+	nsopts "github.com/SJTU-OpenNetwork/interface-go-ipfs-core/options/namesys"
+	path "github.com/SJTU-OpenNetwork/interface-go-ipfs-core/path"
 	peer "github.com/libp2p/go-libp2p-core/peer"
 	record "github.com/libp2p/go-libp2p-record"
 )
