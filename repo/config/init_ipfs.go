@@ -60,15 +60,24 @@ var DefaultOpennetBootstrapAddresses = []string{
 //	"/ip4/159.138.130.129/tcp/4277/ipfs/12D3KooWDZuZ8sppVD37gAZVYbNrfUNqSyT2Ra8wDLXifuEgDQvC",  // HW5
 //	"/ip4/159.138.58.61/tcp/41806/ipfs/12D3KooWBZ8UJeFcK7VgyrNk5s3M2PRpfpTzb1LJqMYazC3NDX8e",  // HW6
 //	"/ip4/202.120.38.100/tcp/22612/ipfs/12D3KooWMsnTufaczYVEMYEo3q3PP9XrkJvHMEfQark6sZoEVm9U",   // LAB-100
-    "/ip4/159.138.132.28/tcp/4001/ipfs/QmVsZsogPLnJE2rzejZmjmpdPKKd33UkdJuFvBniefNAMn",
-    "/ip4/159.138.130.129/tcp/4001/ipfs/QmZX8WVgJ3cQCW3bNcodXhmK34rmNkvqk8Zg9u7f3JEFgN",
-    "/ip4/159.138.58.61/tcp/4001/ipfs/QmT2pfx89HyJ5eLVn15AV2JXuUEyQHpWMZxXjn3bZ997wc",
-    "/ip4/159.138.130.106/tcp/4001/ipfs/QmXn48f5fbZJmqCaUN184UpFeK36jWMMc5knT7mjbjz7Co",
+
+// disable HK servers
+//    "/ip4/159.138.132.28/tcp/4001/ipfs/QmVsZsogPLnJE2rzejZmjmpdPKKd33UkdJuFvBniefNAMn",
+//    "/ip4/159.138.130.129/tcp/4001/ipfs/QmZX8WVgJ3cQCW3bNcodXhmK34rmNkvqk8Zg9u7f3JEFgN",
+//    "/ip4/159.138.58.61/tcp/4001/ipfs/QmT2pfx89HyJ5eLVn15AV2JXuUEyQHpWMZxXjn3bZ997wc",
+//    "/ip4/159.138.130.106/tcp/4001/ipfs/QmXn48f5fbZJmqCaUN184UpFeK36jWMMc5knT7mjbjz7Co",
+    "/ip6/2001:da8:8000:6084:1a31:bfff:fecf:e603/tcp/12589/ipfs/12D3KooWEBKQAdjyqa4iMp8Lu8NF9tMQSWZoninNNPhbGYJ1xvcH",
     "/ip4/202.120.38.131/tcp/12589/ipfs/12D3KooWEBKQAdjyqa4iMp8Lu8NF9tMQSWZoninNNPhbGYJ1xvcH",
     "/ip4/202.120.38.100/tcp/4001/ipfs/QmZt8jsim548Y5UFN24GL9nX9x3eSS8QFMsbSRNMBAqKBb",
+    "/ip4/139.9.123.113/tcp/4001/ipfs/QmRHLRg5vihUgakbk7JnQFswWu7D92awdZnKiQRi1DmJhE",
+    "/ip4/119.3.23.219/tcp/4001/ipfs/QmYBXdc56TrPqKWhAYJZneLpVeG4qMaV8Be6yox3fiqBYd",
+    "/ip4/121.36.167.61/tcp/4001/ipfs/QmYL5AAcaGA2undBnRqWRTmndkL1YV3v7tML8DbakC8sTD",
+    "/ip4/122.112.199.88/tcp/4001/ipfs/QmcwtfsFoJALLQwJWmsh5SmothbrniohPcW2PuggSVKurT",
+    "/ip4/119.3.24.157/tcp/4001/ipfs/QmYCYQMhyDJV4BU9fRr5xBzFDEccnukuViUT7GJLngP7fj",
 }
 
 var OpennetCafeAddresses = []string{
+    "/ip6/2001:da8:8000:6084:1a31:bfff:fecf:e603/tcp/12589/ipfs/12D3KooWEBKQAdjyqa4iMp8Lu8NF9tMQSWZoninNNPhbGYJ1xvcH",
     "/ip4/202.120.38.131/tcp/12589/ipfs/12D3KooWEBKQAdjyqa4iMp8Lu8NF9tMQSWZoninNNPhbGYJ1xvcH",
 //    "/ip4/159.138.58.61/tcp/26056/ipfs/12D3KooWKAwHi4WkUY5qbg2psSpDSZ4EsLwjaiCjC8ERajwZsXHc",
 }
@@ -156,7 +165,7 @@ func InitIpfs(identity native.Identity, mobile bool, server bool) (*native.Confi
 		Discovery: native.Discovery{
 			MDNS: native.MDNS{
 				Enabled:  !server,
-				Interval: 10,
+				Interval: 3,
 			},
 		},
 

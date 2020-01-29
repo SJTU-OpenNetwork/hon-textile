@@ -30,7 +30,7 @@ func (m *Mobile) AddThread(config []byte) ([]byte, error) {
 		return nil, err
 	}
 
-	view, err := m.node.ThreadView(thrd.Id)
+	view, err := m.node.SimpleThreadView(thrd.Id)
 	if err != nil {
 		return nil, err
 	}
@@ -83,7 +83,8 @@ func (m *Mobile) Thread(id string) ([]byte, error) {
 		return nil, core.ErrStopped
 	}
 
-	view, err := m.node.ThreadView(id)
+	view, err := m.node.SimpleThreadView(id)
+	//view, err := m.node.ThreadView(id)
 	if err != nil {
 		if err == core.ErrThreadNotFound {
 			return nil, nil
@@ -104,7 +105,7 @@ func (m *Mobile) Threads() ([]byte, error) {
 		Items: make([]*pb.Thread, 0),
 	}
 	for _, thrd := range m.node.Threads() {
-		view, err := m.node.ThreadView(thrd.Id)
+		view, err := m.node.SimpleThreadView(thrd.Id)
 		if err == nil {
 			views.Items = append(views.Items, view)
 		} else {

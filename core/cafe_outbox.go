@@ -173,10 +173,8 @@ func (q *CafeOutbox) AddForInbox(peerId string, env *pb.Envelope, inboxes []*pb.
 
 // Flush processes pending requests
 func (q *CafeOutbox) Flush(skipBlocks bool) {
-	log.Debug("trying to get the CafeOutbox lock")
 	q.lock.Lock()
 	defer q.lock.Unlock()
-	log.Debug("flushing cafe outbox")
 
 	if q.handler == nil {
 		return

@@ -27,6 +27,7 @@ message SwarmPeer {
     string id      = 2;
     string latency = 3;
     string muxer   = 4;
+    int32 direction = 5;
 }
 
 message SwarmPeerList {

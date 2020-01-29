@@ -278,6 +278,11 @@ func (m *Mobile) CheckCafeMessages(cb Callback) {
 	}()
 }
 
+
+func (m *Mobile) doNotCheckCafeMessages() error {
+    return nil
+}
+
 // checkCafeMessages queries all sessions for new messages
 func (m *Mobile) checkCafeMessages() error {
 	if !m.node.Started() {

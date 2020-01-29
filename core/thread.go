@@ -496,14 +496,14 @@ func (t *Thread) addBlock(ciphertext []byte, hashOnly bool) (mh.Multihash, error
 	if err != nil {
 		return nil, err
 	}
-	hash := id.Hash().B58String()
+//	hash := id.Hash().B58String()
 
-	if !hashOnly {
-		err = t.cafeOutbox.Add(hash, pb.CafeRequest_STORE, cafeReqOpt.SyncGroup(hash))
-		if err != nil {
-			return nil, err
-		}
-	}
+//	if !hashOnly {
+//		err = t.cafeOutbox.Add(hash, pb.CafeRequest_STORE, cafeReqOpt.SyncGroup(hash))
+//		if err != nil {
+//			return nil, err
+//		}
+//	}
 
 	return id.Hash(), nil
 }
@@ -620,17 +620,17 @@ func (t *Thread) commitNode(index *pb.Block, additionalParents []string, addInde
 	}
 
 	// store nodes
-	nodeId := nhash.B58String()
-	group := cafeReqOpt.Group(nodeId)
-	syncGroup := cafeReqOpt.SyncGroup(nodeId)
-	err = t.cafeOutbox.Add(nodeId, pb.CafeRequest_STORE, group, syncGroup)
-	if err != nil {
-		return nil, err
-	}
-	err = t.cafeOutbox.Add(pnodeId, pb.CafeRequest_STORE, group, syncGroup)
-	if err != nil {
-		return nil, err
-	}
+//	nodeId := nhash.B58String()
+//	group := cafeReqOpt.Group(nodeId)
+//	syncGroup := cafeReqOpt.SyncGroup(nodeId)
+//	err = t.cafeOutbox.Add(nodeId, pb.CafeRequest_STORE, group, syncGroup)
+//	if err != nil {
+//		return nil, err
+//	}
+//	err = t.cafeOutbox.Add(pnodeId, pb.CafeRequest_STORE, group, syncGroup)
+//	if err != nil {
+//		return nil, err
+//	}
 
 	return nhash, nil
 }
@@ -839,7 +839,8 @@ func (t *Thread) post(index *pb.Block) error {
 
 // store adds a store thread request
 func (t *Thread) store() error {
-	return t.cafeOutbox.Add(t.Id, pb.CafeRequest_STORE_THREAD)
+    return nil
+	//return t.cafeOutbox.Add(t.Id, pb.CafeRequest_STORE_THREAD)
 }
 
 // readable returns whether or not this thread is readable from the

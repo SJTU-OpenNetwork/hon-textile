@@ -176,9 +176,6 @@ func (t *Textile) AddThread(conf pb.AddThreadConfig, sk libp2pc.PrivKey, initiat
 func (t *Textile) ConnectThreadPeers(tid string) error {
 	sessions := t.datastore.CafeSessions().List().Items
     log.Debugf("we have %d sessions", len(sessions))
-	if len(sessions) == 0 {
-		return nil
-	}
     peers, err := t.ThreadPeers(tid)
     if err != nil {
         return nil
@@ -554,6 +551,24 @@ func (t *Textile) ThreadByName(name string) *Thread {
 		}
 	}
 	return nil
+}
+
+func (t *Textile) SimpleThreadView(id string) (*pb.Thread, error) {
+	thread := t.Thread(id)
+	if thread == nil {
+		return nil, ErrThreadNotFound
+	}
+
+	mod := t.datastore.Threads().Get(thread.Id)
+	if mod == nil {
+		return nil, errThreadReload
+	}
+
+	mod.SchemaNode = thread.Schema
+	//mod.BlockCount = int32(t.datastore.Blocks().Count(fmt.Sprintf("threadId='%s'", thread.Id)))
+	mod.PeerCount = int32(len(thread.Peers()))
+
+	return mod, nil
 }
 
 // ThreadView returns a thread with expanded view properties

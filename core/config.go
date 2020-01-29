@@ -93,8 +93,10 @@ func applySwarmPortConfigOption(rep repo.Repo, ports string) error {
 		tcp = parts[0]
 		ws = parts[1]
 	default:
-		tcp = GetRandomPort()
-		ws = GetRandomPort()
+		tcp = "4001"
+		ws = "4001"
+		//tcp = GetRandomPort()
+		//ws = GetRandomPort()
 	}
 
 	list := []string{
@@ -123,8 +125,8 @@ func applySwarmPortConfigOptionIpv6(rep repo.Repo, ports string) error {
 		tcp = parts[0]
 		ws = parts[1]
 	default:
-		tcp = GetRandomPort()
-		ws = GetRandomPort()
+		tcp = "4001" //GetRandomPort()
+		ws = "4001"  //GetRandomPort()
 	}
 
 	list := []string{

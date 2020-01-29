@@ -53,7 +53,7 @@ func (t *Textile) ContactThreads(address string) (*pb.ThreadList, error) {
 			if _, ok := threads[tp.Thread]; ok {
 				continue
 			}
-			view, err := t.ThreadView(tp.Thread)
+			view, err := t.SimpleThreadView(tp.Thread)
 			if err != nil {
 				return nil, err
 			}
@@ -91,6 +91,8 @@ func (t *Textile) DiscoverContacts(options *pb.QueryOptions) (<-chan *pb.QueryRe
 			Value:   payload,
 		},
 	})
+
+    // if we have cafe, cafe also returns some local peers
 
     tresCh, terrCh := t.peers2Contacts(resCh, errCh)
 

@@ -21,15 +21,8 @@ func (c *VideoDB) Add(video *pb.Video) error {
 	log.Debug("Get Lock")
     defer c.lock.Unlock()
 
-	stm := "select * from videos where id='" + video.Id + "';"
-    res := c.handleQuery(stm)
-    if len(res) > 0 {
-        log.Debug("already exist!")
-        return nil
-    }
-
 	log.Debug("After Search")
-	stm = `insert into videos(id, caption, videoLength, poster, width, height, rotation) values(?,?,?,?,?,?,?)`
+    stm := `insert or ignore into videos(id, caption, videoLength, poster, width, height, rotation) values(?,?,?,?,?,?,?)`
 	tx, err := c.db.Begin()
 	if err != nil {
         log.Error(err)

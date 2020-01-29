@@ -53,6 +53,8 @@ message Message {
         CAFE_SYNC_FILE_ACK = 205;
         CAFE_FIND_IPFS_ADDR = 206;
         CAFE_FIND_IPFS_ADDR_ACK = 207;
+        CAFE_PEER_DISCOVERY = 208;
+        CAFE_PEER_DISCOVERY_ACK = 209;
 
         CAFE_PUBSUB_QUERY     = 102;
         CAFE_PUBSUB_QUERY_RES = 103;

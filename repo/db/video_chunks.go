@@ -23,18 +23,11 @@ func (c *VideoChunkDB) Add(video *pb.VideoChunk) error {
 	defer c.lock.Unlock()
     //log.Debug("get video lock")
 	
-	stm := "select * from video_chunks where id='" + video.Id + "' and chunk='" + video.Chunk + "';"
-    res := c.handleQuery(stm)
-	if len(res) > 0 {
-        log.Debug("out Add")
-        return nil
-    }
-    
     tx, err := c.db.Begin()
 	if err != nil {
 		return err
 	}
-    stm = `insert into video_chunks(id, chunk, address, startTime, endTime, cid) values(?,?,?,?,?,?)`
+    stm := `insert or ignore into video_chunks(id, chunk, address, startTime, endTime, cid) values(?,?,?,?,?,?)`
 	stmt, err := tx.Prepare(stm)
 	if err != nil {
 		log.Errorf("error in tx prepare: %s", err)

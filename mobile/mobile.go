@@ -208,7 +208,8 @@ func NewTextile(config *RunConfig, messenger Messenger) (*Mobile, error) {
 	node, err := core.NewTextile(core.RunConfig{
 		RepoPath:          config.RepoPath,
 		CafeOutboxHandler: config.CafeOutboxHandler,
-		CheckMessages:     mobile.checkCafeMessages,
+		//CheckMessages:     mobile.checkCafeMessages,
+		CheckMessages:     mobile.doNotCheckCafeMessages,
 		Debug:             config.Debug,
 	})
 	if err != nil {

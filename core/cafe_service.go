@@ -156,6 +156,8 @@ func (h *CafeService) Handle(env *pb.Envelope, pid peer.ID) (*pb.Envelope, error
 		return h.handleSyncFile(env, pid)
     case pb.Message_CAFE_FIND_IPFS_ADDR:
         return h.handleCafeFindIpfsAddr(env, pid)
+    case pb.Message_CAFE_PEER_DISCOVERY:
+        return h.handleCafeDiscovery(env, pid)
 	default:
 		return nil, nil
 	}
@@ -443,6 +445,25 @@ func (h *CafeService) CafeFindIpfsAddr(query *pb.IpfsQuery, cafeId string) (*pb.
 	return res.Result, nil
 }
 
+func (h *CafeService) DiscoverPeers(cafeId string) ([]string, error) {
+    query := new(pb.IpfsQuery)
+	renv, err := h.sendCafeRequest(cafeId, func(session *pb.CafeSession) (*pb.Envelope, error) {
+		return h.service.NewEnvelope(pb.Message_CAFE_PEER_DISCOVERY, &pb.CafeFindIpfsAddr{
+			Token: session.Access,
+            Query: query,
+		}, nil, false)
+	})
+	res := new(pb.CafeFindIpfsAddrAck)
+	if err != nil {
+        return nil, err
+    }
+
+    err = ptypes.UnmarshalAny(renv.Message.Payload, res)
+	if err != nil {
+		return nil, err
+	}
+	return res.Result.Items, nil
+}
 // Search performs a query via a cafe
 func (h *CafeService) Search(query *pb.Query, cafeId string, reply func(*pb.QueryResult), cancelCh <-chan interface{}) error {
 	log.Debug("in search")
@@ -630,7 +651,7 @@ func (h *CafeService) sendObject(id icid.Cid, cafeId string, token string) error
 }
 
 // searchLocal searches the local index based on the given query
-func (h *CafeService) searchLocal(qtype pb.Query_Type, options *pb.QueryOptions, payload *any.Any, local bool) (*queryResultSet, error) {
+func (h *CafeService) searchLocal(qtype pb.Query_Type, options *pb.QueryOptions, payload *any.Any, local bool, pid peer.ID) (*queryResultSet, error) {
 	results := newQueryResultSet(options)
 
 	switch qtype {
@@ -704,10 +725,14 @@ func (h *CafeService) searchLocal(qtype pb.Query_Type, options *pb.QueryOptions,
 			return nil, err
 		}
         var peers []*pb.Peer
-        if q.Address == "" && q.Name == "" {
-            peerId := h.service.Node().Identity.Pretty()
-            p := h.datastore.Peers().Get(peerId)
-            peers = []*pb.Peer{p}
+        if q.Address == "" && q.Name == "" {  //local discovery
+            if h.open {
+                peers = h.findLocalPeers(pid)
+            } else {
+                peerId := h.service.Node().Identity.Pretty()
+                p := h.datastore.Peers().Get(peerId)
+                peers = []*pb.Peer{p}
+            }
         } else {
 		    peers = h.datastore.Peers().Find(q.Address, q.Name, options.Exclude)
         }
@@ -715,6 +740,7 @@ func (h *CafeService) searchLocal(qtype pb.Query_Type, options *pb.QueryOptions,
         for _, p := range peers {
 			value, err := proto.Marshal(p)
 			if err != nil {
+                log.Debug(err)
 				return nil, err
 			}
 			results.Add(&pb.QueryResult{
@@ -863,6 +889,46 @@ func (h *CafeService) searchPubSub(query *pb.Query, reply func(*pb.QueryResults)
 			}
 		}
 	}
+}
+
+func (h *CafeService) findLocalPeers(pid peer.ID) []*pb.Peer {
+    peers, err := ipfs.SwarmPeers(h.service.Node(), true, true, true, true)
+    if err != nil {
+        log.Error(err)
+        return nil
+    }
+    var peerMap map[string]string
+    peerMap = make(map[string]string)
+    for _, sp := range peers.Peers {
+        peerMap[sp.Peer] = sp.Addr
+    }
+    spid := pid.Pretty()
+    addr, ok := peerMap[spid]
+    if !ok {
+        return nil
+    }
+
+    var prefix string
+    if strings.HasPrefix(addr, "/ip4"){
+        prefix = addr[0:13]
+    } else {
+        prefix = addr[0:15]
+    }
+    log.Debug(addr)
+    var result []*pb.Peer
+    for id, cur := range peerMap {
+        if cur ==  addr {
+            continue
+        }
+        if strings.HasPrefix(cur, prefix){
+            p := h.datastore.Peers().Get(id)
+            if p != nil {
+                log.Debug(p.Name)
+                result = append(result, p)
+            }
+        }
+    }
+    return result
 }
 
 // publishQuery publishes a search request to the network
@@ -1490,7 +1556,7 @@ func (h *CafeService) handleCafeFindIpfsAddr(env *pb.Envelope, pid peer.ID) (*pb
     for _, sp := range peers.Peers {
         peerMap[sp.Peer] = sp.Addr
     }
-
+    log.Debugf("handleCafeFindIpfsAddr, pid: %s", pid)
     res := new(pb.CafeFindIpfsAddrAck)
     res.Result = new(pb.IpfsQueryResult)
     for _, p := range store.Query.Items {
@@ -1677,6 +1743,40 @@ func (h *CafeService) handleNotifyClient(env *pb.Envelope, pid peer.ID) (*pb.Env
 	return nil, nil
 }
 
+func (h *CafeService) handleCafeDiscovery(env *pb.Envelope, pid peer.ID) (*pb.Envelope, error) {
+	pub := new(pb.CafeFindIpfsAddr)
+	err := ptypes.UnmarshalAny(env.Message.Payload, pub)
+	if err != nil {
+		return nil, err
+	}
+
+	rerr, err := h.authToken(pid, pub.Token, false, env.Message.Request)
+	if err != nil {
+		return nil, err
+	}
+	if rerr != nil {
+		return rerr, nil
+	}
+
+	client := h.datastore.CafeClients().Get(pid.Pretty())
+	if client == nil {
+		return h.service.NewError(403, errForbidden, env.Message.Request)
+	}
+
+    peers, err := ipfs.SwarmPeers(h.service.Node(), true, true, true, true)
+    if err != nil {
+        log.Error(err)
+        return nil, err
+    }
+    
+    res := new(pb.CafeFindIpfsAddrAck)
+    res.Result = new(pb.IpfsQueryResult)
+    for _, sp := range peers.Peers {
+        addr := sp.Addr + "/ipfs/" + sp.Peer
+        res.Result.Items = append(res.Result.Items,addr)
+    }
+    return h.service.NewEnvelope(pb.Message_CAFE_PEER_DISCOVERY_ACK, res, &env.Message.Request, true)
+}
 // handlePublishPeer indexes a client's peer info for others to search
 func (h *CafeService) handlePublishPeer(env *pb.Envelope, pid peer.ID) (*pb.Envelope, error) {
 	pub := new(pb.CafePublishPeer)
@@ -1736,8 +1836,9 @@ func (h *CafeService) handleQuery(env *pb.Envelope, pid peer.ID, renvs chan *pb.
 	}
 
 	// search local
-	localResults, err := h.searchLocal(query.Type, query.Options, query.Payload, false)
+	localResults, err := h.searchLocal(query.Type, query.Options, query.Payload, false, pid)
 	if err != nil {
+        log.Debug(err)
 		return err
 	}
 	if reply(&pb.QueryResults{
@@ -1768,7 +1869,7 @@ func (h *CafeService) handlePubSubQuery(env *pb.Envelope, pid peer.ID) (*pb.Enve
 		Filter:  pb.QueryOptions_NO_FILTER,
 		Exclude: query.Exclude,
 	}
-	results, err := h.searchLocal(query.Type, options, query.Payload, false)
+	results, err := h.searchLocal(query.Type, options, query.Payload, false, pid)
 	if err != nil {
 		return nil, err
 	}

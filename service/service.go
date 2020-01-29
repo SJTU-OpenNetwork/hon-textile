@@ -525,6 +525,7 @@ func (srv *Service) listen(tag string) {
 				continue
 			}
 
+            log.Debug(rpmes)
 			// if nil response, return it before serializing
 			if rpmes == nil {
 				continue

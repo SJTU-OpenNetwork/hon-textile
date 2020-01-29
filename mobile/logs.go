@@ -14,3 +14,8 @@ func (m *Mobile) SetLogLevel(level []byte) error {
 
 	return m.node.SetLogLevel(mlevel, false)
 }
+
+
+func LogDebug(msg []byte) {
+    log.Debug(msg)
+}

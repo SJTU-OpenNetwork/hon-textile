@@ -145,7 +145,7 @@ func (t *Textile) searchAll(query *pb.Query) (<-chan *pb.QueryResult, <-chan err
 		if !query.Options.RemoteOnly {
             log.Debug("Search local")
 			var err error
-			results, err = t.cafe.searchLocal(query.Type, query.Options, query.Payload, true)
+			results, err = t.cafe.searchLocal(query.Type, query.Options, query.Payload, true, t.node.Identity)
 			if err != nil {
 				errCh <- err
 				return
@@ -246,7 +246,7 @@ func (t *Textile) search(query *pb.Query) (<-chan *pb.QueryResult, <-chan error,
 		if !query.Options.RemoteOnly {
             log.Debug("Search local")
 			var err error
-			results, err = t.cafe.searchLocal(query.Type, query.Options, query.Payload, true)
+			results, err = t.cafe.searchLocal(query.Type, query.Options, query.Payload, true, t.node.Identity)
 			if err != nil {
 				errCh <- err
 				return

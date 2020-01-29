@@ -12,6 +12,7 @@ import (
 	"strings"
 	"sync"
 	"time"
+    "math/rand"
 
 	utilmain "github.com/SJTU-OpenNetwork/go-ipfs/cmd/ipfs/util"
 	"github.com/SJTU-OpenNetwork/go-ipfs/core"
@@ -541,7 +542,8 @@ func getStatus(output string) bool {
 }
 
 func getId(output string) string {
-    return strings.Split(output, "/")[5]
+    list := strings.Split(output, "/")
+    return list[len(list)-1]
 }
 
 func stringInSlice(a string, list []string) bool {
@@ -554,20 +556,50 @@ func stringInSlice(a string, list []string) bool {
 }
 
 func (t *Textile) TryConnectThroughRelay(ids []string) (bool, error){
+    if len(ids) == 0 {
+        return true, nil
+    }
+
+    var RelayServers = []string{
+        //"/ipfs/12D3KooWEBKQAdjyqa4iMp8Lu8NF9tMQSWZoninNNPhbGYJ1xvcH/p2p-circuit/ipfs/", //202.120.38.131
+        "/ipfs/QmZt8jsim548Y5UFN24GL9nX9x3eSS8QFMsbSRNMBAqKBb/p2p-circuit/ipfs/", //202.120.38.100
+        "/ipfs/QmRHLRg5vihUgakbk7JnQFswWu7D92awdZnKiQRi1DmJhE/p2p-circuit/ipfs/", //139.9.123.113
+        "/ipfs/QmYBXdc56TrPqKWhAYJZneLpVeG4qMaV8Be6yox3fiqBYd/p2p-circuit/ipfs/", //119.3.23.219
+        "/ipfs/QmYL5AAcaGA2undBnRqWRTmndkL1YV3v7tML8DbakC8sTD/p2p-circuit/ipfs/", //121.36.167.61
+        "/ipfs/QmcwtfsFoJALLQwJWmsh5SmothbrniohPcW2PuggSVKurT/p2p-circuit/ipfs/", //122.112.199.88
+        "/ipfs/QmYCYQMhyDJV4BU9fRr5xBzFDEccnukuViUT7GJLngP7fj/p2p-circuit/ipfs/", //119.3.24.157
+    }
     var swarmAddress []string
+
+    rand.Seed(time.Now().UnixNano())
+    size := len(RelayServers)
     complete := true
     for _, id := range ids {
-        swarmAddress = append(swarmAddress, "/p2p-circuit/ipfs/"+id)
+        rid := rand.Intn(size)
+        swarmAddress = append(swarmAddress, RelayServers[rid]+id)
     }
+    log.Debug("CONNECT THROUGH RELAY!!!!!!!!!!!!!!!!!!!")
+    log.Debug(swarmAddress)
     output, err := ipfs.SwarmConnect(t.node, swarmAddress)
+    if err != nil{
+        log.Debug(err)
+        return false, err
+    }
+    log.Debug(output)
     for _, o := range output {
-        target := getTarget(o)
         status := getStatus(o)
         if !status {
             complete = false
         }
     }
     return complete, nil
+}
+
+func Max(x, y int) int {
+    if x < y {
+        return y
+    }
+    return x
 }
 
 func (t *Textile) TryConnectPeers(query *pb.IpfsQuery) (bool, error){
@@ -577,16 +609,18 @@ func (t *Textile) TryConnectPeers(query *pb.IpfsQuery) (bool, error){
         return true, nil
     }
 
+    log.Debug("Try Connect Peers")
     sessions := t.datastore.CafeSessions().List().Items
     if len(sessions) == 0 {
         return t.TryConnectThroughRelay(query.Items)
+        //return false, nil
     }
 
     swarmAddress := t.GetSwarmAddress(t.node.Identity.Pretty())
     log.Debug(swarmAddress)
     log.Debug(t.variables.SwarmAddress)
 
-    if swarmAddress != t.variables.SwarmAddress {
+    if swarmAddress != "" && swarmAddress != t.variables.SwarmAddress {
         t.variables.SwarmAddress = swarmAddress
         t.variables.FailedAddresses = append([]string{})
     }
@@ -594,6 +628,11 @@ func (t *Textile) TryConnectPeers(query *pb.IpfsQuery) (bool, error){
     var targets []string
     var failedIds []string
     
+    var queryMap = make(map[string] int)
+    for _, item := range query.Items {
+        queryMap[item] = 0 //0 -> not found
+    }
+
     for _, session := range sessions {
 		result, err := t.cafe.CafeFindIpfsAddr(query, session.Id)
         if err != nil {
@@ -603,7 +642,6 @@ func (t *Textile) TryConnectPeers(query *pb.IpfsQuery) (bool, error){
         for _, item := range result.Items {
             // TODO: remove item unable to connect
             if stringInSlice(item, t.variables.FailedAddresses) {
-                failedIds = append(failedIds, getId(item)
                 continue
             }
 
@@ -612,23 +650,36 @@ func (t *Textile) TryConnectPeers(query *pb.IpfsQuery) (bool, error){
 	}
     //TODO remove duplicate items
 
+    // TODO Maybe even cafe do not know the address
+
     // try ipfs connect
     output, err := ipfs.SwarmConnect(t.node, targets)
     if err != nil {
         return false, err
     }
 
-    log.Debug(output)
-    for _, o := range output {
-        target := getTarget(o)
+    log.Debug("out:===",output)
+    //complete := true //relay off
+    for id, o := range output {
+        curId := getTarget(o)
         status := getStatus(o)
         if !status {
-            complete = false
-            t.variables.FailedAddresses = append(t.variables.FailedAddresses, target)
-            failedIds = append(failedIds, getId(target)
+            t.variables.FailedAddresses = append(t.variables.FailedAddresses, targets[id])
+            //complete = false //relay off
+        } else {
+            queryMap[curId] = 1
         }
     }
-    return t.TryConnectThroughRelay(failedIds)
+
+    for id, s := range queryMap {
+        if s < 1 {
+            failedIds = append(failedIds, id)
+        }
+    }
+    log.Debug("failedIds:")
+    log.Debug(failedIds)
+    return t.TryConnectThroughRelay(failedIds) // relay on
+    //return complete, nil // relay off
 }
 
 func (t *Textile) TryConnect(peerId string) {
@@ -668,15 +719,73 @@ func (t *Textile) GetSwarmAddress(peerId string) string {
 
 }
 
-func (t *Textile) ConnectCafes() {
-    go func(){
+func (t *Textile) DiscoverAndConnect() {
+    // just quit if no cafe
+    sessions := t.datastore.CafeSessions().List().Items
+    if len(sessions) == 0 {
+        return 
+    }
+
+    // get all online peers
+    addrs, err := t.cafe.DiscoverPeers(sessions[0].Id)
+    if err != nil {
+        return
+    }
+    connectedPeers, err := ipfs.SwarmPeers(t.node, true, true, true, true)
+    connectMap := make(map[string] string)
+    for _, sp := range connectedPeers.Peers {
+       connectMap[sp.Peer] = sp.Addr 
+    }
+    go func() {
 	    t.variables.lock.Lock()
 	    defer t.variables.lock.Unlock()
-        _, err := ipfs.SwarmConnect(t.node, config.OpennetCafeAddresses)
+        var filteredAddr []string
+        var unconnectedId []string
+        for _, cur := range addrs {
+            curId := getId(cur)
+            _, ok := connectMap[curId]
+            if ok {
+                continue
+            }
+            if stringInSlice(cur, t.variables.FailedAddresses) {
+                unconnectedId = append(unconnectedId, getId(cur))
+                continue
+            }
+            filteredAddr = append(filteredAddr, cur)
+        }
+        out, err := ipfs.SwarmConnect(t.node, filteredAddr)
         if err != nil {
             log.Error(err)
             return
         }
+        for id, o := range out {
+            status := getStatus(o)
+            if !status {
+                target := getTarget(o)
+                failedAddr := filteredAddr[id]
+                unconnectedId = append(unconnectedId, target)
+                t.variables.FailedAddresses = append(t.variables.FailedAddresses, failedAddr)
+            }
+        }
+        log.Debug("unconnectedId")
+        log.Debug(unconnectedId)
+        t.TryConnectThroughRelay(unconnectedId)
+    }()
+}
+
+func (t *Textile) ConnectCafes() {
+    go func(){
+	    t.variables.lock.Lock()
+	    defer t.variables.lock.Unlock()
+        log.Debug("connecting cafes")
+        //out, err := ipfs.SwarmConnect(t.node, config.OpennetCafeAddresses)
+        out, err := ipfs.SwarmConnect(t.node, config.DefaultOpennetBootstrapAddresses)
+        if err != nil {
+            log.Error(err)
+            return
+        }
+        log.Debug("connect cafe")
+        log.Debug(out)
         t.variables.SwarmAddress = t.GetSwarmAddress(t.node.Identity.Pretty())
     }()
 }
@@ -695,6 +804,7 @@ func (t *Textile) ConnectedAddresses() (*pb.SwarmPeerList, error) {
             Id:   sp.Peer,
             Latency: sp.Latency,
             Muxer: sp.Muxer,
+            Direction: int32(sp.Direction),
         }
         result.Items = append(result.Items, tmp)
     }
@@ -1073,7 +1183,7 @@ func (t *Textile) runJobs() {
 			go t.flushQueues()
 			t.maybeSyncAccount()
             t.ConnectCafes()
-
+            t.DiscoverAndConnect()
 		case <-t.done:
 			return
 		}
