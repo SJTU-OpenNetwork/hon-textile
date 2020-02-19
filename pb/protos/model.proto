@@ -427,6 +427,10 @@ message VideoChunkList {
     repeated VideoChunk items = 1;
 }
 
+message Stream {
+    string id       = 1;
+}
+
 message CafeClientMessage {
     string id                      = 1;
     string peer                    = 2;

@@ -1,6 +1,8 @@
 package core
 
 import (
+	"github.com/golang/protobuf/proto"
+	"github.com/SJTU-OpenNetwork/hon-textile/broadcast"
 	stream "github.com/SJTU-OpenNetwork/go-stream"
 	path "github.com/SJTU-OpenNetwork/interface-go-ipfs-core/path"
 	"github.com/SJTU-OpenNetwork/hon-textile/pb"
@@ -31,6 +33,10 @@ func (t* Textile) SubscribeStream(id uint64) error {
 }
 
 func (t* Textile) UnsubscribeStream(id uint64) error{
+	return nil
+}
+
+func (t* Textile) RequestStream(id uint64) error{
 	return nil
 }
 

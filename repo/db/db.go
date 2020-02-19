@@ -27,6 +27,7 @@ type SQLiteDatastore struct {
 	config             repo.ConfigStore
 	peers              repo.PeerStore
 	files              repo.FileStore
+	streams			   repo.StreamStore
     videos             repo.VideoStore
     videoChunks        repo.VideoChunkStore
     syncFiles          repo.SyncFileStore
@@ -111,6 +112,10 @@ func (d *SQLiteDatastore) Peers() repo.PeerStore {
 
 func (d *SQLiteDatastore) Files() repo.FileStore {
 	return d.files
+}
+
+func (d *SQLiteDatastore) Streams() repo.StreamStore {
+	return d.streams
 }
 
 func (d *SQLiteDatastore) Videos() repo.VideoStore {
@@ -245,6 +250,9 @@ func initDatabaseTables(db *sql.DB, pin string) error {
     create table files (mill text not null, checksum text not null, source text not null, opts text not null, hash text not null, key text not null, media text not null, name text not null, size integer not null, added integer not null, meta blob, targets text, primary key (mill, checksum));
     create index file_hash on files (hash);
     create unique index file_mill_source_opts on files (mill, source, opts);
+
+	create table streams (id text primary key not null);
+	create index stream_id on streams (id);
 
     create table videos (id text not null, caption text not null, videoLength integer not null, poster text not null, width integer, height integer, rotation integer, primary key(id));
     create index video_id on videos (id);

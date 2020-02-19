@@ -103,6 +103,13 @@ type VideoChunkStore interface {
 	Find(videoId string, chunk string, startTime int64, endTime int64, index int64) []*pb.VideoChunk
 }
 
+type StreamStore interface {
+	Queryable
+	Add(stream *pb.Stream) error
+	Get(streamId string) *pb.Stream
+	Delete(streamId string) error
+}
+
 type SyncFileStore interface {
     Queryable
     Add(file *pb.SyncFile) error

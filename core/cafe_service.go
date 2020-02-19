@@ -717,7 +717,6 @@ func (h *CafeService) searchLocal(qtype pb.Query_Type, options *pb.QueryOptions,
 			}
 
 		}
-
 	case pb.Query_CONTACTS:
 		q := new(pb.ContactQuery)
 		err := ptypes.UnmarshalAny(payload, q)
@@ -753,6 +752,8 @@ func (h *CafeService) searchLocal(qtype pb.Query_Type, options *pb.QueryOptions,
 				},
 			})
 		}
+	case pb.Query_STREAM:
+
     case pb.Query_VIDEO:
 		q := new(pb.VideoQuery)
 		err := ptypes.UnmarshalAny(payload, q)
@@ -775,7 +776,6 @@ func (h *CafeService) searchLocal(qtype pb.Query_Type, options *pb.QueryOptions,
 				Value:   value,
 			},
 		})
-
     case pb.Query_VIDEO_CHUNKS:
 		q := new(pb.VideoChunkQuery)
 		err := ptypes.UnmarshalAny(payload, q)
@@ -799,7 +799,6 @@ func (h *CafeService) searchLocal(qtype pb.Query_Type, options *pb.QueryOptions,
 				},
 			})
 		}
-
     case pb.Query_SYNC_FILE:
 		q := new(pb.SyncFileQuery)
 		err := ptypes.UnmarshalAny(payload, q)

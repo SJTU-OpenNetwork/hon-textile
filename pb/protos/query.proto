@@ -34,6 +34,8 @@ message Query {
         VIDEO_CHUNKS     = 50;
         VIDEO            = 51;
         SYNC_FILE        = 52;
+
+        STREAM           = 53;
     }
 }
 
@@ -87,6 +89,10 @@ message VideoChunkQuery {
 }
 
 message VideoQuery {
+    string id = 1;
+}
+
+message StreamQuery {
     string id = 1;
 }
 

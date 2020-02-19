@@ -18,7 +18,7 @@ import (
 	"github.com/golang/protobuf/ptypes/any"
 	"github.com/SJTU-OpenNetwork/go-ipfs/core"
 	logging "github.com/ipfs/go-log"
-	iface "github.com/ipfs/interface-go-ipfs-core"
+	iface "github.com/SJTU-OpenNetwork/interface-go-ipfs-core"
 	inet "github.com/libp2p/go-libp2p-core/network"
 	peer "github.com/libp2p/go-libp2p-core/peer"
 	protocol "github.com/libp2p/go-libp2p-core/protocol"
@@ -494,7 +494,7 @@ func (srv *Service) listen(tag string) {
 			}
 
 			mPeer := msg.From()
-			if mPeer.Pretty() == srv.Node().Identity.Pretty() {
+			if mPeer.Pretty() == srv.Node().Identity.Pretty() { // if the msg is from itself, just pass it
 				continue
 			}
 
