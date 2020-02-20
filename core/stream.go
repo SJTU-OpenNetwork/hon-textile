@@ -14,14 +14,14 @@ func (t *Textile) StartStream(config stream.StreamConfig) error{
 	return nil
 }
 
-func (t *Textile) StreamAddFile(id uint64, path path.Path) error {
+func (t *Textile) StreamAddFile(id string, path path.Path) error {
 	//solve path to ipld node
 
 	//call stream.Addfile
 	return nil
 }
 
-func (t* Textile) SubscribeStream(id uint64) error {
+func (t* Textile) SubscribeStream(id string) error {
 	// call search stream
 
 	// swarm connect publisher
@@ -32,16 +32,16 @@ func (t* Textile) SubscribeStream(id uint64) error {
 	return nil
 }
 
-func (t* Textile) UnsubscribeStream(id uint64) error{
+func (t* Textile) UnsubscribeStream(id string) error{
 	return nil
 }
 
-func (t* Textile) RequestStream(id uint64) error{
+func (t* Textile) RequestStream(id string) error{
 	return nil
 }
 
 // Handle request of streamid from peerid
-func (t *Textile) HandleRequestStream(streamid uint64, peerid peer.ID) error {
+func (t *Textile) HandleRequestStream(streamid string, peerid peer.ID) error {
 
 	return nil
 }
