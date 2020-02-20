@@ -1,17 +1,38 @@
 package core
 
 import (
-	"github.com/golang/protobuf/proto"
+	"fmt"
 	"github.com/SJTU-OpenNetwork/hon-textile/broadcast"
-	stream "github.com/SJTU-OpenNetwork/go-stream"
-	path "github.com/SJTU-OpenNetwork/interface-go-ipfs-core/path"
 	"github.com/SJTU-OpenNetwork/hon-textile/pb"
+	path "github.com/SJTU-OpenNetwork/interface-go-ipfs-core/path"
+	"github.com/golang/protobuf/proto"
 	"github.com/golang/protobuf/ptypes/any"
 	peer "github.com/libp2p/go-libp2p-core/peer"
 )
 
-func (t *Textile) StartStream(config stream.StreamConfig) error{
-	return nil
+var ErrStreamNotFound = fmt.Errorf("stream not found")
+
+func (t *Textile) StartStream(threadId string, stream *pb.Stream) error{
+	err := t.datastore.Streams().Add(stream)
+	if err !=nil{
+		return err
+	}
+
+	thread := t.Thread(threadId)
+	if thread == nil {
+		return ErrThreadNotFound
+	}
+	addedStream := t.GetStream(stream.Id)
+	if addedStream == nil{
+		return ErrStreamNotFound
+	}
+
+	_, err = thread.AddStream(stream)
+	return err
+}
+
+func (t *Textile) GetStream(id string) *pb.Stream {
+	return t.datastore.Streams().Get(id)
 }
 
 func (t *Textile) StreamAddFile(id string, path path.Path) error {
