@@ -1,6 +1,8 @@
 package core
 
 import (
+	"fmt"
+	"github.com/SJTU-OpenNetwork/go-ipfs.new/core/commands/name"
 	stream "github.com/SJTU-OpenNetwork/go-stream"
 	"github.com/SJTU-OpenNetwork/hon-textile/broadcast"
 	"github.com/SJTU-OpenNetwork/hon-textile/pb"
@@ -9,7 +11,7 @@ import (
 	"github.com/golang/protobuf/ptypes/any"
 	peer "github.com/libp2p/go-libp2p-core/peer"
 )
-
+var ErrStreamNotFound = fmt.Errorf("stream not found")
 func (t *Textile) StartStream(threadId string,config stream.StreamConfig) error{
 	//init a Stream
 	//stream :=stream.createstream()
@@ -18,36 +20,45 @@ func (t *Textile) StartStream(threadId string,config stream.StreamConfig) error{
 	//publish the Stream to others
 	thread := t.Thread(threadId)
 	if thread == nil {
-		return ErrThreadNotFound
+		return ErrStreamNotFound
 	}
 
 	stream := t.datastore.Streams().Get(config.ID)
-	video := t.GetVideo(videoId)
-	if video == nil {
-		return ErrVideoNotFound
+
+	if stream == nil {
+		return ErrStreamNotFound
 	}
-	_, err := thread.AddVideo(video)
+	_, err := thread.AddStream(stream)
 	return err
 	//start a stream
-	stream.startwork()
-	return nil
+	//stream.startwork()
+	//return nil
 }
 
 func (t *Textile) StreamAddFile(id uint64, path path.Path) error {
 	//solve path to ipld node
-	ipfsPath :=ResolveIPNS()
+	stream := t.datastore.Streams().Get(id)
+	cid := path.Cid(path.Resolved())
+	block:=
 	//call stream.Addfile
+	AddJob(stream,block)
+
 	return nil
 }
 
 func (t* Textile) SubscribeStream(id uint64) error {
 	// call search stream
 
+	t.SearchStream()
 	// swarm connect publisher
 
 	// call request stream
-
+	err := t.RequestStream(id)
+	if err!=nil {
+		return err
+	}
 	// call stream.StartWorker
+
 	return nil
 }
 
@@ -56,6 +67,7 @@ func (t* Textile) UnsubscribeStream(id uint64) error{
 }
 
 func (t* Textile) RequestStream(id uint64) error{
+
 	return nil
 }
 
