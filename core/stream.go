@@ -1,22 +1,41 @@
 package core
 
 import (
-	"github.com/golang/protobuf/proto"
-	"github.com/SJTU-OpenNetwork/hon-textile/broadcast"
 	stream "github.com/SJTU-OpenNetwork/go-stream"
-	path "github.com/SJTU-OpenNetwork/interface-go-ipfs-core/path"
+	"github.com/SJTU-OpenNetwork/hon-textile/broadcast"
 	"github.com/SJTU-OpenNetwork/hon-textile/pb"
+	path "github.com/SJTU-OpenNetwork/interface-go-ipfs-core/path"
+	"github.com/golang/protobuf/proto"
 	"github.com/golang/protobuf/ptypes/any"
 	peer "github.com/libp2p/go-libp2p-core/peer"
 )
 
-func (t *Textile) StartStream(config stream.StreamConfig) error{
+func (t *Textile) StartStream(threadId string,config stream.StreamConfig) error{
+	//init a Stream
+	//stream :=stream.createstream()
+	//err := t.datastore.Streams().Add()
+
+	//publish the Stream to others
+	thread := t.Thread(threadId)
+	if thread == nil {
+		return ErrThreadNotFound
+	}
+
+	stream := t.datastore.Streams().Get(config.ID)
+	video := t.GetVideo(videoId)
+	if video == nil {
+		return ErrVideoNotFound
+	}
+	_, err := thread.AddVideo(video)
+	return err
+	//start a stream
+	stream.startwork()
 	return nil
 }
 
 func (t *Textile) StreamAddFile(id uint64, path path.Path) error {
 	//solve path to ipld node
-
+	ipfsPath :=ResolveIPNS()
 	//call stream.Addfile
 	return nil
 }

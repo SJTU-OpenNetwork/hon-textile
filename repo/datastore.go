@@ -14,6 +14,7 @@ type Datastore interface {
 	Files() FileStore
     Videos() VideoStore
     VideoChunks() VideoChunkStore
+	Streams() StreamStore
     SyncFiles() SyncFileStore
 	Threads() ThreadStore
 	ThreadPeers() ThreadPeerStore

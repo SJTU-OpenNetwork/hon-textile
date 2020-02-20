@@ -4,7 +4,7 @@ import (
 	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 	"github.com/golang/protobuf/proto"
 )
-
+//收到block之后封装成feed类型，发给上层应用
 func (t *Textile) feedVideo(block *pb.Block, opts feedItemOpts) (*pb.FeedVideo, error) {
 	if block.Type != pb.Block_VIDEO {
 		return nil, ErrBlockWrongType
