@@ -12,6 +12,7 @@ type Datastore interface {
 	Config() ConfigStore
 	Peers() PeerStore
 	Files() FileStore
+	Streams() StreamStore
     Videos() VideoStore
     VideoChunks() VideoChunkStore
     SyncFiles() SyncFileStore
