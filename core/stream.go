@@ -13,22 +13,7 @@ import (
 var ErrStreamNotFound = fmt.Errorf("stream not found")
 
 func (t *Textile) StartStream(threadId string, stream *pb.Stream) error{
-	err := t.datastore.Streams().Add(stream)
-	if err !=nil{
-		return err
-	}
-
-	thread := t.Thread(threadId)
-	if thread == nil {
-		return ErrThreadNotFound
-	}
-	addedStream := t.GetStream(stream.Id)
-	if addedStream == nil{
-		return ErrStreamNotFound
-	}
-
-	_, err = thread.AddStream(stream)
-	return err
+	return nil
 }
 
 func (t *Textile) GetStream(id string) *pb.Stream {
