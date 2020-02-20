@@ -2,6 +2,7 @@ package core
 
 import (
 	"fmt"
+	"github.com/SJTU-OpenNetwork/go-stream"
 	"github.com/SJTU-OpenNetwork/hon-textile/broadcast"
 	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 	path "github.com/SJTU-OpenNetwork/interface-go-ipfs-core/path"
@@ -12,7 +13,7 @@ import (
 
 var ErrStreamNotFound = fmt.Errorf("stream not found")
 
-func (t *Textile) StartStream(threadId string, stream *pb.Stream) error{
+func (t *Textile) StartStream(config stream.StreamConfig) error{
 	return nil
 }
 
