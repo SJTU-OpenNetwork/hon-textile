@@ -2,7 +2,6 @@ package core
 
 import (
 	"fmt"
-
 	stream "github.com/SJTU-OpenNetwork/go-stream"
 	"github.com/SJTU-OpenNetwork/hon-textile/broadcast"
 	"github.com/SJTU-OpenNetwork/hon-textile/pb"
@@ -22,7 +21,7 @@ func (t *Textile) StartStream(threadId string,config stream.StreamConfig) error 
 	if thread == nil {
 		return ErrStreamNotFound
 	}
-	stream := t.GetStream(config.ID)
+	stream := t.GetStream(string(config.ID))
 	if stream == nil {
 		return ErrStreamNotFound
 	}
@@ -33,19 +32,17 @@ func (t *Textile) StartStream(threadId string,config stream.StreamConfig) error 
 	//return nil
 }
 
-
-
 func (t *Textile) GetStream(id string) *pb.Stream {
 	return t.datastore.Streams().Get(id)
 }
 
 func (t *Textile) StreamAddFile(id string, path path.Path) error {
 	//solve path to ipld node
-	stream := t.datastore.Streams().Get(id)
-	cid := path.Cid(path.Resolved())
-	block:=
-	//call stream.Addfile
-	AddJob(stream,block)
+	//stream := t.datastore.Streams().Get(id)
+	//cid := path.Cid(path.Resolved())
+	//block:=
+	////call stream.Addfile
+	//AddJob(stream,block)
 
 	return nil
 }
@@ -53,7 +50,7 @@ func (t *Textile) StreamAddFile(id string, path path.Path) error {
 func (t* Textile) SubscribeStream(id string) error {
 	// call search stream
 
-	t.SearchStream()
+	//t.SearchStream()
 	// swarm connect publisher
 
 	// call request stream

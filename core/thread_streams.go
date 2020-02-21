@@ -11,7 +11,7 @@ func (t *Thread) AddStream(stream *pb.Stream) (mh.Multihash, error) {
 	t.lock.Lock()
 	defer t.lock.Unlock()
 
-	res, err := t.commitBlock(stream, pb.Block_STREAM, true, nil)
+	res, err := t.commitBlock(stream, pb.Block_STREAMMETA, true, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -22,7 +22,7 @@ func (t *Thread) AddStream(stream *pb.Stream) (mh.Multihash, error) {
 		Id:     res.hash.B58String(),
 		Thread: t.Id,
 		Author: res.header.Author,
-		Type:   pb.Block_STREAM,
+		Type:   pb.Block_STREAMMETA,
 		Date:   res.header.Date,
 		Body:   body,
 		Status: pb.Block_QUEUED,

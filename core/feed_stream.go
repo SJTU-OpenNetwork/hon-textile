@@ -5,8 +5,8 @@ import (
 "github.com/golang/protobuf/proto"
 )
 //收到block之后封装成feed类型，发给上层应用
-func (t *Textile) feedStream(block *pb.Block, opts feedItemOpts) (*pb.FeedStream, error) {
-	if block.Type != pb.Block_STREAM {
+func (t *Textile) feedStream(block *pb.Block, opts feedItemOpts) (*pb.FeedStreamMeta, error) {
+	if block.Type != pb.Block_STREAMMETA {
 		return nil, ErrBlockWrongType
 	}
 
@@ -16,7 +16,7 @@ func (t *Textile) feedStream(block *pb.Block, opts feedItemOpts) (*pb.FeedStream
 		return nil, err
 	}
 
-	item := &pb.FeedStream{
+	item := &pb.FeedStreamMeta{
 		Block:   block.Id,
 		Date:    block.Date,
 		User:    t.PeerUser(block.Author),
