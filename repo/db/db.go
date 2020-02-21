@@ -28,6 +28,7 @@ type SQLiteDatastore struct {
 	peers              repo.PeerStore
 	files              repo.FileStore
 	streams			   repo.StreamStore
+	streammetas		   repo.StreamMetaStore
     videos             repo.VideoStore
     videoChunks        repo.VideoChunkStore
     syncFiles          repo.SyncFileStore
@@ -71,6 +72,8 @@ func Create(repoPath, pin string) (*SQLiteDatastore, error) {
 		config:             NewConfigStore(conn, lock, dbPath),
 		peers:              NewPeerStore(conn, lock),
 		files:              NewFileStore(conn, lock),
+		streams:			NewStreamStore(conn, lock),
+		streammetas:		NewStreamMetaStore(conn, lock),
 		videos:             NewVideoStore(conn, lock),
 		videoChunks:        NewVideoChunkStore(conn, lock),
         syncFiles:          NewSyncFileStore(conn, lock),
@@ -116,6 +119,10 @@ func (d *SQLiteDatastore) Files() repo.FileStore {
 
 func (d *SQLiteDatastore) Streams() repo.StreamStore {
 	return d.streams
+}
+
+func (d *SQLiteDatastore) StreamMetas() repo.StreamMetaStore {
+	return d.streammetas
 }
 
 func (d *SQLiteDatastore) Videos() repo.VideoStore {
@@ -253,6 +260,9 @@ func initDatabaseTables(db *sql.DB, pin string) error {
 
 	create table streams (id text primary key not null);
 	create index stream_id on streams (id);
+	
+	create table stream_metas (id text primary key not null);
+	create index stream_metas_id on stream_metas (id);
 
     create table videos (id text not null, caption text not null, videoLength integer not null, poster text not null, width integer, height integer, rotation integer, primary key(id));
     create index video_id on videos (id);

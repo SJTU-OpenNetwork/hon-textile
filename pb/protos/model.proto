@@ -139,7 +139,7 @@ message Block {
         ADDADMIN    = 100;
         REMOVEPEER  = 101;
         VIDEO       = 102;
-        STREAM      = 103;
+        STREAMMETA  = 103;
     }
 
 	enum BlockStatus {
@@ -265,6 +265,7 @@ message Notification {
         ADMIN_ADDED         = 100;
         PEER_REMOVED        = 101;
         VIDEO_ADDED         = 102;
+        STREAM_ADDED        = 103;
     }
 
     // view info
@@ -425,6 +426,10 @@ message VideoChunk {
 
 message VideoChunkList {
     repeated VideoChunk items = 1;
+}
+
+message StreamMeta {
+    string id       = 1;
 }
 
 message Stream {

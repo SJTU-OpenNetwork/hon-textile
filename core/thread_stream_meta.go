@@ -7,11 +7,11 @@ import (
 	mh "github.com/multiformats/go-multihash"
 )
 
-func (t *Thread) AddStream(stream *pb.Stream) (mh.Multihash, error){
+func (t *Thread) AddStreamMeta(stream *pb.StreamMeta) (mh.Multihash, error){
 	t.lock.Lock()
 	defer t.lock.Unlock()
 
-	res, err := t.commitBlock(stream, pb.Block_STREAM, true, nil)
+	res, err := t.commitBlock(stream, pb.Block_STREAMMETA, true, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -22,7 +22,7 @@ func (t *Thread) AddStream(stream *pb.Stream) (mh.Multihash, error){
 		Id: res.hash.B58String(),
 		Thread: t.Id,
 		Author: res.header.Author,
-		Type: pb.Block_STREAM,
+		Type: pb.Block_STREAMMETA,
 		Date: res.header.Date,
 		Body: body,
 		Status: pb.Block_QUEUED,
@@ -31,11 +31,11 @@ func (t *Thread) AddStream(stream *pb.Stream) (mh.Multihash, error){
 		return nil, err
 	}
 
-	log.Debugf("added stream: &s", stream.Id)
+	log.Debugf("added streammeta, streamID: &s", stream.Id)
 	return res.hash, nil
 }
 
-func (t *Thread) handleAddStreamBlock(block *pb.ThreadBlock) (handleResult,error){
+func (t *Thread) handleAddStreamMetaBlock(block *pb.ThreadBlock) (handleResult,error){
 	var res handleResult
 
 	if !t.readable(t.config.Account.Address) {
@@ -45,7 +45,7 @@ func (t *Thread) handleAddStreamBlock(block *pb.ThreadBlock) (handleResult,error
 		return res, ErrNotReadable
 	}
 
-	msg := new(pb.Stream)
+	msg := new(pb.StreamMeta)
 	if block.Payload != nil {
 		err := ptypes.UnmarshalAny(block.Payload, msg)
 		if err != nil {
@@ -53,7 +53,7 @@ func (t *Thread) handleAddStreamBlock(block *pb.ThreadBlock) (handleResult,error
 		}
 	}
 
-	err := t.datastore.Streams().Add(msg)
+	err := t.datastore.StreamMetas().Add(msg)
 	if err != nil {
 		log.Warning(err)
 	}

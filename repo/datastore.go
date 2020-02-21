@@ -13,6 +13,7 @@ type Datastore interface {
 	Peers() PeerStore
 	Files() FileStore
 	Streams() StreamStore
+	StreamMetas() StreamMetaStore
     Videos() VideoStore
     VideoChunks() VideoChunkStore
     SyncFiles() SyncFileStore
@@ -102,6 +103,13 @@ type VideoChunkStore interface {
     GetByIndex(videoId string, index int64) *pb.VideoChunk
 	Delete(videoId string) error
 	Find(videoId string, chunk string, startTime int64, endTime int64, index int64) []*pb.VideoChunk
+}
+
+type StreamMetaStore interface {
+	Queryable
+	Add(stream *pb.StreamMeta) error
+	Get(streamId string) *pb.StreamMeta
+	Delete(streamId string) error
 }
 
 type StreamStore interface {
