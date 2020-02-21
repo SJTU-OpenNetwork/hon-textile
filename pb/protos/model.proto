@@ -139,6 +139,7 @@ message Block {
         ADDADMIN    = 100;
         REMOVEPEER  = 101;
         VIDEO       = 102;
+        STREAM      = 103;
     }
 
 	enum BlockStatus {
@@ -411,7 +412,6 @@ message Video {
     int32 width       = 5;
     int32 height      = 6;
     int32 rotation    = 7;
-
 }
 
 message VideoChunk {

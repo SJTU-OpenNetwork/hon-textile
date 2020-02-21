@@ -684,7 +684,6 @@ func (h *CafeService) searchLocal(qtype pb.Query_Type, options *pb.QueryOptions,
 				})
 			}
 		}
-
 		// return own threads (encrypted) if query is from an account peer
 		if q.Address == h.service.Account.Address() {
 			self := h.service.Node().Identity.Pretty()
@@ -753,7 +752,27 @@ func (h *CafeService) searchLocal(qtype pb.Query_Type, options *pb.QueryOptions,
 			})
 		}
 	case pb.Query_STREAM:
-
+		q := new(pb.StreamQuery)
+		err := ptypes.UnmarshalAny(payload, q)
+		if err != nil {
+			return nil, err
+		}
+		stream := h.datastore.Streams().Get(q.Id)
+		if stream == nil {
+			return nil, err
+		}
+		value, err := proto.Marshal(stream)
+		if err != nil {
+			return nil,nil
+		}
+		results.Add(&pb.QueryResult{
+			Id:     q.Id,
+			Local:  local,
+			Value: &any.Any{
+				TypeUrl: "/Stream",
+				Value: value,
+			},
+		})
     case pb.Query_VIDEO:
 		q := new(pb.VideoQuery)
 		err := ptypes.UnmarshalAny(payload, q)

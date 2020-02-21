@@ -2,7 +2,6 @@ package core
 
 import (
 	"fmt"
-	"github.com/SJTU-OpenNetwork/go-ipfs.new/core/commands/name"
 	stream "github.com/SJTU-OpenNetwork/go-stream"
 	"github.com/SJTU-OpenNetwork/hon-textile/broadcast"
 	"github.com/SJTU-OpenNetwork/hon-textile/pb"
@@ -12,7 +11,7 @@ import (
 	peer "github.com/libp2p/go-libp2p-core/peer"
 )
 var ErrStreamNotFound = fmt.Errorf("stream not found")
-func (t *Textile) StartStream(threadId string,config stream.StreamConfig) error{
+func (t *Textile) StartStream(threadId string,config stream.StreamConfig) error {
 	//init a Stream
 	//stream :=stream.createstream()
 	//err := t.datastore.Streams().Add()
@@ -22,9 +21,7 @@ func (t *Textile) StartStream(threadId string,config stream.StreamConfig) error{
 	if thread == nil {
 		return ErrStreamNotFound
 	}
-
-	stream := t.datastore.Streams().Get(config.ID)
-
+	stream := t.GetStream(config.ID)
 	if stream == nil {
 		return ErrStreamNotFound
 	}
@@ -33,9 +30,14 @@ func (t *Textile) StartStream(threadId string,config stream.StreamConfig) error{
 	//start a stream
 	//stream.startwork()
 	//return nil
+
 }
 
-func (t *Textile) StreamAddFile(id uint64, path path.Path) error {
+func (t *Textile) GetStream(id string) *pb.Stream {
+	return t.datastore.Streams().Get(id)
+}
+
+func (t *Textile) StreamAddFile(id string, path path.Path) error {
 	//solve path to ipld node
 	stream := t.datastore.Streams().Get(id)
 	cid := path.Cid(path.Resolved())
@@ -46,7 +48,7 @@ func (t *Textile) StreamAddFile(id uint64, path path.Path) error {
 	return nil
 }
 
-func (t* Textile) SubscribeStream(id uint64) error {
+func (t* Textile) SubscribeStream(id string) error {
 	// call search stream
 
 	t.SearchStream()
@@ -62,17 +64,20 @@ func (t* Textile) SubscribeStream(id uint64) error {
 	return nil
 }
 
-func (t* Textile) UnsubscribeStream(id uint64) error{
+func (t* Textile) UnsubscribeStream(id string) error{
 	return nil
 }
 
-func (t* Textile) RequestStream(id uint64) error{
+
+
+
+func (t* Textile) RequestStream(id string) error{
 
 	return nil
 }
 
 // Handle request of streamid from peerid
-func (t *Textile) HandleRequestStream(streamid uint64, peerid peer.ID) error {
+func (t *Textile) HandleRequestStream(streamid string, peerid peer.ID) error {
 
 	return nil
 }
