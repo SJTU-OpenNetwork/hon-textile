@@ -3,7 +3,7 @@ package ipfs
 import (
 	"context"
     "time"
-
+    peer "github.com/libp2p/go-libp2p-core/peer"
 	"github.com/SJTU-OpenNetwork/go-stream"
 	"github.com/SJTU-OpenNetwork/go-ipfs/core"
 	"github.com/SJTU-OpenNetwork/go-ipfs/core/coreapi"
@@ -26,7 +26,7 @@ func StartStream(node *core.IpfsNode, s *stream.Stream) error {
 
 
 //call go-stream StartWorker
-func StartWorker(node *core.IpfsNode, s *stream.StreamConfig, peerid peer.ID) {
+func StartWorker(node *core.IpfsNode, s *stream.StreamConfig, peerid peer.ID) error{
 	api, err := coreapi.NewCoreAPI(node)
 	if err != nil {
 		return err
