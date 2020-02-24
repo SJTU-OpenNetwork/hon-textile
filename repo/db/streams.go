@@ -69,7 +69,7 @@ func (s *StreamDB) handleQuery(stm string) []*pb.Stream{
 			continue
 		}
 		list = append(list, &pb.Stream{
-			Id:                   id,
+			Id: id,
 		})
 	}
 	return list

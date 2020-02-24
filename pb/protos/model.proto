@@ -428,6 +428,16 @@ message VideoChunkList {
     repeated VideoChunk items = 1;
 }
 
+message StreamBlock {
+    string id       = 1;
+    string streamid = 2;
+    int64 index     = 3;
+}
+
+message StreamBlockList {
+    repeated StreamBlock items =1;
+}
+
 message StreamMeta {
     string id       = 1;
 }

@@ -68,7 +68,7 @@ func (s *StreamMetaDB) handleQuery(stm string) []*pb.StreamMeta{
 			continue
 		}
 		list = append(list, &pb.StreamMeta{
-			Id:                   id,
+			Id: id,
 		})
 	}
 	return list

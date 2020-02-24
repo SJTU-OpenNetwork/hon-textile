@@ -21,7 +21,7 @@ func (t *Textile) StartStream(threadId string,config stream.StreamConfig) error 
 	if thread == nil {
 		return ErrStreamNotFound
 	}
-	stream := t.GetStream(string(config.ID))
+	stream := t.GetStream(string(config.StreamID))
 	if stream == nil {
 		return ErrStreamNotFound
 	}

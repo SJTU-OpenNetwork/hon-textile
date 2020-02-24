@@ -17435,6 +17435,1138 @@ public final class View {
 
   }
 
+  public interface FeedStreamMetaOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:FeedStreamMeta)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string block = 1;</code>
+     */
+    java.lang.String getBlock();
+    /**
+     * <code>string block = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getBlockBytes();
+
+    /**
+     * <code>.google.protobuf.Timestamp date = 2;</code>
+     */
+    boolean hasDate();
+    /**
+     * <code>.google.protobuf.Timestamp date = 2;</code>
+     */
+    com.google.protobuf.Timestamp getDate();
+    /**
+     * <code>.google.protobuf.Timestamp date = 2;</code>
+     */
+    com.google.protobuf.TimestampOrBuilder getDateOrBuilder();
+
+    /**
+     * <code>.User user = 3;</code>
+     */
+    boolean hasUser();
+    /**
+     * <code>.User user = 3;</code>
+     */
+    sjtu.opennet.textilepb.Model.User getUser();
+    /**
+     * <code>.User user = 3;</code>
+     */
+    sjtu.opennet.textilepb.Model.UserOrBuilder getUserOrBuilder();
+
+    /**
+     * <code>.StreamMeta streammeta = 4;</code>
+     */
+    boolean hasStreammeta();
+    /**
+     * <code>.StreamMeta streammeta = 4;</code>
+     */
+    sjtu.opennet.textilepb.Model.StreamMeta getStreammeta();
+    /**
+     * <code>.StreamMeta streammeta = 4;</code>
+     */
+    sjtu.opennet.textilepb.Model.StreamMetaOrBuilder getStreammetaOrBuilder();
+  }
+  /**
+   * Protobuf type {@code FeedStreamMeta}
+   */
+  public  static final class FeedStreamMeta extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:FeedStreamMeta)
+      FeedStreamMetaOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use FeedStreamMeta.newBuilder() to construct.
+    private FeedStreamMeta(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private FeedStreamMeta() {
+      block_ = "";
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private FeedStreamMeta(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              block_ = s;
+              break;
+            }
+            case 18: {
+              com.google.protobuf.Timestamp.Builder subBuilder = null;
+              if (date_ != null) {
+                subBuilder = date_.toBuilder();
+              }
+              date_ = input.readMessage(com.google.protobuf.Timestamp.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(date_);
+                date_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            case 26: {
+              sjtu.opennet.textilepb.Model.User.Builder subBuilder = null;
+              if (user_ != null) {
+                subBuilder = user_.toBuilder();
+              }
+              user_ = input.readMessage(sjtu.opennet.textilepb.Model.User.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(user_);
+                user_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            case 34: {
+              sjtu.opennet.textilepb.Model.StreamMeta.Builder subBuilder = null;
+              if (streammeta_ != null) {
+                subBuilder = streammeta_.toBuilder();
+              }
+              streammeta_ = input.readMessage(sjtu.opennet.textilepb.Model.StreamMeta.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(streammeta_);
+                streammeta_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return sjtu.opennet.textilepb.View.internal_static_FeedStreamMeta_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return sjtu.opennet.textilepb.View.internal_static_FeedStreamMeta_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              sjtu.opennet.textilepb.View.FeedStreamMeta.class, sjtu.opennet.textilepb.View.FeedStreamMeta.Builder.class);
+    }
+
+    public static final int BLOCK_FIELD_NUMBER = 1;
+    private volatile java.lang.Object block_;
+    /**
+     * <code>string block = 1;</code>
+     */
+    public java.lang.String getBlock() {
+      java.lang.Object ref = block_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        block_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string block = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getBlockBytes() {
+      java.lang.Object ref = block_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        block_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int DATE_FIELD_NUMBER = 2;
+    private com.google.protobuf.Timestamp date_;
+    /**
+     * <code>.google.protobuf.Timestamp date = 2;</code>
+     */
+    public boolean hasDate() {
+      return date_ != null;
+    }
+    /**
+     * <code>.google.protobuf.Timestamp date = 2;</code>
+     */
+    public com.google.protobuf.Timestamp getDate() {
+      return date_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : date_;
+    }
+    /**
+     * <code>.google.protobuf.Timestamp date = 2;</code>
+     */
+    public com.google.protobuf.TimestampOrBuilder getDateOrBuilder() {
+      return getDate();
+    }
+
+    public static final int USER_FIELD_NUMBER = 3;
+    private sjtu.opennet.textilepb.Model.User user_;
+    /**
+     * <code>.User user = 3;</code>
+     */
+    public boolean hasUser() {
+      return user_ != null;
+    }
+    /**
+     * <code>.User user = 3;</code>
+     */
+    public sjtu.opennet.textilepb.Model.User getUser() {
+      return user_ == null ? sjtu.opennet.textilepb.Model.User.getDefaultInstance() : user_;
+    }
+    /**
+     * <code>.User user = 3;</code>
+     */
+    public sjtu.opennet.textilepb.Model.UserOrBuilder getUserOrBuilder() {
+      return getUser();
+    }
+
+    public static final int STREAMMETA_FIELD_NUMBER = 4;
+    private sjtu.opennet.textilepb.Model.StreamMeta streammeta_;
+    /**
+     * <code>.StreamMeta streammeta = 4;</code>
+     */
+    public boolean hasStreammeta() {
+      return streammeta_ != null;
+    }
+    /**
+     * <code>.StreamMeta streammeta = 4;</code>
+     */
+    public sjtu.opennet.textilepb.Model.StreamMeta getStreammeta() {
+      return streammeta_ == null ? sjtu.opennet.textilepb.Model.StreamMeta.getDefaultInstance() : streammeta_;
+    }
+    /**
+     * <code>.StreamMeta streammeta = 4;</code>
+     */
+    public sjtu.opennet.textilepb.Model.StreamMetaOrBuilder getStreammetaOrBuilder() {
+      return getStreammeta();
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getBlockBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, block_);
+      }
+      if (date_ != null) {
+        output.writeMessage(2, getDate());
+      }
+      if (user_ != null) {
+        output.writeMessage(3, getUser());
+      }
+      if (streammeta_ != null) {
+        output.writeMessage(4, getStreammeta());
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getBlockBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, block_);
+      }
+      if (date_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, getDate());
+      }
+      if (user_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(3, getUser());
+      }
+      if (streammeta_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(4, getStreammeta());
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof sjtu.opennet.textilepb.View.FeedStreamMeta)) {
+        return super.equals(obj);
+      }
+      sjtu.opennet.textilepb.View.FeedStreamMeta other = (sjtu.opennet.textilepb.View.FeedStreamMeta) obj;
+
+      boolean result = true;
+      result = result && getBlock()
+          .equals(other.getBlock());
+      result = result && (hasDate() == other.hasDate());
+      if (hasDate()) {
+        result = result && getDate()
+            .equals(other.getDate());
+      }
+      result = result && (hasUser() == other.hasUser());
+      if (hasUser()) {
+        result = result && getUser()
+            .equals(other.getUser());
+      }
+      result = result && (hasStreammeta() == other.hasStreammeta());
+      if (hasStreammeta()) {
+        result = result && getStreammeta()
+            .equals(other.getStreammeta());
+      }
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + BLOCK_FIELD_NUMBER;
+      hash = (53 * hash) + getBlock().hashCode();
+      if (hasDate()) {
+        hash = (37 * hash) + DATE_FIELD_NUMBER;
+        hash = (53 * hash) + getDate().hashCode();
+      }
+      if (hasUser()) {
+        hash = (37 * hash) + USER_FIELD_NUMBER;
+        hash = (53 * hash) + getUser().hashCode();
+      }
+      if (hasStreammeta()) {
+        hash = (37 * hash) + STREAMMETA_FIELD_NUMBER;
+        hash = (53 * hash) + getStreammeta().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static sjtu.opennet.textilepb.View.FeedStreamMeta parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sjtu.opennet.textilepb.View.FeedStreamMeta parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sjtu.opennet.textilepb.View.FeedStreamMeta parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sjtu.opennet.textilepb.View.FeedStreamMeta parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sjtu.opennet.textilepb.View.FeedStreamMeta parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sjtu.opennet.textilepb.View.FeedStreamMeta parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sjtu.opennet.textilepb.View.FeedStreamMeta parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sjtu.opennet.textilepb.View.FeedStreamMeta parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sjtu.opennet.textilepb.View.FeedStreamMeta parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static sjtu.opennet.textilepb.View.FeedStreamMeta parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sjtu.opennet.textilepb.View.FeedStreamMeta parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sjtu.opennet.textilepb.View.FeedStreamMeta parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(sjtu.opennet.textilepb.View.FeedStreamMeta prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code FeedStreamMeta}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:FeedStreamMeta)
+        sjtu.opennet.textilepb.View.FeedStreamMetaOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return sjtu.opennet.textilepb.View.internal_static_FeedStreamMeta_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return sjtu.opennet.textilepb.View.internal_static_FeedStreamMeta_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                sjtu.opennet.textilepb.View.FeedStreamMeta.class, sjtu.opennet.textilepb.View.FeedStreamMeta.Builder.class);
+      }
+
+      // Construct using sjtu.opennet.textilepb.View.FeedStreamMeta.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        block_ = "";
+
+        if (dateBuilder_ == null) {
+          date_ = null;
+        } else {
+          date_ = null;
+          dateBuilder_ = null;
+        }
+        if (userBuilder_ == null) {
+          user_ = null;
+        } else {
+          user_ = null;
+          userBuilder_ = null;
+        }
+        if (streammetaBuilder_ == null) {
+          streammeta_ = null;
+        } else {
+          streammeta_ = null;
+          streammetaBuilder_ = null;
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return sjtu.opennet.textilepb.View.internal_static_FeedStreamMeta_descriptor;
+      }
+
+      @java.lang.Override
+      public sjtu.opennet.textilepb.View.FeedStreamMeta getDefaultInstanceForType() {
+        return sjtu.opennet.textilepb.View.FeedStreamMeta.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public sjtu.opennet.textilepb.View.FeedStreamMeta build() {
+        sjtu.opennet.textilepb.View.FeedStreamMeta result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public sjtu.opennet.textilepb.View.FeedStreamMeta buildPartial() {
+        sjtu.opennet.textilepb.View.FeedStreamMeta result = new sjtu.opennet.textilepb.View.FeedStreamMeta(this);
+        result.block_ = block_;
+        if (dateBuilder_ == null) {
+          result.date_ = date_;
+        } else {
+          result.date_ = dateBuilder_.build();
+        }
+        if (userBuilder_ == null) {
+          result.user_ = user_;
+        } else {
+          result.user_ = userBuilder_.build();
+        }
+        if (streammetaBuilder_ == null) {
+          result.streammeta_ = streammeta_;
+        } else {
+          result.streammeta_ = streammetaBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof sjtu.opennet.textilepb.View.FeedStreamMeta) {
+          return mergeFrom((sjtu.opennet.textilepb.View.FeedStreamMeta)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(sjtu.opennet.textilepb.View.FeedStreamMeta other) {
+        if (other == sjtu.opennet.textilepb.View.FeedStreamMeta.getDefaultInstance()) return this;
+        if (!other.getBlock().isEmpty()) {
+          block_ = other.block_;
+          onChanged();
+        }
+        if (other.hasDate()) {
+          mergeDate(other.getDate());
+        }
+        if (other.hasUser()) {
+          mergeUser(other.getUser());
+        }
+        if (other.hasStreammeta()) {
+          mergeStreammeta(other.getStreammeta());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        sjtu.opennet.textilepb.View.FeedStreamMeta parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (sjtu.opennet.textilepb.View.FeedStreamMeta) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object block_ = "";
+      /**
+       * <code>string block = 1;</code>
+       */
+      public java.lang.String getBlock() {
+        java.lang.Object ref = block_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          block_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string block = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getBlockBytes() {
+        java.lang.Object ref = block_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          block_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string block = 1;</code>
+       */
+      public Builder setBlock(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        block_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string block = 1;</code>
+       */
+      public Builder clearBlock() {
+        
+        block_ = getDefaultInstance().getBlock();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string block = 1;</code>
+       */
+      public Builder setBlockBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        block_ = value;
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.Timestamp date_ = null;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> dateBuilder_;
+      /**
+       * <code>.google.protobuf.Timestamp date = 2;</code>
+       */
+      public boolean hasDate() {
+        return dateBuilder_ != null || date_ != null;
+      }
+      /**
+       * <code>.google.protobuf.Timestamp date = 2;</code>
+       */
+      public com.google.protobuf.Timestamp getDate() {
+        if (dateBuilder_ == null) {
+          return date_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : date_;
+        } else {
+          return dateBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.google.protobuf.Timestamp date = 2;</code>
+       */
+      public Builder setDate(com.google.protobuf.Timestamp value) {
+        if (dateBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          date_ = value;
+          onChanged();
+        } else {
+          dateBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.google.protobuf.Timestamp date = 2;</code>
+       */
+      public Builder setDate(
+          com.google.protobuf.Timestamp.Builder builderForValue) {
+        if (dateBuilder_ == null) {
+          date_ = builderForValue.build();
+          onChanged();
+        } else {
+          dateBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.google.protobuf.Timestamp date = 2;</code>
+       */
+      public Builder mergeDate(com.google.protobuf.Timestamp value) {
+        if (dateBuilder_ == null) {
+          if (date_ != null) {
+            date_ =
+              com.google.protobuf.Timestamp.newBuilder(date_).mergeFrom(value).buildPartial();
+          } else {
+            date_ = value;
+          }
+          onChanged();
+        } else {
+          dateBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.google.protobuf.Timestamp date = 2;</code>
+       */
+      public Builder clearDate() {
+        if (dateBuilder_ == null) {
+          date_ = null;
+          onChanged();
+        } else {
+          date_ = null;
+          dateBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.google.protobuf.Timestamp date = 2;</code>
+       */
+      public com.google.protobuf.Timestamp.Builder getDateBuilder() {
+        
+        onChanged();
+        return getDateFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.google.protobuf.Timestamp date = 2;</code>
+       */
+      public com.google.protobuf.TimestampOrBuilder getDateOrBuilder() {
+        if (dateBuilder_ != null) {
+          return dateBuilder_.getMessageOrBuilder();
+        } else {
+          return date_ == null ?
+              com.google.protobuf.Timestamp.getDefaultInstance() : date_;
+        }
+      }
+      /**
+       * <code>.google.protobuf.Timestamp date = 2;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> 
+          getDateFieldBuilder() {
+        if (dateBuilder_ == null) {
+          dateBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder>(
+                  getDate(),
+                  getParentForChildren(),
+                  isClean());
+          date_ = null;
+        }
+        return dateBuilder_;
+      }
+
+      private sjtu.opennet.textilepb.Model.User user_ = null;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          sjtu.opennet.textilepb.Model.User, sjtu.opennet.textilepb.Model.User.Builder, sjtu.opennet.textilepb.Model.UserOrBuilder> userBuilder_;
+      /**
+       * <code>.User user = 3;</code>
+       */
+      public boolean hasUser() {
+        return userBuilder_ != null || user_ != null;
+      }
+      /**
+       * <code>.User user = 3;</code>
+       */
+      public sjtu.opennet.textilepb.Model.User getUser() {
+        if (userBuilder_ == null) {
+          return user_ == null ? sjtu.opennet.textilepb.Model.User.getDefaultInstance() : user_;
+        } else {
+          return userBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.User user = 3;</code>
+       */
+      public Builder setUser(sjtu.opennet.textilepb.Model.User value) {
+        if (userBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          user_ = value;
+          onChanged();
+        } else {
+          userBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.User user = 3;</code>
+       */
+      public Builder setUser(
+          sjtu.opennet.textilepb.Model.User.Builder builderForValue) {
+        if (userBuilder_ == null) {
+          user_ = builderForValue.build();
+          onChanged();
+        } else {
+          userBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.User user = 3;</code>
+       */
+      public Builder mergeUser(sjtu.opennet.textilepb.Model.User value) {
+        if (userBuilder_ == null) {
+          if (user_ != null) {
+            user_ =
+              sjtu.opennet.textilepb.Model.User.newBuilder(user_).mergeFrom(value).buildPartial();
+          } else {
+            user_ = value;
+          }
+          onChanged();
+        } else {
+          userBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.User user = 3;</code>
+       */
+      public Builder clearUser() {
+        if (userBuilder_ == null) {
+          user_ = null;
+          onChanged();
+        } else {
+          user_ = null;
+          userBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.User user = 3;</code>
+       */
+      public sjtu.opennet.textilepb.Model.User.Builder getUserBuilder() {
+        
+        onChanged();
+        return getUserFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.User user = 3;</code>
+       */
+      public sjtu.opennet.textilepb.Model.UserOrBuilder getUserOrBuilder() {
+        if (userBuilder_ != null) {
+          return userBuilder_.getMessageOrBuilder();
+        } else {
+          return user_ == null ?
+              sjtu.opennet.textilepb.Model.User.getDefaultInstance() : user_;
+        }
+      }
+      /**
+       * <code>.User user = 3;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          sjtu.opennet.textilepb.Model.User, sjtu.opennet.textilepb.Model.User.Builder, sjtu.opennet.textilepb.Model.UserOrBuilder> 
+          getUserFieldBuilder() {
+        if (userBuilder_ == null) {
+          userBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              sjtu.opennet.textilepb.Model.User, sjtu.opennet.textilepb.Model.User.Builder, sjtu.opennet.textilepb.Model.UserOrBuilder>(
+                  getUser(),
+                  getParentForChildren(),
+                  isClean());
+          user_ = null;
+        }
+        return userBuilder_;
+      }
+
+      private sjtu.opennet.textilepb.Model.StreamMeta streammeta_ = null;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          sjtu.opennet.textilepb.Model.StreamMeta, sjtu.opennet.textilepb.Model.StreamMeta.Builder, sjtu.opennet.textilepb.Model.StreamMetaOrBuilder> streammetaBuilder_;
+      /**
+       * <code>.StreamMeta streammeta = 4;</code>
+       */
+      public boolean hasStreammeta() {
+        return streammetaBuilder_ != null || streammeta_ != null;
+      }
+      /**
+       * <code>.StreamMeta streammeta = 4;</code>
+       */
+      public sjtu.opennet.textilepb.Model.StreamMeta getStreammeta() {
+        if (streammetaBuilder_ == null) {
+          return streammeta_ == null ? sjtu.opennet.textilepb.Model.StreamMeta.getDefaultInstance() : streammeta_;
+        } else {
+          return streammetaBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.StreamMeta streammeta = 4;</code>
+       */
+      public Builder setStreammeta(sjtu.opennet.textilepb.Model.StreamMeta value) {
+        if (streammetaBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          streammeta_ = value;
+          onChanged();
+        } else {
+          streammetaBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.StreamMeta streammeta = 4;</code>
+       */
+      public Builder setStreammeta(
+          sjtu.opennet.textilepb.Model.StreamMeta.Builder builderForValue) {
+        if (streammetaBuilder_ == null) {
+          streammeta_ = builderForValue.build();
+          onChanged();
+        } else {
+          streammetaBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.StreamMeta streammeta = 4;</code>
+       */
+      public Builder mergeStreammeta(sjtu.opennet.textilepb.Model.StreamMeta value) {
+        if (streammetaBuilder_ == null) {
+          if (streammeta_ != null) {
+            streammeta_ =
+              sjtu.opennet.textilepb.Model.StreamMeta.newBuilder(streammeta_).mergeFrom(value).buildPartial();
+          } else {
+            streammeta_ = value;
+          }
+          onChanged();
+        } else {
+          streammetaBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.StreamMeta streammeta = 4;</code>
+       */
+      public Builder clearStreammeta() {
+        if (streammetaBuilder_ == null) {
+          streammeta_ = null;
+          onChanged();
+        } else {
+          streammeta_ = null;
+          streammetaBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.StreamMeta streammeta = 4;</code>
+       */
+      public sjtu.opennet.textilepb.Model.StreamMeta.Builder getStreammetaBuilder() {
+        
+        onChanged();
+        return getStreammetaFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.StreamMeta streammeta = 4;</code>
+       */
+      public sjtu.opennet.textilepb.Model.StreamMetaOrBuilder getStreammetaOrBuilder() {
+        if (streammetaBuilder_ != null) {
+          return streammetaBuilder_.getMessageOrBuilder();
+        } else {
+          return streammeta_ == null ?
+              sjtu.opennet.textilepb.Model.StreamMeta.getDefaultInstance() : streammeta_;
+        }
+      }
+      /**
+       * <code>.StreamMeta streammeta = 4;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          sjtu.opennet.textilepb.Model.StreamMeta, sjtu.opennet.textilepb.Model.StreamMeta.Builder, sjtu.opennet.textilepb.Model.StreamMetaOrBuilder> 
+          getStreammetaFieldBuilder() {
+        if (streammetaBuilder_ == null) {
+          streammetaBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              sjtu.opennet.textilepb.Model.StreamMeta, sjtu.opennet.textilepb.Model.StreamMeta.Builder, sjtu.opennet.textilepb.Model.StreamMetaOrBuilder>(
+                  getStreammeta(),
+                  getParentForChildren(),
+                  isClean());
+          streammeta_ = null;
+        }
+        return streammetaBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFieldsProto3(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:FeedStreamMeta)
+    }
+
+    // @@protoc_insertion_point(class_scope:FeedStreamMeta)
+    private static final sjtu.opennet.textilepb.View.FeedStreamMeta DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new sjtu.opennet.textilepb.View.FeedStreamMeta();
+    }
+
+    public static sjtu.opennet.textilepb.View.FeedStreamMeta getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<FeedStreamMeta>
+        PARSER = new com.google.protobuf.AbstractParser<FeedStreamMeta>() {
+      @java.lang.Override
+      public FeedStreamMeta parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new FeedStreamMeta(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<FeedStreamMeta> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<FeedStreamMeta> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public sjtu.opennet.textilepb.View.FeedStreamMeta getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   public interface FeedVideoOrBuilder extends
       // @@protoc_insertion_point(interface_extends:FeedVideo)
       com.google.protobuf.MessageOrBuilder {
@@ -36412,6 +37544,11 @@ public final class View {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_AddAdmin_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_FeedStreamMeta_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_FeedStreamMeta_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_FeedVideo_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -36560,55 +37697,58 @@ public final class View {
       " \001(\0132\005.User\022\024\n\005likes\030\004 \003(\0132\005.Like\"h\n\010Add" +
       "Admin\022\r\n\005block\030\001 \001(\t\022(\n\004date\030\002 \001(\0132\032.goo" +
       "gle.protobuf.Timestamp\022\023\n\004user\030\003 \001(\0132\005.U" +
-      "ser\022\016\n\006target\030\004 \001(\t\"p\n\tFeedVideo\022\r\n\005bloc" +
-      "k\030\001 \001(\t\022(\n\004date\030\002 \001(\0132\032.google.protobuf." +
-      "Timestamp\022\023\n\004user\030\003 \001(\0132\005.User\022\025\n\005video\030" +
-      "\004 \001(\0132\006.Video\"j\n\nRemovePeer\022\r\n\005block\030\001 \001" +
-      "(\t\022(\n\004date\030\002 \001(\0132\032.google.protobuf.Times" +
-      "tamp\022\023\n\004user\030\003 \001(\0132\005.User\022\016\n\006target\030\004 \001(" +
-      "\t\"X\n\010Announce\022\r\n\005block\030\001 \001(\t\022(\n\004date\030\002 \001" +
-      "(\0132\032.google.protobuf.Timestamp\022\023\n\004user\030\003" +
-      " \001(\0132\005.User\"k\n\005Leave\022\r\n\005block\030\001 \001(\t\022(\n\004d" +
-      "ate\030\002 \001(\0132\032.google.protobuf.Timestamp\022\023\n" +
-      "\004user\030\003 \001(\0132\005.User\022\024\n\005likes\030\004 \003(\0132\005.Like" +
-      "\"\224\001\n\004Text\022\r\n\005block\030\001 \001(\t\022(\n\004date\030\002 \001(\0132\032" +
-      ".google.protobuf.Timestamp\022\023\n\004user\030\003 \001(\013" +
-      "2\005.User\022\014\n\004body\030\004 \001(\t\022\032\n\010comments\030\005 \003(\0132" +
-      "\010.Comment\022\024\n\005likes\030\006 \003(\0132\005.Like\" \n\010TextL" +
-      "ist\022\024\n\005items\030\001 \003(\0132\005.Text\"\212\001\n\004File\022\r\n\005in" +
-      "dex\030\001 \001(\005\022\030\n\004file\030\002 \001(\0132\n.FileIndex\022\037\n\005l" +
-      "inks\030\003 \003(\0132\020.File.LinksEntry\0328\n\nLinksEnt" +
-      "ry\022\013\n\003key\030\001 \001(\t\022\031\n\005value\030\002 \001(\0132\n.FileInd" +
-      "ex:\0028\001\"\335\001\n\005Files\022\r\n\005block\030\001 \001(\t\022\016\n\006targe" +
-      "t\030\002 \001(\t\022\014\n\004data\030\n \001(\t\022(\n\004date\030\003 \001(\0132\032.go" +
-      "ogle.protobuf.Timestamp\022\023\n\004user\030\004 \001(\0132\005." +
-      "User\022\017\n\007caption\030\005 \001(\t\022\024\n\005files\030\006 \003(\0132\005.F" +
-      "ile\022\032\n\010comments\030\007 \003(\0132\010.Comment\022\024\n\005likes" +
-      "\030\010 \003(\0132\005.Like\022\017\n\007threads\030\t \003(\t\"\"\n\tFilesL" +
-      "ist\022\025\n\005items\030\001 \003(\0132\006.Files\"\201\001\n\007Comment\022\n" +
-      "\n\002id\030\001 \001(\t\022(\n\004date\030\002 \001(\0132\032.google.protob" +
-      "uf.Timestamp\022\023\n\004user\030\003 \001(\0132\005.User\022\014\n\004bod" +
-      "y\030\004 \001(\t\022\031\n\006target\030\005 \001(\0132\t.FeedItem:\002\030\001\"*" +
-      "\n\013CommentList\022\027\n\005items\030\001 \003(\0132\010.Comment:\002" +
-      "\030\001\"l\n\004Like\022\n\n\002id\030\001 \001(\t\022(\n\004date\030\002 \001(\0132\032.g" +
-      "oogle.protobuf.Timestamp\022\023\n\004user\030\003 \001(\0132\005" +
-      ".User\022\031\n\006target\030\004 \001(\0132\t.FeedItem\" \n\010Like" +
-      "List\022\024\n\005items\030\001 \003(\0132\005.Like\"\257\001\n\rAccountUp" +
-      "date\022\n\n\002id\030\001 \001(\t\022\017\n\003key\030\002 \001(\tB\002\030\001\022!\n\004typ" +
-      "e\030\003 \001(\0162\023.AccountUpdate.Type\"^\n\004Type\022\020\n\014" +
-      "THREAD_ADDED\020\000\022\022\n\016THREAD_REMOVED\020\001\022\026\n\022AC" +
-      "COUNT_PEER_ADDED\020\002\022\030\n\024ACCOUNT_PEER_REMOV" +
-      "ED\020\003\"\204\001\n\007Summary\022\n\n\002id\030\001 \001(\t\022\017\n\007address\030" +
-      "\002 \001(\t\022\032\n\022account_peer_count\030\003 \001(\005\022\024\n\014thr" +
-      "ead_count\030\004 \001(\005\022\023\n\013files_count\030\005 \001(\005\022\025\n\r" +
-      "contact_count\030\006 \001(\005\"\304\001\n\010LogLevel\022\'\n\007syst" +
-      "ems\030\001 \003(\0132\026.LogLevel.SystemsEntry\032?\n\014Sys" +
-      "temsEntry\022\013\n\003key\030\001 \001(\t\022\036\n\005value\030\002 \001(\0162\017." +
-      "LogLevel.Level:\0028\001\"N\n\005Level\022\014\n\010CRITICAL\020" +
-      "\000\022\t\n\005ERROR\020\001\022\013\n\007WARNING\020\002\022\n\n\006NOTICE\020\003\022\010\n" +
-      "\004INFO\020\004\022\t\n\005DEBUG\020\005\"\031\n\007Strings\022\016\n\006values\030" +
-      "\001 \003(\tB\034\n\026sjtu.opennet.textilepbZ\002pbb\006pro" +
-      "to3"
+      "ser\022\016\n\006target\030\004 \001(\t\"\177\n\016FeedStreamMeta\022\r\n" +
+      "\005block\030\001 \001(\t\022(\n\004date\030\002 \001(\0132\032.google.prot" +
+      "obuf.Timestamp\022\023\n\004user\030\003 \001(\0132\005.User\022\037\n\ns" +
+      "treammeta\030\004 \001(\0132\013.StreamMeta\"p\n\tFeedVide" +
+      "o\022\r\n\005block\030\001 \001(\t\022(\n\004date\030\002 \001(\0132\032.google." +
+      "protobuf.Timestamp\022\023\n\004user\030\003 \001(\0132\005.User\022" +
+      "\025\n\005video\030\004 \001(\0132\006.Video\"j\n\nRemovePeer\022\r\n\005" +
+      "block\030\001 \001(\t\022(\n\004date\030\002 \001(\0132\032.google.proto" +
+      "buf.Timestamp\022\023\n\004user\030\003 \001(\0132\005.User\022\016\n\006ta" +
+      "rget\030\004 \001(\t\"X\n\010Announce\022\r\n\005block\030\001 \001(\t\022(\n" +
+      "\004date\030\002 \001(\0132\032.google.protobuf.Timestamp\022" +
+      "\023\n\004user\030\003 \001(\0132\005.User\"k\n\005Leave\022\r\n\005block\030\001" +
+      " \001(\t\022(\n\004date\030\002 \001(\0132\032.google.protobuf.Tim" +
+      "estamp\022\023\n\004user\030\003 \001(\0132\005.User\022\024\n\005likes\030\004 \003" +
+      "(\0132\005.Like\"\224\001\n\004Text\022\r\n\005block\030\001 \001(\t\022(\n\004dat" +
+      "e\030\002 \001(\0132\032.google.protobuf.Timestamp\022\023\n\004u" +
+      "ser\030\003 \001(\0132\005.User\022\014\n\004body\030\004 \001(\t\022\032\n\010commen" +
+      "ts\030\005 \003(\0132\010.Comment\022\024\n\005likes\030\006 \003(\0132\005.Like" +
+      "\" \n\010TextList\022\024\n\005items\030\001 \003(\0132\005.Text\"\212\001\n\004F" +
+      "ile\022\r\n\005index\030\001 \001(\005\022\030\n\004file\030\002 \001(\0132\n.FileI" +
+      "ndex\022\037\n\005links\030\003 \003(\0132\020.File.LinksEntry\0328\n" +
+      "\nLinksEntry\022\013\n\003key\030\001 \001(\t\022\031\n\005value\030\002 \001(\0132" +
+      "\n.FileIndex:\0028\001\"\335\001\n\005Files\022\r\n\005block\030\001 \001(\t" +
+      "\022\016\n\006target\030\002 \001(\t\022\014\n\004data\030\n \001(\t\022(\n\004date\030\003" +
+      " \001(\0132\032.google.protobuf.Timestamp\022\023\n\004user" +
+      "\030\004 \001(\0132\005.User\022\017\n\007caption\030\005 \001(\t\022\024\n\005files\030" +
+      "\006 \003(\0132\005.File\022\032\n\010comments\030\007 \003(\0132\010.Comment" +
+      "\022\024\n\005likes\030\010 \003(\0132\005.Like\022\017\n\007threads\030\t \003(\t\"" +
+      "\"\n\tFilesList\022\025\n\005items\030\001 \003(\0132\006.Files\"\201\001\n\007" +
+      "Comment\022\n\n\002id\030\001 \001(\t\022(\n\004date\030\002 \001(\0132\032.goog" +
+      "le.protobuf.Timestamp\022\023\n\004user\030\003 \001(\0132\005.Us" +
+      "er\022\014\n\004body\030\004 \001(\t\022\031\n\006target\030\005 \001(\0132\t.FeedI" +
+      "tem:\002\030\001\"*\n\013CommentList\022\027\n\005items\030\001 \003(\0132\010." +
+      "Comment:\002\030\001\"l\n\004Like\022\n\n\002id\030\001 \001(\t\022(\n\004date\030" +
+      "\002 \001(\0132\032.google.protobuf.Timestamp\022\023\n\004use" +
+      "r\030\003 \001(\0132\005.User\022\031\n\006target\030\004 \001(\0132\t.FeedIte" +
+      "m\" \n\010LikeList\022\024\n\005items\030\001 \003(\0132\005.Like\"\257\001\n\r" +
+      "AccountUpdate\022\n\n\002id\030\001 \001(\t\022\017\n\003key\030\002 \001(\tB\002" +
+      "\030\001\022!\n\004type\030\003 \001(\0162\023.AccountUpdate.Type\"^\n" +
+      "\004Type\022\020\n\014THREAD_ADDED\020\000\022\022\n\016THREAD_REMOVE" +
+      "D\020\001\022\026\n\022ACCOUNT_PEER_ADDED\020\002\022\030\n\024ACCOUNT_P" +
+      "EER_REMOVED\020\003\"\204\001\n\007Summary\022\n\n\002id\030\001 \001(\t\022\017\n" +
+      "\007address\030\002 \001(\t\022\032\n\022account_peer_count\030\003 \001" +
+      "(\005\022\024\n\014thread_count\030\004 \001(\005\022\023\n\013files_count\030" +
+      "\005 \001(\005\022\025\n\rcontact_count\030\006 \001(\005\"\304\001\n\010LogLeve" +
+      "l\022\'\n\007systems\030\001 \003(\0132\026.LogLevel.SystemsEnt" +
+      "ry\032?\n\014SystemsEntry\022\013\n\003key\030\001 \001(\t\022\036\n\005value" +
+      "\030\002 \001(\0162\017.LogLevel.Level:\0028\001\"N\n\005Level\022\014\n\010" +
+      "CRITICAL\020\000\022\t\n\005ERROR\020\001\022\013\n\007WARNING\020\002\022\n\n\006NO" +
+      "TICE\020\003\022\010\n\004INFO\020\004\022\t\n\005DEBUG\020\005\"\031\n\007Strings\022\016" +
+      "\n\006values\030\001 \003(\tB\034\n\026sjtu.opennet.textilepb" +
+      "Z\002pbb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -36745,44 +37885,50 @@ public final class View {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_AddAdmin_descriptor,
         new java.lang.String[] { "Block", "Date", "User", "Target", });
-    internal_static_FeedVideo_descriptor =
+    internal_static_FeedStreamMeta_descriptor =
       getDescriptor().getMessageTypes().get(17);
+    internal_static_FeedStreamMeta_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_FeedStreamMeta_descriptor,
+        new java.lang.String[] { "Block", "Date", "User", "Streammeta", });
+    internal_static_FeedVideo_descriptor =
+      getDescriptor().getMessageTypes().get(18);
     internal_static_FeedVideo_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_FeedVideo_descriptor,
         new java.lang.String[] { "Block", "Date", "User", "Video", });
     internal_static_RemovePeer_descriptor =
-      getDescriptor().getMessageTypes().get(18);
+      getDescriptor().getMessageTypes().get(19);
     internal_static_RemovePeer_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_RemovePeer_descriptor,
         new java.lang.String[] { "Block", "Date", "User", "Target", });
     internal_static_Announce_descriptor =
-      getDescriptor().getMessageTypes().get(19);
+      getDescriptor().getMessageTypes().get(20);
     internal_static_Announce_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_Announce_descriptor,
         new java.lang.String[] { "Block", "Date", "User", });
     internal_static_Leave_descriptor =
-      getDescriptor().getMessageTypes().get(20);
+      getDescriptor().getMessageTypes().get(21);
     internal_static_Leave_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_Leave_descriptor,
         new java.lang.String[] { "Block", "Date", "User", "Likes", });
     internal_static_Text_descriptor =
-      getDescriptor().getMessageTypes().get(21);
+      getDescriptor().getMessageTypes().get(22);
     internal_static_Text_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_Text_descriptor,
         new java.lang.String[] { "Block", "Date", "User", "Body", "Comments", "Likes", });
     internal_static_TextList_descriptor =
-      getDescriptor().getMessageTypes().get(22);
+      getDescriptor().getMessageTypes().get(23);
     internal_static_TextList_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_TextList_descriptor,
         new java.lang.String[] { "Items", });
     internal_static_File_descriptor =
-      getDescriptor().getMessageTypes().get(23);
+      getDescriptor().getMessageTypes().get(24);
     internal_static_File_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_File_descriptor,
@@ -36794,55 +37940,55 @@ public final class View {
         internal_static_File_LinksEntry_descriptor,
         new java.lang.String[] { "Key", "Value", });
     internal_static_Files_descriptor =
-      getDescriptor().getMessageTypes().get(24);
+      getDescriptor().getMessageTypes().get(25);
     internal_static_Files_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_Files_descriptor,
         new java.lang.String[] { "Block", "Target", "Data", "Date", "User", "Caption", "Files", "Comments", "Likes", "Threads", });
     internal_static_FilesList_descriptor =
-      getDescriptor().getMessageTypes().get(25);
+      getDescriptor().getMessageTypes().get(26);
     internal_static_FilesList_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_FilesList_descriptor,
         new java.lang.String[] { "Items", });
     internal_static_Comment_descriptor =
-      getDescriptor().getMessageTypes().get(26);
+      getDescriptor().getMessageTypes().get(27);
     internal_static_Comment_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_Comment_descriptor,
         new java.lang.String[] { "Id", "Date", "User", "Body", "Target", });
     internal_static_CommentList_descriptor =
-      getDescriptor().getMessageTypes().get(27);
+      getDescriptor().getMessageTypes().get(28);
     internal_static_CommentList_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_CommentList_descriptor,
         new java.lang.String[] { "Items", });
     internal_static_Like_descriptor =
-      getDescriptor().getMessageTypes().get(28);
+      getDescriptor().getMessageTypes().get(29);
     internal_static_Like_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_Like_descriptor,
         new java.lang.String[] { "Id", "Date", "User", "Target", });
     internal_static_LikeList_descriptor =
-      getDescriptor().getMessageTypes().get(29);
+      getDescriptor().getMessageTypes().get(30);
     internal_static_LikeList_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_LikeList_descriptor,
         new java.lang.String[] { "Items", });
     internal_static_AccountUpdate_descriptor =
-      getDescriptor().getMessageTypes().get(30);
+      getDescriptor().getMessageTypes().get(31);
     internal_static_AccountUpdate_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_AccountUpdate_descriptor,
         new java.lang.String[] { "Id", "Key", "Type", });
     internal_static_Summary_descriptor =
-      getDescriptor().getMessageTypes().get(31);
+      getDescriptor().getMessageTypes().get(32);
     internal_static_Summary_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_Summary_descriptor,
         new java.lang.String[] { "Id", "Address", "AccountPeerCount", "ThreadCount", "FilesCount", "ContactCount", });
     internal_static_LogLevel_descriptor =
-      getDescriptor().getMessageTypes().get(32);
+      getDescriptor().getMessageTypes().get(33);
     internal_static_LogLevel_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_LogLevel_descriptor,
@@ -36854,7 +38000,7 @@ public final class View {
         internal_static_LogLevel_SystemsEntry_descriptor,
         new java.lang.String[] { "Key", "Value", });
     internal_static_Strings_descriptor =
-      getDescriptor().getMessageTypes().get(33);
+      getDescriptor().getMessageTypes().get(34);
     internal_static_Strings_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_Strings_descriptor,

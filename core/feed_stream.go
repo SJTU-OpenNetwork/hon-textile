@@ -10,7 +10,7 @@ func (t *Textile) feedStream(block *pb.Block, opts feedItemOpts) (*pb.FeedStream
 		return nil, ErrBlockWrongType
 	}
 
-	msg := new(pb.Stream)
+	msg := new(pb.StreamMeta)
 	err := proto.UnmarshalText(block.Body, msg)
 	if err != nil {
 		return nil, err
@@ -20,7 +20,7 @@ func (t *Textile) feedStream(block *pb.Block, opts feedItemOpts) (*pb.FeedStream
 		Block:   block.Id,
 		Date:    block.Date,
 		User:    t.PeerUser(block.Author),
-		Stream:   msg,
+		Streammeta:   msg,
 	}
 
 	return item, nil

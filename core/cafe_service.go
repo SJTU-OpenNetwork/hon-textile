@@ -758,15 +758,18 @@ func (h *CafeService) searchLocal(qtype pb.Query_Type, options *pb.QueryOptions,
 			return nil, err
 		}
 		stream := h.datastore.Streams().Get(q.Id)
+		var peerId string
 		if stream == nil {
 			return nil, err
+		} else {
+			peerId = h.service.Node().Identity.Pretty()
 		}
 		value, err := proto.Marshal(stream)
 		if err != nil {
 			return nil,nil
 		}
 		results.Add(&pb.QueryResult{
-			Id:     q.Id,
+			Id:     peerId,
 			Local:  local,
 			Value: &any.Any{
 				TypeUrl: "/Stream",
