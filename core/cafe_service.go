@@ -1,4 +1,5 @@
-package core
+package co
+e
 
 import (
 	"bytes"
