@@ -24,6 +24,22 @@ func StartStream(node *core.IpfsNode, s *stream.Stream) error {
     return err
 }
 
+
+//call go-stream StartWorker
+func StartWorker(node *core.IpfsNode, s *stream.StreamConfig, peerid peer.ID) {
+	api, err := coreapi.NewCoreAPI(node)
+	if err != nil {
+		return err
+	}
+
+	ctx, cancel := context.WithTimeout(node.Context(), StreamTimeout)
+	defer cancel()
+	err = api.Stream().StartWorker(ctx, s, peerid)
+    return err
+
+}
+
+// [deprecated]
 func AddStreamBlock(node *core.IpfsNode, b *stream.StreamBlock) error {
 	api, err := coreapi.NewCoreAPI(node)
 	if err != nil {
