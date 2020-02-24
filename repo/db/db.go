@@ -29,6 +29,7 @@ type SQLiteDatastore struct {
 	files              repo.FileStore
 	streams			   repo.StreamStore
 	streammetas		   repo.StreamMetaStore
+	streamblocks	   repo.StreamBlockStore
     videos             repo.VideoStore
     videoChunks        repo.VideoChunkStore
     syncFiles          repo.SyncFileStore
@@ -50,6 +51,8 @@ type SQLiteDatastore struct {
 	db                 *sql.DB
 	lock               *sync.Mutex
 }
+
+
 
 func Create(repoPath, pin string) (*SQLiteDatastore, error) {
 	dbPath := path.Join(repoPath, "datastore", "mainnet.db")
@@ -123,6 +126,10 @@ func (d *SQLiteDatastore) Streams() repo.StreamStore {
 
 func (d *SQLiteDatastore) StreamMetas() repo.StreamMetaStore {
 	return d.streammetas
+}
+
+func (d *SQLiteDatastore) StreamBlocks() repo.StreamBlockStore {
+	return d.streamblocks
 }
 
 func (d *SQLiteDatastore) Videos() repo.VideoStore {
