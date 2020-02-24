@@ -2,48 +2,73 @@ package core
 
 import (
 	"fmt"
+    "io"
 	stream "github.com/SJTU-OpenNetwork/go-stream"
 	"github.com/SJTU-OpenNetwork/hon-textile/broadcast"
 	"github.com/SJTU-OpenNetwork/hon-textile/pb"
-	path "github.com/SJTU-OpenNetwork/interface-go-ipfs-core/path"
+    "github.com/SJTU-OpenNetwork/hon-textile/ipfs"
 	"github.com/golang/protobuf/proto"
 	"github.com/golang/protobuf/ptypes/any"
 	peer "github.com/libp2p/go-libp2p-core/peer"
 )
 var ErrStreamNotFound = fmt.Errorf("stream not found")
+var ErrStreamAlreadyInUse = fmt.Errorf("stream already in use")
+
 func (t *Textile) StartStream(threadId string,config stream.StreamConfig) error {
-	//init a Stream
+	// if the stream id already in use?
+	stream := t.GetStream(string(config.StreamID))
+	if stream != nil {
+		return ErrStreamAlreadyInUse
+	}
+    _, ok := t.variables.StreamFileChannels[config.StreamID]
+    if ok {
+		return ErrStreamAlreadyInUse
+    }
+
+    //init a Stream
 	//stream :=stream.createstream()
 	//err := t.datastore.Streams().Add()
+	stream = t.GetStream(string(config.StreamID))
+	if stream == nil {
+		return ErrStreamNotFound
+	}
+
+    //Start a channel for adding files
+    t.variables.StreamFileChannels[config.StreamID] = make(chan io.Reader)
+    go func(){
+	    for {
+		    select {
+            case  newfile := <-t.variables.StreamFileChannels[config.StreamID]:
+                fileid, err := ipfs.AddData(t.node, newfile, true, false)
+                // TODO:
+	            //solve fileid to ipld node
+                //store blocks in stream_block 
+		    case <-t.done:
+			    return
+		    }
+	    }
+    }()
+
+    // Call go-stream StartStream
+    //ipfs.StartStream(t.node, stream)
 
 	//publish the Stream to others
 	thread := t.Thread(threadId)
 	if thread == nil {
 		return ErrStreamNotFound
 	}
-	stream := t.GetStream(string(config.StreamID))
-	if stream == nil {
-		return ErrStreamNotFound
-	}
 	_, err := thread.AddStream(stream)
 	return err
-	//start a stream
-	//stream.startwork()
-	//return nil
 }
 
 func (t *Textile) GetStream(id string) *pb.Stream {
 	return t.datastore.Streams().Get(id)
 }
 
-func (t *Textile) StreamAddFile(id string, path path.Path) error {
-	//solve path to ipld node
-	//stream := t.datastore.Streams().Get(id)
-	//cid := path.Cid(path.Resolved())
-	//block:=
-	////call stream.Addfile
-	//AddJob(stream,block)
 
+// add the new file to the corresponding channel
+func (t *Textile) StreamAddFile(id string, file io.Reader) error {
+    t.variables.StreamFileChannels[id] <- file 
 	return nil
 }
 
