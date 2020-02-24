@@ -2,14 +2,13 @@ package core
 
 import (
 	"fmt"
-    "io"
 	stream "github.com/SJTU-OpenNetwork/go-stream"
 	"github.com/SJTU-OpenNetwork/hon-textile/broadcast"
 	"github.com/SJTU-OpenNetwork/hon-textile/pb"
-    "github.com/SJTU-OpenNetwork/hon-textile/ipfs"
 	"github.com/golang/protobuf/proto"
 	"github.com/golang/protobuf/ptypes/any"
 	peer "github.com/libp2p/go-libp2p-core/peer"
+	"io"
 )
 var ErrStreamNotFound = fmt.Errorf("stream not found")
 var ErrStreamAlreadyInUse = fmt.Errorf("stream already in use")
@@ -38,8 +37,8 @@ func (t *Textile) StartStream(threadId string,config stream.StreamConfig) error 
     go func(){
 	    for {
 		    select {
-            case  newfile := <-t.variables.StreamFileChannels[config.StreamID]:
-                fileid, err := ipfs.AddData(t.node, newfile, true, false)
+            //case  newfile := <-t.variables.StreamFileChannels[config.StreamID]: // if not comment it out, the compiler will show "declared but not used"
+                //fileid, err := ipfs.AddData(t.node, newfile, true, false)
                 // TODO:
 	            //solve fileid to ipld node
                 //store blocks in stream_block 
