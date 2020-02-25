@@ -3,7 +3,11 @@
 package core
 
 import (
-//	"bytes"
+
+	"github.com/SJTU-OpenNetwork/interface-go-ipfs-core/path"
+	"io/ioutil"
+
+	//	"bytes"
 	"strings"
 	"context"
 //	"encoding/base64"
@@ -72,22 +76,22 @@ func (h *StreamService) Ping(pid peer.ID) (service.PeerStatus, error) {
 
 // handleStreamBlock receives a STREAM_BLOCK message
 func (h *StreamService) handleStreamBlock(env *pb.Envelope, pid peer.ID) (*pb.Envelope, error) {
-    block := new(pb.StreamBlockContent)
-    err := ptypes.UnmarshalAny(env.Message.Payload, block)
+    blk := new(pb.StreamBlockContent)
+    err := ptypes.UnmarshalAny(env.Message.Payload, blk)
     if err != nil {
         return nil, err
     }
-    stat, err = ipfs.PutBlock(h.service.Node(), strings.NewReader(block.Data))
+    stat, err := ipfs.PutBlock(h.service.Node(), strings.NewReader(blk.Data))
     if err != nil {
         return nil, err
     }
     cid := stat.Path().Cid()
     model := &pb.StreamBlock {
-        Id: cid,
+        Id: cid.String(),
         Streamid: blk.StreamID,
-        Index: blk.Index
+        Index: blk.Index,
     }
-    err = h.datastore.StreamBlocks.Add(model)
+    err = h.datastore.StreamBlocks().Add(model)
     return nil, err
 }
 
@@ -105,11 +109,11 @@ func (h *StreamService) handleStreamBlockList(env *pb.Envelope, pid peer.ID) (*p
         }
         cid := stat.Path().Cid()
         model := &pb.StreamBlock {
-            Id: cid,
+            Id: cid.String(),
             Streamid: blk.StreamID,
-            Index: blk.Index
+            Index: blk.Index,
         }
-        err = h.datastore.StreamBlocks.Add(model)
+        err = h.datastore.StreamBlocks().Add(model)
         if err != nil {
             return nil, err
         }
@@ -145,17 +149,26 @@ func (h *StreamService) SendStreamBlocks(peerId string, blks []cid.Cid) error{
 	// Marshal blocks to pb
     blist := new(pb.StreamBlockContentList)
     for _, blk:= range blks {
-        sb := h.datastore.StreamBlocks.GetByCid(blk)
-        r, err = ipfs.GetBlock(h.service.Node(), path.FromString("/ipfs/"+blk))
+        sb := h.datastore.StreamBlocks().GetByCid(blk.String())
+        s := "/ipfs/"+blk.String()
+        r, err := ipfs.GetBlock(h.service.Node(), path.New(s))
         data, err := ioutil.ReadAll(r)
+		if err != nil {
+			return err
+		}
         content := &pb.StreamBlockContent{
             StreamID: sb.Streamid,
             Index: sb.Index,
-            Data: string(data)
+            Data: string(data),
         }
         blist.Blocks = append(blist.Blocks, content)
     }
 	env, err := h.service.NewEnvelope(pb.Message_STREAM_BLOCK_LIST, blist, nil, false)
+	if err != nil {
+		return err
+	}
 	// Send envelope use StreamService.service.SendMessage
     h.service.SendMessage(nil, peerId, env)
+
+	return nil
 }

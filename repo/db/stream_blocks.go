@@ -73,7 +73,7 @@ func (s *StreamBlockDB) handleQuery(stm string) []*pb.StreamBlock {
 	}
 	for rows.Next(){
 		var id, streamid string
-		var index int64
+		var index uint64
 		err := rows.Scan(&id, &streamid, &index)
 		if err !=nil {
 			log.Errorf("error in db scan: %s", err)

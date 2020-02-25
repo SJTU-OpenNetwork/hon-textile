@@ -1552,22 +1552,22 @@ public final class StreamService {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>string ID = 1;</code>
+     * <code>string id = 1;</code>
      */
-    java.lang.String getID();
+    java.lang.String getId();
     /**
-     * <code>string ID = 1;</code>
+     * <code>string id = 1;</code>
      */
     com.google.protobuf.ByteString
-        getIDBytes();
+        getIdBytes();
 
     /**
-     * <code>uint64 StreamMap = 2;</code>
+     * <code>uint64 streamMap = 2;</code>
      */
     long getStreamMap();
 
     /**
-     * <code>uint64 StartIndex = 3;</code>
+     * <code>uint64 startIndex = 3;</code>
      */
     long getStartIndex();
   }
@@ -1584,7 +1584,7 @@ public final class StreamService {
       super(builder);
     }
     private StreamRequest() {
-      iD_ = "";
+      id_ = "";
       streamMap_ = 0L;
       startIndex_ = 0L;
     }
@@ -1616,7 +1616,7 @@ public final class StreamService {
             case 10: {
               java.lang.String s = input.readStringRequireUtf8();
 
-              iD_ = s;
+              id_ = s;
               break;
             }
             case 16: {
@@ -1662,33 +1662,33 @@ public final class StreamService {
     }
 
     public static final int ID_FIELD_NUMBER = 1;
-    private volatile java.lang.Object iD_;
+    private volatile java.lang.Object id_;
     /**
-     * <code>string ID = 1;</code>
+     * <code>string id = 1;</code>
      */
-    public java.lang.String getID() {
-      java.lang.Object ref = iD_;
+    public java.lang.String getId() {
+      java.lang.Object ref = id_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        iD_ = s;
+        id_ = s;
         return s;
       }
     }
     /**
-     * <code>string ID = 1;</code>
+     * <code>string id = 1;</code>
      */
     public com.google.protobuf.ByteString
-        getIDBytes() {
-      java.lang.Object ref = iD_;
+        getIdBytes() {
+      java.lang.Object ref = id_;
       if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        iD_ = b;
+        id_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
@@ -1698,7 +1698,7 @@ public final class StreamService {
     public static final int STREAMMAP_FIELD_NUMBER = 2;
     private long streamMap_;
     /**
-     * <code>uint64 StreamMap = 2;</code>
+     * <code>uint64 streamMap = 2;</code>
      */
     public long getStreamMap() {
       return streamMap_;
@@ -1707,7 +1707,7 @@ public final class StreamService {
     public static final int STARTINDEX_FIELD_NUMBER = 3;
     private long startIndex_;
     /**
-     * <code>uint64 StartIndex = 3;</code>
+     * <code>uint64 startIndex = 3;</code>
      */
     public long getStartIndex() {
       return startIndex_;
@@ -1727,8 +1727,8 @@ public final class StreamService {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (!getIDBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, iD_);
+      if (!getIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, id_);
       }
       if (streamMap_ != 0L) {
         output.writeUInt64(2, streamMap_);
@@ -1745,8 +1745,8 @@ public final class StreamService {
       if (size != -1) return size;
 
       size = 0;
-      if (!getIDBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, iD_);
+      if (!getIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, id_);
       }
       if (streamMap_ != 0L) {
         size += com.google.protobuf.CodedOutputStream
@@ -1772,8 +1772,8 @@ public final class StreamService {
       sjtu.opennet.textilepb.StreamService.StreamRequest other = (sjtu.opennet.textilepb.StreamService.StreamRequest) obj;
 
       boolean result = true;
-      result = result && getID()
-          .equals(other.getID());
+      result = result && getId()
+          .equals(other.getId());
       result = result && (getStreamMap()
           == other.getStreamMap());
       result = result && (getStartIndex()
@@ -1790,7 +1790,7 @@ public final class StreamService {
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
       hash = (37 * hash) + ID_FIELD_NUMBER;
-      hash = (53 * hash) + getID().hashCode();
+      hash = (53 * hash) + getId().hashCode();
       hash = (37 * hash) + STREAMMAP_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
           getStreamMap());
@@ -1930,7 +1930,7 @@ public final class StreamService {
       @java.lang.Override
       public Builder clear() {
         super.clear();
-        iD_ = "";
+        id_ = "";
 
         streamMap_ = 0L;
 
@@ -1962,7 +1962,7 @@ public final class StreamService {
       @java.lang.Override
       public sjtu.opennet.textilepb.StreamService.StreamRequest buildPartial() {
         sjtu.opennet.textilepb.StreamService.StreamRequest result = new sjtu.opennet.textilepb.StreamService.StreamRequest(this);
-        result.iD_ = iD_;
+        result.id_ = id_;
         result.streamMap_ = streamMap_;
         result.startIndex_ = startIndex_;
         onBuilt();
@@ -2013,8 +2013,8 @@ public final class StreamService {
 
       public Builder mergeFrom(sjtu.opennet.textilepb.StreamService.StreamRequest other) {
         if (other == sjtu.opennet.textilepb.StreamService.StreamRequest.getDefaultInstance()) return this;
-        if (!other.getID().isEmpty()) {
-          iD_ = other.iD_;
+        if (!other.getId().isEmpty()) {
+          id_ = other.id_;
           onChanged();
         }
         if (other.getStreamMap() != 0L) {
@@ -2052,84 +2052,84 @@ public final class StreamService {
         return this;
       }
 
-      private java.lang.Object iD_ = "";
+      private java.lang.Object id_ = "";
       /**
-       * <code>string ID = 1;</code>
+       * <code>string id = 1;</code>
        */
-      public java.lang.String getID() {
-        java.lang.Object ref = iD_;
+      public java.lang.String getId() {
+        java.lang.Object ref = id_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
-          iD_ = s;
+          id_ = s;
           return s;
         } else {
           return (java.lang.String) ref;
         }
       }
       /**
-       * <code>string ID = 1;</code>
+       * <code>string id = 1;</code>
        */
       public com.google.protobuf.ByteString
-          getIDBytes() {
-        java.lang.Object ref = iD_;
+          getIdBytes() {
+        java.lang.Object ref = id_;
         if (ref instanceof String) {
           com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
-          iD_ = b;
+          id_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
         }
       }
       /**
-       * <code>string ID = 1;</code>
+       * <code>string id = 1;</code>
        */
-      public Builder setID(
+      public Builder setId(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
   
-        iD_ = value;
+        id_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>string ID = 1;</code>
+       * <code>string id = 1;</code>
        */
-      public Builder clearID() {
+      public Builder clearId() {
         
-        iD_ = getDefaultInstance().getID();
+        id_ = getDefaultInstance().getId();
         onChanged();
         return this;
       }
       /**
-       * <code>string ID = 1;</code>
+       * <code>string id = 1;</code>
        */
-      public Builder setIDBytes(
+      public Builder setIdBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
         
-        iD_ = value;
+        id_ = value;
         onChanged();
         return this;
       }
 
       private long streamMap_ ;
       /**
-       * <code>uint64 StreamMap = 2;</code>
+       * <code>uint64 streamMap = 2;</code>
        */
       public long getStreamMap() {
         return streamMap_;
       }
       /**
-       * <code>uint64 StreamMap = 2;</code>
+       * <code>uint64 streamMap = 2;</code>
        */
       public Builder setStreamMap(long value) {
         
@@ -2138,7 +2138,7 @@ public final class StreamService {
         return this;
       }
       /**
-       * <code>uint64 StreamMap = 2;</code>
+       * <code>uint64 streamMap = 2;</code>
        */
       public Builder clearStreamMap() {
         
@@ -2149,13 +2149,13 @@ public final class StreamService {
 
       private long startIndex_ ;
       /**
-       * <code>uint64 StartIndex = 3;</code>
+       * <code>uint64 startIndex = 3;</code>
        */
       public long getStartIndex() {
         return startIndex_;
       }
       /**
-       * <code>uint64 StartIndex = 3;</code>
+       * <code>uint64 startIndex = 3;</code>
        */
       public Builder setStartIndex(long value) {
         
@@ -2164,7 +2164,7 @@ public final class StreamService {
         return this;
       }
       /**
-       * <code>uint64 StartIndex = 3;</code>
+       * <code>uint64 startIndex = 3;</code>
        */
       public Builder clearStartIndex() {
         
@@ -2253,8 +2253,8 @@ public final class StreamService {
       "tent\022\020\n\010streamID\030\001 \001(\t\022\r\n\005index\030\002 \001(\004\022\014\n" +
       "\004data\030\003 \001(\t\"=\n\026StreamBlockContentList\022#\n" +
       "\006blocks\030\001 \003(\0132\023.StreamBlockContent\"B\n\rSt" +
-      "reamRequest\022\n\n\002ID\030\001 \001(\t\022\021\n\tStreamMap\030\002 \001" +
-      "(\004\022\022\n\nStartIndex\030\003 \001(\004B\034\n\026sjtu.opennet.t" +
+      "reamRequest\022\n\n\002id\030\001 \001(\t\022\021\n\tstreamMap\030\002 \001" +
+      "(\004\022\022\n\nstartIndex\030\003 \001(\004B\034\n\026sjtu.opennet.t" +
       "extilepbZ\002pbb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
@@ -2286,7 +2286,7 @@ public final class StreamService {
     internal_static_StreamRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_StreamRequest_descriptor,
-        new java.lang.String[] { "ID", "StreamMap", "StartIndex", });
+        new java.lang.String[] { "Id", "StreamMap", "StartIndex", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

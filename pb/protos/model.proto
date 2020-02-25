@@ -431,7 +431,7 @@ message VideoChunkList {
 message StreamBlock {
     string id       = 1;
     string streamid = 2;
-    int64 index     = 3;
+    uint64 index     = 3;
 }
 
 message StreamBlockList {

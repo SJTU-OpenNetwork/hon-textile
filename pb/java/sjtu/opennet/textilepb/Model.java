@@ -45975,7 +45975,7 @@ public final class Model {
         getStreamidBytes();
 
     /**
-     * <code>int64 index = 3;</code>
+     * <code>uint64 index = 3;</code>
      */
     long getIndex();
   }
@@ -46035,7 +46035,7 @@ public final class Model {
             }
             case 24: {
 
-              index_ = input.readInt64();
+              index_ = input.readUInt64();
               break;
             }
             default: {
@@ -46141,7 +46141,7 @@ public final class Model {
     public static final int INDEX_FIELD_NUMBER = 3;
     private long index_;
     /**
-     * <code>int64 index = 3;</code>
+     * <code>uint64 index = 3;</code>
      */
     public long getIndex() {
       return index_;
@@ -46168,7 +46168,7 @@ public final class Model {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 2, streamid_);
       }
       if (index_ != 0L) {
-        output.writeInt64(3, index_);
+        output.writeUInt64(3, index_);
       }
       unknownFields.writeTo(output);
     }
@@ -46187,7 +46187,7 @@ public final class Model {
       }
       if (index_ != 0L) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(3, index_);
+          .computeUInt64Size(3, index_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -46625,13 +46625,13 @@ public final class Model {
 
       private long index_ ;
       /**
-       * <code>int64 index = 3;</code>
+       * <code>uint64 index = 3;</code>
        */
       public long getIndex() {
         return index_;
       }
       /**
-       * <code>int64 index = 3;</code>
+       * <code>uint64 index = 3;</code>
        */
       public Builder setIndex(long value) {
         
@@ -46640,7 +46640,7 @@ public final class Model {
         return this;
       }
       /**
-       * <code>int64 index = 3;</code>
+       * <code>uint64 index = 3;</code>
        */
       public Builder clearIndex() {
         
@@ -47496,6 +47496,11 @@ public final class Model {
      */
     com.google.protobuf.ByteString
         getIdBytes();
+
+    /**
+     * <code>int32 nsubstreams = 2;</code>
+     */
+    int getNsubstreams();
   }
   /**
    * Protobuf type {@code StreamMeta}
@@ -47511,6 +47516,7 @@ public final class Model {
     }
     private StreamMeta() {
       id_ = "";
+      nsubstreams_ = 0;
     }
 
     @java.lang.Override
@@ -47541,6 +47547,11 @@ public final class Model {
               java.lang.String s = input.readStringRequireUtf8();
 
               id_ = s;
+              break;
+            }
+            case 16: {
+
+              nsubstreams_ = input.readInt32();
               break;
             }
             default: {
@@ -47609,6 +47620,15 @@ public final class Model {
       }
     }
 
+    public static final int NSUBSTREAMS_FIELD_NUMBER = 2;
+    private int nsubstreams_;
+    /**
+     * <code>int32 nsubstreams = 2;</code>
+     */
+    public int getNsubstreams() {
+      return nsubstreams_;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -47626,6 +47646,9 @@ public final class Model {
       if (!getIdBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, id_);
       }
+      if (nsubstreams_ != 0) {
+        output.writeInt32(2, nsubstreams_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -47637,6 +47660,10 @@ public final class Model {
       size = 0;
       if (!getIdBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, id_);
+      }
+      if (nsubstreams_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(2, nsubstreams_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -47656,6 +47683,8 @@ public final class Model {
       boolean result = true;
       result = result && getId()
           .equals(other.getId());
+      result = result && (getNsubstreams()
+          == other.getNsubstreams());
       result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
@@ -47669,6 +47698,8 @@ public final class Model {
       hash = (19 * hash) + getDescriptor().hashCode();
       hash = (37 * hash) + ID_FIELD_NUMBER;
       hash = (53 * hash) + getId().hashCode();
+      hash = (37 * hash) + NSUBSTREAMS_FIELD_NUMBER;
+      hash = (53 * hash) + getNsubstreams();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -47804,6 +47835,8 @@ public final class Model {
         super.clear();
         id_ = "";
 
+        nsubstreams_ = 0;
+
         return this;
       }
 
@@ -47831,6 +47864,7 @@ public final class Model {
       public sjtu.opennet.textilepb.Model.StreamMeta buildPartial() {
         sjtu.opennet.textilepb.Model.StreamMeta result = new sjtu.opennet.textilepb.Model.StreamMeta(this);
         result.id_ = id_;
+        result.nsubstreams_ = nsubstreams_;
         onBuilt();
         return result;
       }
@@ -47882,6 +47916,9 @@ public final class Model {
         if (!other.getId().isEmpty()) {
           id_ = other.id_;
           onChanged();
+        }
+        if (other.getNsubstreams() != 0) {
+          setNsubstreams(other.getNsubstreams());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -47977,6 +48014,32 @@ public final class Model {
   checkByteStringIsUtf8(value);
         
         id_ = value;
+        onChanged();
+        return this;
+      }
+
+      private int nsubstreams_ ;
+      /**
+       * <code>int32 nsubstreams = 2;</code>
+       */
+      public int getNsubstreams() {
+        return nsubstreams_;
+      }
+      /**
+       * <code>int32 nsubstreams = 2;</code>
+       */
+      public Builder setNsubstreams(int value) {
+        
+        nsubstreams_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 nsubstreams = 2;</code>
+       */
+      public Builder clearNsubstreams() {
+        
+        nsubstreams_ = 0;
         onChanged();
         return this;
       }
@@ -51006,16 +51069,16 @@ public final class Model {
       "me\030\005 \001(\003\022\r\n\005index\030\006 \001(\003\",\n\016VideoChunkLis" +
       "t\022\032\n\005items\030\001 \003(\0132\013.VideoChunk\":\n\013StreamB" +
       "lock\022\n\n\002id\030\001 \001(\t\022\020\n\010streamid\030\002 \001(\t\022\r\n\005in" +
-      "dex\030\003 \001(\003\".\n\017StreamBlockList\022\033\n\005items\030\001 " +
-      "\003(\0132\014.StreamBlock\"\030\n\nStreamMeta\022\n\n\002id\030\001 " +
-      "\001(\t\"\024\n\006Stream\022\n\n\002id\030\001 \001(\t\"g\n\021CafeClientM" +
-      "essage\022\n\n\002id\030\001 \001(\t\022\014\n\004peer\030\002 \001(\t\022\016\n\006clie" +
-      "nt\030\003 \001(\t\022(\n\004date\030\004 \001(\0132\032.google.protobuf" +
-      ".Timestamp\"}\n\005BotKV\022\013\n\003key\030\001 \001(\t\022\r\n\005valu" +
-      "e\030\002 \001(\014\022+\n\007created\030\003 \001(\0132\032.google.protob" +
-      "uf.Timestamp\022+\n\007updated\030\004 \001(\0132\032.google.p" +
-      "rotobuf.TimestampB\034\n\026sjtu.opennet.textil" +
-      "epbZ\002pbb\006proto3"
+      "dex\030\003 \001(\004\".\n\017StreamBlockList\022\033\n\005items\030\001 " +
+      "\003(\0132\014.StreamBlock\"-\n\nStreamMeta\022\n\n\002id\030\001 " +
+      "\001(\t\022\023\n\013nsubstreams\030\002 \001(\005\"\024\n\006Stream\022\n\n\002id" +
+      "\030\001 \001(\t\"g\n\021CafeClientMessage\022\n\n\002id\030\001 \001(\t\022" +
+      "\014\n\004peer\030\002 \001(\t\022\016\n\006client\030\003 \001(\t\022(\n\004date\030\004 " +
+      "\001(\0132\032.google.protobuf.Timestamp\"}\n\005BotKV" +
+      "\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\014\022+\n\007created\030" +
+      "\003 \001(\0132\032.google.protobuf.Timestamp\022+\n\007upd" +
+      "ated\030\004 \001(\0132\032.google.protobuf.TimestampB\034" +
+      "\n\026sjtu.opennet.textilepbZ\002pbb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -51301,7 +51364,7 @@ public final class Model {
     internal_static_StreamMeta_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_StreamMeta_descriptor,
-        new java.lang.String[] { "Id", });
+        new java.lang.String[] { "Id", "Nsubstreams", });
     internal_static_Stream_descriptor =
       getDescriptor().getMessageTypes().get(41);
     internal_static_Stream_fieldAccessorTable = new
