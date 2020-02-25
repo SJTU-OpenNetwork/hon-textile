@@ -4,13 +4,14 @@ package core
 
 import (
 //	"bytes"
+	"strings"
 	"context"
 //	"encoding/base64"
 //	"fmt"
 //	"time"
 
 //	"github.com/golang/protobuf/proto"
-//	"github.com/golang/protobuf/ptypes"
+	"github.com/golang/protobuf/ptypes"
 	"github.com/SJTU-OpenNetwork/go-ipfs/core"
 	peer "github.com/libp2p/go-libp2p-core/peer"
 	protocol "github.com/libp2p/go-libp2p-core/protocol"
@@ -66,7 +67,12 @@ func (h *StreamService) Ping(pid peer.ID) (service.PeerStatus, error) {
 
 // handleStreamBlock receives a STREAMBLOCK message
 func (h *StreamService) handleStreamBlock(env *pb.Envelope, pid peer.ID) (*pb.Envelope, error) {
-    _, err := ipfs.PutBlock(h.service.Node(), env.Message.Payload)
+    block := new(pb.StreamBlockContent)
+    err := ptypes.UnmarshalAny(env.Message.Payload, block)
+    if err != nil {
+        return nil, err
+    }
+    _, err = ipfs.PutBlock(h.service.Node(), strings.NewReader(block.Data))
     return nil, err
 }
 

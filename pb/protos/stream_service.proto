@@ -1,0 +1,12 @@
+syntax = "proto3";
+option java_package = "sjtu.opennet.textilepb";
+option go_package = "pb";
+
+//import "google/protobuf/any.proto";
+//import "google/protobuf/timestamp.proto";
+//import "model.proto";
+
+message StreamBlockContent {
+    string data = 1; 
+}
+
