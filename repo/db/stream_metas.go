@@ -33,6 +33,7 @@ func (s StreamMetaDB) Add(streammeta *pb.StreamMeta) error {
 		_ = tx.Rollback()
 		return err
 	}
+	log.Debugf("insert successfully : %s ",streammeta.Id)
 	return tx.Commit()
 }
 

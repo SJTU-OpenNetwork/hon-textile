@@ -68,6 +68,7 @@ message Message {
 
         STREAM_BLOCK = 1001;
         STREAM_BLOCK_LIST = 1002;
+        STREAM_REQUEST = 1003;
     }
 }
 
