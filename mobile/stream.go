@@ -1,9 +1,7 @@
 package mobile
 
 import (
-    "fmt"
 	"github.com/SJTU-OpenNetwork/hon-textile/pb"
-	"github.com/SJTU-OpenNetwork/hon-textile/stream"
 	"github.com/golang/protobuf/proto"
 
 	"github.com/SJTU-OpenNetwork/hon-textile/core"
@@ -57,7 +55,7 @@ func (m *Mobile) SubscribeStream(config []byte) error {
 	}
 
 	model := new(pb.StreamRequest)
-	if err := proto.Unmarshal(stream, model); err != nil {
+	if err := proto.Unmarshal(config, model); err != nil {
 		return err
 	}
 	return m.node.SubscribeStream(model)

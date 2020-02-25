@@ -16,7 +16,7 @@ import (
 var ErrStreamNotFound = fmt.Errorf("stream not found")
 var ErrStreamAlreadyInUse = fmt.Errorf("stream already in use")
 
-func (t *Textile) StartStream(threadId string, config pb.StreamMeta) error {
+func (t *Textile) StartStream(threadId string, config *pb.StreamMeta) error {
 	// if the stream id already in use?
 	stream := t.GetStream(string(config.Id))
 	if stream != nil {
@@ -72,7 +72,7 @@ func (t *Textile) StreamAddFile(id string, file io.Reader) error {
 	return nil
 }
 
-func (t* Textile) SubscribeStream(config pb.StreamRequest) error {
+func (t* Textile) SubscribeStream(config *pb.StreamRequest) error {
 	// call search stream
 
 	//t.SearchStream()
@@ -95,7 +95,7 @@ func (t* Textile) UnsubscribeStream(id string) error{
 
 
 
-func (t* Textile) RequestStream(config pb.StreamRequest) error{
+func (t* Textile) RequestStream(config *pb.StreamRequest) error{
 	return nil
 }
 
