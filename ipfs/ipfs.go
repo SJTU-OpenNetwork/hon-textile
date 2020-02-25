@@ -29,6 +29,31 @@ const PinTimeout = time.Minute
 const CatTimeout = time.Minute
 const ConnectTimeout = time.Second * 5 //from 10 to 5 2019.11.27
 
+
+
+func PutBlock(node *core.IpfsNode, src io.Reader) (iface.BlockStat, error) {
+	api, err := coreapi.NewCoreAPI(node)
+	if err != nil {
+		return nil, err
+	}
+
+	ctx, cancel := context.WithTimeout(node.Context(), CatTimeout)
+	defer cancel()
+
+	return api.Block().Put(ctx, src, options.Block.Pin(true))
+}
+
+func GetBlock(node *core.IpfsNode, p path.Path)(io.Reader, error) {
+	api, err := coreapi.NewCoreAPI(node)
+	if err != nil {
+		return nil, err
+	}
+
+	ctx, cancel := context.WithTimeout(node.Context(), CatTimeout)
+	defer cancel()
+
+	return api.Block().Get(ctx, p)
+}
 // DataAtPath return bytes under an ipfs path
 func DataAtPath(node *core.IpfsNode, pth string) ([]byte, error) {
 	api, err := coreapi.NewCoreAPI(node)

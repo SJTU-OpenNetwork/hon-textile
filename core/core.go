@@ -123,6 +123,7 @@ type Textile struct {
 	lock              sync.Mutex
 	writer            io.Writer
     variables         *Variables
+    stream            *StreamService
 }
 
 // common errors
@@ -411,6 +412,10 @@ func (t *Textile) Start() error {
 		t.Ipfs,
 		t.datastore,
 		t.cafeInbox)
+	t.stream = NewStreamService(
+		t.account,
+		t.Ipfs,
+		t.datastore)
 
 	if t.cafeOutbox.handler == nil {
 		t.cafeOutbox.handler = t.cafe
@@ -443,7 +448,10 @@ func (t *Textile) Start() error {
 		t.cafe.Start()
 		t.cafe.online = true
 
-		if t.config.Cafe.Host.Open {
+		t.stream.Start()
+		t.stream.online = true
+		
+        if t.config.Cafe.Host.Open {
 			go func() {
 				t.cafe.setAddrs(t.config)
 				t.cafe.open = true
@@ -1085,6 +1093,11 @@ func (t *Textile) threadsService() *ThreadsService {
 // cafeService returns the cafe service
 func (t *Textile) cafeService() *CafeService {
 	return t.cafe
+}
+
+// streamService returns the stream service
+func (t *Textile) streamService() *StreamService {
+	return t.stream
 }
 
 // createNode constructs an IpfsNode
