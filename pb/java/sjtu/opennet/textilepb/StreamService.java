@@ -1567,7 +1567,7 @@ public final class StreamService {
     long getStreamMap();
 
     /**
-     * <code>int64 StartIndex = 3;</code>
+     * <code>uint64 StartIndex = 3;</code>
      */
     long getStartIndex();
   }
@@ -1626,7 +1626,7 @@ public final class StreamService {
             }
             case 24: {
 
-              startIndex_ = input.readInt64();
+              startIndex_ = input.readUInt64();
               break;
             }
             default: {
@@ -1707,7 +1707,7 @@ public final class StreamService {
     public static final int STARTINDEX_FIELD_NUMBER = 3;
     private long startIndex_;
     /**
-     * <code>int64 StartIndex = 3;</code>
+     * <code>uint64 StartIndex = 3;</code>
      */
     public long getStartIndex() {
       return startIndex_;
@@ -1734,7 +1734,7 @@ public final class StreamService {
         output.writeUInt64(2, streamMap_);
       }
       if (startIndex_ != 0L) {
-        output.writeInt64(3, startIndex_);
+        output.writeUInt64(3, startIndex_);
       }
       unknownFields.writeTo(output);
     }
@@ -1754,7 +1754,7 @@ public final class StreamService {
       }
       if (startIndex_ != 0L) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(3, startIndex_);
+          .computeUInt64Size(3, startIndex_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -2149,13 +2149,13 @@ public final class StreamService {
 
       private long startIndex_ ;
       /**
-       * <code>int64 StartIndex = 3;</code>
+       * <code>uint64 StartIndex = 3;</code>
        */
       public long getStartIndex() {
         return startIndex_;
       }
       /**
-       * <code>int64 StartIndex = 3;</code>
+       * <code>uint64 StartIndex = 3;</code>
        */
       public Builder setStartIndex(long value) {
         
@@ -2164,7 +2164,7 @@ public final class StreamService {
         return this;
       }
       /**
-       * <code>int64 StartIndex = 3;</code>
+       * <code>uint64 StartIndex = 3;</code>
        */
       public Builder clearStartIndex() {
         
@@ -2254,7 +2254,7 @@ public final class StreamService {
       "\004data\030\003 \001(\t\"=\n\026StreamBlockContentList\022#\n" +
       "\006blocks\030\001 \003(\0132\023.StreamBlockContent\"B\n\rSt" +
       "reamRequest\022\n\n\002ID\030\001 \001(\t\022\021\n\tStreamMap\030\002 \001" +
-      "(\004\022\022\n\nStartIndex\030\003 \001(\003B\034\n\026sjtu.opennet.t" +
+      "(\004\022\022\n\nStartIndex\030\003 \001(\004B\034\n\026sjtu.opennet.t" +
       "extilepbZ\002pbb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =

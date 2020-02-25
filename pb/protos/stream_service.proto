@@ -19,5 +19,5 @@ message StreamBlockContentList {
 message StreamRequest {
     string ID = 1;
     uint64 StreamMap = 2;
-    int64 StartIndex = 3;
+    uint64 StartIndex = 3;
 }
