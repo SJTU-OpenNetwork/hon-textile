@@ -10,7 +10,7 @@ import (
 	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 	"github.com/golang/protobuf/proto"
 	"github.com/golang/protobuf/ptypes/any"
-	peer "github.com/libp2p/go-libp2p-core/peer"
+//	peer "github.com/libp2p/go-libp2p-core/peer"
 	"io"
 )
 var ErrStreamNotFound = fmt.Errorf("stream not found")
@@ -27,6 +27,7 @@ func (t *Textile) StartStream(threadId string,config stream.StreamConfig) error 
 		return ErrStreamAlreadyInUse
     }
 
+    // TODO
     //init a Stream
 	//stream :=stream.createstream()
 	//err := t.datastore.Streams().Add()
@@ -51,9 +52,6 @@ func (t *Textile) StartStream(threadId string,config stream.StreamConfig) error 
 	    }
     }()
 
-    // Call go-stream StartStream
-    //ipfs.StartStream(t.node, stream)
-
 	//publish the Stream to others
 	thread := t.Thread(threadId)
 	if thread == nil {
@@ -74,14 +72,14 @@ func (t *Textile) StreamAddFile(id string, file io.Reader) error {
 	return nil
 }
 
-func (t* Textile) SubscribeStream(id string) error {
+func (t* Textile) SubscribeStream(config stream.SubStreamConfig) error {
 	// call search stream
 
 	//t.SearchStream()
 	// swarm connect publisher
 
 	// call request stream
-	err := t.RequestStream(id)
+	err := t.RequestStream(config)
 	if err!=nil {
 		return err
 	}
@@ -97,16 +95,10 @@ func (t* Textile) UnsubscribeStream(id string) error{
 
 
 
-func (t* Textile) RequestStream(id string) error{
-
+func (t* Textile) RequestStream(config stream.SubStreamConfig) error{
 	return nil
 }
 
-// Handle request of streamid from peerid
-func (t *Textile) HandleRequestStream(streamid string, peerid peer.ID) error {
-
-	return nil
-}
 
 func (t *Textile) SearchStream(query *pb.StreamQuery, options *pb.QueryOptions) (<-chan *pb.QueryResult, <-chan error, *broadcast.Broadcaster, error) {
 	log.Debug("in SearchStream")
