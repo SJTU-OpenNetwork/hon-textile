@@ -43,6 +43,19 @@ func (s StreamBlockDB) ListByStream(streamid string) []*pb.StreamBlock {
 	return s.handleQuery(stm)
 }
 
+func (s StreamBlockDB) GetByCid(cid string) *pb.StreamBlock {
+	s.lock.Lock()
+	defer s.lock.Unlock()
+
+	stm := "select * from stream_blocks where id='"+cid+"';"
+    res := s.handleQuery(stm)
+	if len(res) == 0 {
+		return nil
+	}
+    //log.Debug("out GET")
+	return res[0]
+}
+
 func (s StreamBlockDB) Delete(streamid string) error {
 	s.lock.Lock()
 	defer s.lock.Unlock()

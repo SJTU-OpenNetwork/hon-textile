@@ -56,6 +56,10 @@ func (m *Mobile) SubscribeStream(config []byte) error {
 		return core.ErrStopped
 	}
 
+	model := new(pb.StreamRequest)
+	if err := proto.Unmarshal(stream, model); err != nil {
+		return err
+	}
 	return m.node.SubscribeStream(model)
 }
 
