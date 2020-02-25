@@ -1,29 +1,23 @@
 package stream
 
-import (
-	"github.com/ipfs/go-cid"
-	"github.com/libp2p/go-libp2p-core/peer"
-)
+//	Deprecated, use datastore and pb directly
+//type Stream struct {
+//	ID          string  // hash value of the stream
+//	Nsubstreams int     // number of substreams
+//	blocklist   *blocklist	//Used to store blocks
+//
+//}
 
-type Stream struct {
-	ID          string  // hash value of the stream
-	Nsubstreams int     // number of substreams
-	//blocklist   *blocklist	//Used to store blocks
-	//				Deprecated, use datastore directly
-}
+// Deprecated, use datastore and pb directly
+//type StreamBlock struct {
+//	StreamID string
+//	BlockID  cid.Cid
+//}
 
-type StreamBlock struct {
-	StreamID string
-	BlockID  cid.Cid
-}
-
-
-/*
- * Used to store streamblocks within a stream.
- */
-type blocklist struct {
-
-}
+// Deprecated
+//type blocklist struct {
+//
+//}
 
 type StreamConfig struct {
 	StreamID string
@@ -33,12 +27,13 @@ type StreamConfig struct {
 type SubStreamConfig struct {
 	ID         string
 	StreamMap  uint64 // 0010 means need only the second sub-stream
-	StartIndex int    // only download blocks after StartIndex
+	StartIndex uint64    // only download blocks after StartIndex
 }
 
-type StreamRequest struct {
-	StreamID string
-	Substream int
-	StartIndex int
-	Requestor peer.ID
-}
+// Deprecated, use substreamconfig instead
+//type StreamRequest struct {
+//	StreamID string
+//	Substream int
+//	StartIndex uint64
+//	Requestor peer.ID
+//}
