@@ -36,15 +36,15 @@ func (sm *StreamManager) NewFileAdd() {
 
 // Call it when you decide to send blocks to requestor.
 // Use "Response" to distinguish with "Handle".
-func (sm *StreamManager) ResponseRequest(pid peer.ID, req *SubStreamConfig) error {
-	_, ok := sm.activeStreams[req.ID]
+func (sm *StreamManager) ResponseRequest(pid peer.ID, req *pb.StreamRequest) error {
+	_, ok := sm.activeStreams[req.Id]
 
 	if !ok {
-		stream, err := sm.streamFetcher(req.ID)
+		stream, err := sm.streamFetcher(req.Id)
 		if err != nil {
 			return err
 		}
-		sm.activeStreams[req.ID] = stream
+		sm.activeStreams[req.Id] = stream
 	}
 
 	sm.startNewWorker(req)
@@ -52,7 +52,7 @@ func (sm *StreamManager) ResponseRequest(pid peer.ID, req *SubStreamConfig) erro
 	return nil
 }
 
-func (sm *StreamManager) startNewWorker(req *SubStreamConfig) error {
+func (sm *StreamManager) startNewWorker(req *pb.StreamRequest) error {
 	// Create a new worker and add it to activeWorkers.
 	// Raise an error if obtain the same request (Same requestor with same streamid and substream)
 	return nil
