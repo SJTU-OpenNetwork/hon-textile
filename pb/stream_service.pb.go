@@ -21,7 +21,9 @@ var _ = math.Inf
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
 type StreamBlockContent struct {
-	Data                 string   `protobuf:"bytes,1,opt,name=data,proto3" json:"data,omitempty"`
+	StreamID             string   `protobuf:"bytes,1,opt,name=streamID,proto3" json:"streamID,omitempty"`
+	Index                uint64   `protobuf:"varint,2,opt,name=index,proto3" json:"index,omitempty"`
+	Data                 string   `protobuf:"bytes,3,opt,name=data,proto3" json:"data,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -52,6 +54,20 @@ func (m *StreamBlockContent) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_StreamBlockContent proto.InternalMessageInfo
 
+func (m *StreamBlockContent) GetStreamID() string {
+	if m != nil {
+		return m.StreamID
+	}
+	return ""
+}
+
+func (m *StreamBlockContent) GetIndex() uint64 {
+	if m != nil {
+		return m.Index
+	}
+	return 0
+}
+
 func (m *StreamBlockContent) GetData() string {
 	if m != nil {
 		return m.Data
@@ -59,20 +75,123 @@ func (m *StreamBlockContent) GetData() string {
 	return ""
 }
 
+type StreamBlockContentList struct {
+	Blocks               []*StreamBlockContent `protobuf:"bytes,1,rep,name=blocks,proto3" json:"blocks,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}              `json:"-"`
+	XXX_unrecognized     []byte                `json:"-"`
+	XXX_sizecache        int32                 `json:"-"`
+}
+
+func (m *StreamBlockContentList) Reset()         { *m = StreamBlockContentList{} }
+func (m *StreamBlockContentList) String() string { return proto.CompactTextString(m) }
+func (*StreamBlockContentList) ProtoMessage()    {}
+func (*StreamBlockContentList) Descriptor() ([]byte, []int) {
+	return fileDescriptor_296dc607c23b8aea, []int{1}
+}
+
+func (m *StreamBlockContentList) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_StreamBlockContentList.Unmarshal(m, b)
+}
+func (m *StreamBlockContentList) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_StreamBlockContentList.Marshal(b, m, deterministic)
+}
+func (m *StreamBlockContentList) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_StreamBlockContentList.Merge(m, src)
+}
+func (m *StreamBlockContentList) XXX_Size() int {
+	return xxx_messageInfo_StreamBlockContentList.Size(m)
+}
+func (m *StreamBlockContentList) XXX_DiscardUnknown() {
+	xxx_messageInfo_StreamBlockContentList.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_StreamBlockContentList proto.InternalMessageInfo
+
+func (m *StreamBlockContentList) GetBlocks() []*StreamBlockContent {
+	if m != nil {
+		return m.Blocks
+	}
+	return nil
+}
+
+type StreamRequest struct {
+	ID                   string   `protobuf:"bytes,1,opt,name=ID,proto3" json:"ID,omitempty"`
+	StreamMap            uint64   `protobuf:"varint,2,opt,name=StreamMap,proto3" json:"StreamMap,omitempty"`
+	StartIndex           uint64   `protobuf:"varint,3,opt,name=StartIndex,proto3" json:"StartIndex,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *StreamRequest) Reset()         { *m = StreamRequest{} }
+func (m *StreamRequest) String() string { return proto.CompactTextString(m) }
+func (*StreamRequest) ProtoMessage()    {}
+func (*StreamRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_296dc607c23b8aea, []int{2}
+}
+
+func (m *StreamRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_StreamRequest.Unmarshal(m, b)
+}
+func (m *StreamRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_StreamRequest.Marshal(b, m, deterministic)
+}
+func (m *StreamRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_StreamRequest.Merge(m, src)
+}
+func (m *StreamRequest) XXX_Size() int {
+	return xxx_messageInfo_StreamRequest.Size(m)
+}
+func (m *StreamRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_StreamRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_StreamRequest proto.InternalMessageInfo
+
+func (m *StreamRequest) GetID() string {
+	if m != nil {
+		return m.ID
+	}
+	return ""
+}
+
+func (m *StreamRequest) GetStreamMap() uint64 {
+	if m != nil {
+		return m.StreamMap
+	}
+	return 0
+}
+
+func (m *StreamRequest) GetStartIndex() uint64 {
+	if m != nil {
+		return m.StartIndex
+	}
+	return 0
+}
+
 func init() {
 	proto.RegisterType((*StreamBlockContent)(nil), "StreamBlockContent")
+	proto.RegisterType((*StreamBlockContentList)(nil), "StreamBlockContentList")
+	proto.RegisterType((*StreamRequest)(nil), "StreamRequest")
 }
 
 func init() { proto.RegisterFile("stream_service.proto", fileDescriptor_296dc607c23b8aea) }
 
 var fileDescriptor_296dc607c23b8aea = []byte{
-	// 117 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x12, 0x29, 0x2e, 0x29, 0x4a,
-	0x4d, 0xcc, 0x8d, 0x2f, 0x4e, 0x2d, 0x2a, 0xcb, 0x4c, 0x4e, 0xd5, 0x2b, 0x28, 0xca, 0x2f, 0xc9,
-	0x57, 0xd2, 0xe0, 0x12, 0x0a, 0x06, 0x8b, 0x3b, 0xe5, 0xe4, 0x27, 0x67, 0x3b, 0xe7, 0xe7, 0x95,
-	0xa4, 0xe6, 0x95, 0x08, 0x09, 0x71, 0xb1, 0xa4, 0x24, 0x96, 0x24, 0x4a, 0x30, 0x2a, 0x30, 0x6a,
-	0x70, 0x06, 0x81, 0xd9, 0x4e, 0x32, 0x5c, 0x62, 0xc5, 0x59, 0x25, 0xa5, 0x7a, 0xf9, 0x05, 0xa9,
-	0x79, 0x79, 0xa9, 0x25, 0x7a, 0x25, 0xa9, 0x15, 0x25, 0x99, 0x39, 0xa9, 0x05, 0x49, 0x51, 0x4c,
-	0x05, 0x49, 0x49, 0x6c, 0x60, 0xe3, 0x8c, 0x01, 0x01, 0x00, 0x00, 0xff, 0xff, 0x5a, 0x29, 0xfe,
-	0x60, 0x66, 0x00, 0x00, 0x00,
+	// 228 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x64, 0x90, 0x41, 0x4b, 0x03, 0x31,
+	0x10, 0x85, 0xd9, 0xdd, 0x5a, 0xec, 0x88, 0x1e, 0xc6, 0x52, 0x16, 0x29, 0xb2, 0xec, 0x69, 0x41,
+	0xc8, 0x41, 0xff, 0x41, 0xad, 0x87, 0x05, 0xbd, 0xa4, 0xb7, 0x82, 0x48, 0xd2, 0xce, 0x21, 0x5a,
+	0x93, 0x98, 0x4c, 0xa5, 0x3f, 0x5f, 0x4c, 0x4a, 0x15, 0xf6, 0x96, 0xf7, 0xbd, 0x8f, 0xf0, 0x18,
+	0x98, 0x46, 0x0e, 0xa4, 0x3e, 0xdf, 0x22, 0x85, 0x6f, 0xb3, 0x21, 0xe1, 0x83, 0x63, 0xd7, 0xae,
+	0x01, 0x57, 0x89, 0x2f, 0x76, 0x6e, 0xf3, 0xf1, 0xe8, 0x2c, 0x93, 0x65, 0xbc, 0x81, 0xf3, 0x6c,
+	0xf7, 0xcb, 0xba, 0x68, 0x8a, 0x6e, 0x22, 0x4f, 0x19, 0xa7, 0x70, 0x66, 0xec, 0x96, 0x0e, 0x75,
+	0xd9, 0x14, 0xdd, 0x48, 0xe6, 0x80, 0x08, 0xa3, 0xad, 0x62, 0x55, 0x57, 0xc9, 0x4e, 0xef, 0xf6,
+	0x09, 0x66, 0xc3, 0xbf, 0x9f, 0x4d, 0x64, 0xbc, 0x83, 0xb1, 0xfe, 0x65, 0xb1, 0x2e, 0x9a, 0xaa,
+	0xbb, 0xb8, 0xbf, 0x16, 0x43, 0x51, 0x1e, 0x95, 0xf6, 0x15, 0x2e, 0x73, 0x2b, 0xe9, 0x6b, 0x4f,
+	0x91, 0xf1, 0x0a, 0xca, 0xd3, 0xae, 0xb2, 0x5f, 0xe2, 0x1c, 0x26, 0x59, 0x78, 0x51, 0xfe, 0xb8,
+	0xea, 0x0f, 0xe0, 0x2d, 0xc0, 0x8a, 0x55, 0xe0, 0x3e, 0x8d, 0xae, 0x52, 0xfd, 0x8f, 0x2c, 0xe6,
+	0x30, 0x8b, 0xef, 0xbc, 0x17, 0xce, 0x93, 0xb5, 0xc4, 0x82, 0xe9, 0xc0, 0x66, 0x47, 0x5e, 0xaf,
+	0x4b, 0xaf, 0xf5, 0x38, 0x9d, 0xe9, 0xe1, 0x27, 0x00, 0x00, 0xff, 0xff, 0x0b, 0x64, 0x0b, 0x15,
+	0x3e, 0x01, 0x00, 0x00,
 }

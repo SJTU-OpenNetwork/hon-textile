@@ -362,6 +362,18 @@ public final class MessageOuterClass {
        */
       @java.lang.Deprecated
       CAFE_PUBSUB_CONTACT_QUERY_RES(101),
+      /**
+       * <code>STREAM_BLOCK = 1001;</code>
+       */
+      STREAM_BLOCK(1001),
+      /**
+       * <code>STREAM_BLOCK_LIST = 1002;</code>
+       */
+      STREAM_BLOCK_LIST(1002),
+      /**
+       * <code>STREAM_REQUEST = 1003;</code>
+       */
+      STREAM_REQUEST(1003),
       UNRECOGNIZED(-1),
       ;
 
@@ -557,6 +569,18 @@ public final class MessageOuterClass {
        * <code>CAFE_PUBSUB_CONTACT_QUERY_RES = 101 [deprecated = true];</code>
        */
       public static final int CAFE_PUBSUB_CONTACT_QUERY_RES_VALUE = 101;
+      /**
+       * <code>STREAM_BLOCK = 1001;</code>
+       */
+      public static final int STREAM_BLOCK_VALUE = 1001;
+      /**
+       * <code>STREAM_BLOCK_LIST = 1002;</code>
+       */
+      public static final int STREAM_BLOCK_LIST_VALUE = 1002;
+      /**
+       * <code>STREAM_REQUEST = 1003;</code>
+       */
+      public static final int STREAM_REQUEST_VALUE = 1003;
 
 
       public final int getNumber() {
@@ -625,6 +649,9 @@ public final class MessageOuterClass {
           case 69: return CAFE_CONTACT_QUERY_RES;
           case 100: return CAFE_PUBSUB_CONTACT_QUERY;
           case 101: return CAFE_PUBSUB_CONTACT_QUERY_RES;
+          case 1001: return STREAM_BLOCK;
+          case 1002: return STREAM_BLOCK_LIST;
+          case 1003: return STREAM_REQUEST;
           default: return null;
         }
       }
@@ -2709,9 +2736,9 @@ public final class MessageOuterClass {
   static {
     java.lang.String[] descriptorData = {
       "\n\rmessage.proto\032\031google/protobuf/any.pro" +
-      "to\"\371\t\n\007Message\022\033\n\004type\030\001 \001(\0162\r.Message.T" +
+      "to\"\271\n\n\007Message\022\033\n\004type\030\001 \001(\0162\r.Message.T" +
       "ype\022%\n\007payload\030\002 \001(\0132\024.google.protobuf.A" +
-      "ny\022\017\n\007request\030\003 \001(\005\022\020\n\010response\030\004 \001(\010\"\206\t" +
+      "ny\022\017\n\007request\030\003 \001(\005\022\020\n\010response\030\004 \001(\010\"\306\t" +
       "\n\004Type\022\010\n\004PING\020\000\022\010\n\004PONG\020\001\022\023\n\017THREAD_ENV" +
       "ELOPE\020\n\022\027\n\023THREAD_ENVELOPE_ACK\020\013\022\022\n\016CAFE" +
       "_CHALLENGE\0202\022\016\n\nCAFE_NONCE\0203\022\025\n\021CAFE_REG" +
@@ -2740,11 +2767,12 @@ public final class MessageOuterClass {
       "_QUERY_RES\020g\022\n\n\005ERROR\020\364\003\022\032\n\022CAFE_CONTACT" +
       "_QUERY\020D\032\002\010\001\022\036\n\026CAFE_CONTACT_QUERY_RES\020E" +
       "\032\002\010\001\022!\n\031CAFE_PUBSUB_CONTACT_QUERY\020d\032\002\010\001\022" +
-      "%\n\035CAFE_PUBSUB_CONTACT_QUERY_RES\020e\032\002\010\001\"2" +
-      "\n\010Envelope\022\031\n\007message\030\001 \001(\0132\010.Message\022\013\n" +
-      "\003sig\030\002 \001(\014\"&\n\005Error\022\014\n\004code\030\001 \001(\r\022\017\n\007mes" +
-      "sage\030\002 \001(\tB\034\n\026sjtu.opennet.textilepbZ\002pb" +
-      "b\006proto3"
+      "%\n\035CAFE_PUBSUB_CONTACT_QUERY_RES\020e\032\002\010\001\022\021" +
+      "\n\014STREAM_BLOCK\020\351\007\022\026\n\021STREAM_BLOCK_LIST\020\352" +
+      "\007\022\023\n\016STREAM_REQUEST\020\353\007\"2\n\010Envelope\022\031\n\007me" +
+      "ssage\030\001 \001(\0132\010.Message\022\013\n\003sig\030\002 \001(\014\"&\n\005Er" +
+      "ror\022\014\n\004code\030\001 \001(\r\022\017\n\007message\030\002 \001(\tB\034\n\026sj" +
+      "tu.opennet.textilepbZ\002pbb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
