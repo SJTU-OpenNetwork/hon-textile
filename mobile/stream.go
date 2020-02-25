@@ -1,8 +1,11 @@
 package mobile
 
 import (
+    "fmt"
 	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 	"github.com/golang/protobuf/proto"
+
+	"github.com/SJTU-OpenNetwork/hon-textile/core"
 )
 
 func (m *Mobile) InsertTestStream(streamMeta []byte) {
@@ -32,3 +35,30 @@ func (m *Mobile) AndroidTestSearchStream(query []byte, options []byte) (*SearchH
 	}
 	return m.handleSearchStream(resCh, errCh, cancel)
 }
+
+
+
+//func (m *Mobile) StartStream() error {
+//	if !m.node.Started() {
+//		return core.ErrStopped
+//	}
+//
+//	return m.node.StartStream(model)
+//}
+//
+//func (m *Mobile) SubscribeStream() error {
+//	if !m.node.Started() {
+//		return core.ErrStopped
+//	}
+//
+//	return m.node.SubscribeStream(model)
+//}
+//
+//func (m *Mobile) UnsubscribeStream() error {
+//	if !m.node.Started() {
+//		return core.ErrStopped
+//	}
+//
+//	return m.node.UnsubscribeStream(model)
+//}
+//
