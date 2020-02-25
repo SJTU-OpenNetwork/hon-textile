@@ -15,7 +15,7 @@ func (s StreamBlockDB) Add(streamblock *pb.StreamBlock) error {
 	s.lock.Lock()
 	defer s.lock.Unlock()
 
-	stm := `insert or ignore int streams(id, streamid, index) values (?,?,?)`
+	stm := `insert or ignore int streams(id, streamid, blockindex) values (?,?,?)`
 	tx, err := s.db.Begin()
 	if err != nil {
 		return err

@@ -228,19 +228,24 @@ func InitRepo(conf InitConfig) error {
 		return err
 	}
 
+    log.Debug("create db")
 	sqliteDb, err := db.Create(repoPath, conf.PinCode)
 	if err != nil {
 		return err
 	}
+    log.Debug("init db")
 	err = sqliteDb.Config().Init(conf.PinCode)
 	if err != nil {
+        log.Error(err)
 		return err
 	}
+    log.Debug("config")
 	err = sqliteDb.Config().Configure(conf.Account, time.Now())
 	if err != nil {
 		return err
 	}
 
+    log.Debug("config2")
 	ipfsConf, err := rep.Config()
 	if err != nil {
 		return err
@@ -255,6 +260,7 @@ func InitRepo(conf InitConfig) error {
 		return err
 	}
 
+    log.Debug("finish")
 	return applyTextileConfigOptions(conf)
 }
 

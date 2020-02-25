@@ -269,8 +269,8 @@ func initDatabaseTables(db *sql.DB, pin string) error {
 	
 	create table stream_metas (id text primary key not null);
 	
-	create table stream_blocks (id text, streamid text , index integer)
-	create index stream_blocks_streamid on stream_blocks (streamid)
+	create table stream_blocks (id text primary key not null, streamid text , blockindex integer);
+	create index stream_blocks_streamid on stream_blocks (streamid);
 
     create table videos (id text not null, caption text not null, videoLength integer not null, poster text not null, width integer, height integer, rotation integer, primary key(id));
     create index video_id on videos (id);
