@@ -2,7 +2,10 @@ package core
 
 import (
 	"fmt"
-	stream "github.com/SJTU-OpenNetwork/go-stream"
+	"github.com/SJTU-OpenNetwork/hon-textile/stream"
+	"github.com/ipfs/go-cid"
+
+	//stream "github.com/SJTU-OpenNetwork/go-stream"
 	"github.com/SJTU-OpenNetwork/hon-textile/broadcast"
 	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 	"github.com/golang/protobuf/proto"
@@ -123,6 +126,12 @@ func (t *Textile) SearchStream(query *pb.StreamQuery, options *pb.QueryOptions) 
 		},
 	})
 	return resCh, errCh, cancel, nil
+}
+
+
+func (t *Textile) GetStreamBlocks(streamId string, startIndex int) ([]cid.Cid, error) {
+	// Fetch the blocks from startIndex
+	return nil, nil
 }
 
 //TODO:
