@@ -67,6 +67,7 @@ message Message {
         CAFE_PUBSUB_CONTACT_QUERY_RES = 101 [deprecated = true];
 
         STREAM_BLOCK = 1001;
+        STREAM_BLOCK_LIST = 1002;
     }
 }
 

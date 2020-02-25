@@ -7,6 +7,12 @@ option go_package = "pb";
 //import "model.proto";
 
 message StreamBlockContent {
-    string data = 1; 
+    string streamID = 1;
+    uint64 index = 2;
+    string data = 3; 
+}
+
+message StreamBlockContentList {
+    repeated StreamBlockContent blocks = 1;    
 }
 
