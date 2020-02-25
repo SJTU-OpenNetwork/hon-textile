@@ -3,6 +3,7 @@ package mobile
 import (
     "fmt"
 	"github.com/SJTU-OpenNetwork/hon-textile/pb"
+	"github.com/SJTU-OpenNetwork/hon-textile/stream"
 	"github.com/golang/protobuf/proto"
 
 	"github.com/SJTU-OpenNetwork/hon-textile/core"
@@ -38,27 +39,31 @@ func (m *Mobile) AndroidTestSearchStream(query []byte, options []byte) (*SearchH
 
 
 
-//func (m *Mobile) StartStream() error {
-//	if !m.node.Started() {
-//		return core.ErrStopped
-//	}
-//
-//	return m.node.StartStream(model)
-//}
-//
-//func (m *Mobile) SubscribeStream() error {
-//	if !m.node.Started() {
-//		return core.ErrStopped
-//	}
-//
-//	return m.node.SubscribeStream(model)
-//}
-//
-//func (m *Mobile) UnsubscribeStream() error {
-//	if !m.node.Started() {
-//		return core.ErrStopped
-//	}
-//
-//	return m.node.UnsubscribeStream(model)
-//}
-//
+func (m *Mobile) StartStream(thread string, stream []byte) error {
+	if !m.node.Started() {
+		return core.ErrStopped
+	}
+
+	model := new(pb.StreamMeta)
+	if err := proto.Unmarshal(stream, model); err != nil {
+		return err
+	}
+	return m.node.StartStream(thread, model)
+}
+
+func (m *Mobile) SubscribeStream(config []byte) error {
+	if !m.node.Started() {
+		return core.ErrStopped
+	}
+
+	return m.node.SubscribeStream(model)
+}
+
+func (m *Mobile) UnsubscribeStream(streamid string) error {
+	if !m.node.Started() {
+		return core.ErrStopped
+	}
+
+	return m.node.UnsubscribeStream(streamid)
+}
+

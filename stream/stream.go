@@ -19,16 +19,16 @@ package stream
 //
 //}
 
-type StreamConfig struct {
-	StreamID string
-	Nsubstreams int
-}
+//type StreamConfig struct {
+//	StreamID string
+//	Nsubstreams int
+//}
 
-type SubStreamConfig struct {
-	ID         string
-	StreamMap  uint64 // 0010 means need only the second sub-stream
-	StartIndex uint64    // only download blocks after StartIndex
-}
+//type SubStreamConfig struct {
+//	ID         string
+//	StreamMap  uint64 // 0010 means need only the second sub-stream
+//	StartIndex uint64    // only download blocks after StartIndex
+//}
 
 // Deprecated, use substreamconfig instead
 //type StreamRequest struct {

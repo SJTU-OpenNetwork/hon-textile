@@ -16,13 +16,13 @@ import (
 var ErrStreamNotFound = fmt.Errorf("stream not found")
 var ErrStreamAlreadyInUse = fmt.Errorf("stream already in use")
 
-func (t *Textile) StartStream(threadId string,config stream.StreamConfig) error {
+func (t *Textile) StartStream(threadId string, config pb.StreamMeta) error {
 	// if the stream id already in use?
-	stream := t.GetStream(string(config.StreamID))
+	stream := t.GetStream(string(config.Id))
 	if stream != nil {
 		return ErrStreamAlreadyInUse
 	}
-    _, ok := t.variables.StreamFileChannels[config.StreamID]
+    _, ok := t.variables.StreamFileChannels[config.Id]
     if ok {
 		return ErrStreamAlreadyInUse
     }
@@ -31,13 +31,13 @@ func (t *Textile) StartStream(threadId string,config stream.StreamConfig) error 
     //init a Stream
 	//stream :=stream.createstream()
 	//err := t.datastore.Streams().Add()
-	stream = t.GetStream(string(config.StreamID))
+	stream = t.GetStream(string(config.Id))
 	if stream == nil {
 		return ErrStreamNotFound
 	}
 
     //Start a channel for adding files
-    t.variables.StreamFileChannels[config.StreamID] = make(chan io.Reader)
+    t.variables.StreamFileChannels[config.Id] = make(chan io.Reader)
     go func(){
 	    for {
 		    select {
@@ -72,7 +72,7 @@ func (t *Textile) StreamAddFile(id string, file io.Reader) error {
 	return nil
 }
 
-func (t* Textile) SubscribeStream(config stream.SubStreamConfig) error {
+func (t* Textile) SubscribeStream(config pb.StreamRequest) error {
 	// call search stream
 
 	//t.SearchStream()
@@ -95,7 +95,7 @@ func (t* Textile) UnsubscribeStream(id string) error{
 
 
 
-func (t* Textile) RequestStream(config stream.SubStreamConfig) error{
+func (t* Textile) RequestStream(config pb.StreamRequest) error{
 	return nil
 }
 

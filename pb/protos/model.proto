@@ -440,6 +440,7 @@ message StreamBlockList {
 
 message StreamMeta {
     string id       = 1;
+    int32 nsubstreams = 2;
 }
 
 message Stream {
