@@ -60,6 +60,7 @@ func (m *Mobile) handleSearchStream(resultCh <-chan *pb.QueryResult, errCh <-cha
 					doneFn()
 					return
 				}
+				log.Debugf("get search result , id: %s",res.Id)
 				m.notify(pb.MobileEventType_QUERY_RESPONSE, &pb.MobileQueryEvent{
 					Id:   id,
 					Type: pb.MobileQueryEvent_DATA,
