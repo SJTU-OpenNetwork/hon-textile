@@ -2,10 +2,10 @@ package core
 
 import (
 	"crypto/rand"
-	"fmt"
 	"io/ioutil"
 	"os"
 	"path/filepath"
+    "fmt"
 
 	libp2pc "github.com/libp2p/go-libp2p-core/crypto"
 	"github.com/SJTU-OpenNetwork/hon-textile/keypair"

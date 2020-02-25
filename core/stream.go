@@ -2,7 +2,7 @@ package core
 
 import (
 	"fmt"
-	"github.com/SJTU-OpenNetwork/hon-textile/stream"
+//	"github.com/SJTU-OpenNetwork/hon-textile/stream"
 	"github.com/ipfs/go-cid"
 
 	//stream "github.com/SJTU-OpenNetwork/go-stream"
