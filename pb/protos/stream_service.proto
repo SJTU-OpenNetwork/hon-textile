@@ -16,3 +16,8 @@ message StreamBlockContentList {
     repeated StreamBlockContent blocks = 1;    
 }
 
+message StreamRequest {
+    string ID = 1;
+    uint64 StreamMap = 2;
+    int64 StartIndex = 3;
+}
