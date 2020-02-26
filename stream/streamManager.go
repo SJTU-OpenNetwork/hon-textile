@@ -27,7 +27,7 @@ var ErrRedundantReq = fmt.Errorf("Request is redundant")
 //		3. Let worker able to broadcast to multipeer
 //		4. [vital] A method to stop worker  - How to distinguish old worker?
 type StreamManager struct {
-	blockFetcher func(streamId string, startIndex uint64, maxNum int) ([]cid.Cid, error)
+	blockFetcher func(streamId string, startIndex uint64, maxNum int) ([] *pb.StreamBlock, error)
 	streamFetcher func(streamId string) (*pb.Stream, error)
 	blockSender func (destination peer.ID, streamBlk *pb.StreamBlock) error
 	//activeStreams cmap.ConcurrentMap	// Contains *pb.Stream. Cache active streams. (Maybe it is redundant.)
