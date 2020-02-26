@@ -10,7 +10,7 @@ import (
 	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 	"github.com/golang/protobuf/proto"
 	"github.com/golang/protobuf/ptypes/any"
-//	peer "github.com/libp2p/go-libp2p-core/peer"
+	peer "github.com/libp2p/go-libp2p-core/peer"
 	"io"
 )
 var ErrStreamNotFound = fmt.Errorf("stream not found")
@@ -79,11 +79,10 @@ func (t* Textile) SubscribeStream(config *pb.StreamRequest) error {
 	// swarm connect publisher
 
 	// call request stream
-	err := t.RequestStream(config)
-	if err!=nil {
-		return err
-	}
-	// call stream.StartWorker
+	//err := t.RequestStream(config)
+	//if err!=nil {
+	//	return err
+	//}
 
 	return nil
 }
@@ -95,7 +94,7 @@ func (t* Textile) UnsubscribeStream(id string) error{
 
 
 
-func (t* Textile) RequestStream(config *pb.StreamRequest) error{
+func (t* Textile) RequestStream(pid peer.ID, config *pb.StreamRequest) error{
 	return nil
 }
 

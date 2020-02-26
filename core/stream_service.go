@@ -172,3 +172,16 @@ func (h *StreamService) SendStreamBlocks(peerId string, blks []cid.Cid) error{
 
 	return nil
 }
+
+// FetchBlocks fetches a list of blocks of a specific stream from database
+func (h *StreamService) FetchBlocks(streamId string, startIndex uint64, maxNum int) ([]cid.Cid, error){
+    // find blocks of the stream with id = streamId
+    // the index of the blocks start from startIndex, and the number of result is no more than maxNum
+    return nil, nil
+}
+
+// FetchStream fetches a specific stream from dababase
+func (h *StreamService)FetchStream(streamId string)(*pb.Stream, error){
+    //Get the stream with id = streamId
+    return nil, nil
+}
