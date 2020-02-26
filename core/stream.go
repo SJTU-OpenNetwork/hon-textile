@@ -2,7 +2,6 @@ package core
 
 import (
 	"fmt"
-	"github.com/SJTU-OpenNetwork/hon-textile/stream"
 	"github.com/ipfs/go-cid"
 
 	//stream "github.com/SJTU-OpenNetwork/go-stream"
@@ -10,7 +9,7 @@ import (
 	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 	"github.com/golang/protobuf/proto"
 	"github.com/golang/protobuf/ptypes/any"
-//	peer "github.com/libp2p/go-libp2p-core/peer"
+	//	peer "github.com/libp2p/go-libp2p-core/peer"
 	"io"
 )
 var ErrStreamNotFound = fmt.Errorf("stream not found")
@@ -95,7 +94,25 @@ func (t* Textile) UnsubscribeStream(id string) error{
 
 
 
-func (t* Textile) RequestStream(config pb.StreamRequest) error{
+func (t* Textile) RequestStream(config pb.StreamRequest,peerid string) error{
+	reg := &pb.StreamRequest{
+		Id:         config.Id,
+		StreamMap:  config.StreamMap,
+		StartIndex: config.StartIndex,
+	}
+
+	env, err := t.stream.service.NewEnvelope(pb.Message_STREAM_REQUEST, reg, nil, false)
+	if err != nil {
+		return err
+	}
+
+
+	err = t.stream.SendMessage(t.ctx, peerid, env)
+	if err != nil {
+		return err
+	}
+	return nil
+
 	return nil
 }
 
