@@ -5,7 +5,6 @@ go 1.13
 require (
 	github.com/SJTU-OpenNetwork/go-ipfs v0.4.23-beta
 	github.com/agl/ed25519 v0.0.0-20170116200512-5312a6153412
-	github.com/ahmetb/govvv v0.2.0 // indirect
 	github.com/alecthomas/template v0.0.0-20160405071501-a0175ee3bccc
 	github.com/alecthomas/units v0.0.0-20190924025748-f65c72e2690d // indirect
 	github.com/chzyer/logex v1.1.10 // indirect
@@ -22,6 +21,7 @@ require (
 	github.com/golang/protobuf v1.3.2
 	github.com/ipfs/go-cid v0.0.4
 	github.com/ipfs/go-datastore v0.3.1
+	github.com/ipfs/go-ipfs v0.4.22
 	github.com/ipfs/go-ipfs-addr v0.0.1
 	github.com/ipfs/go-ipfs-cmds v0.1.1
 	github.com/ipfs/go-ipfs-config v0.0.12
@@ -43,6 +43,7 @@ require (
 	github.com/mutecomm/go-sqlcipher v0.0.0-20190227152316-55dbde17881f
 	github.com/onsi/ginkgo v1.8.0
 	github.com/onsi/gomega v1.5.0
+	github.com/orcaman/concurrent-map v0.0.0-20190826125027-8c72a8bb44f6 // indirect
 	github.com/rs/cors v1.7.0
 	github.com/rwcarlsen/goexif v0.0.0-20190401172101-9e8deecbddbd
 	github.com/segmentio/ksuid v1.0.2

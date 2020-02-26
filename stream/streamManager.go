@@ -29,18 +29,18 @@ var ErrRedundantReq = fmt.Errorf("Request is redundant")
 type StreamManager struct {
 	blockFetcher func(streamId string, startIndex uint64, maxNum int) ([] *pb.StreamBlock, error)
 	streamFetcher func(streamId string) (*pb.Stream, error)
-	blockSender func (destination peer.ID, streamBlk *pb.StreamBlock) error
+	blockSender func (destination peer.ID, streamBlk []*pb.StreamBlock) error
 	//activeStreams cmap.ConcurrentMap	// Contains *pb.Stream. Cache active streams. (Maybe it is redundant.)
 										// active
 	activeWorkers *workerStore
-	newFile chan *workerSignal
+	//newFile chan *workerSignal
 	ReceivedFile <- chan ipld.Node
 }
 
 func NewStreamManager(
-	bFetcher func(streamId string, startIndex uint64, maxNum int) ([]cid.Cid, error),
+	bFetcher func(streamId string, startIndex uint64, maxNum int) ([]*pb.StreamBlock, error),
 	sFetcher func(streamId string) (*pb.Stream, error),
-	bSender func (destination peer.ID, streamBlk *pb.StreamBlock) error) *StreamManager {
+	bSender func (destination peer.ID, streamBlk []*pb.StreamBlock) error) *StreamManager {
 	return &StreamManager{
 		blockFetcher:bFetcher,
 		streamFetcher:sFetcher,
@@ -60,11 +60,14 @@ type StreamManagerService interface {
 }
 
 
-
+func (sm *StreamManager) createWorker(pid peer.ID, req *pb.StreamRequest) *streamWorker {
+	return newStreamWorker(pid, req, sm.blockFetcher, sm.blockSender)
+}
 
 
 func (sm *StreamManager) NewFileAdd(streamId string) {
-	sm.newFile <- &workerSignal{stream: streamId}
+
+	sm.activeWorkers.newFileAdd(streamId)
 }
 
 // Note:
@@ -90,12 +93,10 @@ func (sm *StreamManager) ResponseRequest(pid peer.ID, req *pb.StreamRequest) err
 	if sm.activeWorkers.isRedundant(pid, req) {
 		return ErrRedundantReq
 	}
-	worker := &streamWorker{req: req, pid: pid}
-
+	worker := sm.createWorker(pid, req)
 	// add worker to activeworkers
-
+	sm.activeWorkers.add(worker)
 	// start worker
 	return worker.start()
-
 }
 
