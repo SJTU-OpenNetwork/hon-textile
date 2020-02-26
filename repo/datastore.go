@@ -109,9 +109,10 @@ type VideoChunkStore interface {
 type StreamBlockStore interface {
 	Queryable
 	Add(streamblock *pb.StreamBlock) error
-	ListByStream(streamid string) []*pb.StreamBlock
+	ListByStream(streamid string, startindex int, maxnum int) []*pb.StreamBlock
 	Delete(streamid string) error
 	GetByCid(cid string) *pb.StreamBlock
+	OrderByIndex()
 }
 
 type StreamMetaStore interface {
