@@ -2,20 +2,22 @@ package core
 
 import (
 	"fmt"
+
 //	"github.com/SJTU-OpenNetwork/hon-textile/stream"
 	"github.com/ipfs/go-cid"
-
 	//stream "github.com/SJTU-OpenNetwork/go-stream"
 	"github.com/SJTU-OpenNetwork/hon-textile/broadcast"
 	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 	"github.com/SJTU-OpenNetwork/hon-textile/ipfs"
 	"github.com/golang/protobuf/proto"
 	"github.com/golang/protobuf/ptypes/any"
+	//	peer "github.com/libp2p/go-libp2p-core/peer"
 	peer "github.com/libp2p/go-libp2p-core/peer"
 	"io"
 )
 var ErrStreamNotFound = fmt.Errorf("stream not found")
 var ErrStreamAlreadyInUse = fmt.Errorf("stream already in use")
+var ErrStreamRequestNotFound = fmt.Errorf("stream request not found")
 
 func (t *Textile) TraverseNode(sid string, cid *cid.Cid) error {
     links, err := ipfs.LinksAtPath(t.node, cid.String())
@@ -109,12 +111,26 @@ func (t *Textile) StreamAddFile(id string, file io.Reader) error {
 }
 
 func (t* Textile) SubscribeStream(config *pb.StreamRequest) error {
-	// call search stream
+	//call search stream
+	if config ==nil {
+		return ErrStreamRequestNotFound
+	}
+	mquery := &pb.StreamQuery{
+		Id: config.Id,
+	}
+	mopts := &pb.QueryOptions{
+		Wait:  10,
+		Limit: 10,
+	}
+	///
+	_,_,_, err := t.SearchStream(mquery, mopts)
+	if err != nil {
+		return  err
+	}
+	//swarm connect publisher
 
-	//t.SearchStream()
-	// swarm connect publisher
+	//call request stream
 
-	// call request stream
 	//err := t.RequestStream(config)
 	//if err!=nil {
 	//	return err
@@ -124,15 +140,34 @@ func (t* Textile) SubscribeStream(config *pb.StreamRequest) error {
 }
 
 func (t* Textile) UnsubscribeStream(id string) error{
+
 	return nil
 }
 
 
 
 
-func (t* Textile) RequestStream(pid peer.ID, config *pb.StreamRequest) error{
+
+func (t* Textile) RequestStream(pid peer.ID, config *pb.StreamRequest) error {
+	reg := &pb.StreamRequest{
+		Id:         config.Id,
+		StreamMap:  config.StreamMap,
+		StartIndex: config.StartIndex,
+	}
+
+	env, err := t.stream.service.NewEnvelope(pb.Message_STREAM_REQUEST, reg, nil, false)
+	if err != nil {
+		return err
+	}
+
+	err = t.stream.SendMessage(t.ctx, pid.String(), env)
+	if err != nil {
+		return err
+	}
 	return nil
+
 }
+
 
 
 func (t *Textile) SearchStream(query *pb.StreamQuery, options *pb.QueryOptions) (<-chan *pb.QueryResult, <-chan error, *broadcast.Broadcaster, error) {
