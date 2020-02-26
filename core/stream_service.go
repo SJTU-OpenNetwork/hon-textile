@@ -3,7 +3,7 @@
 package core
 
 import (
-
+	"fmt"
 	"github.com/SJTU-OpenNetwork/interface-go-ipfs-core/path"
 	"io/ioutil"
 
@@ -171,4 +171,37 @@ func (h *StreamService) SendStreamBlocks(peerId string, blks []cid.Cid) error{
     h.service.SendMessage(nil, peerId, env)
 
 	return nil
+}
+
+// FetchBlocks fetches a list of blocks of a specific stream from database
+func (h *StreamService) FetchBlocks(streamId string, startIndex uint64, maxNum int) ([]cid.Cid, error){
+    // find blocks of the stream with id = streamId
+    blks := h.datastore.StreamBlocks().ListByStream(streamId)
+    // the index of the blocks start from startIndex, and the number of result is no more than maxNum
+	var resblkcids []cid.Cid
+    resblknum := 0
+	for _,blk := range blks{
+		if resblknum++;blk.Index >= startIndex{
+			resblkcid, err := cid.Parse(blk.Id)
+			if err!=nil {
+				return nil,err
+			}
+			resblkcids=append(resblkcids,resblkcid)
+			if resblknum >= maxNum{
+				return resblkcids,nil
+			}
+		}
+
+	}
+    return resblkcids, nil
+}
+
+// FetchStream fetches a specific stream from dababase
+func (h *StreamService)FetchStream(streamId string)(*pb.Stream, error){
+    //Get the stream with id = streamId
+    stream := h.datastore.Streams().Get(streamId)
+    if stream == nil{
+    	return nil,fmt.Errorf("stream fetch failed")
+	}
+    return stream, nil
 }
