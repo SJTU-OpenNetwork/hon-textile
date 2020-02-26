@@ -174,26 +174,24 @@ func (h *StreamService) SendStreamBlocks(peerId string, blks []cid.Cid) error{
 }
 
 // FetchBlocks fetches a list of blocks of a specific stream from database
-func (h *StreamService) FetchBlocks(streamId string, startIndex uint64, maxNum int) ([]cid.Cid, error){
+func (h *StreamService) FetchBlocks(streamId string, startIndex int, maxNum int) ([]*pb.StreamBlock, error){
     // find blocks of the stream with id = streamId
-    blks := h.datastore.StreamBlocks().ListByStream(streamId)
+    blks := h.datastore.StreamBlocks().ListByStream(streamId,startIndex,maxNum)
     // the index of the blocks start from startIndex, and the number of result is no more than maxNum
-	var resblkcids []cid.Cid
-    resblknum := 0
-	for _,blk := range blks{
-		if resblknum++;blk.Index >= startIndex{
-			resblkcid, err := cid.Parse(blk.Id)
-			if err!=nil {
-				return nil,err
-			}
-			resblkcids=append(resblkcids,resblkcid)
-			if resblknum >= maxNum{
-				return resblkcids,nil
-			}
-		}
-
+	//var resblks []*pb.StreamBlock
+    //resblknum := 0
+	//for _,blk := range blks{
+	//	if resblknum++;blk.Index >= startIndex{
+	//		resblks=append(resblks,blk)
+	//		if resblknum >= maxNum{
+	//			return resblks,nil
+	//		}
+	//	}
+	//}
+	if blks == nil{
+		return nil,fmt.Errorf("stream blocks fetch failed")
 	}
-    return resblkcids, nil
+    return blks, nil
 }
 
 // FetchStream fetches a specific stream from dababase
