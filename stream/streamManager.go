@@ -1,11 +1,15 @@
 package stream
 
 import (
+	"fmt"
 	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 	"github.com/ipfs/go-cid"
 	"github.com/libp2p/go-libp2p-core/peer"
 	ipld "github.com/ipfs/go-ipld-format"
+	"github.com/orcaman/concurrent-map"
 )
+
+var ErrRedundantReq = fmt.Errorf("Request is redundant")
 
 // StreamManager is used to handle stream requests.
 // How to use:
@@ -19,12 +23,16 @@ import (
 // TODO:
 // 		1. Use Interface instead of callback function to do specific tasks.
 //		2. Whether we should output streaminfo from ReceivedFile.
+//		3. Let worker able to broadcast to multipeer
+//		4. [vital] A method to stop worker  - How to distinguish old worker?
 type StreamManager struct {
 	blockFetcher func(streamId string, startIndex uint64, maxNum int) ([]cid.Cid, error)
 	streamFetcher func(streamId string) (*pb.Stream, error)
 	blockSender func (destination peer.ID, streamBlk *pb.StreamBlock) error
-	activeStreams map[string] *pb.Stream		// Cache active streams. (Maybe it is redundant.)
-	activeWorkers map[string] []*streamWorker	// Cache active workers so we can send signals to them.
+	//activeStreams cmap.ConcurrentMap	// Contains *pb.Stream. Cache active streams. (Maybe it is redundant.)
+										// active
+	activeWorkers cmap.ConcurrentMap	// Contains another ConcurrentMap of worker. Cache active workers so we can send signals to them.
+										// activeWorkers [streamid] [peerid] worker
 	newFile chan *workerSignal
 	ReceivedFile <- chan ipld.Node
 }
@@ -37,8 +45,8 @@ func NewStreamManager(
 		blockFetcher:bFetcher,
 		streamFetcher:sFetcher,
 		blockSender:bSender,
-		activeStreams: make(map[string] *pb.Stream),
-		activeWorkers: make(map[string] []*streamWorker),
+		//activeStreams: cmap.New(),
+		activeWorkers: cmap.New(),
 	}
 }
 
@@ -46,14 +54,20 @@ func NewStreamManager(
 // 		That interface is not used yet.
 //		It shows an example if we want to use interface replacing callback function.
 type StreamManagerService interface {
-	FetchBlock(streamId string, startIndex uint64, maxNum int) ([]cid.Cid, error)
+	FetchBlock(streamId string, startIndex uint64, maxNum int) ([] *pb.StreamBlock, error)
 	FetchStream(streamId string) (*pb.Stream, error)
-	SendBlock(destination peer.ID, streamBlk *pb.StreamBlock) error
+	SendBlock(destination peer.ID, streamBlk [] *pb.StreamBlock) error
 }
 
-// StreamWorker is used to
+// StreamWorker is used do blocksending task.
+// Each streamrequest will create a independent worker.
+// Note:
+//		If a peer request two different substream of the same stream with two seperate request,
+//		StreamManager will create two independent worker.
+//		However, if a peer request two substream with one single request, there will be only one worker created.
 type streamWorker struct {
-	stream *pb.Stream // Contains core information such as substream number
+	 req *pb.StreamRequest 	// Contains core information such as substream and index
+	 pid peer.ID			// Contains information about destination
 }
 
 type workerSignal struct {
@@ -67,34 +81,44 @@ func (sm *StreamManager) NewFileAdd(streamId string) {
 // Note:
 //		Be sure to avoid routine blocking when implementing this function.
 func (sm *StreamManager) NewBlockReceive(streamBlk *pb.StreamBlock, data []byte) {
-
+	// Call ipfs.DataAtPath when receive a root node.
 }
 
 // Call it when you decide to send blocks to requestor.
 // Use "Response" to distinguish with "Handle".
 func (sm *StreamManager) ResponseRequest(pid peer.ID, req *pb.StreamRequest) error {
-	_, ok := sm.activeStreams[req.Id]
+	//_, ok := sm.activeStreams.Get(req.Id)
 
-	if !ok {
-		stream, err := sm.streamFetcher(req.Id)
-		if err != nil {
-			return err
-		}
-		sm.activeStreams[req.Id] = stream
+	//if !ok {
+	//	stream, err := sm.streamFetcher(req.Id)
+	//	if err != nil {
+	//		return err
+	//	}
+	//	sm.activeStreams.Set(req.Id, stream)
+	//}
+
+	// Raise an error if obtain the same request (Same requestor with same streamid and substream requested by the same peer)
+	if sm.isRedundantReq(pid, req) {
+		return ErrRedundantReq
 	}
+	worker := &streamWorker{req: req, pid: pid}
 
-	sm.startNewWorker(req)
+	// add worker to activeworkers
 
-	return nil
+	// start worker
+	return worker.start()
+
 }
 
-func (sm *StreamManager) startNewWorker(req *pb.StreamRequest) error {
-	// Create a new worker and add it to activeWorkers.
-	// Raise an error if obtain the same request (Same requestor with same streamid and substream)
-	return nil
-}
+
 
 func (sw *streamWorker) start() error {
 	// Start the block sending routine
+	
 	return nil
+}
+
+// isRedundantReq judge whether a request is redundant
+func (sm *StreamManager) isRedundantReq(pid peer.ID, req *pb.StreamRequest) bool {
+	return false
 }

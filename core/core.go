@@ -92,6 +92,7 @@ type Variables struct {
     FailedAddresses []string
 	lock            sync.Mutex
     StreamFileChannels map[string]chan io.Reader
+    streamBlockIndex map[string]uint64
 }
 
 // Textile is the main Textile node structure
@@ -495,6 +496,7 @@ func (t *Textile) Start() error {
 	}()
 
     t.variables.StreamFileChannels = make(map[string]chan io.Reader)
+    t.variables.streamBlockIndex = make(map[string] uint64)
 	for _, mod := range t.datastore.Threads().List().Items {
 		_, err = t.loadThread(mod)
 		if err != nil {
