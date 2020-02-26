@@ -55,7 +55,7 @@ func NewStreamService(
 		datastore:        datastore,
 	}
 	handler.service = service.NewService(account, handler, node)
-    //handler.sm = stream.NewStreamManager()
+    handler.sm = stream.NewStreamManager(handler.FetchBlocks, handler.FetchStream, handler.SendStreamBlocks)
 	return handler
 }
 
@@ -145,20 +145,18 @@ func (h *StreamService) SendMessage(ctx context.Context, peerId string, env *pb.
 
 
 //SendStreamBlocks send a list of block to a peer
-func (h *StreamService) SendStreamBlocks(peerId string, blks []cid.Cid) error{
+func (h *StreamService) SendStreamBlocks(peerId string, blks []*pb.StreamBlock) error{
 	// Marshal blocks to pb
     blist := new(pb.StreamBlockContentList)
     for _, blk:= range blks {
-        sb := h.datastore.StreamBlocks().GetByCid(blk.String())
-        s := "/ipfs/"+blk.String()
-        r, err := ipfs.GetBlock(h.service.Node(), path.New(s))
+        r, err := ipfs.GetBlock(h.service.Node(), path.New(blk.Id))
         data, err := ioutil.ReadAll(r)
 		if err != nil {
 			return err
 		}
         content := &pb.StreamBlockContent{
-            StreamID: sb.Streamid,
-            Index: sb.Index,
+            StreamID: blk.Streamid,
+            Index: blk.Index,
             Data: string(data),
         }
         blist.Blocks = append(blist.Blocks, content)

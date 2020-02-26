@@ -43,7 +43,7 @@ func (t *Textile) TraverseNode(sid string, cid *cid.Cid) error {
 
 func (t *Textile) StartStream(threadId string, config *pb.StreamMeta) error {
 	// if the stream id already in use?
-	stream := t.GetStream(string(config.Id))
+	stream := t.GetStreamMeta(string(config.Id))
 	if stream != nil {
 		return ErrStreamAlreadyInUse
 	}
@@ -54,12 +54,12 @@ func (t *Textile) StartStream(threadId string, config *pb.StreamMeta) error {
 
     // TODO
     //init a Stream
-	//stream :=stream.createstream()
-	//err := t.datastore.Streams().Add()
-	stream = t.GetStream(string(config.Id))
+	err := t.datastore.StreamMetas().Add(config)
+	stream = t.GetStreamMeta(string(config.Id))
 	if stream == nil {
 		return ErrStreamNotFound
 	}
+    t.variables.streamBlockIndex[config.Id] = 0
 
     //Start a channel for adding files
     t.variables.StreamFileChannels[config.Id] = make(chan io.Reader)
@@ -77,9 +77,6 @@ func (t *Textile) StartStream(threadId string, config *pb.StreamMeta) error {
                     log.Error(err)
                     return
                 }
-                // TODO:
-	            //solve fileid to ipld node
-                //store blocks in stream_block 
 		    case <-t.done:
 			    return
 		    }
@@ -91,12 +88,16 @@ func (t *Textile) StartStream(threadId string, config *pb.StreamMeta) error {
 	if thread == nil {
 		return ErrStreamNotFound
 	}
-	_, err := thread.AddStream(stream)
+	_, err = thread.AddStreamMeta(stream)
 	return err
 }
 
 func (t *Textile) GetStream(id string) *pb.Stream {
 	return t.datastore.Streams().Get(id)
+}
+
+func (t *Textile) GetStreamMeta(id string) *pb.StreamMeta {
+	return t.datastore.StreamMetas().Get(id)
 }
 
 
