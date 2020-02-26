@@ -8,6 +8,7 @@ import (
 	//stream "github.com/SJTU-OpenNetwork/go-stream"
 	"github.com/SJTU-OpenNetwork/hon-textile/broadcast"
 	"github.com/SJTU-OpenNetwork/hon-textile/pb"
+	"github.com/SJTU-OpenNetwork/hon-textile/ipfs"
 	"github.com/golang/protobuf/proto"
 	"github.com/golang/protobuf/ptypes/any"
 	peer "github.com/libp2p/go-libp2p-core/peer"
@@ -15,6 +16,27 @@ import (
 )
 var ErrStreamNotFound = fmt.Errorf("stream not found")
 var ErrStreamAlreadyInUse = fmt.Errorf("stream already in use")
+
+func (t *Textile) TraverseNode(sid string, cid *cid.Cid) error {
+    links, err := ipfs.LinksAtPath(t.node, cid.String())
+    if len(links) == 0 {
+        cur, ok := t.variables.streamBlockIndex[sid]
+        if !ok {
+            cur := 0
+        }
+        t.datastore.StreamBlocks.Add(&pb.StreamBlock{
+            Id: cid.String(),
+            Streamid: sid,
+            Index: cur,
+        })
+        t.variables.streamBlockIndex[sid] = cur+1
+    } else {
+        for _,l := range links {
+            t.TraverseNode(sid, &l.Cid)
+        }
+    }
+    return nil
+}
 
 func (t *Textile) StartStream(threadId string, config *pb.StreamMeta) error {
 	// if the stream id already in use?
@@ -41,8 +63,22 @@ func (t *Textile) StartStream(threadId string, config *pb.StreamMeta) error {
     go func(){
 	    for {
 		    select {
-            //case  newfile := <-t.variables.StreamFileChannels[config.StreamID]: // if not comment it out, the compiler will show "declared but not used"
-                //fileid, err := ipfs.AddData(t.node, newfile, true, false)
+            case  newfile := <-t.variables.StreamFileChannels[config.Id]:
+                //filedata, err := ioutil.ReadAll(newfile)
+                //if err != nil {
+                //    log.Error(err)
+                //    return
+                //}
+                fileid, err := ipfs.AddData(t.node, newfile, true, false)
+                if err != nil {
+                    log.Error(err)
+                    return
+                }
+                err = t.TraverseNode(config.Id, fileid)
+                if err != nil {
+                    log.Error(err)
+                    return
+                }
                 // TODO:
 	            //solve fileid to ipld node
                 //store blocks in stream_block 
