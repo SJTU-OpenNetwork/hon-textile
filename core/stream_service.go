@@ -3,7 +3,7 @@
 package core
 
 import (
-
+	"fmt"
 	"github.com/SJTU-OpenNetwork/interface-go-ipfs-core/path"
 	"io/ioutil"
 
@@ -55,7 +55,7 @@ func NewStreamService(
 		datastore:        datastore,
 	}
 	handler.service = service.NewService(account, handler, node)
-    //handler.sm = stream.NewStreamManager()
+    handler.sm = stream.NewStreamManager(handler.FetchBlocks, handler.FetchStream, handler.SendStreamBlocks)
 	return handler
 }
 
@@ -145,20 +145,18 @@ func (h *StreamService) SendMessage(ctx context.Context, peerId string, env *pb.
 
 
 //SendStreamBlocks send a list of block to a peer
-func (h *StreamService) SendStreamBlocks(peerId string, blks []cid.Cid) error{
+func (h *StreamService) SendStreamBlocks(peerId string, blks []*pb.StreamBlock) error{
 	// Marshal blocks to pb
     blist := new(pb.StreamBlockContentList)
     for _, blk:= range blks {
-        sb := h.datastore.StreamBlocks().GetByCid(blk.String())
-        s := "/ipfs/"+blk.String()
-        r, err := ipfs.GetBlock(h.service.Node(), path.New(s))
+        r, err := ipfs.GetBlock(h.service.Node(), path.New(blk.Id))
         data, err := ioutil.ReadAll(r)
 		if err != nil {
 			return err
 		}
         content := &pb.StreamBlockContent{
-            StreamID: sb.Streamid,
-            Index: sb.Index,
+            StreamID: blk.Streamid,
+            Index: blk.Index,
             Data: string(data),
         }
         blist.Blocks = append(blist.Blocks, content)
@@ -171,4 +169,37 @@ func (h *StreamService) SendStreamBlocks(peerId string, blks []cid.Cid) error{
     h.service.SendMessage(nil, peerId, env)
 
 	return nil
+}
+
+// FetchBlocks fetches a list of blocks of a specific stream from database
+func (h *StreamService) FetchBlocks(streamId string, startIndex uint64, maxNum int) ([]cid.Cid, error){
+    // find blocks of the stream with id = streamId
+    blks := h.datastore.StreamBlocks().ListByStream(streamId)
+    // the index of the blocks start from startIndex, and the number of result is no more than maxNum
+	var resblkcids []cid.Cid
+    resblknum := 0
+	for _,blk := range blks{
+		if resblknum++;blk.Index >= startIndex{
+			resblkcid, err := cid.Parse(blk.Id)
+			if err!=nil {
+				return nil,err
+			}
+			resblkcids=append(resblkcids,resblkcid)
+			if resblknum >= maxNum{
+				return resblkcids,nil
+			}
+		}
+
+	}
+    return resblkcids, nil
+}
+
+// FetchStream fetches a specific stream from dababase
+func (h *StreamService)FetchStream(streamId string)(*pb.Stream, error){
+    //Get the stream with id = streamId
+    stream := h.datastore.Streams().Get(streamId)
+    if stream == nil{
+    	return nil,fmt.Errorf("stream fetch failed")
+	}
+    return stream, nil
 }

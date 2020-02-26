@@ -8,17 +8,42 @@ import (
 	//stream "github.com/SJTU-OpenNetwork/go-stream"
 	"github.com/SJTU-OpenNetwork/hon-textile/broadcast"
 	"github.com/SJTU-OpenNetwork/hon-textile/pb"
+	"github.com/SJTU-OpenNetwork/hon-textile/ipfs"
 	"github.com/golang/protobuf/proto"
 	"github.com/golang/protobuf/ptypes/any"
-//	peer "github.com/libp2p/go-libp2p-core/peer"
+	peer "github.com/libp2p/go-libp2p-core/peer"
 	"io"
 )
 var ErrStreamNotFound = fmt.Errorf("stream not found")
 var ErrStreamAlreadyInUse = fmt.Errorf("stream already in use")
 
+func (t *Textile) TraverseNode(sid string, cid *cid.Cid) error {
+    links, err := ipfs.LinksAtPath(t.node, cid.String())
+    if err != nil{
+        return nil
+    }
+    if len(links) == 0 {
+        cur, ok := t.variables.streamBlockIndex[sid]
+        if !ok {
+            cur = 0
+        }
+        t.datastore.StreamBlocks().Add(&pb.StreamBlock{
+            Id: cid.String(),
+            Streamid: sid,
+            Index: cur,
+        })
+        t.variables.streamBlockIndex[sid] = cur+1
+    } else {
+        for _,l := range links {
+            t.TraverseNode(sid, &l.Cid)
+        }
+    }
+    return nil
+}
+
 func (t *Textile) StartStream(threadId string, config *pb.StreamMeta) error {
 	// if the stream id already in use?
-	stream := t.GetStream(string(config.Id))
+	stream := t.GetStreamMeta(string(config.Id))
 	if stream != nil {
 		return ErrStreamAlreadyInUse
 	}
@@ -29,23 +54,29 @@ func (t *Textile) StartStream(threadId string, config *pb.StreamMeta) error {
 
     // TODO
     //init a Stream
-	//stream :=stream.createstream()
-	//err := t.datastore.Streams().Add()
-	stream = t.GetStream(string(config.Id))
+	err := t.datastore.StreamMetas().Add(config)
+	stream = t.GetStreamMeta(string(config.Id))
 	if stream == nil {
 		return ErrStreamNotFound
 	}
+    t.variables.streamBlockIndex[config.Id] = 0
 
     //Start a channel for adding files
     t.variables.StreamFileChannels[config.Id] = make(chan io.Reader)
     go func(){
 	    for {
 		    select {
-            //case  newfile := <-t.variables.StreamFileChannels[config.StreamID]: // if not comment it out, the compiler will show "declared but not used"
-                //fileid, err := ipfs.AddData(t.node, newfile, true, false)
-                // TODO:
-	            //solve fileid to ipld node
-                //store blocks in stream_block 
+            case  newfile := <-t.variables.StreamFileChannels[config.Id]:
+                fileid, err := ipfs.AddData(t.node, newfile, true, false)
+                if err != nil {
+                    log.Error(err)
+                    return
+                }
+                err = t.TraverseNode(config.Id, fileid)
+                if err != nil {
+                    log.Error(err)
+                    return
+                }
 		    case <-t.done:
 			    return
 		    }
@@ -57,12 +88,16 @@ func (t *Textile) StartStream(threadId string, config *pb.StreamMeta) error {
 	if thread == nil {
 		return ErrStreamNotFound
 	}
-	_, err := thread.AddStream(stream)
+	_, err = thread.AddStreamMeta(stream)
 	return err
 }
 
 func (t *Textile) GetStream(id string) *pb.Stream {
 	return t.datastore.Streams().Get(id)
+}
+
+func (t *Textile) GetStreamMeta(id string) *pb.StreamMeta {
+	return t.datastore.StreamMetas().Get(id)
 }
 
 
@@ -79,11 +114,10 @@ func (t* Textile) SubscribeStream(config *pb.StreamRequest) error {
 	// swarm connect publisher
 
 	// call request stream
-	err := t.RequestStream(config)
-	if err!=nil {
-		return err
-	}
-	// call stream.StartWorker
+	//err := t.RequestStream(config)
+	//if err!=nil {
+	//	return err
+	//}
 
 	return nil
 }
@@ -95,7 +129,7 @@ func (t* Textile) UnsubscribeStream(id string) error{
 
 
 
-func (t* Textile) RequestStream(config *pb.StreamRequest) error{
+func (t* Textile) RequestStream(pid peer.ID, config *pb.StreamRequest) error{
 	return nil
 }
 

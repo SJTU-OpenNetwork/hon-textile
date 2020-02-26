@@ -79,6 +79,7 @@ func Create(repoPath, pin string) (*SQLiteDatastore, error) {
 		streammetas:		NewStreamMetaStore(conn, lock),
 		videos:             NewVideoStore(conn, lock),
 		videoChunks:        NewVideoChunkStore(conn, lock),
+		streamblocks:       NewStreamBlockStore(conn, lock),
         syncFiles:          NewSyncFileStore(conn, lock),
 		threads:            NewThreadStore(conn, lock),
 		threadPeers:        NewThreadPeerStore(conn, lock),
