@@ -164,7 +164,10 @@ func (h *StreamService) handleStreamRequest(env *pb.Envelope, pid peer.ID) (*pb.
 	if err != nil {
 		return nil, err
 	}
-
+    err = h.sm.ResponseRequest(pid, req)
+    if err != nil {
+        return nil, err
+    }
 	return h.service.NewEnvelope(pb.Message_STREAM_REQUEST_HANDLE, &pb.StreamRequestHandle{
 		Value:1,
 	},nil, true)
@@ -180,7 +183,7 @@ func (h *StreamService) SendStreamRequest(peerId string, config *pb.StreamReques
 
 
 //SendStreamBlocks send a list of block to a peer
-func (h *StreamService) SendStreamBlocks(peerId string, blks []*pb.StreamBlock) error{
+func (h *StreamService) SendStreamBlocks(peerId peer.ID, blks []*pb.StreamBlock) error{
 	// Marshal blocks to pb
     blist := new(pb.StreamBlockContentList)
     for _, blk:= range blks {
@@ -202,7 +205,7 @@ func (h *StreamService) SendStreamBlocks(peerId string, blks []*pb.StreamBlock) 
 		return err
 	}
 	// Send envelope use StreamService.service.SendMessage
-    h.service.SendMessage(nil, peerId, env)
+    h.service.SendMessage(nil, peerId.Pretty(), env)
 
 	return nil
 }
