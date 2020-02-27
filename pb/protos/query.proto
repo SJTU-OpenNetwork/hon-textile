@@ -94,6 +94,7 @@ message VideoQuery {
 
 message StreamQuery {
     string id = 1;
+    int64 startindex = 2;
 }
 
 message SyncFileQuery {
