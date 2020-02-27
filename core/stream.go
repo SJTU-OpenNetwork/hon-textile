@@ -172,28 +172,8 @@ func (t* Textile) UnsubscribeStream(id string) error{
 	return nil
 }
 
-
-
-
-func (t* Textile) RequestStream(pid string, config *pb.StreamRequest) error{
-	//send request to peer by sending request info to bitswap
-	reg := &pb.StreamRequest{
-		Id:         config.Id,
-		StreamMap:  config.StreamMap,
-		StartIndex: config.StartIndex,
-	}
-
-	env, err := t.stream.service.NewEnvelope(pb.Message_STREAM_REQUEST, reg, nil, false)
-	if err != nil {
-		return err
-	}
-
-	err = t.stream.SendMessage(t.ctx, pid, env)
-	if err != nil {
-		return err
-	}
-	return nil
-	return nil
+func (t* Textile) RequestStream(pid string, config *pb.StreamRequest) (*pb.Envelope, error){
+	return t.stream.SendStreamRequest(pid, config)
 }
 
 

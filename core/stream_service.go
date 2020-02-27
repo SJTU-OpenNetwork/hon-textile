@@ -131,6 +131,9 @@ func (h *StreamService) handleStreamBlockList(env *pb.Envelope, pid peer.ID) (*p
     return nil, nil
 }
 
+func (h *StreamService) handleStreamRequest(env *pb.Envelope, pid peer.ID) (*pb.Envelope, error) {
+}
+
 // Handle is called by the underlying service handler method
 func (h *StreamService) Handle(env *pb.Envelope, pid peer.ID) (*pb.Envelope, error) {
 	switch env.Message.Type {
@@ -138,6 +141,8 @@ func (h *StreamService) Handle(env *pb.Envelope, pid peer.ID) (*pb.Envelope, err
 		return h.handleStreamBlock(env, pid)
 	case pb.Message_STREAM_BLOCK_LIST:
 		return h.handleStreamBlockList(env, pid)
+	case pb.Message_STREAM_REQUEST:
+		return h.handleStreamBlockRequest(env, pid)
     default:
         return nil, nil
     }
@@ -151,6 +156,14 @@ func (h *StreamService) HandleStream(env *pb.Envelope, pid peer.ID) (chan *pb.En
 // SendMessage sends a message to a peer
 func (h *StreamService) SendMessage(ctx context.Context, peerId string, env *pb.Envelope) error {
 	return h.service.SendMessage(ctx, peerId, env)
+}
+
+func (h *StreamService) SendStreamRequest(peerId string, config *pb.StreamRequest) (*pb.Envelope, error) {
+	env, err := t.stream.service.NewEnvelope(pb.Message_STREAM_REQUEST, config, nil, false)
+	if err != nil {
+		return err
+	}
+	return h.service.SendRequest(peerId, env)
 }
 
 
