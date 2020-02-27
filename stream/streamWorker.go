@@ -42,10 +42,6 @@ func newStreamWorker(
 		}
 }
 
-type workerSignal struct {
-	stream string
-}
-
 func (sw *streamWorker) notice() {
 	// workSignal has buffer size 1.
 	// notice() would not block if the worker has already been noticed.
