@@ -10,6 +10,7 @@ message StreamBlockContent {
     string streamID = 1;
     uint64 index = 2;
     string data = 3; 
+    bool isRoot = 4;
 }
 
 message StreamBlockContentList {

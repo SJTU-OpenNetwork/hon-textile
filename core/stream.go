@@ -18,7 +18,7 @@ import (
 var ErrStreamNotFound = fmt.Errorf("stream not found")
 var ErrStreamAlreadyInUse = fmt.Errorf("stream already in use")
 
-func (t *Textile) TraverseNode(sid string, cid *cid.Cid) error {
+func (t *Textile) TraverseNode(sid string, cid *cid.Cid, bool isRoot) error {
     links, err := ipfs.LinksAtPath(t.node, cid.String())
     if err != nil{
         return err
@@ -28,15 +28,19 @@ func (t *Textile) TraverseNode(sid string, cid *cid.Cid) error {
         if !ok {
             cur = 0
         }
+
+        stat, err := ipfs.StatObjectAtPath(t.node, cid.String())
         t.datastore.StreamBlocks().Add(&pb.StreamBlock{
             Id: cid.String(),
             Streamid: sid,
             Index: cur,
+            Size: stat.Size(),
+            IsRoot: isRoot,
         })
         t.variables.streamBlockIndex[sid] = cur+1
     } else {
         for _,l := range links {
-            t.TraverseNode(sid, &l.Cid)
+            t.TraverseNode(sid, &l.Cid, false)
         }
     }
     return nil
@@ -73,7 +77,7 @@ func (t *Textile) StartStream(threadId string, config *pb.StreamMeta) error {
                     log.Error(err)
                     return
                 }
-                err = t.TraverseNode(config.Id, fileid)
+                err = t.TraverseNode(config.Id, fileid, true)
                 if err != nil {
                     log.Error(err)
                     return

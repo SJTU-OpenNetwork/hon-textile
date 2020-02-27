@@ -113,6 +113,7 @@ func (h *StreamService) handleStreamBlockList(env *pb.Envelope, pid peer.ID) (*p
             Streamid: blk.StreamID,
             Index: blk.Index,
             Size: stat.Size(),
+            IsRoot: blk.IsRoot,
         }
         err = h.datastore.StreamBlocks().Add(model)
         if err != nil {
@@ -181,6 +182,7 @@ func (h *StreamService) SendStreamBlocks(peerId string, blks []*pb.StreamBlock) 
             StreamID: blk.Streamid,
             Index: blk.Index,
             Data: string(data),
+            IsRoot: blk.IsRoot,
         }
         blist.Blocks = append(blist.Blocks, content)
     }

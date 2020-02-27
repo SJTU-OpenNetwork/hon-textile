@@ -112,7 +112,6 @@ type StreamBlockStore interface {
 	ListByStream(streamid string, startindex int, maxnum int) []*pb.StreamBlock
 	Delete(streamid string) error
 	GetByCid(cid string) *pb.StreamBlock
-	OrderByIndex()
 }
 
 type StreamMetaStore interface {
