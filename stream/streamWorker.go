@@ -14,7 +14,7 @@ const maxBlockFetchNum = 20
 //		StreamManager will create two independent worker.
 //		However, if a peer request two substream with one single request, there will be only one worker created.
 type streamWorker struct {
-	stream *pb.Stream		// Contains stream info
+	stream *pb.StreamMeta	// Contains stream info
 	req *pb.StreamRequest 	// Contains core information such as substream and index
 	pid peer.ID				// Contains information about destination
 	currentIndex uint64		// The index of block sending now
@@ -25,7 +25,7 @@ type streamWorker struct {
 }
 
 func newStreamWorker(
-	stream *pb.Stream,
+	stream *pb.StreamMeta,
 	pid peer.ID,
 	req *pb.StreamRequest,
 	blockFetcher func(streamId string, startIndex uint64, maxNum int) ([] *pb.StreamBlock, error),
@@ -86,8 +86,8 @@ func (sw *streamWorker) filterBlocks(blks []*pb.StreamBlock) []*pb.StreamBlock {
 	streamMap := sw.req.StreamMap
 	res := make([]*pb.StreamBlock, 0)
 	for _, blk := range blks {
-		subIndex := blk.Index % sw.stream.NumSubstream
-		subMap := 1 << subIndex
+		subIndex := blk.Index % uint64(sw.stream.Nsubstreams)
+		subMap := uint64(1) << subIndex
 		if subMap & streamMap != 0 {
 			res = append(res, blk)
 		}

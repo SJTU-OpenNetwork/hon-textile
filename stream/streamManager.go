@@ -3,7 +3,7 @@ package stream
 import (
 	"fmt"
 	"github.com/SJTU-OpenNetwork/hon-textile/pb"
-	"github.com/ipfs/go-cid"
+	//"github.com/ipfs/go-cid"
 	"github.com/libp2p/go-libp2p-core/peer"
 	ipld "github.com/ipfs/go-ipld-format"
 	//cmap "github.com/orcaman/concurrent-map"
