@@ -120,7 +120,7 @@ func (h *StreamService) handleStreamBlockList(env *pb.Envelope, pid peer.ID) (*p
             return nil, err
         }
 
-        links, err := ipfs.LinksAtPath(h.service.Node, stat.Path().String())
+        links, err := ipfs.LinksAtPath(h.service.Node(), stat.Path().String())
         if err != nil{
             return nil, err
         }
