@@ -957,7 +957,7 @@ The response contains a base58 encoded version of the random bytes token.`).Alia
 	streamCreateId := streamCreateCmd.Arg("streamId", "Id of the creating stream.").Required().String()
 	streamCreateSubnum := streamCreateCmd.Flag("subNum", "Number of substreams.").Short('n').Default("1").Int()
 	cmds[streamCreateCmd.FullCommand()] = func() error {
-		fmt.Printf("Try to call StreamCreate")
+		//fmt.Printf("Try to call StreamCreate")
 		return StreamCreate(*streamCreateId, *streamCreateSubnum)
 	}
 	//streamAddCmd := streamCmd.Command("add", "Add a file to stream")
