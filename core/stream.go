@@ -34,7 +34,7 @@ func (t *Textile) TraverseNode(sid string, cid *cid.Cid, isRoot bool) error {
             Id: cid.String(),
             Streamid: sid,
             Index: cur,
-            Size: stat.Size(),
+            Size: int32(stat.CumulativeSize),
             IsRoot: isRoot,
         })
         t.variables.streamBlockIndex[sid] = cur+1
@@ -128,7 +128,7 @@ func (t* Textile) SubscribeStream(config *pb.StreamRequest) error {
     if err != nil {
         return err
     }
-    sources := []string
+    var sources []string
     doneCh := make(chan struct{})
 	done := func() {
 		close(doneCh)
@@ -160,16 +160,28 @@ func (t* Textile) SubscribeStream(config *pb.StreamRequest) error {
         return fmt.Error("Cannot locate sources")
     }
 
-    for _, source := sources {
+    for _, source := range sources {
 	    // swarm connect publisher
         t.TryConnect(source)
 
-        err = t.RequestStream(source, config)
+        env, err = t.RequestStream(source, config)
+	    if err != nil{
+            log.Errorf("request %s failed", source)
+            log.Errorf(err)
+	    	continue
+        }
+        response := new(pb.StreamRequestHandle)
+        err := ptypes.UnmarshalAny(env.Message.Payload, req)
 	    if err!=nil {
             log.Errorf("request %s failed", source)
             log.Errorf(err)
 	    	continue
 	    }
+        if response.Value != 1 {
+            log.Errorf("request %s failed", source)
+	    	continue
+        }
+        return nil
     }
 	return fmt.Error("Subscribe failed!")
 }
