@@ -8,6 +8,7 @@ import (
 	"github.com/ipfs/go-cid"
 
 	//stream "github.com/SJTU-OpenNetwork/go-stream"
+	"github.com/golang/protobuf/ptypes"
 	"github.com/SJTU-OpenNetwork/hon-textile/broadcast"
 	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 	"github.com/SJTU-OpenNetwork/hon-textile/ipfs"
@@ -128,7 +129,8 @@ func (t* Textile) SubscribeStream(config *pb.StreamRequest) error {
     if err != nil {
         return err
     }
-    var sources []string
+    
+    sources := make([]string, 0)
     doneCh := make(chan struct{})
 	done := func() {
 		close(doneCh)
@@ -148,7 +150,7 @@ func (t* Textile) SubscribeStream(config *pb.StreamRequest) error {
                 done()
                 break
             }
-            sources = append(sources, value)
+            sources = append(sources, value.Id)
             if len(sources) > 3 {
                 done()
                 break
@@ -157,24 +159,24 @@ func (t* Textile) SubscribeStream(config *pb.StreamRequest) error {
     }
 
     if len(sources) == 0 {
-        return fmt.Error("Cannot locate sources")
+        return fmt.Errorf("Cannot locate sources")
     }
 
     for _, source := range sources {
 	    // swarm connect publisher
         t.TryConnect(source)
 
-        env, err = t.RequestStream(source, config)
+        env, err := t.RequestStream(source, config)
 	    if err != nil{
             log.Errorf("request %s failed", source)
-            log.Errorf(err)
+            log.Error(err)
 	    	continue
         }
         response := new(pb.StreamRequestHandle)
-        err := ptypes.UnmarshalAny(env.Message.Payload, req)
+        err = ptypes.UnmarshalAny(env.Message.Payload, response)
 	    if err!=nil {
             log.Errorf("request %s failed", source)
-            log.Errorf(err)
+            log.Error(err)
 	    	continue
 	    }
         if response.Value != 1 {
@@ -183,7 +185,7 @@ func (t* Textile) SubscribeStream(config *pb.StreamRequest) error {
         }
         return nil
     }
-	return fmt.Error("Subscribe failed!")
+	return fmt.Errorf("Subscribe failed!")
 }
 
 func (t* Textile) UnsubscribeStream(id string) error{

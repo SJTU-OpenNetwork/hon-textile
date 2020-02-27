@@ -15,7 +15,7 @@ import (
 //	"time"
 
 //	"github.com/golang/protobuf/proto"
-    "github.com/ipfs/go-cid"
+//    "github.com/ipfs/go-cid"
 	"github.com/golang/protobuf/ptypes"
 	"github.com/SJTU-OpenNetwork/go-ipfs/core"
 	peer "github.com/libp2p/go-libp2p-core/peer"
@@ -112,7 +112,7 @@ func (h *StreamService) handleStreamBlockList(env *pb.Envelope, pid peer.ID) (*p
             Id: cid.String(),
             Streamid: blk.StreamID,
             Index: blk.Index,
-            Size: stat.Size(),
+            Size: int32(stat.Size()),
             IsRoot: blk.IsRoot,
         }
         err = h.datastore.StreamBlocks().Add(model)
