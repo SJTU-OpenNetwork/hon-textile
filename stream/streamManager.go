@@ -28,7 +28,7 @@ var ErrRedundantReq = fmt.Errorf("Request is redundant")
 //		4. [vital] A method to stop worker  - How to distinguish old worker?
 type StreamManager struct {
 	blockFetcher func(streamId string, startIndex uint64, maxNum int) ([] *pb.StreamBlock, error)
-	streamFetcher func(streamId string) (*pb.Stream, error)
+	streamFetcher func(streamId string) (*pb.StreamMeta, error)
 	blockSender func (destination peer.ID, streamBlk []*pb.StreamBlock) error
 	//activeStreams cmap.ConcurrentMap	// Contains *pb.Stream. Cache active streams. (Maybe it is redundant.)
 										// active
@@ -39,7 +39,7 @@ type StreamManager struct {
 
 func NewStreamManager(
 	bFetcher func(streamId string, startIndex uint64, maxNum int) ([]*pb.StreamBlock, error),
-	sFetcher func(streamId string) (*pb.Stream, error),
+	sFetcher func(streamId string) (*pb.StreamMeta, error),
 	bSender func (destination peer.ID, streamBlk []*pb.StreamBlock) error) *StreamManager {
 	return &StreamManager{
 		blockFetcher:bFetcher,
@@ -55,7 +55,7 @@ func NewStreamManager(
 //		It shows an example if we want to use interface replacing callback function.
 type StreamManagerService interface {
 	FetchBlock(streamId string, startIndex uint64, maxNum int) ([] *pb.StreamBlock, error)
-	FetchStream(streamId string) (*pb.Stream, error)
+	FetchStream(streamId string) (*pb.StreamMeta, error)
 	SendBlock(destination peer.ID, streamBlk [] *pb.StreamBlock) error
 }
 

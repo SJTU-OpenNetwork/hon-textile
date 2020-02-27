@@ -20,7 +20,7 @@ var ErrStreamAlreadyInUse = fmt.Errorf("stream already in use")
 func (t *Textile) TraverseNode(sid string, cid *cid.Cid) error {
     links, err := ipfs.LinksAtPath(t.node, cid.String())
     if err != nil{
-        return nil
+        return err
     }
     if len(links) == 0 {
         cur, ok := t.variables.streamBlockIndex[sid]
@@ -109,17 +109,62 @@ func (t *Textile) StreamAddFile(id string, file io.Reader) error {
 
 func (t* Textile) SubscribeStream(config *pb.StreamRequest) error {
 	// call search stream
+    query := & pb.StreamQuery { 
+        Id: config.Id,
+    }
+    opt := &pb.QueryOptions {
+        Wait: 10,
+        Limit: 10,
+    }
+    timer := time.NewTimer(time.Second) //Wait for 1s or find 3 sources
+    resCh, errCh, cancel, err := t.SearchStream(query, opt)
+    if err != nil {
+        return err
+    }
+    sources := []string
+    doneCh := make(chan struct{})
+	done := func() {
+		close(doneCh)
+    }
+    go func() {
+		<-timer.C
+		done()
+	}()
 
-	//t.SearchStream()
-	// swarm connect publisher
+    for {
+		select {
+		case <-doneCh:
+			break
+		case value, ok := <-resCh:
+			if !ok {
+                log.Warning("error in SubscribeStream (search)")
+                done()
+                break
+            }
+            sources = append(sources, value)
+            if len(sources) > 3 {
+                done()
+                break
+            }
+        }
+    }
 
-	// call request stream
-	//err := t.RequestStream(config)
-	//if err!=nil {
-	//	return err
-	//}
+    if len(sources) == 0 {
+        return fmt.Error("Cannot locate sources")
+    }
 
-	return nil
+    for _, source := sources {
+	    // swarm connect publisher
+        t.TryConnect(source)
+
+        err = t.RequestStream(source, config)
+	    if err!=nil {
+            log.Errorf("request %s failed", source)
+            log.Errorf(err)
+	    	continue
+	    }
+    }
+	return fmt.Error("Subscribe failed!")
 }
 
 func (t* Textile) UnsubscribeStream(id string) error{
@@ -129,7 +174,7 @@ func (t* Textile) UnsubscribeStream(id string) error{
 
 
 
-func (t* Textile) RequestStream(pid peer.ID, config *pb.StreamRequest) error{
+func (t* Textile) RequestStream(pid string, config *pb.StreamRequest) error{
 	return nil
 }
 
