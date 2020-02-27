@@ -61,7 +61,11 @@ type StreamManagerService interface {
 
 
 func (sm *StreamManager) createWorker(pid peer.ID, req *pb.StreamRequest) *streamWorker {
-	return newStreamWorker(pid, req, sm.blockFetcher, sm.blockSender)
+	stream, err := sm.streamFetcher(req.Id)
+	if err != nil {
+		return nil
+	}
+	return newStreamWorker(stream, pid, req, sm.blockFetcher, sm.blockSender)
 }
 
 
