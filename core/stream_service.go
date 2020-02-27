@@ -112,10 +112,20 @@ func (h *StreamService) handleStreamBlockList(env *pb.Envelope, pid peer.ID) (*p
             Id: cid.String(),
             Streamid: blk.StreamID,
             Index: blk.Index,
+            Size: stat.Size(),
         }
         err = h.datastore.StreamBlocks().Add(model)
         if err != nil {
             return nil, err
+        }
+
+        links, err := ipfs.LinksAtPath(h.service.Node, stat.Path().String())
+        if err != nil{
+            return nil, err
+        }
+        if len(links) > 0 {
+            // we found a file !
+
         }
     }
     return nil, nil
@@ -195,9 +205,9 @@ func (h *StreamService) FetchBlocks(streamId string, startIndex uint64, maxNum i
 }
 
 // FetchStream fetches a specific stream from dababase
-func (h *StreamService)FetchStream(streamId string)(*pb.Stream, error){
+func (h *StreamService)FetchStream(streamId string)(*pb.StreamMeta, error){
     //Get the stream with id = streamId
-    stream := h.datastore.Streams().Get(streamId)
+    stream := h.datastore.StreamMetas().Get(streamId)
     if stream == nil{
     	return nil,fmt.Errorf("stream fetch failed")
 	}

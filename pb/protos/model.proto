@@ -432,6 +432,7 @@ message StreamBlock {
     string id       = 1;
     string streamid = 2;
     uint64 index     = 3;
+    int32 size     = 4;
 }
 
 message StreamBlockList {
