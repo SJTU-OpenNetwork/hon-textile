@@ -22,3 +22,6 @@ message StreamRequest {
     uint64 streamMap = 2;
     uint64 startIndex = 3;
 }
+message StreamRequestHandle {
+    uint64 value =1;
+}

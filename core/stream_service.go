@@ -159,10 +159,23 @@ func (h *StreamService) SendMessage(ctx context.Context, peerId string, env *pb.
 	return h.service.SendMessage(ctx, peerId, env)
 }
 
-func (h *StreamService) SendStreamRequest(peerId string, config *pb.StreamRequest) (*pb.Envelope, error) {
-	env, err := t.stream.service.NewEnvelope(pb.Message_STREAM_REQUEST, config, nil, false)
+// HandleRequest
+func (h *StreamService) HandleStreamRequest(env *pb.Envelope, pid peer.ID) (*pb.Envelope, error) {
+	req := new(pb.StreamRequest)
+	err := ptypes.UnmarshalAny(env.Message.Payload, req)
 	if err != nil {
-		return err
+		return nil, err
+	}
+
+	return h.service.NewEnvelope(pb.Message_STREAM_REQUEST_HANDLE, &pb.StreamRequestHandle{
+
+	},nil, true)
+}
+
+func (h *StreamService) SendStreamRequest(peerId string, config *pb.StreamRequest) (*pb.Envelope, error) {
+	env, err := h.service.NewEnvelope(pb.Message_STREAM_REQUEST, config, nil, false)
+	if err != nil {
+		return nil,err
 	}
 	return h.service.SendRequest(peerId, env)
 }
