@@ -353,6 +353,14 @@ func (a *Api) Run() {
 			conf.GET("/*path", a.getConfig)
 			conf.PATCH("", a.patchConfig)
 		}
+
+		// For stream
+		stream := v0.Group("/stream")
+		{
+			//profile.GET("", a.getProfile)
+			stream.POST("/create", a.createStream)
+			//profile.POST("/avatar", a.setAvatar)
+		}
 	}
 
 	a.server = &http.Server{
