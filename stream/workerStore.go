@@ -14,7 +14,10 @@ type workerStore struct {
 }
 
 func newWorkerStore() *workerStore {
-	return nil
+	return &workerStore{
+		workerList: make(map[string][]*streamWorker),
+	}
+
 }
 
 func (ws *workerStore) isRedundant(pid peer.ID, req *pb.StreamRequest) bool {
@@ -28,15 +31,30 @@ func (ws *workerStore) isRedundant(pid peer.ID, req *pb.StreamRequest) bool {
 	return false
 }
 
+// add a worker into worker store
+// Note:
+//		add method would not judge whether the worker is redundant
 func (ws *workerStore) add(worker *streamWorker) error {
 	ws.lock.Lock()
 	defer ws.lock.Unlock()
+
+	// Note: In golang, we can append data in a nil slice directly.
+	ws.workerList[worker.req.Id] = append(ws.workerList[worker.req.Id], worker)
 	return nil
 }
 
-func (ws *workerStore) signalWorkers(signal *workerSignal) error {
+// newFileAdd send work signal to workers in workerStore
+func (ws *workerStore) newFileAdd(streamId string) error {
 	ws.lock.Lock()
 	defer ws.lock.Unlock()
 
+	tmplist, ok := ws.workerList[streamId]
+	if ok {
+		for _, w := range tmplist {
+			w.notice()
+		}
+	}
+	// TODO
+	//		Raise an error if there is no worker with streamId
 	return nil
 }
