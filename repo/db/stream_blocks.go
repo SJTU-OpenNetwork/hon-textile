@@ -5,6 +5,7 @@ import (
 	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 	"github.com/SJTU-OpenNetwork/hon-textile/repo"
 	"sync"
+    "strconv"
 )
 
 type StreamBlockDB struct{
@@ -35,12 +36,17 @@ func (s StreamBlockDB) Add(streamblock *pb.StreamBlock) error {
 	return tx.Commit()
 }
 
-func (s StreamBlockDB) ListByStream(streamid string) []*pb.StreamBlock {
+
+func (s StreamBlockDB) ListByStream(streamid string, startindex int, maxnum int) []*pb.StreamBlock {
 	s.lock.Lock()
 	defer s.lock.Unlock()
 
-	stm := "select * from stream_blocks where streamid='"+streamid+"';"
-	return s.handleQuery(stm)
+	stm := "select * from stream_blocks where streamid='"  +streamid+  "' and blockindex >= " + strconv.Itoa(startindex)+  " order by blockindex limit maxnum;"
+	res := s.handleQuery(stm)
+	if len(res) == 0 {
+		return nil
+	}
+	return res
 }
 
 func (s StreamBlockDB) GetByCid(cid string) *pb.StreamBlock {

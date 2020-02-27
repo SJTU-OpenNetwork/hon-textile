@@ -9174,6 +9174,11 @@ public final class QueryOuterClass {
      */
     com.google.protobuf.ByteString
         getIdBytes();
+
+    /**
+     * <code>int64 startindex = 2;</code>
+     */
+    long getStartindex();
   }
   /**
    * Protobuf type {@code StreamQuery}
@@ -9189,6 +9194,7 @@ public final class QueryOuterClass {
     }
     private StreamQuery() {
       id_ = "";
+      startindex_ = 0L;
     }
 
     @java.lang.Override
@@ -9219,6 +9225,11 @@ public final class QueryOuterClass {
               java.lang.String s = input.readStringRequireUtf8();
 
               id_ = s;
+              break;
+            }
+            case 16: {
+
+              startindex_ = input.readInt64();
               break;
             }
             default: {
@@ -9287,6 +9298,15 @@ public final class QueryOuterClass {
       }
     }
 
+    public static final int STARTINDEX_FIELD_NUMBER = 2;
+    private long startindex_;
+    /**
+     * <code>int64 startindex = 2;</code>
+     */
+    public long getStartindex() {
+      return startindex_;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -9304,6 +9324,9 @@ public final class QueryOuterClass {
       if (!getIdBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, id_);
       }
+      if (startindex_ != 0L) {
+        output.writeInt64(2, startindex_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -9315,6 +9338,10 @@ public final class QueryOuterClass {
       size = 0;
       if (!getIdBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, id_);
+      }
+      if (startindex_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(2, startindex_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -9334,6 +9361,8 @@ public final class QueryOuterClass {
       boolean result = true;
       result = result && getId()
           .equals(other.getId());
+      result = result && (getStartindex()
+          == other.getStartindex());
       result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
@@ -9347,6 +9376,9 @@ public final class QueryOuterClass {
       hash = (19 * hash) + getDescriptor().hashCode();
       hash = (37 * hash) + ID_FIELD_NUMBER;
       hash = (53 * hash) + getId().hashCode();
+      hash = (37 * hash) + STARTINDEX_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getStartindex());
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -9482,6 +9514,8 @@ public final class QueryOuterClass {
         super.clear();
         id_ = "";
 
+        startindex_ = 0L;
+
         return this;
       }
 
@@ -9509,6 +9543,7 @@ public final class QueryOuterClass {
       public sjtu.opennet.textilepb.QueryOuterClass.StreamQuery buildPartial() {
         sjtu.opennet.textilepb.QueryOuterClass.StreamQuery result = new sjtu.opennet.textilepb.QueryOuterClass.StreamQuery(this);
         result.id_ = id_;
+        result.startindex_ = startindex_;
         onBuilt();
         return result;
       }
@@ -9560,6 +9595,9 @@ public final class QueryOuterClass {
         if (!other.getId().isEmpty()) {
           id_ = other.id_;
           onChanged();
+        }
+        if (other.getStartindex() != 0L) {
+          setStartindex(other.getStartindex());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -9655,6 +9693,32 @@ public final class QueryOuterClass {
   checkByteStringIsUtf8(value);
         
         id_ = value;
+        onChanged();
+        return this;
+      }
+
+      private long startindex_ ;
+      /**
+       * <code>int64 startindex = 2;</code>
+       */
+      public long getStartindex() {
+        return startindex_;
+      }
+      /**
+       * <code>int64 startindex = 2;</code>
+       */
+      public Builder setStartindex(long value) {
+        
+        startindex_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int64 startindex = 2;</code>
+       */
+      public Builder clearStartindex() {
+        
+        startindex_ = 0L;
         onChanged();
         return this;
       }
@@ -11672,11 +11736,12 @@ public final class QueryOuterClass {
       "\001 \001(\t\"_\n\017VideoChunkQuery\022\n\n\002id\030\001 \001(\t\022\r\n\005" +
       "chunk\030\002 \001(\t\022\021\n\tstartTime\030\003 \001(\003\022\017\n\007endTim" +
       "e\030\004 \001(\003\022\r\n\005index\030\005 \001(\003\"\030\n\nVideoQuery\022\n\n\002" +
-      "id\030\001 \001(\t\"\031\n\013StreamQuery\022\n\n\002id\030\001 \001(\t\">\n\rS" +
-      "yncFileQuery\022\017\n\007address\030\001 \001(\t\022\034\n\004type\030\002 " +
-      "\001(\0162\016.SyncFile.Type\"\032\n\tIpfsQuery\022\r\n\005item" +
-      "s\030\001 \003(\t\" \n\017IpfsQueryResult\022\r\n\005items\030\001 \003(" +
-      "\tB\034\n\026sjtu.opennet.textilepbZ\002pbb\006proto3"
+      "id\030\001 \001(\t\"-\n\013StreamQuery\022\n\n\002id\030\001 \001(\t\022\022\n\ns" +
+      "tartindex\030\002 \001(\003\">\n\rSyncFileQuery\022\017\n\007addr" +
+      "ess\030\001 \001(\t\022\034\n\004type\030\002 \001(\0162\016.SyncFile.Type\"" +
+      "\032\n\tIpfsQuery\022\r\n\005items\030\001 \003(\t\" \n\017IpfsQuery" +
+      "Result\022\r\n\005items\030\001 \003(\tB\034\n\026sjtu.opennet.te" +
+      "xtilepbZ\002pbb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -11758,7 +11823,7 @@ public final class QueryOuterClass {
     internal_static_StreamQuery_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_StreamQuery_descriptor,
-        new java.lang.String[] { "Id", });
+        new java.lang.String[] { "Id", "Startindex", });
     internal_static_SyncFileQuery_descriptor =
       getDescriptor().getMessageTypes().get(11);
     internal_static_SyncFileQuery_fieldAccessorTable = new

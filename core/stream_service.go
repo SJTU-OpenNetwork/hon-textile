@@ -112,13 +112,27 @@ func (h *StreamService) handleStreamBlockList(env *pb.Envelope, pid peer.ID) (*p
             Id: cid.String(),
             Streamid: blk.StreamID,
             Index: blk.Index,
+            Size: stat.Size(),
+            IsRoot: blk.IsRoot,
         }
         err = h.datastore.StreamBlocks().Add(model)
         if err != nil {
             return nil, err
         }
+
+        links, err := ipfs.LinksAtPath(h.service.Node, stat.Path().String())
+        if err != nil{
+            return nil, err
+        }
+        if len(links) > 0 {
+            // we found a file !
+
+        }
     }
     return nil, nil
+}
+
+func (h *StreamService) handleStreamRequest(env *pb.Envelope, pid peer.ID) (*pb.Envelope, error) {
 }
 
 // Handle is called by the underlying service handler method
@@ -128,6 +142,8 @@ func (h *StreamService) Handle(env *pb.Envelope, pid peer.ID) (*pb.Envelope, err
 		return h.handleStreamBlock(env, pid)
 	case pb.Message_STREAM_BLOCK_LIST:
 		return h.handleStreamBlockList(env, pid)
+	case pb.Message_STREAM_REQUEST:
+		return h.handleStreamBlockRequest(env, pid)
     default:
         return nil, nil
     }
@@ -141,6 +157,14 @@ func (h *StreamService) HandleStream(env *pb.Envelope, pid peer.ID) (chan *pb.En
 // SendMessage sends a message to a peer
 func (h *StreamService) SendMessage(ctx context.Context, peerId string, env *pb.Envelope) error {
 	return h.service.SendMessage(ctx, peerId, env)
+}
+
+func (h *StreamService) SendStreamRequest(peerId string, config *pb.StreamRequest) (*pb.Envelope, error) {
+	env, err := t.stream.service.NewEnvelope(pb.Message_STREAM_REQUEST, config, nil, false)
+	if err != nil {
+		return err
+	}
+	return h.service.SendRequest(peerId, env)
 }
 
 
@@ -158,6 +182,7 @@ func (h *StreamService) SendStreamBlocks(peerId string, blks []*pb.StreamBlock) 
             StreamID: blk.Streamid,
             Index: blk.Index,
             Data: string(data),
+            IsRoot: blk.IsRoot,
         }
         blist.Blocks = append(blist.Blocks, content)
     }
@@ -172,32 +197,19 @@ func (h *StreamService) SendStreamBlocks(peerId string, blks []*pb.StreamBlock) 
 }
 
 // FetchBlocks fetches a list of blocks of a specific stream from database
-func (h *StreamService) FetchBlocks(streamId string, startIndex uint64, maxNum int) ([]cid.Cid, error){
+func (h *StreamService) FetchBlocks(streamId string, startIndex uint64, maxNum int) ([]*pb.StreamBlock, error){
     // find blocks of the stream with id = streamId
-    blks := h.datastore.StreamBlocks().ListByStream(streamId)
-    // the index of the blocks start from startIndex, and the number of result is no more than maxNum
-	var resblkcids []cid.Cid
-    resblknum := 0
-	for _,blk := range blks{
-		if resblknum++;blk.Index >= startIndex{
-			resblkcid, err := cid.Parse(blk.Id)
-			if err!=nil {
-				return nil,err
-			}
-			resblkcids=append(resblkcids,resblkcid)
-			if resblknum >= maxNum{
-				return resblkcids,nil
-			}
-		}
-
+    blks := h.datastore.StreamBlocks().ListByStream(streamId, int(startIndex),maxNum)
+	if blks == nil{
+		return nil,fmt.Errorf("stream blocks fetch failed")
 	}
-    return resblkcids, nil
+    return blks, nil
 }
 
 // FetchStream fetches a specific stream from dababase
-func (h *StreamService)FetchStream(streamId string)(*pb.Stream, error){
+func (h *StreamService)FetchStream(streamId string)(*pb.StreamMeta, error){
     //Get the stream with id = streamId
-    stream := h.datastore.Streams().Get(streamId)
+    stream := h.datastore.StreamMetas().Get(streamId)
     if stream == nil{
     	return nil,fmt.Errorf("stream fetch failed")
 	}
