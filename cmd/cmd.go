@@ -758,7 +758,7 @@ There are two types of invites, direct account-to-account and external:
 	// ================================
 
 	// observe
-	observeCmd := appCmd.Command("observe", "Observe updates in a thread or all threads. An update is generated when a new block is added to a thread.").Alias("subscribe").Alias("listen").Alias("stream")
+	observeCmd := appCmd.Command("observe", "Observe updates in a thread or all threads. An update is generated when a new block is added to a thread.").Alias("subscribe").Alias("listen")
 	observeThreadID := observeCmd.Arg("thread", "Thread ID, omit for all").String()
 	observeType := observeCmd.Flag("type", "Only be alerted to specific type of updates, possible values: merge, ignore, flag, join, announce, leave, text, files comment, like. Can be used multiple times, e.g., --type files --type comment").Short('k').Strings()
 	cmds[observeCmd.FullCommand()] = func() error {
