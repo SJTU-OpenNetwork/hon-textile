@@ -45978,6 +45978,16 @@ public final class Model {
      * <code>uint64 index = 3;</code>
      */
     long getIndex();
+
+    /**
+     * <code>int32 size = 4;</code>
+     */
+    int getSize();
+
+    /**
+     * <code>bool isRoot = 5;</code>
+     */
+    boolean getIsRoot();
   }
   /**
    * Protobuf type {@code StreamBlock}
@@ -45995,6 +46005,8 @@ public final class Model {
       id_ = "";
       streamid_ = "";
       index_ = 0L;
+      size_ = 0;
+      isRoot_ = false;
     }
 
     @java.lang.Override
@@ -46036,6 +46048,16 @@ public final class Model {
             case 24: {
 
               index_ = input.readUInt64();
+              break;
+            }
+            case 32: {
+
+              size_ = input.readInt32();
+              break;
+            }
+            case 40: {
+
+              isRoot_ = input.readBool();
               break;
             }
             default: {
@@ -46147,6 +46169,24 @@ public final class Model {
       return index_;
     }
 
+    public static final int SIZE_FIELD_NUMBER = 4;
+    private int size_;
+    /**
+     * <code>int32 size = 4;</code>
+     */
+    public int getSize() {
+      return size_;
+    }
+
+    public static final int ISROOT_FIELD_NUMBER = 5;
+    private boolean isRoot_;
+    /**
+     * <code>bool isRoot = 5;</code>
+     */
+    public boolean getIsRoot() {
+      return isRoot_;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -46170,6 +46210,12 @@ public final class Model {
       if (index_ != 0L) {
         output.writeUInt64(3, index_);
       }
+      if (size_ != 0) {
+        output.writeInt32(4, size_);
+      }
+      if (isRoot_ != false) {
+        output.writeBool(5, isRoot_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -46188,6 +46234,14 @@ public final class Model {
       if (index_ != 0L) {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt64Size(3, index_);
+      }
+      if (size_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(4, size_);
+      }
+      if (isRoot_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(5, isRoot_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -46211,6 +46265,10 @@ public final class Model {
           .equals(other.getStreamid());
       result = result && (getIndex()
           == other.getIndex());
+      result = result && (getSize()
+          == other.getSize());
+      result = result && (getIsRoot()
+          == other.getIsRoot());
       result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
@@ -46229,6 +46287,11 @@ public final class Model {
       hash = (37 * hash) + INDEX_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
           getIndex());
+      hash = (37 * hash) + SIZE_FIELD_NUMBER;
+      hash = (53 * hash) + getSize();
+      hash = (37 * hash) + ISROOT_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getIsRoot());
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -46368,6 +46431,10 @@ public final class Model {
 
         index_ = 0L;
 
+        size_ = 0;
+
+        isRoot_ = false;
+
         return this;
       }
 
@@ -46397,6 +46464,8 @@ public final class Model {
         result.id_ = id_;
         result.streamid_ = streamid_;
         result.index_ = index_;
+        result.size_ = size_;
+        result.isRoot_ = isRoot_;
         onBuilt();
         return result;
       }
@@ -46455,6 +46524,12 @@ public final class Model {
         }
         if (other.getIndex() != 0L) {
           setIndex(other.getIndex());
+        }
+        if (other.getSize() != 0) {
+          setSize(other.getSize());
+        }
+        if (other.getIsRoot() != false) {
+          setIsRoot(other.getIsRoot());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -46645,6 +46720,58 @@ public final class Model {
       public Builder clearIndex() {
         
         index_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private int size_ ;
+      /**
+       * <code>int32 size = 4;</code>
+       */
+      public int getSize() {
+        return size_;
+      }
+      /**
+       * <code>int32 size = 4;</code>
+       */
+      public Builder setSize(int value) {
+        
+        size_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 size = 4;</code>
+       */
+      public Builder clearSize() {
+        
+        size_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private boolean isRoot_ ;
+      /**
+       * <code>bool isRoot = 5;</code>
+       */
+      public boolean getIsRoot() {
+        return isRoot_;
+      }
+      /**
+       * <code>bool isRoot = 5;</code>
+       */
+      public Builder setIsRoot(boolean value) {
+        
+        isRoot_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>bool isRoot = 5;</code>
+       */
+      public Builder clearIsRoot() {
+        
+        isRoot_ = false;
         onChanged();
         return this;
       }
@@ -51067,18 +51194,19 @@ public final class Model {
       "deoChunk\022\n\n\002id\030\001 \001(\t\022\r\n\005chunk\030\002 \001(\t\022\017\n\007a" +
       "ddress\030\003 \001(\t\022\021\n\tstartTime\030\004 \001(\003\022\017\n\007endTi" +
       "me\030\005 \001(\003\022\r\n\005index\030\006 \001(\003\",\n\016VideoChunkLis" +
-      "t\022\032\n\005items\030\001 \003(\0132\013.VideoChunk\":\n\013StreamB" +
+      "t\022\032\n\005items\030\001 \003(\0132\013.VideoChunk\"X\n\013StreamB" +
       "lock\022\n\n\002id\030\001 \001(\t\022\020\n\010streamid\030\002 \001(\t\022\r\n\005in" +
-      "dex\030\003 \001(\004\".\n\017StreamBlockList\022\033\n\005items\030\001 " +
-      "\003(\0132\014.StreamBlock\"-\n\nStreamMeta\022\n\n\002id\030\001 " +
-      "\001(\t\022\023\n\013nsubstreams\030\002 \001(\005\"\024\n\006Stream\022\n\n\002id" +
-      "\030\001 \001(\t\"g\n\021CafeClientMessage\022\n\n\002id\030\001 \001(\t\022" +
-      "\014\n\004peer\030\002 \001(\t\022\016\n\006client\030\003 \001(\t\022(\n\004date\030\004 " +
-      "\001(\0132\032.google.protobuf.Timestamp\"}\n\005BotKV" +
-      "\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\014\022+\n\007created\030" +
-      "\003 \001(\0132\032.google.protobuf.Timestamp\022+\n\007upd" +
-      "ated\030\004 \001(\0132\032.google.protobuf.TimestampB\034" +
-      "\n\026sjtu.opennet.textilepbZ\002pbb\006proto3"
+      "dex\030\003 \001(\004\022\014\n\004size\030\004 \001(\005\022\016\n\006isRoot\030\005 \001(\010\"" +
+      ".\n\017StreamBlockList\022\033\n\005items\030\001 \003(\0132\014.Stre" +
+      "amBlock\"-\n\nStreamMeta\022\n\n\002id\030\001 \001(\t\022\023\n\013nsu" +
+      "bstreams\030\002 \001(\005\"\024\n\006Stream\022\n\n\002id\030\001 \001(\t\"g\n\021" +
+      "CafeClientMessage\022\n\n\002id\030\001 \001(\t\022\014\n\004peer\030\002 " +
+      "\001(\t\022\016\n\006client\030\003 \001(\t\022(\n\004date\030\004 \001(\0132\032.goog" +
+      "le.protobuf.Timestamp\"}\n\005BotKV\022\013\n\003key\030\001 " +
+      "\001(\t\022\r\n\005value\030\002 \001(\014\022+\n\007created\030\003 \001(\0132\032.go" +
+      "ogle.protobuf.Timestamp\022+\n\007updated\030\004 \001(\013" +
+      "2\032.google.protobuf.TimestampB\034\n\026sjtu.ope" +
+      "nnet.textilepbZ\002pbb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -51352,7 +51480,7 @@ public final class Model {
     internal_static_StreamBlock_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_StreamBlock_descriptor,
-        new java.lang.String[] { "Id", "Streamid", "Index", });
+        new java.lang.String[] { "Id", "Streamid", "Index", "Size", "IsRoot", });
     internal_static_StreamBlockList_descriptor =
       getDescriptor().getMessageTypes().get(39);
     internal_static_StreamBlockList_fieldAccessorTable = new

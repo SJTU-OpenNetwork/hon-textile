@@ -42,6 +42,11 @@ public final class StreamService {
      */
     com.google.protobuf.ByteString
         getDataBytes();
+
+    /**
+     * <code>bool isRoot = 4;</code>
+     */
+    boolean getIsRoot();
   }
   /**
    * Protobuf type {@code StreamBlockContent}
@@ -59,6 +64,7 @@ public final class StreamService {
       streamID_ = "";
       index_ = 0L;
       data_ = "";
+      isRoot_ = false;
     }
 
     @java.lang.Override
@@ -100,6 +106,11 @@ public final class StreamService {
               java.lang.String s = input.readStringRequireUtf8();
 
               data_ = s;
+              break;
+            }
+            case 32: {
+
+              isRoot_ = input.readBool();
               break;
             }
             default: {
@@ -211,6 +222,15 @@ public final class StreamService {
       }
     }
 
+    public static final int ISROOT_FIELD_NUMBER = 4;
+    private boolean isRoot_;
+    /**
+     * <code>bool isRoot = 4;</code>
+     */
+    public boolean getIsRoot() {
+      return isRoot_;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -234,6 +254,9 @@ public final class StreamService {
       if (!getDataBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 3, data_);
       }
+      if (isRoot_ != false) {
+        output.writeBool(4, isRoot_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -252,6 +275,10 @@ public final class StreamService {
       }
       if (!getDataBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, data_);
+      }
+      if (isRoot_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(4, isRoot_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -275,6 +302,8 @@ public final class StreamService {
           == other.getIndex());
       result = result && getData()
           .equals(other.getData());
+      result = result && (getIsRoot()
+          == other.getIsRoot());
       result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
@@ -293,6 +322,9 @@ public final class StreamService {
           getIndex());
       hash = (37 * hash) + DATA_FIELD_NUMBER;
       hash = (53 * hash) + getData().hashCode();
+      hash = (37 * hash) + ISROOT_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getIsRoot());
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -432,6 +464,8 @@ public final class StreamService {
 
         data_ = "";
 
+        isRoot_ = false;
+
         return this;
       }
 
@@ -461,6 +495,7 @@ public final class StreamService {
         result.streamID_ = streamID_;
         result.index_ = index_;
         result.data_ = data_;
+        result.isRoot_ = isRoot_;
         onBuilt();
         return result;
       }
@@ -519,6 +554,9 @@ public final class StreamService {
         if (!other.getData().isEmpty()) {
           data_ = other.data_;
           onChanged();
+        }
+        if (other.getIsRoot() != false) {
+          setIsRoot(other.getIsRoot());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -709,6 +747,32 @@ public final class StreamService {
   checkByteStringIsUtf8(value);
         
         data_ = value;
+        onChanged();
+        return this;
+      }
+
+      private boolean isRoot_ ;
+      /**
+       * <code>bool isRoot = 4;</code>
+       */
+      public boolean getIsRoot() {
+        return isRoot_;
+      }
+      /**
+       * <code>bool isRoot = 4;</code>
+       */
+      public Builder setIsRoot(boolean value) {
+        
+        isRoot_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>bool isRoot = 4;</code>
+       */
+      public Builder clearIsRoot() {
+        
+        isRoot_ = false;
         onChanged();
         return this;
       }
@@ -2249,13 +2313,13 @@ public final class StreamService {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\024stream_service.proto\"C\n\022StreamBlockCon" +
+      "\n\024stream_service.proto\"S\n\022StreamBlockCon" +
       "tent\022\020\n\010streamID\030\001 \001(\t\022\r\n\005index\030\002 \001(\004\022\014\n" +
-      "\004data\030\003 \001(\t\"=\n\026StreamBlockContentList\022#\n" +
-      "\006blocks\030\001 \003(\0132\023.StreamBlockContent\"B\n\rSt" +
-      "reamRequest\022\n\n\002id\030\001 \001(\t\022\021\n\tstreamMap\030\002 \001" +
-      "(\004\022\022\n\nstartIndex\030\003 \001(\004B\034\n\026sjtu.opennet.t" +
-      "extilepbZ\002pbb\006proto3"
+      "\004data\030\003 \001(\t\022\016\n\006isRoot\030\004 \001(\010\"=\n\026StreamBlo" +
+      "ckContentList\022#\n\006blocks\030\001 \003(\0132\023.StreamBl" +
+      "ockContent\"B\n\rStreamRequest\022\n\n\002id\030\001 \001(\t\022" +
+      "\021\n\tstreamMap\030\002 \001(\004\022\022\n\nstartIndex\030\003 \001(\004B\034" +
+      "\n\026sjtu.opennet.textilepbZ\002pbb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -2274,7 +2338,7 @@ public final class StreamService {
     internal_static_StreamBlockContent_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_StreamBlockContent_descriptor,
-        new java.lang.String[] { "StreamID", "Index", "Data", });
+        new java.lang.String[] { "StreamID", "Index", "Data", "IsRoot", });
     internal_static_StreamBlockContentList_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_StreamBlockContentList_fieldAccessorTable = new

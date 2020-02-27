@@ -16,7 +16,7 @@ func (s StreamBlockDB) Add(streamblock *pb.StreamBlock) error {
 	s.lock.Lock()
 	defer s.lock.Unlock()
 
-	stm := `insert or ignore into stream_blocks(id, streamid, blockindex) values (?,?,?)`
+	stm := `insert or ignore into stream_blocks(id, streamid, blockindex, blocksize, isroot) values (?,?,?,?,?)`
 	tx, err := s.db.Begin()
 	if err != nil {
 		return err
@@ -27,7 +27,13 @@ func (s StreamBlockDB) Add(streamblock *pb.StreamBlock) error {
 		return err
 	}
 	defer stmt.Close()
-	_, err = stmt.Exec(streamblock.Id, streamblock.Streamid, streamblock.Index)
+	var isroot int
+	if streamblock.IsRoot {
+		isroot = 1
+	}else {
+		isroot = 0
+	}
+	_, err = stmt.Exec(streamblock.Id, streamblock.Streamid, streamblock.Index,streamblock.Size,isroot)
 	if err != nil {
 		_ = tx.Rollback()
 		log.Error(err)
@@ -80,15 +86,25 @@ func (s *StreamBlockDB) handleQuery(stm string) []*pb.StreamBlock {
 	for rows.Next(){
 		var id, streamid string
 		var index uint64
-		err := rows.Scan(&id, &streamid, &index)
+		var blocksize int32
+		var isroot int
+		err := rows.Scan(&id, &streamid, &index, &blocksize, &isroot)
 		if err !=nil {
 			log.Errorf("error in db scan: %s", err)
 			continue
+		}
+		var isRootBool bool
+		if isroot == 0{
+			isRootBool=false
+		}else{
+			isRootBool=true
 		}
 		list = append(list, &pb.StreamBlock{
 			Id: id,
 			Streamid: streamid,
 			Index: index,
+			Size: blocksize,
+			IsRoot: isRootBool,
 		})
 	}
 	return list
