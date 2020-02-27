@@ -16,20 +16,20 @@ const maxBlockFetchNum = 20
 type streamWorker struct {
 	stream *pb.StreamMeta	// Contains stream info
 	req *pb.StreamRequest 	// Contains core information such as substream and index
-	pid peer.ID				// Contains information about destination
+	pid string				// Contains information about destination
 	currentIndex uint64		// The index of block sending now
 	workSignal chan interface{}
 	blockFetcher func(streamId string, startIndex uint64, maxNum int) ([] *pb.StreamBlock, error)
-	blockSender func (destination peer.ID, streamBlk [] *pb.StreamBlock) error
+	blockSender func (destination string, streamBlk [] *pb.StreamBlock) error
 	//stopSignal chan interface{}
 }
 
 func newStreamWorker(
 	stream *pb.StreamMeta,
-	pid peer.ID,
+	pid string,
 	req *pb.StreamRequest,
 	blockFetcher func(streamId string, startIndex uint64, maxNum int) ([] *pb.StreamBlock, error),
-	blockSender func (destination peer.ID, streamBlk [] *pb.StreamBlock) error) *streamWorker{
+	blockSender func (destination string, streamBlk [] *pb.StreamBlock) error) *streamWorker{
 
 		return &streamWorker{
 			stream: stream,
