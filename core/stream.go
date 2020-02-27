@@ -18,7 +18,7 @@ import (
 var ErrStreamNotFound = fmt.Errorf("stream not found")
 var ErrStreamAlreadyInUse = fmt.Errorf("stream already in use")
 
-func (t *Textile) TraverseNode(sid string, cid *cid.Cid, bool isRoot) error {
+func (t *Textile) TraverseNode(sid string, cid *cid.Cid, isRoot bool) error {
     links, err := ipfs.LinksAtPath(t.node, cid.String())
     if err != nil{
         return err
@@ -28,8 +28,8 @@ func (t *Textile) TraverseNode(sid string, cid *cid.Cid, bool isRoot) error {
         if !ok {
             cur = 0
         }
-
-        stat, err := ipfs.StatObjectAtPath(t.node, cid.String())
+		// TODO: Unhandled error
+        stat, _ := ipfs.StatObjectAtPath(t.node, cid.String())
         t.datastore.StreamBlocks().Add(&pb.StreamBlock{
             Id: cid.String(),
             Streamid: sid,
@@ -122,7 +122,9 @@ func (t* Textile) SubscribeStream(config *pb.StreamRequest) error {
         Limit: 10,
     }
     timer := time.NewTimer(time.Second) //Wait for 1s or find 3 sources
-    resCh, errCh, cancel, err := t.SearchStream(query, opt)
+    //resCh, errCh, cancel, err := t.SearchStream(query, opt)
+    // TODO: Unhandled channel
+	resCh, _, _, err := t.SearchStream(query, opt)
     if err != nil {
         return err
     }

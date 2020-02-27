@@ -1,10 +1,11 @@
 package core
 
 import (
-    "bytes"
+	"bytes"
 	"context"
 	"fmt"
 	"io"
+	"math/rand"
 	"os"
 	"path"
 	"path/filepath"
@@ -12,7 +13,6 @@ import (
 	"strings"
 	"sync"
 	"time"
-    "math/rand"
 
 	utilmain "github.com/SJTU-OpenNetwork/go-ipfs/cmd/ipfs/util"
 	"github.com/SJTU-OpenNetwork/go-ipfs/core"
@@ -21,11 +21,6 @@ import (
 	corenode "github.com/SJTU-OpenNetwork/go-ipfs/core/node"
 	"github.com/SJTU-OpenNetwork/go-ipfs/core/node/libp2p"
 	"github.com/SJTU-OpenNetwork/go-ipfs/repo/fsrepo"
-	ipld "github.com/ipfs/go-ipld-format"
-	logging "github.com/ipfs/go-log"
-	"github.com/ipfs/go-metrics-interface"
-	"github.com/libp2p/go-libp2p-core/peer"
-	"github.com/libp2p/go-libp2p-core/peerstore"
 	"github.com/SJTU-OpenNetwork/hon-textile/broadcast"
 	"github.com/SJTU-OpenNetwork/hon-textile/ipfs"
 	"github.com/SJTU-OpenNetwork/hon-textile/keypair"
@@ -35,6 +30,11 @@ import (
 	"github.com/SJTU-OpenNetwork/hon-textile/repo/db"
 	"github.com/SJTU-OpenNetwork/hon-textile/service"
 	"github.com/SJTU-OpenNetwork/hon-textile/util"
+	ipld "github.com/ipfs/go-ipld-format"
+	logging "github.com/ipfs/go-log"
+	"github.com/ipfs/go-metrics-interface"
+	"github.com/libp2p/go-libp2p-core/peer"
+	"github.com/libp2p/go-libp2p-core/peerstore"
 	logger "github.com/whyrusleeping/go-logging"
 	"go.uber.org/fx"
 	"gopkg.in/natefinch/lumberjack.v2"
@@ -423,7 +423,6 @@ func (t *Textile) Start() error {
 		t.account,
 		t.Ipfs,
 		t.datastore)
-
 	if t.cafeOutbox.handler == nil {
 		t.cafeOutbox.handler = t.cafe
 	}

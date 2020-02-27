@@ -29,7 +29,7 @@ var ErrRedundantReq = fmt.Errorf("Request is redundant")
 type StreamManager struct {
 	blockFetcher func(streamId string, startIndex uint64, maxNum int) ([] *pb.StreamBlock, error)
 	streamFetcher func(streamId string) (*pb.StreamMeta, error)
-	blockSender func (destination peer.ID, streamBlk []*pb.StreamBlock) error
+	blockSender func (destination string, streamBlk []*pb.StreamBlock) error
 	//activeStreams cmap.ConcurrentMap	// Contains *pb.Stream. Cache active streams. (Maybe it is redundant.)
 										// active
 	activeWorkers *workerStore
@@ -40,7 +40,7 @@ type StreamManager struct {
 func NewStreamManager(
 	bFetcher func(streamId string, startIndex uint64, maxNum int) ([]*pb.StreamBlock, error),
 	sFetcher func(streamId string) (*pb.StreamMeta, error),
-	bSender func (destination peer.ID, streamBlk []*pb.StreamBlock) error) *StreamManager {
+	bSender func (destination string, streamBlk []*pb.StreamBlock) error) *StreamManager {
 	return &StreamManager{
 		blockFetcher:bFetcher,
 		streamFetcher:sFetcher,
