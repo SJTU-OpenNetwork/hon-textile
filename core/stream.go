@@ -128,7 +128,7 @@ func (t* Textile) SubscribeStream(config *pb.StreamRequest) error {
     if err != nil {
         return err
     }
-    sources := []string
+    sources := make([]string, 0)
     doneCh := make(chan struct{})
 	done := func() {
 		close(doneCh)
@@ -148,7 +148,7 @@ func (t* Textile) SubscribeStream(config *pb.StreamRequest) error {
                 done()
                 break
             }
-            sources = append(sources, value)
+            sources = append(sources, value.Id)
             if len(sources) > 3 {
                 done()
                 break
@@ -157,10 +157,10 @@ func (t* Textile) SubscribeStream(config *pb.StreamRequest) error {
     }
 
     if len(sources) == 0 {
-        return fmt.Error("Cannot locate sources")
+        return fmt.Errorf("Cannot locate sources")
     }
 
-    for _, source := sources {
+    for _, source := range sources {
 	    // swarm connect publisher
         t.TryConnect(source)
 
@@ -171,7 +171,7 @@ func (t* Textile) SubscribeStream(config *pb.StreamRequest) error {
 	    	continue
 	    }
     }
-	return fmt.Error("Subscribe failed!")
+	return fmt.Errorf("Subscribe failed!")
 }
 
 func (t* Textile) UnsubscribeStream(id string) error{
