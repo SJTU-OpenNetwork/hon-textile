@@ -757,14 +757,13 @@ func (h *CafeService) searchLocal(qtype pb.Query_Type, options *pb.QueryOptions,
 		if err != nil {
 			return nil, err
 		}
-		stream := h.datastore.Streams().Get(q.Id)
+		blocks := h.datastore.StreamBlocks().ListByStream(q.Id, int(q.Startindex),3)
 		var peerId string
-		if stream == nil {
+		if blocks == nil {
 			return nil, err
 		} else {
 			peerId = h.service.Node().Identity.Pretty()
 		}
-		value, err := proto.Marshal(stream)
 		if err != nil {
 			return nil,nil
 		}
@@ -773,7 +772,6 @@ func (h *CafeService) searchLocal(qtype pb.Query_Type, options *pb.QueryOptions,
 			Local:  local,
 			Value: &any.Any{
 				TypeUrl: "/Stream",
-				Value: value,
 			},
 		})
     case pb.Query_VIDEO:
