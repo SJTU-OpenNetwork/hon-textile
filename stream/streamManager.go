@@ -80,6 +80,12 @@ func (sm *StreamManager) NewBlockReceive(streamBlk *pb.StreamBlock, data []byte)
 	// Call ipfs.DataAtPath when receive a root node.
 }
 
+func (sm *StreamManager) Workload() int {
+    // return the required bitrate for all workers
+    // for now, just return the number of workers
+    return sm.activeWorkers.Workload()
+}
+
 // Call it when you decide to send blocks to requestor.
 // Use "Response" to distinguish with "Handle".
 func (sm *StreamManager) ResponseRequest(pid peer.ID, req *pb.StreamRequest) error {
