@@ -1,40 +1,12 @@
 package mobile
 
 import (
+	"bytes"
 	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 	"github.com/golang/protobuf/proto"
 
 	"github.com/SJTU-OpenNetwork/hon-textile/core"
 )
-
-func (m *Mobile) InsertTestStream(streamMeta []byte) {
-	mStreamMeta := new(pb.StreamMeta)
-	proto.Unmarshal(streamMeta, mStreamMeta)
-	m.node.Datastore().StreamMetas().Add(mStreamMeta)
-	mStream := &pb.Stream{
-		Id: mStreamMeta.Id,
-	}
-	m.node.Datastore().Streams().Add(mStream)
-}
-
-func (m *Mobile) AndroidTestSearchStream(query []byte, options []byte) (*SearchHandle, error) {
-	mquery := new(pb.StreamQuery)
-	if err := proto.Unmarshal(query, mquery); err != nil {
-		return nil, err
-	}
-	moptions := new(pb.QueryOptions)
-	if err := proto.Unmarshal(options, moptions); err != nil {
-		return nil, err
-	}
-
-	resCh, errCh, cancel, err := m.node.SearchStream(mquery,moptions)
-	if err != nil {
-		log.Warning(err)
-		return nil, err
-	}
-	return m.handleSearchStream(resCh, errCh, cancel)
-}
-
 
 
 func (m *Mobile) StartStream(thread string, stream []byte) error {
@@ -49,16 +21,16 @@ func (m *Mobile) StartStream(thread string, stream []byte) error {
 	return m.node.StartStream(thread, model)
 }
 
-func (m *Mobile) SubscribeStream(config []byte) error {
+func (m *Mobile) SubscribeStream(config string) error {
 	if !m.node.Started() {
 		return core.ErrStopped
 	}
 
-	model := new(pb.StreamRequest)
-	if err := proto.Unmarshal(config, model); err != nil {
-		return err
-	}
-	return m.node.SubscribeStream(model)
+	//model := new(pb.StreamRequest)
+	//if err := proto.Unmarshal(config, model); err != nil {
+	//	return err
+	//}
+	return m.node.SubscribeStream(config)
 }
 
 func (m *Mobile) UnsubscribeStream(streamid string) error {
@@ -68,3 +40,9 @@ func (m *Mobile) UnsubscribeStream(streamid string) error {
 
 	return m.node.UnsubscribeStream(streamid)
 }
+
+func (m *Mobile) StreamAddFile(streamid string, data []byte) error {
+	file := bytes.NewReader(data)
+	return m.node.StreamAddFile(streamid, file)
+}
+
