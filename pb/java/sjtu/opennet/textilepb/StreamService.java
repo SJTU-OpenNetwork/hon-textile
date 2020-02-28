@@ -2289,6 +2289,483 @@ public final class StreamService {
 
   }
 
+  public interface StreamRequestHandleOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:StreamRequestHandle)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>uint64 value = 1;</code>
+     */
+    long getValue();
+  }
+  /**
+   * Protobuf type {@code StreamRequestHandle}
+   */
+  public  static final class StreamRequestHandle extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:StreamRequestHandle)
+      StreamRequestHandleOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use StreamRequestHandle.newBuilder() to construct.
+    private StreamRequestHandle(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private StreamRequestHandle() {
+      value_ = 0L;
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private StreamRequestHandle(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+
+              value_ = input.readUInt64();
+              break;
+            }
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return sjtu.opennet.textilepb.StreamService.internal_static_StreamRequestHandle_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return sjtu.opennet.textilepb.StreamService.internal_static_StreamRequestHandle_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              sjtu.opennet.textilepb.StreamService.StreamRequestHandle.class, sjtu.opennet.textilepb.StreamService.StreamRequestHandle.Builder.class);
+    }
+
+    public static final int VALUE_FIELD_NUMBER = 1;
+    private long value_;
+    /**
+     * <code>uint64 value = 1;</code>
+     */
+    public long getValue() {
+      return value_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (value_ != 0L) {
+        output.writeUInt64(1, value_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (value_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(1, value_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof sjtu.opennet.textilepb.StreamService.StreamRequestHandle)) {
+        return super.equals(obj);
+      }
+      sjtu.opennet.textilepb.StreamService.StreamRequestHandle other = (sjtu.opennet.textilepb.StreamService.StreamRequestHandle) obj;
+
+      boolean result = true;
+      result = result && (getValue()
+          == other.getValue());
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + VALUE_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getValue());
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static sjtu.opennet.textilepb.StreamService.StreamRequestHandle parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sjtu.opennet.textilepb.StreamService.StreamRequestHandle parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sjtu.opennet.textilepb.StreamService.StreamRequestHandle parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sjtu.opennet.textilepb.StreamService.StreamRequestHandle parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sjtu.opennet.textilepb.StreamService.StreamRequestHandle parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sjtu.opennet.textilepb.StreamService.StreamRequestHandle parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sjtu.opennet.textilepb.StreamService.StreamRequestHandle parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sjtu.opennet.textilepb.StreamService.StreamRequestHandle parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sjtu.opennet.textilepb.StreamService.StreamRequestHandle parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static sjtu.opennet.textilepb.StreamService.StreamRequestHandle parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sjtu.opennet.textilepb.StreamService.StreamRequestHandle parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sjtu.opennet.textilepb.StreamService.StreamRequestHandle parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(sjtu.opennet.textilepb.StreamService.StreamRequestHandle prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code StreamRequestHandle}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:StreamRequestHandle)
+        sjtu.opennet.textilepb.StreamService.StreamRequestHandleOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return sjtu.opennet.textilepb.StreamService.internal_static_StreamRequestHandle_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return sjtu.opennet.textilepb.StreamService.internal_static_StreamRequestHandle_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                sjtu.opennet.textilepb.StreamService.StreamRequestHandle.class, sjtu.opennet.textilepb.StreamService.StreamRequestHandle.Builder.class);
+      }
+
+      // Construct using sjtu.opennet.textilepb.StreamService.StreamRequestHandle.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        value_ = 0L;
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return sjtu.opennet.textilepb.StreamService.internal_static_StreamRequestHandle_descriptor;
+      }
+
+      @java.lang.Override
+      public sjtu.opennet.textilepb.StreamService.StreamRequestHandle getDefaultInstanceForType() {
+        return sjtu.opennet.textilepb.StreamService.StreamRequestHandle.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public sjtu.opennet.textilepb.StreamService.StreamRequestHandle build() {
+        sjtu.opennet.textilepb.StreamService.StreamRequestHandle result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public sjtu.opennet.textilepb.StreamService.StreamRequestHandle buildPartial() {
+        sjtu.opennet.textilepb.StreamService.StreamRequestHandle result = new sjtu.opennet.textilepb.StreamService.StreamRequestHandle(this);
+        result.value_ = value_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof sjtu.opennet.textilepb.StreamService.StreamRequestHandle) {
+          return mergeFrom((sjtu.opennet.textilepb.StreamService.StreamRequestHandle)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(sjtu.opennet.textilepb.StreamService.StreamRequestHandle other) {
+        if (other == sjtu.opennet.textilepb.StreamService.StreamRequestHandle.getDefaultInstance()) return this;
+        if (other.getValue() != 0L) {
+          setValue(other.getValue());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        sjtu.opennet.textilepb.StreamService.StreamRequestHandle parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (sjtu.opennet.textilepb.StreamService.StreamRequestHandle) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private long value_ ;
+      /**
+       * <code>uint64 value = 1;</code>
+       */
+      public long getValue() {
+        return value_;
+      }
+      /**
+       * <code>uint64 value = 1;</code>
+       */
+      public Builder setValue(long value) {
+        
+        value_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>uint64 value = 1;</code>
+       */
+      public Builder clearValue() {
+        
+        value_ = 0L;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFieldsProto3(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:StreamRequestHandle)
+    }
+
+    // @@protoc_insertion_point(class_scope:StreamRequestHandle)
+    private static final sjtu.opennet.textilepb.StreamService.StreamRequestHandle DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new sjtu.opennet.textilepb.StreamService.StreamRequestHandle();
+    }
+
+    public static sjtu.opennet.textilepb.StreamService.StreamRequestHandle getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<StreamRequestHandle>
+        PARSER = new com.google.protobuf.AbstractParser<StreamRequestHandle>() {
+      @java.lang.Override
+      public StreamRequestHandle parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new StreamRequestHandle(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<StreamRequestHandle> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<StreamRequestHandle> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public sjtu.opennet.textilepb.StreamService.StreamRequestHandle getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_StreamBlockContent_descriptor;
   private static final 
@@ -2304,6 +2781,11 @@ public final class StreamService {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_StreamRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_StreamRequestHandle_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_StreamRequestHandle_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -2318,8 +2800,9 @@ public final class StreamService {
       "\004data\030\003 \001(\t\022\016\n\006isRoot\030\004 \001(\010\"=\n\026StreamBlo" +
       "ckContentList\022#\n\006blocks\030\001 \003(\0132\023.StreamBl" +
       "ockContent\"B\n\rStreamRequest\022\n\n\002id\030\001 \001(\t\022" +
-      "\021\n\tstreamMap\030\002 \001(\004\022\022\n\nstartIndex\030\003 \001(\004B\034" +
-      "\n\026sjtu.opennet.textilepbZ\002pbb\006proto3"
+      "\021\n\tstreamMap\030\002 \001(\004\022\022\n\nstartIndex\030\003 \001(\004\"$" +
+      "\n\023StreamRequestHandle\022\r\n\005value\030\001 \001(\004B\034\n\026" +
+      "sjtu.opennet.textilepbZ\002pbb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -2351,6 +2834,12 @@ public final class StreamService {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_StreamRequest_descriptor,
         new java.lang.String[] { "Id", "StreamMap", "StartIndex", });
+    internal_static_StreamRequestHandle_descriptor =
+      getDescriptor().getMessageTypes().get(3);
+    internal_static_StreamRequestHandle_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_StreamRequestHandle_descriptor,
+        new java.lang.String[] { "Value", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

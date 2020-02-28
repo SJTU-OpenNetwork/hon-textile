@@ -223,9 +223,7 @@ func init() {
 	proto.RegisterType((*StreamRequestHandle)(nil), "StreamRequestHandle")
 }
 
-func init() {
-	proto.RegisterFile("stream_service.proto", fileDescriptor_296dc607c23b8aea)
-}
+func init() { proto.RegisterFile("stream_service.proto", fileDescriptor_296dc607c23b8aea) }
 
 var fileDescriptor_296dc607c23b8aea = []byte{
 	// 265 bytes of a gzipped FileDescriptorProto
