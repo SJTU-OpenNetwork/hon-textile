@@ -3,7 +3,7 @@ package core
 import (
 	"fmt"
 	"time"
-    "strings"
+    "bytes"
 	//	"github.com/SJTU-OpenNetwork/hon-textile/stream"
 	"github.com/ipfs/go-cid"
 
@@ -18,7 +18,7 @@ import (
 var ErrStreamNotFound = fmt.Errorf("stream not found")
 var ErrStreamAlreadyInUse = fmt.Errorf("stream already in use")
 
-func (t *Textile) SaveBlock(sid string, cid *cid.Cid, isRoot bool, payload string) error {
+func (t *Textile) SaveBlock(sid string, cid *cid.Cid, isRoot bool, payload []byte) error {
     cur, ok := t.variables.streamBlockIndex[sid]
     if !ok {
         cur = 0
@@ -36,7 +36,7 @@ func (t *Textile) SaveBlock(sid string, cid *cid.Cid, isRoot bool, payload strin
         Index: cur,
         Size: int32(stat.CumulativeSize),
         IsRoot: isRoot,
-        Description: payload,
+        Description: string(payload),
     })
     if err != nil {
         log.Error(err)
@@ -47,7 +47,7 @@ func (t *Textile) SaveBlock(sid string, cid *cid.Cid, isRoot bool, payload strin
     return nil
 }
 
-func (t *Textile) TraverseNode(sid string, cid *cid.Cid, isRoot bool, payload string) error {
+func (t *Textile) TraverseNode(sid string, cid *cid.Cid, isRoot bool, payload []byte) error {
     links, err := ipfs.LinksAtPath(t.node, cid.String())
     if err != nil{
         return err
@@ -59,7 +59,7 @@ func (t *Textile) TraverseNode(sid string, cid *cid.Cid, isRoot bool, payload st
         }
     } else {
         for _,l := range links {
-            t.TraverseNode(sid, &l.Cid, false, "")
+            t.TraverseNode(sid, &l.Cid, false, nil)
         }
         err = t.SaveBlock(sid, cid, isRoot, payload)
         if err != nil {
@@ -99,7 +99,7 @@ func (t *Textile) StartStream(threadId string, config *pb.StreamMeta) error {
 	   for {
 		    select {
            case  newfile := <-t.variables.StreamFileChannels[config.Id]:
-               r := strings.NewReader(newfile.Data)
+               r := bytes.NewReader(newfile.Data)
                fileid, err := ipfs.AddData(t.node, r, true, false)
                if err != nil {
                    log.Error(err)
