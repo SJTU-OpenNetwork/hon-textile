@@ -7,8 +7,7 @@ import (
 	"github.com/SJTU-OpenNetwork/interface-go-ipfs-core/path"
 	"io/ioutil"
 
-	//	"bytes"
-	"strings"
+    "bytes"
 	"context"
 //	"encoding/base64"
 //	"fmt"
@@ -85,7 +84,7 @@ func (h *StreamService) handleStreamBlock(env *pb.Envelope, pid peer.ID) (*pb.En
 
 
 
-    stat, err := ipfs.PutBlock(h.service.Node(), strings.NewReader(blk.Data))
+    stat, err := ipfs.PutBlock(h.service.Node(), bytes.NewReader(blk.Data))
     if err != nil {
         return nil, err
     }
@@ -109,7 +108,7 @@ func (h *StreamService) handleStreamBlockList(env *pb.Envelope, pid peer.ID) (*p
     }
     for _, blk := range blks.Blocks {
 
-        stat, err := ipfs.PutBlock(h.service.Node(), strings.NewReader(blk.Data))
+        stat, err := ipfs.PutBlock(h.service.Node(), bytes.NewReader(blk.Data))
         if err != nil {
             return nil, err
         }
@@ -120,6 +119,7 @@ func (h *StreamService) handleStreamBlockList(env *pb.Envelope, pid peer.ID) (*p
             Index: blk.Index,
             Size: int32(stat.Size()),
             IsRoot: blk.IsRoot,
+            Description: string(blk.Description),
         }
         fmt.Printf("StreamService: Received stream %s; index %d; cid %s\n", blk.StreamID, blk.Index, cid.String())
         err = h.datastore.StreamBlocks().Add(model)
@@ -215,23 +215,28 @@ func (h *StreamService) SendStreamBlocks(peerId peer.ID, blks []*pb.StreamBlock)
         r, err := ipfs.GetBlock(h.service.Node(), path.New(blk.Id))
         data, err := ioutil.ReadAll(r)
 		if err != nil {
+            log.Error(err)
 			return err
 		}
         content := &pb.StreamBlockContent{
             StreamID: blk.Streamid,
             Index: blk.Index,
-            Data: string(data),
+            Data: data,
             IsRoot: blk.IsRoot,
+            Description: []byte(blk.Description),
         }
         blist.Blocks = append(blist.Blocks, content)
     }
 	env, err := h.service.NewEnvelope(pb.Message_STREAM_BLOCK_LIST, blist, nil, false)
 	if err != nil {
+        log.Error(err)
 		return err
 	}
 	// Send envelope use StreamService.service.SendMessage
-    h.service.SendMessage(nil, peerId.Pretty(), env)
-
+    err = h.service.SendMessage(nil, peerId.Pretty(), env)
+    if err != nil {
+        log.Error(err)
+    }
 	return nil
 }
 

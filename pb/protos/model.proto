@@ -204,8 +204,8 @@ message SyncFileList {
 }
 
 message StreamFile {
-    string data = 1;
-    string description = 2;
+    bytes data = 1;
+    bytes description = 2;
 }
 
 message FileIndex {
