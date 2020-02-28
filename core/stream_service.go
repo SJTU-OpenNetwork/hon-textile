@@ -76,11 +76,15 @@ func (h *StreamService) Ping(pid peer.ID) (service.PeerStatus, error) {
 
 // handleStreamBlock receives a STREAM_BLOCK message
 func (h *StreamService) handleStreamBlock(env *pb.Envelope, pid peer.ID) (*pb.Envelope, error) {
+	fmt.Printf("StreamService: New stream blk receive from %s\n", pid.Pretty())
     blk := new(pb.StreamBlockContent)
     err := ptypes.UnmarshalAny(env.Message.Payload, blk)
     if err != nil {
         return nil, err
     }
+
+
+
     stat, err := ipfs.PutBlock(h.service.Node(), strings.NewReader(blk.Data))
     if err != nil {
         return nil, err
@@ -97,6 +101,7 @@ func (h *StreamService) handleStreamBlock(env *pb.Envelope, pid peer.ID) (*pb.En
 
 // handleStreamBlock receives a STREAM_BLOCK_LIST message
 func (h *StreamService) handleStreamBlockList(env *pb.Envelope, pid peer.ID) (*pb.Envelope, error) {
+	fmt.Printf("StreamService: New stream blk list receive from %s\n", pid.Pretty())
     blks := new(pb.StreamBlockContentList)
     err := ptypes.UnmarshalAny(env.Message.Payload, blks)
     if err != nil {
@@ -192,6 +197,8 @@ func (h *StreamService) SendStreamRequest(peerId string, config *pb.StreamReques
 
 //SendStreamBlocks send a list of block to a peer
 func (h *StreamService) SendStreamBlocks(peerId peer.ID, blks []*pb.StreamBlock) error{
+	fmt.Printf("StreamService: Send %d stream blks to %s", len(blks), peerId.Pretty())
+
 	// Marshal blocks to pb
     blist := new(pb.StreamBlockContentList)
     for _, blk:= range blks {

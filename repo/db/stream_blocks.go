@@ -47,7 +47,7 @@ func (s StreamBlockDB) ListByStream(streamid string, startindex int, maxnum int)
 	s.lock.Lock()
 	defer s.lock.Unlock()
 
-	stm := "select * from stream_blocks where streamid='"  +streamid+  "' and blockindex >= " + strconv.Itoa(startindex)+  " order by blockindex limit maxnum;"
+	stm := "select * from stream_blocks where streamid='"  +streamid+  "' and blockindex >= " + strconv.Itoa(startindex)+  " order by blockindex limit "+strconv.Itoa(maxnum);
 	res := s.handleQuery(stm)
 	if len(res) == 0 {
 		return nil
