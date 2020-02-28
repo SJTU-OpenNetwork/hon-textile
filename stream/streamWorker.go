@@ -68,7 +68,7 @@ func (sw *streamWorker) start() error {
 				fblks := sw.filterBlocks(blks)
 				// TODO: Unhandled error
 				sw.blockSender(sw.pid, fblks)
-
+				sw.currentIndex = sw.currentIndex + uint64(len(blks))
 				// Notice the worker again if there maybe more blocks can be fetched.
 				if len(blks) >= maxBlockFetchNum {
 					sw.notice()

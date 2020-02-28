@@ -141,6 +141,7 @@ func (h *StreamService) handleStreamBlockList(env *pb.Envelope, pid peer.ID) (*p
 
 // Handle is called by the underlying service handler method
 func (h *StreamService) Handle(env *pb.Envelope, pid peer.ID) (*pb.Envelope, error) {
+	fmt.Printf("core/stream_service.go Handler: New message receive from %s.\n", pid.Pretty())
 	switch env.Message.Type {
 	case pb.Message_STREAM_BLOCK:
 		return h.handleStreamBlock(env, pid)
@@ -149,6 +150,7 @@ func (h *StreamService) Handle(env *pb.Envelope, pid peer.ID) (*pb.Envelope, err
 	case pb.Message_STREAM_REQUEST:
 		return h.handleStreamRequest(env, pid)
     default:
+    	fmt.Printf("core/stream_service.go Handler: Unknown message type")
         return nil, nil
     }
 }
