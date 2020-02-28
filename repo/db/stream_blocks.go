@@ -33,7 +33,7 @@ func (s StreamBlockDB) Add(streamblock *pb.StreamBlock) error {
 	}else {
 		isroot = 0
 	}
-	_, err = stmt.Exec(streamblock.Id, streamblock.Streamid, streamblock.Index,streamblock.Size,isroot)
+	_, err = stmt.Exec(streamblock.Id, streamblock.Streamid, streamblock.Index,streamblock.Size,isroot, streamblock.Description)
 	if err != nil {
 		_ = tx.Rollback()
 		log.Error(err)

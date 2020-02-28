@@ -270,7 +270,7 @@ func initDatabaseTables(db *sql.DB, pin string) error {
 	
 	create table stream_metas (id text primary key not null, nstream integer, bitrate integer, caption text);
 	
-	create table stream_blocks (id text not null, streamid text , blockindex integer , blocksize integer , isroot integer, primary key(streamid, blockindex));
+	create table stream_blocks (id text not null, streamid text , blockindex integer , blocksize integer , isroot integer, payload text, primary key(streamid, blockindex));
 	create index stream_blocks_streamid on stream_blocks (streamid);
 
     create table videos (id text not null, caption text not null, videoLength integer not null, poster text not null, width integer, height integer, rotation integer, primary key(id));
