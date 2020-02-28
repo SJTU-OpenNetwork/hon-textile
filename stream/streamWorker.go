@@ -6,7 +6,7 @@ import (
 	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 )
 
-const maxBlockFetchNum = 20
+const maxBlockFetchNum = 1
 
 // StreamWorker is used do blocksending task.
 // Each streamrequest will create a independent worker.
