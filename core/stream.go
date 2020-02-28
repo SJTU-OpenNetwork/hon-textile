@@ -147,13 +147,18 @@ func (t* Textile) SubscribeStream(id string) error {
     }
     
     sources := make([]string, 0)
-    doneCh := make(chan struct{})
+    doneCh := make(chan struct{}, 1)
 	done := func() {
-		doneCh <- struct{}{}
+		// Use select to avoid block when there is already done signal in channel.
+		select {
+			case doneCh <- struct{}{}:
+			default:
+		}
     }
     go func() {
 		<-timer.C
 		done()
+
 	}()
 
     for {
