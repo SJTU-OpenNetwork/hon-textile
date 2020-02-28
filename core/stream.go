@@ -149,7 +149,7 @@ func (t* Textile) SubscribeStream(id string) error {
     sources := make([]string, 0)
     doneCh := make(chan struct{})
 	done := func() {
-		close(doneCh)
+		doneCh <- struct{}{}
     }
     go func() {
 		<-timer.C
