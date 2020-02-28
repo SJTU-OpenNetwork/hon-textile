@@ -107,6 +107,10 @@ func (a *Api) streamSubscribe(g *gin.Context) {
 		return
 	}
 	fmt.Printf("Try to subscribe stream %s.\n", streamId)
-	//err = a.Node.SubscribeStream()
+	err = a.Node.SubscribeStream(streamId)
+	if err != nil {
+		g.String(http.StatusBadRequest, err.Error())
+		return
+	}
 
 }
