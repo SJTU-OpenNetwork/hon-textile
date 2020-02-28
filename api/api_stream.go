@@ -14,7 +14,7 @@ import (
 
 
 func (a *Api)createStream(g *gin.Context) {
-	defer fmt.Printf("api.createStream end success")
+	defer fmt.Printf("api.createStream end success\n")
 	// Parse parameters
 	// params are defined in cmd/stream.go
 	opts, err := a.readOpts(g)

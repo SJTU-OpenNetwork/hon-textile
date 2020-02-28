@@ -74,27 +74,27 @@ func (t *Textile) StartStream(threadId string, config *pb.StreamMeta) error {
     t.variables.StreamFileChannels[config.Id] = make(chan io.Reader)
 
 	fmt.Printf("Start the add routine for stream\n")
-    go func(){
-		fmt.Printf("Stream routine start.\n")
-	    for {
-		    select {
-            case  newfile := <-t.variables.StreamFileChannels[config.Id]:
-                fileid, err := ipfs.AddData(t.node, newfile, true, false)
-                if err != nil {
-                    log.Error(err)
-                    return
-                }
-                err = t.TraverseNode(config.Id, fileid, true)
-                if err != nil {
-                    log.Error(err)
-                    return
-                }
-                t.stream.sm.NewFileAdd(config.Id)
-		    case <-t.done:
-			    return
-		    }
-	    }
-    }()
+    //go func(){
+	//	fmt.Printf("Stream routine start.\n")
+	//    for {
+	//	    select {
+    //        case  newfile := <-t.variables.StreamFileChannels[config.Id]:
+    //            fileid, err := ipfs.AddData(t.node, newfile, true, false)
+    //            if err != nil {
+    //                log.Error(err)
+    //                return
+    //            }
+    //            err = t.TraverseNode(config.Id, fileid, true)
+    //            if err != nil {
+    //                log.Error(err)
+    //                return
+    //            }
+    //            t.stream.sm.NewFileAdd(config.Id)
+	//	    case <-t.done:
+	//		    return
+	//	    }
+	//    }
+    //}()
 
 
 	//publish the Stream to others
