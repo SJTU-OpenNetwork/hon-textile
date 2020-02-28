@@ -84,8 +84,8 @@ func (a *Api) streamAddFile(g *gin.Context) {
 	}
 
 	streamFile := &pb.StreamFile{
-		Data:                 string(bytes[:]),
-		Description:          "",
+		Data:                 bytes,
+		Description:          make([]byte),
 	}
 	// Call textile
 	err = a.Node.StreamAddFile(streamId, streamFile)
