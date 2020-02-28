@@ -21,6 +21,7 @@ var flatFeedTypes = []pb.Block_BlockType{
 	pb.Block_ADDADMIN,
 	pb.Block_REMOVEPEER,
 	pb.Block_VIDEO,
+	pb.Block_STREAMMETA,
 }
 
 var annotatedFeedTypes = []pb.Block_BlockType{
@@ -29,6 +30,7 @@ var annotatedFeedTypes = []pb.Block_BlockType{
 	pb.Block_FILES,
 	pb.Block_TEXT,
 	pb.Block_VIDEO,
+	pb.Block_STREAMMETA,
 }
 
 type feedStack struct {
@@ -177,6 +179,8 @@ func (t *Textile) feedItem(block *pb.Block, opts feedItemOpts) (*pb.FeedItem, er
 		payload, err = t.removePeer(block, opts)
 	case pb.Block_VIDEO:
 		payload, err = t.feedVideo(block, opts)
+	case pb.Block_STREAMMETA:
+		payload, err = t.feedStream(block, opts)
 	default:
 		return nil, nil
 	}
@@ -318,6 +322,8 @@ func GetFeedItemPayload(item *pb.FeedItem) (FeedItemPayload, error) {
 		payload = new(pb.RemovePeer)
 	case pb.Block_VIDEO:
 		payload = new(pb.FeedVideo)
+	case pb.Block_STREAMMETA:
+		payload = new(pb.FeedStreamMeta)
 	default:
 		return nil, fmt.Errorf("unable to parse payload")
 	}
