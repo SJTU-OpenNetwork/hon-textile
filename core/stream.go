@@ -47,24 +47,22 @@ func (t *Textile) TraverseNode(sid string, cid *cid.Cid, isRoot bool) error {
     return nil
 }
 
+
 func (t *Textile) StartStream(threadId string, config *pb.StreamMeta) error {
 	defer fmt.Printf("textile.StartStream end success\n")
 	fmt.Printf("textile.StartStream\n")
+    
 	// if the stream id already in use?
-	stream := t.GetStreamMeta(string(config.Id))
-	if stream != nil {
-		return ErrStreamAlreadyInUse
-	}
     _, ok := t.variables.StreamFileChannels[config.Id]
     if ok {
 		return ErrStreamAlreadyInUse
     }
-
-    fmt.Printf("Existing stream checked\n")
-    // TODO
-    //init a Stream
-	err := t.datastore.StreamMetas().Add(config)
-	stream = t.GetStreamMeta(string(config.Id))
+	
+    err := t.datastore.StreamMetas().Add(config)
+    if err != nil {
+        return err
+    }
+    stream := t.GetStreamMeta(string(config.Id))
 	if stream == nil {
 		return ErrStreamNotFound
 	}
@@ -89,6 +87,7 @@ func (t *Textile) StartStream(threadId string, config *pb.StreamMeta) error {
                    log.Error(err)
                    return
                }
+	            fmt.Printf("add file\n")
                t.stream.sm.NewFileAdd(config.Id)
 		    case <-t.done:
 			    return
@@ -104,7 +103,7 @@ func (t *Textile) StartStream(threadId string, config *pb.StreamMeta) error {
 		return ErrStreamNotFound
 	}
 
-	fmt.Printf("Add streamMeta to thread.\n")
+	//fmt.Printf("Add streamMeta to thread.\n")
 	_, err = thread.AddStreamMeta(stream)
 	return err
 }
