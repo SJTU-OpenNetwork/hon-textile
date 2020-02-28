@@ -279,3 +279,12 @@ message LogLevel {
 message Strings {
     repeated string values = 1;
 }
+
+
+message VideoDescription {
+    string chunk    = 1;
+    int64 startTime = 2;
+    int64 endTime   = 3;
+    int64 index     = 4;
+    
+}

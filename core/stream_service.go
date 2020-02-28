@@ -109,7 +109,6 @@ func (h *StreamService) handleStreamBlockList(env *pb.Envelope, pid peer.ID) (*p
     }
     for _, blk := range blks.Blocks {
 
-        //fmt.Printf("Oh! block recevied! What's in it?")
         stat, err := ipfs.PutBlock(h.service.Node(), strings.NewReader(blk.Data))
         if err != nil {
             return nil, err
@@ -134,7 +133,8 @@ func (h *StreamService) handleStreamBlockList(env *pb.Envelope, pid peer.ID) (*p
             fmt.Print("It is a root node of a merkle-DAG!\n")
             // h.sm.NewBlockReceive(model, []byte(blk.Data))
             // implement root handler in stream_service directly
-            h.handleRootBlk(model)
+
+            h.sm.NewBlockReceive(model, []byte(blk.Data))
         }
     }
     return nil, nil

@@ -1,7 +1,6 @@
 package mobile
 
 import (
-	"bytes"
 	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 	"github.com/golang/protobuf/proto"
 
@@ -41,8 +40,14 @@ func (m *Mobile) UnsubscribeStream(streamid string) error {
 	return m.node.UnsubscribeStream(streamid)
 }
 
-func (m *Mobile) StreamAddFile(streamid string, data []byte) error {
-	file := bytes.NewReader(data)
+func (m *Mobile) StreamAddFile(streamid string, f []byte) error {
+	if !m.node.Started() {
+		return core.ErrStopped
+	}
+	file := new(pb.StreamFile)
+	if err := proto.Unmarshal(f, file); err != nil {
+		return err
+	}
 	return m.node.StreamAddFile(streamid, file)
 }
 

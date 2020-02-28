@@ -3,7 +3,7 @@ package core
 import (
 	"fmt"
 	"time"
-
+    "strings"
 	//	"github.com/SJTU-OpenNetwork/hon-textile/stream"
 	"github.com/ipfs/go-cid"
 
@@ -14,12 +14,11 @@ import (
 	"github.com/SJTU-OpenNetwork/hon-textile/ipfs"
 	"github.com/golang/protobuf/proto"
 	"github.com/golang/protobuf/ptypes/any"
-	"io"
 )
 var ErrStreamNotFound = fmt.Errorf("stream not found")
 var ErrStreamAlreadyInUse = fmt.Errorf("stream already in use")
 
-func (t *Textile) SaveBlock(sid string, cid *cid.Cid, isRoot bool) error {
+func (t *Textile) SaveBlock(sid string, cid *cid.Cid, isRoot bool, payload string) error {
     cur, ok := t.variables.streamBlockIndex[sid]
     if !ok {
         cur = 0
@@ -37,6 +36,7 @@ func (t *Textile) SaveBlock(sid string, cid *cid.Cid, isRoot bool) error {
         Index: cur,
         Size: int32(stat.CumulativeSize),
         IsRoot: isRoot,
+        Description: payload,
     })
     if err != nil {
         log.Error(err)
@@ -47,21 +47,21 @@ func (t *Textile) SaveBlock(sid string, cid *cid.Cid, isRoot bool) error {
     return nil
 }
 
-func (t *Textile) TraverseNode(sid string, cid *cid.Cid, isRoot bool) error {
+func (t *Textile) TraverseNode(sid string, cid *cid.Cid, isRoot bool, payload string) error {
     links, err := ipfs.LinksAtPath(t.node, cid.String())
     if err != nil{
         return err
     }
     if len(links) == 0 {
-        err = t.SaveBlock(sid, cid, isRoot)
+        err = t.SaveBlock(sid, cid, isRoot, payload)
         if err != nil {
             return err
         }
     } else {
         for _,l := range links {
-            t.TraverseNode(sid, &l.Cid, false)
+            t.TraverseNode(sid, &l.Cid, false, "")
         }
-        err = t.SaveBlock(sid, cid, isRoot)
+        err = t.SaveBlock(sid, cid, isRoot, payload)
         if err != nil {
             return err
         }
@@ -91,7 +91,7 @@ func (t *Textile) StartStream(threadId string, config *pb.StreamMeta) error {
     t.variables.streamBlockIndex[config.Id] = 0
 
     //Start a channel for adding files
-    t.variables.StreamFileChannels[config.Id] = make(chan io.Reader)
+    t.variables.StreamFileChannels[config.Id] = make(chan *pb.StreamFile)
 
 	fmt.Printf("Start the add routine for stream\n")
     go func(){
@@ -99,12 +99,13 @@ func (t *Textile) StartStream(threadId string, config *pb.StreamMeta) error {
 	   for {
 		    select {
            case  newfile := <-t.variables.StreamFileChannels[config.Id]:
-               fileid, err := ipfs.AddData(t.node, newfile, true, false)
+               r := strings.NewReader(newfile.Data)
+               fileid, err := ipfs.AddData(t.node, r, true, false)
                if err != nil {
                    log.Error(err)
                    return
                }
-               err = t.TraverseNode(config.Id, fileid, true)
+               err = t.TraverseNode(config.Id, fileid, true, newfile.Description)
                if err != nil {
                    log.Error(err)
                    return
@@ -140,8 +141,12 @@ func (t *Textile) GetStreamMeta(id string) *pb.StreamMeta {
 
 
 // add the new file to the corresponding channel
-func (t *Textile) StreamAddFile(id string, file io.Reader) error {
-    t.variables.StreamFileChannels[id] <- file 
+func (t *Textile) StreamAddFile(id string, sf *pb.StreamFile) error {
+    ch, ok :=  t.variables.StreamFileChannels[id]
+    if !ok {
+        return fmt.Errorf("No such stream")
+    }
+    ch <- sf
 	return nil
 }
 
