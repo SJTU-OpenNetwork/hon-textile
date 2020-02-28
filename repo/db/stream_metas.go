@@ -15,7 +15,7 @@ func (s StreamMetaDB) Add(streammeta *pb.StreamMeta) error {
 	s.lock.Lock()
 	defer s.lock.Unlock()
 
-	stm := `insert or ignore into stream_metas(id) values(?)`
+	stm := `insert or ignore into stream_metas(id, nstream, bitrate, caption) values(?,?,?,?)`
 	tx, err := s.db.Begin()
 	if err != nil {
 		log.Error(err)
@@ -27,7 +27,7 @@ func (s StreamMetaDB) Add(streammeta *pb.StreamMeta) error {
 		return err
 	}
 	defer stmt.Close()
-	_, err = stmt.Exec(streammeta.Id)
+	_, err = stmt.Exec(streammeta.Id, streammeta.Nsubstreams, streammeta.Bitrate, streammeta.Caption)
 	if err != nil {
 		log.Error(err)
 		_ = tx.Rollback()
@@ -63,13 +63,17 @@ func (s *StreamMetaDB) handleQuery(stm string) []*pb.StreamMeta{
 		return nil
 	}
 	for rows.Next(){
-		var id string
-		if err := rows.Scan(&id); err != nil{
+		var id, caption string
+        var nstream, bitrate int32
+		if err := rows.Scan(&id, &nstream, &bitrate, &caption); err != nil{
 			log.Errorf("error in db scan: %s", err)
 			continue
 		}
 		list = append(list, &pb.StreamMeta{
 			Id: id,
+            Nsubstreams: nstream,
+            Bitrate: bitrate,
+            Caption: caption,
 		})
 	}
 	return list

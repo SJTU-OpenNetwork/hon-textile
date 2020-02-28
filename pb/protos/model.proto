@@ -443,6 +443,8 @@ message StreamBlockList {
 message StreamMeta {
     string id       = 1;
     int32 nsubstreams = 2;
+    int32 bitrate = 3;
+    string caption = 4;
 }
 
 message Stream {

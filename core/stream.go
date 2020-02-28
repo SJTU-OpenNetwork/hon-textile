@@ -114,10 +114,15 @@ func (t *Textile) StreamAddFile(id string, file io.Reader) error {
 	return nil
 }
 
-func (t* Textile) SubscribeStream(config *pb.StreamRequest) error {
+func (t* Textile) SubscribeStream(id string) error {
+    config := &pb.StreamRequest {
+        Id: id,
+        StreamMap: 1,
+        StartIndex: 0,
+    }
 	// call search stream
     query := & pb.StreamQuery { 
-        Id: config.Id,
+        Id: id,
     }
     opt := &pb.QueryOptions {
         Wait: 10,

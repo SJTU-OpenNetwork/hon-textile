@@ -68,4 +68,3 @@ func (m *Mobile) UnsubscribeStream(streamid string) error {
 
 	return m.node.UnsubscribeStream(streamid)
 }
-
