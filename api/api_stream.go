@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 	"github.com/gin-gonic/gin"
+	"io/ioutil"
 	"os"
 
 	//"github.com/SJTU-OpenNetwork/hon-textile/pb"
@@ -79,14 +80,19 @@ func (a *Api) streamAddFile(g *gin.Context) {
 	}
 
 	// Open File
-	fileObj, err := os.Open(filePath)
+	bytes, err := ioutil.ReadFile(filePath)
+	//fileObj, err := os.Open(filePath)
 	if err != nil {
 		g.String(http.StatusBadRequest, err.Error())
 		return
 	}
 
+	streamFile := &pb.StreamFile{
+		Data:                 string(bytes[:]),
+		Description:          "",
+	}
 	// Call textile
-	err = a.Node.StreamAddFile(streamId, fileObj)
+	err = a.Node.StreamAddFile(streamId, streamFile)
 	if err != nil {
 		g.String(http.StatusBadRequest, err.Error())
 		return
