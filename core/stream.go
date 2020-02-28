@@ -159,24 +159,25 @@ func (t* Textile) SubscribeStream(id string) error {
 		done()
 
 	}()
-
-    for {
-		select {
-		case <-doneCh:
-			break
-		case value, ok := <-resCh:
-			if !ok {
-                log.Warning("error in SubscribeStream (search)")
-                done()
-                break
-            }
-            sources = append(sources, value.Id)
-            if len(sources) > 3 {
-                done()
-                break
-            }
-        }
-    }
+	// break will only break select if there is no Label L
+	L:
+		for {
+			select {
+			case <-doneCh:
+				break L
+			case value, ok := <-resCh:
+				if !ok {
+					log.Warning("error in SubscribeStream (search)")
+					done()
+					break L
+				}
+				sources = append(sources, value.Id)
+				if len(sources) > 3 {
+					done()
+					break L
+				}
+			}
+		}
 
     if len(sources) == 0 {
         return fmt.Errorf("Cannot locate sources")
