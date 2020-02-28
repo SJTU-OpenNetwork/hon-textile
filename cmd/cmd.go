@@ -954,14 +954,25 @@ The response contains a base58 encoded version of the random bytes token.`).Alia
 	// TODO: Generage streamId instead of set it.
 	streamCmd := appCmd.Command("stream", "File stream corresponding command.")
 	streamCreateCmd := streamCmd.Command("start", "Start a new file stream with specific streamid")
+	streamCreateThread := streamCmd.Arg("thread", "The thread to attach stream on.").Required().String()
 	streamCreateId := streamCreateCmd.Arg("streamId", "Id of the creating stream.").Required().String()
 	streamCreateSubnum := streamCreateCmd.Flag("subNum", "Number of substreams.").Short('n').Default("1").Int()
 	cmds[streamCreateCmd.FullCommand()] = func() error {
 		//fmt.Printf("Try to call StreamCreate")
-		return StreamCreate(*streamCreateId, *streamCreateSubnum)
+		return StreamCreate(*streamCreateThread, *streamCreateId, *streamCreateSubnum)
 	}
-	//streamAddCmd := streamCmd.Command("add", "Add a file to stream")
-	//streamAddId := streamAddCmd.
+	streamAddFileCmd := streamCmd.Command("add", "Add a file to stream")
+	streamAddFileId := streamAddFileCmd.Arg("streamId", "The id of stream.").Required().String()
+	streamAddFilePath := streamAddFileCmd.Arg("file", "The path of file.").Required().String()
+	cmds[streamCreateCmd.FullCommand()] = func() error {
+		return StreamAddFile(*streamAddFileId, *streamAddFilePath)
+	}
+
+	streamSubscribeCmd := streamCmd.Command("subscribe", "Subscribe a stream.")
+	streamSubscribeStreamId := streamSubscribeCmd.Arg("streamId").Required().String()
+	cmds[streamSubscribeCmd.FullCommand()] = func () error {
+		return StreamSubscribe(*streamSubscribeStreamId)
+	}
 
 	// ================================
 

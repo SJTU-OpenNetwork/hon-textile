@@ -6,14 +6,35 @@ import (
 	"strconv"
 )
 
-func StreamCreate(streamId string, subNum int) error {
+func StreamCreate(threadId string, streamId string, subNum int) error {
 	//fmt.Printf("Call cmd/stream.go/StreamCreate")
-	cmdOpt := map[string]string{"streamId": streamId, "subNum": strconv.Itoa(subNum)}
+	cmdOpt := map[string]string{"threadId": threadId, "streamId": streamId, "subNum": strconv.Itoa(subNum)}
 	res, err := executeStringCmd(http.MethodPost, "stream/create", params{opts: cmdOpt})
 	if err != nil {
 		return err
 	}
 	output(res)
 
+	return nil
+}
+
+func StreamAddFile(streamId string, filePath string) error {
+	cmdOpt := map[string]string{"streamId": streamId, "filePath": filePath}
+	res, err := executeStringCmd(http.MethodPost, "stream/addfile", params{opts:cmdOpt})
+	if err != nil {
+		return err
+	}
+	output(res)
+
+	return nil
+}
+
+func StreamSubscribe(streamId string) error {
+	cmdOpt := map[string]string{"streamId": streamId}
+	res, err := executeStringCmd(http.MethodPost, "stream/subscribe", params{opts: cmdOpt})
+	if err != nil {
+		return err
+	}
+	output(res)
 	return nil
 }

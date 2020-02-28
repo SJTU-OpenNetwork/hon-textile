@@ -359,6 +359,8 @@ func (a *Api) Run() {
 		{
 			//profile.GET("", a.getProfile)
 			stream.POST("/create", a.createStream)
+			stream.POST("/addfile", a.streamAddFile)
+			stream.POST("/subscribe", a.streamSubscribe)
 			//profile.POST("/avatar", a.setAvatar)
 		}
 	}
