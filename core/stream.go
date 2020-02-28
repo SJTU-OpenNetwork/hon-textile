@@ -48,6 +48,7 @@ func (t *Textile) TraverseNode(sid string, cid *cid.Cid, isRoot bool) error {
 }
 
 func (t *Textile) StartStream(threadId string, config *pb.StreamMeta) error {
+	fmt.Printf("textile.StartStream\n")
 	// if the stream id already in use?
 	stream := t.GetStreamMeta(string(config.Id))
 	if stream != nil {
@@ -58,6 +59,7 @@ func (t *Textile) StartStream(threadId string, config *pb.StreamMeta) error {
 		return ErrStreamAlreadyInUse
     }
 
+    fmt.Printf("Existing stream checked\n")
     // TODO
     //init a Stream
 	err := t.datastore.StreamMetas().Add(config)
@@ -69,6 +71,8 @@ func (t *Textile) StartStream(threadId string, config *pb.StreamMeta) error {
 
     //Start a channel for adding files
     t.variables.StreamFileChannels[config.Id] = make(chan io.Reader)
+
+	fmt.Printf("Start the add routine for stream\n")
     go func(){
 	    for {
 		    select {
