@@ -19,29 +19,51 @@ import (
 var ErrStreamNotFound = fmt.Errorf("stream not found")
 var ErrStreamAlreadyInUse = fmt.Errorf("stream already in use")
 
+func (t *Textile) SaveBlock(sid string, cid *cid.Cid, isRoot bool) error {
+    cur, ok := t.variables.streamBlockIndex[sid]
+    if !ok {
+        cur = 0
+    }
+	// TODO: Unhandled error
+    stat, err := ipfs.StatObjectAtPath(t.node, cid.String())
+    if err != nil {
+        log.Error(err)
+        return err
+    }
+    fmt.Printf("Saving block, cid: %s, index: %d, size: %d, isroot: %d", cid.String(), cur, stat.CumulativeSize, isRoot)
+    err = t.datastore.StreamBlocks().Add(&pb.StreamBlock{
+        Id: cid.String(),
+        Streamid: sid,
+        Index: cur,
+        Size: int32(stat.CumulativeSize),
+        IsRoot: isRoot,
+    })
+    if err != nil {
+        log.Error(err)
+        return err
+    }
+
+    t.variables.streamBlockIndex[sid] = cur+1
+    return nil
+}
+
 func (t *Textile) TraverseNode(sid string, cid *cid.Cid, isRoot bool) error {
     links, err := ipfs.LinksAtPath(t.node, cid.String())
     if err != nil{
         return err
     }
     if len(links) == 0 {
-        cur, ok := t.variables.streamBlockIndex[sid]
-        if !ok {
-            cur = 0
+        err = t.SaveBlock(sid, cid, isRoot)
+        if err != nil {
+            return err
         }
-		// TODO: Unhandled error
-        stat, _ := ipfs.StatObjectAtPath(t.node, cid.String())
-        t.datastore.StreamBlocks().Add(&pb.StreamBlock{
-            Id: cid.String(),
-            Streamid: sid,
-            Index: cur,
-            Size: int32(stat.CumulativeSize),
-            IsRoot: isRoot,
-        })
-        t.variables.streamBlockIndex[sid] = cur+1
     } else {
         for _,l := range links {
             t.TraverseNode(sid, &l.Cid, false)
+        }
+        err = t.SaveBlock(sid, cid, isRoot)
+        if err != nil {
+            return err
         }
     }
     return nil
