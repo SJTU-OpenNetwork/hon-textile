@@ -752,6 +752,7 @@ func (h *CafeService) searchLocal(qtype pb.Query_Type, options *pb.QueryOptions,
 			})
 		}
 	case pb.Query_STREAM:
+		fmt.Printf("Search local stream")
 		q := new(pb.StreamQuery)
 		err := ptypes.UnmarshalAny(payload, q)
 		if err != nil {
