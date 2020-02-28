@@ -74,6 +74,7 @@ func (t *Textile) StartStream(threadId string, config *pb.StreamMeta) error {
 
 	fmt.Printf("Start the add routine for stream\n")
     go func(){
+		fmt.Printf("Stream routine start.\n")
 	    for {
 		    select {
             case  newfile := <-t.variables.StreamFileChannels[config.Id]:
@@ -94,11 +95,15 @@ func (t *Textile) StartStream(threadId string, config *pb.StreamMeta) error {
 	    }
     }()
 
+
 	//publish the Stream to others
+	fmt.Printf("Find thread for stream.\n")
 	thread := t.Thread(threadId)
 	if thread == nil {
 		return ErrStreamNotFound
 	}
+
+	fmt.Printf("Add streamMeta to thread.\n")
 	_, err = thread.AddStreamMeta(stream)
 	return err
 }
