@@ -53,8 +53,10 @@ func (a *Api)createStream(g *gin.Context) {
 	if err != nil {
 		//fmt.Errorf(err.Error())
 		g.String(http.StatusBadRequest, err.Error())
+		return
 	}
-
+	g.String(http.StatusOK, "New stream create.")
+	return
 }
 
 func (a *Api) streamAddFile(g *gin.Context) {
