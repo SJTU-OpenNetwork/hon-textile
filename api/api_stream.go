@@ -105,5 +105,5 @@ func (a *Api) streamSubscribe(g *gin.Context) {
 	}
 	fmt.Printf("Try to subscribe stream %s.\n", streamId)
 	//err = a.Node.SubscribeStream()
-	
+
 }

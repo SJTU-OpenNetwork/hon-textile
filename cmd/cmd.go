@@ -969,7 +969,7 @@ The response contains a base58 encoded version of the random bytes token.`).Alia
 	}
 
 	streamSubscribeCmd := streamCmd.Command("subscribe", "Subscribe a stream.")
-	streamSubscribeStreamId := streamSubscribeCmd.Arg("streamId").Required().String()
+	streamSubscribeStreamId := streamSubscribeCmd.Arg("streamId", "Id of stream").Required().String()
 	cmds[streamSubscribeCmd.FullCommand()] = func () error {
 		return StreamSubscribe(*streamSubscribeStreamId)
 	}
