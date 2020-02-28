@@ -953,8 +953,9 @@ The response contains a base58 encoded version of the random bytes token.`).Alia
 	// For Stream
 	// TODO: Generage streamId instead of set it.
 	streamCmd := appCmd.Command("stream", "File stream corresponding command.")
+
 	streamCreateCmd := streamCmd.Command("start", "Start a new file stream with specific streamid")
-	streamCreateThread := streamCmd.Arg("thread", "The thread to attach stream on.").Required().String()
+	streamCreateThread := streamCreateCmd.Arg("thread", "The thread to attach stream on.").Required().String()
 	streamCreateId := streamCreateCmd.Arg("streamId", "Id of the creating stream.").Required().String()
 	streamCreateSubnum := streamCreateCmd.Flag("subNum", "Number of substreams.").Short('n').Default("1").Int()
 	cmds[streamCreateCmd.FullCommand()] = func() error {
