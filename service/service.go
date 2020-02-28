@@ -122,11 +122,11 @@ func (srv *Service) SendRequest(p string, pmes *pb.Envelope) (*pb.Envelope, erro
 	_ = srv.updateFromMessage(ctx, pid)
 
 	if rpmes == nil {
-		err = fmt.Errorf("no response from %s", p)
+		err = fmt.Errorf("no response from %s\n", p)
 		log.Debug(err.Error())
 		return nil, err
 	}
-
+	fmt.Printf("service/service.go SendRequest: Received request response from %s\n", p)
 	log.Debugf("received %s response from %s", rpmes.Message.Type.String(), p)
 	err = srv.handleError(rpmes)
 	if err != nil {
