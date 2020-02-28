@@ -91,7 +91,7 @@ type Variables struct {
     SwarmAddress    string
     FailedAddresses []string
 	lock            sync.Mutex
-    StreamFileChannels map[string]chan io.Reader
+    StreamFileChannels map[string]chan *pb.StreamFile
     streamBlockIndex map[string]uint64
 }
 
@@ -494,7 +494,7 @@ func (t *Textile) Start() error {
         t.variables.SwarmAddress = t.GetSwarmAddress(t.node.Identity.Pretty())
 	}()
 
-    t.variables.StreamFileChannels = make(map[string]chan io.Reader)
+    t.variables.StreamFileChannels = make(map[string]chan *pb.StreamFile)
     t.variables.streamBlockIndex = make(map[string] uint64)
 	for _, mod := range t.datastore.Threads().List().Items {
 		_, err = t.loadThread(mod)

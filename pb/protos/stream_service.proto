@@ -11,6 +11,7 @@ message StreamBlockContent {
     uint64 index = 2;
     string data = 3; 
     bool isRoot = 4;
+    string payload = 5;
 }
 
 message StreamBlockContentList {

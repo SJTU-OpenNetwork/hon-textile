@@ -203,6 +203,11 @@ message SyncFileList {
     repeated SyncFile items = 1;
 }
 
+message StreamFile {
+    string data = 1;
+    string description = 2;
+}
+
 message FileIndex {
     string mill                     = 1;
     string checksum                 = 2;
@@ -434,6 +439,7 @@ message StreamBlock {
     uint64 index     = 3;
     int32 size     = 4;
     bool isRoot    = 5;
+    string description = 6;
 }
 
 message StreamBlockList {
