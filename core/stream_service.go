@@ -108,6 +108,8 @@ func (h *StreamService) handleStreamBlockList(env *pb.Envelope, pid peer.ID) (*p
         return nil, err
     }
     for _, blk := range blks.Blocks {
+
+        fmt.Printf("Oh! block recevied! What's in it?")
         stat, err := ipfs.PutBlock(h.service.Node(), strings.NewReader(blk.Data))
         if err != nil {
             return nil, err
@@ -120,13 +122,16 @@ func (h *StreamService) handleStreamBlockList(env *pb.Envelope, pid peer.ID) (*p
             Size: int32(stat.Size()),
             IsRoot: blk.IsRoot,
         }
+        fmt.Printf("Oh! The cid is %s, Is that right?", cid.String())
         err = h.datastore.StreamBlocks().Add(model)
         if err != nil {
             return nil, err
         }
+        fmt.Printf("It is successfully stored in our database!")
 
         if blk.IsRoot {
             // we found a file !
+            fmt.Print("It is a root node of a merkle-DAG!")
             h.sm.NewBlockReceive(model, []byte(blk.Data))
         }
     }

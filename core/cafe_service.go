@@ -755,25 +755,21 @@ func (h *CafeService) searchLocal(qtype pb.Query_Type, options *pb.QueryOptions,
 		q := new(pb.StreamQuery)
 		err := ptypes.UnmarshalAny(payload, q)
 		if err != nil {
+            log.Error(err)
 			return nil, err
 		}
 		blocks := h.datastore.StreamBlocks().ListByStream(q.Id, int(q.Startindex),3)
 		var peerId string
-		if blocks == nil {
-			return nil, err
-		} else {
+		if blocks != nil {
 			peerId = h.service.Node().Identity.Pretty()
+		    results.Add(&pb.QueryResult{
+			    Id:     peerId,
+			    Local:  local,
+			    Value: &any.Any{
+				    TypeUrl: "/Stream",
+		    	},
+		    })
 		}
-		if err != nil {
-			return nil,nil
-		}
-		results.Add(&pb.QueryResult{
-			Id:     peerId,
-			Local:  local,
-			Value: &any.Any{
-				TypeUrl: "/Stream",
-			},
-		})
     case pb.Query_VIDEO:
 		q := new(pb.VideoQuery)
 		err := ptypes.UnmarshalAny(payload, q)

@@ -1,6 +1,7 @@
 package core
 
 import (
+    "fmt"
 	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 	"github.com/golang/protobuf/proto"
 	"github.com/golang/protobuf/ptypes"
@@ -35,7 +36,10 @@ func (t *Thread) AddStreamMeta(stream *pb.StreamMeta) (mh.Multihash, error){
 	return res.hash, nil
 }
 
-func (t *Thread) handleAddStreamMetaBlock(block *pb.ThreadBlock) (handleResult,error){
+func (t *Thread) handleAddStreamMetaBlock(block *pb.ThreadBlock) (handleResult,error){ 
+	defer fmt.Printf("Finish handelAddStreamMetaBlock\n")
+	fmt.Printf("In handelAddStreamMetaBlock\n")
+
 	var res handleResult
 
 	if !t.readable(t.config.Account.Address) {
