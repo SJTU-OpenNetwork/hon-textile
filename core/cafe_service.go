@@ -752,7 +752,7 @@ func (h *CafeService) searchLocal(qtype pb.Query_Type, options *pb.QueryOptions,
 			})
 		}
 	case pb.Query_STREAM:
-		fmt.Printf("Search local stream\n")
+		fmt.Printf("cafe_service searchLocal: Search local stream\n")
 		q := new(pb.StreamQuery)
 		err := ptypes.UnmarshalAny(payload, q)
 		if err != nil {
@@ -762,6 +762,7 @@ func (h *CafeService) searchLocal(qtype pb.Query_Type, options *pb.QueryOptions,
 		blocks := h.datastore.StreamBlocks().ListByStream(q.Id, int(q.Startindex),3)
 		var peerId string
 		if blocks != nil {
+			fmt.Printf("cafe_service searchLocal: Get local stream\n")
 			peerId = h.service.Node().Identity.Pretty()
 		    results.Add(&pb.QueryResult{
 			    Id:     peerId,
@@ -770,6 +771,8 @@ func (h *CafeService) searchLocal(qtype pb.Query_Type, options *pb.QueryOptions,
 				    TypeUrl: "/Stream",
 		    	},
 		    })
+		} else {
+			fmt.Printf("cafe_service searchLocal: No search res\n")
 		}
     case pb.Query_VIDEO:
 		q := new(pb.VideoQuery)
