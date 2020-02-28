@@ -83,6 +83,7 @@ func (t *Textile) StartStream(threadId string, config *pb.StreamMeta) error {
                     log.Error(err)
                     return
                 }
+                t.stream.sm.NewFileAdd(config.Id)
 		    case <-t.done:
 			    return
 		    }

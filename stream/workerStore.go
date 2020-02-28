@@ -11,11 +11,13 @@ import (
 type workerStore struct {
 	workerList map[string] []*streamWorker
 	lock sync.Mutex
+    load int
 }
 
 func newWorkerStore() *workerStore {
 	return &workerStore{
 		workerList: make(map[string][]*streamWorker),
+        load: 0,
 	}
 
 }
@@ -40,6 +42,7 @@ func (ws *workerStore) add(worker *streamWorker) error {
 
 	// Note: In golang, we can append data in a nil slice directly.
 	ws.workerList[worker.req.Id] = append(ws.workerList[worker.req.Id], worker)
+    ws.load ++
 	return nil
 }
 
@@ -58,3 +61,8 @@ func (ws *workerStore) newFileAdd(streamId string) error {
 	//		Raise an error if there is no worker with streamId
 	return nil
 }
+
+func (ws *workerStore) Workload() int {
+    return ws.load
+}
+
