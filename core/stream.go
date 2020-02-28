@@ -48,6 +48,7 @@ func (t *Textile) TraverseNode(sid string, cid *cid.Cid, isRoot bool) error {
 }
 
 func (t *Textile) StartStream(threadId string, config *pb.StreamMeta) error {
+	defer fmt.Printf("textile.StartStream end success\n")
 	fmt.Printf("textile.StartStream\n")
 	// if the stream id already in use?
 	stream := t.GetStreamMeta(string(config.Id))
