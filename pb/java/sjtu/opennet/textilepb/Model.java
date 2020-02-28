@@ -47628,6 +47628,21 @@ public final class Model {
      * <code>int32 nsubstreams = 2;</code>
      */
     int getNsubstreams();
+
+    /**
+     * <code>int32 bitrate = 3;</code>
+     */
+    int getBitrate();
+
+    /**
+     * <code>string caption = 4;</code>
+     */
+    java.lang.String getCaption();
+    /**
+     * <code>string caption = 4;</code>
+     */
+    com.google.protobuf.ByteString
+        getCaptionBytes();
   }
   /**
    * Protobuf type {@code StreamMeta}
@@ -47644,6 +47659,8 @@ public final class Model {
     private StreamMeta() {
       id_ = "";
       nsubstreams_ = 0;
+      bitrate_ = 0;
+      caption_ = "";
     }
 
     @java.lang.Override
@@ -47679,6 +47696,17 @@ public final class Model {
             case 16: {
 
               nsubstreams_ = input.readInt32();
+              break;
+            }
+            case 24: {
+
+              bitrate_ = input.readInt32();
+              break;
+            }
+            case 34: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              caption_ = s;
               break;
             }
             default: {
@@ -47756,6 +47784,49 @@ public final class Model {
       return nsubstreams_;
     }
 
+    public static final int BITRATE_FIELD_NUMBER = 3;
+    private int bitrate_;
+    /**
+     * <code>int32 bitrate = 3;</code>
+     */
+    public int getBitrate() {
+      return bitrate_;
+    }
+
+    public static final int CAPTION_FIELD_NUMBER = 4;
+    private volatile java.lang.Object caption_;
+    /**
+     * <code>string caption = 4;</code>
+     */
+    public java.lang.String getCaption() {
+      java.lang.Object ref = caption_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        caption_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string caption = 4;</code>
+     */
+    public com.google.protobuf.ByteString
+        getCaptionBytes() {
+      java.lang.Object ref = caption_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        caption_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -47776,6 +47847,12 @@ public final class Model {
       if (nsubstreams_ != 0) {
         output.writeInt32(2, nsubstreams_);
       }
+      if (bitrate_ != 0) {
+        output.writeInt32(3, bitrate_);
+      }
+      if (!getCaptionBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 4, caption_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -47791,6 +47868,13 @@ public final class Model {
       if (nsubstreams_ != 0) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(2, nsubstreams_);
+      }
+      if (bitrate_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(3, bitrate_);
+      }
+      if (!getCaptionBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, caption_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -47812,6 +47896,10 @@ public final class Model {
           .equals(other.getId());
       result = result && (getNsubstreams()
           == other.getNsubstreams());
+      result = result && (getBitrate()
+          == other.getBitrate());
+      result = result && getCaption()
+          .equals(other.getCaption());
       result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
@@ -47827,6 +47915,10 @@ public final class Model {
       hash = (53 * hash) + getId().hashCode();
       hash = (37 * hash) + NSUBSTREAMS_FIELD_NUMBER;
       hash = (53 * hash) + getNsubstreams();
+      hash = (37 * hash) + BITRATE_FIELD_NUMBER;
+      hash = (53 * hash) + getBitrate();
+      hash = (37 * hash) + CAPTION_FIELD_NUMBER;
+      hash = (53 * hash) + getCaption().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -47964,6 +48056,10 @@ public final class Model {
 
         nsubstreams_ = 0;
 
+        bitrate_ = 0;
+
+        caption_ = "";
+
         return this;
       }
 
@@ -47992,6 +48088,8 @@ public final class Model {
         sjtu.opennet.textilepb.Model.StreamMeta result = new sjtu.opennet.textilepb.Model.StreamMeta(this);
         result.id_ = id_;
         result.nsubstreams_ = nsubstreams_;
+        result.bitrate_ = bitrate_;
+        result.caption_ = caption_;
         onBuilt();
         return result;
       }
@@ -48046,6 +48144,13 @@ public final class Model {
         }
         if (other.getNsubstreams() != 0) {
           setNsubstreams(other.getNsubstreams());
+        }
+        if (other.getBitrate() != 0) {
+          setBitrate(other.getBitrate());
+        }
+        if (!other.getCaption().isEmpty()) {
+          caption_ = other.caption_;
+          onChanged();
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -48167,6 +48272,101 @@ public final class Model {
       public Builder clearNsubstreams() {
         
         nsubstreams_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int bitrate_ ;
+      /**
+       * <code>int32 bitrate = 3;</code>
+       */
+      public int getBitrate() {
+        return bitrate_;
+      }
+      /**
+       * <code>int32 bitrate = 3;</code>
+       */
+      public Builder setBitrate(int value) {
+        
+        bitrate_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 bitrate = 3;</code>
+       */
+      public Builder clearBitrate() {
+        
+        bitrate_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object caption_ = "";
+      /**
+       * <code>string caption = 4;</code>
+       */
+      public java.lang.String getCaption() {
+        java.lang.Object ref = caption_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          caption_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string caption = 4;</code>
+       */
+      public com.google.protobuf.ByteString
+          getCaptionBytes() {
+        java.lang.Object ref = caption_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          caption_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string caption = 4;</code>
+       */
+      public Builder setCaption(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        caption_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string caption = 4;</code>
+       */
+      public Builder clearCaption() {
+        
+        caption_ = getDefaultInstance().getCaption();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string caption = 4;</code>
+       */
+      public Builder setCaptionBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        caption_ = value;
         onChanged();
         return this;
       }
@@ -51198,15 +51398,16 @@ public final class Model {
       "lock\022\n\n\002id\030\001 \001(\t\022\020\n\010streamid\030\002 \001(\t\022\r\n\005in" +
       "dex\030\003 \001(\004\022\014\n\004size\030\004 \001(\005\022\016\n\006isRoot\030\005 \001(\010\"" +
       ".\n\017StreamBlockList\022\033\n\005items\030\001 \003(\0132\014.Stre" +
-      "amBlock\"-\n\nStreamMeta\022\n\n\002id\030\001 \001(\t\022\023\n\013nsu" +
-      "bstreams\030\002 \001(\005\"\024\n\006Stream\022\n\n\002id\030\001 \001(\t\"g\n\021" +
-      "CafeClientMessage\022\n\n\002id\030\001 \001(\t\022\014\n\004peer\030\002 " +
-      "\001(\t\022\016\n\006client\030\003 \001(\t\022(\n\004date\030\004 \001(\0132\032.goog" +
-      "le.protobuf.Timestamp\"}\n\005BotKV\022\013\n\003key\030\001 " +
-      "\001(\t\022\r\n\005value\030\002 \001(\014\022+\n\007created\030\003 \001(\0132\032.go" +
-      "ogle.protobuf.Timestamp\022+\n\007updated\030\004 \001(\013" +
-      "2\032.google.protobuf.TimestampB\034\n\026sjtu.ope" +
-      "nnet.textilepbZ\002pbb\006proto3"
+      "amBlock\"O\n\nStreamMeta\022\n\n\002id\030\001 \001(\t\022\023\n\013nsu" +
+      "bstreams\030\002 \001(\005\022\017\n\007bitrate\030\003 \001(\005\022\017\n\007capti" +
+      "on\030\004 \001(\t\"\024\n\006Stream\022\n\n\002id\030\001 \001(\t\"g\n\021CafeCl" +
+      "ientMessage\022\n\n\002id\030\001 \001(\t\022\014\n\004peer\030\002 \001(\t\022\016\n" +
+      "\006client\030\003 \001(\t\022(\n\004date\030\004 \001(\0132\032.google.pro" +
+      "tobuf.Timestamp\"}\n\005BotKV\022\013\n\003key\030\001 \001(\t\022\r\n" +
+      "\005value\030\002 \001(\014\022+\n\007created\030\003 \001(\0132\032.google.p" +
+      "rotobuf.Timestamp\022+\n\007updated\030\004 \001(\0132\032.goo" +
+      "gle.protobuf.TimestampB\034\n\026sjtu.opennet.t" +
+      "extilepbZ\002pbb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -51492,7 +51693,7 @@ public final class Model {
     internal_static_StreamMeta_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_StreamMeta_descriptor,
-        new java.lang.String[] { "Id", "Nsubstreams", });
+        new java.lang.String[] { "Id", "Nsubstreams", "Bitrate", "Caption", });
     internal_static_Stream_descriptor =
       getDescriptor().getMessageTypes().get(41);
     internal_static_Stream_fieldAccessorTable = new
