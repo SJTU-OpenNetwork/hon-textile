@@ -21,16 +21,16 @@ func (m *Mobile) StartStream(thread string, stream []byte) error {
 	return m.node.StartStream(thread, model)
 }
 
-func (m *Mobile) SubscribeStream(config []byte) error {
+func (m *Mobile) SubscribeStream(config string) error {
 	if !m.node.Started() {
 		return core.ErrStopped
 	}
 
-	model := new(pb.StreamRequest)
-	if err := proto.Unmarshal(config, model); err != nil {
-		return err
-	}
-	return m.node.SubscribeStream(model)
+	//model := new(pb.StreamRequest)
+	//if err := proto.Unmarshal(config, model); err != nil {
+	//	return err
+	//}
+	return m.node.SubscribeStream(config)
 }
 
 func (m *Mobile) UnsubscribeStream(streamid string) error {
