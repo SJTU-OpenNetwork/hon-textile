@@ -964,15 +964,15 @@ The response contains a base58 encoded version of the random bytes token.`).Alia
 	streamAddFileCmd := streamCmd.Command("add", "Add a file to stream")
 	streamAddFileId := streamAddFileCmd.Arg("streamId", "The id of stream.").Required().String()
 	streamAddFilePath := streamAddFileCmd.Arg("file", "The path of file.").Required().String()
-	cmds[streamCreateCmd.FullCommand()] = func() error {
+	cmds[streamAddFileCmd.FullCommand()] = func() error {
 		return StreamAddFile(*streamAddFileId, *streamAddFilePath)
 	}
 
-	//streamSubscribeCmd := streamCmd.Command("subscribe", "Subscribe a stream.")
-	//streamSubscribeStreamId := streamSubscribeCmd.Arg("streamId", "Id of stream").Required().String()
-	//cmds[streamSubscribeCmd.FullCommand()] = func () error {
-	//	return StreamSubscribe(*streamSubscribeStreamId)
-	//}
+	streamSubscribeCmd := streamCmd.Command("subscribe", "Subscribe a stream.")
+	streamSubscribeStreamId := streamSubscribeCmd.Arg("streamId", "Id of stream").Required().String()
+	cmds[streamSubscribeCmd.FullCommand()] = func () error {
+		return StreamSubscribe(*streamSubscribeStreamId)
+	}
 
 	// ================================
 
