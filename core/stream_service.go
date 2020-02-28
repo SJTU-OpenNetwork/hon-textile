@@ -165,6 +165,7 @@ func (h *StreamService) SendMessage(ctx context.Context, peerId string, env *pb.
 
 // HandleRequest
 func (h *StreamService) handleStreamRequest(env *pb.Envelope, pid peer.ID) (*pb.Envelope, error) {
+	fmt.Printf("core/stream_service.go handleStreamRequest from %s\n", pid.Pretty())
 	req := new(pb.StreamRequest)
 	err := ptypes.UnmarshalAny(env.Message.Payload, req)
 	if err != nil {
@@ -187,6 +188,7 @@ func (h *StreamService) handleStreamRequest(env *pb.Envelope, pid peer.ID) (*pb.
 }
 
 func (h *StreamService) SendStreamRequest(peerId string, config *pb.StreamRequest) (*pb.Envelope, error) {
+	fmt.Printf("core/stream_service.go SendStreamRequest to %s\n", peerId)
 	env, err := h.service.NewEnvelope(pb.Message_STREAM_REQUEST, config, nil, false)
 	if err != nil {
 		return nil,err
@@ -197,7 +199,7 @@ func (h *StreamService) SendStreamRequest(peerId string, config *pb.StreamReques
 
 //SendStreamBlocks send a list of block to a peer
 func (h *StreamService) SendStreamBlocks(peerId peer.ID, blks []*pb.StreamBlock) error{
-	fmt.Printf("StreamService: Send %d stream blks to %s", len(blks), peerId.Pretty())
+	fmt.Printf("StreamService: Send %d stream blks to %s\n", len(blks), peerId.Pretty())
 
 	// Marshal blocks to pb
     blist := new(pb.StreamBlockContentList)

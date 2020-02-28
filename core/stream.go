@@ -208,7 +208,7 @@ func (t* Textile) SubscribeStream(id string) error {
     for _, source := range sources {
 	    // swarm connect publisher
         t.TryConnect(source)
-
+		fmt.Printf("core/stream.go SubscribeStream: Send stream request to %s\n", source)
         env, err := t.RequestStream(source, config)
 	    if err != nil{
             log.Errorf("request %s failed", source)

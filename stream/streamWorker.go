@@ -1,6 +1,7 @@
 package stream
 
 import (
+	"fmt"
 	"github.com/libp2p/go-libp2p-core/peer"
 	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 )
@@ -52,15 +53,18 @@ func (sw *streamWorker) notice() {
 }
 
 func (sw *streamWorker) start() error {
+	fmt.Printf("stream/streamWorker.go start(): Worker for stream %s to %s start\n", sw.stream.Id, sw.pid.Pretty())
 	// Start the block sending routine
 	sw.currentIndex = sw.req.StartIndex
+	sw.notice() //notice once at begining
 	go func(){
 		for {
 			<-sw.workSignal
 			// Do sending
 			// Block if there is no signal
 			blks, _ := sw.blockFetcher(sw.req.Id, sw.currentIndex, maxBlockFetchNum)
-			if blks != nil {
+			if blks != nil && len(blks)>0{
+				fmt.Printf("stream/streamWorker.go start(): send %d blks for stream %s to %s start\n", len(blks), sw.stream.Id, sw.pid.Pretty())
 				fblks := sw.filterBlocks(blks)
 				// TODO: Unhandled error
 				sw.blockSender(sw.pid, fblks)

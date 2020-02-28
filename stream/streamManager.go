@@ -61,6 +61,7 @@ type StreamManagerService interface {
 
 
 func (sm *StreamManager) createWorker(pid peer.ID, req *pb.StreamRequest) *streamWorker {
+	fmt.Printf("stream/streamManager createWorker")
 	stream, err := sm.streamFetcher(req.Id)
 	if err != nil {
 		return nil
@@ -89,6 +90,7 @@ func (sm *StreamManager) Workload() int {
 // Call it when you decide to send blocks to requestor.
 // Use "Response" to distinguish with "Handle".
 func (sm *StreamManager) ResponseRequest(pid peer.ID, req *pb.StreamRequest) error {
+	fmt.Printf("stream/streamManager.go ResponseRequest\n")
 	//_, ok := sm.activeStreams.Get(req.Id)
 
 	//if !ok {
