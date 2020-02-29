@@ -20,6 +20,7 @@ type streamWorker struct {
 	pid peer.ID				// Contains information about destination
 	currentIndex uint64		// The index of block sending now
 	workSignal chan interface{}
+	cancelSignal chan interface{}
 	blockFetcher func(streamId string, startIndex uint64, maxNum int) ([] *pb.StreamBlock, error)
 	blockSender func (destination peer.ID, streamBlk [] *pb.StreamBlock) error
 	//stopSignal chan interface{}
@@ -38,6 +39,7 @@ func newStreamWorker(
 			pid: pid,
 			currentIndex: req.StartIndex,
 			workSignal: make(chan interface{}, 1),
+			cancelSignal: make(chan interface{}, 1),
 			blockFetcher: blockFetcher,
 			blockSender: blockSender,
 		}
@@ -52,31 +54,48 @@ func (sw *streamWorker) notice() {
 	}
 }
 
+// cancel worker
+// Note:
+// 		cancel have nothing to do with workerstore.
+func (sw *streamWorker) cancel(){
+	select {
+		case sw.cancelSignal <- struct{}{}:
+		default:
+	}
+}
+
 func (sw *streamWorker) start() error {
 	fmt.Printf("stream/streamWorker.go start(): Worker for stream %s to %s start\n", sw.stream.Id, sw.pid.Pretty())
 	// Start the block sending routine
 	sw.currentIndex = sw.req.StartIndex
 	sw.notice() //notice once at begining
 	go func(){
+		defer fmt.Printf("stream/streamWorker.go start(): worker for stream %s to %s end\n", sw.stream.Id, sw.pid.Pretty())
 		for {
-			<-sw.workSignal
-			// Do sending
-			// Block if there is no signal
-			blks, _ := sw.blockFetcher(sw.req.Id, sw.currentIndex, maxBlockFetchNum)
-			if blks != nil && len(blks)>0{
-				fmt.Printf("stream/streamWorker.go start(): send %d blks for stream %s to %s start\n", len(blks), sw.stream.Id, sw.pid.Pretty())
-				fblks := sw.filterBlocks(blks)
-				// TODO: Unhandled error
-				sw.blockSender(sw.pid, fblks)
-				sw.currentIndex = sw.currentIndex + uint64(len(blks))
-				// Notice the worker again if there maybe more blocks can be fetched.
-				if len(blks) >= maxBlockFetchNum {
-					sw.notice()
-				}
+			select {
+				case <-sw.workSignal:
+					// Do sending
+					// Block if there is no signal
+					blks, _ := sw.blockFetcher(sw.req.Id, sw.currentIndex, maxBlockFetchNum)
+					if blks != nil && len(blks) > 0 {
+						fmt.Printf("stream/streamWorker.go start(): send %d blks for stream %s to %s start\n", len(blks), sw.stream.Id, sw.pid.Pretty())
+						fblks := sw.filterBlocks(blks)
+						// TODO: Unhandled error
+						sw.blockSender(sw.pid, fblks)
+						sw.currentIndex = sw.currentIndex + uint64(len(blks))
+						// Notice the worker again if there maybe more blocks can be fetched.
+						if len(blks) >= maxBlockFetchNum {
+							sw.notice()
+						}
+					}
+				// TODO: How to end a worker???
+				case <- sw.cancelSignal:
+					// break will break select without label L
+					return
 			}
-			// TODO: How to end a worker???
 		}
 	}()
+
 	return nil
 }
 

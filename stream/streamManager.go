@@ -7,11 +7,12 @@ import (
 	"github.com/libp2p/go-libp2p-core/peer"
 	ipld "github.com/ipfs/go-ipld-format"
 	//cmap "github.com/orcaman/concurrent-map"
+	logging "github.com/ipfs/go-log"
 
 )
 
 var ErrRedundantReq = fmt.Errorf("Request is redundant")
-
+var log = logging.Logger("stream")
 // StreamManager is used to handle stream requests.
 // How to use:
 // 	- Give blockFetcher, streamFetcher, and blockSender when initialize a StreamManager.
