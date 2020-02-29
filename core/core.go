@@ -422,7 +422,8 @@ func (t *Textile) Start() error {
 	t.stream = NewStreamService(
 		t.account,
 		t.Ipfs,
-		t.datastore)
+		t.datastore,
+		t.sendNotification)
 	if t.cafeOutbox.handler == nil {
 		t.cafeOutbox.handler = t.cafe
 	}

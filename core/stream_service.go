@@ -11,9 +11,10 @@ import (
 	"context"
 //	"encoding/base64"
 //	"fmt"
-//	"time"
+	"time"
+    "github.com/segmentio/ksuid"
 
-//	"github.com/golang/protobuf/proto"
+//"github.com/golang/protobuf/proto"
 //    "github.com/ipfs/go-cid"
 	"github.com/golang/protobuf/ptypes"
 	"github.com/SJTU-OpenNetwork/go-ipfs/core"
@@ -42,6 +43,7 @@ type StreamService struct {
 	datastore        repo.Datastore
     sm               *stream.StreamManager
 	online           bool
+	sendNotification func(*pb.Notification) error
 }
 
 // NewStreamService returns a new stream service
@@ -49,9 +51,11 @@ func NewStreamService(
 	account *keypair.Full,
 	node func() *core.IpfsNode,
 	datastore repo.Datastore,
+	sendNotification func(*pb.Notification) error,
 ) *StreamService {
 	handler := &StreamService{
 		datastore:        datastore,
+		sendNotification: sendNotification,
 	}
 	handler.service = service.NewService(account, handler, node)
     handler.sm = stream.NewStreamManager(handler.FetchBlocks, handler.FetchStream, handler.SendStreamBlocks)
@@ -101,6 +105,7 @@ func (h *StreamService) handleStreamBlock(env *pb.Envelope, pid peer.ID) (*pb.En
 // handleStreamBlock receives a STREAM_BLOCK_LIST message
 func (h *StreamService) handleStreamBlockList(env *pb.Envelope, pid peer.ID) (*pb.Envelope, error) {
 	fmt.Printf("StreamService: New stream blk list receive from %s\n", pid.Pretty())
+    streams := make(map[string]int)
     blks := new(pb.StreamBlockContentList)
     err := ptypes.UnmarshalAny(env.Message.Payload, blks)
     if err != nil {
@@ -134,14 +139,38 @@ func (h *StreamService) handleStreamBlockList(env *pb.Envelope, pid peer.ID) (*p
             // h.sm.NewBlockReceive(model, []byte(blk.Data))
             // implement root handler in stream_service directly
 
-            h.sm.NewBlockReceive(model, []byte(blk.Data))
+            //h.sm.NewBlockReceive(model, []byte(blk.Data))
+            err = h.handleRootBlk(pid, model)
+            if err != nil {
+                fmt.Printf("Handle root file failed\n")
+                return nil, err
+            }
         }
+        streams[blk.StreamID] = 1
+    }
+    for id := range streams {
+        h.sm.NewFileAdd(id)
     }
     return nil, nil
 }
 
-func (h *StreamService) handleRootBlk(blk *pb.StreamBlock){
-	// 
+func (h *StreamService) handleRootBlk(pid peer.ID, blk *pb.StreamBlock) error {
+    pdate, _ := ptypes.TimestampProto(time.Now())
+	note := &pb.Notification{
+		Id:          ksuid.New().String(),
+		Date:        pdate,
+		Actor:       pid.Pretty(),
+		Subject:     blk.Streamid,
+		SubjectDesc: blk.Description,
+		Block:       blk.Id,
+		Target:      "",
+		Body:        "stream file",
+	}
+    err := h.sendNotification(note)
+	if err != nil {
+		return err
+	}
+    return nil
 }
 
 
