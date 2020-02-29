@@ -65,6 +65,7 @@ func (sw *streamWorker) cancel(){
 }
 
 func (sw *streamWorker) start() error {
+	//log.Debugf("[WORKERSTART]")
 	fmt.Printf("stream/streamWorker.go start(): Worker for stream %s to %s start\n", sw.stream.Id, sw.pid.Pretty())
 	// Start the block sending routine
 	sw.currentIndex = sw.req.StartIndex
