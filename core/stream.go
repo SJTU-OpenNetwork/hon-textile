@@ -254,7 +254,7 @@ func (t *Textile) SearchStream(query *pb.StreamQuery, options *pb.QueryOptions) 
 
 	options.Filter = pb.QueryOptions_HIDE_OLDER
 
-	resCh, errCh, cancel := t.search(&pb.Query{
+	resCh, errCh, cancel := t.searchAll(&pb.Query{
 		Type:    pb.Query_STREAM,
 		Options: options,
 		Payload: &any.Any{
