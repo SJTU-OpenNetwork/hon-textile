@@ -98,13 +98,15 @@ func (h *StreamService) handleStreamBlock(env *pb.Envelope, pid peer.ID) (*pb.En
         Streamid: blk.StreamID,
         Index: blk.Index,
     }
+
+	log.Debugf("[%s] Block %s, Stream %s, From %s", stream.TAG_BLOCKRECEIVE, cid.String(), blk.StreamID, pid.Pretty())
     err = h.datastore.StreamBlocks().Add(model)
     return nil, err
 }
 
 // handleStreamBlock receives a STREAM_BLOCK_LIST message
 func (h *StreamService) handleStreamBlockList(env *pb.Envelope, pid peer.ID) (*pb.Envelope, error) {
-	fmt.Printf("StreamService: New stream blk list receive from %s\n", pid.Pretty())
+	//fmt.Printf("StreamService: New stream blk list receive from %s\n", pid.Pretty())
     streams := make(map[string]int)
     blks := new(pb.StreamBlockContentList)
     err := ptypes.UnmarshalAny(env.Message.Payload, blks)
@@ -126,12 +128,13 @@ func (h *StreamService) handleStreamBlockList(env *pb.Envelope, pid peer.ID) (*p
             IsRoot: blk.IsRoot,
             Description: string(blk.Description),
         }
-        fmt.Printf("StreamService: Received stream %s; index %d; cid %s\n", blk.StreamID, blk.Index, cid.String())
+        //fmt.Printf("StreamService: Received stream %s; index %d; cid %s\n", blk.StreamID, blk.Index, cid.String())
+        log.Debugf("[%s] Block %s, Stream %s, From %s", stream.TAG_BLOCKRECEIVE, cid.String(), blk.StreamID, pid.Pretty())
         err = h.datastore.StreamBlocks().Add(model)
         if err != nil {
             return nil, err
         }
-        fmt.Printf("It is successfully stored in our database!\n")
+        //fmt.Printf("It is successfully stored in our database!\n")
 
         if blk.IsRoot {
             // we found a file !
@@ -225,18 +228,20 @@ func (h *StreamService) handleStreamRequest(env *pb.Envelope, pid peer.ID) (*pb.
 }
 
 func (h *StreamService) SendStreamRequest(peerId string, config *pb.StreamRequest) (*pb.Envelope, error) {
-	fmt.Printf("core/stream_service.go SendStreamRequest to %s\n", peerId)
+	//fmt.Printf("core/stream_service.go SendStreamRequest to %s\n", peerId)
+
 	env, err := h.service.NewEnvelope(pb.Message_STREAM_REQUEST, config, nil, false)
 	if err != nil {
 		return nil,err
 	}
+	log.Debugf("[%s] Stream %s, To %s", stream.TAG_STREAMREQUEST, config.Id, peerId)
 	return h.service.SendRequest(peerId, env)
 }
 
 
 //SendStreamBlocks send a list of block to a peer
 func (h *StreamService) SendStreamBlocks(peerId peer.ID, blks []*pb.StreamBlock) error{
-	fmt.Printf("StreamService: Send %d stream blks to %s\n", len(blks), peerId.Pretty())
+	//fmt.Printf("StreamService: Send %d stream blks to %s\n", len(blks), peerId.Pretty())
 
 	// Marshal blocks to pb
     blist := new(pb.StreamBlockContentList)
@@ -254,6 +259,7 @@ func (h *StreamService) SendStreamBlocks(peerId peer.ID, blks []*pb.StreamBlock)
             IsRoot: blk.IsRoot,
             Description: []byte(blk.Description),
         }
+        log.Debugf("[%s] Block %s, Stream %s, To %s", stream.TAG_BLOCKSEND, blk.Id, blk.Streamid, peerId.Pretty())
         blist.Blocks = append(blist.Blocks, content)
     }
 	env, err := h.service.NewEnvelope(pb.Message_STREAM_BLOCK_LIST, blist, nil, false)

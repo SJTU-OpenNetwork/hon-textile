@@ -12,6 +12,7 @@ import (
 )
 
 var ErrRedundantReq = fmt.Errorf("Request is redundant")
+var ErrUnknowkStream = fmt.Errorf("Unknown stream")
 var log = logging.Logger("stream")
 // StreamManager is used to handle stream requests.
 // How to use:
@@ -61,13 +62,14 @@ type StreamManagerService interface {
 }
 
 
-func (sm *StreamManager) createWorker(pid peer.ID, req *pb.StreamRequest) *streamWorker {
-	fmt.Printf("stream/streamManager createWorker")
+func (sm *StreamManager) createWorker(pid peer.ID, req *pb.StreamRequest) (*streamWorker, error) {
+	//fmt.Printf("stream/streamManager createWorker")
 	stream, err := sm.streamFetcher(req.Id)
 	if err != nil {
-		return nil
+		log.Errorf(err.Error())
+		return nil, ErrUnknowkStream
 	}
-	return newStreamWorker(stream, pid, req, sm.blockFetcher, sm.blockSender)
+	return newStreamWorker(stream, pid, req, sm.blockFetcher, sm.blockSender), nil
 }
 
 
@@ -106,9 +108,15 @@ func (sm *StreamManager) ResponseRequest(pid peer.ID, req *pb.StreamRequest) err
 	if sm.activeWorkers.isRedundant(pid, req) {
 		return ErrRedundantReq
 	}
-	worker := sm.createWorker(pid, req)
+	worker, err := sm.createWorker(pid, req)
+	if err != nil {
+		return err
+	}
 	// add worker to activeworkers
-	sm.activeWorkers.add(worker)
+	err = sm.activeWorkers.add(worker)
+	if err != nil {
+		return err
+	}
 	// start worker
 	return worker.start()
 }

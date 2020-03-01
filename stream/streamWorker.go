@@ -65,13 +65,14 @@ func (sw *streamWorker) cancel(){
 }
 
 func (sw *streamWorker) start() error {
-	//log.Debugf("[WORKERSTART]")
-	fmt.Printf("stream/streamWorker.go start(): Worker for stream %s to %s start\n", sw.stream.Id, sw.pid.Pretty())
+	log.Debugf("[%s] Stream %s, To %s", TAG_WORKERSTART, sw.stream.Id, sw.pid.Pretty())
+	//fmt.Printf("stream/streamWorker.go start(): Worker for stream %s to %s start\n", sw.stream.Id, sw.pid.Pretty())
 	// Start the block sending routine
 	sw.currentIndex = sw.req.StartIndex
 	sw.notice() //notice once at begining
 	go func(){
-		defer fmt.Printf("stream/streamWorker.go start(): worker for stream %s to %s end\n", sw.stream.Id, sw.pid.Pretty())
+		//defer fmt.Printf("stream/streamWorker.go start(): worker for stream %s to %s end\n", sw.stream.Id, sw.pid.Pretty())
+		defer log.Debugf("[%s] Stream %s, To %s", TAG_WORKEREND, sw.stream.Id, sw.pid.Pretty())
 		for {
 			select {
 				case <-sw.workSignal:
@@ -91,7 +92,7 @@ func (sw *streamWorker) start() error {
 					}
 				// TODO: How to end a worker???
 				case <- sw.cancelSignal:
-					// break will break select without label L
+					// Note that break will break select only.
 					return
 			}
 		}
