@@ -1319,7 +1319,8 @@ func (t *Textile) sendNotification(note *pb.Notification) error {
 	if err := t.datastore.Notifications().Add(note); err != nil {
 		return err
 	}
-
+    log.Debug("send notification")
+    log.Debugf("body: %s, block: %s", note.Body, note.Block)
 	t.notifications <- t.NotificationView(note)
 	return nil
 }

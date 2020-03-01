@@ -271,6 +271,8 @@ message Notification {
         PEER_REMOVED        = 101;
         VIDEO_ADDED         = 102;
         STREAM_ADDED        = 103;
+
+        STREAM_FILE         = 500;
     }
 
     // view info

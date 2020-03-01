@@ -164,6 +164,7 @@ func (h *StreamService) handleRootBlk(pid peer.ID, blk *pb.StreamBlock) error {
 		SubjectDesc: blk.Description,
 		Block:       blk.Id,
 		Target:      "",
+        Type:        pb.Notification_STREAM_FILE,
 		Body:        "stream file",
 	}
     err := h.sendNotification(note)

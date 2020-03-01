@@ -1,6 +1,7 @@
 package mobile
 
 import (
+    "fmt"
 	"github.com/golang/protobuf/proto"
 	logging "github.com/ipfs/go-log"
 	mh "github.com/multiformats/go-multihash"
@@ -268,8 +269,11 @@ func (m *Mobile) Start() error {
 				select {
 				case note, ok := <-m.node.NotificationCh():
 					if !ok {
+                        fmt.Print("NOT OK!")
 						return
 					}
+                    fmt.Print(note.Body)
+                    fmt.Print(note.Block)
 					m.notify(pb.MobileEventType_NOTIFICATION, note)
 				}
 			}
