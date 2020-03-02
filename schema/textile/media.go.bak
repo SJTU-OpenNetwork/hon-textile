@@ -7,7 +7,11 @@ var Media = `
   "links": {
     "large": {
       "use": ":file",
-      "mill": "/blob"
+      "mill": "/image/resize",
+      "opts": {
+        "width": "800",
+        "quality": "80"
+      }
     },
     "small": {
       "use": ":file",

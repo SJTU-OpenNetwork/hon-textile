@@ -119,3 +119,11 @@ func (m *Mobile) ipfsAddData(data []byte, pin bool, hashOnly bool) (string, erro
 	return path, nil
 }
 
+
+
+func (m *Mobile) ObjectAtPath(pth string) ([]byte, error) {
+	if !m.node.Started() {
+		return nil, core.ErrStopped
+	}
+	return ipfs.ObjectAtPath(m.node.Ipfs(), pth)
+}
