@@ -93,7 +93,8 @@ func (sm *StreamManager) Workload() int {
 // Call it when you decide to send blocks to requestor.
 // Use "Response" to distinguish with "Handle".
 func (sm *StreamManager) ResponseRequest(pid peer.ID, req *pb.StreamRequest) error {
-	fmt.Printf("stream/streamManager.go ResponseRequest\n")
+	//fmt.Printf("stream/streamManager.go ResponseRequest\n")
+	log.Debugf("[%s] Stream %s, From %s", TAG_STREAMRESPONSE, req.Id, pid.Pretty())
 	//_, ok := sm.activeStreams.Get(req.Id)
 
 	//if !ok {

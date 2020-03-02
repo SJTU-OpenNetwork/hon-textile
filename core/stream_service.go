@@ -99,7 +99,7 @@ func (h *StreamService) handleStreamBlock(env *pb.Envelope, pid peer.ID) (*pb.En
         Index: blk.Index,
     }
 
-	log.Debugf("[%s] Block %s, Stream %s, From %s", stream.TAG_BLOCKRECEIVE, cid.String(), blk.StreamID, pid.Pretty())
+	log.Debugf("[%s] Block %s, Stream %s, From %s, Size %d", stream.TAG_BLOCKRECEIVE, cid.String(), blk.StreamID, pid.Pretty(), stat.Size())
     err = h.datastore.StreamBlocks().Add(model)
     return nil, err
 }
@@ -129,7 +129,7 @@ func (h *StreamService) handleStreamBlockList(env *pb.Envelope, pid peer.ID) (*p
             Description: string(blk.Description),
         }
         //fmt.Printf("StreamService: Received stream %s; index %d; cid %s\n", blk.StreamID, blk.Index, cid.String())
-        log.Debugf("[%s] Block %s, Stream %s, From %s", stream.TAG_BLOCKRECEIVE, cid.String(), blk.StreamID, pid.Pretty())
+        log.Debugf("[%s] Block %s, Stream %s, From %s, Size %d", stream.TAG_BLOCKRECEIVE, cid.String(), blk.StreamID, pid.Pretty(), stat.Size())
         err = h.datastore.StreamBlocks().Add(model)
         if err != nil {
             return nil, err
@@ -260,7 +260,7 @@ func (h *StreamService) SendStreamBlocks(peerId peer.ID, blks []*pb.StreamBlock)
             IsRoot: blk.IsRoot,
             Description: []byte(blk.Description),
         }
-        log.Debugf("[%s] Block %s, Stream %s, To %s", stream.TAG_BLOCKSEND, blk.Id, blk.Streamid, peerId.Pretty())
+        log.Debugf("[%s] Block %s, Stream %s, To %s, Size %d", stream.TAG_BLOCKSEND, blk.Id, blk.Streamid, peerId.Pretty(), blk.Size)
         blist.Blocks = append(blist.Blocks, content)
     }
 	env, err := h.service.NewEnvelope(pb.Message_STREAM_BLOCK_LIST, blist, nil, false)

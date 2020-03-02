@@ -83,7 +83,10 @@ func (sw *streamWorker) start() error {
 						fmt.Printf("stream/streamWorker.go start(): send %d blks for stream %s to %s start\n", len(blks), sw.stream.Id, sw.pid.Pretty())
 						fblks := sw.filterBlocks(blks)
 						// TODO: Unhandled error
-						sw.blockSender(sw.pid, fblks)
+						err := sw.blockSender(sw.pid, fblks)
+						if err != nil {
+							log.Errorf("%s\nError occur when sending blocks.", err.Error())
+						}
 						sw.currentIndex = sw.currentIndex + uint64(len(blks))
 						// Notice the worker again if there maybe more blocks can be fetched.
 						if len(blks) >= maxBlockFetchNum {
