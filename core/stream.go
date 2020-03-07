@@ -271,6 +271,10 @@ func (t *Textile) GetStreamBlocks(streamId string, startIndex int) ([]cid.Cid, e
 	return nil, nil
 }
 
+func (t *Textile) StreamWorkerStat() {
+	t.stream.WorkerStat()
+}
+
 //TODO:
 // - Add Stream into database
 // - Implement search for pb.Query_VIDEO in core/cafe_service.go/searchLocal.
