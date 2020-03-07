@@ -5,8 +5,10 @@ import (
 	ma "github.com/multiformats/go-multiaddr"
 )
 
-type StreamNotifee struct {
+type StreamNotifee StreamManager
 
+func (sn *StreamNotifee) manager() *StreamManager {
+    return (*StreamManager)(sn) 
 }
 
 func (*StreamNotifee) Listen (net network.Network, addr ma.Multiaddr) {
@@ -17,12 +19,13 @@ func (*StreamNotifee) ListenClose (net network.Network, addr ma.Multiaddr) {
 	//fmt.Printf("Notifee: Close listen address %s\n", addr.String())
 }
 
-func (*StreamNotifee) Connected (net network.Network, conn network.Conn) {
+func (sn *StreamNotifee) Connected (net network.Network, conn network.Conn) {
 	//fmt.Printf("Notifee: Connect %s\n", conn.RemotePeer().Pretty())
 }
 
-func (*StreamNotifee) Disconnected(net network.Network, conn network.Conn) {
+func (sn *StreamNotifee) Disconnected(net network.Network, conn network.Conn) {
 	//fmt.Printf("Notifee: Disconnect %s\n", conn.RemotePeer().Pretty())
+    sn.manager().PeerDisconnected(conn.RemotePeer())
 }
 
 func (*StreamNotifee) OpenedStream(net network.Network, str network.Stream) {

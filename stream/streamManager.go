@@ -90,6 +90,9 @@ func (sm *StreamManager) Workload() int {
     return sm.activeWorkers.Workload()
 }
 
+func (sm *StreamManager)PeerDisconnected(pid peer.ID) {
+}
+
 // Call it when you decide to send blocks to requestor.
 // Use "Response" to distinguish with "Handle".
 func (sm *StreamManager) ResponseRequest(pid peer.ID, req *pb.StreamRequest) error {

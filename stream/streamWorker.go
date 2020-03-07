@@ -86,6 +86,7 @@ func (sw *streamWorker) start() error {
 						err := sw.blockSender(sw.pid, fblks)
 						if err != nil {
 							log.Errorf("%s\nError occur when sending blocks.", err.Error())
+                            break
 						}
 						sw.currentIndex = sw.currentIndex + uint64(len(blks))
 						// Notice the worker again if there maybe more blocks can be fetched.
