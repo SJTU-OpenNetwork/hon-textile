@@ -91,6 +91,8 @@ func (sm *StreamManager) Workload() int {
 }
 
 func (sm *StreamManager)PeerDisconnected(pid peer.ID) {
+	// Stop all the workers
+	log.Debugf("Peer %s disconnected", pid)
 }
 
 // Call it when you decide to send blocks to requestor.
