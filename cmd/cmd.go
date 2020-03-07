@@ -975,6 +975,11 @@ The response contains a base58 encoded version of the random bytes token.`).Alia
 		return StreamSubscribe(*streamSubscribeStreamId)
 	}
 
+	streamWorkerStatCmd := streamCmd.Command("workerStat", "PrintOut the stat of stream workers.")
+	cmds[streamWorkerStatCmd.FullCommand()] = func() error {
+		return StreamWorkerStat()
+	}
+
 	// ================================
 
 	hideGlobalsFlagsFor(

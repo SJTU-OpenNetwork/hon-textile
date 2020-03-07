@@ -1,6 +1,8 @@
 package stream
 
 import (
+	"encoding/json"
+	"fmt"
 	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 	"github.com/libp2p/go-libp2p-core/peer"
 	"sync"
@@ -112,5 +114,31 @@ func (ws *workerStore) endPeer(pid string) {
 	for _, k := range deleteList {
 		delete(ws.workerList, k)
 	}
+}
 
+func (ws *workerStore) Loggable() map[string]interface{} {
+	ws.lock.Lock()
+	defer ws.lock.Unlock()
+	workers := make(map[string][]string)
+	for streamId, tmpList := range ws.workerList {
+		tmpSlice := make([]string, 0, len(tmpList))
+		for _, worker := range tmpList {
+			tmpSlice = append(tmpSlice, worker.pid.Pretty())
+		}
+		workers[streamId] = tmpSlice
+	}
+	return map[string]interface{}{
+		"Number of Workers" : ws.load,
+		"Workers": workers,
+	}
+}
+
+func (ws *workerStore) PrintOut() {
+	infos :=  ws.Loggable()
+	js, err := json.MarshalIndent(infos, "", "  ")
+	if err != nil {
+		fmt.Printf("%s\n", err.Error())
+	} else {
+		fmt.Printf("%s\n", string(js))
+	}
 }
