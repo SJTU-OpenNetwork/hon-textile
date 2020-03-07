@@ -104,6 +104,7 @@ func (h *StreamService) handleStreamBlock(env *pb.Envelope, pid peer.ID) (*pb.En
     return nil, err
 }
 
+
 // handleStreamBlock receives a STREAM_BLOCK_LIST message
 func (h *StreamService) handleStreamBlockList(env *pb.Envelope, pid peer.ID) (*pb.Envelope, error) {
 	//fmt.Printf("StreamService: New stream blk list receive from %s\n", pid.Pretty())

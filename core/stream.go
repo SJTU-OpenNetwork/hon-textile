@@ -150,6 +150,52 @@ func (t *Textile) StreamAddFile(id string, sf *pb.StreamFile) error {
 	return nil
 }
 
+func (t *Textile) handleSearchProvider(resultCh <-chan *pb.QueryResult, errCh <-chan error, cancel *broadcast.Broadcaster, config *pb.StreamRequest) (error) {
+	go func() {
+		for {
+			select {
+			case err := <-errCh:
+                log.Error(err)
+				return
+
+			case res, ok := <-resultCh:
+				if !ok {
+					return
+				}
+				log.Debugf("get search result , id: %s",res.Id)
+
+                //if already have provider
+                //just break
+
+                connected, err := ipfs.SwarmConnected(t.node, res.Id) 
+	            if err != nil{
+                    log.Error(err)
+	    	        break
+                }
+                if connected {
+
+                    env, err := t.RequestStream(res.Id, config)
+	                if err != nil{
+                        log.Error(err)
+	    	            break
+                    }
+                    response := new(pb.StreamRequestHandle)
+                    err = ptypes.UnmarshalAny(env.Message.Payload, response)
+	                if err!=nil {
+                        log.Error(err)
+	    	            break
+	                }
+                    if response.Value != 1 {
+                        log.Errorf("request %s failed", res.Id)
+	    	            break
+                    }
+                }
+			}
+		}
+	}()
+	return nil
+}
+
 func (t* Textile) SubscribeStream(id string) error {
     config := &pb.StreamRequest {
         Id: id,
