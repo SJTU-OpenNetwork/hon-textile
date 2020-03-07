@@ -25,6 +25,7 @@ func (sn *StreamNotifee) Connected (net network.Network, conn network.Conn) {
 
 func (sn *StreamNotifee) Disconnected(net network.Network, conn network.Conn) {
 	//fmt.Printf("Notifee: Disconnect %s\n", conn.RemotePeer().Pretty())
+
     sn.manager().PeerDisconnected(conn.RemotePeer())
 }
 

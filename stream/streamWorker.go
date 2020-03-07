@@ -124,4 +124,9 @@ func (sw *streamWorker) isSame(pid peer.ID, req *pb.StreamRequest) bool {
 	return false
 }
 
+// Convert basic info of worker to loggable map
+//func (sw *streamWorker) Loggable() map[string]interface{} {
+//
+//}
+
 

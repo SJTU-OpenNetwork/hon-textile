@@ -38,3 +38,8 @@ func StreamSubscribe(streamId string) error {
 	output(res)
 	return nil
 }
+
+func StreamWorkerStat() error {
+	res, err := executeStringCmd(http.MethodGet)
+	return nil
+}
