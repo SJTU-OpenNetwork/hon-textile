@@ -36,7 +36,6 @@ func (ws *workerStore) isRedundant(pid peer.ID, req *pb.StreamRequest) bool {
 	defer ws.lock.Unlock()
 
 
-
 	return false
 }
 

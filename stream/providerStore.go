@@ -15,7 +15,7 @@ type Provider struct {
 // providerStore is used to manage stream providers.
 // It should be thread-safe with both store, retrieve, de-duplication method.
 type providerStore struct {
-	currentProviderList map[string] []*Provider
+	currentProviderList map[string] []*Provider	// map[streamId] []Provider
     providerIndex map[peer.ID] *Provider // for quic search
 	lock sync.Mutex
 }
@@ -34,11 +34,11 @@ func (ps *providerStore) add(pid peer.ID, req *pb.StreamRequest) error {
 	ps.lock.Lock()
 	defer ps.lock.Unlock()
 
-    provider, ok := ps.providerIndex[provider.pid]
+    provider, ok := ps.providerIndex[pid]
     if !ok {
         provider = &Provider{
             pid: pid,
-            streams: [],
+            streams: make([]*pb.StreamRequest,0),
         }
     }
     provider.streams = append(provider.streams, req)
@@ -53,14 +53,14 @@ func (ps *providerStore) peerDisconnected(pid peer.ID) ([] *pb.StreamRequest, er
 	ps.lock.Lock()
 	defer ps.lock.Unlock()
    
-    provider := ps.providerIndex[pid]
-    if provider == nil {
-        return nil
+    provider, ok := ps.providerIndex[pid]
+    if !ok {
+        return nil, nil	// Note that this func may return a legal nil.
     }
 
-    currentProviderList[provider.config.Id][0] = nil
+    ps.currentProviderList[provider.config.Id][0] = nil
     ps.providerIndex[pid] = nil
-    return provider.streams
+    return provider.streams, nil
 }
 
 func (ps *providerStore) getProvider(config *pb.StreamRequest) peer.ID {
