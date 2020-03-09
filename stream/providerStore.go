@@ -14,6 +14,9 @@ type Provider struct {
 
 // providerStore is used to manage stream providers.
 // It should be thread-safe with both store, retrieve, de-duplication method.
+// Note:
+//		Each substream only need one provider.
+//		One provider may provide several substreams belonging to different streams.
 type providerStore struct {
 	currentProviderList map[string] []*Provider	// map[streamId] []Provider
     providerIndex map[peer.ID] *Provider // for quic search
@@ -40,10 +43,11 @@ func (ps *providerStore) add(pid peer.ID, req *pb.StreamRequest) error {
             pid: pid,
             streams: make([]*pb.StreamRequest,0),
         }
+		ps.currentProviderList[req.Id] = append(ps.currentProviderList[req.Id], provider)
+		ps.providerIndex[provider.pid] = provider
     }
     provider.streams = append(provider.streams, req)
-	ps.currentProviderList[req.Id] = append(ps.currentProviderList[req.Id], provider)
-    ps.providerIndex[provider.pid] = provider
+
 	return nil
 }
 
@@ -58,16 +62,29 @@ func (ps *providerStore) peerDisconnected(pid peer.ID) ([] *pb.StreamRequest, er
         return nil, nil	// Note that this func may return a legal nil.
     }
 
-    ps.currentProviderList[provider.config.Id][0] = nil
+    //ps.currentProviderList[provider.config.Id][0] = nil
+    for _, stream := range provider.streams{
+    	streamId := stream.Id
+    	proverderList := ps.currentProviderList[streamId]
+    	newList := make([]*Provider, 0, len(proverderList))
+    	for _, p := range proverderList{
+    		if p.pid.Pretty() != stream.Id {
+    			newList = append(newList, p)
+			}
+		}
+		ps.currentProviderList[streamId] = newList
+	}
+
     ps.providerIndex[pid] = nil
     return provider.streams, nil
 }
 
-func (ps *providerStore) getProvider(config *pb.StreamRequest) peer.ID {
+func (ps *providerStore) getProvider(config *pb.StreamRequest) *Provider {
     // do not support substream for now
-    provider, ok := ps.currentProviderList[config.Id][0]
+    providers, ok := ps.currentProviderList[config.Id]
     if !ok {
         return nil
-    }
-    return provider.pid
+    } else {
+    	return providers[0]
+	}
 }
