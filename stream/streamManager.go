@@ -14,6 +14,12 @@ import (
 var ErrRedundantReq = fmt.Errorf("Request is redundant")
 var ErrUnknowkStream = fmt.Errorf("Unknown stream")
 var log = logging.Logger("stream")
+
+const {
+    MAXNSUBSTREAM = 5
+}
+
+
 // StreamManager is used to handle stream requests.
 // How to use:
 // 	- Give blockFetcher, streamFetcher, and blockSender when initialize a StreamManager.
