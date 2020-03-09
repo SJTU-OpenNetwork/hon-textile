@@ -302,3 +302,8 @@ func (h *StreamService)FetchStream(streamId string)(*pb.StreamMeta, error){
 	}
     return stream, nil
 }
+
+
+func (h *StreamService) GetProvider(config *pb.StreamRequest) peer.ID {
+    return h.sm.GetProvider(config)
+}

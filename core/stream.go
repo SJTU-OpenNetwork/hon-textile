@@ -166,7 +166,11 @@ func (t *Textile) handleSearchProvider(resultCh <-chan *pb.QueryResult, errCh <-
 
                 //if already have provider
                 //just break
+                if t.streams.GetProvider(config) != nil {
+                    break
+                }
 
+                // if the provider is connected, request the stream directly
                 connected, err := ipfs.SwarmConnected(t.node, res.Id) 
 	            if err != nil{
                     log.Error(err)
@@ -190,6 +194,8 @@ func (t *Textile) handleSearchProvider(resultCh <-chan *pb.QueryResult, errCh <-
 	    	            break
                     }
                 }
+                // what if the remote peer is not connected?
+                // request the stream from peers in the potentialProviderList?
 			}
 		}
 	}()

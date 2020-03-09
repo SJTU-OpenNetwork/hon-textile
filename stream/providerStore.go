@@ -62,3 +62,12 @@ func (ps *providerStore) peerDisconnected(pid peer.ID) ([] *pb.StreamRequest, er
     ps.providerIndex[pid] = nil
     return provider.streams
 }
+
+func (ps *providerStore) getProvider(config *pb.StreamRequest) peer.ID {
+    // do not support substream for now
+    provider, ok := ps.currentProviderList[config.Id][0]
+    if !ok {
+        return nil
+    }
+    return provider.pid
+}

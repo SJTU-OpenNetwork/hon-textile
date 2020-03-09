@@ -145,3 +145,6 @@ func (sm *StreamManager) ResponseRequest(pid peer.ID, req *pb.StreamRequest) err
 	return worker.start()
 }
 
+func (sm *StreamManager) GetProvider(config *pb.SteamRequest) peer.ID {
+    return sm.ps.GetProvider(config)
+}
