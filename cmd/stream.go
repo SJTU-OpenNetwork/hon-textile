@@ -40,6 +40,10 @@ func StreamSubscribe(streamId string) error {
 }
 
 func StreamWorkerStat() error {
-	res, err := executeStringCmd(http.MethodGet)
+	res, err := executeStringCmd(http.MethodGet, "stream/workerstat", params{})
+	if err != nil {
+		return err
+	}
+	output(res)
 	return nil
 }

@@ -77,6 +77,12 @@ func (h *StreamService) Ping(pid peer.ID) (service.PeerStatus, error) {
 	return h.service.Ping(pid.Pretty())
 }
 
+// Function for command workerStat.
+// Called by Textile directly. Use streamManager to output the stat of all the working workers.
+func (h *StreamService) WorkerStat(){
+	h.sm.WorkerStat()
+}
+
 // handleStreamBlock receives a STREAM_BLOCK message
 func (h *StreamService) handleStreamBlock(env *pb.Envelope, pid peer.ID) (*pb.Envelope, error) {
 	fmt.Printf("StreamService: New stream blk receive from %s\n", pid.Pretty())
