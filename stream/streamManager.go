@@ -55,6 +55,7 @@ func NewStreamManager(
 		blockSender:bSender,
 		//activeStreams: cmap.New(),
 		activeWorkers: newWorkerStore(),
+        providers: newProviderStore(),
 	}
 }
 
@@ -109,6 +110,7 @@ func (sm *StreamManager)PeerDisconnected(pid peer.ID) {
 	// Stop all the workers
 	log.Debugf("Peer %s disconnected", pid)
 	sm.activeWorkers.endPeer(pid.Pretty())
+    sm.providers.peerDisconnected(pid.Pretty())
 }
 
 // Call it when you decide to send blocks to requestor.

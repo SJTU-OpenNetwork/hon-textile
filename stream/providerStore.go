@@ -9,7 +9,7 @@ import (
 
 type Provider struct {
     pid peer.ID
-    config *pb.StreamRequest
+    streams []*pb.StreamRequest
 }
 
 // providerStore is used to manage stream providers.
@@ -34,17 +34,22 @@ func (ps *providerStore) add(pid peer.ID, req *pb.StreamRequest) error {
 	ps.lock.Lock()
 	defer ps.lock.Unlock()
 
-    provider := &Provider{
-        pid: pid,
-        config: req,
+    provider, ok := ps.providerIndex[provider.pid]
+    if !ok {
+        provider = &Provider{
+            pid: pid,
+            streams: [],
+        }
     }
+    provider.streams = append(provider.streams, req)
 	ps.currentProviderList[req.Id] = append(ps.currentProviderList[req.Id], provider)
     ps.providerIndex[provider.pid] = provider
 	return nil
 }
 
 // peerDisconnected is called by the upper manager
-func (ps *providerStore) peerDisconnected(pid peer.ID) error {
+// return a list of streams that need to resubscribe
+func (ps *providerStore) peerDisconnected(pid peer.ID) ([] *pb.StreamRequest, error) {
 	ps.lock.Lock()
 	defer ps.lock.Unlock()
    
@@ -55,4 +60,5 @@ func (ps *providerStore) peerDisconnected(pid peer.ID) error {
 
     currentProviderList[provider.config.Id][0] = nil
     ps.providerIndex[pid] = nil
+    return provider.streams
 }
