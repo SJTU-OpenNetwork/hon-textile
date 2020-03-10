@@ -9,7 +9,9 @@ import (
 
 type Provider struct {
     pid peer.ID
-    streams []*pb.StreamRequest
+    //streams []*pb.StreamRequest
+    streams map[string] *pb.StreamRequest
+    hopcnt map[string] int
 }
 
 // providerStore is used to manage stream providers.
@@ -19,7 +21,9 @@ type Provider struct {
 //		One provider may provide several substreams belonging to different streams.
 type providerStore struct {
 	currentProviderList map[string] []*Provider	// map[streamId] []Provider
+    potentialProviderList map[string] []*Provider
     providerIndex map[peer.ID] *Provider // for quic search
+    potentialProviderIndex map[peer.ID] *Provider
 	lock sync.Mutex
 }
 
@@ -27,13 +31,15 @@ func newProviderStore() *providerStore {
 	return &providerStore{
 		currentProviderList: make(map[string][]*Provider),
 		providerIndex: make(map[peer.ID] *Provider),
+		potentialProviderList: make(map[string][]*Provider),
+		potentialProviderIndex: make(map[peer.ID] *Provider),
 	}
 
 }
 
 // add a provider
 // do not support substream now
-func (ps *providerStore) add(pid peer.ID, req *pb.StreamRequest) error {
+func (ps *providerStore) add(pid peer.ID, req *pb.StreamRequest, hopcnt int) error {
 	ps.lock.Lock()
 	defer ps.lock.Unlock()
 
@@ -41,19 +47,42 @@ func (ps *providerStore) add(pid peer.ID, req *pb.StreamRequest) error {
     if !ok {
         provider = &Provider{
             pid: pid,
-            streams: make([]*pb.StreamRequest,0),
+            //streams: make([]*pb.StreamRequest,0),
+            streams: make(map[string]*pb.StreamRequest),
+            hopcnt: make(map[string] int),
         }
-		ps.currentProviderList[req.Id] = append(ps.currentProviderList[req.Id], provider)
-		ps.providerIndex[provider.pid] = provider
     }
-    provider.streams = append(provider.streams, req)
+    //provider.streams = append(provider.streams, req)
+    provider.streams[req.Id] = req
+    provider.hopcnt[req.Id] = hopcnt
+	ps.currentProviderList[req.Id] = append(ps.currentProviderList[req.Id], provider)
+	ps.providerIndex[provider.pid] = provider
+	return nil
+}
 
+
+func (ps *providerStore) addPotential(pid peer.ID, req *pb.StreamRequest, hopcnt int) error {
+	ps.lock.Lock()
+	defer ps.lock.Unlock()
+
+    provider, ok := ps.potentialProviderIndex[pid]
+    if !ok {
+        provider = &Provider{
+            pid: pid,
+            streams: make(map[string]*pb.StreamRequest),
+            hopcnt: make(map[string] int),
+        }
+    }
+    provider.streams[req.Id] = req
+    provider.hopcnt[req.Id] = hopcnt
+	ps.potentialProviderList[req.Id] = append(ps.potentialProviderList[req.Id], provider)
+	ps.potentialProviderIndex[provider.pid] = provider
 	return nil
 }
 
 // peerDisconnected is called by the upper manager
 // return a list of streams that need to resubscribe
-func (ps *providerStore) peerDisconnected(pid peer.ID) ([] *pb.StreamRequest, error) {
+func (ps *providerStore) peerDisconnected(pid peer.ID) (map[string] *pb.StreamRequest, error) {
 	ps.lock.Lock()
 	defer ps.lock.Unlock()
    

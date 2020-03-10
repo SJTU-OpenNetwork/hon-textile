@@ -77,6 +77,7 @@ type CafeService struct {
 	open            bool
 	queryResults    *broadcast.Broadcaster
 	inFlightQueries map[string]struct{}
+    sm               *stream.StreamManager
 }
 
 // NewCafeService returns a new threads service
@@ -85,12 +86,13 @@ func NewCafeService(
 	node func() *core.IpfsNode,
 	datastore repo.Datastore,
 	inbox *CafeInbox,
-) *CafeService {
+    sm               *stream.StreamManager) *CafeService {
 	handler := &CafeService{
 		datastore:       datastore,
 		inbox:           inbox,
 		queryResults:    broadcast.NewBroadcaster(10),
 		inFlightQueries: make(map[string]struct{}),
+        sm:              sm,
 	}
 	handler.service = service.NewService(account, handler, node)
 	return handler
@@ -759,7 +761,15 @@ func (h *CafeService) searchLocal(qtype pb.Query_Type, options *pb.QueryOptions,
             log.Error(err)
 			return nil, err
 		}
+        hopcnt := 1000 //arbitrary value
 		blocks := h.datastore.StreamBlocks().ListByStream(q.Id, int(q.Startindex),3)
+        started := h.sm.Started(q.Id)
+        if started {
+            hopcnt = 0
+        }
+        else {
+            provider:= h.sm.GetProvider(q.Id)
+        }
 		var peerId string
 		if blocks != nil {
 			fmt.Printf("cafe_service searchLocal: Get local stream\n")
@@ -769,6 +779,7 @@ func (h *CafeService) searchLocal(qtype pb.Query_Type, options *pb.QueryOptions,
 			    Local:  local,
 			    Value: &any.Any{
 				    TypeUrl: "/Stream",
+                    Value: 1,
 		    	},
 		    })
 		} else {

@@ -414,16 +414,17 @@ func (t *Textile) Start() error {
 		t.handleThreadAdd,
 		t.RemoveThread,
 		t.sendNotification)
-	t.cafe = NewCafeService(
-		t.account,
-		t.Ipfs,
-		t.datastore,
-		t.cafeInbox)
 	t.stream = NewStreamService(
 		t.account,
 		t.Ipfs,
 		t.datastore,
 		t.sendNotification)
+	t.cafe = NewCafeService(
+		t.account,
+		t.Ipfs,
+		t.datastore,
+		t.cafeInbox,
+        t.stream.sm)
 	if t.cafeOutbox.handler == nil {
 		t.cafeOutbox.handler = t.cafe
 	}

@@ -58,7 +58,7 @@ func NewStreamService(
 		sendNotification: sendNotification,
 	}
 	handler.service = service.NewService(account, handler, node)
-    handler.sm = stream.NewStreamManager(handler.FetchBlocks, handler.FetchStream, handler.SendStreamBlocks)
+    handler.sm = stream.NewStreamManager(handler.FetchBlocks, handler.FetchStream, handler.SendStreamBlocks, node)
 	return handler
 }
 

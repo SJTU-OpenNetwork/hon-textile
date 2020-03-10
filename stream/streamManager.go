@@ -3,6 +3,7 @@ package stream
 import (
 	"fmt"
 	"github.com/SJTU-OpenNetwork/hon-textile/pb"
+    "github.com/SJTU-OpenNetwork/go-ipfs/core"
 	//"github.com/ipfs/go-cid"
 	"github.com/libp2p/go-libp2p-core/peer"
 	ipld "github.com/ipfs/go-ipld-format"
@@ -15,9 +16,9 @@ var ErrRedundantReq = fmt.Errorf("Request is redundant")
 var ErrUnknowkStream = fmt.Errorf("Unknown stream")
 var log = logging.Logger("stream")
 
-const {
+const (
     MAXNSUBSTREAM = 5
-}
+)
 
 
 // StreamManager is used to handle stream requests.
@@ -38,21 +39,29 @@ type StreamManager struct {
 	blockFetcher func(streamId string, startIndex uint64, maxNum int) ([] *pb.StreamBlock, error)
 	streamFetcher func(streamId string) (*pb.StreamMeta, error)
 	blockSender func (destination peer.ID, streamBlk []*pb.StreamBlock) error
+	Node    func() *core.IpfsNode
 	//activeStreams cmap.ConcurrentMap	// Contains *pb.Stream. Cache active streams. (Maybe it is redundant.)
 										// active
 	activeWorkers *workerStore
 	//newFile chan *workerSignal
 	ReceivedFile <- chan ipld.Node
+    providers *providerStore
+    
+    streamList map[string] *pb.StreamMeta
+    streamFileChannels map[string]chan *pb.StreamFile
+    streamBlockIndex map[string]uint64
 }
 
 func NewStreamManager(
 	bFetcher func(streamId string, startIndex uint64, maxNum int) ([]*pb.StreamBlock, error),
 	sFetcher func(streamId string) (*pb.StreamMeta, error),
-	bSender func (destination peer.ID, streamBlk []*pb.StreamBlock) error) *StreamManager {
+	bSender func (destination peer.ID, streamBlk []*pb.StreamBlock) error,
+    Node func() *core.IpfsNode) *StreamManager{
 	return &StreamManager{
 		blockFetcher:bFetcher,
 		streamFetcher:sFetcher,
 		blockSender:bSender,
+        Node: Node,
 		//activeStreams: cmap.New(),
 		activeWorkers: newWorkerStore(),
         providers: newProviderStore(),
@@ -85,6 +94,30 @@ func (sm *StreamManager) NewFileAdd(streamId string) {
 	sm.activeWorkers.newFileAdd(streamId)
 }
 
+func (sm *StreamManager) StartStream(config *pb.StreamMeta, newFileHandler func(*pb.StreamFile)) {
+    sm.streamBlockIndex[config.Id] = 0
+
+    //Start a channel for adding files
+    sm.streamFileChannels[config.Id] = make(chan *pb.StreamFile)
+
+	fmt.Printf("Start the add routine for stream\n")
+    go func(){
+		fmt.Printf("Stream routine start.\n")
+	   for {
+		    select {
+            case  newfile := <-sm.streamFileChannels[config.Id]:
+                newFileHandler(newfile)
+                sm.NewFileAdd(config.Id)
+		    }
+	   }
+    }()
+}
+
+func (sm *StreamManager) Started(sid string) bool{
+    _, ok:= sm.streamFileChannels[sid]
+    return ok
+}
+
 // Note:
 //		Be sure to avoid routine blocking when implementing this function.
 func (sm *StreamManager) NewBlockReceive(streamBlk *pb.StreamBlock, data []byte) {
@@ -110,7 +143,7 @@ func (sm *StreamManager)PeerDisconnected(pid peer.ID) {
 	// Stop all the workers
 	log.Debugf("Peer %s disconnected", pid)
 	sm.activeWorkers.endPeer(pid.Pretty())
-    sm.providers.peerDisconnected(pid.Pretty())
+    sm.providers.peerDisconnected(pid)
 }
 
 // Call it when you decide to send blocks to requestor.
@@ -145,6 +178,6 @@ func (sm *StreamManager) ResponseRequest(pid peer.ID, req *pb.StreamRequest) err
 	return worker.start()
 }
 
-func (sm *StreamManager) GetProvider(config *pb.SteamRequest) peer.ID {
-    return sm.ps.GetProvider(config)
+func (sm *StreamManager) GetProvider(config *pb.StreamRequest) *Provider {
+    return sm.providers.getProvider(config)
 }

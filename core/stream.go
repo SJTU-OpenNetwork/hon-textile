@@ -69,6 +69,20 @@ func (t *Textile) TraverseNode(sid string, cid *cid.Cid, isRoot bool, payload []
     return nil
 }
 
+func (t *Textile) NewFileHandler(sid string, newfile *pb.StreamFile) {
+    r := bytes.NewReader(newfile.Data)
+    fileid, err := ipfs.AddData(t.node, r, true, false)
+    if err != nil {
+        log.Error(err)
+        return
+    }
+    err = t.TraverseNode(sid, fileid, true, newfile.Description)
+    if err != nil {
+        log.Error(err)
+        return
+    }
+	fmt.Printf("add file\n")
+}
 
 func (t *Textile) StartStream(threadId string, config *pb.StreamMeta) error {
 	defer fmt.Printf("textile.StartStream end success\n")
@@ -88,36 +102,8 @@ func (t *Textile) StartStream(threadId string, config *pb.StreamMeta) error {
 	if stream == nil {
 		return ErrStreamNotFound
 	}
-    t.variables.streamBlockIndex[config.Id] = 0
-
-    //Start a channel for adding files
-    t.variables.StreamFileChannels[config.Id] = make(chan *pb.StreamFile)
-
-	fmt.Printf("Start the add routine for stream\n")
-    go func(){
-		fmt.Printf("Stream routine start.\n")
-	   for {
-		    select {
-           case  newfile := <-t.variables.StreamFileChannels[config.Id]:
-               r := bytes.NewReader(newfile.Data)
-               fileid, err := ipfs.AddData(t.node, r, true, false)
-               if err != nil {
-                   log.Error(err)
-                   return
-               }
-               err = t.TraverseNode(config.Id, fileid, true, newfile.Description)
-               if err != nil {
-                   log.Error(err)
-                   return
-               }
-	            fmt.Printf("add file\n")
-               t.stream.sm.NewFileAdd(config.Id)
-		    case <-t.done:
-			    return
-		    }
-	   }
-    }()
-
+    
+    t.streams.sm.StartStream(config, t.NewFileHandler)
 
 	//publish the Stream to others
 	fmt.Printf("Find thread for stream.\n")
@@ -167,6 +153,7 @@ func (t *Textile) handleSearchProvider(resultCh <-chan *pb.QueryResult, errCh <-
                 //if already have provider
                 //just break
                 if t.streams.GetProvider(config) != nil {
+                    t.streams.AddPotential(res.Id, config, res.Value)
                     break
                 }
 
