@@ -304,6 +304,10 @@ func (h *StreamService)FetchStream(streamId string)(*pb.StreamMeta, error){
 }
 
 
-func (h *StreamService) GetProvider(config *pb.StreamRequest) peer.ID {
+func (h *StreamService) GetProvider(config *pb.StreamRequest) *stream.Provider {
     return h.sm.GetProvider(config)
+}
+
+
+func (h *StreamService) AddPotential(pid string, config *pb.StreamRequest, hopcnt int) {
 }

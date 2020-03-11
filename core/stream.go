@@ -18,22 +18,18 @@ import (
 var ErrStreamNotFound = fmt.Errorf("stream not found")
 var ErrStreamAlreadyInUse = fmt.Errorf("stream already in use")
 
-func (t *Textile) SaveBlock(sid string, cid *cid.Cid, isRoot bool, payload []byte) error {
-    cur, ok := t.variables.streamBlockIndex[sid]
-    if !ok {
-        cur = 0
-    }
+func (t *Textile) SaveBlock(sid string, cid *cid.Cid, isRoot bool, payload []byte, index uint64) error {
 	// TODO: Unhandled error
     stat, err := ipfs.StatObjectAtPath(t.node, cid.String())
     if err != nil {
         log.Error(err)
         return err
     }
-    fmt.Printf("Saving block, cid: %s, index: %d, size: %d, isroot: %d", cid.String(), cur, stat.CumulativeSize, isRoot)
+    //fmt.Printf("Saving block, cid: %s, index: %d, size: %d, isroot: %d", cid.String(), cur, stat.CumulativeSize, isRoot)
     err = t.datastore.StreamBlocks().Add(&pb.StreamBlock{
         Id: cid.String(),
         Streamid: sid,
-        Index: cur,
+        Index: index,
         Size: int32(stat.CumulativeSize),
         IsRoot: isRoot,
         Description: string(payload),
@@ -43,57 +39,48 @@ func (t *Textile) SaveBlock(sid string, cid *cid.Cid, isRoot bool, payload []byt
         return err
     }
 
-    t.variables.streamBlockIndex[sid] = cur+1
     return nil
 }
 
-func (t *Textile) TraverseNode(sid string, cid *cid.Cid, isRoot bool, payload []byte) error {
+func (t *Textile) TraverseNode(sid string, cid *cid.Cid, isRoot bool, payload []byte, index uint64) (uint64, error) {
     links, err := ipfs.LinksAtPath(t.node, cid.String())
     if err != nil{
-        return err
+        return index, err
     }
     if len(links) == 0 {
-        err = t.SaveBlock(sid, cid, isRoot, payload)
+        err = t.SaveBlock(sid, cid, isRoot, payload, index)
         if err != nil {
-            return err
+            return index, err
         }
     } else {
         for _,l := range links {
-            t.TraverseNode(sid, &l.Cid, false, nil)
+            index, err := t.TraverseNode(sid, &l.Cid, false, nil,index)
+            if err != nil {
+                return index, err
+            }
         }
-        err = t.SaveBlock(sid, cid, isRoot, payload)
+        err = t.SaveBlock(sid, cid, isRoot, payload, index)
         if err != nil {
-            return err
+            return index, err
         }
     }
-    return nil
+    return index+1, nil
 }
 
-func (t *Textile) NewFileHandler(sid string, newfile *pb.StreamFile) {
+func (t *Textile) NewFileHandler(sid string, newfile *pb.StreamFile, index uint64) (uint64, error) {
     r := bytes.NewReader(newfile.Data)
     fileid, err := ipfs.AddData(t.node, r, true, false)
     if err != nil {
         log.Error(err)
-        return
+        return 0, err
     }
-    err = t.TraverseNode(sid, fileid, true, newfile.Description)
-    if err != nil {
-        log.Error(err)
-        return
-    }
-	fmt.Printf("add file\n")
+    return t.TraverseNode(sid, fileid, true, newfile.Description, index)
 }
 
 func (t *Textile) StartStream(threadId string, config *pb.StreamMeta) error {
 	defer fmt.Printf("textile.StartStream end success\n")
 	fmt.Printf("textile.StartStream\n")
     
-	// if the stream id already in use?
-    _, ok := t.variables.StreamFileChannels[config.Id]
-    if ok {
-		return ErrStreamAlreadyInUse
-    }
-	
     err := t.datastore.StreamMetas().Add(config)
     if err != nil {
         return err
@@ -103,7 +90,7 @@ func (t *Textile) StartStream(threadId string, config *pb.StreamMeta) error {
 		return ErrStreamNotFound
 	}
     
-    t.streams.sm.StartStream(config, t.NewFileHandler)
+    t.stream.sm.StartStream(config, t.NewFileHandler)
 
 	//publish the Stream to others
 	fmt.Printf("Find thread for stream.\n")
@@ -128,11 +115,7 @@ func (t *Textile) GetStreamMeta(id string) *pb.StreamMeta {
 
 // add the new file to the corresponding channel
 func (t *Textile) StreamAddFile(id string, sf *pb.StreamFile) error {
-    ch, ok :=  t.variables.StreamFileChannels[id]
-    if !ok {
-        return fmt.Errorf("No such stream")
-    }
-    ch <- sf
+    t.stream.sm.StreamAddFile(id, sf)
 	return nil
 }
 
@@ -152,8 +135,15 @@ func (t *Textile) handleSearchProvider(resultCh <-chan *pb.QueryResult, errCh <-
 
                 //if already have provider
                 //just break
-                if t.streams.GetProvider(config) != nil {
-                    t.streams.AddPotential(res.Id, config, res.Value)
+                if t.stream.GetProvider(config) != nil {
+                    item :=new(pb.StreamQueryResultItem)
+                    err := proto.Unmarshal(res.Value.Value, item)
+	                if err!=nil {
+                        log.Error(err)
+	    	            break
+	                }
+
+                    t.stream.AddPotential(item.Pid, config, int(item.Hopcnt))
                     break
                 }
 

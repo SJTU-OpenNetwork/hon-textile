@@ -31,6 +31,7 @@ import (
 	"github.com/SJTU-OpenNetwork/hon-textile/repo/config"
 	"github.com/SJTU-OpenNetwork/hon-textile/repo/db"
 	"github.com/SJTU-OpenNetwork/hon-textile/service"
+	"github.com/SJTU-OpenNetwork/hon-textile/stream"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -761,34 +762,51 @@ func (h *CafeService) searchLocal(qtype pb.Query_Type, options *pb.QueryOptions,
             log.Error(err)
 			return nil, err
 		}
-        hopcnt := 1000 //arbitrary value
-		blocks := h.datastore.StreamBlocks().ListByStream(q.Id, int(q.Startindex),3)
-        started := h.sm.Started(q.Id)
-        complete := false // how to notice we have complete stream data?
-        if started || complete {
-            hopcnt = 0
+
+        meta := h.datastore.StreamMetas().Get(q.Id)
+        if meta == nil{ 
+            break
         }
-        else {
-            provider:= h.sm.GetProvider(q.Id)
-            if provider != nil && provider.hopcnt != 1000 {
-                hopcnt = provider.hopcnt + 1
+
+		blocks := h.datastore.StreamBlocks().ListByStream(q.Id, int(q.Startindex),3)
+        if q.Startindex != 0 && len(blocks) == 0 {
+            break
+        }
+
+        hopcnt := 1000 //arbitrary value, needed to be fixed
+        started := h.sm.Started(q.Id)
+        if started {
+            hopcnt = 0
+        }else {
+            haveblocks := h.datastore.StreamBlocks().BlockCount(q.Id)
+            nblocks := meta.Nblocks
+            complete := haveblocks == nblocks
+            if complete {
+                hopcnt = 0
+            } else {
+                req := &pb.StreamRequest{
+                    Id: q.Id,
+                }
+                provider:= h.sm.GetProvider(req)
+                if provider != nil && provider.Hopcnt[q.Id] != 1000 {
+                    hopcnt = provider.Hopcnt[q.Id] + 1
+                }
             }
         }
-		var peerId string
-		if blocks != nil {
-			fmt.Printf("cafe_service searchLocal: Get local stream\n")
-			peerId = h.service.Node().Identity.Pretty()
-		    results.Add(&pb.QueryResult{
-			    Id:     peerId,
-			    Local:  local,
-			    Value: &any.Any{
-				    TypeUrl: "/Stream",
-                    Value: hopcnt,
-		    	},
-		    })
-		} else {
-			fmt.Printf("cafe_service searchLocal: No search res\n")
-		}
+        peerId := h.service.Node().Identity.Pretty()
+        result := &pb.StreamQueryResultItem {
+            Pid: peerId,
+            Hopcnt: int32(hopcnt),
+        }
+        value,_ := proto.Marshal(result)
+		results.Add(&pb.QueryResult{
+			Id:     q.Id,
+			Local:  local,
+			Value: &any.Any{
+				TypeUrl: "/Stream",
+                Value: value,
+		    },
+		})
     case pb.Query_VIDEO:
 		q := new(pb.VideoQuery)
 		err := ptypes.UnmarshalAny(payload, q)

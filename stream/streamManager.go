@@ -2,6 +2,7 @@ package stream
 
 import (
 	"fmt"
+    "sync"
 	"github.com/SJTU-OpenNetwork/hon-textile/pb"
     "github.com/SJTU-OpenNetwork/go-ipfs/core"
 	//"github.com/ipfs/go-cid"
@@ -70,7 +71,7 @@ func NewStreamManager(
         // informations for started streams
         streamFileChannels: make(map[string]chan *pb.StreamFile),
         streamBlockIndex: make(map[string] uint64) ,
-        steamDone: make(map[string] bool,
+        streamDone: make(map[string] bool),
 	}
 }
 
@@ -99,11 +100,11 @@ func (sm *StreamManager) NewFileAdd(streamId string) {
 	sm.activeWorkers.newFileAdd(streamId)
 }
 
-func (sm *StreamManager) StartStream(config *pb.StreamMeta, newFileHandler func(*pb.StreamFile)) {
+func (sm *StreamManager) StartStream(config *pb.StreamMeta, newFileHandler func(string, *pb.StreamFile, uint64) (uint64,error)) {
     sm.streamlock.Lock()
     defer sm.streamlock.Unlock()
 
-    _, ok = sm.streamFileChannels[config.Id]
+    _, ok := sm.streamFileChannels[config.Id]
     if ok {
         // how to handle re-start?
         return
@@ -118,22 +119,33 @@ func (sm *StreamManager) StartStream(config *pb.StreamMeta, newFileHandler func(
 	   for {
 		    select {
             case  newfile := <-sm.streamFileChannels[config.Id]:
-                newFileHandler(newfile)
+                index, _ := newFileHandler(config.Id, newfile, sm.streamBlockIndex[config.Id])
                 sm.NewFileAdd(config.Id)
-            case sm.streamDone[config.Id]: //CloseStream is called
-                //TODO what if there are files left in the channel?
-                return
+                sm.streamBlockIndex[config.Id] = index
+            default:
+                if sm.streamDone[config.Id]{ //CloseStream is called
+                    return
+                }
 		    }
 	   }
     }()
+}
+
+func (sm *StreamManager) StreamAddFile(id string, sf *pb.StreamFile) error{
+    ch, ok :=  sm.streamFileChannels[id]
+    if !ok {
+        return fmt.Errorf("No such stream")
+    }
+    ch <- sf
+    return nil
 }
 
 func (sm *StreamManager) CloseStream(sid string) {
     sm.streamlock.Lock()
     defer sm.streamlock.Unlock()
     
-    sm.streamDone[config.Id] = true
-    close sm.streamFileChannels[sid]
+    sm.streamDone[sid] = true
+    close (sm.streamFileChannels[sid])
     delete (sm.streamFileChannels,sid)
     delete (sm.streamBlockIndex,sid)
 }

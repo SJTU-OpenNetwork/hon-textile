@@ -8,10 +8,10 @@ import (
 
 
 type Provider struct {
-    pid peer.ID
+    Pid peer.ID
     //streams []*pb.StreamRequest
-    streams map[string] *pb.StreamRequest
-    hopcnt map[string] int
+    Streams map[string] *pb.StreamRequest
+    Hopcnt map[string] int
 }
 
 // providerStore is used to manage stream providers.
@@ -46,17 +46,17 @@ func (ps *providerStore) add(pid peer.ID, req *pb.StreamRequest, hopcnt int) err
     provider, ok := ps.providerIndex[pid]
     if !ok {
         provider = &Provider{
-            pid: pid,
+            Pid: pid,
             //streams: make([]*pb.StreamRequest,0),
-            streams: make(map[string]*pb.StreamRequest),
-            hopcnt: make(map[string] int),
+            Streams: make(map[string]*pb.StreamRequest),
+            Hopcnt: make(map[string] int),
         }
     }
     //provider.streams = append(provider.streams, req)
-    provider.streams[req.Id] = req
-    provider.hopcnt[req.Id] = hopcnt
+    provider.Streams[req.Id] = req
+    provider.Hopcnt[req.Id] = hopcnt
 	ps.currentProviderList[req.Id] = append(ps.currentProviderList[req.Id], provider)
-	ps.providerIndex[provider.pid] = provider
+	ps.providerIndex[provider.Pid] = provider
 	return nil
 }
 
@@ -68,15 +68,15 @@ func (ps *providerStore) addPotential(pid peer.ID, req *pb.StreamRequest, hopcnt
     provider, ok := ps.potentialProviderIndex[pid]
     if !ok {
         provider = &Provider{
-            pid: pid,
-            streams: make(map[string]*pb.StreamRequest),
-            hopcnt: make(map[string] int),
+            Pid: pid,
+            Streams: make(map[string]*pb.StreamRequest),
+            Hopcnt: make(map[string] int),
         }
     }
-    provider.streams[req.Id] = req
-    provider.hopcnt[req.Id] = hopcnt
+    provider.Streams[req.Id] = req
+    provider.Hopcnt[req.Id] = hopcnt
 	ps.potentialProviderList[req.Id] = append(ps.potentialProviderList[req.Id], provider)
-	ps.potentialProviderIndex[provider.pid] = provider
+	ps.potentialProviderIndex[provider.Pid] = provider
 	return nil
 }
 
@@ -92,12 +92,12 @@ func (ps *providerStore) peerDisconnected(pid peer.ID) (map[string] *pb.StreamRe
     }
 
     //ps.currentProviderList[provider.config.Id][0] = nil
-    for _, stream := range provider.streams{
+    for _, stream := range provider.Streams{
     	streamId := stream.Id
     	proverderList := ps.currentProviderList[streamId]
     	newList := make([]*Provider, 0, len(proverderList))
     	for _, p := range proverderList{
-    		if p.pid.Pretty() != stream.Id {
+    		if p.Pid.Pretty() != stream.Id {
     			newList = append(newList, p)
 			}
 		}
@@ -105,7 +105,7 @@ func (ps *providerStore) peerDisconnected(pid peer.ID) (map[string] *pb.StreamRe
 	}
 
     ps.providerIndex[pid] = nil
-    return provider.streams, nil
+    return provider.Streams, nil
 }
 
 func (ps *providerStore) getProvider(config *pb.StreamRequest) *Provider {
