@@ -47,9 +47,10 @@ type StreamManager struct {
 	ReceivedFile <- chan ipld.Node
     providers *providerStore
     
-    streamList map[string] *pb.StreamMeta
     streamFileChannels map[string]chan *pb.StreamFile
     streamBlockIndex map[string]uint64
+    streamDone map[string] bool
+	streamlock sync.Mutex
 }
 
 func NewStreamManager(
@@ -65,6 +66,11 @@ func NewStreamManager(
 		//activeStreams: cmap.New(),
 		activeWorkers: newWorkerStore(),
         providers: newProviderStore(),
+
+        // informations for started streams
+        streamFileChannels: make(map[string]chan *pb.StreamFile),
+        streamBlockIndex: make(map[string] uint64) ,
+        steamDone: make(map[string] bool,
 	}
 }
 
@@ -90,16 +96,22 @@ func (sm *StreamManager) createWorker(pid peer.ID, req *pb.StreamRequest) (*stre
 
 
 func (sm *StreamManager) NewFileAdd(streamId string) {
-
 	sm.activeWorkers.newFileAdd(streamId)
 }
 
 func (sm *StreamManager) StartStream(config *pb.StreamMeta, newFileHandler func(*pb.StreamFile)) {
+    sm.streamlock.Lock()
+    defer sm.streamlock.Unlock()
+
+    _, ok = sm.streamFileChannels[config.Id]
+    if ok {
+        // how to handle re-start?
+        return
+    }
+    
     sm.streamBlockIndex[config.Id] = 0
-
-    //Start a channel for adding files
     sm.streamFileChannels[config.Id] = make(chan *pb.StreamFile)
-
+    sm.streamDone[config.Id] = false
 	fmt.Printf("Start the add routine for stream\n")
     go func(){
 		fmt.Printf("Stream routine start.\n")
@@ -108,12 +120,28 @@ func (sm *StreamManager) StartStream(config *pb.StreamMeta, newFileHandler func(
             case  newfile := <-sm.streamFileChannels[config.Id]:
                 newFileHandler(newfile)
                 sm.NewFileAdd(config.Id)
+            case sm.streamDone[config.Id]: //CloseStream is called
+                //TODO what if there are files left in the channel?
+                return
 		    }
 	   }
     }()
 }
 
+func (sm *StreamManager) CloseStream(sid string) {
+    sm.streamlock.Lock()
+    defer sm.streamlock.Unlock()
+    
+    sm.streamDone[config.Id] = true
+    close sm.streamFileChannels[sid]
+    delete (sm.streamFileChannels,sid)
+    delete (sm.streamBlockIndex,sid)
+}
+
 func (sm *StreamManager) Started(sid string) bool{
+    sm.streamlock.Lock()
+    defer sm.streamlock.Unlock()
+    
     _, ok:= sm.streamFileChannels[sid]
     return ok
 }

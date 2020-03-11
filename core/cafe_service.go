@@ -764,11 +764,15 @@ func (h *CafeService) searchLocal(qtype pb.Query_Type, options *pb.QueryOptions,
         hopcnt := 1000 //arbitrary value
 		blocks := h.datastore.StreamBlocks().ListByStream(q.Id, int(q.Startindex),3)
         started := h.sm.Started(q.Id)
-        if started {
+        complete := false // how to notice we have complete stream data?
+        if started || complete {
             hopcnt = 0
         }
         else {
             provider:= h.sm.GetProvider(q.Id)
+            if provider != nil && provider.hopcnt != 1000 {
+                hopcnt = provider.hopcnt + 1
+            }
         }
 		var peerId string
 		if blocks != nil {
@@ -779,7 +783,7 @@ func (h *CafeService) searchLocal(qtype pb.Query_Type, options *pb.QueryOptions,
 			    Local:  local,
 			    Value: &any.Any{
 				    TypeUrl: "/Stream",
-                    Value: 1,
+                    Value: hopcnt,
 		    	},
 		    })
 		} else {
