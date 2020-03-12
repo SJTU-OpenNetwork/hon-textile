@@ -6,7 +6,6 @@ import (
 	"context"
 	"encoding/binary"
 	"fmt"
-	"github.com/SJTU-OpenNetwork/hon-textile/stream"
 	"io"
 	"math/rand"
 	"net/http"
@@ -77,7 +76,6 @@ func NewService(account *keypair.Full, handler Handler, node func() *core.IpfsNo
 // Start sets the peer host stream handler
 func (srv *Service) Start() {
 	srv.Node().PeerHost.SetStreamHandler(srv.handler.Protocol(), srv.handleNewStream)
-	srv.Node().PeerHost.Network().Notify(&stream.StreamNotifee{})
 	go srv.listen("")
 	go srv.listen(srv.Node().Identity.Pretty())
 }

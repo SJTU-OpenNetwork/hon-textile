@@ -453,6 +453,7 @@ message StreamMeta {
     int32 nsubstreams = 2;
     int32 bitrate = 3;
     string caption = 4;
+    uint64 nblocks = 5;
 }
 
 message Stream {

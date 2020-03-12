@@ -3,7 +3,6 @@ package core
 import (
 	"fmt"
 	"time"
-    "bytes"
 	//	"github.com/SJTU-OpenNetwork/hon-textile/stream"
 	"github.com/ipfs/go-cid"
 
@@ -18,68 +17,12 @@ import (
 var ErrStreamNotFound = fmt.Errorf("stream not found")
 var ErrStreamAlreadyInUse = fmt.Errorf("stream already in use")
 
-func (t *Textile) SaveBlock(sid string, cid *cid.Cid, isRoot bool, payload []byte) error {
-    cur, ok := t.variables.streamBlockIndex[sid]
-    if !ok {
-        cur = 0
-    }
-	// TODO: Unhandled error
-    stat, err := ipfs.StatObjectAtPath(t.node, cid.String())
-    if err != nil {
-        log.Error(err)
-        return err
-    }
-    fmt.Printf("Saving block, cid: %s, index: %d, size: %d, isroot: %d", cid.String(), cur, stat.CumulativeSize, isRoot)
-    err = t.datastore.StreamBlocks().Add(&pb.StreamBlock{
-        Id: cid.String(),
-        Streamid: sid,
-        Index: cur,
-        Size: int32(stat.CumulativeSize),
-        IsRoot: isRoot,
-        Description: string(payload),
-    })
-    if err != nil {
-        log.Error(err)
-        return err
-    }
-
-    t.variables.streamBlockIndex[sid] = cur+1
-    return nil
-}
-
-func (t *Textile) TraverseNode(sid string, cid *cid.Cid, isRoot bool, payload []byte) error {
-    links, err := ipfs.LinksAtPath(t.node, cid.String())
-    if err != nil{
-        return err
-    }
-    if len(links) == 0 {
-        err = t.SaveBlock(sid, cid, isRoot, payload)
-        if err != nil {
-            return err
-        }
-    } else {
-        for _,l := range links {
-            t.TraverseNode(sid, &l.Cid, false, nil)
-        }
-        err = t.SaveBlock(sid, cid, isRoot, payload)
-        if err != nil {
-            return err
-        }
-    }
-    return nil
-}
 
 
 func (t *Textile) StartStream(threadId string, config *pb.StreamMeta) error {
 	defer fmt.Printf("textile.StartStream end success\n")
 	fmt.Printf("textile.StartStream\n")
     
-	// if the stream id already in use?
-    _, ok := t.variables.StreamFileChannels[config.Id]
-    if ok {
-		return ErrStreamAlreadyInUse
-    }
-	
     err := t.datastore.StreamMetas().Add(config)
     if err != nil {
         return err
@@ -88,36 +31,8 @@ func (t *Textile) StartStream(threadId string, config *pb.StreamMeta) error {
 	if stream == nil {
 		return ErrStreamNotFound
 	}
-    t.variables.streamBlockIndex[config.Id] = 0
-
-    //Start a channel for adding files
-    t.variables.StreamFileChannels[config.Id] = make(chan *pb.StreamFile)
-
-	fmt.Printf("Start the add routine for stream\n")
-    go func(){
-		fmt.Printf("Stream routine start.\n")
-	   for {
-		    select {
-           case  newfile := <-t.variables.StreamFileChannels[config.Id]:
-               r := bytes.NewReader(newfile.Data)
-               fileid, err := ipfs.AddData(t.node, r, true, false)
-               if err != nil {
-                   log.Error(err)
-                   return
-               }
-               err = t.TraverseNode(config.Id, fileid, true, newfile.Description)
-               if err != nil {
-                   log.Error(err)
-                   return
-               }
-	            fmt.Printf("add file\n")
-               t.stream.sm.NewFileAdd(config.Id)
-		    case <-t.done:
-			    return
-		    }
-	   }
-    }()
-
+    
+    t.stream.StartStream(config)
 
 	//publish the Stream to others
 	fmt.Printf("Find thread for stream.\n")
@@ -142,11 +57,8 @@ func (t *Textile) GetStreamMeta(id string) *pb.StreamMeta {
 
 // add the new file to the corresponding channel
 func (t *Textile) StreamAddFile(id string, sf *pb.StreamFile) error {
-    ch, ok :=  t.variables.StreamFileChannels[id]
-    if !ok {
-        return fmt.Errorf("No such stream")
-    }
-    ch <- sf
+    t.stream.StreamAddFile(id, sf)
+    //t.stream.sm.StreamAddFile(id, sf)
 	return nil
 }
 
@@ -166,7 +78,15 @@ func (t *Textile) handleSearchProvider(resultCh <-chan *pb.QueryResult, errCh <-
 
                 //if already have provider
                 //just break
-                if t.streams.GetProvider(config) != nil {
+                if t.stream.GetProvider(config) != nil {
+                    item :=new(pb.StreamQueryResultItem)
+                    err := proto.Unmarshal(res.Value.Value, item)
+	                if err!=nil {
+                        log.Error(err)
+	    	            break
+	                }
+
+                    t.stream.AddPotential(item.Pid, config, int(item.Hopcnt))
                     break
                 }
 

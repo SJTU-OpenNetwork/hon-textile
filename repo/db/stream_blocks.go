@@ -50,10 +50,27 @@ func (s StreamBlockDB) ListByStream(streamid string, startindex int, maxnum int)
 	stm := "select * from stream_blocks where streamid='"  +streamid+  "' and blockindex >= " + strconv.Itoa(startindex)+  " order by blockindex limit "+strconv.Itoa(maxnum);
 
 	res := s.handleQuery(stm)
-	if len(res) == 0 {
-		return nil
-	}
 	return res
+}
+
+//TODO: how many blocks do we have
+func (s StreamBlockDB) BlockCount(streamid string) uint64{
+	s.lock.Lock()
+	defer s.lock.Unlock()
+
+	stm := "select count(*) from stream_blocks where streamid='"  +streamid
+	rows, err := s.db.Query(stm)
+	if err != nil {
+		log.Errorf("block count error: %s", err)
+		return 0
+	}
+    var count uint64
+	err = rows.Scan(&count)
+	if err != nil {
+		log.Errorf("block count error: %s", err)
+		return 0
+	}
+    return count
 }
 
 func (s StreamBlockDB) GetByCid(cid string) *pb.StreamBlock {

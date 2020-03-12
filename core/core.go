@@ -30,6 +30,7 @@ import (
 	"github.com/SJTU-OpenNetwork/hon-textile/repo/db"
 	"github.com/SJTU-OpenNetwork/hon-textile/service"
 	"github.com/SJTU-OpenNetwork/hon-textile/util"
+	"github.com/SJTU-OpenNetwork/hon-textile/stream"
 	ipld "github.com/ipfs/go-ipld-format"
 	logging "github.com/ipfs/go-log"
 	"github.com/ipfs/go-metrics-interface"
@@ -91,8 +92,8 @@ type Variables struct {
     SwarmAddress    string
     FailedAddresses []string
 	lock            sync.Mutex
-    StreamFileChannels map[string]chan *pb.StreamFile
-    streamBlockIndex map[string]uint64
+    //StreamFileChannels map[string]chan *pb.StreamFile
+    //streamBlockIndex map[string]uint64
 }
 
 // Textile is the main Textile node structure
@@ -124,7 +125,7 @@ type Textile struct {
 	lock              sync.Mutex
 	writer            io.Writer
     variables         *Variables
-    stream            *StreamService
+    stream            *stream.StreamService
 }
 
 // common errors
@@ -414,16 +415,17 @@ func (t *Textile) Start() error {
 		t.handleThreadAdd,
 		t.RemoveThread,
 		t.sendNotification)
-	t.cafe = NewCafeService(
-		t.account,
-		t.Ipfs,
-		t.datastore,
-		t.cafeInbox)
-	t.stream = NewStreamService(
+	t.stream = stream.NewStreamService(
 		t.account,
 		t.Ipfs,
 		t.datastore,
 		t.sendNotification)
+	t.cafe = NewCafeService(
+		t.account,
+		t.Ipfs,
+		t.datastore,
+		t.cafeInbox,
+        t.stream)
 	if t.cafeOutbox.handler == nil {
 		t.cafeOutbox.handler = t.cafe
 	}
@@ -456,7 +458,6 @@ func (t *Textile) Start() error {
 		t.cafe.online = true
 
 		t.stream.Start()
-		t.stream.online = true
 		
         if t.config.Cafe.Host.Open {
 			go func() {
@@ -495,8 +496,8 @@ func (t *Textile) Start() error {
         t.variables.SwarmAddress = t.GetSwarmAddress(t.node.Identity.Pretty())
 	}()
 
-    t.variables.StreamFileChannels = make(map[string]chan *pb.StreamFile)
-    t.variables.streamBlockIndex = make(map[string] uint64)
+    //t.variables.StreamFileChannels = make(map[string]chan *pb.StreamFile)
+    //t.variables.streamBlockIndex = make(map[string] uint64)
 	for _, mod := range t.datastore.Threads().List().Items {
 		_, err = t.loadThread(mod)
 		if err != nil {
@@ -1104,7 +1105,7 @@ func (t *Textile) cafeService() *CafeService {
 }
 
 // streamService returns the stream service
-func (t *Textile) streamService() *StreamService {
+func (t *Textile) streamService() *stream.StreamService {
 	return t.stream
 }
 

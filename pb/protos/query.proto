@@ -97,6 +97,11 @@ message StreamQuery {
     int64 startindex = 2;
 }
 
+message StreamQueryResultItem {
+    string pid = 1;
+    int32 hopcnt = 2;
+}
+
 message SyncFileQuery {
     string address = 1;
     SyncFile.Type type = 2; 

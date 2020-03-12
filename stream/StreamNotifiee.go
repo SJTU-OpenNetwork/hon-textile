@@ -5,10 +5,10 @@ import (
 	ma "github.com/multiformats/go-multiaddr"
 )
 
-type StreamNotifee StreamManager
+type StreamNotifee StreamService
 
-func (sn *StreamNotifee) manager() *StreamManager {
-    return (*StreamManager)(sn) 
+func (sn *StreamNotifee) manager() *StreamService {
+    return (*StreamService)(sn) 
 }
 
 func (*StreamNotifee) Listen (net network.Network, addr ma.Multiaddr) {

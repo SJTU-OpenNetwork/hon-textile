@@ -31,6 +31,7 @@ import (
 	"github.com/SJTU-OpenNetwork/hon-textile/repo/config"
 	"github.com/SJTU-OpenNetwork/hon-textile/repo/db"
 	"github.com/SJTU-OpenNetwork/hon-textile/service"
+	"github.com/SJTU-OpenNetwork/hon-textile/stream"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -77,6 +78,7 @@ type CafeService struct {
 	open            bool
 	queryResults    *broadcast.Broadcaster
 	inFlightQueries map[string]struct{}
+    sm               *stream.StreamService
 }
 
 // NewCafeService returns a new threads service
@@ -85,12 +87,13 @@ func NewCafeService(
 	node func() *core.IpfsNode,
 	datastore repo.Datastore,
 	inbox *CafeInbox,
-) *CafeService {
+    sm  *stream.StreamService) *CafeService {
 	handler := &CafeService{
 		datastore:       datastore,
 		inbox:           inbox,
 		queryResults:    broadcast.NewBroadcaster(10),
 		inFlightQueries: make(map[string]struct{}),
+        sm:              sm,
 	}
 	handler.service = service.NewService(account, handler, node)
 	return handler
@@ -759,21 +762,51 @@ func (h *CafeService) searchLocal(qtype pb.Query_Type, options *pb.QueryOptions,
             log.Error(err)
 			return nil, err
 		}
+
+        meta := h.datastore.StreamMetas().Get(q.Id)
+        if meta == nil{ 
+            break
+        }
+
 		blocks := h.datastore.StreamBlocks().ListByStream(q.Id, int(q.Startindex),3)
-		var peerId string
-		if blocks != nil {
-			fmt.Printf("cafe_service searchLocal: Get local stream\n")
-			peerId = h.service.Node().Identity.Pretty()
-		    results.Add(&pb.QueryResult{
-			    Id:     peerId,
-			    Local:  local,
-			    Value: &any.Any{
-				    TypeUrl: "/Stream",
-		    	},
-		    })
-		} else {
-			fmt.Printf("cafe_service searchLocal: No search res\n")
-		}
+        if q.Startindex != 0 && len(blocks) == 0 {
+            break
+        }
+
+        hopcnt := 1000 //arbitrary value, needed to be fixed
+        started := h.sm.Started(q.Id)
+        if started {
+            hopcnt = 0
+        }else {
+            haveblocks := h.datastore.StreamBlocks().BlockCount(q.Id)
+            nblocks := meta.Nblocks
+            complete := haveblocks == nblocks
+            if complete {
+                hopcnt = 0
+            } else {
+                req := &pb.StreamRequest{
+                    Id: q.Id,
+                }
+                provider:= h.sm.GetProvider(req)
+                if provider != nil && provider.Hopcnt[q.Id] != 1000 {
+                    hopcnt = provider.Hopcnt[q.Id] + 1
+                }
+            }
+        }
+        peerId := h.service.Node().Identity.Pretty()
+        result := &pb.StreamQueryResultItem {
+            Pid: peerId,
+            Hopcnt: int32(hopcnt),
+        }
+        value,_ := proto.Marshal(result)
+		results.Add(&pb.QueryResult{
+			Id:     q.Id,
+			Local:  local,
+			Value: &any.Any{
+				TypeUrl: "/Stream",
+                Value: value,
+		    },
+		})
     case pb.Query_VIDEO:
 		q := new(pb.VideoQuery)
 		err := ptypes.UnmarshalAny(payload, q)
