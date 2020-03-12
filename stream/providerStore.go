@@ -64,12 +64,12 @@ func (ps *providerStore) peerDisconnected(pid peer.ID) ([] *pb.StreamRequest, er
 
     //ps.currentProviderList[provider.config.Id][0] = nil
     for _, stream := range provider.streams{
-    	streamId := stream.Id
-    	proverderList := ps.currentProviderList[streamId]
-    	newList := make([]*Provider, 0, len(proverderList))
-    	for _, p := range proverderList{
-    		if p.pid.Pretty() != stream.Id {
-    			newList = append(newList, p)
+		streamId := stream.Id
+		proverderList := ps.currentProviderList[streamId]
+		newList := make([]*Provider, 0, len(proverderList))
+		for _, p := range proverderList{
+			if p.pid.Pretty() != stream.Id {
+				newList = append(newList, p)
 			}
 		}
 		ps.currentProviderList[streamId] = newList
