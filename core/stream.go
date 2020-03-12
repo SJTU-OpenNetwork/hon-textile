@@ -18,64 +18,7 @@ import (
 var ErrStreamNotFound = fmt.Errorf("stream not found")
 var ErrStreamAlreadyInUse = fmt.Errorf("stream already in use")
 
-func (t *Textile) SaveBlock(sid string, cid *cid.Cid, isRoot bool, payload []byte, index uint64) error {
-	// TODO: Unhandled error
-    stat, err := ipfs.StatObjectAtPath(t.node, cid.String())
-    if err != nil {
-        log.Error(err)
-        return err
-    }
-    //fmt.Printf("Saving block, cid: %s, index: %d, size: %d, isroot: %d", cid.String(), cur, stat.CumulativeSize, isRoot)
-    err = t.datastore.StreamBlocks().Add(&pb.StreamBlock{
-        Id: cid.String(),
-        Streamid: sid,
-        Index: index,
-        Size: int32(stat.CumulativeSize),
-        IsRoot: isRoot,
-        Description: string(payload),
-    })
-    if err != nil {
-        log.Error(err)
-        return err
-    }
 
-    return nil
-}
-
-func (t *Textile) TraverseNode(sid string, cid *cid.Cid, isRoot bool, payload []byte, index uint64) (uint64, error) {
-    links, err := ipfs.LinksAtPath(t.node, cid.String())
-    if err != nil{
-        return index, err
-    }
-    if len(links) == 0 {
-        err = t.SaveBlock(sid, cid, isRoot, payload, index)
-        if err != nil {
-            return index, err
-        }
-    } else {
-        for _,l := range links {
-            index, err := t.TraverseNode(sid, &l.Cid, false, nil,index)
-            if err != nil {
-                return index, err
-            }
-        }
-        err = t.SaveBlock(sid, cid, isRoot, payload, index)
-        if err != nil {
-            return index, err
-        }
-    }
-    return index+1, nil
-}
-
-func (t *Textile) NewFileHandler(sid string, newfile *pb.StreamFile, index uint64) (uint64, error) {
-    r := bytes.NewReader(newfile.Data)
-    fileid, err := ipfs.AddData(t.node, r, true, false)
-    if err != nil {
-        log.Error(err)
-        return 0, err
-    }
-    return t.TraverseNode(sid, fileid, true, newfile.Description, index)
-}
 
 func (t *Textile) StartStream(threadId string, config *pb.StreamMeta) error {
 	defer fmt.Printf("textile.StartStream end success\n")
@@ -90,7 +33,7 @@ func (t *Textile) StartStream(threadId string, config *pb.StreamMeta) error {
 		return ErrStreamNotFound
 	}
     
-    t.stream.sm.StartStream(config, t.NewFileHandler)
+    t.stream.StartStream(config)
 
 	//publish the Stream to others
 	fmt.Printf("Find thread for stream.\n")
@@ -115,7 +58,8 @@ func (t *Textile) GetStreamMeta(id string) *pb.StreamMeta {
 
 // add the new file to the corresponding channel
 func (t *Textile) StreamAddFile(id string, sf *pb.StreamFile) error {
-    t.stream.sm.StreamAddFile(id, sf)
+    t.stream.StreamAddFile(id, sf)
+    //t.stream.sm.StreamAddFile(id, sf)
 	return nil
 }
 
