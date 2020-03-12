@@ -2,6 +2,7 @@ package stream
 
 import (
 	"fmt"
+    "time"
 	"github.com/libp2p/go-libp2p-core/peer"
 	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 )
@@ -86,6 +87,7 @@ func (sw *streamWorker) start() error {
 						err := sw.blockSender(sw.pid, fblks)
 						if err != nil {
 							log.Errorf("%s\nError occur when sending blocks.", err.Error())
+                            time.Sleep(time.Duration(100)*time.Millisecond) //something wrong, maybe the connection breaks, if that happens, the worker will be canceled
                             break
 						}
 						sw.currentIndex = sw.currentIndex + uint64(len(blks))
