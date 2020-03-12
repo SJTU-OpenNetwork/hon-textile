@@ -78,7 +78,7 @@ type CafeService struct {
 	open            bool
 	queryResults    *broadcast.Broadcaster
 	inFlightQueries map[string]struct{}
-    sm               *stream.StreamManager
+    sm               *stream.StreamService
 }
 
 // NewCafeService returns a new threads service
@@ -87,7 +87,7 @@ func NewCafeService(
 	node func() *core.IpfsNode,
 	datastore repo.Datastore,
 	inbox *CafeInbox,
-    sm               *stream.StreamManager) *CafeService {
+    sm  *stream.StreamService) *CafeService {
 	handler := &CafeService{
 		datastore:       datastore,
 		inbox:           inbox,

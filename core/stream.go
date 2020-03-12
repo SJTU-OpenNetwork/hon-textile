@@ -3,7 +3,6 @@ package core
 import (
 	"fmt"
 	"time"
-    "bytes"
 	//	"github.com/SJTU-OpenNetwork/hon-textile/stream"
 	"github.com/ipfs/go-cid"
 

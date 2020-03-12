@@ -91,6 +91,7 @@ func (h *StreamService) Protocol() protocol.ID {
 
 // Start begins online services
 func (h *StreamService) Start() {
+    h.online = true
 	h.service.Start()
 	h.service.Node().PeerHost.Network().Notify(&StreamNotifee{})
 }
