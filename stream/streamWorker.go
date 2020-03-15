@@ -83,7 +83,7 @@ func (sw *streamWorker) start() error {
 					if blks != nil && len(blks) > 0 {
 						fmt.Printf("stream/streamWorker.go start(): send %d blks for stream %s to %s start\n", len(blks), sw.stream.Id, sw.pid.Pretty())
 						fblks := sw.filterBlocks(blks)
-						// TODO: Unhandled error
+
 						err := sw.blockSender(sw.pid, fblks)
 						if err != nil {
 							log.Errorf("%s\nError occur when sending blocks.", err.Error())
@@ -96,7 +96,7 @@ func (sw *streamWorker) start() error {
 							sw.notice()
 						}
 					}
-				// TODO: How to end a worker???
+
 				case <- sw.cancelSignal:
 					// Note that break will break select only.
 					return

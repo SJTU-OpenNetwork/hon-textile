@@ -145,6 +145,9 @@ func (h *StreamService) StartStream(config *pb.StreamMeta) {
     }()
 }
 
+/**
+ * Started return true if there stream with id "sid" is working.
+ */
 func (h *StreamService) Started(sid string) bool{
     _, ok:= h.streamFileChannels[sid]
     return ok
@@ -167,7 +170,6 @@ func (h *StreamService) CloseStream(sid string) {
 }
 
 func (h *StreamService) saveBlock(sid string, cid *cid.Cid, isRoot bool, payload []byte) error {
-	// TODO: Unhandled error
     stat, err := ipfs.StatObjectAtPath(h.service.Node(), cid.String())
     if err != nil {
         log.Error(err)
