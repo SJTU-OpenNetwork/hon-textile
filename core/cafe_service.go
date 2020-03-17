@@ -773,7 +773,8 @@ func (h *CafeService) searchLocal(qtype pb.Query_Type, options *pb.QueryOptions,
             break
         }
 
-        hopcnt := 1000 //arbitrary value, needed to be fixed
+        //hopcnt := 1000 //arbitrary value, needed to be fixed
+        var hopcnt int
         started := h.sm.Started(q.Id)
         if started {
             hopcnt = 0
