@@ -24,6 +24,8 @@ github.com/SJTU-OpenNetwork/go-ipfs v0.4.23-beta h1:baAKBsB0m2xDKOgQsHfLdo2f1pUE
 github.com/SJTU-OpenNetwork/go-ipfs v0.4.23-beta/go.mod h1:SWgQpS93wRaq49RwDWvJQgqlRgsZ+rL2GDkLGGoGDiA=
 github.com/SJTU-OpenNetwork/go-peertaskqueue v0.1.2 h1:v119Om8U5Yf5CRT5KOIWmTd8AnGS5WDUDN49E916Leg=
 github.com/SJTU-OpenNetwork/go-peertaskqueue v0.1.2/go.mod h1:9Ybcc+HTRPxn7jKD2NWVdRpSn+Gm2yMzTFlVxGD9Vc0=
+github.com/SJTU-OpenNetwork/interface-go-ipfs-core v0.0.0-20200224094750-25c1dd2978e7 h1:fE09jcVTbuee33zZVUFMrEYLuG+Ncb3wh5cZpgb6Wrw=
+github.com/SJTU-OpenNetwork/interface-go-ipfs-core v0.0.0-20200224094750-25c1dd2978e7/go.mod h1:qaoXYOlEo/R6AEOF2EewWyPfASJocKu8QrCX0zMsOFE=
 github.com/StackExchange/wmi v0.0.0-20180116203802-5d049714c4a6/go.mod h1:3eOhrUMpNV+6aFIbp5/iudMxNCF27Vw2OZgy4xEx0Fg=
 github.com/Stebalien/go-bitfield v0.0.0-20180330043415-076a62f9ce6e/go.mod h1:3oM7gXIttpYDAJXpVNnSCiUMYBLIZ6cb1t+Ip982MRo=
 github.com/Stebalien/go-bitfield v0.0.1 h1:X3kbSSPUaJK60wV2hjOPZwmpljr6VGCqdq4cBLhbQBo=

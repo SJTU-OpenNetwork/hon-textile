@@ -93,7 +93,7 @@ func (h *StreamService) Protocol() protocol.ID {
 func (h *StreamService) Start() {
     h.online = true
 	h.service.Start()
-	h.service.Node().PeerHost.Network().Notify(&StreamNotifee{})
+	h.service.Node().PeerHost.Network().Notify((*StreamNotifee)(h))
 }
 
 // Ping pings another peer
