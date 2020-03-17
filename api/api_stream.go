@@ -121,3 +121,19 @@ func (a *Api) streamSubscribe(g *gin.Context) {
 func (a *Api) streamWorkerStat(g *gin.Context) {
 	a.Node.StreamWorkerStat()
 }
+
+func (a *Api) streamClose(g *gin.Context) {
+	args, err := a.readArgs(g)
+	if err != nil {
+		a.abort500(g, err)
+		return
+	}
+	if len(args) == 0{
+		g.String(http.StatusBadRequest, "missing streamId")
+		return
+	}
+	streamId:= args[0]
+
+	fmt.Printf("Try to close stream %s", streamId)
+	a.Node.StreamClose(streamId)
+}

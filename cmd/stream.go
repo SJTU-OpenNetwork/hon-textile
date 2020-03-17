@@ -47,3 +47,14 @@ func StreamWorkerStat() error {
 	output(res)
 	return nil
 }
+
+func StreamClose(streamId string) error {
+	cmdArg := []string{streamId}
+	//cmdOpt := map[string] string{"stringId": streamId}
+	res, err := executeStringCmd(http.MethodPost, "stream/close", params{args:cmdArg})
+	if err != nil {
+		return nil
+	}
+	output(res)
+	return nil
+}

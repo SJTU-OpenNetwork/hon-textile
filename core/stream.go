@@ -247,7 +247,6 @@ func (t *Textile) StreamWorkerStat() {
 	t.stream.WorkerStat()
 }
 
-//TODO:
-// - Add Stream into database
-// - Implement search for pb.Query_VIDEO in core/cafe_service.go/searchLocal.
-// - Add call back function to bitswap when initialize bitswap.
+func (t *Textile) StreamClose(streamId string) {
+	t.stream.CloseStream(streamId)
+}
