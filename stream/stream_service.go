@@ -93,6 +93,8 @@ func (h *StreamService) Protocol() protocol.ID {
 func (h *StreamService) Start() {
     h.online = true
 	h.service.Start()
+    // TODO:
+    // 		It may not be a good idea to use StreamService as StreamNotifee directly.
 	h.service.Node().PeerHost.Network().Notify((*StreamNotifee)(h))
 }
 
