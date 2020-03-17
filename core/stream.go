@@ -170,7 +170,13 @@ func (t* Textile) SubscribeStream(id string) error {
 					done()
 					break L
 				}
-				sources = append(sources, value.Id)
+				// TODO: Fix this bug.
+				//		Value.Id should be peerid.
+				//		But now it is streamId!!!!!
+				res := &pb.StreamQueryResultItem {}
+				proto.Unmarshal(value.Value.Value, res)
+				//sources = append(sources, value.Id)
+				sources = append(sources, res.Pid)
 				if len(sources) > 3 {
 					done()
 					break L
