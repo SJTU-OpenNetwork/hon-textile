@@ -369,6 +369,8 @@ func (t *Thread) handle(bnode *blockNode, replace bool) (*pb.Block, error) {
         res, err = t.handleAddVideoBlock(block)
 	case pb.Block_STREAMMETA:
 		res, err = t.handleAddStreamMetaBlock(block)
+	case pb.Block_PICTURE:
+		res, err = t.handleFilesBlock(bnode, block)
 	default:
 		err = fmt.Errorf("invalid type: %s", block.Type)
 	}

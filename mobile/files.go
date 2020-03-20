@@ -99,6 +99,21 @@ func (m *Mobile) AddFiles(paths string, threadId string, caption string, cb Prot
 	}()
 }
 
+func (m *Mobile) AddPicture(paths string, threadId string, caption string, cb ProtoCallback) {
+	m.node.WaitAdd(1, "Mobile.AddPicture")
+	go func() {
+		defer m.node.WaitDone("Mobile.AddPicture")
+
+		hash, err := m.addPicture(util.SplitString(paths, ","), threadId, caption)
+		if err != nil {
+			cb.Call(nil, err)
+			return
+		}
+
+		cb.Call(m.blockView(hash))
+	}()
+}
+
 // ShareFiles adds an existing file DAG to a thread via its top level hash (data)
 func (m *Mobile) ShareFiles(data string, threadId string, caption string, cb ProtoCallback) {
 	m.node.WaitAdd(1, "Mobile.ShareFiles")
@@ -283,6 +298,20 @@ func (m *Mobile) addFiles(paths []string, threadId string, caption string) (mh.M
 
 	return m.writeFiles(dirs, threadId, caption)
 }
+
+func (m *Mobile) addPicture(paths []string, threadId string, caption string) (mh.Multihash, error) {
+	dirs := &pb.DirectoryList{Items: make([]*pb.Directory, 0)}
+	for _, pth := range paths {
+		dir, err := m.buildDirectory(nil, pth, threadId)
+		if err != nil {
+			return nil, err
+		}
+		dirs.Items = append(dirs.Items, dir)
+	}
+
+	return m.writePicture(dirs, threadId, caption)
+}
+
 
 func (m *Mobile) shareFiles(data string, threadId string, caption string) (mh.Multihash, error) {
 	if !m.node.Started() {
@@ -533,6 +562,48 @@ func (m *Mobile) writeFiles(dirs *pb.DirectoryList, threadId string, caption str
 	}
 
 	hash, err := thrd.AddFiles(node, "", caption, keys.Files)
+	if err != nil {
+		return nil, err
+	}
+
+	m.node.FlushCafes()
+
+	return hash, nil
+}
+
+func (m *Mobile) writePicture(dirs *pb.DirectoryList, threadId string, caption string) (mh.Multihash, error) {
+	if !m.node.Started() {
+		return nil, core.ErrStopped
+	}
+
+	if len(dirs.Items) == 0 || len(dirs.Items[0].Files) == 0 {
+		return nil, fmt.Errorf("no files found")
+	}
+
+	thrd := m.node.Thread(threadId)
+	if thrd == nil {
+		return nil, core.ErrThreadNotFound
+	}
+
+	var node ipld.Node
+	var keys *pb.Keys
+
+	var err error
+	file := dirs.Items[0].Files[schema.SingleFileTag]
+	if file != nil {
+		node, keys, err = m.node.AddNodeFromFiles([]*pb.FileIndex{file})
+	} else {
+		node, keys, err = m.node.AddNodeFromDirs(dirs)
+	}
+	if err != nil {
+		return nil, err
+	}
+
+	if node == nil {
+		return nil, fmt.Errorf("no files found")
+	}
+
+	hash, err := thrd.AddPicture(node, "", caption, keys.Files)
 	if err != nil {
 		return nil, err
 	}
