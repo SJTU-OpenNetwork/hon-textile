@@ -50,7 +50,7 @@ func StreamWorkerStat() error {
 
 func StreamClose(streamId string) error {
 	//cmdArg := []string{streamId}
-	cmdOpt := map[string] string{"stringId": streamId}
+	cmdOpt := map[string] string{"streamId": streamId}
 	res, err := executeStringCmd(http.MethodPost, "stream/close", params{opts:cmdOpt})
 	if err != nil {
 		return nil
