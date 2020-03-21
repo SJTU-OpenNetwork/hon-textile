@@ -166,9 +166,10 @@ func (h *StreamService) StreamAddFile(id string, sf *pb.StreamFile) error{
 
 func (h *StreamService) CloseStream(sid string) {
     h.streamDone[sid] = true
-    close (h.streamFileChannels[sid])
-    delete (h.streamFileChannels,sid)
-    delete (h.streamBlockIndex,sid)
+    fmt.Printf("StreamService: Try to close stream %s", sid)
+    //close (h.streamFileChannels[sid])
+    //delete (h.streamFileChannels,sid)
+    //delete (h.streamBlockIndex,sid)
 }
 
 func (h *StreamService) saveBlock(sid string, cid *cid.Cid, isRoot bool, payload []byte) error {
