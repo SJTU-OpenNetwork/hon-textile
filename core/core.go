@@ -1025,7 +1025,8 @@ func (t *Textile) FlushBlocks() {
 			util.ProtoTime(queued.Items[j].Date))
 	})
 	wg := sync.WaitGroup{}
-	for _, block := range queued.Items {
+	for blkIndex, block := range queued.Items {
+		log.Debugf("queued block index: %d",blkIndex)
 		if t.datastore.CafeRequests().SyncGroupComplete(block.Id) {
 			wg.Add(1)
 			go func(block *pb.Block) {
@@ -1072,6 +1073,7 @@ func (t *Textile) FlushBlocks() {
 				}
 				posted = true
 
+				log.Debugf("already posted the block: %s",block.Id)
 				err = t.datastore.CafeRequests().DeleteBySyncGroup(block.Id)
 				if err != nil {
 					log.Error(err)

@@ -3,6 +3,7 @@ package core
 import (
 	"sync"
 
+	"github.com/golang/protobuf/proto"
 	"github.com/golang/protobuf/ptypes"
 	"github.com/SJTU-OpenNetwork/go-ipfs/core"
 	"github.com/segmentio/ksuid"
@@ -121,12 +122,7 @@ func (q *BlockOutbox) handle(msg pb.BlockMessage) error {
 		}
         log.Debugf("Peer %s, connection status: %d", msg.Peer, connected)
 		if connected {
-			log.Debugf("sending block message direct to %s", msg.Peer)
-			if msg.Env != nil {
-				log.Debugf("env not nil")
-			} else {
-				log.Debugf("env is nil")
-			}
+			log.Debugf("sending block message with type %d to %s", msg.Env.Message.Type,msg.Peer)
 			err = q.service().SendMessage(nil, msg.Peer, msg.Env)
             log.Debugf("sending error: %s", err.Error())
 		}

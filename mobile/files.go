@@ -312,7 +312,6 @@ func (m *Mobile) addPicture(paths []string, threadId string, caption string) (mh
 	return m.writePicture(dirs, threadId, caption)
 }
 
-
 func (m *Mobile) shareFiles(data string, threadId string, caption string) (mh.Multihash, error) {
 	if !m.node.Started() {
 		return nil, core.ErrStopped

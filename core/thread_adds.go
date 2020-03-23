@@ -24,6 +24,8 @@ func (t *Thread) AddInvite(p *pb.Peer) (mh.Multihash, error) {
 		Invitee: p.Id,
 	}
 
+	log.Debugf("already built the ThreadAdd msg, now start to commit the block to thread")
+
 	pid, err := peer.IDB58Decode(p.Id)
 	if err != nil {
 		return nil, err
@@ -55,7 +57,7 @@ func (t *Thread) AddInvite(p *pb.Peer) (mh.Multihash, error) {
 		return nil, err
 	}
 
-	log.Debugf("added ADD to %s for %s", p.Id, t.Id)
+	log.Debugf("already added ADD to %s for %s", p.Id, t.Id)
 
 	return res.hash, nil
 }
