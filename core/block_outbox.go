@@ -3,7 +3,6 @@ package core
 import (
 	"sync"
 
-	"github.com/golang/protobuf/proto"
 	"github.com/golang/protobuf/ptypes"
 	"github.com/SJTU-OpenNetwork/go-ipfs/core"
 	"github.com/segmentio/ksuid"
