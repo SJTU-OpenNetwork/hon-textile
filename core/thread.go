@@ -790,6 +790,11 @@ func (t *Thread) post(index *pb.Block) error {
 		return err
 	}
 	env, err := t.service().NewEnvelope(t.Id, ndata, ciphertext, sig)
+	if env != nil {
+		log.Debugf("env not nil")
+	} else {
+		log.Debugf("env is nil")
+	}
 	if err != nil {
         log.Error(err)
 		return err

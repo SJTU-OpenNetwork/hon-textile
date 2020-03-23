@@ -122,6 +122,11 @@ func (q *BlockOutbox) handle(msg pb.BlockMessage) error {
         log.Debugf("Peer %s, connection status: %d", msg.Peer, connected)
 		if connected {
 			log.Debugf("sending block message direct to %s", msg.Peer)
+			if msg.Env != nil {
+				log.Debugf("env not nil")
+			} else {
+				log.Debugf("env is nil")
+			}
 			err = q.service().SendMessage(nil, msg.Peer, msg.Env)
             log.Debugf("sending error: %s", err.Error())
 		}
