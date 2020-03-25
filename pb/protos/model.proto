@@ -140,7 +140,7 @@ message Block {
         REMOVEPEER  = 101;
         VIDEO       = 102;
         STREAMMETA  = 103;
-//        PICTURE     = 104;
+        PICTURE     = 104;
     }
 
 	enum BlockStatus {
@@ -180,7 +180,6 @@ message InviteList {
 }
 
 // FILES //
-
 message SyncFile {
     string peerAddress = 1;
     string file        = 2;

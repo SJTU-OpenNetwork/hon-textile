@@ -312,8 +312,6 @@ func (h *ThreadsService) NewEnvelopeAck(sig []byte) (*pb.Envelope, error) {
 
 // SendMessage sends a message to a peer
 func (h *ThreadsService) SendMessage(ctx context.Context, peerId string, env *pb.Envelope) error {
-	log.Debugf("ThreadService start to send message")
-	log.Debugf("nil ctx:%t,ThreadService:%t,service:%t",ctx==nil,h==nil,h.service==nil)
 	err :=h.service.SendMessage(ctx, peerId, env)
 	if err != nil {
 		log.Error(err)

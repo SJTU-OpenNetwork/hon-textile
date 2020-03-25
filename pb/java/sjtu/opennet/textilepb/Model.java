@@ -12297,13 +12297,13 @@ public final class Model {
        */
       VIDEO(102),
       /**
-       * <pre>
-       *        PICTURE     = 104;
-       * </pre>
-       *
        * <code>STREAMMETA = 103;</code>
        */
       STREAMMETA(103),
+      /**
+       * <code>PICTURE = 104;</code>
+       */
+      PICTURE(104),
       UNRECOGNIZED(-1),
       ;
 
@@ -12372,13 +12372,13 @@ public final class Model {
        */
       public static final int VIDEO_VALUE = 102;
       /**
-       * <pre>
-       *        PICTURE     = 104;
-       * </pre>
-       *
        * <code>STREAMMETA = 103;</code>
        */
       public static final int STREAMMETA_VALUE = 103;
+      /**
+       * <code>PICTURE = 104;</code>
+       */
+      public static final int PICTURE_VALUE = 104;
 
 
       public final int getNumber() {
@@ -12414,6 +12414,7 @@ public final class Model {
           case 101: return REMOVEPEER;
           case 102: return VIDEO;
           case 103: return STREAMMETA;
+          case 104: return PICTURE;
           default: return null;
         }
       }
@@ -18439,6 +18440,10 @@ public final class Model {
     sjtu.opennet.textilepb.Model.SyncFile.Operation getOperation();
   }
   /**
+   * <pre>
+   * FILES //
+   * </pre>
+   *
    * Protobuf type {@code SyncFile}
    */
   public  static final class SyncFile extends
@@ -19080,6 +19085,10 @@ public final class Model {
       return builder;
     }
     /**
+     * <pre>
+     * FILES //
+     * </pre>
+     *
      * Protobuf type {@code SyncFile}
      */
     public static final class Builder extends
@@ -52051,134 +52060,134 @@ public final class Model {
       "G_HEAD\020\002\"$\n\nThreadList\022\026\n\005items\030\001 \003(\0132\007." +
       "Thread\"I\n\nThreadPeer\022\n\n\002id\030\001 \001(\t\022\016\n\006thre" +
       "ad\030\002 \001(\t\022\020\n\010welcomed\030\003 \001(\010\022\r\n\005admin\030\004 \001(" +
-      "\010\"\200\004\n\005Block\022\n\n\002id\030\001 \001(\t\022\016\n\006thread\030\002 \001(\t\022" +
+      "\010\"\215\004\n\005Block\022\n\n\002id\030\001 \001(\t\022\016\n\006thread\030\002 \001(\t\022" +
       "\016\n\006author\030\003 \001(\t\022\036\n\004type\030\004 \001(\0162\020.Block.Bl" +
       "ockType\022(\n\004date\030\005 \001(\0132\032.google.protobuf." +
       "Timestamp\022\017\n\007parents\030\006 \003(\t\022\016\n\006target\030\007 \001" +
       "(\t\022\014\n\004data\030\t \001(\t\022\014\n\004body\030\010 \001(\t\022\"\n\006status" +
       "\030\n \001(\0162\022.Block.BlockStatus\022\020\n\010attempts\030\013" +
-      " \001(\005\022\023\n\004user\030e \001(\0132\005.User\"\305\001\n\tBlockType\022" +
+      " \001(\005\022\023\n\004user\030e \001(\0132\005.User\"\322\001\n\tBlockType\022" +
       "\r\n\005MERGE\020\000\032\002\010\001\022\n\n\006IGNORE\020\001\022\010\n\004FLAG\020\002\022\010\n\004" +
       "JOIN\020\003\022\014\n\010ANNOUNCE\020\004\022\t\n\005LEAVE\020\005\022\010\n\004TEXT\020" +
       "\006\022\t\n\005FILES\020\007\022\017\n\007COMMENT\020\010\032\002\010\001\022\010\n\004LIKE\020\t\022" +
       "\007\n\003ADD\0202\022\014\n\010ADDADMIN\020d\022\016\n\nREMOVEPEER\020e\022\t" +
-      "\n\005VIDEO\020f\022\016\n\nSTREAMMETA\020g\"1\n\013BlockStatus" +
-      "\022\t\n\005READY\020\000\022\n\n\006QUEUED\020\001\022\013\n\007PENDING\020\002\"\"\n\t" +
-      "BlockList\022\025\n\005items\030\001 \003(\0132\006.Block\"j\n\014Bloc" +
-      "kMessage\022\n\n\002id\030\001 \001(\t\022\014\n\004peer\030\002 \001(\t\022\026\n\003en" +
-      "v\030\003 \001(\0132\t.Envelope\022(\n\004date\030\004 \001(\0132\032.googl" +
-      "e.protobuf.Timestamp\"\204\001\n\006Invite\022\n\n\002id\030\001 " +
-      "\001(\t\022\r\n\005block\030\002 \001(\014\022\014\n\004name\030\003 \001(\t\022\026\n\007invi" +
-      "ter\030\004 \001(\0132\005.Peer\022(\n\004date\030\005 \001(\0132\032.google." +
-      "protobuf.Timestamp\022\017\n\007parents\030\006 \003(\t\"$\n\nI" +
-      "nviteList\022\026\n\005items\030\001 \003(\0132\007.Invite\"\347\001\n\010Sy" +
-      "ncFile\022\023\n\013peerAddress\030\001 \001(\t\022\014\n\004file\030\002 \001(" +
-      "\t\022\034\n\004type\030\003 \001(\0162\016.SyncFile.Type\022(\n\004date\030" +
-      "\004 \001(\0132\032.google.protobuf.Timestamp\022&\n\tope" +
-      "ration\030\005 \001(\0162\023.SyncFile.Operation\"&\n\004Typ" +
-      "e\022\010\n\004BLOB\020\000\022\t\n\005PHOTO\020\001\022\t\n\005VIDEO\020\002\" \n\tOpe" +
-      "ration\022\007\n\003ADD\020\000\022\n\n\006REMOVE\020\001\"(\n\014SyncFileL" +
-      "ist\022\030\n\005items\030\001 \003(\0132\t.SyncFile\"/\n\nStreamF" +
-      "ile\022\014\n\004data\030\001 \001(\014\022\023\n\013description\030\002 \001(\014\"\362" +
-      "\001\n\tFileIndex\022\014\n\004mill\030\001 \001(\t\022\020\n\010checksum\030\002" +
-      " \001(\t\022\016\n\006source\030\003 \001(\t\022\014\n\004opts\030\004 \001(\t\022\014\n\004ha" +
-      "sh\030\005 \001(\t\022\013\n\003key\030\006 \001(\t\022\r\n\005media\030\007 \001(\t\022\014\n\004" +
-      "name\030\010 \001(\t\022\014\n\004size\030\t \001(\003\022)\n\005added\030\n \001(\0132" +
-      "\032.google.protobuf.Timestamp\022%\n\004meta\030\013 \001(" +
-      "\0132\027.google.protobuf.Struct\022\017\n\007targets\030\014 " +
-      "\003(\t\"\222\002\n\004Node\022\014\n\004name\030\001 \001(\t\022\013\n\003pin\030\002 \001(\010\022" +
-      "\021\n\tplaintext\030\003 \001(\010\022\014\n\004mill\030\004 \001(\t\022\035\n\004opts" +
-      "\030\005 \003(\0132\017.Node.OptsEntry\022,\n\013json_schema\030\006" +
-      " \001(\0132\027.google.protobuf.Struct\022\037\n\005links\030\010" +
-      " \003(\0132\020.Node.LinksEntry\032+\n\tOptsEntry\022\013\n\003k" +
-      "ey\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001\0323\n\nLinksEntr" +
-      "y\022\013\n\003key\030\001 \001(\t\022\024\n\005value\030\002 \001(\0132\005.Link:\0028\001" +
-      "\"\273\001\n\004Link\022\013\n\003use\030\001 \001(\t\022\013\n\003pin\030\002 \001(\010\022\021\n\tp" +
-      "laintext\030\003 \001(\010\022\014\n\004mill\030\004 \001(\t\022\035\n\004opts\030\005 \003" +
-      "(\0132\017.Link.OptsEntry\022,\n\013json_schema\030\006 \001(\013" +
-      "2\027.google.protobuf.Struct\032+\n\tOptsEntry\022\013" +
-      "\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001\"\371\003\n\014Notif" +
-      "ication\022\n\n\002id\030\001 \001(\t\022(\n\004date\030\002 \001(\0132\032.goog" +
-      "le.protobuf.Timestamp\022\r\n\005actor\030\003 \001(\t\022\017\n\007" +
-      "subject\030\004 \001(\t\022\024\n\014subject_desc\030\005 \001(\t\022\r\n\005b" +
-      "lock\030\006 \001(\t\022\016\n\006target\030\007 \001(\t\022 \n\004type\030\010 \001(\016" +
-      "2\022.Notification.Type\022\014\n\004body\030\t \001(\t\022\014\n\004re" +
-      "ad\030\n \001(\010\022\023\n\004user\030e \001(\0132\005.User\"\212\002\n\004Type\022\023" +
-      "\n\017INVITE_RECEIVED\020\000\022\027\n\023ACCOUNT_PEER_JOIN" +
-      "ED\020\001\022\025\n\021ACCOUNT_PEER_LEFT\020\010\022\017\n\013PEER_JOIN" +
-      "ED\020\002\022\r\n\tPEER_LEFT\020\003\022\021\n\rMESSAGE_ADDED\020\004\022\017" +
-      "\n\013FILES_ADDED\020\005\022\021\n\rCOMMENT_ADDED\020\006\022\016\n\nLI" +
-      "KE_ADDED\020\007\022\017\n\013ADMIN_ADDED\020d\022\020\n\014PEER_REMO" +
-      "VED\020e\022\017\n\013VIDEO_ADDED\020f\022\020\n\014STREAM_ADDED\020g" +
-      "\022\020\n\013STREAM_FILE\020\364\003\"0\n\020NotificationList\022\034" +
-      "\n\005items\030\001 \003(\0132\r.Notification\"_\n\004Cafe\022\014\n\004" +
-      "peer\030\001 \001(\t\022\017\n\007address\030\002 \001(\t\022\013\n\003api\030\003 \001(\t" +
-      "\022\020\n\010protocol\030\004 \001(\t\022\014\n\004node\030\005 \001(\t\022\013\n\003url\030" +
-      "\006 \001(\t\"\301\001\n\013CafeSession\022\n\n\002id\030\001 \001(\t\022\016\n\006acc" +
-      "ess\030\002 \001(\t\022\'\n\003exp\030\003 \001(\0132\032.google.protobuf" +
-      ".Timestamp\022\017\n\007refresh\030\004 \001(\t\022(\n\004rexp\030\005 \001(" +
-      "\0132\032.google.protobuf.Timestamp\022\017\n\007subject" +
-      "\030\006 \001(\t\022\014\n\004type\030\007 \001(\t\022\023\n\004cafe\030\010 \001(\0132\005.Caf" +
-      "e\".\n\017CafeSessionList\022\033\n\005items\030\001 \003(\0132\014.Ca" +
-      "feSession\"\255\003\n\013CafeRequest\022\n\n\002id\030\001 \001(\t\022\014\n" +
-      "\004peer\030\002 \001(\t\022\016\n\006target\030\003 \001(\t\022\023\n\004cafe\030\004 \001(" +
-      "\0132\005.Cafe\022\r\n\005group\030\010 \001(\t\022\022\n\nsync_group\030\n " +
-      "\001(\t\022\037\n\004type\030\005 \001(\0162\021.CafeRequest.Type\022(\n\004" +
-      "date\030\006 \001(\0132\032.google.protobuf.Timestamp\022\014" +
-      "\n\004size\030\007 \001(\003\022#\n\006status\030\t \001(\0162\023.CafeReque" +
-      "st.Status\022\020\n\010attempts\030\013 \001(\005\022\022\n\ngroup_siz" +
-      "e\030\014 \001(\003\022\031\n\021group_transferred\030\r \001(\003\"O\n\004Ty" +
-      "pe\022\t\n\005STORE\020\000\022\013\n\007UNSTORE\020\003\022\020\n\014STORE_THRE" +
-      "AD\020\001\022\022\n\016UNSTORE_THREAD\020\004\022\t\n\005INBOX\020\002\",\n\006S" +
-      "tatus\022\007\n\003NEW\020\000\022\013\n\007PENDING\020\001\022\014\n\010COMPLETE\020" +
-      "\002\".\n\017CafeRequestList\022\033\n\005items\030\001 \003(\0132\014.Ca" +
-      "feRequest\"\372\001\n\023CafeSyncGroupStatus\022\n\n\002id\030" +
-      "\001 \001(\t\022\021\n\tnum_total\030\002 \001(\005\022\023\n\013num_pending\030" +
-      "\003 \001(\005\022\024\n\014num_complete\030\004 \001(\005\022\022\n\nsize_tota" +
-      "l\030\005 \001(\003\022\024\n\014size_pending\030\006 \001(\003\022\025\n\rsize_co" +
-      "mplete\030\007 \001(\003\022\031\n\021groups_size_total\030\010 \001(\003\022" +
-      "\034\n\024groups_size_complete\030\t \001(\003\022\r\n\005error\0302" +
-      " \001(\t\022\020\n\010error_id\0303 \001(\t\"\330\001\n\017CafeHTTPReque" +
-      "st\022#\n\004type\030\001 \001(\0162\025.CafeHTTPRequest.Type\022" +
-      "\013\n\003url\030\002 \001(\t\022.\n\007headers\030\003 \003(\0132\035.CafeHTTP" +
-      "Request.HeadersEntry\022\014\n\004path\030\004 \001(\t\032.\n\014He" +
-      "adersEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\002" +
-      "8\001\"%\n\004Type\022\007\n\003PUT\020\000\022\010\n\004POST\020\001\022\n\n\006DELETE\020" +
-      "\002\"c\n\013CafeMessage\022\n\n\002id\030\001 \001(\t\022\014\n\004peer\030\002 \001" +
-      "(\t\022(\n\004date\030\003 \001(\0132\032.google.protobuf.Times" +
-      "tamp\022\020\n\010attempts\030\004 \001(\005\"[\n\017CafeClientNonc" +
-      "e\022\r\n\005value\030\001 \001(\t\022\017\n\007address\030\002 \001(\t\022(\n\004dat" +
-      "e\030\003 \001(\0132\032.google.protobuf.Timestamp\"\217\001\n\n" +
-      "CafeClient\022\n\n\002id\030\001 \001(\t\022\017\n\007address\030\002 \001(\t\022" +
-      "+\n\007created\030\003 \001(\0132\032.google.protobuf.Times" +
-      "tamp\022(\n\004seen\030\004 \001(\0132\032.google.protobuf.Tim" +
-      "estamp\022\r\n\005token\030\005 \001(\t\",\n\016CafeClientList\022" +
-      "\032\n\005items\030\001 \003(\0132\013.CafeClient\"P\n\tCafeToken" +
-      "\022\n\n\002id\030\001 \001(\t\022\r\n\005value\030\002 \001(\014\022(\n\004date\030\003 \001(" +
-      "\0132\032.google.protobuf.Timestamp\"B\n\020CafeCli" +
-      "entThread\022\n\n\002id\030\001 \001(\t\022\016\n\006client\030\002 \001(\t\022\022\n" +
-      "\nciphertext\030\003 \001(\014\"z\n\005Video\022\n\n\002id\030\001 \001(\t\022\017" +
-      "\n\007caption\030\002 \001(\t\022\023\n\013videoLength\030\003 \001(\003\022\016\n\006" +
-      "poster\030\004 \001(\t\022\r\n\005width\030\005 \001(\005\022\016\n\006height\030\006 " +
-      "\001(\005\022\020\n\010rotation\030\007 \001(\005\"k\n\nVideoChunk\022\n\n\002i" +
-      "d\030\001 \001(\t\022\r\n\005chunk\030\002 \001(\t\022\017\n\007address\030\003 \001(\t\022" +
-      "\021\n\tstartTime\030\004 \001(\003\022\017\n\007endTime\030\005 \001(\003\022\r\n\005i" +
-      "ndex\030\006 \001(\003\",\n\016VideoChunkList\022\032\n\005items\030\001 " +
-      "\003(\0132\013.VideoChunk\"m\n\013StreamBlock\022\n\n\002id\030\001 " +
-      "\001(\t\022\020\n\010streamid\030\002 \001(\t\022\r\n\005index\030\003 \001(\004\022\014\n\004" +
-      "size\030\004 \001(\005\022\016\n\006isRoot\030\005 \001(\010\022\023\n\013descriptio" +
-      "n\030\006 \001(\t\".\n\017StreamBlockList\022\033\n\005items\030\001 \003(" +
-      "\0132\014.StreamBlock\"`\n\nStreamMeta\022\n\n\002id\030\001 \001(" +
-      "\t\022\023\n\013nsubstreams\030\002 \001(\005\022\017\n\007bitrate\030\003 \001(\005\022" +
-      "\017\n\007caption\030\004 \001(\t\022\017\n\007nblocks\030\005 \001(\004\"\024\n\006Str" +
-      "eam\022\n\n\002id\030\001 \001(\t\"g\n\021CafeClientMessage\022\n\n\002" +
-      "id\030\001 \001(\t\022\014\n\004peer\030\002 \001(\t\022\016\n\006client\030\003 \001(\t\022(" +
-      "\n\004date\030\004 \001(\0132\032.google.protobuf.Timestamp" +
-      "\"}\n\005BotKV\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\014\022+\n" +
-      "\007created\030\003 \001(\0132\032.google.protobuf.Timesta" +
-      "mp\022+\n\007updated\030\004 \001(\0132\032.google.protobuf.Ti" +
-      "mestampB\034\n\026sjtu.opennet.textilepbZ\002pbb\006p" +
-      "roto3"
+      "\n\005VIDEO\020f\022\016\n\nSTREAMMETA\020g\022\013\n\007PICTURE\020h\"1" +
+      "\n\013BlockStatus\022\t\n\005READY\020\000\022\n\n\006QUEUED\020\001\022\013\n\007" +
+      "PENDING\020\002\"\"\n\tBlockList\022\025\n\005items\030\001 \003(\0132\006." +
+      "Block\"j\n\014BlockMessage\022\n\n\002id\030\001 \001(\t\022\014\n\004pee" +
+      "r\030\002 \001(\t\022\026\n\003env\030\003 \001(\0132\t.Envelope\022(\n\004date\030" +
+      "\004 \001(\0132\032.google.protobuf.Timestamp\"\204\001\n\006In" +
+      "vite\022\n\n\002id\030\001 \001(\t\022\r\n\005block\030\002 \001(\014\022\014\n\004name\030" +
+      "\003 \001(\t\022\026\n\007inviter\030\004 \001(\0132\005.Peer\022(\n\004date\030\005 " +
+      "\001(\0132\032.google.protobuf.Timestamp\022\017\n\007paren" +
+      "ts\030\006 \003(\t\"$\n\nInviteList\022\026\n\005items\030\001 \003(\0132\007." +
+      "Invite\"\347\001\n\010SyncFile\022\023\n\013peerAddress\030\001 \001(\t" +
+      "\022\014\n\004file\030\002 \001(\t\022\034\n\004type\030\003 \001(\0162\016.SyncFile." +
+      "Type\022(\n\004date\030\004 \001(\0132\032.google.protobuf.Tim" +
+      "estamp\022&\n\toperation\030\005 \001(\0162\023.SyncFile.Ope" +
+      "ration\"&\n\004Type\022\010\n\004BLOB\020\000\022\t\n\005PHOTO\020\001\022\t\n\005V" +
+      "IDEO\020\002\" \n\tOperation\022\007\n\003ADD\020\000\022\n\n\006REMOVE\020\001" +
+      "\"(\n\014SyncFileList\022\030\n\005items\030\001 \003(\0132\t.SyncFi" +
+      "le\"/\n\nStreamFile\022\014\n\004data\030\001 \001(\014\022\023\n\013descri" +
+      "ption\030\002 \001(\014\"\362\001\n\tFileIndex\022\014\n\004mill\030\001 \001(\t\022" +
+      "\020\n\010checksum\030\002 \001(\t\022\016\n\006source\030\003 \001(\t\022\014\n\004opt" +
+      "s\030\004 \001(\t\022\014\n\004hash\030\005 \001(\t\022\013\n\003key\030\006 \001(\t\022\r\n\005me" +
+      "dia\030\007 \001(\t\022\014\n\004name\030\010 \001(\t\022\014\n\004size\030\t \001(\003\022)\n" +
+      "\005added\030\n \001(\0132\032.google.protobuf.Timestamp" +
+      "\022%\n\004meta\030\013 \001(\0132\027.google.protobuf.Struct\022" +
+      "\017\n\007targets\030\014 \003(\t\"\222\002\n\004Node\022\014\n\004name\030\001 \001(\t\022" +
+      "\013\n\003pin\030\002 \001(\010\022\021\n\tplaintext\030\003 \001(\010\022\014\n\004mill\030" +
+      "\004 \001(\t\022\035\n\004opts\030\005 \003(\0132\017.Node.OptsEntry\022,\n\013" +
+      "json_schema\030\006 \001(\0132\027.google.protobuf.Stru" +
+      "ct\022\037\n\005links\030\010 \003(\0132\020.Node.LinksEntry\032+\n\tO" +
+      "ptsEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001" +
+      "\0323\n\nLinksEntry\022\013\n\003key\030\001 \001(\t\022\024\n\005value\030\002 \001" +
+      "(\0132\005.Link:\0028\001\"\273\001\n\004Link\022\013\n\003use\030\001 \001(\t\022\013\n\003p" +
+      "in\030\002 \001(\010\022\021\n\tplaintext\030\003 \001(\010\022\014\n\004mill\030\004 \001(" +
+      "\t\022\035\n\004opts\030\005 \003(\0132\017.Link.OptsEntry\022,\n\013json" +
+      "_schema\030\006 \001(\0132\027.google.protobuf.Struct\032+" +
+      "\n\tOptsEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:" +
+      "\0028\001\"\371\003\n\014Notification\022\n\n\002id\030\001 \001(\t\022(\n\004date" +
+      "\030\002 \001(\0132\032.google.protobuf.Timestamp\022\r\n\005ac" +
+      "tor\030\003 \001(\t\022\017\n\007subject\030\004 \001(\t\022\024\n\014subject_de" +
+      "sc\030\005 \001(\t\022\r\n\005block\030\006 \001(\t\022\016\n\006target\030\007 \001(\t\022" +
+      " \n\004type\030\010 \001(\0162\022.Notification.Type\022\014\n\004bod" +
+      "y\030\t \001(\t\022\014\n\004read\030\n \001(\010\022\023\n\004user\030e \001(\0132\005.Us" +
+      "er\"\212\002\n\004Type\022\023\n\017INVITE_RECEIVED\020\000\022\027\n\023ACCO" +
+      "UNT_PEER_JOINED\020\001\022\025\n\021ACCOUNT_PEER_LEFT\020\010" +
+      "\022\017\n\013PEER_JOINED\020\002\022\r\n\tPEER_LEFT\020\003\022\021\n\rMESS" +
+      "AGE_ADDED\020\004\022\017\n\013FILES_ADDED\020\005\022\021\n\rCOMMENT_" +
+      "ADDED\020\006\022\016\n\nLIKE_ADDED\020\007\022\017\n\013ADMIN_ADDED\020d" +
+      "\022\020\n\014PEER_REMOVED\020e\022\017\n\013VIDEO_ADDED\020f\022\020\n\014S" +
+      "TREAM_ADDED\020g\022\020\n\013STREAM_FILE\020\364\003\"0\n\020Notif" +
+      "icationList\022\034\n\005items\030\001 \003(\0132\r.Notificatio" +
+      "n\"_\n\004Cafe\022\014\n\004peer\030\001 \001(\t\022\017\n\007address\030\002 \001(\t" +
+      "\022\013\n\003api\030\003 \001(\t\022\020\n\010protocol\030\004 \001(\t\022\014\n\004node\030" +
+      "\005 \001(\t\022\013\n\003url\030\006 \001(\t\"\301\001\n\013CafeSession\022\n\n\002id" +
+      "\030\001 \001(\t\022\016\n\006access\030\002 \001(\t\022\'\n\003exp\030\003 \001(\0132\032.go" +
+      "ogle.protobuf.Timestamp\022\017\n\007refresh\030\004 \001(\t" +
+      "\022(\n\004rexp\030\005 \001(\0132\032.google.protobuf.Timesta" +
+      "mp\022\017\n\007subject\030\006 \001(\t\022\014\n\004type\030\007 \001(\t\022\023\n\004caf" +
+      "e\030\010 \001(\0132\005.Cafe\".\n\017CafeSessionList\022\033\n\005ite" +
+      "ms\030\001 \003(\0132\014.CafeSession\"\255\003\n\013CafeRequest\022\n" +
+      "\n\002id\030\001 \001(\t\022\014\n\004peer\030\002 \001(\t\022\016\n\006target\030\003 \001(\t" +
+      "\022\023\n\004cafe\030\004 \001(\0132\005.Cafe\022\r\n\005group\030\010 \001(\t\022\022\n\n" +
+      "sync_group\030\n \001(\t\022\037\n\004type\030\005 \001(\0162\021.CafeReq" +
+      "uest.Type\022(\n\004date\030\006 \001(\0132\032.google.protobu" +
+      "f.Timestamp\022\014\n\004size\030\007 \001(\003\022#\n\006status\030\t \001(" +
+      "\0162\023.CafeRequest.Status\022\020\n\010attempts\030\013 \001(\005" +
+      "\022\022\n\ngroup_size\030\014 \001(\003\022\031\n\021group_transferre" +
+      "d\030\r \001(\003\"O\n\004Type\022\t\n\005STORE\020\000\022\013\n\007UNSTORE\020\003\022" +
+      "\020\n\014STORE_THREAD\020\001\022\022\n\016UNSTORE_THREAD\020\004\022\t\n" +
+      "\005INBOX\020\002\",\n\006Status\022\007\n\003NEW\020\000\022\013\n\007PENDING\020\001" +
+      "\022\014\n\010COMPLETE\020\002\".\n\017CafeRequestList\022\033\n\005ite" +
+      "ms\030\001 \003(\0132\014.CafeRequest\"\372\001\n\023CafeSyncGroup" +
+      "Status\022\n\n\002id\030\001 \001(\t\022\021\n\tnum_total\030\002 \001(\005\022\023\n" +
+      "\013num_pending\030\003 \001(\005\022\024\n\014num_complete\030\004 \001(\005" +
+      "\022\022\n\nsize_total\030\005 \001(\003\022\024\n\014size_pending\030\006 \001" +
+      "(\003\022\025\n\rsize_complete\030\007 \001(\003\022\031\n\021groups_size" +
+      "_total\030\010 \001(\003\022\034\n\024groups_size_complete\030\t \001" +
+      "(\003\022\r\n\005error\0302 \001(\t\022\020\n\010error_id\0303 \001(\t\"\330\001\n\017" +
+      "CafeHTTPRequest\022#\n\004type\030\001 \001(\0162\025.CafeHTTP" +
+      "Request.Type\022\013\n\003url\030\002 \001(\t\022.\n\007headers\030\003 \003" +
+      "(\0132\035.CafeHTTPRequest.HeadersEntry\022\014\n\004pat" +
+      "h\030\004 \001(\t\032.\n\014HeadersEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005" +
+      "value\030\002 \001(\t:\0028\001\"%\n\004Type\022\007\n\003PUT\020\000\022\010\n\004POST" +
+      "\020\001\022\n\n\006DELETE\020\002\"c\n\013CafeMessage\022\n\n\002id\030\001 \001(" +
+      "\t\022\014\n\004peer\030\002 \001(\t\022(\n\004date\030\003 \001(\0132\032.google.p" +
+      "rotobuf.Timestamp\022\020\n\010attempts\030\004 \001(\005\"[\n\017C" +
+      "afeClientNonce\022\r\n\005value\030\001 \001(\t\022\017\n\007address" +
+      "\030\002 \001(\t\022(\n\004date\030\003 \001(\0132\032.google.protobuf.T" +
+      "imestamp\"\217\001\n\nCafeClient\022\n\n\002id\030\001 \001(\t\022\017\n\007a" +
+      "ddress\030\002 \001(\t\022+\n\007created\030\003 \001(\0132\032.google.p" +
+      "rotobuf.Timestamp\022(\n\004seen\030\004 \001(\0132\032.google" +
+      ".protobuf.Timestamp\022\r\n\005token\030\005 \001(\t\",\n\016Ca" +
+      "feClientList\022\032\n\005items\030\001 \003(\0132\013.CafeClient" +
+      "\"P\n\tCafeToken\022\n\n\002id\030\001 \001(\t\022\r\n\005value\030\002 \001(\014" +
+      "\022(\n\004date\030\003 \001(\0132\032.google.protobuf.Timesta" +
+      "mp\"B\n\020CafeClientThread\022\n\n\002id\030\001 \001(\t\022\016\n\006cl" +
+      "ient\030\002 \001(\t\022\022\n\nciphertext\030\003 \001(\014\"z\n\005Video\022" +
+      "\n\n\002id\030\001 \001(\t\022\017\n\007caption\030\002 \001(\t\022\023\n\013videoLen" +
+      "gth\030\003 \001(\003\022\016\n\006poster\030\004 \001(\t\022\r\n\005width\030\005 \001(\005" +
+      "\022\016\n\006height\030\006 \001(\005\022\020\n\010rotation\030\007 \001(\005\"k\n\nVi" +
+      "deoChunk\022\n\n\002id\030\001 \001(\t\022\r\n\005chunk\030\002 \001(\t\022\017\n\007a" +
+      "ddress\030\003 \001(\t\022\021\n\tstartTime\030\004 \001(\003\022\017\n\007endTi" +
+      "me\030\005 \001(\003\022\r\n\005index\030\006 \001(\003\",\n\016VideoChunkLis" +
+      "t\022\032\n\005items\030\001 \003(\0132\013.VideoChunk\"m\n\013StreamB" +
+      "lock\022\n\n\002id\030\001 \001(\t\022\020\n\010streamid\030\002 \001(\t\022\r\n\005in" +
+      "dex\030\003 \001(\004\022\014\n\004size\030\004 \001(\005\022\016\n\006isRoot\030\005 \001(\010\022" +
+      "\023\n\013description\030\006 \001(\t\".\n\017StreamBlockList\022" +
+      "\033\n\005items\030\001 \003(\0132\014.StreamBlock\"`\n\nStreamMe" +
+      "ta\022\n\n\002id\030\001 \001(\t\022\023\n\013nsubstreams\030\002 \001(\005\022\017\n\007b" +
+      "itrate\030\003 \001(\005\022\017\n\007caption\030\004 \001(\t\022\017\n\007nblocks" +
+      "\030\005 \001(\004\"\024\n\006Stream\022\n\n\002id\030\001 \001(\t\"g\n\021CafeClie" +
+      "ntMessage\022\n\n\002id\030\001 \001(\t\022\014\n\004peer\030\002 \001(\t\022\016\n\006c" +
+      "lient\030\003 \001(\t\022(\n\004date\030\004 \001(\0132\032.google.proto" +
+      "buf.Timestamp\"}\n\005BotKV\022\013\n\003key\030\001 \001(\t\022\r\n\005v" +
+      "alue\030\002 \001(\014\022+\n\007created\030\003 \001(\0132\032.google.pro" +
+      "tobuf.Timestamp\022+\n\007updated\030\004 \001(\0132\032.googl" +
+      "e.protobuf.TimestampB\034\n\026sjtu.opennet.tex" +
+      "tilepbZ\002pbb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {

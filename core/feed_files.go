@@ -92,45 +92,45 @@ func (t *Textile) fileAtData(data string) ([]*pb.File, error) {
 	return files, nil
 }
 //
-//func (t *Textile) picture(block *pb.Block, opts feedItemOpts) (*pb.Files, error) {
-//	if block.Type != pb.Block_PICTURE {
-//		return nil, ErrBlockWrongType
-//	}
-//
-//	files, err := t.fileAtData(block.Data)
-//	if err != nil {
-//		return nil, err
-//	}
-//
-//	item := &pb.Files{
-//		Block:   block.Id,
-//		Data:    block.Data,
-//		Date:    block.Date,
-//		User:    t.PeerUser(block.Author),
-//		Caption: block.Body,
-//		Files:   files,
-//		Threads: t.fileThreads(block.Data),
-//	}
-//
-//	if opts.annotations {
-//		comments, err := t.Comments(block.Id)
-//		if err != nil {
-//			return nil, err
-//		}
-//		item.Comments = comments.Items
-//
-//		likes, err := t.Likes(block.Id)
-//		if err != nil {
-//			return nil, err
-//		}
-//		item.Likes = likes.Items
-//	} else {
-//		item.Comments = opts.comments
-//		item.Likes = opts.likes
-//	}
-//
-//	return item, nil
-//}
+func (t *Textile) picture(block *pb.Block, opts feedItemOpts) (*pb.Files, error) {
+	if block.Type != pb.Block_PICTURE {
+		return nil, ErrBlockWrongType
+	}
+
+	files, err := t.fileAtData(block.Data)
+	if err != nil {
+		return nil, err
+	}
+
+	item := &pb.Files{
+		Block:   block.Id,
+		Data:    block.Data,
+		Date:    block.Date,
+		User:    t.PeerUser(block.Author),
+		Caption: block.Body,
+		Files:   files,
+		Threads: t.fileThreads(block.Data),
+	}
+
+	if opts.annotations {
+		comments, err := t.Comments(block.Id)
+		if err != nil {
+			return nil, err
+		}
+		item.Comments = comments.Items
+
+		likes, err := t.Likes(block.Id)
+		if err != nil {
+			return nil, err
+		}
+		item.Likes = likes.Items
+	} else {
+		item.Comments = opts.comments
+		item.Likes = opts.likes
+	}
+
+	return item, nil
+}
 
 func (t *Textile) file(block *pb.Block, opts feedItemOpts) (*pb.Files, error) {
 	if block.Type != pb.Block_FILES {

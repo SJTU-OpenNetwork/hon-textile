@@ -369,8 +369,8 @@ func (t *Thread) handle(bnode *blockNode, replace bool) (*pb.Block, error) {
         res, err = t.handleAddVideoBlock(block)
 	case pb.Block_STREAMMETA:
 		res, err = t.handleAddStreamMetaBlock(block)
-	//case pb.Block_PICTURE:
-	//	res, err = t.handleFilesBlock(bnode, block)
+	case pb.Block_PICTURE:
+		res, err = t.handleFilesBlock(bnode, block)
 	default:
 		err = fmt.Errorf("invalid type: %s", block.Type)
 	}
@@ -481,7 +481,6 @@ func (t *Thread) commitBlock(msg proto.Message, mtype pb.Block_BlockType, add bo
 	if err != nil {
 		return nil, err
 	}
-	log.Debugf("already built the block, start to add it to thread")
 	hash, err := t.addBlock(ciphertext, !add)
 	if err != nil {
 		return nil, err
