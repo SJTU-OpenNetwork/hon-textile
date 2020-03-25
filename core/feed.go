@@ -22,7 +22,7 @@ var flatFeedTypes = []pb.Block_BlockType{
 	pb.Block_REMOVEPEER,
 	pb.Block_VIDEO,
 	pb.Block_STREAMMETA,
-	pb.Block_PICTURE,
+	//pb.Block_PICTURE,
 }
 
 var annotatedFeedTypes = []pb.Block_BlockType{
@@ -32,7 +32,7 @@ var annotatedFeedTypes = []pb.Block_BlockType{
 	pb.Block_TEXT,
 	pb.Block_VIDEO,
 	pb.Block_STREAMMETA,
-	pb.Block_PICTURE,
+	//pb.Block_PICTURE,
 }
 
 type feedStack struct {
@@ -171,8 +171,8 @@ func (t *Textile) feedItem(block *pb.Block, opts feedItemOpts) (*pb.FeedItem, er
 		payload, err = t.message(block, opts)
 	case pb.Block_FILES:
 		payload, err = t.file(block, opts)
-	case pb.Block_PICTURE:
-		payload, err = t.picture(block, opts)
+	//case pb.Block_PICTURE:
+	//	payload, err = t.picture(block, opts)
 	case pb.Block_COMMENT:
 		payload, err = t.comment(block, opts)
 	case pb.Block_LIKE:

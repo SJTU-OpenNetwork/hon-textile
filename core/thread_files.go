@@ -96,77 +96,77 @@ func (t *Thread) AddFiles(node ipld.Node, target string, caption string, keys ma
 }
 
 // AddPicture add a picture
-func (t *Thread) AddPicture(node ipld.Node, target string, caption string, keys map[string]string) (mh.Multihash, error) {
-	t.lock.Lock()
-	defer t.lock.Unlock()
-
-	if !t.writable(t.config.Account.Address) {
-		return nil, ErrNotWritable
-	}
-
-	if t.Schema == nil {
-		return nil, ErrThreadSchemaRequired
-	}
-	if node == nil {
-		return nil, ErrInvalidFileNode
-	}
-
-	caption = strings.TrimSpace(caption)
-	msg := &pb.ThreadFiles{
-		Body: caption,
-		Keys: keys,
-	}
-
-	// pre-hash the block, we only want to add it if validation passes,
-	// but we need the hash for the sync group
-	res, err := t.commitBlock(msg, pb.Block_PICTURE, false, nil)
-	if err != nil {
-		return nil, err
-	}
-
-	// validate and apply schema directives
-	err = t.processFileData(t.Schema, node, keys, false)
-	if err != nil {
-		return nil, err
-	}
-
-	// add cafe store requests for the entire graph
-	err = t.cafeReqFileData(node, res.hash.B58String(), "")
-	if err != nil {
-		return nil, err
-	}
-
-	// finish adding the block
-	_, err = t.addBlock(res.ciphertext, false)
-	if err != nil {
-		return nil, err
-	}
-
-	data := node.Cid().Hash().B58String()
-	err = t.indexBlock(&pb.Block{
-		Id:     res.hash.B58String(),
-		Thread: t.Id,
-		Author: res.header.Author,
-		Type:   pb.Block_PICTURE,
-		Date:   res.header.Date,
-		Target: target,
-		Data:   data,
-		Body:   msg.Body,
-		Status: pb.Block_QUEUED,
-	}, false)
-	if err != nil {
-		return nil, err
-	}
-
-	err = t.indexFileData(node, data)
-	if err != nil {
-		return nil, err
-	}
-
-	log.Debugf("added FILES to %s: %s", t.Id, res.hash.B58String())
-
-	return res.hash, nil
-}
+//func (t *Thread) AddPicture(node ipld.Node, target string, caption string, keys map[string]string) (mh.Multihash, error) {
+//	t.lock.Lock()
+//	defer t.lock.Unlock()
+//
+//	if !t.writable(t.config.Account.Address) {
+//		return nil, ErrNotWritable
+//	}
+//
+//	if t.Schema == nil {
+//		return nil, ErrThreadSchemaRequired
+//	}
+//	if node == nil {
+//		return nil, ErrInvalidFileNode
+//	}
+//
+//	caption = strings.TrimSpace(caption)
+//	msg := &pb.ThreadFiles{
+//		Body: caption,
+//		Keys: keys,
+//	}
+//
+//	// pre-hash the block, we only want to add it if validation passes,
+//	// but we need the hash for the sync group
+//	res, err := t.commitBlock(msg, pb.Block_PICTURE, false, nil)
+//	if err != nil {
+//		return nil, err
+//	}
+//
+//	// validate and apply schema directives
+//	err = t.processFileData(t.Schema, node, keys, false)
+//	if err != nil {
+//		return nil, err
+//	}
+//
+//	// add cafe store requests for the entire graph
+//	err = t.cafeReqFileData(node, res.hash.B58String(), "")
+//	if err != nil {
+//		return nil, err
+//	}
+//
+//	// finish adding the block
+//	_, err = t.addBlock(res.ciphertext, false)
+//	if err != nil {
+//		return nil, err
+//	}
+//
+//	data := node.Cid().Hash().B58String()
+//	err = t.indexBlock(&pb.Block{
+//		Id:     res.hash.B58String(),
+//		Thread: t.Id,
+//		Author: res.header.Author,
+//		Type:   pb.Block_PICTURE,
+//		Date:   res.header.Date,
+//		Target: target,
+//		Data:   data,
+//		Body:   msg.Body,
+//		Status: pb.Block_QUEUED,
+//	}, false)
+//	if err != nil {
+//		return nil, err
+//	}
+//
+//	err = t.indexFileData(node, data)
+//	if err != nil {
+//		return nil, err
+//	}
+//
+//	log.Debugf("added FILES to %s: %s", t.Id, res.hash.B58String())
+//
+//	return res.hash, nil
+//}
 
 // handleFilesBlock handles an incoming files block
 func (t *Thread) handleFilesBlock(bnode *blockNode, block *pb.ThreadBlock) (handleResult, error) {

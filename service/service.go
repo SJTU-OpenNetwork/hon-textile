@@ -230,7 +230,6 @@ func (srv *Service) SendHTTPStreamRequest(addr string, pmes *pb.Envelope, access
 // SendMessage sends out a message
 func (srv *Service) SendMessage(ctx context.Context, p string, pmes *pb.Envelope) error {
 	log.Debugf("sending %s to %s", pmes.Message.Type.String(), p)
-
 	pid, err := peer.IDB58Decode(p)
 	if err != nil {
 		return err
