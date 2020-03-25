@@ -124,7 +124,7 @@ func (q *BlockOutbox) handle(msg pb.BlockMessage) error {
 			log.Debugf("sending block message with type %d to %s", msg.Env.Message.Type,msg.Peer)
 			log.Debugf("nil blockoutbox:%t,service:%t,Env:%t",q==nil,q.service()==nil,msg.Env==nil)
 			err = q.service().SendMessage(nil, msg.Peer, msg.Env)
-            log.Debugf("sending error: %s", err.Error())
+            //log.Debugf("sending error: %s", err.Error())
 		}
 	}
 
