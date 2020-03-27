@@ -16,6 +16,8 @@ message Peer {
     repeated Cafe inboxes             = 5;
     google.protobuf.Timestamp created = 6;
     google.protobuf.Timestamp updated = 7;
+
+    int32 role                        = 100;
 }
 
 message PeerList {
@@ -46,6 +48,8 @@ message Contact {
     string avatar           = 3;
     repeated Peer peers     = 4;
     repeated string threads = 5;
+
+    int32 role              = 100; //indicate whether the node is a shadow node or a cafe node
 }
 
 message ContactList {

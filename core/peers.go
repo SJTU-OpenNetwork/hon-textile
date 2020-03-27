@@ -8,6 +8,11 @@ import (
 	"github.com/SJTU-OpenNetwork/hon-textile/util"
 )
 
+const (
+    CAFEROLEMAP = 1
+    SHADOWROLEMAP = 2
+)
+
 // PeerUser returns a user object with the most recently updated contact for the given id
 // Note: If no underlying contact is found, this will return a blank object w/ a
 // generic user name for display-only purposes.
@@ -135,4 +140,20 @@ func peersEqual(a *pb.Peer, b *pb.Peer) bool {
 		}
 	}
 	return true
+}
+
+func IsCafe(p *pb.Peer) bool {
+    return p.Role & CAFEROLEMAP != 0
+}
+
+func IsShadow(p *pb.Peer) bool {
+    return p.Role & SHADOWROLEMAP != 0
+}
+
+func SetCafe(p *pb.Peer) {
+    p.Role = p.Role & CAFEROLEMAP
+}
+
+func SetShadow(p *pb.Peer) {
+    p.Role = p.Role & SHADOWROLEMAP
 }

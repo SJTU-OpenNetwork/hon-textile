@@ -257,7 +257,7 @@ func initDatabaseTables(db *sql.DB, pin string) error {
 	sqlStmt += `
     create table config (key text primary key not null, value blob);
 
-    create table peers (id text primary key not null, address text not null, username text not null, avatar text not null, inboxes blob not null, created integer not null, updated integer not null);
+    create table peers (id text primary key not null, address text not null, username text not null, avatar text not null, inboxes blob not null, created integer not null, updated integer not null, role integer);
     create index peer_address on peers (address);
     create index peer_username on peers (username);
     create index peer_updated on peers (updated);
