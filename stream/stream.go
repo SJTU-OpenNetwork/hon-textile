@@ -1,5 +1,6 @@
 package stream
 
+
 //	Deprecated, use datastore and pb directly
 //type Stream struct {
 //	ID          string  // hash value of the stream

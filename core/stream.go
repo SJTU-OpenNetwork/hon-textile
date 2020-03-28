@@ -209,6 +209,9 @@ func (t* Textile) SubscribeStream(id string) error {
             log.Errorf("request %s failed", source)
 	    	continue
         }
+
+        // request accepted by receiver.
+
         return nil
     }
 	return fmt.Errorf("Subscribe failed!")
@@ -222,6 +225,9 @@ func (t* Textile) RequestStream(pid string, config *pb.StreamRequest) (*pb.Envel
 	return t.stream.SendStreamRequest(pid, config)
 }
 
+func (t* Textile) StreamRequestAccepted(pid string, config *pb.StreamRequest) {
+	t.stream.RequestAccepted(pid, config)
+}
 
 func (t *Textile) SearchStream(query *pb.StreamQuery, options *pb.QueryOptions) (<-chan *pb.QueryResult, <-chan error, *broadcast.Broadcaster, error) {
 	log.Debug("in SearchStream")

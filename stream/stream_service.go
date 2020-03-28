@@ -60,6 +60,7 @@ type StreamService struct {
     
     // for providers
     providers *providerStore
+	lostIndex chan *lostReport
 }
 
 // NewStreamService returns a new stream service
@@ -377,6 +378,16 @@ func (h *StreamService) SendStreamRequest(peerId string, config *pb.StreamReques
 	return h.service.SendRequest(peerId, env)
 }
 
+func (h *StreamService) RequestAccepted(peerId string, config *pb.StreamRequest) {
+	acceptedSubstream := newProvidedSubstream(config.Id, config.StreamMap, 1, config.StartIndex, peerId, h.handleBlockLost)
+	h.providers.add(peerId, acceptedSubstream)
+}
+
+// Handle lost block
+func (h *StreamService) handleBlockLost(report *lostReport){
+
+}
+
 // Call it when you decide to send blocks to requestor.
 // Use "Response" to distinguish with "Handle".
 func (h *StreamService) responseRequest(pid peer.ID, req *pb.StreamRequest) error {
@@ -479,10 +490,9 @@ func (h *StreamService)PeerDisconnected(pid peer.ID) {
     //streams, _ := h.providers.peerDisconnected(pid)
 }
 
-func (h *StreamService) GetProvider(config *pb.StreamRequest) *Provider {
-    return h.providers.getProvider(config)
+func (h* StreamService) GetProvidedHopcnt(config *pb.StreamRequest) (int, bool){
+	return 0, false
 }
-
 
 // ===================== OTHERS =========================
 func (h *StreamService) Loggable() map[string]interface{}{

@@ -1,18 +1,14 @@
 package stream
 
 import (
+	//"context"
 	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 	"github.com/libp2p/go-libp2p-core/peer"
 	"sync"
 )
 
 
-type Provider struct {
-    Pid peer.ID
-    //streams []*pb.StreamRequest
-    Streams map[string] *pb.StreamRequest
-    Hopcnt map[string] int
-}
+
 
 // providerStore is used to manage stream providers.
 // It should be thread-safe with both store, retrieve, de-duplication method.
@@ -20,63 +16,31 @@ type Provider struct {
 //		Each substream only need one provider.
 //		One provider may provide several substreams belonging to different streams.
 type providerStore struct {
-	currentProviderList map[string] []*Provider	// map[streamId] []Provider
-    potentialProviderList map[string] []*Provider
-    providerIndex map[peer.ID] *Provider // for quic search
-    potentialProviderIndex map[peer.ID] *Provider
+    providers map[string] *provider
+    potentialProviders map[string] *provider
+	//ctx context.Context
 	lock sync.Mutex
 }
 
 func newProviderStore() *providerStore {
 	return &providerStore{
-		currentProviderList: make(map[string][]*Provider),
-		providerIndex: make(map[peer.ID] *Provider),
-		potentialProviderList: make(map[string][]*Provider),
-		potentialProviderIndex: make(map[peer.ID] *Provider),
+		providers:make(map[string] *provider),
+		potentialProviders: make(map[string] *provider),
 	}
-
 }
 
 // add a provider
 // do not support substream now
-func (ps *providerStore) add(pid peer.ID, req *pb.StreamRequest, hopcnt int) error {
+func (ps *providerStore) add(pid string, substream *providedSubstream) error {
 	ps.lock.Lock()
 	defer ps.lock.Unlock()
+	p, ok := ps.providers[pid]
+	if !ok {
+		p = newProvider(pid)
+		ps.providers[pid] = p
+	}
+	p.add(substream)
 
-    provider, ok := ps.providerIndex[pid]
-    if !ok {
-        provider = &Provider{
-            Pid: pid,
-            //streams: make([]*pb.StreamRequest,0),
-            Streams: make(map[string]*pb.StreamRequest),
-            Hopcnt: make(map[string] int),
-        }
-    }
-    //provider.streams = append(provider.streams, req)
-    provider.Streams[req.Id] = req
-    provider.Hopcnt[req.Id] = hopcnt
-	ps.currentProviderList[req.Id] = append(ps.currentProviderList[req.Id], provider)
-	ps.providerIndex[provider.Pid] = provider
-	return nil
-}
-
-
-func (ps *providerStore) addPotential(pid peer.ID, req *pb.StreamRequest, hopcnt int) error {
-	ps.lock.Lock()
-	defer ps.lock.Unlock()
-
-    provider, ok := ps.potentialProviderIndex[pid]
-    if !ok {
-        provider = &Provider{
-            Pid: pid,
-            Streams: make(map[string]*pb.StreamRequest),
-            Hopcnt: make(map[string] int),
-        }
-    }
-    provider.Streams[req.Id] = req
-    provider.Hopcnt[req.Id] = hopcnt
-	ps.potentialProviderList[req.Id] = append(ps.potentialProviderList[req.Id], provider)
-	ps.potentialProviderIndex[provider.Pid] = provider
 	return nil
 }
 
@@ -85,35 +49,10 @@ func (ps *providerStore) addPotential(pid peer.ID, req *pb.StreamRequest, hopcnt
 func (ps *providerStore) peerDisconnected(pid peer.ID) (map[string] *pb.StreamRequest, error) {
 	ps.lock.Lock()
 	defer ps.lock.Unlock()
-   
-    provider, ok := ps.providerIndex[pid]
-    if !ok {
-        return nil, nil	// Note that this func may return a legal nil.
-    }
 
-    //ps.currentProviderList[provider.config.Id][0] = nil
-    for _, stream := range provider.Streams{
-    	streamId := stream.Id
-    	proverderList := ps.currentProviderList[streamId]
-    	newList := make([]*Provider, 0, len(proverderList))
-    	for _, p := range proverderList{
-    		if p.Pid.Pretty() != stream.Id {
-    			newList = append(newList, p)
-			}
-		}
-		ps.currentProviderList[streamId] = newList
-	}
-
-    ps.providerIndex[pid] = nil
-    return provider.Streams, nil
+	return nil, nil
 }
 
-func (ps *providerStore) getProvider(config *pb.StreamRequest) *Provider {
-    // do not support substream for now
-    providers, ok := ps.currentProviderList[config.Id]
-    if !ok {
-        return nil
-    } else {
-    	return providers[0]
-	}
+func (ps *providerStore) getProvidedSubstream(req *pb.StreamRequest) *providedSubstream{
+	return nil
 }

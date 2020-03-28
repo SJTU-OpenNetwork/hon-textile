@@ -773,8 +773,8 @@ func (h *CafeService) searchLocal(qtype pb.Query_Type, options *pb.QueryOptions,
             break
         }
 
-        //hopcnt := 1000 //arbitrary value, needed to be fixed
-        var hopcnt int
+        hopcnt := 1000 //arbitrary value, needed to be fixed
+        //var hopcnt int
         started := h.sm.Started(q.Id)
         if started {
             hopcnt = 0
@@ -788,10 +788,13 @@ func (h *CafeService) searchLocal(qtype pb.Query_Type, options *pb.QueryOptions,
                 req := &pb.StreamRequest{
                     Id: q.Id,
                 }
-                provider:= h.sm.GetProvider(req)
-                if provider != nil && provider.Hopcnt[q.Id] != 1000 {
-                    hopcnt = provider.Hopcnt[q.Id] + 1
-                }
+                providedHopcnt, ok:= h.sm.GetProvidedHopcnt(req)
+                //if provider != nil && provider.Hopcnt[q.Id] != 1000 {
+                //    hopcnt = provider.Hopcnt[q.Id] + 1
+                //}
+                if ok {
+                	hopcnt = providedHopcnt + 1
+				}
             }
         }
         peerId := h.service.Node().Identity.Pretty()
