@@ -298,7 +298,7 @@ func (m *Mobile) addFiles(paths []string, threadId string, caption string) (mh.M
 
 	return m.writeFiles(dirs, threadId, caption)
 }
-
+//
 func (m *Mobile) addPicture(paths []string, threadId string, caption string) (mh.Multihash, error) {
 	dirs := &pb.DirectoryList{Items: make([]*pb.Directory, 0)}
 	for _, pth := range paths {
@@ -311,7 +311,6 @@ func (m *Mobile) addPicture(paths []string, threadId string, caption string) (mh
 
 	return m.writePicture(dirs, threadId, caption)
 }
-
 
 func (m *Mobile) shareFiles(data string, threadId string, caption string) (mh.Multihash, error) {
 	if !m.node.Started() {
@@ -570,7 +569,7 @@ func (m *Mobile) writeFiles(dirs *pb.DirectoryList, threadId string, caption str
 
 	return hash, nil
 }
-
+//
 func (m *Mobile) writePicture(dirs *pb.DirectoryList, threadId string, caption string) (mh.Multihash, error) {
 	if !m.node.Started() {
 		return nil, core.ErrStopped

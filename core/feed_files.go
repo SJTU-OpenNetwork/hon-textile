@@ -91,7 +91,7 @@ func (t *Textile) fileAtData(data string) ([]*pb.File, error) {
 
 	return files, nil
 }
-
+//
 func (t *Textile) picture(block *pb.Block, opts feedItemOpts) (*pb.Files, error) {
 	if block.Type != pb.Block_PICTURE {
 		return nil, ErrBlockWrongType

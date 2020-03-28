@@ -95,7 +95,7 @@ func (t *Thread) AddFiles(node ipld.Node, target string, caption string, keys ma
 	return res.hash, nil
 }
 
-// AddPicture add a picture
+//AddPicture add a picture
 func (t *Thread) AddPicture(node ipld.Node, target string, caption string, keys map[string]string) (mh.Multihash, error) {
 	t.lock.Lock()
 	defer t.lock.Unlock()
@@ -163,7 +163,7 @@ func (t *Thread) AddPicture(node ipld.Node, target string, caption string, keys 
 		return nil, err
 	}
 
-	log.Debugf("added FILES to %s: %s", t.Id, res.hash.B58String())
+	log.Debugf("added PICTURE to %s: %s", t.Id, res.hash.B58String())
 
 	return res.hash, nil
 }

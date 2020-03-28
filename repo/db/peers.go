@@ -26,7 +26,7 @@ func (c *PeerDB) Add(peer *pb.Peer) error {
 	if err != nil {
 		return err
 	}
-	stm := `insert into peers(id, address, username, avatar, inboxes, created, updated) values(?,?,?,?,?,?,?)`
+	stm := `insert into peers(id, address, username, avatar, inboxes, created, updated, role) values(?,?,?,?,?,?,?,?)`
 	stmt, err := tx.Prepare(stm)
 	if err != nil {
 		log.Errorf("error in tx prepare: %s", err)
@@ -59,6 +59,7 @@ func (c *PeerDB) Add(peer *pb.Peer) error {
 		inboxes,
 		created,
 		updated,
+        peer.Role,
 	)
 	if err != nil {
 		_ = tx.Rollback()
@@ -74,7 +75,7 @@ func (c *PeerDB) AddOrUpdate(peer *pb.Peer) error {
 	if err != nil {
 		return err
 	}
-	stm := `insert or replace into peers(id, address, username, avatar, inboxes, created, updated) values(?,?,?,?,?,coalesce((select created from peers where id=?),?),?)`
+	stm := `insert or replace into peers(id, address, username, avatar, inboxes, created, updated, role) values(?,?,?,?,?,coalesce((select created from peers where id=?),?),?,?)`
 	stmt, err := tx.Prepare(stm)
 	if err != nil {
 		log.Errorf("error in tx prepare: %s", err)
@@ -103,6 +104,7 @@ func (c *PeerDB) AddOrUpdate(peer *pb.Peer) error {
 		peer.Id,
 		created,
 		time.Now().UnixNano(),
+        peer.Role,
 	)
 	if err != nil {
 		_ = tx.Rollback()
@@ -239,6 +241,13 @@ func (c *PeerDB) UpdateInboxes(id string, inboxes []*pb.Cafe) error {
 	return err
 }
 
+func (c *PeerDB) UpdateRole(id string, role int32) error {
+	c.lock.Lock()
+	defer c.lock.Unlock()
+	_, err := c.db.Exec("update peers set role=?, updated=? where id=?", role, time.Now().UnixNano(), id)
+	return err
+}
+
 func (c *PeerDB) Delete(id string) error {
 	c.lock.Lock()
 	defer c.lock.Unlock()
@@ -264,11 +273,12 @@ func (c *PeerDB) handleQuery(stm string) []*pb.Peer {
 		var id, address, name, avatar string
 		var inboxes []byte
 		var createdInt, updatedInt int64
-		if err := rows.Scan(&id, &address, &name, &avatar, &inboxes, &createdInt, &updatedInt); err != nil {
+        var roleInt int32
+		if err := rows.Scan(&id, &address, &name, &avatar, &inboxes, &createdInt, &updatedInt, &roleInt); err != nil {
 			log.Errorf("error in db scan: %s", err)
 			continue
 		}
-		row := c.handleRow(id, address, name, avatar, inboxes, createdInt, updatedInt)
+		row := c.handleRow(id, address, name, avatar, inboxes, createdInt, updatedInt, roleInt)
 		if row != nil {
 			list = append(list, row)
 		}
@@ -276,7 +286,7 @@ func (c *PeerDB) handleQuery(stm string) []*pb.Peer {
 	return list
 }
 
-func (c *PeerDB) handleRow(id string, address string, name string, avatar string, inboxes []byte, createdInt int64, updatedInt int64) *pb.Peer {
+func (c *PeerDB) handleRow(id string, address string, name string, avatar string, inboxes []byte, createdInt int64, updatedInt int64, roleInt int32) *pb.Peer {
 	cafes := make([]*pb.Cafe, 0)
 	if err := json.Unmarshal(inboxes, &cafes); err != nil {
 		log.Errorf("error unmarshaling cafes: %s", err)
@@ -291,6 +301,7 @@ func (c *PeerDB) handleRow(id string, address string, name string, avatar string
 		Inboxes: cafes,
 		Created: util.ProtoTs(createdInt),
 		Updated: util.ProtoTs(updatedInt),
+        Role:    roleInt,
 	}
 }
 

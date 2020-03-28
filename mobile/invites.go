@@ -17,6 +17,7 @@ func (m *Mobile) AddInvite(threadId string, address string) error {
 		return err
 	}
 
+	log.Debugf("already added invite, now start to flushcafes")
 	m.node.FlushCafes()
 
 	return nil

@@ -18440,6 +18440,10 @@ public final class Model {
     sjtu.opennet.textilepb.Model.SyncFile.Operation getOperation();
   }
   /**
+   * <pre>
+   * FILES //
+   * </pre>
+   *
    * Protobuf type {@code SyncFile}
    */
   public  static final class SyncFile extends
@@ -19081,6 +19085,10 @@ public final class Model {
       return builder;
     }
     /**
+     * <pre>
+     * FILES //
+     * </pre>
+     *
      * Protobuf type {@code SyncFile}
      */
     public static final class Builder extends

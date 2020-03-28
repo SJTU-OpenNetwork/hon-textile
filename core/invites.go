@@ -26,6 +26,7 @@ func (t *Textile) AddInvite(threadId string, address string) error {
 	if thread == nil {
 		return ErrThreadNotFound
 	}
+	log.Debugf("already got the thread: %s",thread.Id)
 
 	peers := t.datastore.Peers().List(fmt.Sprintf("address='%s'", address))
 	if len(peers) == 0 {
@@ -35,6 +36,7 @@ func (t *Textile) AddInvite(threadId string, address string) error {
 	var err error
 	for _, p := range peers {
         t.TryConnect(p.Id)
+        log.Debugf("already tried to connect the peer: %s",p.Id)
 		_, err = thread.AddInvite(p)
 		if err != nil {
 			return err

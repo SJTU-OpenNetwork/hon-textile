@@ -481,7 +481,6 @@ func (t *Thread) commitBlock(msg proto.Message, mtype pb.Block_BlockType, add bo
 	if err != nil {
 		return nil, err
 	}
-
 	hash, err := t.addBlock(ciphertext, !add)
 	if err != nil {
 		return nil, err
@@ -768,7 +767,7 @@ func (t *Thread) sendWelcome() error {
 // post publishes an encrypted message to thread peers
 func (t *Thread) post(index *pb.Block) error {
     log.Debugf("posting block with type %d", index.Type)
-	nhash, err := t.commitNode(index, nil, index.Type != pb.Block_ADD)
+	nhash, err := t.commitNode(index, nil, index.Type != pb.Block_ADD) //invite will let the last pram be false
 	if err != nil {
         log.Error(err)
 		return err
@@ -794,7 +793,9 @@ func (t *Thread) post(index *pb.Block) error {
         log.Error(err)
 		return err
 	}
-
+	if env != nil {
+		log.Debugf("get the envelope with block type %d",index.Type)
+	}
 	var peers []pb.ThreadPeer
 	if index.Type == pb.Block_ADD {
 		if index.Body != "" {

@@ -312,7 +312,12 @@ func (h *ThreadsService) NewEnvelopeAck(sig []byte) (*pb.Envelope, error) {
 
 // SendMessage sends a message to a peer
 func (h *ThreadsService) SendMessage(ctx context.Context, peerId string, env *pb.Envelope) error {
-	return h.service.SendMessage(ctx, peerId, env)
+	err :=h.service.SendMessage(ctx, peerId, env)
+	if err != nil {
+		log.Error(err)
+		return err
+	}
+	return nil
 }
 
 // SendPubSubMessage publishes the message to the recipient's peerID-based topic
