@@ -3,6 +3,7 @@
 package stream
 
 import (
+	"encoding/json"
 	"fmt"
 	"github.com/SJTU-OpenNetwork/interface-go-ipfs-core/path"
 	"io/ioutil"
@@ -378,14 +379,25 @@ func (h *StreamService) SendStreamRequest(peerId string, config *pb.StreamReques
 	return h.service.SendRequest(peerId, env)
 }
 
+// RequestAccepted is called when a stream request is accepted by some peer.
 func (h *StreamService) RequestAccepted(peerId string, config *pb.StreamRequest) {
 	acceptedSubstream := newProvidedSubstream(config.Id, config.StreamMap, 1, config.StartIndex, peerId, h.handleBlockLost)
-	h.providers.add(peerId, acceptedSubstream)
+	provider := h.providers.getOrCreate(peerId)
+	// TODO: De-duplicated
+	provider.add(acceptedSubstream)
 }
 
 // Handle lost block
+// It would be called by providedSubstream.
 func (h *StreamService) handleBlockLost(report *lostReport){
-
+	fmt.Println("BlockLost")
+	infos :=  report.Loggable()
+	js, err := json.MarshalIndent(infos, "", "  ")
+	if err != nil {
+		fmt.Printf("%s\n", err.Error())
+	} else {
+		fmt.Printf("%s\n", string(js))
+	}
 }
 
 // Call it when you decide to send blocks to requestor.

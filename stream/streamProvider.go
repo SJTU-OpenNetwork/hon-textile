@@ -32,7 +32,7 @@ func (l *lostIndex) add(streamInd uint64) {
 	l.previous = streamInd
 }
 
-// Core of provider.
+// Core of Provider.
 type providedSubstream struct {
 	// Value assigned when initializing.
 	streamId string
@@ -55,6 +55,15 @@ type lostReport struct {
 	streamMap uint64
 	index uint64
 	providerId string
+}
+
+func (report *lostReport) Loggable() map[string]interface{}{
+	return map[string]interface{}{
+		"providerId": report.providerId,
+		"streamId": report.streamId,
+		"streamMap": report.streamMap,
+		"index": report.index,
+	}
 }
 
 func (ps *providedSubstream) indexLost(lostIndex uint64){
@@ -87,26 +96,28 @@ func newProvidedSubstream(streamId string, streamMap uint64, numSubstream uint64
 }
 
 
-// One provider represents one ipfs peer.
+// One Provider represents one ipfs peer.
 // Function:
 //	- Record the information about all substreams provided by one peer.
 //	- Detect the lose of blocks.
 //	- Find out which substream should be re-request if a peer is disconnect.
-//		Further handle provider disconnect
-type provider struct {
+//		Further handle Provider disconnect
+// Note:
+// Provider can be used from outside stream package.
+type Provider struct {
 	pid string
 	subStreams []*providedSubstream
 	lock sync.Mutex
 }
 
-func newProvider(pid string) *provider {
-	return &provider{
+func newProvider(pid string) *Provider {
+	return &Provider{
 		pid:     pid,
 		subStreams: make([]*providedSubstream,0),
 	}
 }
 
-func (p *provider) add (sub *providedSubstream) {
+func (p *Provider) add (sub *providedSubstream) {
 	p.lock.Lock()
 	defer p.lock.Unlock()
 	p.subStreams = append(p.subStreams, sub)

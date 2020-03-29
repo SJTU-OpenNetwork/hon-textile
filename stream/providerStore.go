@@ -13,24 +13,37 @@ import (
 // providerStore is used to manage stream providers.
 // It should be thread-safe with both store, retrieve, de-duplication method.
 // Note:
-//		Each substream only need one provider.
-//		One provider may provide several substreams belonging to different streams.
+//		Each substream only need one Provider.
+//		One Provider may provide several substreams belonging to different streams.
 type providerStore struct {
-    providers map[string] *provider
-    potentialProviders map[string] *provider
+    providers map[string] *Provider
+    potentialProviders map[string] *Provider
 	//ctx context.Context
 	lock sync.Mutex
 }
 
 func newProviderStore() *providerStore {
 	return &providerStore{
-		providers:make(map[string] *provider),
-		potentialProviders: make(map[string] *provider),
+		providers:make(map[string] *Provider),
+		potentialProviders: make(map[string] *Provider),
 	}
 }
 
-// add a provider
+func (ps *providerStore) getOrCreate(pid string) *Provider {
+	ps.lock.Lock()
+	defer ps.lock.Unlock()
+	p, ok := ps.providers[pid]
+	if !ok {
+		p = newProvider(pid)
+		ps.providers[pid] = p
+	}
+	return p
+}
+
+// add a Provider
 // do not support substream now
+// [deprecated] use getOrCreate() and Provider.add() instead.
+/*
 func (ps *providerStore) add(pid string, substream *providedSubstream) error {
 	ps.lock.Lock()
 	defer ps.lock.Unlock()
@@ -43,6 +56,7 @@ func (ps *providerStore) add(pid string, substream *providedSubstream) error {
 
 	return nil
 }
+*/
 
 // peerDisconnected is called by the upper manager
 // return a list of streams that need to resubscribe
@@ -53,6 +67,4 @@ func (ps *providerStore) peerDisconnected(pid peer.ID) (map[string] *pb.StreamRe
 	return nil, nil
 }
 
-func (ps *providerStore) getProvidedSubstream(req *pb.StreamRequest) *providedSubstream{
-	return nil
-}
+
