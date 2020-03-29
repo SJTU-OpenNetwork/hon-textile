@@ -6,12 +6,11 @@ import (
 	//	"github.com/SJTU-OpenNetwork/hon-textile/stream"
 	"github.com/ipfs/go-cid"
 
-	//stream "github.com/SJTU-OpenNetwork/go-stream"
-	"github.com/golang/protobuf/ptypes"
 	"github.com/SJTU-OpenNetwork/hon-textile/broadcast"
 	"github.com/SJTU-OpenNetwork/hon-textile/pb"
-	"github.com/SJTU-OpenNetwork/hon-textile/ipfs"
 	"github.com/golang/protobuf/proto"
+	//stream "github.com/SJTU-OpenNetwork/go-stream"
+	"github.com/golang/protobuf/ptypes"
 	"github.com/golang/protobuf/ptypes/any"
 )
 var ErrStreamNotFound = fmt.Errorf("stream not found")
@@ -61,7 +60,7 @@ func (t *Textile) StreamAddFile(id string, sf *pb.StreamFile) error {
     //t.stream.sm.StreamAddFile(id, sf)
 	return nil
 }
-
+/*
 func (t *Textile) handleSearchProvider(resultCh <-chan *pb.QueryResult, errCh <-chan error, cancel *broadcast.Broadcaster, config *pb.StreamRequest) (error) {
 	go func() {
 		for {
@@ -121,6 +120,7 @@ func (t *Textile) handleSearchProvider(resultCh <-chan *pb.QueryResult, errCh <-
 	}()
 	return nil
 }
+*/
 
 func (t* Textile) SubscribeStream(id string) error {
     config := &pb.StreamRequest {
