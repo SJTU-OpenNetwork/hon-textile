@@ -45,9 +45,11 @@ func (t *Textile) StartStream(threadId string, config *pb.StreamMeta) error {
 	return err
 }
 
+/* [deprecated] use stream_meta instead
 func (t *Textile) GetStream(id string) *pb.Stream {
 	return t.datastore.Streams().Get(id)
 }
+ */
 
 func (t *Textile) GetStreamMeta(id string) *pb.StreamMeta {
 	return t.datastore.StreamMetas().Get(id)

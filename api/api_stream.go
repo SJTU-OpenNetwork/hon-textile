@@ -117,6 +117,10 @@ func (a *Api) streamSubscribe(g *gin.Context) {
 
 }
 
+func (a *Api) lsStream(g *gin.Context) {
+
+}
+
 // Printout stat of current workers.
 func (a *Api) streamWorkerStat(g *gin.Context) {
 	a.Node.StreamWorkerStat()

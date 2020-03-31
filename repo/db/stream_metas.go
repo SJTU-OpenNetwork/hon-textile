@@ -12,7 +12,7 @@ type StreamMetaDB struct {
 }
 
 // TODO: add nblocks in database
-func (s StreamMetaDB) Add(streammeta *pb.StreamMeta) error {
+func (s *StreamMetaDB) Add(streammeta *pb.StreamMeta) error {
 	s.lock.Lock()
 	defer s.lock.Unlock()
 
@@ -38,7 +38,7 @@ func (s StreamMetaDB) Add(streammeta *pb.StreamMeta) error {
 	return tx.Commit()
 }
 
-func (s StreamMetaDB) Get(streamId string) *pb.StreamMeta {
+func (s *StreamMetaDB) Get(streamId string) *pb.StreamMeta {
 	s.lock.Lock()
 	defer s.lock.Unlock()
 	stm := "select * from stream_metas where id='" + streamId + "';"
@@ -49,7 +49,18 @@ func (s StreamMetaDB) Get(streamId string) *pb.StreamMeta {
 	return res[0]
 }
 
-func (s StreamMetaDB) Delete(streamId string) error {
+func (s *StreamMetaDB) List() []*pb.StreamMeta {
+	s.lock.Lock()
+	defer s.lock.Unlock()
+	stm := "select * from stream_metas;"
+	res := s.handleQuery(stm)
+	if len(res) == 0 {
+		return nil
+	}
+	return res
+}
+
+func (s *StreamMetaDB) Delete(streamId string) error {
 	s.lock.Lock()
 	defer s.lock.Unlock()
 	_, err := s.db.Exec("delete from stream_metas where id=?", streamId)

@@ -120,6 +120,7 @@ type StreamMetaStore interface {
 	Add(stream *pb.StreamMeta) error
 	Get(streamId string) *pb.StreamMeta
 	Delete(streamId string) error
+	List() []*pb.StreamMeta
 }
 
 type StreamStore interface {

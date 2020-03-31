@@ -460,9 +460,15 @@ message StreamMeta {
     uint64 nblocks = 5;
 }
 
+message StreamMetaList{
+    repeated StreamMeta items = 1;
+}
+
+// [deprecated] use streamMeta directly
 message Stream {
     string id       = 1;
 }
+
 
 message CafeClientMessage {
     string id                      = 1;
