@@ -118,7 +118,8 @@ func (a *Api) streamSubscribe(g *gin.Context) {
 }
 
 func (a *Api) lsStream(g *gin.Context) {
-
+	views := a.Node.ListStreamMeta()
+	pbJSON(g, http.StatusOK, views)
 }
 
 // Printout stat of current workers.

@@ -986,6 +986,11 @@ The response contains a base58 encoded version of the random bytes token.`).Alia
 		return StreamClose(*streamCloseId)
 	}
 
+	streamListCmd := streamCmd.Command("list", "List all streams.")
+	cmds[streamListCmd.FullCommand()] = func () error {
+		return ListStream()
+	}
+
 	// ================================
 
 	hideGlobalsFlagsFor(

@@ -55,6 +55,9 @@ func (t *Textile) GetStreamMeta(id string) *pb.StreamMeta {
 	return t.datastore.StreamMetas().Get(id)
 }
 
+func (t *Textile) ListStreamMeta() *pb.StreamMetaList{
+	return t.datastore.StreamMetas().List()
+}
 
 // add the new file to the corresponding channel
 func (t *Textile) StreamAddFile(id string, sf *pb.StreamFile) error {

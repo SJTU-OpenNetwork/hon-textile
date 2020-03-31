@@ -53,7 +53,16 @@ func StreamClose(streamId string) error {
 	cmdOpt := map[string] string{"streamId": streamId}
 	res, err := executeStringCmd(http.MethodPost, "stream/close", params{opts:cmdOpt})
 	if err != nil {
-		return nil
+		return err
+	}
+	output(res)
+	return nil
+}
+
+func ListStream() error {
+	res, err := executeStringCmd(http.MethodGet, "stream/list", params{})
+	if err != nil {
+		return err
 	}
 	output(res)
 	return nil

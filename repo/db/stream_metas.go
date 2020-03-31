@@ -43,20 +43,17 @@ func (s *StreamMetaDB) Get(streamId string) *pb.StreamMeta {
 	defer s.lock.Unlock()
 	stm := "select * from stream_metas where id='" + streamId + "';"
 	res := s.handleQuery(stm)
-	if len(res) == 0 {
+	if len(res.Items) == 0 {
 		return nil
 	}
-	return res[0]
+	return res.Items[0]
 }
 
-func (s *StreamMetaDB) List() []*pb.StreamMeta {
+func (s *StreamMetaDB) List() *pb.StreamMetaList {
 	s.lock.Lock()
 	defer s.lock.Unlock()
 	stm := "select * from stream_metas;"
 	res := s.handleQuery(stm)
-	if len(res) == 0 {
-		return nil
-	}
 	return res
 }
 
@@ -67,8 +64,11 @@ func (s *StreamMetaDB) Delete(streamId string) error {
 	return err
 }
 
-func (s *StreamMetaDB) handleQuery(stm string) []*pb.StreamMeta{
-	var list []*pb.StreamMeta
+func (s *StreamMetaDB) handleQuery(stm string) *pb.StreamMetaList{
+	//var list []*pb.StreamMeta
+	var list = &pb.StreamMetaList{
+		Items:make([]*pb.StreamMeta, 0),
+	}
 	rows, err := s.db.Query(stm)
 	if err != nil {
 		log.Errorf("error in db query: %s", err)
@@ -82,7 +82,7 @@ func (s *StreamMetaDB) handleQuery(stm string) []*pb.StreamMeta{
 			log.Errorf("error in db scan: %s", err)
 			continue
 		}
-		list = append(list, &pb.StreamMeta{
+		list.Items = append(list.Items, &pb.StreamMeta{
 			Id: id,
             Nsubstreams: nstream,
             Bitrate: bitrate,
