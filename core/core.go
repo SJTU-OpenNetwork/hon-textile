@@ -71,6 +71,7 @@ type InitConfig struct {
 	CafeURL         string
 	CafeNeighborURL string
 	IsPrivate       bool
+    IsShadow        bool // whether the node works as a shadow node, default:0, added in 2020.04.05
 }
 
 // MigrateConfig is used to define options during a major migration
@@ -117,6 +118,7 @@ type Textile struct {
 	blockOutbox       *BlockOutbox
 	blockDownloads    *BlockDownloads
 	cafe              *CafeService
+	shadow            *ShadowService //add shadowservice 2020.04.05
 	cafeOutbox        *CafeOutbox
 	cafeOutboxHandler CafeOutboxHandler
 	cafeInbox         *CafeInbox

@@ -19,6 +19,7 @@ type Config struct {
 	Logs      Logs         // local node's log settings
 	IsMobile  bool         // local node is setup for mobile
 	IsServer  bool         // local node is setup for a server w/ a public IP
+	IsShadow  bool         // local node is setup for a server w/ a public IP
 	Cafe      Cafe         // local node cafe settings
 	Bots      []EnabledBot // local node enabled bots
 }
@@ -164,6 +165,7 @@ func Init() (*Config, error) {
 		},
 		IsMobile: false,
 		IsServer: false,
+        IsShadow: false,
 		Bots:     []EnabledBot{},
 	}, nil
 }
