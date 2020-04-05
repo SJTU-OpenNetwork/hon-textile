@@ -55,6 +55,7 @@ func (h *ShadowService) Start() {
 func (h *ShadowService) Handle(env *pb.Envelope, pid peer.ID) (*pb.Envelope, error) {
 	fmt.Printf("core/stream_service.go Handler: New message receive from %s.\n", pid.Pretty())
 	switch env.Message.Type {
+        //TODO: add a new type: SHADOW_INFORM
     default:
         return nil, nil
     }
@@ -67,7 +68,21 @@ func (h *ShadowService) PeerDisconnected(pid peer.ID) error{
 
 // TODO: automatically connect to the shadow node
 func (h *ShadowService) PeerConnected(pid peer.ID) error{
+    // TODO: if I'm a shadow node, I should inform the peer about my information
+    // call Inform()
     return nil
+}
+
+// TODO: inform pid about my information (e.g., public key), could use ``contact'' directly
+func (h *ShadowService) Inform(pid peer.Id) error {
+    return nil
+}
+
+// TODO: called after received an ``inform'' message
+func (h *ShadowService) HandleInform(pid peer.Id) error {
+    //TODO: if the node have the same public key with mine?
+
+    //TODO: if true, set it as my shadow node
 }
 
 
