@@ -1,6 +1,6 @@
 // Service for sending/receving messages to the shadow node - add by Jerry 2020.04.05
 
-package core
+package shadow
 
 import (
 	"fmt"
@@ -9,7 +9,7 @@ import (
 	"github.com/SJTU-OpenNetwork/hon-textile/keypair"
 	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 	"github.com/SJTU-OpenNetwork/hon-textile/repo"
-//	"github.com/SJTU-OpenNetwork/hon-textile/repo/db"
+	//	"github.com/SJTU-OpenNetwork/hon-textile/repo/db"
 	"github.com/SJTU-OpenNetwork/hon-textile/service"
 	"github.com/SJTU-OpenNetwork/go-ipfs/core"
 )
@@ -46,7 +46,7 @@ func (h *ShadowService) Protocol() protocol.ID {
 
 // Start begins online services
 func (h *ShadowService) Start() {
-    h.online = true
+	h.online = true
 	h.service.Start()
 	h.service.Node().PeerHost.Network().Notify((*ShadowNotifee)(h))
 }
@@ -55,19 +55,19 @@ func (h *ShadowService) Start() {
 func (h *ShadowService) Handle(env *pb.Envelope, pid peer.ID) (*pb.Envelope, error) {
 	fmt.Printf("core/stream_service.go Handler: New message receive from %s.\n", pid.Pretty())
 	switch env.Message.Type {
-    default:
-        return nil, nil
-    }
+	default:
+		return nil, nil
+	}
 }
 
 // TODO: if the shadow node is disconnected, modify the work mode
 func (h *ShadowService) PeerDisconnected(pid peer.ID) error{
-    return nil
+	return nil
 }
 
 // TODO: automatically connect to the shadow node
 func (h *ShadowService) PeerConnected(pid peer.ID) error{
-    return nil
+	return nil
 }
 
 

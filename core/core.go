@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"context"
 	"fmt"
+	"github.com/SJTU-OpenNetwork/hon-textile/shadow"
 	"io"
 	"math/rand"
 	"os"
@@ -118,7 +119,7 @@ type Textile struct {
 	blockOutbox       *BlockOutbox
 	blockDownloads    *BlockDownloads
 	cafe              *CafeService
-	shadow            *ShadowService //add shadowservice 2020.04.05
+	shadow            *shadow.ShadowService //add shadowservice 2020.04.05
 	cafeOutbox        *CafeOutbox
 	cafeOutboxHandler CafeOutboxHandler
 	cafeInbox         *CafeInbox
@@ -146,7 +147,6 @@ func (conf InitConfig) Repo() (string, error) {
 	} else {
 		return "", ErrMissingRepoConfig
 	}
-
 }
 
 // RepoExists return whether or not the configured repo already exists
