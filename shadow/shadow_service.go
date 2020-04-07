@@ -98,6 +98,13 @@ func (h *ShadowService) RegisterShadow() error {
 	return nil
 }
 
+func (h *ShadowService) PushStreamMeta(meta *pb.StreamMeta) error {
+	return nil
+}
+
+func (h *ShadowService) handleStreamMeta() error {
+
+}
 
 // HandleStream is called by the underlying service handler method
 func (h *ShadowService) HandleStream(env *pb.Envelope, pid peer.ID) (chan *pb.Envelope, chan error, chan interface{}) {

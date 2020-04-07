@@ -70,6 +70,9 @@ message Message {
         STREAM_BLOCK_LIST = 1002;
         STREAM_REQUEST = 1003;
         STREAM_REQUEST_HANDLE = 1004;
+        SHADOW_INFORM = 1005;
+        SHADOW_STREAM_META = 1006;
+        //SHADOW_STREAM_BLOCK = 1007;
     }
 }
 
