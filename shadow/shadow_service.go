@@ -60,7 +60,10 @@ func (h *ShadowService) Start() {
 func (h *ShadowService) Handle(env *pb.Envelope, pid peer.ID) (*pb.Envelope, error) {
 	fmt.Printf("core/stream_service.go Handler: New message receive from %s.\n", pid.Pretty())
 	switch env.Message.Type {
-        //TODO: add a new type: SHADOW_INFORM
+	case pb.Message_SHADOW_INFORM:
+		return h.handleInform(env, pid)
+	case pb.Message_SHADOW_STREAM_META:
+		return h.handleStreamMeta(env, pid)
     default:
         return nil, nil
     }
@@ -87,11 +90,11 @@ func (h *ShadowService) inform(pid peer.ID) error {
 }
 
 // TODO: called after received an ``inform'' message
-func (h *ShadowService) handleInform(pid peer.ID) error {
+func (h *ShadowService) handleInform(env *pb.Envelope, pid peer.ID) (*pb.Envelope, error) {
     //TODO: if the node have the same public key with mine?
 
     //TODO: if true, set it as my shadow node
-    return nil
+    return nil, nil
 }
 
 func (h *ShadowService) RegisterShadow() error {
@@ -102,8 +105,8 @@ func (h *ShadowService) PushStreamMeta(meta *pb.StreamMeta) error {
 	return nil
 }
 
-func (h *ShadowService) handleStreamMeta() error {
-
+func (h *ShadowService) handleStreamMeta(env *pb.Envelope, pid peer.ID) (*pb.Envelope, error) {
+	return nil, nil
 }
 
 // HandleStream is called by the underlying service handler method
