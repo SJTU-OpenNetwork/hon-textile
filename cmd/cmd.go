@@ -476,6 +476,7 @@ Stacks may include:
 	initCafeOpen := initCmd.Flag("cafe-open", "Open the p2p cafe service for other peers").Hidden().Bool() // hidden alias
 	initCafeURL := initCmd.Flag("cafe-url", "Specify a custom URL of this cafe, e.g., https://mycafe.com").Envar("CAFE_HOST_URL").String()
 	initCafeNeighborURL := initCmd.Flag("cafe-neighbor-url", "Specify the URL of a secondary cafe. Must return cafe info, e.g., via a Gateway: https://my-gateway.yolo.com/cafe, or a cafe API: https://my-cafe.yolo.com").Envar("CAFE_HOST_NEIGHBOR_URL").String()
+	initIsShadow := initCmd.Flag("shadow", "Initialize the peer as a shadow peer").Bool()
 	cmds[initCmd.FullCommand()] = func() error {
 		kp, err := keypair.Parse(*initAccountSeed)
 		if err != nil {
@@ -516,6 +517,7 @@ Stacks may include:
 			CafeURL:         *initCafeURL,
 			CafeNeighborURL: *initCafeNeighborURL,
 			IsPrivate:       *initPrivateMode,
+			IsShadow:		 *initIsShadow,
 		}
 
 		return InitCommand(config)

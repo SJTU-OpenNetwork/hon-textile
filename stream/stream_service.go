@@ -11,12 +11,9 @@ import (
     "bytes"
     "sync"
 	"context"
-//	"encoding/base64"
-//	"fmt"
 	"time"
     "github.com/segmentio/ksuid"
 
-//"github.com/golang/protobuf/proto"
     "github.com/ipfs/go-cid"
 	"github.com/golang/protobuf/ptypes"
 	ipld "github.com/ipfs/go-ipld-format"
@@ -506,6 +503,9 @@ func (h* StreamService) GetProvidedHopcnt(config *pb.StreamRequest) (int, bool){
 	return 0, false
 }
 
+func (h* StreamService) GetProvider(sid string) peer.ID{
+	return h.providers.GetProvider(sid)
+}
 // ===================== OTHERS =========================
 func (h *StreamService) Loggable() map[string]interface{}{
 	return h.activeWorkers.Loggable()
