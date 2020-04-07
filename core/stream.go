@@ -67,18 +67,35 @@ func (t *Textile) StreamAddFile(id string, sf *pb.StreamFile) error {
 }
 
 func (t *Textile) handleProviderSearchResult(resultCh <-chan *pb.QueryResult, errCh <-chan error, cancel *broadcast.Broadcaster, config *pb.StreamRequest) (error) {
+    timer := time.NewTimer(time.Second * 2) //Wait for 2s
+    doneCh := make(chan struct{}, 1)
+	done := func() {
+		// Use select to avoid block when there is already done signal in channel.
+		select {
+			case doneCh <- struct{}{}:
+			default:
+		}
+    }
+    go func() {
+		<-timer.C
+		done()
+
+	}()
 	go func() {
 		for {
 			select {
+			case <-doneCh:
+                t.SubscribeNotify(config.Id, false)
+				return
 			case err := <-errCh:
                 log.Error(err)
+                t.SubscribeNotify(config.Id, false)
 				return
 
 			case res, ok := <-resultCh:
 				if !ok {
 					return
 				}
-				log.Debugf("get search result , id: %s",res.Id)
 				item := &pb.StreamQueryResultItem {}
 				proto.Unmarshal(res.Value.Value, item)
 
@@ -110,6 +127,7 @@ func (t *Textile) handleProviderSearchResult(resultCh <-chan *pb.QueryResult, er
                         log.Errorf("request %s failed", item.Pid)
 	    	            break
                     } else {
+                        t.SubscribeNotify(config.Id, true)
                         // request is accepted, kill the handle process
                         return
                     }
@@ -118,6 +136,15 @@ func (t *Textile) handleProviderSearchResult(resultCh <-chan *pb.QueryResult, er
 		}
 	}()
 	return nil
+}
+
+// do not support substream currently
+func (t *Textile) SubscribeNotify(id string, res bool) {
+    if res {
+        log.Debugf("Subscribe stream "+id+" success")
+    } else {
+        log.Debugf("Subscribe stream "+id+" fail")
+    }
 }
 
 func (t* Textile) SubscribeStream(id string) error {
@@ -131,23 +158,15 @@ func (t* Textile) SubscribeStream(id string) error {
         Id: id,
     }
     opt := &pb.QueryOptions {
-        Wait: 10,
+        Wait: 2,
         Limit: 10,
     }
-    timer := time.NewTimer(time.Second) //Wait for 1s or find 3 sources
     resCh, errCh, cancel, err := t.SearchStream(query, opt)
     if err != nil {
         return err
     }
     t.handleProviderSearchResult(resCh, errCh, cancel, config)
-    
-    // retry three
-    go func(i int) {
-		<-timer.C
-		
-
-	}(0)
-	return fmt.Errorf("Subscribe failed!")
+	return nil
 }
 
 func (t* Textile) UnsubscribeStream(id string) error{
