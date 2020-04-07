@@ -8,8 +8,6 @@ import (
 )
 
 
-
-
 // providerStore is used to manage stream providers.
 // It should be thread-safe with both store, retrieve, de-duplication method.
 // Note:
@@ -67,4 +65,17 @@ func (ps *providerStore) peerDisconnected(pid peer.ID) (map[string] *pb.StreamRe
 	return nil, nil
 }
 
+// do not support substream currently
+func (ps *providerStore) GetProvider(sid string) peer.ID {
+    ps.lock.Lock()
+    defer ps.lock.Unlock()
 
+    for pid, item := range ps.providers {
+        for _, stream := range item.subStreams {
+            if stream.streamId == sid {
+                return peer.ID(pid)
+            }
+        }
+    }
+    return peer.ID("")
+}

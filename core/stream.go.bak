@@ -8,8 +8,6 @@ import (
 
 	"github.com/SJTU-OpenNetwork/hon-textile/broadcast"
 	"github.com/SJTU-OpenNetwork/hon-textile/pb"
-	"github.com/SJTU-OpenNetwork/hon-textile/ipfs"
-	peer "github.com/libp2p/go-libp2p-core/peer"
 	"github.com/golang/protobuf/proto"
 	//stream "github.com/SJTU-OpenNetwork/go-stream"
 	"github.com/golang/protobuf/ptypes"
@@ -17,6 +15,8 @@ import (
 )
 var ErrStreamNotFound = fmt.Errorf("stream not found")
 var ErrStreamAlreadyInUse = fmt.Errorf("stream already in use")
+
+
 
 func (t *Textile) StartStream(threadId string, config *pb.StreamMeta) error {
 	defer fmt.Printf("textile.StartStream end success\n")
@@ -79,23 +79,21 @@ func (t *Textile) handleProviderSearchResult(resultCh <-chan *pb.QueryResult, er
 					return
 				}
 				log.Debugf("get search result , id: %s",res.Id)
-				item := &pb.StreamQueryResultItem {}
-				proto.Unmarshal(res.Value.Value, item)
 
                 //if already have provider
                 //just break
-                if t.stream.GetProvider(config.Id) != peer.ID("") {
+                if t.stream.GetProvider(config) != nil {
                     break
                 }
 
                 // if the provider is connected, request the stream directly
-                connected, err := ipfs.SwarmConnected(t.node, item.Pid) 
+                connected, err := ipfs.SwarmConnected(t.node, res.Id) 
 	            if err != nil{
                     log.Error(err)
 	    	        break
                 }
                 if connected {
-                    env, err := t.RequestStream(item.Pid, config)
+                    env, err := t.RequestStream(res.Id, config)
 	                if err != nil{
                         log.Error(err)
 	    	            break
@@ -107,7 +105,7 @@ func (t *Textile) handleProviderSearchResult(resultCh <-chan *pb.QueryResult, er
 	    	            break
 	                }
                     if response.Value != 1 {
-                        log.Errorf("request %s failed", item.Pid)
+                        log.Errorf("request %s failed", res.Id)
 	    	            break
                     } else {
                         // request is accepted, kill the handle process
@@ -135,18 +133,83 @@ func (t* Textile) SubscribeStream(id string) error {
         Limit: 10,
     }
     timer := time.NewTimer(time.Second) //Wait for 1s or find 3 sources
-    resCh, errCh, cancel, err := t.SearchStream(query, opt)
+    //resCh, errCh, cancel, err := t.SearchStream(query, opt)
+    // TODO: Unhandled channel
+	resCh, _, _, err := t.SearchStream(query, opt)
     if err != nil {
         return err
     }
-    t.handleProviderSearchResult(resCh, errCh, cancel, config)
     
-    // retry three
-    go func(i int) {
+    sources := make([]string, 0)
+    doneCh := make(chan struct{}, 1)
+	done := func() {
+		// Use select to avoid block when there is already done signal in channel.
+		select {
+			case doneCh <- struct{}{}:
+			default:
+		}
+    }
+    go func() {
 		<-timer.C
-		
+		done()
 
-	}(0)
+	}()
+	// break will only break select if there is no Label L
+	L:
+		for {
+			select {
+			case <-doneCh:
+				break L
+			case value, ok := <-resCh:
+				if !ok {
+					log.Warning("error in SubscribeStream (search)")
+					done()
+					break L
+				}
+				// TODO: Fix this bug.
+				//		Value.Id should be peerid.
+				//		But now it is streamId!!!!!
+				res := &pb.StreamQueryResultItem {}
+				proto.Unmarshal(value.Value.Value, res)
+				//sources = append(sources, value.Id)
+				sources = append(sources, res.Pid)
+				if len(sources) > 3 {
+					done()
+					break L
+				}
+			}
+		}
+
+    if len(sources) == 0 {
+        return fmt.Errorf("Cannot locate sources")
+    }
+
+    for _, source := range sources {
+	    // swarm connect publisher
+        t.TryConnect(source)
+		fmt.Printf("core/stream.go SubscribeStream: Send stream request to %s\n", source)
+        env, err := t.RequestStream(source, config)
+	    if err != nil{
+            log.Errorf("request %s failed", source)
+            log.Error(err)
+	    	continue
+        }
+        response := new(pb.StreamRequestHandle)
+        err = ptypes.UnmarshalAny(env.Message.Payload, response)
+	    if err!=nil {
+            log.Errorf("request %s failed", source)
+            log.Error(err)
+	    	continue
+	    }
+        if response.Value != 1 {
+            log.Errorf("request %s failed", source)
+	    	continue
+        }
+
+        // request accepted by receiver.
+
+        return nil
+    }
 	return fmt.Errorf("Subscribe failed!")
 }
 
