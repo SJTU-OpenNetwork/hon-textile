@@ -9,6 +9,8 @@ import (
 	"github.com/SJTU-OpenNetwork/hon-textile/keypair"
 	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 	"github.com/SJTU-OpenNetwork/hon-textile/repo"
+	ma "github.com/multiformats/go-multiaddr"
+
 	//	"github.com/SJTU-OpenNetwork/hon-textile/repo/db"
 	"github.com/SJTU-OpenNetwork/hon-textile/service"
 	"github.com/SJTU-OpenNetwork/go-ipfs/core"
@@ -23,6 +25,7 @@ type ShadowService struct {
 	datastore        repo.Datastore
 	online           bool
 	sendNotification func(*pb.Notification) error
+	isShadow		 bool
 }
 
 func NewShadowService(
@@ -30,10 +33,12 @@ func NewShadowService(
 	node func() *core.IpfsNode,
 	datastore repo.Datastore,
 	sendNotification func(*pb.Notification) error,
+	isShadow bool,
 ) *ShadowService {
 	handler := &ShadowService{
 		datastore:        datastore,
 		sendNotification: sendNotification,
+		isShadow:		  isShadow,
 	}
 	handler.service = service.NewService(account, handler, node)
 	return handler
@@ -67,22 +72,30 @@ func (h *ShadowService) PeerDisconnected(pid peer.ID) error{
 }
 
 // TODO: automatically connect to the shadow node
-func (h *ShadowService) PeerConnected(pid peer.ID) error{
-    // TODO: if I'm a shadow node, I should inform the peer about my information
-    // call Inform()
+// 		It informs the remote peer that "Here is a shadow peer."
+// 		Avoid to call it multi time for the same peer!!
+func (h *ShadowService) PeerConnected(pid peer.ID, multiaddr ma.Multiaddr) error{
+    if h.isShadow {
+    	err := h.inform(pid); if err != nil {return err}
+	}
     return nil
 }
 
 // TODO: inform pid about my information (e.g., public key), could use ``contact'' directly
-func (h *ShadowService) Inform(pid peer.ID) error {
+func (h *ShadowService) inform(pid peer.ID) error {
     return nil
 }
 
 // TODO: called after received an ``inform'' message
-func (h *ShadowService) HandleInform(pid peer.ID) error {
+func (h *ShadowService) handleInform(pid peer.ID) error {
     //TODO: if the node have the same public key with mine?
 
     //TODO: if true, set it as my shadow node
+    return nil
+}
+
+func (h *ShadowService) RegisterShadow() error {
+	return nil
 }
 
 

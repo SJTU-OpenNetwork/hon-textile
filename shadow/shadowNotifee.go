@@ -21,7 +21,8 @@ func (*ShadowNotifee) ListenClose (net network.Network, addr ma.Multiaddr) {
 
 func (sn *ShadowNotifee) Connected (net network.Network, conn network.Conn) {
 	//fmt.Printf("Notifee: Connect %s\n", conn.RemotePeer().Pretty())
-	sn.manager().PeerConnected(conn.RemotePeer())
+	//conn.RemoteMultiaddr()
+	sn.manager().PeerConnected(conn.RemotePeer(), conn.RemoteMultiaddr())
 }
 
 func (sn *ShadowNotifee) Disconnected(net network.Network, conn network.Conn) {
