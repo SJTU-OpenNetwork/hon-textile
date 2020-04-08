@@ -26,6 +26,7 @@ type ShadowService struct {
 	online           bool
 	sendNotification func(*pb.Notification) error
 	isShadow		 bool
+    shadow           peer.ID //if isShadow == false, it maintains its shadow node
 }
 
 func NewShadowService(
@@ -71,6 +72,11 @@ func (h *ShadowService) Handle(env *pb.Envelope, pid peer.ID) (*pb.Envelope, err
 
 // TODO: if the shadow node is disconnected, modify the work mode
 func (h *ShadowService) PeerDisconnected(pid peer.ID) error{
+    if !isShadow {
+        h.shadow = peer.ID("")
+
+        // notify the upper layer (the textile core) that we lose our shadow node
+    }
 	return nil
 }
 
