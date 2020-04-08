@@ -427,7 +427,8 @@ func (t *Textile) Start() error {
         t.Ipfs,
         t.datastore,
         t.sendNotification,
-        t.config.IsShadow)
+        t.config.IsShadow,
+        t.account.Address())
     t.cafe = NewCafeService(
 		t.account,
 		t.Ipfs,
@@ -1269,7 +1270,7 @@ func (t *Textile) loadThread(mod *pb.Thread) (*Thread, error) {
 		BlockOutbox:    t.blockOutbox,
 		BlockDownloads: t.blockDownloads,
 		CafeOutbox:     t.cafeOutbox,
-		AddPeer:        t.AddPeer,
+		AddPeer:        t.	AddPeer,
 		PushUpdate:     t.sendThreadUpdate,
 	})
 	if err != nil {

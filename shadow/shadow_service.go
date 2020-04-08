@@ -4,17 +4,17 @@ package shadow
 
 import (
 	"fmt"
-	"sync"
-	peer "github.com/libp2p/go-libp2p-core/peer"
-	protocol "github.com/libp2p/go-libp2p-core/protocol"
 	"github.com/SJTU-OpenNetwork/hon-textile/keypair"
 	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 	"github.com/SJTU-OpenNetwork/hon-textile/repo"
+	"github.com/libp2p/go-libp2p-core/peer"
+	"github.com/libp2p/go-libp2p-core/protocol"
 	ma "github.com/multiformats/go-multiaddr"
+	"sync"
 
+	"github.com/SJTU-OpenNetwork/go-ipfs/core"
 	//	"github.com/SJTU-OpenNetwork/hon-textile/repo/db"
 	"github.com/SJTU-OpenNetwork/hon-textile/service"
-	"github.com/SJTU-OpenNetwork/go-ipfs/core"
 )
 
 
@@ -27,9 +27,16 @@ type ShadowService struct {
 	online           bool
 	sendNotification func(*pb.Notification) error
 	isShadow		 bool
+	address			 string  // public key. textile.account.Address()
     shadow           peer.ID //if isShadow == false, it maintains its shadow node
+    //shadow 			 *shadowInfo
     users            []peer.ID //if isShadow == true, it maintains its user list
 	lock             sync.Mutex
+}
+
+type shadowInfo struct {
+	peerId		peer.ID
+	multiAddress ma.Multiaddr
 }
 
 func NewShadowService(
@@ -38,11 +45,13 @@ func NewShadowService(
 	datastore repo.Datastore,
 	sendNotification func(*pb.Notification) error,
 	isShadow bool,
+	address string,
 ) *ShadowService {
 	handler := &ShadowService{
 		datastore:        datastore,
 		sendNotification: sendNotification,
 		isShadow:		  isShadow,
+		address:		  address,
 	}
 	handler.service = service.NewService(account, handler, node)
 	return handler
