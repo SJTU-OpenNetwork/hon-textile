@@ -15,12 +15,13 @@ import (
 	"github.com/SJTU-OpenNetwork/go-ipfs/core"
 	//	"github.com/SJTU-OpenNetwork/hon-textile/repo/db"
 	"github.com/SJTU-OpenNetwork/hon-textile/service"
+	logging "github.com/ipfs/go-log"
 )
 
 
 // streamServiceProtocol is the current protocol tag
 const shadowServiceProtocol = protocol.ID("/textile/shadow/1.0.0")
-
+var log = logging.Logger("shadow")
 type ShadowService struct {
 	service          *service.Service
 	datastore        repo.Datastore
@@ -81,6 +82,7 @@ func (h *ShadowService) Handle(env *pb.Envelope, pid peer.ID) (*pb.Envelope, err
 		return h.handleInform(env, pid)
 	case pb.Message_SHADOW_STREAM_META:
 		return h.handleStreamMeta(env, pid)
+	//case pb.Message_SHADOW_
     default:
         return nil, nil
     }
@@ -123,6 +125,11 @@ func (h *ShadowService) PeerConnected(pid peer.ID, multiaddr ma.Multiaddr) error
 
 // TODO: inform pid about my information (e.g., public key), could use ``contact'' directly
 func (h *ShadowService) inform(pid peer.ID) error {
+	inform := &pb.ShadowInform{}
+	inform.PublicKey = h.address
+	env, err := h.service.NewEnvelope(pb.Message_STREAM_BLOCK_LIST, inform, nil, true); if err != nil {return err}
+	err = h.service.SendMessage(nil, pid.Pretty(), env)
+
     return nil
 }
 
