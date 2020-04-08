@@ -7,6 +7,7 @@ import (
 	"github.com/SJTU-OpenNetwork/hon-textile/keypair"
 	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 	"github.com/SJTU-OpenNetwork/hon-textile/repo"
+	"github.com/golang/protobuf/ptypes"
 	"github.com/libp2p/go-libp2p-core/peer"
 	"github.com/libp2p/go-libp2p-core/protocol"
 	ma "github.com/multiformats/go-multiaddr"
@@ -22,6 +23,8 @@ import (
 // streamServiceProtocol is the current protocol tag
 const shadowServiceProtocol = protocol.ID("/textile/shadow/1.0.0")
 var log = logging.Logger("shadow")
+var ErrWrongRole = fmt.Errorf("Wrong role.")	//shadow function called at normal peer or vice versa.
+
 type ShadowService struct {
 	service          *service.Service
 	datastore        repo.Datastore
@@ -82,7 +85,8 @@ func (h *ShadowService) Handle(env *pb.Envelope, pid peer.ID) (*pb.Envelope, err
 		return h.handleInform(env, pid)
 	case pb.Message_SHADOW_STREAM_META:
 		return h.handleStreamMeta(env, pid)
-	//case pb.Message_SHADOW_
+	case pb.Message_SHADOW_INFORM_RES:
+		return h.handleInformRes(env, pid)
     default:
         return nil, nil
     }
@@ -113,6 +117,10 @@ func (h *ShadowService) removeUser(pid peer.ID) {
     }
 }
 
+func (h *ShadowService) addUser(pid peer.ID){
+
+}
+
 // TODO: automatically connect to the shadow node
 // 		It informs the remote peer that "Here is a shadow peer."
 // 		Avoid to call it multi time for the same peer!!
@@ -127,7 +135,7 @@ func (h *ShadowService) PeerConnected(pid peer.ID, multiaddr ma.Multiaddr) error
 func (h *ShadowService) inform(pid peer.ID) error {
 	inform := &pb.ShadowInform{}
 	inform.PublicKey = h.address
-	env, err := h.service.NewEnvelope(pb.Message_STREAM_BLOCK_LIST, inform, nil, true); if err != nil {return err}
+	env, err := h.service.NewEnvelope(pb.Message_SHADOW_INFORM, inform, nil, true); if err != nil {return err}
 	err = h.service.SendMessage(nil, pid.Pretty(), env)
 
     return nil
@@ -135,13 +143,54 @@ func (h *ShadowService) inform(pid peer.ID) error {
 
 // TODO: called after received an ``inform'' message
 func (h *ShadowService) handleInform(env *pb.Envelope, pid peer.ID) (*pb.Envelope, error) {
-    //TODO: if the node have the same public key with mine?
+	if !h.isShadow {
+		inform := &pb.ShadowInform{}
+		err := ptypes.UnmarshalAny(env.Message.Payload, inform);
+		if err != nil {
+			//log.Error(err);
+			return nil, err
+		}
+		//pk, err := pid.ExtractPublicKey()
 
-    //TODO: if true, set it as my shadow node
-    return nil, nil
+		// Add it as shadow node if it has the same publickey
+		res := &pb.ShadowInformResponse{}
+		if inform.PublicKey == h.address {
+			//h.shadow = pid
+			h.RegisterShadow(pid)
+			res.Accept = true
+		} else {
+			res.Accept = false
+		}
+		resenv, err := h.service.NewEnvelope(pb.Message_SHADOW_INFORM_RES, res, nil, false);
+		if err != nil {
+			return nil, err
+		}
+
+		return resenv, nil
+	} else {
+		return nil, ErrWrongRole
+	}
 }
 
-func (h *ShadowService) RegisterShadow() error {
+func (h *ShadowService) handleInformRes(env *pb.Envelope, pid peer.ID) (*pb.Envelope, error){
+	h.lock.Lock()
+	defer h.lock.Unlock()
+	if h.isShadow {
+		res := &pb.ShadowInformResponse{}
+		err := ptypes.UnmarshalAny(env.Message.Payload, res); if err != nil {return nil, err}
+		if res.Accept {
+			h.addUser(pid)
+		}
+		return nil, nil
+	} else {
+		return nil, ErrWrongRole
+	}
+}
+
+func (h *ShadowService) RegisterShadow(id peer.ID) error {
+	//h.lock.Lock()
+	//defer h.lock.Unlock()
+	h.shadow = id
 	return nil
 }
 
