@@ -20,14 +20,101 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
+type ShadowInform struct {
+	PublicKey            string   `protobuf:"bytes,1,opt,name=publicKey,proto3" json:"publicKey,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *ShadowInform) Reset()         { *m = ShadowInform{} }
+func (m *ShadowInform) String() string { return proto.CompactTextString(m) }
+func (*ShadowInform) ProtoMessage()    {}
+func (*ShadowInform) Descriptor() ([]byte, []int) {
+	return fileDescriptor_2b707f8c1934294c, []int{0}
+}
+
+func (m *ShadowInform) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ShadowInform.Unmarshal(m, b)
+}
+func (m *ShadowInform) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ShadowInform.Marshal(b, m, deterministic)
+}
+func (m *ShadowInform) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ShadowInform.Merge(m, src)
+}
+func (m *ShadowInform) XXX_Size() int {
+	return xxx_messageInfo_ShadowInform.Size(m)
+}
+func (m *ShadowInform) XXX_DiscardUnknown() {
+	xxx_messageInfo_ShadowInform.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ShadowInform proto.InternalMessageInfo
+
+func (m *ShadowInform) GetPublicKey() string {
+	if m != nil {
+		return m.PublicKey
+	}
+	return ""
+}
+
+type ShadowInformResponse struct {
+	Accept               bool     `protobuf:"varint,1,opt,name=accept,proto3" json:"accept,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *ShadowInformResponse) Reset()         { *m = ShadowInformResponse{} }
+func (m *ShadowInformResponse) String() string { return proto.CompactTextString(m) }
+func (*ShadowInformResponse) ProtoMessage()    {}
+func (*ShadowInformResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_2b707f8c1934294c, []int{1}
+}
+
+func (m *ShadowInformResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ShadowInformResponse.Unmarshal(m, b)
+}
+func (m *ShadowInformResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ShadowInformResponse.Marshal(b, m, deterministic)
+}
+func (m *ShadowInformResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ShadowInformResponse.Merge(m, src)
+}
+func (m *ShadowInformResponse) XXX_Size() int {
+	return xxx_messageInfo_ShadowInformResponse.Size(m)
+}
+func (m *ShadowInformResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_ShadowInformResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ShadowInformResponse proto.InternalMessageInfo
+
+func (m *ShadowInformResponse) GetAccept() bool {
+	if m != nil {
+		return m.Accept
+	}
+	return false
+}
+
+func init() {
+	proto.RegisterType((*ShadowInform)(nil), "ShadowInform")
+	proto.RegisterType((*ShadowInformResponse)(nil), "ShadowInformResponse")
+}
+
 func init() { proto.RegisterFile("shadow_service.proto", fileDescriptor_2b707f8c1934294c) }
 
 var fileDescriptor_2b707f8c1934294c = []byte{
-	// 81 bytes of a gzipped FileDescriptorProto
+	// 146 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x12, 0x29, 0xce, 0x48, 0x4c,
 	0xc9, 0x2f, 0x8f, 0x2f, 0x4e, 0x2d, 0x2a, 0xcb, 0x4c, 0x4e, 0xd5, 0x2b, 0x28, 0xca, 0x2f, 0xc9,
-	0x77, 0x92, 0xe1, 0x12, 0x2b, 0xce, 0x2a, 0x29, 0xd5, 0xcb, 0x2f, 0x48, 0xcd, 0xcb, 0x4b, 0x2d,
-	0xd1, 0x2b, 0x49, 0xad, 0x28, 0xc9, 0xcc, 0x49, 0x2d, 0x48, 0x8a, 0x62, 0x2a, 0x48, 0x4a, 0x62,
-	0x03, 0x2b, 0x32, 0x06, 0x04, 0x00, 0x00, 0xff, 0xff, 0x78, 0x19, 0xcb, 0x73, 0x3c, 0x00, 0x00,
-	0x00,
+	0x57, 0xd2, 0xe1, 0xe2, 0x09, 0x06, 0x8b, 0x7b, 0xe6, 0xa5, 0xe5, 0x17, 0xe5, 0x0a, 0xc9, 0x70,
+	0x71, 0x16, 0x94, 0x26, 0xe5, 0x64, 0x26, 0x7b, 0xa7, 0x56, 0x4a, 0x30, 0x2a, 0x30, 0x6a, 0x70,
+	0x06, 0x21, 0x04, 0x94, 0xf4, 0xb8, 0x44, 0x90, 0x55, 0x07, 0xa5, 0x16, 0x17, 0xe4, 0xe7, 0x15,
+	0xa7, 0x0a, 0x89, 0x71, 0xb1, 0x25, 0x26, 0x27, 0xa7, 0x16, 0x94, 0x80, 0xb5, 0x70, 0x04, 0x41,
+	0x79, 0x4e, 0x32, 0x5c, 0x62, 0xc5, 0x59, 0x25, 0xa5, 0x7a, 0xf9, 0x05, 0xa9, 0x79, 0x79, 0xa9,
+	0x25, 0x7a, 0x25, 0xa9, 0x15, 0x25, 0x99, 0x39, 0xa9, 0x05, 0x49, 0x51, 0x4c, 0x05, 0x49, 0x49,
+	0x6c, 0x60, 0x27, 0x18, 0x03, 0x02, 0x00, 0x00, 0xff, 0xff, 0xce, 0x81, 0x6c, 0x15, 0x9a, 0x00,
+	0x00, 0x00,
 }
