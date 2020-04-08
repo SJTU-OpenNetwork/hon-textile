@@ -383,13 +383,17 @@ public final class MessageOuterClass {
        */
       SHADOW_INFORM(1005),
       /**
+       * <code>SHADOW_INFORM_RES = 1006;</code>
+       */
+      SHADOW_INFORM_RES(1006),
+      /**
        * <pre>
        *SHADOW_STREAM_BLOCK = 1007;
        * </pre>
        *
-       * <code>SHADOW_STREAM_META = 1006;</code>
+       * <code>SHADOW_STREAM_META = 1007;</code>
        */
-      SHADOW_STREAM_META(1006),
+      SHADOW_STREAM_META(1007),
       UNRECOGNIZED(-1),
       ;
 
@@ -606,13 +610,17 @@ public final class MessageOuterClass {
        */
       public static final int SHADOW_INFORM_VALUE = 1005;
       /**
+       * <code>SHADOW_INFORM_RES = 1006;</code>
+       */
+      public static final int SHADOW_INFORM_RES_VALUE = 1006;
+      /**
        * <pre>
        *SHADOW_STREAM_BLOCK = 1007;
        * </pre>
        *
-       * <code>SHADOW_STREAM_META = 1006;</code>
+       * <code>SHADOW_STREAM_META = 1007;</code>
        */
-      public static final int SHADOW_STREAM_META_VALUE = 1006;
+      public static final int SHADOW_STREAM_META_VALUE = 1007;
 
 
       public final int getNumber() {
@@ -686,7 +694,8 @@ public final class MessageOuterClass {
           case 1003: return STREAM_REQUEST;
           case 1004: return STREAM_REQUEST_HANDLE;
           case 1005: return SHADOW_INFORM;
-          case 1006: return SHADOW_STREAM_META;
+          case 1006: return SHADOW_INFORM_RES;
+          case 1007: return SHADOW_STREAM_META;
           default: return null;
         }
       }
@@ -2771,9 +2780,9 @@ public final class MessageOuterClass {
   static {
     java.lang.String[] descriptorData = {
       "\n\rmessage.proto\032\031google/protobuf/any.pro" +
-      "to\"\202\013\n\007Message\022\033\n\004type\030\001 \001(\0162\r.Message.T" +
+      "to\"\232\013\n\007Message\022\033\n\004type\030\001 \001(\0162\r.Message.T" +
       "ype\022%\n\007payload\030\002 \001(\0132\024.google.protobuf.A" +
-      "ny\022\017\n\007request\030\003 \001(\005\022\020\n\010response\030\004 \001(\010\"\217\n" +
+      "ny\022\017\n\007request\030\003 \001(\005\022\020\n\010response\030\004 \001(\010\"\247\n" +
       "\n\004Type\022\010\n\004PING\020\000\022\010\n\004PONG\020\001\022\023\n\017THREAD_ENV" +
       "ELOPE\020\n\022\027\n\023THREAD_ENVELOPE_ACK\020\013\022\022\n\016CAFE" +
       "_CHALLENGE\0202\022\016\n\nCAFE_NONCE\0203\022\025\n\021CAFE_REG" +
@@ -2805,11 +2814,12 @@ public final class MessageOuterClass {
       "%\n\035CAFE_PUBSUB_CONTACT_QUERY_RES\020e\032\002\010\001\022\021" +
       "\n\014STREAM_BLOCK\020\351\007\022\026\n\021STREAM_BLOCK_LIST\020\352" +
       "\007\022\023\n\016STREAM_REQUEST\020\353\007\022\032\n\025STREAM_REQUEST" +
-      "_HANDLE\020\354\007\022\022\n\rSHADOW_INFORM\020\355\007\022\027\n\022SHADOW" +
-      "_STREAM_META\020\356\007\"2\n\010Envelope\022\031\n\007message\030\001" +
-      " \001(\0132\010.Message\022\013\n\003sig\030\002 \001(\014\"&\n\005Error\022\014\n\004" +
-      "code\030\001 \001(\r\022\017\n\007message\030\002 \001(\tB\034\n\026sjtu.open" +
-      "net.textilepbZ\002pbb\006proto3"
+      "_HANDLE\020\354\007\022\022\n\rSHADOW_INFORM\020\355\007\022\026\n\021SHADOW" +
+      "_INFORM_RES\020\356\007\022\027\n\022SHADOW_STREAM_META\020\357\007\"" +
+      "2\n\010Envelope\022\031\n\007message\030\001 \001(\0132\010.Message\022\013" +
+      "\n\003sig\030\002 \001(\014\"&\n\005Error\022\014\n\004code\030\001 \001(\r\022\017\n\007me" +
+      "ssage\030\002 \001(\tB\034\n\026sjtu.opennet.textilepbZ\002p" +
+      "bb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
