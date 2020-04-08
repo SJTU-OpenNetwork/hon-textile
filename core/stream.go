@@ -61,6 +61,11 @@ func (t *Textile) ListStreamMeta() *pb.StreamMetaList{
 
 // add the new file to the corresponding channel
 func (t *Textile) StreamAddFile(id string, sf *pb.StreamFile) error {
+    if !t.config.IsShadow {
+        if t.shadow.GetShadow() != peer.ID("") {
+            t.shadow.PushStreamFile(id, sf)
+        }
+    }
     t.stream.StreamAddFile(id, sf)
     //t.stream.sm.StreamAddFile(id, sf)
 	return nil

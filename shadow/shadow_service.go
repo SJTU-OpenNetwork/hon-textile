@@ -4,6 +4,7 @@ package shadow
 
 import (
 	"fmt"
+	"sync"
 	peer "github.com/libp2p/go-libp2p-core/peer"
 	protocol "github.com/libp2p/go-libp2p-core/protocol"
 	"github.com/SJTU-OpenNetwork/hon-textile/keypair"
@@ -27,6 +28,8 @@ type ShadowService struct {
 	sendNotification func(*pb.Notification) error
 	isShadow		 bool
     shadow           peer.ID //if isShadow == false, it maintains its shadow node
+    users            []peer.ID //if isShadow == true, it maintains its user list
+	lock             sync.Mutex
 }
 
 func NewShadowService(
@@ -57,6 +60,10 @@ func (h *ShadowService) Start() {
 	h.service.Node().PeerHost.Network().Notify((*ShadowNotifee)(h))
 }
 
+func (h *ShadowService) GetShadow() peer.ID {
+    return h.shadow
+}
+
 // Handle is called by the underlying service handler method
 func (h *ShadowService) Handle(env *pb.Envelope, pid peer.ID) (*pb.Envelope, error) {
 	fmt.Printf("core/stream_service.go Handler: New message receive from %s.\n", pid.Pretty())
@@ -72,12 +79,27 @@ func (h *ShadowService) Handle(env *pb.Envelope, pid peer.ID) (*pb.Envelope, err
 
 // TODO: if the shadow node is disconnected, modify the work mode
 func (h *ShadowService) PeerDisconnected(pid peer.ID) error{
-    if !isShadow {
+    h.lock.Lock()
+    defer h.lock.Unlock()
+
+    if !h.isShadow {
         h.shadow = peer.ID("")
 
-        // notify the upper layer (the textile core) that we lose our shadow node
+        // TODO: notify the upper layer (the textile core) that we lose our shadow node
+    } else {
+        h.removeUser(pid)
     }
 	return nil
+}
+
+func (h *ShadowService) removeUser(pid peer.ID) {
+    for id, value := range h.users {
+        if value == pid {
+            newUsers := append(h.users[:id], h.users[id+1:]...)
+            h.users = newUsers
+            return
+        }
+    }
 }
 
 // TODO: automatically connect to the shadow node
@@ -113,6 +135,11 @@ func (h *ShadowService) PushStreamMeta(meta *pb.StreamMeta) error {
 
 func (h *ShadowService) handleStreamMeta(env *pb.Envelope, pid peer.ID) (*pb.Envelope, error) {
 	return nil, nil
+}
+
+// TODO: push stream file to the shadow node
+func (h *ShadowService) PushStreamFile(sid string, sf *pb.StreamFile) error {
+    return nil
 }
 
 // HandleStream is called by the underlying service handler method

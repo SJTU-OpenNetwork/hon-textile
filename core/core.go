@@ -422,7 +422,13 @@ func (t *Textile) Start() error {
 		t.Ipfs,
 		t.datastore,
 		t.sendNotification)
-	t.cafe = NewCafeService(
+	t.shadow = shadow.NewShadowService(
+        t.account,
+        t.Ipfs,
+        t.datastore,
+        t.sendNotification,
+        t.config.IsShadow)
+    t.cafe = NewCafeService(
 		t.account,
 		t.Ipfs,
 		t.datastore,
@@ -460,7 +466,7 @@ func (t *Textile) Start() error {
 		t.cafe.online = true
 
 		t.stream.Start()
-		
+        t.shadow.Start()
         if t.config.Cafe.Host.Open {
 			go func() {
 				t.cafe.setAddrs(t.config)
@@ -498,8 +504,6 @@ func (t *Textile) Start() error {
         t.variables.SwarmAddress = t.GetSwarmAddress(t.node.Identity.Pretty())
 	}()
 
-    //t.variables.StreamFileChannels = make(map[string]chan *pb.StreamFile)
-    //t.variables.streamBlockIndex = make(map[string] uint64)
 	for _, mod := range t.datastore.Threads().List().Items {
 		_, err = t.loadThread(mod)
 		if err != nil {
@@ -518,12 +522,6 @@ func (t *Textile) Start() error {
 	log.Info("node is started")
 	log.Infof("peer id: %s", t.node.Identity.Pretty())
 	log.Infof("account address: %s", t.account.Address())
-
-//    err = t.addStoreThread()
-//    if err != nil {
-//        log.Error(err)
-//        return err
-//    }
 
 	return t.addAccountThread()
 }
