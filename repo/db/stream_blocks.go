@@ -58,7 +58,7 @@ func (s StreamBlockDB) BlockCount(streamid string) uint64{
 	s.lock.Lock()
 	defer s.lock.Unlock()
 
-	stm := "select count(*) from stream_blocks where streamid='"  +streamid
+	stm := "select count(*) from stream_blocks where streamid='"  +streamid +"'" ;
 	rows, err := s.db.Query(stm)
 	if err != nil {
 		log.Errorf("block count error: %s", err)
