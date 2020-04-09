@@ -192,13 +192,20 @@ func (h *ShadowService) RegisterShadow(id peer.ID) error {
 	return nil
 }
 
-func (h *ShadowService) PushStreamMeta(meta *pb.StreamMeta) error {
+func (h *ShadowService) PushStreamMeta(meta *pb.StreamMeta, useronly bool) error {
     if h.shadow == peer.ID("") {
         return nil
     }
 
-	env, err := h.service.NewEnvelope(pb.Message_SHADOW_STREAM_META, meta, nil, true); if err != nil {return err}
-	return h.service.SendMessage(nil, h.shadow.Pretty(), env)
+    mark := int32(1)
+    if useronly {
+	    env, err := h.service.NewEnvelope(pb.Message_SHADOW_STREAM_META, meta, &mark, true); if err != nil {return err}
+	    return h.service.SendMessage(nil, h.shadow.Pretty(), env)
+    } else {
+	    env, err := h.service.NewEnvelope(pb.Message_SHADOW_STREAM_META, meta, nil, true); if err != nil {return err}
+	    return h.service.SendMessage(nil, h.shadow.Pretty(), env)
+    }
+    return nil
 }
 
 func (h *ShadowService) handleStreamMeta(env *pb.Envelope, pid peer.ID) (*pb.Envelope, error) {

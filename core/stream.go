@@ -44,7 +44,7 @@ func (t *Textile) StartStream(threadId string, config *pb.StreamMeta) error {
 	_, err = thread.AddStreamMeta(config)
 
     if !t.config.IsShadow {
-        t.shadow.PushStreamMeta(config)
+        t.shadow.PushStreamMeta(config, true)
     }
 
 	return err
