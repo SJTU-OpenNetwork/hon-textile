@@ -90,6 +90,7 @@ func (t *Textile) handleProviderSearchResult(resultCh <-chan *pb.QueryResult, er
 		for {
 			select {
 			case <-doneCh:
+				log.Debugf("result channel done")
                 t.SubscribeNotify(config.Id, false)
 				return
 			case err := <-errCh:
