@@ -29,7 +29,7 @@ type ShadowService struct {
 	service          *service.Service
 	datastore        repo.Datastore
 	online           bool
-	sendNotification func(*pb.Notification) error
+	msgRecv          func(*pb.Envelope, peer.ID) error
 	isShadow		 bool
 	address			 string  // public key. textile.account.Address()
     shadow           peer.ID //if isShadow == false, it maintains its shadow node
@@ -47,13 +47,13 @@ func NewShadowService(
 	account *keypair.Full,
 	node func() *core.IpfsNode,
 	datastore repo.Datastore,
-	sendNotification func(*pb.Notification) error,
+	msgRecv func(*pb.Envelope, peer.ID) error,
 	isShadow bool,
 	address string,
 ) *ShadowService {
 	handler := &ShadowService{
 		datastore:        datastore,
-		sendNotification: sendNotification,
+		msgRecv:          msgRecv,
 		isShadow:		  isShadow,
 		address:		  address,
 	}
@@ -118,7 +118,7 @@ func (h *ShadowService) removeUser(pid peer.ID) {
 }
 
 func (h *ShadowService) addUser(pid peer.ID){
-
+    h.users = append(h.users, pid)
 }
 
 // TODO: automatically connect to the shadow node
@@ -173,8 +173,6 @@ func (h *ShadowService) handleInform(env *pb.Envelope, pid peer.ID) (*pb.Envelop
 }
 
 func (h *ShadowService) handleInformRes(env *pb.Envelope, pid peer.ID) (*pb.Envelope, error){
-	h.lock.Lock()
-	defer h.lock.Unlock()
 	if h.isShadow {
 		res := &pb.ShadowInformResponse{}
 		err := ptypes.UnmarshalAny(env.Message.Payload, res); if err != nil {return nil, err}
@@ -195,16 +193,19 @@ func (h *ShadowService) RegisterShadow(id peer.ID) error {
 }
 
 func (h *ShadowService) PushStreamMeta(meta *pb.StreamMeta) error {
-	return nil
+    if h.shadow == peer.ID("") {
+        return nil
+    }
+
+	env, err := h.service.NewEnvelope(pb.Message_SHADOW_STREAM_META, meta, nil, true); if err != nil {return err}
+	return h.service.SendMessage(nil, h.shadow.Pretty(), env)
 }
 
 func (h *ShadowService) handleStreamMeta(env *pb.Envelope, pid peer.ID) (*pb.Envelope, error) {
+    if h.isShadow {
+        h.msgRecv(env, pid)
+    }
 	return nil, nil
-}
-
-// TODO: push stream file to the shadow node
-func (h *ShadowService) PushStreamFile(sid string, sf *pb.StreamFile) error {
-    return nil
 }
 
 // HandleStream is called by the underlying service handler method

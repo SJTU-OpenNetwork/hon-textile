@@ -32,6 +32,7 @@ import (
 	"github.com/SJTU-OpenNetwork/hon-textile/service"
 	"github.com/SJTU-OpenNetwork/hon-textile/util"
 	"github.com/SJTU-OpenNetwork/hon-textile/stream"
+	"github.com/golang/protobuf/ptypes"
 	ipld "github.com/ipfs/go-ipld-format"
 	logging "github.com/ipfs/go-log"
 	"github.com/ipfs/go-metrics-interface"
@@ -426,7 +427,7 @@ func (t *Textile) Start() error {
         t.account,
         t.Ipfs,
         t.datastore,
-        t.sendNotification,
+        t.shadowMsgRecv,
         t.config.IsShadow,
         t.account.Address())
     t.cafe = NewCafeService(
@@ -434,7 +435,8 @@ func (t *Textile) Start() error {
 		t.Ipfs,
 		t.datastore,
 		t.cafeInbox,
-        t.stream)
+        t.stream,
+        t.shadow)
 	if t.cafeOutbox.handler == nil {
 		t.cafeOutbox.handler = t.cafe
 	}
@@ -1327,6 +1329,37 @@ func (t *Textile) sendNotification(note *pb.Notification) error {
     log.Debugf("body: %s, block: %s", note.Body, note.Block)
 	t.notifications <- t.NotificationView(note)
 	return nil
+}
+
+// shadowMsgRecv is called by shadow service
+func (t *Textile) shadowMsgRecv(env *pb.Envelope, pid peer.ID) error {
+    meta := new(pb.StreamMeta)
+	err := ptypes.UnmarshalAny(env.Message.Payload, meta)
+	if err != nil {
+		return err
+	}
+    
+    config := &pb.StreamRequest {
+        Id: meta.Id,
+        StreamMap: 1,
+        StartIndex: 0,
+    }
+    res, err := t.RequestStream(pid.Pretty(), config)
+	if err != nil{
+        log.Error(err)
+        return err
+    }
+    response := new(pb.StreamRequestHandle)
+    err = ptypes.UnmarshalAny(res.Message.Payload, response)
+	if err!=nil {
+	    return err
+	}
+    if response.Value != 1 {
+        log.Errorf("request %s failed", pid.Pretty())
+    } else {
+        t.SubscribeNotify(config.Id, true)
+    }
+    return nil
 }
 
 // touchDatastore ensures that we have a good db connection

@@ -41,7 +41,12 @@ func (t *Textile) StartStream(threadId string, config *pb.StreamMeta) error {
 	}
 
 	//fmt.Printf("Add streamMeta to thread.\n")
-	_, err = thread.AddStreamMeta(stream)
+	_, err = thread.AddStreamMeta(config)
+
+    if !t.config.IsShadow {
+        t.shadow.PushStreamMeta(config)
+    }
+
 	return err
 }
 
@@ -61,11 +66,6 @@ func (t *Textile) ListStreamMeta() *pb.StreamMetaList{
 
 // add the new file to the corresponding channel
 func (t *Textile) StreamAddFile(id string, sf *pb.StreamFile) error {
-    if !t.config.IsShadow {
-        if t.shadow.GetShadow() != peer.ID("") {
-            t.shadow.PushStreamFile(id, sf)
-        }
-    }
     t.stream.StreamAddFile(id, sf)
     //t.stream.sm.StreamAddFile(id, sf)
 	return nil
