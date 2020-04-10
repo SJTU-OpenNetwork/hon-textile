@@ -764,6 +764,7 @@ func (h *CafeService) searchLocal(qtype pb.Query_Type, options *pb.QueryOptions,
         // have shadow node, return nothing
         // the shaodw node will connect other peers through other methods
         if h.shadow.GetShadow() != peer.ID("") {
+            log.Debug("Have shadow node, return nothing")
             break
         }
 
@@ -813,6 +814,7 @@ func (h *CafeService) searchLocal(qtype pb.Query_Type, options *pb.QueryOptions,
             Pid: peerId,
             Hopcnt: int32(hopcnt),
         }
+        log.Debugf("Get result, hopcnt: %d", hopcnt)
         value,_ := proto.Marshal(result)
 		results.Add(&pb.QueryResult{
 			Id:     q.Id,

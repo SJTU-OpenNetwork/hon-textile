@@ -72,6 +72,7 @@ func (t *Textile) StreamAddFile(id string, sf *pb.StreamFile) error {
 }
 
 func (t *Textile) handleProviderSearchResult(resultCh <-chan *pb.QueryResult, errCh <-chan error, cancel *broadcast.Broadcaster, config *pb.StreamRequest) (error) {
+	log.Debugf("in handleProviderSearchResult")
     timer := time.NewTimer(time.Second * 2) //Wait for 2s
     doneCh := make(chan struct{}, 1)
 	done := func() {
@@ -83,8 +84,8 @@ func (t *Textile) handleProviderSearchResult(resultCh <-chan *pb.QueryResult, er
     }
     go func() {
 		<-timer.C
+        //time.Sleep(2 * time.Second)
 		done()
-
 	}()
 	go func() {
 		for {
@@ -92,6 +93,7 @@ func (t *Textile) handleProviderSearchResult(resultCh <-chan *pb.QueryResult, er
 			case <-doneCh:
 				log.Debugf("result channel done")
                 t.SubscribeNotify(config.Id, false)
+                close(doneCh)
 				return
 			case err := <-errCh:
                 log.Error(err)
@@ -99,6 +101,7 @@ func (t *Textile) handleProviderSearchResult(resultCh <-chan *pb.QueryResult, er
 				return
 
 			case res, ok := <-resultCh:
+                log.Debug("get result!")
 				if !ok {
 					return
 				}
@@ -159,6 +162,16 @@ func (t* Textile) SubscribeStream(id string) error {
         StreamMap: 1,
         StartIndex: 0,
     }
+
+    // shadow node should subscribe the same stream
+    meta := t.GetStreamMeta(id)
+	if meta == nil {
+        return ErrStreamNotFound //TODO: need to be fixed
+	}
+    if !t.config.IsShadow {
+        t.shadow.PushStreamMeta(meta, false)
+    }
+
 	// call search stream
     query := & pb.StreamQuery { 
         Id: id,
@@ -196,7 +209,8 @@ func (t *Textile) SearchStream(query *pb.StreamQuery, options *pb.QueryOptions) 
 
 	options.Filter = pb.QueryOptions_HIDE_OLDER
 
-	resCh, errCh, cancel := t.searchByPubsub(&pb.Query{
+	//resCh, errCh, cancel := t.searchByPubsub(&pb.Query{
+	resCh, errCh, cancel := t.searchAll(&pb.Query{
 		Type:    pb.Query_STREAM,
 		Options: options,
 		Payload: &any.Any{
