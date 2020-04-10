@@ -54,6 +54,7 @@ func newActiveStreamStore(ctx context.Context, datastore repo.Datastore, node fu
 		datastore: datastore,
 		node: node,
 		streamList: make(map[string] *activeStream),
+		notify :notify,
 	}
 }
 
