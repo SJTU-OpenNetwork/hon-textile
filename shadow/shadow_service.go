@@ -194,6 +194,7 @@ func (h *ShadowService) RegisterShadow(id peer.ID) error {
 
 func (h *ShadowService) PushStreamMeta(meta *pb.StreamMeta, useronly bool) error {
     if h.shadow == peer.ID("") {
+        log.Debug("This node does not have a shadow node currently")
         return nil
     }
 
