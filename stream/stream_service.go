@@ -171,17 +171,21 @@ func (h *StreamService) Started(sid string) bool{
 }
 
 func (h *StreamService) StreamAddFile(id string, sf *pb.StreamFile) error{
+	/*
     ch, ok :=  h.streamFileChannels[id]
     if !ok {
         return fmt.Errorf("No such stream")
     }
     ch <- sf
+	*/
+	err := h.activeStreams.streamAddFile(id, sf); if err != nil {return err}
     return nil
 }
 
 func (h *StreamService) CloseStream(sid string) {
     //h.streamDone[sid] = true
     fmt.Printf("StreamService: Try to close stream %s\n", sid)
+    err := h.activeStreams.stopStream(sid); if err != nil {log.Error(err)}
     //close (h.streamFileChannels[sid])
     //delete (h.streamFileChannels,sid)
     //delete (h.streamBlockIndex,sid)
