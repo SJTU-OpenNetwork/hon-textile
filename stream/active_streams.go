@@ -75,7 +75,7 @@ func (store *activeStreamStore) addStream(meta *pb.StreamMeta) error {
 		cancel: cancelFunc,
 	}
 	store.streamList[meta.Id] = newActiveStream
-	newActiveStream.start()
+	go newActiveStream.start()
 	return nil
 }
 
