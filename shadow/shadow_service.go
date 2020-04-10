@@ -79,7 +79,7 @@ func (h *ShadowService) GetShadow() peer.ID {
 
 // Handle is called by the underlying service handler method
 func (h *ShadowService) Handle(env *pb.Envelope, pid peer.ID) (*pb.Envelope, error) {
-	fmt.Printf("core/stream_service.go Handler: New message receive from %s.\n", pid.Pretty())
+	fmt.Printf("core/shadow_service.go Handler: New message receive from %s.\n", pid.Pretty())
 	switch env.Message.Type {
 	case pb.Message_SHADOW_INFORM:
 		return h.handleInform(env, pid)
