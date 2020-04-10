@@ -44,10 +44,11 @@ type activeStreamStore struct{
 	lock sync.Mutex
 	datastore repo.Datastore
 	node func() *core.IpfsNode
+	notify func(streamId string) error
 	streamList map[string] *activeStream
 }
 
-func newActiveStreamStore(ctx context.Context, datastore repo.Datastore, node func() *core.IpfsNode) *activeStreamStore{
+func newActiveStreamStore(ctx context.Context, datastore repo.Datastore, node func() *core.IpfsNode, notify func(streamId string) error) *activeStreamStore{
 	return &activeStreamStore {
 		ctx: ctx,
 		datastore: datastore,
@@ -73,6 +74,7 @@ func (store *activeStreamStore) addStream(meta *pb.StreamMeta) error {
 		currentIndex: 0,
 		ctx: newCtx,
 		cancel: cancelFunc,
+		notify: store.notify,
 	}
 	store.streamList[meta.Id] = newActiveStream
 	go newActiveStream.start()
@@ -113,6 +115,7 @@ type activeStream struct {
 	fileChan  chan *pb.StreamFile
 	currentIndex uint64
 	cancel context.CancelFunc
+	notify func(streamId string) error
 	ctx context.Context
 }
 
@@ -127,6 +130,7 @@ Loop:
 				log.Error(err)
 			}
 			err = as.traverseNode(fileid, true, f.Description); if err != nil {log.Error(err)}
+			err = as.notify(as.meta.Id); if err != nil {log.Error(err)}
 		case <-as.ctx.Done():
 			err := as.ctx.Err()
 			if err != nil{

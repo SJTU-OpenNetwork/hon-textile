@@ -78,7 +78,7 @@ func NewStreamService(
 		datastore:        datastore,
 		sendNotification: sendNotification,
 		ctx:			  ctx,
-		activeStreams:newActiveStreamStore(ctx, datastore, node),
+		//activeStreams:newActiveStreamStore(ctx, datastore, node, ),
 		activeWorkers: newWorkerStore(),
         providers: newProviderStore(),
         
@@ -87,6 +87,7 @@ func NewStreamService(
         streamBlockIndex: make(map[string] uint64) ,
         streamDone: make(map[string] bool),
 	}
+	handler.activeStreams = newActiveStreamStore(ctx, datastore, node, handler.activeWorkers.newFileAdd)
 	handler.service = service.NewService(account, handler, node)
 	return handler
 }
