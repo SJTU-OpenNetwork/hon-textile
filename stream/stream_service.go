@@ -128,12 +128,14 @@ func (h *StreamService) Handle(env *pb.Envelope, pid peer.ID) (*pb.Envelope, err
 
 // ======================= FOR STREAM MANAGEMENT =============================
 func (h *StreamService) StartStream(config *pb.StreamMeta) {
+	/*
     _, ok := h.streamFileChannels[config.Id]
     if ok {
         // how to handle re-start?
         return 
     }
-
+	 */
+	/*
     h.streamBlockIndex[config.Id] = 0
     h.streamFileChannels[config.Id] = make(chan *pb.StreamFile)
     h.streamDone[config.Id] = false
@@ -152,6 +154,12 @@ func (h *StreamService) StartStream(config *pb.StreamMeta) {
 		    }
 	   }
     }()
+
+	 */
+	err := h.activeStreams.addStream(config)
+	if err != nil {
+		log.Error(err)
+	}
 }
 
 /**
