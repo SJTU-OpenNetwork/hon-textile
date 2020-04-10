@@ -30,9 +30,7 @@ func (t *Textile) StartStream(threadId string, config *pb.StreamMeta) error {
 	if stream == nil {
 		return ErrStreamNotFound
 	}
-    /*
     t.stream.StartStream(config)
-	*/
 	//publish the Stream to others
 	fmt.Printf("Find thread for stream.\n")
 	thread := t.Thread(threadId)
