@@ -96,7 +96,6 @@ func (t *Textile) handleProviderSearchResult(resultCh <-chan *pb.QueryResult, er
     }
     go func() {
 		<-timer.C
-        //time.Sleep(2 * time.Second)
 		done()
 	}()
 	go func() {
@@ -123,6 +122,8 @@ func (t *Textile) handleProviderSearchResult(resultCh <-chan *pb.QueryResult, er
                 //if already have provider
                 //just break
                 if t.stream.GetProvider(config.Id) != peer.ID("") {
+                    done()
+                    timer.Stop()
                     break
                 }
 
@@ -169,20 +170,23 @@ func (t *Textile) SubscribeNotify(id string, res bool) {
 }
 
 func (t* Textile) SubscribeStream(id string) error {
+    if t.stream.GetProvider(id) != peer.ID("") {
+        return fmt.Errorf("Resubscribe stream "+id)
+    }
+   
+    last := t.datastore.StreamBlocks().LastIndex(id)
+
     config := &pb.StreamRequest {
         Id: id,
         StreamMap: 1,
-        StartIndex: 0,
+        StartIndex: last,
     }
 
     // shadow node should subscribe the same stream
     meta := t.GetStreamMeta(id)
-	if meta == nil {
-        return ErrStreamNotFound //TODO: need to be fixed
-	}
-    if !t.config.IsShadow {
+	if meta != nil && !t.config.IsShadow {
         t.shadow.PushStreamMeta(meta, false)
-    }
+	}
 
 	// call search stream
     query := & pb.StreamQuery { 

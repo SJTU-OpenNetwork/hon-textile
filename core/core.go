@@ -1336,6 +1336,7 @@ func (t *Textile) sendNotification(note *pb.Notification) error {
 
 // shadowMsgRecv is called by shadow service
 func (t *Textile) shadowMsgRecv(env *pb.Envelope, pid peer.ID) error {
+    log.Debug("shadowMsgRecv: Receive a stream meta")
     meta := new(pb.StreamMeta)
 	err := ptypes.UnmarshalAny(env.Message.Payload, meta)
 	if err != nil {
@@ -1343,11 +1344,13 @@ func (t *Textile) shadowMsgRecv(env *pb.Envelope, pid peer.ID) error {
 	}
    
     if env.Message.Request == 0 {
+        last := t.datastore.StreamBlocks().LastIndex(meta.Id)
         config := &pb.StreamRequest {
             Id: meta.Id,
             StreamMap: 1,
-            StartIndex: 0,
+            StartIndex: last,
         }
+        log.Debugf("request stream data from the user, start index: %d", last)
         res, err := t.RequestStream(pid.Pretty(), config)
 	    if err != nil{
             log.Error(err)
@@ -1364,6 +1367,7 @@ func (t *Textile) shadowMsgRecv(env *pb.Envelope, pid peer.ID) error {
             t.SubscribeNotify(config.Id, true)
         }
     } else {
+        log.Debugf("request stream data from the network")
         t.SubscribeStream(meta.Id)
     }
     return nil

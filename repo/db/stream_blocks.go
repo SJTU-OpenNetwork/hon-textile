@@ -53,6 +53,30 @@ func (s StreamBlockDB) ListByStream(streamid string, startindex int, maxnum int)
 	return res
 }
 
+
+func (s StreamBlockDB) LastIndex(streamid string) uint64 {
+	s.lock.Lock()
+	defer s.lock.Unlock()
+
+	stm := "select * from stream_blocks where streamid='"  +streamid+ " order by blockindex";
+	res := s.handleQuery(stm)
+
+    id := uint64(0)
+
+    for {
+        if id >= uint64(len(res)) {
+            break
+        }
+        if res[id].Index == id {
+            id = id+1
+        } else {
+            break
+        }
+    }
+
+	return id
+}
+
 //TODO: how many blocks do we have
 func (s StreamBlockDB) BlockCount(streamid string) uint64{
 	s.lock.Lock()
