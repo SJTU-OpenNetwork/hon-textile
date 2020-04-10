@@ -422,7 +422,8 @@ func (t *Textile) Start() error {
 		t.account,
 		t.Ipfs,
 		t.datastore,
-		t.sendNotification)
+		t.sendNotification,
+		t.ctx)//Share the same ctx with textile. That is because we do not need to manually cancel it.
 	t.shadow = shadow.NewShadowService(
         t.account,
         t.Ipfs,

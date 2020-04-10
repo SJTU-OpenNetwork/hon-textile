@@ -51,6 +51,8 @@ type StreamService struct {
     streamBlockIndex map[string]uint64
     streamDone map[string] bool
 	streamlock sync.Mutex
+	//
+	activeStreams *activeStreamStore
 	
     // for workers
     activeWorkers *workerStore
@@ -59,6 +61,9 @@ type StreamService struct {
     // for providers
     providers *providerStore
 	lostIndex chan *lostReport
+
+	// Context for main routine
+	ctx context.Context
 }
 
 // NewStreamService returns a new stream service
@@ -67,10 +72,13 @@ func NewStreamService(
 	node func() *core.IpfsNode,
 	datastore repo.Datastore,
 	sendNotification func(*pb.Notification) error,
+	ctx context.Context,
 ) *StreamService {
 	handler := &StreamService{
 		datastore:        datastore,
 		sendNotification: sendNotification,
+		ctx:			  ctx,
+		activeStreams:newActiveStreamStore(ctx, datastore, node),
 		activeWorkers: newWorkerStore(),
         providers: newProviderStore(),
         

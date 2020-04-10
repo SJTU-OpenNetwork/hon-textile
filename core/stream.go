@@ -17,19 +17,33 @@ import (
 )
 var ErrStreamNotFound = fmt.Errorf("stream not found")
 var ErrStreamAlreadyInUse = fmt.Errorf("stream already in use")
+type ErrStreamAlreadyExist struct {
+	meta *pb.StreamMeta
+}
+func (e *ErrStreamAlreadyExist) Error() string {
+	return fmt.Sprintf("Stream %s already exist in datastore.", e.meta.Id)
+}
 
+// StartStream does two tasks:
+//	- Add stream to datastore.
+//	- Start stream routine.
+// TODO:
+//		Support renewal for existing stream.
 func (t *Textile) StartStream(threadId string, config *pb.StreamMeta) error {
 	defer fmt.Printf("textile.StartStream end success\n")
 	fmt.Printf("textile.StartStream\n")
-    
-    err := t.datastore.StreamMetas().Add(config)
-    if err != nil {
-        return err
-    }
-    stream := t.GetStreamMeta(string(config.Id))
-	if stream == nil {
-		return ErrStreamNotFound
+
+	// Check whether this stream already exists in datastore.
+	stream := t.GetStreamMeta(config.Id)
+	if stream != nil {
+		return &ErrStreamAlreadyExist{meta:config}
 	}
+
+    err := t.datastore.StreamMetas().Add(config);if err != nil {return err}
+    //stream := t.GetStreamMeta(config.Id)
+	//if stream == nil {
+	//	return ErrStreamNotFound
+	//}
     t.stream.StartStream(config)
 	//publish the Stream to others
 	fmt.Printf("Find thread for stream.\n")
