@@ -52,6 +52,7 @@ func (a *Api)createStream(g *gin.Context) {
 		g.String(http.StatusBadRequest, err.Error())
 		return
 	}
+	a.Node.FlushCafes()
 	g.String(http.StatusOK, "New stream create.")
 	return
 }

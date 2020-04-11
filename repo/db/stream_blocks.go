@@ -58,7 +58,7 @@ func (s StreamBlockDB) LastIndex(streamid string) uint64 {
 	s.lock.Lock()
 	defer s.lock.Unlock()
 
-	stm := "select * from stream_blocks where streamid='"  +streamid+ " order by blockindex";
+	stm := "select * from stream_blocks where streamid='"  +streamid+ "' order by blockindex";
 	res := s.handleQuery(stm)
 
     id := uint64(0)
@@ -89,11 +89,13 @@ func (s StreamBlockDB) BlockCount(streamid string) uint64{
 		return 0
 	}
     var count uint64
-	err = rows.Scan(&count)
-	if err != nil {
-		log.Errorf("block count error: %s", err)
-		return 0
-	}
+    for rows.Next() {
+	    err = rows.Scan(&count)
+	    if err != nil {
+		    log.Errorf("block count error: %s", err)
+		    return 0
+	    }
+    }
     return count
 }
 

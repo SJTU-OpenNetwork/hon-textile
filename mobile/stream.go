@@ -17,7 +17,13 @@ func (m *Mobile) StartStream(thread string, stream []byte) error {
 	if err := proto.Unmarshal(stream, model); err != nil {
 		return err
 	}
-	return m.node.StartStream(thread, model)
+    err := m.node.StartStream(thread, model)
+	if err != nil {
+		return err
+	}
+
+	m.node.FlushCafes()
+	return nil
 }
 
 func (m *Mobile) SubscribeStream(config string) error {

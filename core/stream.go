@@ -96,6 +96,7 @@ func (t *Textile) handleProviderSearchResult(resultCh <-chan *pb.QueryResult, er
     }
     go func() {
 		<-timer.C
+        log.Debug("Search time out")
 		done()
 	}()
 	go func() {
@@ -114,6 +115,7 @@ func (t *Textile) handleProviderSearchResult(resultCh <-chan *pb.QueryResult, er
 			case res, ok := <-resultCh:
                 log.Debug("get result!")
 				if !ok {
+                    log.Debug("Error occur")
 					return
 				}
 				item := &pb.StreamQueryResultItem {}
@@ -122,18 +124,22 @@ func (t *Textile) handleProviderSearchResult(resultCh <-chan *pb.QueryResult, er
                 //if already have provider
                 //just break
                 if t.stream.GetProvider(config.Id) != peer.ID("") {
+                    log.Debug("provider alread exists")
                     done()
                     timer.Stop()
                     break
                 }
 
                 // if the provider is connected, request the stream directly
+                log.Debug("PID: "+item.Pid)
                 connected, err := ipfs.SwarmConnected(t.node, item.Pid) 
 	            if err != nil{
                     log.Error(err)
 	    	        break
                 }
+                
                 if connected {
+                    log.Debug("Try request stream")
                     env, err := t.RequestStream(item.Pid, config)
 	                if err != nil{
                         log.Error(err)
@@ -153,6 +159,8 @@ func (t *Textile) handleProviderSearchResult(resultCh <-chan *pb.QueryResult, er
                         // request is accepted, kill the handle process
                         return
                     }
+                } else {
+                    log.Debug("Not connected, exitting")
                 }
 			}
 		}
@@ -225,8 +233,8 @@ func (t *Textile) SearchStream(query *pb.StreamQuery, options *pb.QueryOptions) 
 
 	options.Filter = pb.QueryOptions_HIDE_OLDER
 
-	//resCh, errCh, cancel := t.searchByPubsub(&pb.Query{
-	resCh, errCh, cancel := t.searchAll(&pb.Query{
+	resCh, errCh, cancel := t.searchByPubsub(&pb.Query{
+	//resCh, errCh, cancel := t.searchAll(&pb.Query{
 		Type:    pb.Query_STREAM,
 		Options: options,
 		Payload: &any.Any{
