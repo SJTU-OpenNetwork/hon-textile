@@ -78,9 +78,6 @@ func (t *Textile) CloseStream(threadId string, streamId string) error {
 	}
 
 	t.stream.CloseStream(streamId)
-
-    //TODO: update nblocks, how to get the total number of blocks?
-    //TODO: send stream close message through thread
     return nil
 }
 
