@@ -134,9 +134,11 @@ Loop:
                 break Loop
 			}
 
-            // TODO: Clear file channel
-            
-
+            // Clear file channel
+            for f := range(as.fileChan) {
+                err := as.handleNewFile(f); if err != nil {log.Error(err)}
+            }
+            close(as.fileChan)
 			break Loop
 		}
 	}
@@ -144,7 +146,15 @@ Loop:
 
 func (as *activeStream) handleNewFile(f *pb.StreamFile) error {
     if f == nil {
-        //TODO: handle the end mark
+        // handle the end mark
+        err := as.datastore.StreamMetas().UpdateNblocks(as.meta.Id,as.currentIndex)
+        if err != nil {
+            log.Error(err)
+            return err
+        }
+
+        // TODO: modify notify function, add MESSAGE_TYPE in the parameter
+        // notify(STREAM_CLOSE, &pb.StreamClose)
     } else {
 	    r := bytes.NewReader(f.Data)
 	    fileid, err := ipfs.AddData(as.node(), r, true, false)
