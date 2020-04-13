@@ -193,11 +193,12 @@ func (h *ShadowService) RegisterShadow(id peer.ID) error {
 }
 
 func (h *ShadowService) PushStreamMeta(meta *pb.StreamMeta, useronly bool) error {
+	//log.Debugf()
     if h.shadow == peer.ID("") {
         log.Debug("This node does not have a shadow node currently")
         return nil
     }
-
+	log.Debugf("Shadow: Push stream meta to shadow peer %s", h.shadow.Pretty())
     mark := int32(1)
     if useronly {
 	    env, err := h.service.NewEnvelope(pb.Message_SHADOW_STREAM_META, meta, &mark, true); if err != nil {return err}
@@ -210,7 +211,7 @@ func (h *ShadowService) PushStreamMeta(meta *pb.StreamMeta, useronly bool) error
 }
 
 func (h *ShadowService) handleStreamMeta(env *pb.Envelope, pid peer.ID) (*pb.Envelope, error) {
-	//log.Debugf("", )
+	log.Debugf("Shadow: Receive stream meta from %s", pid.Pretty())
     if h.isShadow {
         h.msgRecv(env, pid)
     }
