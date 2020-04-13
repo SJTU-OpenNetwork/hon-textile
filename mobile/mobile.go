@@ -326,6 +326,10 @@ func (m *Mobile) Version() string {
 	return "v" + common.Version
 }
 
+func (m *Mobile) Shadow() string {
+	return m.node.Shadow()
+}
+
 // GitSummary returns common GitSummary
 func (m *Mobile) GitSummary() string {
 	return common.GitSummary

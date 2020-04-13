@@ -1332,7 +1332,9 @@ func (t *Textile) sendNotification(note *pb.Notification) error {
 	return nil
 }
 
-
+func (t *Textile) Shadow() string {
+	return t.shadow.GetShadow().String()
+}
 
 // shadowMsgRecv is called by shadow service
 func (t *Textile) shadowMsgRecv(env *pb.Envelope, pid peer.ID) error {
