@@ -217,6 +217,23 @@ func (h *ShadowService) handleStreamMeta(env *pb.Envelope, pid peer.ID) (*pb.Env
 	return nil, nil
 }
 
+// Retuen the stat of ShadowService
+func (h *ShadowService) Loggable() map[string]interface{} {
+	res := make(map[string] interface{})
+	if h.isShadow {
+		res["role"] = "shadow"
+		ulist:= make([]string, 0, len(h.users))
+		for _, u := range h.users {
+			ulist = append(ulist, u.Pretty())
+		}
+		res["users"] = ulist
+	} else {
+		res["role"] = "normal"
+		res["shadow"] = h.shadow.Pretty()
+	}
+	return nil
+}
+
 // HandleStream is called by the underlying service handler method
 func (h *ShadowService) HandleStream(env *pb.Envelope, pid peer.ID) (chan *pb.Envelope, chan error, chan interface{}) {
 	return make(chan *pb.Envelope), make(chan error), make(chan interface{})

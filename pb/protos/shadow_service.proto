@@ -9,3 +9,9 @@ message ShadowInform {
 message ShadowInformResponse {
     bool accept = 1;
 }
+
+message ShadowStat{
+    string role = 1;
+    string shadow = 2;
+    repeated string users = 3;
+}
