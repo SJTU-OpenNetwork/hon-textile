@@ -458,6 +458,9 @@ func (h *StreamService)PeerDisconnected(pid peer.ID) {
 	log.Debugf("Peer %s disconnected", pid)
 	h.activeWorkers.endPeer(pid.Pretty())
     //streams, _ := h.providers.peerDisconnected(pid)
+
+    // TODO: get disconnected streams
+    // TODO: re-subscribe streams
 }
 
 func (h* StreamService) GetProvidedHopcnt(config *pb.StreamRequest) (int, bool){
