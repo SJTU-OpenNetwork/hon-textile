@@ -210,6 +210,7 @@ func (h *ShadowService) PushStreamMeta(meta *pb.StreamMeta, useronly bool) error
 }
 
 func (h *ShadowService) handleStreamMeta(env *pb.Envelope, pid peer.ID) (*pb.Envelope, error) {
+	//log.Debugf("", )
     if h.isShadow {
         h.msgRecv(env, pid)
     }
