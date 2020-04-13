@@ -158,7 +158,7 @@ func (as *activeStream) handleNewFile(f *pb.StreamFile) error {
 	    	Index: as.currentIndex,
 	    	Size: 0,
 	    	IsRoot: true,
-	    	Description: "",
+	    	Description: "ENDMARK",
 	    })
         if err != nil {
             log.Error(err)
