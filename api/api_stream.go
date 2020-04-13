@@ -141,5 +141,5 @@ func (a *Api) streamClose(g *gin.Context) {
 	}
 
 	fmt.Printf("Api.streamClose: Try to close stream %s\n", streamId)
-	a.Node.StreamClose(streamId)
+	//a.Node.StreamClose(streamId)
 }
