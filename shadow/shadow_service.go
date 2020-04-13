@@ -133,6 +133,7 @@ func (h *ShadowService) PeerConnected(pid peer.ID, multiaddr ma.Multiaddr) error
 
 // TODO: inform pid about my information (e.g., public key), could use ``contact'' directly
 func (h *ShadowService) inform(pid peer.ID) error {
+	log.Debugf("Shadow: Send inform to %s", pid.Pretty())
 	inform := &pb.ShadowInform{}
 	inform.PublicKey = h.address
 	env, err := h.service.NewEnvelope(pb.Message_SHADOW_INFORM, inform, nil, true); if err != nil {return err}
@@ -143,6 +144,7 @@ func (h *ShadowService) inform(pid peer.ID) error {
 
 // TODO: called after received an ``inform'' message
 func (h *ShadowService) handleInform(env *pb.Envelope, pid peer.ID) (*pb.Envelope, error) {
+	log.Debugf("Shadow: Handle inform from %s", pid.Pretty())
 	if !h.isShadow {
 		inform := &pb.ShadowInform{}
 		err := ptypes.UnmarshalAny(env.Message.Payload, inform);
@@ -158,8 +160,10 @@ func (h *ShadowService) handleInform(env *pb.Envelope, pid peer.ID) (*pb.Envelop
 			//h.shadow = pid
 			h.RegisterShadow(pid)
 			res.Accept = true
+			log.Debugf("Shadow: Accept shadow peer %s", pid.Pretty())
 		} else {
 			res.Accept = false
+			log.Debugf("Shadow: Reject shadow peer %s", pid.Pretty())
 		}
 		resenv, err := h.service.NewEnvelope(pb.Message_SHADOW_INFORM_RES, res, nil, false);
 		if err != nil {
@@ -173,10 +177,12 @@ func (h *ShadowService) handleInform(env *pb.Envelope, pid peer.ID) (*pb.Envelop
 }
 
 func (h *ShadowService) handleInformRes(env *pb.Envelope, pid peer.ID) (*pb.Envelope, error){
+	log.Debugf("Shadow: Receive shadow inform response from %s", pid.Pretty())
 	if h.isShadow {
 		res := &pb.ShadowInformResponse{}
 		err := ptypes.UnmarshalAny(env.Message.Payload, res); if err != nil {return nil, err}
 		if res.Accept {
+			log.Debugf("Shadow: Inform is accepted by %s", pid.Pretty())
 			h.addUser(pid)
 		}
 		return nil, nil
