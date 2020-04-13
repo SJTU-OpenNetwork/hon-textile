@@ -6,8 +6,8 @@ import (
 	"github.com/libp2p/go-libp2p-core/peer"
 )
 
-func (t *Textile) ShadowStat() map[string]interface{} {
-	return t.shadow.Loggable()
+func (t *Textile) ShadowStat() *pb.ShadowStat {
+	return t.shadow.ShadowStat()
 }
 
 // shadowMsgRecv is called by shadow service when receive a new stream meta.

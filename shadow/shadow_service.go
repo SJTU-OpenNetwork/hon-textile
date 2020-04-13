@@ -217,6 +217,21 @@ func (h *ShadowService) handleStreamMeta(env *pb.Envelope, pid peer.ID) (*pb.Env
 	return nil, nil
 }
 
+func (h *ShadowService) ShadowStat() *pb.ShadowStat {
+	res := &pb.ShadowStat{}
+	if h.isShadow {
+		res.Role = "shadow"
+		//ulist:= make([]string, 0, len(h.users))
+		for _, u := range h.users {
+			res.Users = append(res.Users, u.Pretty())
+		}
+	} else {
+		res.Role = "normal"
+		res.Shadow = h.shadow.Pretty()
+	}
+	return res
+}
+
 // Retuen the stat of ShadowService
 func (h *ShadowService) Loggable() map[string]interface{} {
 	res := make(map[string] interface{})

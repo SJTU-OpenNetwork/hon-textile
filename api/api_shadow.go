@@ -8,5 +8,5 @@ import (
 // Printout stat of current shadow service.
 func (a *Api) shadowStat(g *gin.Context) {
 	views := a.Node.ShadowStat()
-	pbJSON(g, http.StatusOK, )
+	pbJSON(g, http.StatusOK, views)
 }
