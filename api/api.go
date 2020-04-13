@@ -366,6 +366,11 @@ func (a *Api) Run() {
 			stream.GET("/list", a.lsStream)
 			//profile.POST("/avatar", a.setAvatar)
 		}
+
+		shadow := v0.Group("/shadow")
+		{
+			shadow.GET("/stat", a.shadowStat)
+		}
 	}
 
 	a.server = &http.Server{

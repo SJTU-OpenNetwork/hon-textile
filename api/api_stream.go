@@ -52,6 +52,7 @@ func (a *Api)createStream(g *gin.Context) {
 		g.String(http.StatusBadRequest, err.Error())
 		return
 	}
+	a.Node.FlushCafes()
 	g.String(http.StatusOK, "New stream create.")
 	return
 }
@@ -140,5 +141,5 @@ func (a *Api) streamClose(g *gin.Context) {
 	}
 
 	fmt.Printf("Api.streamClose: Try to close stream %s\n", streamId)
-	a.Node.StreamClose(streamId)
+	//a.Node.StreamClose(streamId)
 }

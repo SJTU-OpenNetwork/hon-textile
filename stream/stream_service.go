@@ -14,7 +14,6 @@ import (
 	"time"
     "github.com/segmentio/ksuid"
 
-    "github.com/ipfs/go-cid"
 	"github.com/golang/protobuf/ptypes"
 	ipld "github.com/ipfs/go-ipld-format"
 	"github.com/SJTU-OpenNetwork/go-ipfs/core"
@@ -51,6 +50,8 @@ type StreamService struct {
     streamBlockIndex map[string]uint64
     streamDone map[string] bool
 	streamlock sync.Mutex
+	//
+	activeStreams *activeStreamStore
 	
     // for workers
     activeWorkers *workerStore
@@ -59,6 +60,9 @@ type StreamService struct {
     // for providers
     providers *providerStore
 	lostIndex chan *lostReport
+
+	// Context for main routine
+	ctx context.Context
 }
 
 // NewStreamService returns a new stream service
@@ -67,10 +71,13 @@ func NewStreamService(
 	node func() *core.IpfsNode,
 	datastore repo.Datastore,
 	sendNotification func(*pb.Notification) error,
+	ctx context.Context,
 ) *StreamService {
 	handler := &StreamService{
 		datastore:        datastore,
 		sendNotification: sendNotification,
+		ctx:			  ctx,
+		//activeStreams:newActiveStreamStore(ctx, datastore, node, ),
 		activeWorkers: newWorkerStore(),
         providers: newProviderStore(),
         
@@ -79,6 +86,7 @@ func NewStreamService(
         streamBlockIndex: make(map[string] uint64) ,
         streamDone: make(map[string] bool),
 	}
+	handler.activeStreams = newActiveStreamStore(ctx, datastore, node, handler.activeWorkers.newFileAdd)
 	handler.service = service.NewService(account, handler, node)
 	return handler
 }
@@ -112,6 +120,8 @@ func (h *StreamService) Handle(env *pb.Envelope, pid peer.ID) (*pb.Envelope, err
 		return h.handleStreamBlockList(env, pid)
 	case pb.Message_STREAM_REQUEST:
 		return h.handleStreamRequest(env, pid)
+	case pb.Message_STREAM_UNSUBSCRIBE:
+		return h.handleUnsubscribe(env, pid)
     default:
     	fmt.Printf("core/stream_service.go Handler: Unknown message type")
         return nil, nil
@@ -120,30 +130,10 @@ func (h *StreamService) Handle(env *pb.Envelope, pid peer.ID) (*pb.Envelope, err
 
 // ======================= FOR STREAM MANAGEMENT =============================
 func (h *StreamService) StartStream(config *pb.StreamMeta) {
-    _, ok := h.streamFileChannels[config.Id]
-    if ok {
-        // how to handle re-start?
-        return 
-    }
-
-    h.streamBlockIndex[config.Id] = 0
-    h.streamFileChannels[config.Id] = make(chan *pb.StreamFile)
-    h.streamDone[config.Id] = false
-	fmt.Printf("Start the add routine for stream\n")
-    go func(){
-	    fmt.Printf("Stream routine start.\n")
-	    for {
-		    select {
-            case  newfile := <-h.streamFileChannels[config.Id]:
-                h.handleNewFile(config.Id, newfile)
-                h.activeWorkers.newFileAdd(config.Id)
-            default:
-                if h.streamDone[config.Id]{ //CloseStream is called
-                    return
-                }
-		    }
-	   }
-    }()
+	err := h.activeStreams.addStream(config)
+	if err != nil {
+		log.Error(err)
+	}
 }
 
 /**
@@ -155,81 +145,23 @@ func (h *StreamService) Started(sid string) bool{
 }
 
 func (h *StreamService) StreamAddFile(id string, sf *pb.StreamFile) error{
-    ch, ok :=  h.streamFileChannels[id]
-    if !ok {
-        return fmt.Errorf("No such stream")
-    }
-    ch <- sf
+	err := h.activeStreams.streamAddFile(id, sf); if err != nil {return err}
     return nil
 }
 
 func (h *StreamService) CloseStream(sid string) {
-    //h.streamDone[sid] = true
     fmt.Printf("StreamService: Try to close stream %s\n", sid)
-    //close (h.streamFileChannels[sid])
-    //delete (h.streamFileChannels,sid)
-    //delete (h.streamBlockIndex,sid)
+    err := h.activeStreams.stopStream(sid); if err != nil {log.Error(err)}
 }
 
-func (h *StreamService) saveBlock(sid string, cid *cid.Cid, isRoot bool, payload []byte) error {
-    stat, err := ipfs.StatObjectAtPath(h.service.Node(), cid.String())
-    if err != nil {
-        log.Error(err)
-        return err
-    }
-    index := h.streamBlockIndex[sid]
-    //fmt.Printf("Saving block, cid: %s, index: %d, size: %d, isroot: %d", cid.String(), cur, stat.CumulativeSize, isRoot)
-    err = h.datastore.StreamBlocks().Add(&pb.StreamBlock{
-        Id: cid.String(),
-        Streamid: sid,
-        Index: index,
-        Size: int32(stat.CumulativeSize),
-        IsRoot: isRoot,
-        Description: string(payload),
-    })
-    if err != nil {
-        log.Error(err)
-        return err
-    }
-    h.streamBlockIndex[sid] = index+1
-    return nil
-}
-
-func (h *StreamService) handleNewFile(sid string, newfile *pb.StreamFile) error {
-    r := bytes.NewReader(newfile.Data)
-    fileid, err := ipfs.AddData(h.service.Node(), r, true, false)
-    if err != nil {
-        log.Error(err)
-        return err
-    }
-    return h.traverseNode(sid, fileid, true, newfile.Description)
-}
-
-func (h *StreamService) traverseNode(sid string, cid *cid.Cid, isRoot bool, payload []byte) error {
-    links, err := ipfs.LinksAtPath(h.service.Node(), cid.String())
-    if err != nil{
-        return err
-    }
-    if len(links) == 0 {
-        err = h.saveBlock(sid, cid, isRoot, payload)
-        if err != nil {
-            return err
-        }
-    } else {
-        for _,l := range links {
-            err := h.traverseNode(sid, &l.Cid, false, nil)
-            if err != nil {
-                return err
-            }
-        }
-        err = h.saveBlock(sid, cid, isRoot, payload)
-        if err != nil {
-            return err
-        }
+func (h *StreamService) UnsubscribeStream(sid string) error{
+    fmt.Printf("StreamService: Try to unsubscribe stream %s\n", sid)
+    pid := h.providers.RemoveStream(sid)
+    if pid != peer.ID("") {
+        h.SendUnsubscribeRequest(pid.Pretty(), sid)
     }
     return nil
 }
-
 
 // ======================== FOR MESSAGE RECV/SEND ==================================
 // handleStreamBlock receives a STREAM_BLOCK message [deprecated]
@@ -351,6 +283,7 @@ func (h *StreamService) handleStreamRequest(env *pb.Envelope, pid peer.ID) (*pb.
 		return nil, err
 	}
 
+    // TODO: calculate capacity according to video rate
     if h.Workload() < 5 {
         err = h.responseRequest(pid, req)
         if err != nil {
@@ -374,6 +307,34 @@ func (h *StreamService) SendStreamRequest(peerId string, config *pb.StreamReques
 	}
 	log.Debugf("[%s] Stream %s, To %s", TAG_STREAMREQUEST, config.Id, peerId)
 	return h.service.SendRequest(peerId, env)
+}
+
+func (h *StreamService) SendUnsubscribeRequest(peerId string, sid string) (*pb.Envelope, error) {
+	//fmt.Printf("core/stream_service.go SendStreamRequest to %s\n", peerId)
+	env, err := h.service.NewEnvelope(pb.Message_STREAM_UNSUBSCRIBE, &pb.StreamUnsubscribe{
+        Id: sid,
+    }, nil, false)
+	if err != nil {
+		return nil,err
+	}
+	log.Debugf("[%s] Stream %s, To %s", TAG_STREAMREQUEST, sid, peerId)
+	return h.service.SendRequest(peerId, env)
+}
+
+func (h *StreamService) handleUnsubscribe(env *pb.Envelope, pid peer.ID) (*pb.Envelope, error) {
+	fmt.Printf("core/stream_service.go handleUnsubscribe from %s\n", pid.Pretty())
+	req := new(pb.StreamUnsubscribe)
+	err := ptypes.UnmarshalAny(env.Message.Payload, req)
+	if err != nil {
+		return nil, err
+	}
+    
+    //TODO: stop sending data to pid
+    h.activeWorkers.endWorker(req.Id, pid.Pretty())
+
+	return h.service.NewEnvelope(pb.Message_STREAM_UNSUBSCRIBE_RES, &pb.StreamUnsubscribeAck{
+        Id:req.Id,
+    }, nil, true)
 }
 
 // RequestAccepted is called when a stream request is accepted by some peer.
@@ -497,6 +458,9 @@ func (h *StreamService)PeerDisconnected(pid peer.ID) {
 	log.Debugf("Peer %s disconnected", pid)
 	h.activeWorkers.endPeer(pid.Pretty())
     //streams, _ := h.providers.peerDisconnected(pid)
+
+    // TODO: get disconnected streams
+    // TODO: re-subscribe streams
 }
 
 func (h* StreamService) GetProvidedHopcnt(config *pb.StreamRequest) (int, bool){

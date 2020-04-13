@@ -113,11 +113,13 @@ type StreamBlockStore interface {
 	Delete(streamid string) error
 	GetByCid(cid string) *pb.StreamBlock
     BlockCount(streamid string) uint64
+    LastIndex(streamid string) uint64
 }
 
 type StreamMetaStore interface {
 	Queryable
 	Add(stream *pb.StreamMeta) error
+    UpdateNblocks(id string, nblocks uint64) error
 	Get(streamId string) *pb.StreamMeta
 	Delete(streamId string) error
 	List() *pb.StreamMetaList

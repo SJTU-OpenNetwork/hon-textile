@@ -30,8 +30,8 @@ import (
 	"github.com/SJTU-OpenNetwork/hon-textile/repo/config"
 	"github.com/SJTU-OpenNetwork/hon-textile/repo/db"
 	"github.com/SJTU-OpenNetwork/hon-textile/service"
-	"github.com/SJTU-OpenNetwork/hon-textile/util"
 	"github.com/SJTU-OpenNetwork/hon-textile/stream"
+	"github.com/SJTU-OpenNetwork/hon-textile/util"
 	ipld "github.com/ipfs/go-ipld-format"
 	logging "github.com/ipfs/go-log"
 	"github.com/ipfs/go-metrics-interface"
@@ -421,13 +421,22 @@ func (t *Textile) Start() error {
 		t.account,
 		t.Ipfs,
 		t.datastore,
-		t.sendNotification)
-	t.cafe = NewCafeService(
+		t.sendNotification,
+		context.Background())//Share the same ctx with textile. That is because we do not need to manually cancel it.
+	t.shadow = shadow.NewShadowService(
+        t.account,
+        t.Ipfs,
+        t.datastore,
+        t.shadowMsgRecv,
+        t.config.IsShadow,
+        t.account.Address())
+    t.cafe = NewCafeService(
 		t.account,
 		t.Ipfs,
 		t.datastore,
 		t.cafeInbox,
-        t.stream)
+        t.stream,
+        t.shadow)
 	if t.cafeOutbox.handler == nil {
 		t.cafeOutbox.handler = t.cafe
 	}
@@ -460,7 +469,7 @@ func (t *Textile) Start() error {
 		t.cafe.online = true
 
 		t.stream.Start()
-		
+        t.shadow.Start()
         if t.config.Cafe.Host.Open {
 			go func() {
 				t.cafe.setAddrs(t.config)
@@ -498,8 +507,6 @@ func (t *Textile) Start() error {
         t.variables.SwarmAddress = t.GetSwarmAddress(t.node.Identity.Pretty())
 	}()
 
-    //t.variables.StreamFileChannels = make(map[string]chan *pb.StreamFile)
-    //t.variables.streamBlockIndex = make(map[string] uint64)
 	for _, mod := range t.datastore.Threads().List().Items {
 		_, err = t.loadThread(mod)
 		if err != nil {
@@ -518,12 +525,6 @@ func (t *Textile) Start() error {
 	log.Info("node is started")
 	log.Infof("peer id: %s", t.node.Identity.Pretty())
 	log.Infof("account address: %s", t.account.Address())
-
-//    err = t.addStoreThread()
-//    if err != nil {
-//        log.Error(err)
-//        return err
-//    }
 
 	return t.addAccountThread()
 }
@@ -1271,7 +1272,7 @@ func (t *Textile) loadThread(mod *pb.Thread) (*Thread, error) {
 		BlockOutbox:    t.blockOutbox,
 		BlockDownloads: t.blockDownloads,
 		CafeOutbox:     t.cafeOutbox,
-		AddPeer:        t.AddPeer,
+		AddPeer:        t.	AddPeer,
 		PushUpdate:     t.sendThreadUpdate,
 	})
 	if err != nil {
@@ -1328,6 +1329,10 @@ func (t *Textile) sendNotification(note *pb.Notification) error {
     log.Debugf("body: %s, block: %s", note.Body, note.Block)
 	t.notifications <- t.NotificationView(note)
 	return nil
+}
+
+func (t *Textile) Shadow() string {
+	return t.shadow.GetShadow().String()
 }
 
 // touchDatastore ensures that we have a good db connection

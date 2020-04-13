@@ -76,10 +76,6 @@ func (t *Textile) searchByPubsub(query *pb.Query) (<-chan *pb.QueryResult, <-cha
 
 	var searchChs []chan *pb.QueryResult
 
-    // local channel
-	localCh := make(chan *pb.QueryResult)
-	searchChs = append(searchChs, localCh)
-    
     // remote results channel(s)
 	clientCh := make(chan *pb.QueryResult)
 	searchChs = append(searchChs, clientCh)
@@ -96,23 +92,6 @@ func (t *Textile) searchByPubsub(query *pb.Query) (<-chan *pb.QueryResult, <-cha
 		}()
 		results := newQueryResultSet(query.Options)
 
-		// search local
-		if !query.Options.RemoteOnly {
-            log.Debug("Search local")
-			var err error
-			results, err = t.cafe.searchLocal(query.Type, query.Options, query.Payload, true, t.node.Identity)
-			if err != nil {
-				errCh <- err
-				return
-			}
-			for _, res := range results.items {
-				localCh <- res
-			}
-		}
-
-		if query.Options.LocalOnly || results.Full() {
-			return
-		}
 		canceler := cancel.Listen()
 		if err := t.cafe.searchPubSub(query, func(res *pb.QueryResults) bool {
 			for _, n := range results.Add(res.Items...) {

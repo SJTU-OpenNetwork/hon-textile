@@ -1,11 +1,9 @@
 package mobile
 
 import (
-    "fmt"
-
-	"github.com/golang/protobuf/proto"
 	"github.com/SJTU-OpenNetwork/hon-textile/core"
 	"github.com/SJTU-OpenNetwork/hon-textile/pb"
+	"github.com/golang/protobuf/proto"
 )
 
 func (m *Mobile) AddVideo(video []byte) error {
@@ -186,19 +184,19 @@ func (m *Mobile) SearchVideoChunks(query []byte, options []byte) (*SearchHandle,
 }
 
 // StoreThread calls core StoreThread
-func (m *Mobile) StoreThread() ([]byte, error) {
-	if !m.node.Started() {
-		return nil, core.ErrStopped
-	}
-
-	thrd := m.node.StoreThread()
-	if thrd == nil {
-		return nil, fmt.Errorf("store thread not found")
-	}
-	view, err := m.node.ThreadView(thrd.Id)
-	if err != nil {
-		return nil, err
-	}
-
-	return proto.Marshal(view)
-}
+//func (m *Mobile) StoreThread() ([]byte, error) {
+//	if !m.node.Started() {
+//		return nil, core.ErrStopped
+//	}
+//
+//	thrd := m.node.StoreThread()
+//	if thrd == nil {
+//		return nil, fmt.Errorf("store thread not found")
+//	}
+//	view, err := m.node.ThreadView(thrd.Id)
+//	if err != nil {
+//		return nil, err
+//	}
+//
+//	return proto.Marshal(view)
+//}

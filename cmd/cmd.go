@@ -994,6 +994,12 @@ The response contains a base58 encoded version of the random bytes token.`).Alia
 	}
 
 	// ================================
+	// For Shadow
+	shadowCmd :=  appCmd.Command("shadow", "Shadow corresponding command.")
+	shadowStatCmd := shadowCmd.Command("stat", "The shadow service stat of this peer.")
+	cmds[shadowStatCmd.FullCommand()] = func() error {
+		return ShadowStat()
+	}
 
 	hideGlobalsFlagsFor(
 		daemonCmd,

@@ -17,22 +17,40 @@ import (
 )
 var ErrStreamNotFound = fmt.Errorf("stream not found")
 var ErrStreamAlreadyInUse = fmt.Errorf("stream already in use")
+type ErrStreamAlreadyExist struct {
+	meta *pb.StreamMeta
+}
+func (e *ErrStreamAlreadyExist) Error() string {
+	return fmt.Sprintf("Stream %s already exist in datastore.", e.meta.Id)
+}
+type ErrStreamNotExist struct {
+	Id string
+}
+func (e *ErrStreamNotExist) Error() string {
+	return fmt.Sprintf("Stream %s not exist in datastore.", e.Id)
+}
 
+// StartStream does two tasks:
+//	- Add stream to datastore.
+//	- Start stream routine.
+// TODO:
+//		Support renewal for existing stream.
 func (t *Textile) StartStream(threadId string, config *pb.StreamMeta) error {
 	defer fmt.Printf("textile.StartStream end success\n")
 	fmt.Printf("textile.StartStream\n")
-    
-    err := t.datastore.StreamMetas().Add(config)
-    if err != nil {
-        return err
-    }
-    stream := t.GetStreamMeta(string(config.Id))
-	if stream == nil {
-		return ErrStreamNotFound
-	}
-    
-    t.stream.StartStream(config)
 
+	// Check whether this stream already exists in datastore.
+	stream := t.GetStreamMeta(config.Id)
+	if stream != nil {
+		return &ErrStreamAlreadyExist{meta:config}
+	}
+
+    err := t.datastore.StreamMetas().Add(config);if err != nil {return err}
+    //stream := t.GetStreamMeta(config.Id)
+	//if stream == nil {
+	//	return ErrStreamNotFound
+	//}
+    t.stream.StartStream(config)
 	//publish the Stream to others
 	fmt.Printf("Find thread for stream.\n")
 	thread := t.Thread(threadId)
@@ -41,8 +59,29 @@ func (t *Textile) StartStream(threadId string, config *pb.StreamMeta) error {
 	}
 
 	//fmt.Printf("Add streamMeta to thread.\n")
-	_, err = thread.AddStreamMeta(stream)
+	_, err = thread.AddStreamMeta(config)
+
+    if !t.config.IsShadow {
+        t.shadow.PushStreamMeta(config, true)
+    }
+
 	return err
+}
+
+func (t *Textile) CloseStream(threadId string, streamId string) error {
+	defer fmt.Printf("textile.CloseStream end success\n")
+	fmt.Printf("textile.CloseStream\n")
+	
+    stream := t.GetStreamMeta(streamId)
+	if stream == nil {
+        return &ErrStreamNotExist{Id: streamId}
+	}
+
+	t.stream.CloseStream(streamId)
+
+    //TODO: update nblocks, how to get the total number of blocks?
+    //TODO: send stream close message through thread
+    return nil
 }
 
 /* [deprecated] use stream_meta instead
@@ -67,6 +106,7 @@ func (t *Textile) StreamAddFile(id string, sf *pb.StreamFile) error {
 }
 
 func (t *Textile) handleProviderSearchResult(resultCh <-chan *pb.QueryResult, errCh <-chan error, cancel *broadcast.Broadcaster, config *pb.StreamRequest) (error) {
+	log.Debugf("in handleProviderSearchResult")
     timer := time.NewTimer(time.Second * 2) //Wait for 2s
     doneCh := make(chan struct{}, 1)
 	done := func() {
@@ -78,14 +118,16 @@ func (t *Textile) handleProviderSearchResult(resultCh <-chan *pb.QueryResult, er
     }
     go func() {
 		<-timer.C
+        log.Debug("Search time out")
 		done()
-
 	}()
 	go func() {
 		for {
 			select {
 			case <-doneCh:
+				log.Debugf("result channel done")
                 t.SubscribeNotify(config.Id, false)
+                close(doneCh)
 				return
 			case err := <-errCh:
                 log.Error(err)
@@ -93,7 +135,9 @@ func (t *Textile) handleProviderSearchResult(resultCh <-chan *pb.QueryResult, er
 				return
 
 			case res, ok := <-resultCh:
+                log.Debug("get result!")
 				if !ok {
+                    log.Debug("Error occur")
 					return
 				}
 				item := &pb.StreamQueryResultItem {}
@@ -102,16 +146,22 @@ func (t *Textile) handleProviderSearchResult(resultCh <-chan *pb.QueryResult, er
                 //if already have provider
                 //just break
                 if t.stream.GetProvider(config.Id) != peer.ID("") {
+                    log.Debug("provider alread exists")
+                    done()
+                    timer.Stop()
                     break
                 }
 
                 // if the provider is connected, request the stream directly
+                log.Debug("PID: "+item.Pid)
                 connected, err := ipfs.SwarmConnected(t.node, item.Pid) 
 	            if err != nil{
                     log.Error(err)
 	    	        break
                 }
+                
                 if connected {
+                    log.Debug("Try request stream")
                     env, err := t.RequestStream(item.Pid, config)
 	                if err != nil{
                         log.Error(err)
@@ -131,6 +181,8 @@ func (t *Textile) handleProviderSearchResult(resultCh <-chan *pb.QueryResult, er
                         // request is accepted, kill the handle process
                         return
                     }
+                } else {
+                    log.Debug("Not connected, exitting")
                 }
 			}
 		}
@@ -148,11 +200,24 @@ func (t *Textile) SubscribeNotify(id string, res bool) {
 }
 
 func (t* Textile) SubscribeStream(id string) error {
+    if t.stream.GetProvider(id) != peer.ID("") {
+        return fmt.Errorf("Resubscribe stream "+id)
+    }
+   
+    last := t.datastore.StreamBlocks().LastIndex(id)
+
     config := &pb.StreamRequest {
         Id: id,
         StreamMap: 1,
-        StartIndex: 0,
+        StartIndex: last,
     }
+
+    // shadow node should subscribe the same stream
+    meta := t.GetStreamMeta(id)
+	if meta != nil && !t.config.IsShadow {
+        t.shadow.PushStreamMeta(meta, false)
+	}
+
 	// call search stream
     query := & pb.StreamQuery { 
         Id: id,
@@ -170,7 +235,8 @@ func (t* Textile) SubscribeStream(id string) error {
 }
 
 func (t* Textile) UnsubscribeStream(id string) error{
-	return nil
+    err := t.stream.UnsubscribeStream(id)
+    return err
 }
 
 func (t* Textile) RequestStream(pid string, config *pb.StreamRequest) (*pb.Envelope, error){
@@ -191,6 +257,7 @@ func (t *Textile) SearchStream(query *pb.StreamQuery, options *pb.QueryOptions) 
 	options.Filter = pb.QueryOptions_HIDE_OLDER
 
 	resCh, errCh, cancel := t.searchByPubsub(&pb.Query{
+	//resCh, errCh, cancel := t.searchAll(&pb.Query{
 		Type:    pb.Query_STREAM,
 		Options: options,
 		Payload: &any.Any{
@@ -211,6 +278,3 @@ func (t *Textile) StreamWorkerStat() {
 	t.stream.WorkerStat()
 }
 
-func (t *Textile) StreamClose(streamId string) {
-	t.stream.CloseStream(streamId)
-}

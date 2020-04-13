@@ -27,6 +27,14 @@ message StreamRequestHandle {
     uint64 value =1;
 }
 
+message StreamUnsubscribe {
+    string id = 1;
+}
+
+message StreamUnsubscribeAck {
+    string id = 1;
+}
+
 // StreamClose is used to tell other peers that a stream is closed.
 //  - streamId: Id of stream.
 //  - maxIndex: Maximum index of blocks.

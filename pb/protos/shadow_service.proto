@@ -2,4 +2,16 @@ syntax = "proto3";
 option java_package = "sjtu.opennet.textilepb";
 option go_package = "pb";
 
+message ShadowInform {
+    string publicKey =1;
+}
 
+message ShadowInformResponse {
+    bool accept = 1;
+}
+
+message ShadowStat{
+    string role = 1;
+    string shadow = 2;
+    repeated string users = 3;
+}

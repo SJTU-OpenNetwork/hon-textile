@@ -38,6 +38,13 @@ func (s *StreamMetaDB) Add(streammeta *pb.StreamMeta) error {
 	return tx.Commit()
 }
 
+func (c *StreamMetaDB) UpdateNblocks(id string, nblocks uint64) error {
+	c.lock.Lock()
+	defer c.lock.Unlock()
+	_, err := c.db.Exec("update stream_metas set nblocks=? where id=?", nblocks, id)
+	return err
+}
+
 func (s *StreamMetaDB) Get(streamId string) *pb.StreamMeta {
 	s.lock.Lock()
 	defer s.lock.Unlock()

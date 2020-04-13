@@ -32,6 +32,7 @@ import (
 	"github.com/SJTU-OpenNetwork/hon-textile/repo/db"
 	"github.com/SJTU-OpenNetwork/hon-textile/service"
 	"github.com/SJTU-OpenNetwork/hon-textile/stream"
+	"github.com/SJTU-OpenNetwork/hon-textile/shadow"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -78,7 +79,8 @@ type CafeService struct {
 	open            bool
 	queryResults    *broadcast.Broadcaster
 	inFlightQueries map[string]struct{}
-    sm               *stream.StreamService
+    stream          *stream.StreamService
+    shadow          *shadow.ShadowService
 }
 
 // NewCafeService returns a new threads service
@@ -87,13 +89,15 @@ func NewCafeService(
 	node func() *core.IpfsNode,
 	datastore repo.Datastore,
 	inbox *CafeInbox,
-    sm  *stream.StreamService) *CafeService {
+    stream  *stream.StreamService,
+    shadow *shadow.ShadowService) *CafeService {
 	handler := &CafeService{
 		datastore:       datastore,
 		inbox:           inbox,
 		queryResults:    broadcast.NewBroadcaster(10),
 		inFlightQueries: make(map[string]struct{}),
-        sm:              sm,
+        stream:          stream,
+        shadow:          shadow,
 	}
 	handler.service = service.NewService(account, handler, node)
 	return handler
@@ -756,6 +760,14 @@ func (h *CafeService) searchLocal(qtype pb.Query_Type, options *pb.QueryOptions,
 		}
 	case pb.Query_STREAM:
 		fmt.Printf("cafe_service searchLocal: Search local stream\n")
+        
+        // have shadow node, return nothing
+        // the shaodw node will connect other peers through other methods
+        if h.shadow.GetShadow() != peer.ID("") {
+            log.Debug("Have shadow node, return nothing")
+            break
+        }
+
 		q := new(pb.StreamQuery)
 		err := ptypes.UnmarshalAny(payload, q)
 		if err != nil {
@@ -775,7 +787,7 @@ func (h *CafeService) searchLocal(qtype pb.Query_Type, options *pb.QueryOptions,
 
         hopcnt := 1000 //arbitrary value, needed to be fixed
         //var hopcnt int
-        started := h.sm.Started(q.Id)
+        started := h.stream.Started(q.Id)
         if started {
             hopcnt = 0
         }else {
@@ -788,7 +800,7 @@ func (h *CafeService) searchLocal(qtype pb.Query_Type, options *pb.QueryOptions,
                 req := &pb.StreamRequest{
                     Id: q.Id,
                 }
-                providedHopcnt, ok:= h.sm.GetProvidedHopcnt(req)
+                providedHopcnt, ok:= h.stream.GetProvidedHopcnt(req)
                 //if provider != nil && provider.Hopcnt[q.Id] != 1000 {
                 //    hopcnt = provider.Hopcnt[q.Id] + 1
                 //}
@@ -802,6 +814,7 @@ func (h *CafeService) searchLocal(qtype pb.Query_Type, options *pb.QueryOptions,
             Pid: peerId,
             Hopcnt: int32(hopcnt),
         }
+        log.Debugf("Get result, hopcnt: %d", hopcnt)
         value,_ := proto.Marshal(result)
 		results.Add(&pb.QueryResult{
 			Id:     q.Id,
