@@ -73,7 +73,8 @@ message Message {
         SHADOW_INFORM = 1005;
         SHADOW_INFORM_RES = 1006;
         SHADOW_STREAM_META = 1007;
-        //SHADOW_STREAM_BLOCK = 1007;
+        STREAM_UNSUBSCRIBE = 1008;
+        STREAM_UNSUBSCRIBE_RES = 1009;
     }
 }
 

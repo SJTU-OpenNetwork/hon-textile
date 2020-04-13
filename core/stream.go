@@ -23,6 +23,12 @@ type ErrStreamAlreadyExist struct {
 func (e *ErrStreamAlreadyExist) Error() string {
 	return fmt.Sprintf("Stream %s already exist in datastore.", e.meta.Id)
 }
+type ErrStreamNotExist struct {
+	Id string
+}
+func (e *ErrStreamNotExist) Error() string {
+	return fmt.Sprintf("Stream %s not exist in datastore.", e.Id)
+}
 
 // StartStream does two tasks:
 //	- Add stream to datastore.
@@ -60,6 +66,22 @@ func (t *Textile) StartStream(threadId string, config *pb.StreamMeta) error {
     }
 
 	return err
+}
+
+func (t *Textile) CloseStream(threadId string, streamId string) error {
+	defer fmt.Printf("textile.CloseStream end success\n")
+	fmt.Printf("textile.CloseStream\n")
+	
+    stream := t.GetStreamMeta(streamId)
+	if stream == nil {
+        return &ErrStreamNotExist{Id: streamId}
+	}
+
+	t.stream.CloseStream(streamId)
+
+    //TODO: update nblocks, how to get the total number of blocks?
+    //TODO: send stream close message through thread
+    return nil
 }
 
 /* [deprecated] use stream_meta instead
@@ -213,7 +235,8 @@ func (t* Textile) SubscribeStream(id string) error {
 }
 
 func (t* Textile) UnsubscribeStream(id string) error{
-	return nil
+    err := t.stream.UnsubscribeStream(id)
+    return err
 }
 
 func (t* Textile) RequestStream(pid string, config *pb.StreamRequest) (*pb.Envelope, error){
@@ -255,6 +278,3 @@ func (t *Textile) StreamWorkerStat() {
 	t.stream.WorkerStat()
 }
 
-func (t *Textile) StreamClose(streamId string) {
-	t.stream.CloseStream(streamId)
-}

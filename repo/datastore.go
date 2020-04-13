@@ -119,6 +119,7 @@ type StreamBlockStore interface {
 type StreamMetaStore interface {
 	Queryable
 	Add(stream *pb.StreamMeta) error
+    UpdateNblocks(id string, nblocks uint64) error
 	Get(streamId string) *pb.StreamMeta
 	Delete(streamId string) error
 	List() *pb.StreamMetaList

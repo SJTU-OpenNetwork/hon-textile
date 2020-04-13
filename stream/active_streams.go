@@ -90,6 +90,7 @@ func (store *activeStreamStore) stopStream(streamId string) error {
 	if !ok {
 		return &ErrStreamNotActive{streamId:streamId}
 	}
+	s.fileChan <- nil //use nil to represent the end mark
 	s.cancel()
 	delete(store.streamList, streamId)
 	return nil
@@ -125,23 +126,36 @@ Loop:
 	for{
 		select {
 		case f:= <- as.fileChan:
-			r := bytes.NewReader(f.Data)
-			fileid, err := ipfs.AddData(as.node(), r, true, false)
-			if err != nil {
-				log.Error(err)
-			}
-			err = as.traverseNode(fileid, true, f.Description); if err != nil {log.Error(err)}
-			err = as.notify(as.meta.Id); if err != nil {log.Error(err)}
+            err := as.handleNewFile(f); if err != nil {log.Error(err)}
 		case <-as.ctx.Done():
 			err := as.ctx.Err()
 			if err != nil{
 				log.Error(err)
+                break Loop
 			}
+
+            // TODO: Clear file channel
+            
+
 			break Loop
 		}
 	}
 }
 
+func (as *activeStream) handleNewFile(f *pb.StreamFile) error {
+    if f == nil {
+        //TODO: handle the end mark
+    } else {
+	    r := bytes.NewReader(f.Data)
+	    fileid, err := ipfs.AddData(as.node(), r, true, false)
+	    if err != nil {
+		    log.Error(err)
+	    }
+	    err = as.traverseNode(fileid, true, f.Description); if err != nil {return err}
+	    err = as.notify(as.meta.Id); if err != nil {return err}
+    }
+    return nil
+}
 func (as *activeStream) traverseNode(cid *cid.Cid, isRoot bool, payload []byte) error {
 	links, err := ipfs.LinksAtPath(as.node(), cid.String())
 	if err != nil{

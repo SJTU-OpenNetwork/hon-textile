@@ -86,6 +86,30 @@ func (ws *workerStore) endStream(streamId string) {
 	}
 }
 
+// end workers of specific streamId and peerId
+func (ws *workerStore) endWorker(streamId string, peerId string) {
+	ws.lock.Lock()
+	defer ws.lock.Unlock()
+	tmpList, ok := ws.workerList[streamId]
+	newList := make([]*streamWorker, 0, len(tmpList))
+	if ok {
+		for _, w := range tmpList {
+			if w.pid.Pretty() == peerId {
+				w.cancel()
+				ws.load--
+				log.Debugf("[%s] Stream %s, Peer %s", TAG_WORKERSTORE_REMOVE, streamId, w.pid)
+			} else {
+				// add the remaining workers to newList
+				newList = append(newList, w)
+			}
+		}
+		ws.workerList[streamId] = newList
+		if len(newList) == 0 {
+		    delete(ws.workerList, streamId)
+        }
+	}
+}
+
 // end workers of specific peerId
 func (ws *workerStore) endPeer(pid string) {
 	ws.lock.Lock()

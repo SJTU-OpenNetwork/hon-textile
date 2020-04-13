@@ -79,3 +79,24 @@ func (ps *providerStore) GetProvider(sid string) peer.ID {
     }
     return peer.ID("")
 }
+
+// do not support substream currently
+func (ps *providerStore) RemoveStream(sid string) peer.ID {
+    ps.lock.Lock()
+    defer ps.lock.Unlock()
+
+    for pid, item := range ps.providers {
+        id := -1
+        for index, stream := range item.subStreams {
+            if stream.streamId == sid {
+                id = index
+            }
+        }
+        if id > -1 {
+            temp := append(item.subStreams[:id],item.subStreams[id+1:]...)
+            item.subStreams = temp
+            return peer.ID(pid)
+        }
+    }
+    return peer.ID("")
+}
