@@ -140,8 +140,8 @@ func (h *StreamService) StartStream(config *pb.StreamMeta) {
  * Started return true if there stream with id "sid" is working.
  */
 func (h *StreamService) Started(sid string) bool{
-    _, ok:= h.streamFileChannels[sid]
-    return ok
+    //_, ok:= h.streamFileChannels[sid]
+    return h.activeStreams.isActive(sid)
 }
 
 func (h *StreamService) StreamAddFile(id string, sf *pb.StreamFile) error{

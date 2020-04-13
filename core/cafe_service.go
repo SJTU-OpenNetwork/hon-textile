@@ -763,10 +763,13 @@ func (h *CafeService) searchLocal(qtype pb.Query_Type, options *pb.QueryOptions,
         
         // have shadow node, return nothing
         // the shaodw node will connect other peers through other methods
+        // [deprecated] Normal will return the peerId of shadow peer instead of return nothing.
+        /*
         if h.shadow.GetShadow() != peer.ID("") {
             log.Debug("Have shadow node, return nothing")
             break
         }
+         */
 
 		q := new(pb.StreamQuery)
 		err := ptypes.UnmarshalAny(payload, q)
@@ -810,11 +813,19 @@ func (h *CafeService) searchLocal(qtype pb.Query_Type, options *pb.QueryOptions,
             }
         }
         peerId := h.service.Node().Identity.Pretty()
-        result := &pb.StreamQueryResultItem {
-            Pid: peerId,
-            Hopcnt: int32(hopcnt),
-        }
-        log.Debugf("Get result, hopcnt: %d", hopcnt)
+        tmpShadow := h.shadow.GetShadow()
+		result := &pb.StreamQueryResultItem {
+			Hopcnt: int32(hopcnt),
+		}
+		if  tmpShadow != peer.ID("") {
+			log.Debugf("searchLocal: Have shadow node, return peerId of shadow peer: %s", tmpShadow.Pretty())
+			result.Pid = tmpShadow.Pretty()
+		} else {
+			log.Debugf("searchLocal: Do not have shadow node, return peerId: %s", peerId)
+			result.Pid = peerId
+		}
+
+        //log.Debugf("Get result, hopcnt: %d", hopcnt)
         value,_ := proto.Marshal(result)
 		results.Add(&pb.QueryResult{
 			Id:     q.Id,

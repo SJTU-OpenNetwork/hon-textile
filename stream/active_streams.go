@@ -58,6 +58,17 @@ func newActiveStreamStore(ctx context.Context, datastore repo.Datastore, node fu
 	}
 }
 
+func (store *activeStreamStore) isActive(id string) bool {
+	store.lock.Lock()
+	defer store.lock.Unlock()
+	for _, s := range store.streamList{
+		if s.meta.Id == id{
+			return true
+		}
+	}
+	return false
+}
+
 func (store *activeStreamStore) addStream(meta *pb.StreamMeta) error {
 	log.Debugf("New stream %s add to activeStreamStore.", meta.Id)
 	store.lock.Lock()
