@@ -9,7 +9,6 @@ import (
 	"io/ioutil"
 
     "bytes"
-    "sync"
 	"context"
 	"time"
     "github.com/segmentio/ksuid"
@@ -44,13 +43,7 @@ type StreamService struct {
 	datastore        repo.Datastore
 	online           bool
 	sendNotification func(*pb.Notification) error
-    
-    // for sended streams
-    streamFileChannels map[string]chan *pb.StreamFile
-    streamBlockIndex map[string]uint64
-    streamDone map[string] bool
-	streamlock sync.Mutex
-	//
+    subscribe        func(string) error 
 	activeStreams *activeStreamStore
 	
     // for workers
@@ -71,20 +64,19 @@ func NewStreamService(
 	node func() *core.IpfsNode,
 	datastore repo.Datastore,
 	sendNotification func(*pb.Notification) error,
+    subscribe func(string) error,
 	ctx context.Context,
 ) *StreamService {
 	handler := &StreamService{
 		datastore:        datastore,
 		sendNotification: sendNotification,
+        subscribe:        subscribe,
 		ctx:			  ctx,
 		//activeStreams:newActiveStreamStore(ctx, datastore, node, ),
 		activeWorkers: newWorkerStore(),
         providers: newProviderStore(),
         
         // informations for started streams
-        streamFileChannels: make(map[string]chan *pb.StreamFile),
-        streamBlockIndex: make(map[string] uint64) ,
-        streamDone: make(map[string] bool),
 	}
 	handler.activeStreams = newActiveStreamStore(ctx, datastore, node, handler.activeWorkers.newFileAdd)
 	handler.service = service.NewService(account, handler, node)
@@ -140,8 +132,7 @@ func (h *StreamService) StartStream(config *pb.StreamMeta) {
  * Started return true if there stream with id "sid" is working.
  */
 func (h *StreamService) Started(sid string) bool{
-    _, ok:= h.streamFileChannels[sid]
-    return ok
+    return h.activeStreams.HaveStream(sid)
 }
 
 func (h *StreamService) StreamAddFile(id string, sf *pb.StreamFile) error{
@@ -460,10 +451,16 @@ func (h *StreamService)PeerDisconnected(pid peer.ID) {
 	// Stop all the workers
 	log.Debugf("Peer %s disconnected", pid)
 	h.activeWorkers.endPeer(pid.Pretty())
-    //streams, _ := h.providers.peerDisconnected(pid)
-
-    // TODO: get disconnected streams
-    // TODO: re-subscribe streams
+    provider := h.providers.remove(pid.Pretty())
+    if provider != nil{
+        // re-subscribe streams
+        for _,stream := range(provider.subStreams) {
+            err := h.subscribe(stream.streamId)
+            if err != nil{
+                log.Error(err)
+            }
+        }
+    }
 }
 
 func (h* StreamService) GetProvidedHopcnt(config *pb.StreamRequest) (int, bool){

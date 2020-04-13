@@ -82,6 +82,11 @@ func (store *activeStreamStore) addStream(meta *pb.StreamMeta) error {
 	return nil
 }
 
+func (store *activeStreamStore) HaveStream(sid string) bool {
+	_, ok := store.streamList[sid]
+    return ok
+}
+
 func (store *activeStreamStore) stopStream(streamId string) error {
 	log.Debugf("Try to stop active stream %s.", streamId)
 	store.lock.Lock()

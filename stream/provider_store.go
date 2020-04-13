@@ -38,6 +38,17 @@ func (ps *providerStore) getOrCreate(pid string) *Provider {
 	return p
 }
 
+func (ps *providerStore) remove(pid string) *Provider {
+	ps.lock.Lock()
+	defer ps.lock.Unlock()
+	p, ok := ps.providers[pid]
+	if !ok {
+        return nil
+	}
+    delete(ps.providers, pid)
+	return p
+}
+
 // add a Provider
 // do not support substream now
 // [deprecated] use getOrCreate() and Provider.add() instead.
