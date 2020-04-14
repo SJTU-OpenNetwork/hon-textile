@@ -458,6 +458,7 @@ message StreamMeta {
     int32 bitrate = 3;
     string caption = 4;
     uint64 nblocks = 5;
+    string posterid = 6;
 }
 
 message StreamMetaList{
