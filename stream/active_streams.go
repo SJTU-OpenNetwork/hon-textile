@@ -102,7 +102,7 @@ func (store *activeStreamStore) stopStream(streamId string) error {
 		return &ErrStreamNotActive{streamId:streamId}
 	}
 	s.fileChan <- nil //use nil to represent the end mark
-	s.cancel()
+	//s.cancel()
 	delete(store.streamList, streamId)
 	return nil
 }
@@ -137,7 +137,15 @@ Loop:
 	for{
 		select {
 		case f:= <- as.fileChan:
-            err := as.handleNewFile(f); if err != nil {log.Error(err)}
+			if f == nil {
+				log.Debugf("Get nil end file. End stream %s", as.meta.Id)
+				as.cancel()
+			}else {
+				err := as.handleNewFile(f);
+				if err != nil {
+					log.Error(err)
+				}
+			}
 		case <-as.ctx.Done():
 			err := as.ctx.Err()
 			if err != nil{
@@ -145,10 +153,6 @@ Loop:
                 break Loop
 			}
 
-            // Clear file channel
-            for f := range(as.fileChan) {
-                err := as.handleNewFile(f); if err != nil {log.Error(err)}
-            }
             close(as.fileChan)
 			break Loop
 		}
