@@ -252,6 +252,18 @@ func (h *StreamService) handleRootBlk(pid peer.ID, blk *pb.StreamBlock) error {
 	if err != nil {
 		return err
 	}
+
+    if blk.Id == "" {
+        meta := h.datastore.StreamMetas().Get(blk.Streamid)
+	    if meta == nil || meta.Nblocks > 0{
+		    return nil
+	    }
+        err := h.datastore.StreamMetas().UpdateNblocks(blk.Streamid, blk.Index)
+        if err != nil {
+            log.Error(err)
+            return err
+        }
+    }
     return nil
 }
 
