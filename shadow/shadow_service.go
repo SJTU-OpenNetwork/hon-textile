@@ -198,6 +198,7 @@ func (h *ShadowService) RegisterShadow(id peer.ID) error {
 	return nil
 }
 
+// useronly: whether this stream is created by this peer.
 func (h *ShadowService) PushStreamMeta(meta *pb.StreamMeta, useronly bool) error {
 	//log.Debugf()
     if h.shadow == peer.ID("") {

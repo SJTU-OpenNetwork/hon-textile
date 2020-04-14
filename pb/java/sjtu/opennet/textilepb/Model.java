@@ -48502,6 +48502,16 @@ public final class Model {
      * <code>uint64 nblocks = 5;</code>
      */
     long getNblocks();
+
+    /**
+     * <code>string posterid = 6;</code>
+     */
+    java.lang.String getPosterid();
+    /**
+     * <code>string posterid = 6;</code>
+     */
+    com.google.protobuf.ByteString
+        getPosteridBytes();
   }
   /**
    * Protobuf type {@code StreamMeta}
@@ -48521,6 +48531,7 @@ public final class Model {
       bitrate_ = 0;
       caption_ = "";
       nblocks_ = 0L;
+      posterid_ = "";
     }
 
     @java.lang.Override
@@ -48572,6 +48583,12 @@ public final class Model {
             case 40: {
 
               nblocks_ = input.readUInt64();
+              break;
+            }
+            case 50: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              posterid_ = s;
               break;
             }
             default: {
@@ -48701,6 +48718,40 @@ public final class Model {
       return nblocks_;
     }
 
+    public static final int POSTERID_FIELD_NUMBER = 6;
+    private volatile java.lang.Object posterid_;
+    /**
+     * <code>string posterid = 6;</code>
+     */
+    public java.lang.String getPosterid() {
+      java.lang.Object ref = posterid_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        posterid_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string posterid = 6;</code>
+     */
+    public com.google.protobuf.ByteString
+        getPosteridBytes() {
+      java.lang.Object ref = posterid_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        posterid_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -48730,6 +48781,9 @@ public final class Model {
       if (nblocks_ != 0L) {
         output.writeUInt64(5, nblocks_);
       }
+      if (!getPosteridBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 6, posterid_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -48757,6 +48811,9 @@ public final class Model {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt64Size(5, nblocks_);
       }
+      if (!getPosteridBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, posterid_);
+      }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
@@ -48783,6 +48840,8 @@ public final class Model {
           .equals(other.getCaption());
       result = result && (getNblocks()
           == other.getNblocks());
+      result = result && getPosterid()
+          .equals(other.getPosterid());
       result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
@@ -48805,6 +48864,8 @@ public final class Model {
       hash = (37 * hash) + NBLOCKS_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
           getNblocks());
+      hash = (37 * hash) + POSTERID_FIELD_NUMBER;
+      hash = (53 * hash) + getPosterid().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -48948,6 +49009,8 @@ public final class Model {
 
         nblocks_ = 0L;
 
+        posterid_ = "";
+
         return this;
       }
 
@@ -48979,6 +49042,7 @@ public final class Model {
         result.bitrate_ = bitrate_;
         result.caption_ = caption_;
         result.nblocks_ = nblocks_;
+        result.posterid_ = posterid_;
         onBuilt();
         return result;
       }
@@ -49043,6 +49107,10 @@ public final class Model {
         }
         if (other.getNblocks() != 0L) {
           setNblocks(other.getNblocks());
+        }
+        if (!other.getPosterid().isEmpty()) {
+          posterid_ = other.posterid_;
+          onChanged();
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -49285,6 +49353,75 @@ public final class Model {
       public Builder clearNblocks() {
         
         nblocks_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object posterid_ = "";
+      /**
+       * <code>string posterid = 6;</code>
+       */
+      public java.lang.String getPosterid() {
+        java.lang.Object ref = posterid_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          posterid_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string posterid = 6;</code>
+       */
+      public com.google.protobuf.ByteString
+          getPosteridBytes() {
+        java.lang.Object ref = posterid_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          posterid_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string posterid = 6;</code>
+       */
+      public Builder setPosterid(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        posterid_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string posterid = 6;</code>
+       */
+      public Builder clearPosterid() {
+        
+        posterid_ = getDefaultInstance().getPosterid();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string posterid = 6;</code>
+       */
+      public Builder setPosteridBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        posterid_ = value;
         onChanged();
         return this;
       }
@@ -53119,18 +53256,18 @@ public final class Model {
       " \001(\t\022\020\n\010streamid\030\002 \001(\t\022\r\n\005index\030\003 \001(\004\022\014\n" +
       "\004size\030\004 \001(\005\022\016\n\006isRoot\030\005 \001(\010\022\023\n\013descripti" +
       "on\030\006 \001(\t\".\n\017StreamBlockList\022\033\n\005items\030\001 \003" +
-      "(\0132\014.StreamBlock\"`\n\nStreamMeta\022\n\n\002id\030\001 \001" +
+      "(\0132\014.StreamBlock\"r\n\nStreamMeta\022\n\n\002id\030\001 \001" +
       "(\t\022\023\n\013nsubstreams\030\002 \001(\005\022\017\n\007bitrate\030\003 \001(\005" +
-      "\022\017\n\007caption\030\004 \001(\t\022\017\n\007nblocks\030\005 \001(\004\",\n\016St" +
-      "reamMetaList\022\032\n\005items\030\001 \003(\0132\013.StreamMeta" +
-      "\"\024\n\006Stream\022\n\n\002id\030\001 \001(\t\"g\n\021CafeClientMess" +
-      "age\022\n\n\002id\030\001 \001(\t\022\014\n\004peer\030\002 \001(\t\022\016\n\006client\030" +
-      "\003 \001(\t\022(\n\004date\030\004 \001(\0132\032.google.protobuf.Ti" +
-      "mestamp\"}\n\005BotKV\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002" +
-      " \001(\014\022+\n\007created\030\003 \001(\0132\032.google.protobuf." +
-      "Timestamp\022+\n\007updated\030\004 \001(\0132\032.google.prot" +
-      "obuf.TimestampB\034\n\026sjtu.opennet.textilepb" +
-      "Z\002pbb\006proto3"
+      "\022\017\n\007caption\030\004 \001(\t\022\017\n\007nblocks\030\005 \001(\004\022\020\n\010po" +
+      "sterid\030\006 \001(\t\",\n\016StreamMetaList\022\032\n\005items\030" +
+      "\001 \003(\0132\013.StreamMeta\"\024\n\006Stream\022\n\n\002id\030\001 \001(\t" +
+      "\"g\n\021CafeClientMessage\022\n\n\002id\030\001 \001(\t\022\014\n\004pee" +
+      "r\030\002 \001(\t\022\016\n\006client\030\003 \001(\t\022(\n\004date\030\004 \001(\0132\032." +
+      "google.protobuf.Timestamp\"}\n\005BotKV\022\013\n\003ke" +
+      "y\030\001 \001(\t\022\r\n\005value\030\002 \001(\014\022+\n\007created\030\003 \001(\0132" +
+      "\032.google.protobuf.Timestamp\022+\n\007updated\030\004" +
+      " \001(\0132\032.google.protobuf.TimestampB\034\n\026sjtu" +
+      ".opennet.textilepbZ\002pbb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -53422,7 +53559,7 @@ public final class Model {
     internal_static_StreamMeta_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_StreamMeta_descriptor,
-        new java.lang.String[] { "Id", "Nsubstreams", "Bitrate", "Caption", "Nblocks", });
+        new java.lang.String[] { "Id", "Nsubstreams", "Bitrate", "Caption", "Nblocks", "Posterid", });
     internal_static_StreamMetaList_descriptor =
       getDescriptor().getMessageTypes().get(42);
     internal_static_StreamMetaList_fieldAccessorTable = new

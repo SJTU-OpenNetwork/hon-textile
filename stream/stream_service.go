@@ -9,7 +9,6 @@ import (
 	"io/ioutil"
 
     "bytes"
-    "sync"
 	"context"
 	"time"
     "github.com/segmentio/ksuid"
@@ -44,13 +43,7 @@ type StreamService struct {
 	datastore        repo.Datastore
 	online           bool
 	sendNotification func(*pb.Notification) error
-    
-    // for sended streams
-    streamFileChannels map[string]chan *pb.StreamFile
-    streamBlockIndex map[string]uint64
-    streamDone map[string] bool
-	streamlock sync.Mutex
-	//
+    subscribe        func(string) error 
 	activeStreams *activeStreamStore
 	
     // for workers
@@ -71,20 +64,19 @@ func NewStreamService(
 	node func() *core.IpfsNode,
 	datastore repo.Datastore,
 	sendNotification func(*pb.Notification) error,
+    subscribe func(string) error,
 	ctx context.Context,
 ) *StreamService {
 	handler := &StreamService{
 		datastore:        datastore,
 		sendNotification: sendNotification,
+        subscribe:        subscribe,
 		ctx:			  ctx,
 		//activeStreams:newActiveStreamStore(ctx, datastore, node, ),
 		activeWorkers: newWorkerStore(),
         providers: newProviderStore(),
         
         // informations for started streams
-        streamFileChannels: make(map[string]chan *pb.StreamFile),
-        streamBlockIndex: make(map[string] uint64) ,
-        streamDone: make(map[string] bool),
 	}
 	handler.activeStreams = newActiveStreamStore(ctx, datastore, node, handler.activeWorkers.newFileAdd)
 	handler.service = service.NewService(account, handler, node)
@@ -140,8 +132,8 @@ func (h *StreamService) StartStream(config *pb.StreamMeta) {
  * Started return true if there stream with id "sid" is working.
  */
 func (h *StreamService) Started(sid string) bool{
-    _, ok:= h.streamFileChannels[sid]
-    return ok
+    //_, ok:= h.streamFileChannels[sid]
+    return h.activeStreams.isActive(sid)
 }
 
 func (h *StreamService) StreamAddFile(id string, sf *pb.StreamFile) error{
@@ -200,22 +192,26 @@ func (h *StreamService) handleStreamBlockList(env *pb.Envelope, pid peer.ID) (*p
         return nil, err
     }
     for _, blk := range blks.Blocks {
-
-        stat, err := ipfs.PutBlock(h.service.Node(), bytes.NewReader(blk.Data))
-        if err != nil {
-            return nil, err
+        size := 0
+        cid_str := ""
+        if len(blk.Data) != 0 {
+            stat, err := ipfs.PutBlock(h.service.Node(), bytes.NewReader(blk.Data))
+            if err != nil {
+                return nil, err
+            }
+            cid := stat.Path().Cid()
+            cid_str = cid.String()
         }
-        cid := stat.Path().Cid()
         model := &pb.StreamBlock {
-            Id: cid.String(),
+            Id: cid_str,
             Streamid: blk.StreamID,
             Index: blk.Index,
-            Size: int32(stat.Size()),
+            Size: int32(size),
             IsRoot: blk.IsRoot,
             Description: string(blk.Description),
         }
         //fmt.Printf("StreamService: Received stream %s; index %d; cid %s\n", blk.StreamID, blk.Index, cid.String())
-        log.Debugf("[%s] Block %s, Stream %s, Index %d, From %s, Size %d", TAG_BLOCKRECEIVE, cid.String(), blk.StreamID, blk.Index, pid.Pretty(), stat.Size())
+        log.Debugf("[%s] Block %s, Stream %s, Index %d, From %s, Size %d", TAG_BLOCKRECEIVE, cid_str, blk.StreamID, blk.Index, pid.Pretty(), size)
         err = h.datastore.StreamBlocks().Add(model)
         if err != nil {
             return nil, err
@@ -225,10 +221,6 @@ func (h *StreamService) handleStreamBlockList(env *pb.Envelope, pid peer.ID) (*p
         if blk.IsRoot {
             // we found a file !
             fmt.Print("It is a root node of a merkle-DAG!\n")
-            // h.sm.NewBlockReceive(model, []byte(blk.Data))
-            // implement root handler in stream_service directly
-
-            //h.sm.NewBlockReceive(model, []byte(blk.Data))
             err = h.handleRootBlk(pid, model)
             if err != nil {
                 fmt.Printf("Handle root file failed\n")
@@ -260,6 +252,18 @@ func (h *StreamService) handleRootBlk(pid peer.ID, blk *pb.StreamBlock) error {
 	if err != nil {
 		return err
 	}
+
+    if blk.Id == "" {
+        meta := h.datastore.StreamMetas().Get(blk.Streamid)
+	    if meta == nil || meta.Nblocks > 0{
+		    return nil
+	    }
+        err := h.datastore.StreamMetas().UpdateNblocks(blk.Streamid, blk.Index)
+        if err != nil {
+            log.Error(err)
+            return err
+        }
+    }
     return nil
 }
 
@@ -387,12 +391,15 @@ func (h *StreamService) SendStreamBlocks(peerId peer.ID, blks []*pb.StreamBlock)
 	// Marshal blocks to pb
     blist := new(pb.StreamBlockContentList)
     for _, blk:= range blks {
-        r, err := ipfs.GetBlock(h.service.Node(), path.New(blk.Id))
-        data, err := ioutil.ReadAll(r)
-		if err != nil {
-            log.Error(err)
-			return err
-		}
+        var data []byte
+        if blk.Id != "" {
+            r, err := ipfs.GetBlock(h.service.Node(), path.New(blk.Id))
+            data, err = ioutil.ReadAll(r)
+		    if err != nil {
+                log.Error(err)
+			    return err
+		    }
+        }
         content := &pb.StreamBlockContent{
             StreamID: blk.Streamid,
             Index: blk.Index,
@@ -400,7 +407,7 @@ func (h *StreamService) SendStreamBlocks(peerId peer.ID, blks []*pb.StreamBlock)
             IsRoot: blk.IsRoot,
             Description: []byte(blk.Description),
         }
-        log.Debugf("[%s] Block %s, Stream %s, Index %d, To %s, Size %d", TAG_BLOCKSEND, blk.Id, blk.Streamid, blk.Index, peerId.Pretty(), blk.Size)
+        log.Debugf("[%s] Block %s, Stream %s, Index %d, To %s, Size %d, description: %s", TAG_BLOCKSEND, blk.Id, blk.Streamid, blk.Index, peerId.Pretty(), blk.Size, blk.Description)
         blist.Blocks = append(blist.Blocks, content)
     }
 	env, err := h.service.NewEnvelope(pb.Message_STREAM_BLOCK_LIST, blist, nil, false)
@@ -457,10 +464,16 @@ func (h *StreamService)PeerDisconnected(pid peer.ID) {
 	// Stop all the workers
 	log.Debugf("Peer %s disconnected", pid)
 	h.activeWorkers.endPeer(pid.Pretty())
-    //streams, _ := h.providers.peerDisconnected(pid)
-
-    // TODO: get disconnected streams
-    // TODO: re-subscribe streams
+    provider := h.providers.remove(pid.Pretty())
+    if provider != nil{
+        // re-subscribe streams
+        for _,stream := range(provider.subStreams) {
+            err := h.subscribe(stream.streamId)
+            if err != nil{
+                log.Error(err)
+            }
+        }
+    }
 }
 
 func (h* StreamService) GetProvidedHopcnt(config *pb.StreamRequest) (int, bool){

@@ -58,6 +58,17 @@ func newActiveStreamStore(ctx context.Context, datastore repo.Datastore, node fu
 	}
 }
 
+func (store *activeStreamStore) isActive(id string) bool {
+	store.lock.Lock()
+	defer store.lock.Unlock()
+	for _, s := range store.streamList{
+		if s.meta.Id == id{
+			return true
+		}
+	}
+	return false
+}
+
 func (store *activeStreamStore) addStream(meta *pb.StreamMeta) error {
 	log.Debugf("New stream %s add to activeStreamStore.", meta.Id)
 	store.lock.Lock()
@@ -147,14 +158,23 @@ Loop:
 func (as *activeStream) handleNewFile(f *pb.StreamFile) error {
     if f == nil {
         // handle the end mark
-        err := as.datastore.StreamMetas().UpdateNblocks(as.meta.Id,as.currentIndex)
+        err := as.datastore.StreamMetas().UpdateNblocks(as.meta.Id,as.currentIndex+1)
         if err != nil {
             log.Error(err)
             return err
         }
-
-        // TODO: modify notify function, add MESSAGE_TYPE in the parameter
-        // notify(STREAM_CLOSE, &pb.StreamClose)
+	    err = as.datastore.StreamBlocks().Add(&pb.StreamBlock{
+	    	Id: "",
+	    	Streamid: as.meta.Id,
+	    	Index: as.currentIndex,
+	    	Size: 0,
+	    	IsRoot: true,
+	    	Description: "ENDMARK",
+	    })
+        if err != nil {
+            log.Error(err)
+            return err
+        }
     } else {
 	    r := bytes.NewReader(f.Data)
 	    fileid, err := ipfs.AddData(as.node(), r, true, false)
