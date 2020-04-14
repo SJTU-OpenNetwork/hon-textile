@@ -71,7 +71,7 @@ func (t *Textile) StartStream(threadId string, config *pb.StreamMeta) error {
 func (t *Textile) CloseStream(threadId string, streamId string) error {
 	defer fmt.Printf("textile.CloseStream end success\n")
 	fmt.Printf("textile.CloseStream\n")
-	
+	// TODO: send close message through thread
     stream := t.GetStreamMeta(streamId)
 	if stream == nil {
         return &ErrStreamNotExist{Id: streamId}
