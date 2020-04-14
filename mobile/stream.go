@@ -57,3 +57,11 @@ func (m *Mobile) StreamAddFile(streamid string, f []byte) error {
 	return m.node.StreamAddFile(streamid, file)
 }
 
+func (m *Mobile) CloseStream(threadId string, streamId string) error {
+	if !m.node.Started() {
+		return core.ErrStopped
+	}
+
+	return m.node.CloseStream(threadId,streamId)
+}
+
