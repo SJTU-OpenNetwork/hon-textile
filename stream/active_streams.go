@@ -137,20 +137,14 @@ Loop:
 	for{
 		select {
 		case f:= <- as.fileChan:
-			if f == nil {
-				log.Debugf("Get nil end file. End stream %s", as.meta.Id)
-				as.cancel()
-			}else {
-				err := as.handleNewFile(f);
-				if err != nil {
-					log.Error(err)
-				}
+			err := as.handleNewFile(f);
+			if err != nil {
+				log.Error(err)
 			}
 		case <-as.ctx.Done():
 			err := as.ctx.Err()
 			if err != nil{
 				log.Error(err)
-                break Loop
 			}
 
             close(as.fileChan)
@@ -179,6 +173,7 @@ func (as *activeStream) handleNewFile(f *pb.StreamFile) error {
             log.Error(err)
             return err
         }
+		as.cancel()
     } else {
 	    r := bytes.NewReader(f.Data)
 	    fileid, err := ipfs.AddData(as.node(), r, true, false)

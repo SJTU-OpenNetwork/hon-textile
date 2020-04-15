@@ -221,6 +221,7 @@ func (h *ShadowService) handleStreamMeta(env *pb.Envelope, pid peer.ID) (*pb.Env
 	log.Debugf("Shadow: Receive stream meta from %s", pid.Pretty())
     if h.isShadow {
         h.msgRecv(env, pid)
+
     }
 	return nil, nil
 }
