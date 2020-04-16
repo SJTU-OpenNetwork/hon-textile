@@ -3,7 +3,7 @@ package stream
 type streamWantlist struct {
 	set map[string]wEntry
 }
-// Entry is an entry in a want list, consisting of a cid and its priority
+// Entry is an entry in a want list, consisting of a stream id and its priority
 type wEntry struct {
 	StreamId      string
 	Priority int
@@ -33,7 +33,7 @@ func (w *streamWantlist) Remove(streamid string) bool {
 	return true
 }
 
-// Contains returns the entry, if present, for the given CID, plus whether it
+// Contains returns the entry, if present, for the given stream id, plus whether it
 // was present.
 func (w *streamWantlist) Contains(streamid string) (wEntry, bool) {
 	e, ok := w.set[streamid]
