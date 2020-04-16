@@ -102,7 +102,7 @@ func (store *activeStreamStore) stopStream(streamId string) error {
 		return &ErrStreamNotActive{streamId:streamId}
 	}
 	s.fileChan <- nil //use nil to represent the end mark
-	s.cancel()
+	//s.cancel()
 	delete(store.streamList, streamId)
 	return nil
 }
@@ -137,18 +137,16 @@ Loop:
 	for{
 		select {
 		case f:= <- as.fileChan:
-            err := as.handleNewFile(f); if err != nil {log.Error(err)}
+			err := as.handleNewFile(f);
+			if err != nil {
+				log.Error(err)
+			}
 		case <-as.ctx.Done():
 			err := as.ctx.Err()
 			if err != nil{
 				log.Error(err)
-                break Loop
 			}
 
-            // Clear file channel
-            for f := range(as.fileChan) {
-                err := as.handleNewFile(f); if err != nil {log.Error(err)}
-            }
             close(as.fileChan)
 			break Loop
 		}
@@ -175,6 +173,7 @@ func (as *activeStream) handleNewFile(f *pb.StreamFile) error {
             log.Error(err)
             return err
         }
+		as.cancel()
     } else {
 	    r := bytes.NewReader(f.Data)
 	    fileid, err := ipfs.AddData(as.node(), r, true, false)

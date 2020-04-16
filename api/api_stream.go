@@ -141,5 +141,9 @@ func (a *Api) streamClose(g *gin.Context) {
 	}
 
 	fmt.Printf("Api.streamClose: Try to close stream %s\n", streamId)
-	//a.Node.StreamClose(streamId)
+	err = a.Node.CloseStream("empty", streamId)
+	if err != nil {
+		g.String(http.StatusBadRequest, err.Error())
+		return
+	}
 }

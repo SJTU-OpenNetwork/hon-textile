@@ -19,7 +19,7 @@ func (t *Textile) shadowMsgRecv(env *pb.Envelope, pid peer.ID) error {
 	if err != nil {
 		return err
 	}
-
+    err = t.datastore.StreamMetas().Add(meta);if err != nil {return err}
 	if env.Message.Request == 1 {
 		// Crreated by this account.
 		last := t.datastore.StreamBlocks().LastIndex(meta.Id)
