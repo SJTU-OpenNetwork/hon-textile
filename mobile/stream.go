@@ -65,3 +65,11 @@ func (m *Mobile) CloseStream(threadId string, streamId string) error {
 	return m.node.CloseStream(threadId,streamId)
 }
 
+func (m *Mobile) ThreadAddStream(threadId string, streamId string) error{
+	if !m.node.Started() {
+		return core.ErrStopped
+	}
+
+	return m.node.ThreadAddStream(threadId,streamId)
+}
+

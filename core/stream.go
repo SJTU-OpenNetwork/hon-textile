@@ -55,7 +55,7 @@ func (t *Textile) StartStream(threadId string, config *pb.StreamMeta) error {
 	fmt.Printf("Find thread for stream.\n")
 	thread := t.Thread(threadId)
 	if thread == nil {
-		return ErrStreamNotFound
+		return ErrThreadNotFound
 	}
 
 	//fmt.Printf("Add streamMeta to thread.\n")
@@ -65,6 +65,19 @@ func (t *Textile) StartStream(threadId string, config *pb.StreamMeta) error {
         t.shadow.PushStreamMeta(config, true)
     }
 
+	return err
+}
+
+func (t *Textile) ThreadAddStream(threadId string, streamId string) error {
+	stream := t.GetStreamMeta(streamId)
+	if stream == nil {
+		return ErrStreamNotFound
+	}
+	thread := t.Thread(threadId)
+	if thread == nil {
+		return ErrThreadNotFound
+	}
+	_, err := thread.AddStreamMeta(stream)
 	return err
 }
 
