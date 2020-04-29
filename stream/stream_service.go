@@ -409,7 +409,7 @@ func (h *StreamService) SendStreamBlocks(peerId peer.ID, blks []*pb.StreamBlock)
             IsRoot: blk.IsRoot,
             Description: blk.Id,
         }
-        log.Debugf("[%s] Block %s, Stream %s, Index %d, To %s, Size %d, description: %s", TAG_BLOCKSEND, blk.Id, blk.Streamid, blk.Index, peerId.Pretty(), blk.Size, blk.Description)
+        log.Debugf("[%s] Isroot %t, Block %s, Stream %s, Index %d, To %s, Size %d, description: %s", TAG_BLOCKSEND, blk.IsRoot, blk.Id, blk.Streamid, blk.Index, peerId.Pretty(), blk.Size, blk.Description)
         blist.Blocks = append(blist.Blocks, content)
     }
 	env, err := h.service.NewEnvelope(pb.Message_STREAM_BLOCK_LIST, blist, nil, false)
