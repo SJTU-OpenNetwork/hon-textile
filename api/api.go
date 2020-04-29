@@ -370,6 +370,7 @@ func (a *Api) Run() {
 		shadow := v0.Group("/shadow")
 		{
 			shadow.GET("/stat", a.shadowStat)
+			shadow.POST("shadow/setservepeer", a.shadowServePeer)
 		}
 	}
 
