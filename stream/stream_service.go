@@ -405,7 +405,7 @@ func (h *StreamService) SendStreamBlocks(peerId peer.ID, blks []*pb.StreamBlock)
             Index: blk.Index,
             Data: data,
             IsRoot: blk.IsRoot,
-            Description: []byte(blk.Description),
+            Description: blk.Id,
         }
         log.Debugf("[%s] Block %s, Stream %s, Index %d, To %s, Size %d, description: %s", TAG_BLOCKSEND, blk.Id, blk.Streamid, blk.Index, peerId.Pretty(), blk.Size, blk.Description)
         blist.Blocks = append(blist.Blocks, content)
