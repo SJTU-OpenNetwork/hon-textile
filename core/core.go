@@ -129,6 +129,7 @@ type Textile struct {
 	writer            io.Writer
     variables         *Variables
     stream            *stream.StreamService
+
 }
 
 // common errors

@@ -35,6 +35,8 @@ type ShadowService struct {
     shadow           peer.ID //if isShadow == false, it maintains its shadow node
     //shadow 			 *shadowInfo
     users            []peer.ID //if isShadow == true, it maintains its user list
+	// TODO: REMOVE THIS AFTER TEST!!!
+	Shadow_serve_peer string
 	lock             sync.Mutex
 }
 
@@ -135,7 +137,13 @@ func (h *ShadowService) PeerConnected(pid peer.ID, multiaddr ma.Multiaddr) error
 func (h *ShadowService) inform(pid peer.ID) error {
 	log.Debugf("Shadow: Send inform to %s", pid.Pretty())
 	inform := &pb.ShadowInform{}
-	inform.PublicKey = h.address
+	if h.Shadow_serve_peer == "" {
+		log.Debugf("Shadow: No Shadow_serve_peer, inform serving for %s", h.address)
+		inform.PublicKey = h.address
+	} else {
+		log.Debugf("Shadow: Inform serving for Shadow_serve_peer %s", h.Shadow_serve_peer)
+		inform.PublicKey = h.Shadow_serve_peer
+	}
 	env, err := h.service.NewEnvelope(pb.Message_SHADOW_INFORM, inform, nil, true); if err != nil {return err}
 	err = h.service.SendMessage(nil, pid.Pretty(), env)
 

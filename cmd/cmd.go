@@ -1000,6 +1000,11 @@ The response contains a base58 encoded version of the random bytes token.`).Alia
 	cmds[shadowStatCmd.FullCommand()] = func() error {
 		return ShadowStat()
 	}
+	shadowSetServePeer := shadowCmd.Command("setServePeer", "Set the peer served.")
+	shadowSetServePeerPubkey := shadowSetServePeer.Arg("pubkey", "public key of the served peer.").Required().String()
+	cmds[shadowSetServePeer.FullCommand()] = func() error {
+		return SetServePeer(*shadowSetServePeerPubkey)
+	}
 
 	hideGlobalsFlagsFor(
 		daemonCmd,

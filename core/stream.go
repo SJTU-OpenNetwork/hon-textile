@@ -55,7 +55,7 @@ func (t *Textile) StartStream(threadId string, config *pb.StreamMeta) error {
 	fmt.Printf("Find thread for stream.\n")
 	thread := t.Thread(threadId)
 	if thread == nil {
-		return ErrStreamNotFound
+		return ErrThreadNotFound
 	}
 
 	//fmt.Printf("Add streamMeta to thread.\n")
@@ -68,6 +68,21 @@ func (t *Textile) StartStream(threadId string, config *pb.StreamMeta) error {
 	return err
 }
 
+// ThreadAddStream add a stream to a thread.
+func (t *Textile) ThreadAddStream(threadId string, streamId string) error {
+	stream := t.GetStreamMeta(streamId)
+	if stream == nil {
+		return ErrStreamNotFound
+	}
+	thread := t.Thread(threadId)
+	if thread == nil {
+		return ErrThreadNotFound
+	}
+	_, err := thread.AddStreamMeta(stream)
+	return err
+}
+
+// CloseStream close a stream already exist.
 func (t *Textile) CloseStream(threadId string, streamId string) error {
 	defer fmt.Printf("textile.CloseStream end success\n")
 	fmt.Printf("textile.CloseStream\n")
@@ -87,21 +102,25 @@ func (t *Textile) GetStream(id string) *pb.Stream {
 }
  */
 
+// GetStreamMeta return a streamMeta from datastore.
 func (t *Textile) GetStreamMeta(id string) *pb.StreamMeta {
 	return t.datastore.StreamMetas().Get(id)
 }
 
+// ListStreamMeta return a list of streamMetas from datastore.
 func (t *Textile) ListStreamMeta() *pb.StreamMetaList{
 	return t.datastore.StreamMetas().List()
 }
 
-// add the new file to the corresponding channel
+// StreamAddFile add the new file to the corresponding channel.
 func (t *Textile) StreamAddFile(id string, sf *pb.StreamFile) error {
     t.stream.StreamAddFile(id, sf)
     //t.stream.sm.StreamAddFile(id, sf)
 	return nil
 }
 
+// handleProviderSearchResult handle the result of SearchStream, try to connect the stream provider
+// and request the stream.
 func (t *Textile) handleProviderSearchResult(resultCh <-chan *pb.QueryResult, errCh <-chan error, cancel *broadcast.Broadcaster, config *pb.StreamRequest) (error) {
 	log.Debugf("in handleProviderSearchResult")
     timer := time.NewTimer(time.Second * 2) //Wait for 2s
@@ -187,7 +206,8 @@ func (t *Textile) handleProviderSearchResult(resultCh <-chan *pb.QueryResult, er
 	return nil
 }
 
-// do not support substream currently
+// SubscribeNotify print the log of subscribing a stream success or not,
+// do not support substream currently.
 func (t *Textile) SubscribeNotify(id string, res bool) {
     if res {
         log.Debugf("Subscribe stream "+id+" success")
@@ -196,6 +216,8 @@ func (t *Textile) SubscribeNotify(id string, res bool) {
     }
 }
 
+// SubscribeStream calls SearchStream and handleProviderSearchResult to
+// subscribe a stream, and shadow node will also subscribe the same stream.
 func (t* Textile) SubscribeStream(id string) error {
     if t.stream.GetProvider(id) != peer.ID("") {
         return fmt.Errorf("Resubscribe stream "+id)
@@ -231,11 +253,13 @@ func (t* Textile) SubscribeStream(id string) error {
 	return nil
 }
 
+// UnsubscribeStream cancel subscribe to a stream.
 func (t* Textile) UnsubscribeStream(id string) error{
     err := t.stream.UnsubscribeStream(id)
     return err
 }
 
+// RequestStream request a stream from a provider by sending stream request.
 func (t* Textile) RequestStream(pid string, config *pb.StreamRequest) (*pb.Envelope, error){
 	return t.stream.SendStreamRequest(pid, config)
 }
@@ -244,6 +268,7 @@ func (t* Textile) StreamRequestAccepted(pid string, config *pb.StreamRequest) {
 	t.stream.RequestAccepted(pid, config)
 }
 
+// SearchStream search a stream by pubsub in network.
 func (t *Textile) SearchStream(query *pb.StreamQuery, options *pb.QueryOptions) (<-chan *pb.QueryResult, <-chan error, *broadcast.Broadcaster, error) {
 	log.Debug("in SearchStream")
 	payload, err := proto.Marshal(query)

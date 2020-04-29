@@ -10,6 +10,17 @@ func (t *Textile) ShadowStat() *pb.ShadowStat {
 	return t.shadow.ShadowStat()
 }
 
+func (t* Textile) SetServePeer(pubkey string) error {
+	if t.shadow.Shadow_serve_peer == "" {
+		t.shadow.Shadow_serve_peer = pubkey
+		log.Debugf("Set shadow serve peer as %s", pubkey)
+	} else {
+		log.Debugf("Change shadow serve peer from %s to %s", t.shadow.Shadow_serve_peer, pubkey)
+		t.shadow.Shadow_serve_peer = pubkey
+	}
+	return nil
+}
+
 // shadowMsgRecv is called by shadow service when receive a new stream meta.
 func (t *Textile) shadowMsgRecv(env *pb.Envelope, pid peer.ID) error {
 	//log.Debug("shadowMsgRecv: Receive a stream meta")

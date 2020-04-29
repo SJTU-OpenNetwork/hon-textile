@@ -146,6 +146,8 @@ func (h *StreamService) CloseStream(sid string) {
     err := h.activeStreams.stopStream(sid); if err != nil {log.Error(err)}
 }
 
+// UnsubscribeStream want to unsubscribe to a stream, and send a request to the
+// provider.
 func (h *StreamService) UnsubscribeStream(sid string) error{
     fmt.Printf("StreamService: Try to unsubscribe stream %s\n", sid)
     pid := h.providers.RemoveStream(sid)
@@ -273,7 +275,7 @@ func (h *StreamService) HandleStream(env *pb.Envelope, pid peer.ID) (chan *pb.En
 	return make(chan *pb.Envelope), make(chan error), make(chan interface{})
 }
 
-// SendMessage sends a message to a peer
+// SendMessage sends a message to a peer.
 func (h *StreamService) SendMessage(ctx context.Context, peerId string, env *pb.Envelope) error {
 	return h.service.SendMessage(ctx, peerId, env)
 }
