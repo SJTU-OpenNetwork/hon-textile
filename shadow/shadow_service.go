@@ -160,7 +160,7 @@ func (h *ShadowService) handleInform(env *pb.Envelope, pid peer.ID) (*pb.Envelop
 			//log.Error(err);
 			return nil, err
 		}
-		h.RegisterShadow(pid)
+		return nil, h.RegisterShadow(pid)
 		//pk, err := pid.ExtractPublicKey()
 
 		// Add it as shadow node if it has the same publickey
