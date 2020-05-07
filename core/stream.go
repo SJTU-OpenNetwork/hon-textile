@@ -41,16 +41,17 @@ func (t *Textile) StartStream(threadId string, config *pb.StreamMeta) error {
 
 	// Check whether this stream already exists in datastore.
 	stream := t.GetStreamMeta(config.Id)
-	if stream != nil {
-		return &ErrStreamAlreadyExist{meta:config}
-	}
+	if stream == nil {
+        err := t.datastore.StreamMetas().Add(config);if err != nil {return err}
+        //stream := t.GetStreamMeta(config.Id)
+	    //if stream == nil {
+	    //	return ErrStreamNotFound
+	    //}
+        t.stream.StartStream(config)
+	} else {
+	    log.Warningf("start an old stream")
+    }
 
-    err := t.datastore.StreamMetas().Add(config);if err != nil {return err}
-    //stream := t.GetStreamMeta(config.Id)
-	//if stream == nil {
-	//	return ErrStreamNotFound
-	//}
-    t.stream.StartStream(config)
 	//publish the Stream to others
 	fmt.Printf("Find thread for stream.\n")
 	thread := t.Thread(threadId)
@@ -59,7 +60,7 @@ func (t *Textile) StartStream(threadId string, config *pb.StreamMeta) error {
 	}
 
 	//fmt.Printf("Add streamMeta to thread.\n")
-	_, err = thread.AddStreamMeta(config)
+    _, err := thread.AddStreamMeta(config)
 
     if !t.config.IsShadow {
         t.shadow.PushStreamMeta(config, true)
