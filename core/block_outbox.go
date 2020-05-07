@@ -110,10 +110,24 @@ func (q *BlockOutbox) batch(msgs []pb.BlockMessage) {
 
 // handle handles a single message
 func (q *BlockOutbox) handle(msg pb.BlockMessage) error {
+	log.Debugf("block message peerid: %s",msg.Peer)
 	online := q.service().online
 	var connected bool
 	var err error
 	if online {
+		// try to publish thread block
+		if msg.Peer[0] == 'T' { // it is Thread/threadid
+			log.Debugf("publishing thread block, thread id: %s", msg.Peer)
+			err = q.service().SendPubSubMessage(msg)
+			if err != nil {
+				log.Error(err)
+				return err
+			}else{
+				log.Debugf("publish thread block successfully, thread id: %s", msg.Peer)
+				return nil
+			}
+		}
+
 		// 1) attempt to send the message directly to the recipient
 		connected, err = ipfs.SwarmConnected(q.node(), msg.Peer)
 		if err != nil {
@@ -131,7 +145,7 @@ func (q *BlockOutbox) handle(msg pb.BlockMessage) error {
         if online {
 			log.Debugf("publishing block message to %s", msg.Peer)
 			err = q.service().SendPubSubMessage(msg)
-            log.Debugf("pubsub error: %s", err)
+            //log.Debugf("pubsub error: %s", err)
 		}
 
         // 3) add offline inbox requests

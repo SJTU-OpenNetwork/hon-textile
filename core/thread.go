@@ -796,25 +796,41 @@ func (t *Thread) post(index *pb.Block) error {
 	if env != nil {
 		log.Debugf("get the envelope with block type %d",index.Type)
 	}
-	var peers []pb.ThreadPeer
+	//var peers []pb.ThreadPeer
 	if index.Type == pb.Block_ADD {
 		if index.Body != "" {
-			peers = []pb.ThreadPeer{{Id: index.Body}}
+			//peers = []pb.ThreadPeer{{Id: index.Body}}
+			log.Debugf("start to add add block")
+			err = t.blockOutbox.Add(index.Body, env)
+			if err != nil{
+				log.Error(err)
+				return err
+			}else{
+				log.Debugf("add Block_ADD to blockoutbox, peerid: %s",index.Body)
+			}
 		}
 	} else {
-		peers = t.Peers()
-	}
-
-	for _, tp := range peers {
-        if tp.Id == t.node().Identity.Pretty() {
-            continue;
-        }
-		err = t.blockOutbox.Add(tp.Id, env)
-		if err != nil {
-            log.Error(err)
+		//peers = t.Peers()
+		log.Debugf("start to add pubsub block")
+		err = t.blockOutbox.Add("Thread/"+t.Id, env)
+		if err != nil{
+			log.Error(err)
 			return err
+		}else{
+			log.Debugf("add pubsub Block to blockoutbox, threadid: %s",t.Id)
 		}
 	}
+
+	//for _, tp := range peers {
+    //    if tp.Id == t.node().Identity.Pretty() {
+    //        continue;
+    //    }
+	//	err = t.blockOutbox.Add(tp.Id, env)
+	//	if err != nil {
+    //        log.Error(err)
+	//		return err
+	//	}
+	//}
 
     // the remove peer block must be sent to the target
     if index.Type == pb.Block_REMOVEPEER {
