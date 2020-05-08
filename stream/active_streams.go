@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"context"
 	"fmt"
+    "encoding/json"
 	"github.com/SJTU-OpenNetwork/go-ipfs/core"
 	"github.com/SJTU-OpenNetwork/hon-textile/ipfs"
 	"github.com/SJTU-OpenNetwork/hon-textile/pb"
@@ -219,13 +220,24 @@ func (as *activeStream) saveBlock(cid *cid.Cid, isRoot bool, payload []byte) err
 	index := as.currentIndex
 	//index := h.streamBlockIndex[sid]
 	//fmt.Printf("Saving block, cid: %s, index: %d, size: %d, isroot: %d", cid.String(), cur, stat.CumulativeSize, isRoot)
+
+	desc := make(map[string] string)
+    if isRoot {
+        err = json.Unmarshal(payload, &desc)
+        if err != nil{
+            log.Warning(err)
+	        desc = make(map[string] string)
+        }
+    }
+    desc["CID"] = cid.String()
+    desc_json,_ := json.Marshal(desc)
 	err = as.datastore.StreamBlocks().Add(&pb.StreamBlock{
 		Id: cid.String(),
 		Streamid: as.meta.Id,
 		Index: index,
 		Size: int32(stat.CumulativeSize),
 		IsRoot: isRoot,
-		Description: string(payload),
+		Description: string(desc_json),
 	})
 	if err != nil {
 		log.Error(err)
