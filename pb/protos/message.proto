@@ -75,6 +75,8 @@ message Message {
         SHADOW_STREAM_META = 1007;
         STREAM_UNSUBSCRIBE = 1008;
         STREAM_UNSUBSCRIBE_RES = 1009;
+
+        RECORD_REPORT = 1010;
     }
 }
 

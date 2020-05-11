@@ -1,0 +1,11 @@
+syntax = "proto3";
+option java_package = "sjtu.opennet.textilepb";
+option go_package = "pb";
+
+import "google/protobuf/timestamp.proto";
+
+message RecordReport {
+    string key =1;
+    google.protobuf.Timestamp start = 2;
+    google.protobuf.Timestamp end = 3;
+}

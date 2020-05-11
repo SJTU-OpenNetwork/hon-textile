@@ -237,6 +237,9 @@ func (h *StreamService) handleStreamBlockList(env *pb.Envelope, pid peer.ID) (*p
     return nil, nil
 }
 
+// handleRootBlk does following works
+//		- Send Notification to application
+//		- Update number of blocks in streammeta datastore
 func (h *StreamService) handleRootBlk(pid peer.ID, blk *pb.StreamBlock) error {
     pdate, _ := ptypes.TimestampProto(time.Now())
 	note := &pb.Notification{
