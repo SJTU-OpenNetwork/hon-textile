@@ -170,6 +170,8 @@ func (t *Thread) AddPicture(node ipld.Node, target string, caption string, keys 
 
 // handleFilesBlock handles an incoming files block
 func (t *Thread) handleFilesBlock(bnode *blockNode, block *pb.ThreadBlock) (handleResult, error) {
+	log.Debugf("Thread.handleFilesBlock: handle an incoming file block data: %s, hash: %s", bnode.data, bnode.hash)
+
 	var res handleResult
 
 	msg := new(pb.ThreadFiles)
@@ -215,6 +217,14 @@ func (t *Thread) handleFilesBlock(bnode *blockNode, block *pb.ThreadBlock) (hand
 		if err != nil {
 			return res, err
 		}
+
+		nodeSize, err := node.Size()
+		if err != nil {
+			log.Error(err)
+		} else {
+			log.Debugf("Thread.handleFilesBlock: Try to pin node %s with size %v", tcid.String(), nodeSize)
+		}
+		//log.Debugf("Pin node %s with size ", )
 		err = ipfs.PinNode(t.node(), node, false)
 		if err != nil {
 			return res, err

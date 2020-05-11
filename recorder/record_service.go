@@ -78,7 +78,7 @@ func (h *RecordService) Ping(pid peer.ID) (service.PeerStatus, error) {
 func (h *RecordService) Handle(env *pb.Envelope, pid peer.ID) (*pb.Envelope, error) {
 	//fmt.Printf("core/record_service.go Handler: New message receive from %s.\n", pid.Pretty())
 	switch env.Message.Type {
-	case pb.RECORD_REPORT:
+	case pb.Message_RECORD_REPORT:
 		return h.handleRecordReport(env, pid)
 	default:
 		fmt.Printf("core/stream_service.go Handler: Unknown message type %s\n", env.Message.Type.String())
