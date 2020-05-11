@@ -87,12 +87,13 @@ func (t *Textile) AddThread(conf pb.AddThreadConfig, sk libp2pc.PrivKey, initiat
 			sch = sfile.Hash
 		}
 
-		if sch != "" {
-			err = t.cafeOutbox.Add(sch, pb.CafeRequest_STORE)
-			if err != nil {
-				return nil, err
-			}
-		}
+        // removed by jerry at 20200511
+//		if sch != "" {
+//			err = t.cafeOutbox.Add(sch, pb.CafeRequest_STORE)
+//			if err != nil {
+//				return nil, err
+//			}
+//		}
 	}
 
 	// ensure whitelist is unique
@@ -504,12 +505,12 @@ func (t *Textile) RemoveThread(id string) (mh.Multihash, error) {
 		log.Errorf("error leaving thread %s: %s", id, err)
 	}
 
-	// delete backups
-	err = t.cafeOutbox.Add(thread.Id, pb.CafeRequest_UNSTORE_THREAD)
-	if err != nil {
-        log.Warning(err)
-		return nil, err
-	}
+	// delete backups //removed by jerry at 20200511
+//	err = t.cafeOutbox.Add(thread.Id, pb.CafeRequest_UNSTORE_THREAD)
+//	if err != nil {
+//        log.Warning(err)
+//		return nil, err
+//	}
 
 	err = t.datastore.Threads().Delete(thread.Id)
 	if err != nil {

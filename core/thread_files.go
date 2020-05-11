@@ -57,11 +57,11 @@ func (t *Thread) AddFiles(node ipld.Node, target string, caption string, keys ma
 		return nil, err
 	}
 
-	// add cafe store requests for the entire graph
-	err = t.cafeReqFileData(node, res.hash.B58String(), "")
-	if err != nil {
-		return nil, err
-	}
+	// add cafe store requests for the entire graph //removed by jerry at 20200511
+	//err = t.cafeReqFileData(node, res.hash.B58String(), "")
+	//if err != nil {
+	//	return nil, err
+	//}
 
 	// finish adding the block
 	_, err = t.addBlock(res.ciphertext, false)
@@ -130,11 +130,11 @@ func (t *Thread) AddPicture(node ipld.Node, target string, caption string, keys 
 		return nil, err
 	}
 
-	// add cafe store requests for the entire graph
-	err = t.cafeReqFileData(node, res.hash.B58String(), "")
-	if err != nil {
-		return nil, err
-	}
+	// add cafe store requests for the entire graph //removed by jerry at 20200511
+	//err = t.cafeReqFileData(node, res.hash.B58String(), "")
+	//if err != nil {
+	//	return nil, err
+	//}
 
 	// finish adding the block
 	_, err = t.addBlock(res.ciphertext, false)
@@ -291,11 +291,11 @@ func (t *Thread) removeFiles(node ipld.Node) error {
 			return err
 		}
 
-		// unstore on cafes
-		err = t.cafeOutbox.Add(data, pb.CafeRequest_UNSTORE)
-		if err != nil {
-			return err
-		}
+		// unstore on cafes //removed by jerry at 20200511
+		//err = t.cafeOutbox.Add(data, pb.CafeRequest_UNSTORE)
+		//if err != nil {
+		//	return err
+		//}
 
 		// safe to dig deeper, check for other blocks which contain the files
 		for _, link := range node.Links() {
