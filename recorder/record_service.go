@@ -37,8 +37,10 @@ var log = logging.Logger("record")
 type RecordService struct {
 	service          *service.Service
 	online           bool
-	sendNotification func(*pb.Notification) error
+	//sendNotification func(*pb.Notification) error
 
+	recordStore 	 *recordStore
+	reportStore		 *reportStore
 	// Context for main routine
 	ctx context.Context
 }
@@ -47,12 +49,14 @@ type RecordService struct {
 func NewRecordService(
 	account *keypair.Full,
 	node func() *core.IpfsNode,
-	sendNotification func(*pb.Notification) error,
+	//sendNotification func(*pb.Notification) error,
 	ctx context.Context,
 ) *RecordService {
 	handler := &RecordService{
-		sendNotification: sendNotification,
+		//sendNotification: sendNotification,
 		ctx:			  ctx,
+		recordStore : newRecordStore(),
+		reportStore: newReportStore(),
 	}
 	handler.service = service.NewService(account, handler, node)
 	return handler
@@ -95,7 +99,7 @@ func (h *RecordService) handleRecordReport(env *pb.Envelope, pid peer.ID) (*pb.E
 	}
 
 	// Save the report to record
-	return nil, err
+	return nil, h.recordStore.addReport(report)
 }
 
 // HandleStream is called by the underlying service handler method
@@ -104,9 +108,61 @@ func (h *RecordService) HandleStream(env *pb.Envelope, pid peer.ID) (chan *pb.En
 }
 
 // SendMessage sends a message to a peer.
-func (h *RecordService) SendMessage(ctx context.Context, peerId string, env *pb.Envelope) error {
+func (h *RecordService) sendMessage(ctx context.Context, peerId string, env *pb.Envelope) error {
 	return h.service.SendMessage(ctx, peerId, env)
 }
 
+// ============ External Interface ============
 
+// get one record in json format
+func (h *RecordService) GetRecord(key string) ([]byte, error) {
+	return h.recordStore.toJson(key)
+}
+
+func (h *RecordService) StartRecord(key string) error {
+	return h.recordStore.startRecorder(key)
+}
+
+func (h *RecordService) StopRecord(key string) error {
+	return h.recordStore.stopRecord(key)
+}
+
+func (h *RecordService) StartReport(key string) error {
+	err := h.reportStore.add(key)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func (h *RecordService) StopReport(key string) error {
+	err := h.reportStore.stop(key)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func (h *RecordService) RemoveReport(key string) error {
+	return h.reportStore.remove(key)
+}
+
+func (h *RecordService) SendReport(key string, peerId string) error {
+	// Get report
+	report, err := h.reportStore.get(key)
+	if err != nil {
+		return err
+	}
+
+	return h.SendReportPb(report, peerId)
+}
+
+func (h *RecordService) SendReportPb(report *pb.RecordReport, peerId string) error {
+	env, err := h.service.NewEnvelope(pb.Message_RECORD_REPORT, report, nil, false)
+	if err != nil {
+		log.Error(err)
+		return err
+	}
+	return h.service.SendMessage(nil, peerId, env)
+}
 

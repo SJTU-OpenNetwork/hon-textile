@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"context"
 	"fmt"
+	"github.com/SJTU-OpenNetwork/hon-textile/recorder"
 	"github.com/SJTU-OpenNetwork/hon-textile/shadow"
 	"io"
 	"math/rand"
@@ -129,6 +130,7 @@ type Textile struct {
 	writer            io.Writer
     variables         *Variables
     stream            *stream.StreamService
+	record			  *recorder.RecordService
 
 }
 
@@ -432,6 +434,10 @@ func (t *Textile) Start() error {
         t.shadowMsgRecv,
         t.config.IsShadow,
         t.account.Address())
+	t.record = recorder.NewRecordService(
+		t.account,
+		t.Ipfs,
+		context.Background())
     t.cafe = NewCafeService(
 		t.account,
 		t.Ipfs,
@@ -472,6 +478,7 @@ func (t *Textile) Start() error {
 
 		t.stream.Start()
         t.shadow.Start()
+		t.record.Start()
         if t.config.Cafe.Host.Open {
 			go func() {
 				t.cafe.setAddrs(t.config)

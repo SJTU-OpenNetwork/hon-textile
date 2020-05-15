@@ -277,6 +277,8 @@ message Notification {
         STREAM_ADDED        = 103;
 
         STREAM_FILE         = 500;
+
+        RECORD_REPORT       = 501;
     }
 
     // view info
