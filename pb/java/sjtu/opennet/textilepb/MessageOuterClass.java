@@ -402,6 +402,10 @@ public final class MessageOuterClass {
        * <code>RECORD_REPORT = 1010;</code>
        */
       RECORD_REPORT(1010),
+      /**
+       * <code>RECORD_NOTIFICATION = 1011;</code>
+       */
+      RECORD_NOTIFICATION(1011),
       UNRECOGNIZED(-1),
       ;
 
@@ -637,6 +641,10 @@ public final class MessageOuterClass {
        * <code>RECORD_REPORT = 1010;</code>
        */
       public static final int RECORD_REPORT_VALUE = 1010;
+      /**
+       * <code>RECORD_NOTIFICATION = 1011;</code>
+       */
+      public static final int RECORD_NOTIFICATION_VALUE = 1011;
 
 
       public final int getNumber() {
@@ -715,6 +723,7 @@ public final class MessageOuterClass {
           case 1008: return STREAM_UNSUBSCRIBE;
           case 1009: return STREAM_UNSUBSCRIBE_RES;
           case 1010: return RECORD_REPORT;
+          case 1011: return RECORD_NOTIFICATION;
           default: return null;
         }
       }
@@ -2799,9 +2808,9 @@ public final class MessageOuterClass {
   static {
     java.lang.String[] descriptorData = {
       "\n\rmessage.proto\032\031google/protobuf/any.pro" +
-      "to\"\344\013\n\007Message\022\033\n\004type\030\001 \001(\0162\r.Message.T" +
+      "to\"\376\013\n\007Message\022\033\n\004type\030\001 \001(\0162\r.Message.T" +
       "ype\022%\n\007payload\030\002 \001(\0132\024.google.protobuf.A" +
-      "ny\022\017\n\007request\030\003 \001(\005\022\020\n\010response\030\004 \001(\010\"\361\n" +
+      "ny\022\017\n\007request\030\003 \001(\005\022\020\n\010response\030\004 \001(\010\"\213\013" +
       "\n\004Type\022\010\n\004PING\020\000\022\010\n\004PONG\020\001\022\023\n\017THREAD_ENV" +
       "ELOPE\020\n\022\027\n\023THREAD_ENVELOPE_ACK\020\013\022\022\n\016CAFE" +
       "_CHALLENGE\0202\022\016\n\nCAFE_NONCE\0203\022\025\n\021CAFE_REG" +
@@ -2836,11 +2845,11 @@ public final class MessageOuterClass {
       "_HANDLE\020\354\007\022\022\n\rSHADOW_INFORM\020\355\007\022\026\n\021SHADOW" +
       "_INFORM_RES\020\356\007\022\027\n\022SHADOW_STREAM_META\020\357\007\022" +
       "\027\n\022STREAM_UNSUBSCRIBE\020\360\007\022\033\n\026STREAM_UNSUB" +
-      "SCRIBE_RES\020\361\007\022\022\n\rRECORD_REPORT\020\362\007\"2\n\010Env" +
-      "elope\022\031\n\007message\030\001 \001(\0132\010.Message\022\013\n\003sig\030" +
-      "\002 \001(\014\"&\n\005Error\022\014\n\004code\030\001 \001(\r\022\017\n\007message\030" +
-      "\002 \001(\tB\034\n\026sjtu.opennet.textilepbZ\002pbb\006pro" +
-      "to3"
+      "SCRIBE_RES\020\361\007\022\022\n\rRECORD_REPORT\020\362\007\022\030\n\023REC" +
+      "ORD_NOTIFICATION\020\363\007\"2\n\010Envelope\022\031\n\007messa" +
+      "ge\030\001 \001(\0132\010.Message\022\013\n\003sig\030\002 \001(\014\"&\n\005Error" +
+      "\022\014\n\004code\030\001 \001(\r\022\017\n\007message\030\002 \001(\tB\034\n\026sjtu." +
+      "opennet.textilepbZ\002pbb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
