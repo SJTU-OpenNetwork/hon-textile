@@ -190,9 +190,13 @@ func startNode(serveDocs bool) error {
 				if len(note.Subject) >= 7 {
 					subject = note.Subject[len(note.Subject)-7:]
 				}
-
-				msg := Grey(date+"  "+note.User.Name+" ") + Cyan(note.Body) +
-					Grey(" "+subject)
+				var msg string
+				if note.User != nil {
+					msg = Grey(date+"  "+note.User.Name+" ") + Cyan(note.Body) +
+						Grey(" "+subject)
+				} else {
+					msg = Grey(date+"  ") + Grey(" "+subject)
+				}
 				fmt.Println(msg)
 			}
 		}
