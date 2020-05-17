@@ -3,6 +3,7 @@ package core
 import (
 	"bytes"
 	"fmt"
+	"github.com/SJTU-OpenNetwork/hon-textile/recorder"
 	"strconv"
 	"strings"
 
@@ -91,6 +92,17 @@ func (t *Thread) AddFiles(node ipld.Node, target string, caption string, keys ma
 	}
 
 	log.Debugf("added FILES to %s: %s", t.Id, res.hash.B58String())
+
+	// Generate record for record_service
+	record := &pb.Notification{
+		Id:                   data,	// cid of file
+		Date:                 res.header.Date,
+		Actor:                "",	// self id. filled with "" if can not get.
+		Subject:              recorder.Event_ThreadAddFile,	// event type
+		Target:               "",	// self id. The peer that add the file would be collector
+		Read:                 true,	// send to notification channel. There is other notification fot thread add file.
+	}
+	recorder.RecordCh <- record
 
 	return res.hash, nil
 }
@@ -213,6 +225,17 @@ func (t *Thread) handleFilesBlock(bnode *blockNode, block *pb.ThreadBlock) (hand
 		if err != nil {
 			return res, err
 		}
+		// generate record for record_service
+		record := &pb.Notification{
+			Id:                   tcid.String(),
+			Date:                 ptypes.TimestampNow(),
+			Actor:                t.node().Identity.Pretty(),	// Whether this is id of this peer ?
+			Subject:              recorder.Event_CallIPFSGet,
+			Target:               block.Header.Author,
+			Read:                 false,						// Do not send to notification channel directly
+		}
+		recorder.RecordCh <- record
+
 		node, err = ipfs.NodeAtCid(t.node(), tcid)
 		if err != nil {
 			return res, err

@@ -20,27 +20,40 @@ import (
 
 // recrod service is used to collect statistics.
 // For now it is used to analyze the time used for some distributing tasks.
+// record service use pb.Notification directly to transform info.
+// Fields in notification is used as following:
+//		- id string: A unique id used to distinguish different event.
+//			It would the cid of file when collecting file distributing information.
+//		- actor string: Self peer id.
+//			Record may be collected by some other peers. Use this to distinguish the peer generate this record.
+//			This may be empty when received from RecordCh. In that case, fill it with self id before sending it.
+//		- subject string: Event type of record.
+//			A special "final" event is used to represent the final event for an unique id.
+//		- date timestamp: Time when this event happens.
+//		- target string:  A remote peer id.
+//			Record would be sent to that peer if it needs to be collected by other peer.
+//			It would be empty if this notification should not be sent to other peer.
+//		- read bool:  Whether to send this record to notification channel.
 // The workflow of record service is:
-//		- The recording peer create a record with a unique key. Keep the creating time stamp.
-//		- Waiting for other peers sending their report with the same key back.
-//		- Provide function to get the statistics or write it to file.
-
-// Service for sending/receving stream related data - add by Jerry 2020/02/25
-
+//		- Useful information will be sent to RecordCh when some events happen.
+//		- Check "read == true ?". Send notification to notification channel if it is.
+//		- Check target. Send notification to collector.
+//		- Collector receives messages containing notifications from other peers.
+//			Send notifications to notification channel if final event received.
 
 // streamServiceProtocol is the current protocol tag
 const recordServiceProtocol = protocol.ID("/textile/record/1.0.0")
 var log = logging.Logger("record")
-//var ErrRedundantReq = fmt.Errorf("Request is redundant")
-//var ErrUnknowkStream = fmt.Errorf("Unknown stream")
+var RecordCh = make(chan *pb.Notification, 10)
 
 type RecordService struct {
 	service          *service.Service
 	online           bool
-	//sendNotification func(*pb.Notification) error
+	sendNotification func(*pb.Notification) error
 
 	recordStore 	 *recordStore
 	reportStore		 *reportStore
+	peerId 			 string // self peer id.
 	// Context for main routine
 	ctx context.Context
 }
@@ -49,7 +62,8 @@ type RecordService struct {
 func NewRecordService(
 	account *keypair.Full,
 	node func() *core.IpfsNode,
-	//sendNotification func(*pb.Notification) error,
+	sendNotification func(*pb.Notification) error,
+	//peerId string,
 	ctx context.Context,
 ) *RecordService {
 	handler := &RecordService{
@@ -57,6 +71,8 @@ func NewRecordService(
 		ctx:			  ctx,
 		recordStore : newRecordStore(),
 		reportStore: newReportStore(),
+		sendNotification:sendNotification,
+		peerId:node().Identity.Pretty(),
 	}
 	handler.service = service.NewService(account, handler, node)
 	return handler
@@ -71,6 +87,7 @@ func (h *RecordService) Protocol() protocol.ID {
 func (h *RecordService) Start() {
 	h.online = true
 	h.service.Start()
+	go h.ListenRecordCh()
 }
 
 // Ping pings another peer
@@ -84,6 +101,8 @@ func (h *RecordService) Handle(env *pb.Envelope, pid peer.ID) (*pb.Envelope, err
 	switch env.Message.Type {
 	case pb.Message_RECORD_REPORT:
 		return h.handleRecordReport(env, pid)
+	case pb.Message_RECORD_NOTIFICATION:
+		return h.handleRecordNotification(env, pid)
 	default:
 		fmt.Printf("core/stream_service.go Handler: Unknown message type %s\n", env.Message.Type.String())
 		return nil, nil
@@ -91,7 +110,7 @@ func (h *RecordService) Handle(env *pb.Envelope, pid peer.ID) (*pb.Envelope, err
 }
 
 func (h *RecordService) handleRecordReport(env *pb.Envelope, pid peer.ID) (*pb.Envelope, error) {
-	log.Debugf("New record report receive from %s", pid.Pretty())
+	log.Debugf("New record report received from %s", pid.Pretty())
 	report := new(pb.RecordReport)
 	err := ptypes.UnmarshalAny(env.Message.Payload, report)
 	if err != nil {
@@ -100,6 +119,20 @@ func (h *RecordService) handleRecordReport(env *pb.Envelope, pid peer.ID) (*pb.E
 
 	// Save the report to record
 	return nil, h.recordStore.addReport(report)
+}
+
+func (h *RecordService) handleRecordNotification(env *pb.Envelope, pid peer.ID) (*pb.Envelope, error) {
+	log.Debugf("New record notification received from %s", pid.Pretty())
+	notification := new(pb.Notification)
+	err := ptypes.UnmarshalAny(env.Message.Payload, notification)
+	if err != nil {
+		return nil, err
+	}
+	err = h.sendNotification(notification)
+	if err != nil {
+		return nil, err
+	}
+	return nil, nil
 }
 
 // HandleStream is called by the underlying service handler method
@@ -166,3 +199,47 @@ func (h *RecordService) SendReportPb(report *pb.RecordReport, peerId string) err
 	return h.service.SendMessage(nil, peerId, env)
 }
 
+func (h *RecordService) sendNotificationToPeer(notification *pb.Notification, peerId string) error {
+	env, err := h.service.NewEnvelope(pb.Message_RECORD_NOTIFICATION, notification, nil, false)
+	if err != nil {
+		log.Error(err)
+		return err
+	}
+	return h.service.SendMessage(nil, peerId, env)
+}
+
+func (h *RecordService) ListenRecordCh() {
+	for {
+		select {
+		case n := <- RecordCh:
+			err := h.handleRecordChannel(n)
+			if err != nil {
+				log.Error(err)
+			}
+		}
+	}
+}
+
+func (h *RecordService) handleRecordChannel(notification *pb.Notification) error {
+	// fill self peer
+	if notification.Actor == "" {
+		notification.Actor = h.peerId
+	}
+
+	// check whether need to send it to notification channel
+	if notification.Read {
+		err := h.sendNotification(notification)
+		if err != nil {return err}
+	}
+
+	// check whether need to send it to other peer
+	if notification.Target != "" {
+		err := h.sendNotificationToPeer(notification, notification.Target)
+		if err != nil {
+			return err
+		}
+	} else {
+		// Do nothing ??
+	}
+	return nil
+}

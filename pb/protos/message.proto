@@ -77,6 +77,7 @@ message Message {
         STREAM_UNSUBSCRIBE_RES = 1009;
 
         RECORD_REPORT = 1010;
+        RECORD_NOTIFICATION = 1011;
     }
 }
 
