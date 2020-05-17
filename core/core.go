@@ -437,6 +437,7 @@ func (t *Textile) Start() error {
 	t.record = recorder.NewRecordService(
 		t.account,
 		t.Ipfs,
+		t.sendNotification,
 		context.Background())
     t.cafe = NewCafeService(
 		t.account,
