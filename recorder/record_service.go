@@ -72,7 +72,7 @@ func NewRecordService(
 		recordStore : newRecordStore(),
 		reportStore: newReportStore(),
 		sendNotification:sendNotification,
-		peerId:node().Identity.Pretty(),
+		//peerId:node().Identity.Pretty(),	//Should call it after the ipfs node start
 	}
 	handler.service = service.NewService(account, handler, node)
 	return handler
@@ -87,6 +87,7 @@ func (h *RecordService) Protocol() protocol.ID {
 func (h *RecordService) Start() {
 	h.online = true
 	h.service.Start()
+	h.peerId = h.service.Node().Identity.Pretty()
 	go h.ListenRecordCh()
 }
 
