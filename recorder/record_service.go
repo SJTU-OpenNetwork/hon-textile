@@ -228,6 +228,9 @@ func (h *RecordService) handleRecordChannel(notification *pb.Notification) error
 		notification.Actor = h.peerId
 	}
 
+	// fill notification type
+	notification.Type = pb.Notification_RECORD_REPORT
+
 	// check whether need to send it to notification channel
 	if notification.Read {
 		err := h.sendNotification(notification)
