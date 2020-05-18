@@ -213,7 +213,7 @@ func (h *RecordService) ListenRecordCh() {
 	for {
 		select {
 		case n := <- RecordCh:
-			log.Debugf("Get record %s from record channel", n.Subject)
+			log.Debugf("Get record %s from record channel. Target: %s", n.Subject, n.Target)
 			err := h.handleRecordChannel(n)
 			if err != nil {
 				log.Error(err)
