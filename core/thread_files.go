@@ -229,7 +229,7 @@ func (t *Thread) handleFilesBlock(bnode *blockNode, block *pb.ThreadBlock) (hand
 		record := &pb.Notification{
 			Id:                   tcid.String(),
 			Date:                 ptypes.TimestampNow(),
-			Actor:                t.node().Identity.Pretty(),	// Whether this is id of this peer ?
+			//Actor:                t.node().Identity.Pretty(),	// Whether this is id of this peer ?
 			Subject:              recorder.Event_CallIPFSGet,
 			Target:               block.Header.Author,
 			Read:                 false,						// Do not send to notification channel directly
@@ -296,6 +296,16 @@ func (t *Thread) handleFilesBlock(bnode *blockNode, block *pb.ThreadBlock) (hand
 				log.Debugf("file exists: %s", file.Hash)
 			}
 		}
+		// generate record for record_service
+		record2 := &pb.Notification{
+			Id:                   tcid.String(),
+			Date:                 ptypes.TimestampNow(),
+			//Actor:                t.node().Identity.Pretty(),	// Whether this is id of this peer ?
+			Subject:              recorder.Event_DoneIPFSGet,
+			Target:               block.Header.Author,
+			Read:                 false,						// Do not send to notification channel directly
+		}
+		recorder.RecordCh <- record2
 	}
 
 	if !ignore {

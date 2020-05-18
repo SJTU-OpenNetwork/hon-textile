@@ -224,9 +224,7 @@ func (h *RecordService) ListenRecordCh() {
 
 func (h *RecordService) handleRecordChannel(notification *pb.Notification) error {
 	// fill self peer
-	if notification.Actor == "" {
-		notification.Actor = h.peerId
-	}
+	notification.Actor = h.peerId
 
 	// fill notification type
 	notification.Type = pb.Notification_RECORD_REPORT
