@@ -129,8 +129,12 @@ func (h *RecordService) handleRecordNotification(env *pb.Envelope, pid peer.ID) 
 	if err != nil {
 		return nil, err
 	}
+	log.Debugf("Received record info:\n\tid:\t%s\nsubject:\t%s\nactor:\t%s\ntarget:\t%s",
+		notification.Id, notification.Subject, notification.Actor, notification.Target)
 	err = h.sendNotification(notification)
 	if err != nil {
+		log.Error("Error occur when send received notification to notification channel.")
+		log.Error(err)
 		return nil, err
 	}
 	return nil, nil
@@ -213,7 +217,8 @@ func (h *RecordService) ListenRecordCh() {
 	for {
 		select {
 		case n := <- RecordCh:
-			log.Debugf("Get record %s from record channel. Target: %s", n.Subject, n.Target)
+			log.Debugf("Received record info:\n\tid:\t%s\nsubject:\t%s\nactor:\t%s\ntarget:\t%s",
+				n.Id, n.Subject, n.Actor, n.Target)
 			err := h.handleRecordChannel(n)
 			if err != nil {
 				log.Error(err)
@@ -239,6 +244,8 @@ func (h *RecordService) handleRecordChannel(notification *pb.Notification) error
 	if notification.Target != "" {
 		err := h.sendNotificationToPeer(notification, notification.Target)
 		if err != nil {
+			log.Error("Error occur when send notification from record channel to notification channel.")
+			log.Error(err)
 			return err
 		}
 	} else {
