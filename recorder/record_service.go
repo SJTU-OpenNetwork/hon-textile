@@ -4,6 +4,8 @@ import (
 	//"bytes"
 	"context"
 	"fmt"
+	"github.com/segmentio/ksuid"
+
 	//"github.com/SJTU-OpenNetwork/hon-textile/ipfs"
 	"github.com/SJTU-OpenNetwork/hon-textile/keypair"
 	"github.com/SJTU-OpenNetwork/hon-textile/pb"
@@ -22,7 +24,9 @@ import (
 // For now it is used to analyze the time used for some distributing tasks.
 // record service use pb.Notification directly to transform info.
 // Fields in notification is used as following:
-//		- id string: A unique id used to distinguish different event.
+//		- id string: A unique id used to distinguish different notification.
+//			Note that each notification should have its own id.
+//		- block string: A unique id used to distinguish different event.
 //			It would the cid of file when collecting file distributing information.
 //		- actor string: Self peer id.
 //			Record may be collected by some other peers. Use this to distinguish the peer generate this record.
@@ -129,8 +133,10 @@ func (h *RecordService) handleRecordNotification(env *pb.Envelope, pid peer.ID) 
 	if err != nil {
 		return nil, err
 	}
-	log.Debugf("Received record info:\n\tid:\t%s\nsubject:\t%s\nactor:\t%s\ntarget:\t%s",
-		notification.Id, notification.Subject, notification.Actor, notification.Target)
+	log.Debugf("Received record info:\n\tblock:\t%s\nsubject:\t%s\nactor:\t%s\ntarget:\t%s",
+		notification.Block, notification.Subject, notification.Actor, notification.Target)
+	// fill id field before send
+	notification.Id = ksuid.New().String()
 	err = h.sendNotification(notification)
 	if err != nil {
 		log.Error("Error occur when send received notification to notification channel.")
@@ -217,8 +223,8 @@ func (h *RecordService) ListenRecordCh() {
 	for {
 		select {
 		case n := <- RecordCh:
-			log.Debugf("Received record info:\n\tid:\t%s\nsubject:\t%s\nactor:\t%s\ntarget:\t%s",
-				n.Id, n.Subject, n.Actor, n.Target)
+			log.Debugf("Record from channel info:\n\tblock:\t%s\nsubject:\t%s\nactor:\t%s\ntarget:\t%s",
+				n.Block, n.Subject, n.Actor, n.Target)
 			err := h.handleRecordChannel(n)
 			if err != nil {
 				log.Error(err)
@@ -236,6 +242,8 @@ func (h *RecordService) handleRecordChannel(notification *pb.Notification) error
 
 	// check whether need to send it to notification channel
 	if notification.Read {
+		// fill id field before send
+		notification.Id = ksuid.New().String()
 		err := h.sendNotification(notification)
 		if err != nil {return err}
 	}
