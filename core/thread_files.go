@@ -47,11 +47,13 @@ func (t *Thread) AddFiles(node ipld.Node, target string, caption string, keys ma
 
 	// pre-hash the block, we only want to add it if validation passes,
 	// but we need the hash for the sync group
+	log.Debugf("Call commit block")
 	res, err := t.commitBlock(msg, pb.Block_FILES, false, nil)
 	if err != nil {
 		return nil, err
 	}
 
+	log.Debugf("Call processFileData")
 	// validate and apply schema directives
 	err = t.processFileData(t.Schema, node, keys, false)
 	if err != nil {
@@ -65,12 +67,14 @@ func (t *Thread) AddFiles(node ipld.Node, target string, caption string, keys ma
 	//}
 
 	// finish adding the block
+	log.Debugf("Call thread.addBlock")
 	_, err = t.addBlock(res.ciphertext, false)
 	if err != nil {
 		return nil, err
 	}
 
 	data := node.Cid().Hash().B58String()
+	log.Debugf("Call thread.indexBlock")
 	err = t.indexBlock(&pb.Block{
 		Id:     res.hash.B58String(),
 		Thread: t.Id,
@@ -86,6 +90,7 @@ func (t *Thread) AddFiles(node ipld.Node, target string, caption string, keys ma
 		return nil, err
 	}
 
+	log.Debugf("Call thread.indexFileData")
 	err = t.indexFileData(node, data)
 	if err != nil {
 		return nil, err
@@ -94,6 +99,7 @@ func (t *Thread) AddFiles(node ipld.Node, target string, caption string, keys ma
 	log.Debugf("added FILES to %s: %s", t.Id, res.hash.B58String())
 
 	// Generate record for record_service
+	log.Debugf("Generate record.")
 	record := &pb.Notification{
 		Block:                   res.hash.B58String(),	// cid of block
 		Date:                 res.header.Date,
