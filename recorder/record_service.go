@@ -223,8 +223,9 @@ func (h *RecordService) ListenRecordCh() {
 	for {
 		select {
 		case n := <- RecordCh:
-			log.Debugf("Record from channel info:\n\tblock:\t%s\nsubject:\t%s\nactor:\t%s\ntarget:\t%s",
-				n.Block, n.Subject, n.Actor, n.Target)
+			//log.Debugf("Record from channel info:\n\tblock:\t%s\nsubject:\t%s\nactor:\t%s\ntarget:\t%s",
+			//	n.Block, n.Subject, n.Actor, n.Target)
+			log.Debugf("Record from channel with info:\n%s", n.String())
 			err := h.handleRecordChannel(n)
 			if err != nil {
 				log.Error(err)

@@ -253,11 +253,33 @@ func (t *Thread) handleFilesBlock(bnode *blockNode, block *pb.ThreadBlock) (hand
 			return res, err
 		}
 
+		// generate record for record_service
+		record = &pb.Notification{
+			Block:                   bnode.hash,
+			Date:                 ptypes.TimestampNow(),
+			//Actor:                t.node().Identity.Pretty(),	// Whether this is id of this peer ?
+			Subject:              recorder.Event_DoneIPFSPin,
+			Target:               block.Header.Author,
+			Read:                 false,						// Do not send to notification channel directly
+		}
+		recorder.RecordCh <- record
+
 		// validate and apply schema directives
 		err = t.processFileData(t.Schema, node, msg.Keys, true)
 		if err != nil {
 			return res, err
 		}
+
+		// generate record for record_service
+		record = &pb.Notification{
+			Block:                   bnode.hash,
+			Date:                 ptypes.TimestampNow(),
+			//Actor:                t.node().Identity.Pretty(),	// Whether this is id of this peer ?
+			Subject:              recorder.Event_DoneTextileProcess,
+			Target:               block.Header.Author,
+			Read:                 false,						// Do not send to notification channel directly
+		}
+		recorder.RecordCh <- record
 
 		// use msg keys to decrypt each file
 		for pth, key := range msg.Keys {
