@@ -53,7 +53,7 @@ func (a *Api) addThreadFiles(g *gin.Context) {
 		g.String(http.StatusBadRequest, "no files found")
 		return
 	}
-
+	log.Debugf("Call Add Node")
 	if dirs.Items[0].Files[schema.SingleFileTag] != nil {
 		var files []*pb.FileIndex
 		for _, dir := range dirs.Items {
@@ -73,6 +73,7 @@ func (a *Api) addThreadFiles(g *gin.Context) {
 			return
 		}
 	}
+	log.Debugf("Done Add Node")
 
 	if node == nil {
 		g.String(http.StatusBadRequest, "no files found")

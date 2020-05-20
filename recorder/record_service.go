@@ -92,6 +92,7 @@ func (h *RecordService) Start() {
 	h.online = true
 	h.service.Start()
 	h.peerId = h.service.Node().Identity.Pretty()
+	//h.service.Node().Identity.ShortString()
 	go h.ListenRecordCh()
 }
 
