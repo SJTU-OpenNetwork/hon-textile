@@ -254,6 +254,7 @@ func (t *Thread) handleFilesBlock(bnode *blockNode, block *pb.ThreadBlock) (hand
 		}
 
 		// generate record for record_service
+		/*
 		record = &pb.Notification{
 			Block:                   bnode.hash,
 			Date:                 ptypes.TimestampNow(),
@@ -263,7 +264,7 @@ func (t *Thread) handleFilesBlock(bnode *blockNode, block *pb.ThreadBlock) (hand
 			Read:                 false,						// Do not send to notification channel directly
 		}
 		recorder.RecordCh <- record
-
+		*/
 		// validate and apply schema directives
 		err = t.processFileData(t.Schema, node, msg.Keys, true)
 		if err != nil {
@@ -271,6 +272,7 @@ func (t *Thread) handleFilesBlock(bnode *blockNode, block *pb.ThreadBlock) (hand
 		}
 
 		// generate record for record_service
+		/*
 		record = &pb.Notification{
 			Block:                   bnode.hash,
 			Date:                 ptypes.TimestampNow(),
@@ -280,7 +282,7 @@ func (t *Thread) handleFilesBlock(bnode *blockNode, block *pb.ThreadBlock) (hand
 			Read:                 false,						// Do not send to notification channel directly
 		}
 		recorder.RecordCh <- record
-
+		*/
 		// use msg keys to decrypt each file
 		for pth, key := range msg.Keys {
 			fd, err := ipfs.DataAtPath(t.node(), data+pth+MetaLinkName)
