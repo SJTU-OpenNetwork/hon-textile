@@ -472,6 +472,12 @@ message Stream {
     string id       = 1;
 }
 
+message SimpleFile {
+    string name     = 1;
+    string cid      = 2;
+    int64  size     = 3;
+}
+
 
 message CafeClientMessage {
     string id                      = 1;
