@@ -5,7 +5,7 @@ import (
 	"github.com/golang/protobuf/proto"
 )
 
-func (t *Textile) feedSimpleFile(block *pb.Block, opts feedItemOpts) (*pb.FeedVideo, error) {
+func (t *Textile) feedSimpleFile(block *pb.Block, opts feedItemOpts) (*pb.FeedSimpleFile, error) {
 	if block.Type != pb.Block_SIMPLE_FILE {
 		return nil, ErrBlockWrongType
 	}
