@@ -134,6 +134,10 @@ func startNode(serveDocs bool) error {
 					return
 				}
 				if update, ok := value.(*pb.FeedItem); ok {
+					if update == nil {
+						log.Error("update is nil")
+						continue
+					}
 					thrd := update.Thread[len(update.Thread)-8:]
 
 					btype, err := core.FeedItemType(update)
