@@ -32,5 +32,4 @@ func (a *Api) addSimpleFile(g *gin.Context) {
 	}
 	log.Debugf("Api done add simple file\n%s", block.String())
 	//pbJSON(g, http.StatusCreated, block)
-
 }

@@ -9,7 +9,7 @@ import (
 func (t *Thread) AddSimpleFile(file *pb.SimpleFile) (*pb.Block, error) {
 	t.lock.Lock()
 	defer t.lock.Unlock()
-
+	log.Debugf("Thread.AddSimpleFile")
 	res, err := t.commitBlock(file, pb.Block_SIMPLE_FILE, true, nil)
 	if err != nil {
 		return nil, err
@@ -30,7 +30,7 @@ func (t *Thread) AddSimpleFile(file *pb.SimpleFile) (*pb.Block, error) {
 		return nil, err
 	}
 
-	//log.Debugf("added video %s, caption: %s", video.Id, video.Caption)
+	log.Debugf("Done Thread.AddSimpleFile: %s", block.Id)
 	return block, nil
 }
 
