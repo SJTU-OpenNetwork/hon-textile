@@ -20,11 +20,16 @@ func (a *Api) addSimpleFile(g *gin.Context) {
 	}
 	threadId, ok := opts["threadId"]
 	if !ok {
-		g.String(http.StatusBadRequest, "missing threadId")
+		g.String(http.StatusBadGateway, "missing threadId")
 		return
 	}
 
 	block, err := a.Node.AddSimpleFile(path, threadId)
+	if err != nil {
+		log.Error(err)
+		g.String(http.StatusBadRequest, "error occur")
+		return
+	}
 	log.Debugf("Api done add simple file")
 	pbJSON(g, http.StatusCreated, block)
 }
