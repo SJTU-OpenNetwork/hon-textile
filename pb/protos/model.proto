@@ -475,7 +475,7 @@ message Stream {
 
 message SimpleFile {
     string name     = 1;
-    string cid      = 2;
+    string path     = 2;
     int64  size     = 3;
 }
 

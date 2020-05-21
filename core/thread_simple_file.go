@@ -2,6 +2,7 @@ package core
 
 import (
 	"github.com/SJTU-OpenNetwork/hon-textile/pb"
+	"github.com/golang/protobuf/proto"
 	mh "github.com/multiformats/go-multihash"
 )
 
@@ -14,13 +15,13 @@ func (t *Thread) AddSimpleFile(file *pb.SimpleFile) (mh.Multihash, error) {
 		return nil, err
 	}
 
-	body := proto.MarshalTextString(video)
+	body := proto.MarshalTextString(file)
 
 	err = t.indexBlock(&pb.Block{
 		Id:     res.hash.B58String(),
 		Thread: t.Id,
 		Author: res.header.Author,
-		Type:   pb.Block_VIDEO,
+		Type:   pb.Block_SIMPLE_FILE,
 		Date:   res.header.Date,
 		Body:   body,
 		Status: pb.Block_QUEUED,
@@ -29,6 +30,6 @@ func (t *Thread) AddSimpleFile(file *pb.SimpleFile) (mh.Multihash, error) {
 		return nil, err
 	}
 
-	log.Debugf("added video %s, caption: %s", video.Id, video.Caption)
+	//log.Debugf("added video %s, caption: %s", video.Id, video.Caption)
 	return res.hash, nil
 }

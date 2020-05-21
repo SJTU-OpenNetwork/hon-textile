@@ -5,6 +5,7 @@ package core
 import (
 	//"bufio"
 	"github.com/SJTU-OpenNetwork/go-ipfs/core/coreapi"
+	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 	"github.com/SJTU-OpenNetwork/interface-go-ipfs-core/options"
 	ipfspath "github.com/SJTU-OpenNetwork/interface-go-ipfs-core/path"
 	files "github.com/ipfs/go-ipfs-files"
@@ -44,6 +45,10 @@ func (t *Textile) AddSimpleFile(path string, threadId string) (ipfspath.Resolved
 	resolvedPath, err := api.Unixfs().Add(t.ctx, files.NewReaderFile(fi), options.Unixfs.HashOnly(false), options.Unixfs.Chunker("size-1048576"))
 
 	// Add file to thread
-
+	_, err := thread.AddSimpleFile(&pb.SimpleFile{
+		Name:                 "",
+		Cid:                  resolvedPath.Cid().String(),
+		Size:                 resolvedPath.String(),
+	})
 	return resolvedPath, err
 }
