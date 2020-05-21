@@ -371,6 +371,8 @@ func (t *Thread) handle(bnode *blockNode, replace bool) (*pb.Block, error) {
 		res, err = t.handleAddStreamMetaBlock(block)
 	case pb.Block_PICTURE:
 		res, err = t.handleFilesBlock(bnode, block)
+	case pb.Block_SIMPLE_FILE:
+		res, err = t.handleSimpleFile(block)
 	default:
 		err = fmt.Errorf("invalid type: %s", block.Type)
 	}

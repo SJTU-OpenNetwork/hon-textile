@@ -3,11 +3,11 @@ package core
 //import "github.com/SJTU-OpenNetwork/hon-textile/ipfs"
 
 import (
+	"errors"
 	//"bufio"
 	"github.com/SJTU-OpenNetwork/go-ipfs/core/coreapi"
 	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 	"github.com/SJTU-OpenNetwork/interface-go-ipfs-core/options"
-	ipfspath "github.com/SJTU-OpenNetwork/interface-go-ipfs-core/path"
 	files "github.com/ipfs/go-ipfs-files"
 	"os"
 )
@@ -18,7 +18,7 @@ import (
 //		But it has nothing to do with Schema, Mill, and Thread.
 //		And file added through AddSimpleFile would not be written in FileStore
 //		Besides, instead of calling hon-textile/ipfs.AddData, AddSimpleFile use ipfs/coreapi directly to add file.
-func (t *Textile) AddSimpleFile(path string, threadId string) (ipfspath.Resolved, error){
+func (t *Textile) AddSimpleFile(path string, threadId string) (*pb.Block, error){
 	//hash, err := ipfs.AddData(t.node, reader, mill.Pin(), false)
 	api, err := coreapi.NewCoreAPI(t.node)
 	if err != nil {
@@ -31,6 +31,17 @@ func (t *Textile) AddSimpleFile(path string, threadId string) (ipfspath.Resolved
 	}
 
 	// Open file and get reader for file
+	fileInfo, err := os.Stat(path)
+	if err != nil {
+		log.Error(err)
+		return nil, err
+	}
+	if fileInfo.IsDir() {
+		err = errors.New("SimpleFile does not support directory")
+		log.Error(err)
+		return nil, err
+	}
+
 	fi, err := os.Open(path)
 	if err != nil {
 		log.Error(err)
@@ -43,12 +54,15 @@ func (t *Textile) AddSimpleFile(path string, threadId string) (ipfspath.Resolved
 
 	// Add file to ipfs
 	resolvedPath, err := api.Unixfs().Add(t.ctx, files.NewReaderFile(fi), options.Unixfs.HashOnly(false), options.Unixfs.Chunker("size-1048576"))
-
+	if err != nil {
+		log.Error(err)
+		return nil, err
+	}
 	// Add file to thread
-	_, err := thread.AddSimpleFile(&pb.SimpleFile{
+	return thread.AddSimpleFile(&pb.SimpleFile{
 		Name:                 "",
-		Cid:                  resolvedPath.Cid().String(),
-		Size:                 resolvedPath.String(),
+		Path:                 resolvedPath.String(),
+		Size:                 fileInfo.Size(),
 	})
-	return resolvedPath, err
+
 }

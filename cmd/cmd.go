@@ -1006,6 +1006,16 @@ The response contains a base58 encoded version of the random bytes token.`).Alia
 		return SetServePeer(*shadowSetServePeerPubkey)
 	}
 
+	// ================================
+	// For SimpleFile
+	simpleCmd := appCmd.Command("simpleFile", "SimpleFile corresponding command.")
+	simpleAddCmd := simpleCmd.Command("add", "Add a SimpleFile to a thread.")
+	simpleAddPath := simpleAddCmd.Arg("path", "Path of a local file").Required().String()
+	simpleAddThread := simpleAddCmd.Arg("threadId", "Thread ID").Required().String()
+	cmds[simpleAddCmd.FullCommand()] = func () error {
+		return AddSimpleFile(*simpleAddPath, *simpleAddThread)
+	}
+
 	hideGlobalsFlagsFor(
 		daemonCmd,
 		initCmd,

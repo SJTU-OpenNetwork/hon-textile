@@ -367,6 +367,12 @@ func (a *Api) Run() {
 			//profile.POST("/avatar", a.setAvatar)
 		}
 
+		// For simpleFile
+		simpleFile := v0.Group("/simpleFile")
+		{
+			simpleFile.POST("/add", a.addSimpleFile)
+		}
+
 		shadow := v0.Group("/shadow")
 		{
 			shadow.GET("/stat", a.shadowStat)

@@ -1,5 +1,5 @@
 package mobile
-
+import "github.com/golang/protobuf/proto"
 // AddSimpleFile aims to simplify the add file process
 // The process is supposed to be really simple:
 //		- Add file to ipfs and get the corresponding file cid.
@@ -13,13 +13,17 @@ func (m *Mobile) AddSimpleFile(path string, threadId string, cb ProtoCallback) {
 	go func() {
 		defer m.node.WaitDone("Mobile.AddFiles")
 
-		resolvedPath, err := m.node.AddSimpleFile(path, threadId)
+		block, err := m.node.AddSimpleFile(path, threadId)
 		if err != nil {
 			cb.Call(nil, err)
 			return
 		}
-
-		cb.Call(resolvedPath.Cid().Bytes(), nil)
+		blockView, err := proto.Marshal(block)
+		if err != nil {
+			cb.Call(nil, err)
+			return
+		}
+		cb.Call(blockView, nil)
 	}()
 }
 
