@@ -50851,14 +50851,14 @@ public final class Model {
         getNameBytes();
 
     /**
-     * <code>string cid = 2;</code>
+     * <code>string path = 2;</code>
      */
-    java.lang.String getCid();
+    java.lang.String getPath();
     /**
-     * <code>string cid = 2;</code>
+     * <code>string path = 2;</code>
      */
     com.google.protobuf.ByteString
-        getCidBytes();
+        getPathBytes();
 
     /**
      * <code>int64 size = 3;</code>
@@ -50879,7 +50879,7 @@ public final class Model {
     }
     private SimpleFile() {
       name_ = "";
-      cid_ = "";
+      path_ = "";
       size_ = 0L;
     }
 
@@ -50916,7 +50916,7 @@ public final class Model {
             case 18: {
               java.lang.String s = input.readStringRequireUtf8();
 
-              cid_ = s;
+              path_ = s;
               break;
             }
             case 24: {
@@ -50990,34 +50990,34 @@ public final class Model {
       }
     }
 
-    public static final int CID_FIELD_NUMBER = 2;
-    private volatile java.lang.Object cid_;
+    public static final int PATH_FIELD_NUMBER = 2;
+    private volatile java.lang.Object path_;
     /**
-     * <code>string cid = 2;</code>
+     * <code>string path = 2;</code>
      */
-    public java.lang.String getCid() {
-      java.lang.Object ref = cid_;
+    public java.lang.String getPath() {
+      java.lang.Object ref = path_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        cid_ = s;
+        path_ = s;
         return s;
       }
     }
     /**
-     * <code>string cid = 2;</code>
+     * <code>string path = 2;</code>
      */
     public com.google.protobuf.ByteString
-        getCidBytes() {
-      java.lang.Object ref = cid_;
+        getPathBytes() {
+      java.lang.Object ref = path_;
       if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        cid_ = b;
+        path_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
@@ -51050,8 +51050,8 @@ public final class Model {
       if (!getNameBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, name_);
       }
-      if (!getCidBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, cid_);
+      if (!getPathBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, path_);
       }
       if (size_ != 0L) {
         output.writeInt64(3, size_);
@@ -51068,8 +51068,8 @@ public final class Model {
       if (!getNameBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, name_);
       }
-      if (!getCidBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, cid_);
+      if (!getPathBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, path_);
       }
       if (size_ != 0L) {
         size += com.google.protobuf.CodedOutputStream
@@ -51093,8 +51093,8 @@ public final class Model {
       boolean result = true;
       result = result && getName()
           .equals(other.getName());
-      result = result && getCid()
-          .equals(other.getCid());
+      result = result && getPath()
+          .equals(other.getPath());
       result = result && (getSize()
           == other.getSize());
       result = result && unknownFields.equals(other.unknownFields);
@@ -51110,8 +51110,8 @@ public final class Model {
       hash = (19 * hash) + getDescriptor().hashCode();
       hash = (37 * hash) + NAME_FIELD_NUMBER;
       hash = (53 * hash) + getName().hashCode();
-      hash = (37 * hash) + CID_FIELD_NUMBER;
-      hash = (53 * hash) + getCid().hashCode();
+      hash = (37 * hash) + PATH_FIELD_NUMBER;
+      hash = (53 * hash) + getPath().hashCode();
       hash = (37 * hash) + SIZE_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
           getSize());
@@ -51250,7 +51250,7 @@ public final class Model {
         super.clear();
         name_ = "";
 
-        cid_ = "";
+        path_ = "";
 
         size_ = 0L;
 
@@ -51281,7 +51281,7 @@ public final class Model {
       public sjtu.opennet.textilepb.Model.SimpleFile buildPartial() {
         sjtu.opennet.textilepb.Model.SimpleFile result = new sjtu.opennet.textilepb.Model.SimpleFile(this);
         result.name_ = name_;
-        result.cid_ = cid_;
+        result.path_ = path_;
         result.size_ = size_;
         onBuilt();
         return result;
@@ -51335,8 +51335,8 @@ public final class Model {
           name_ = other.name_;
           onChanged();
         }
-        if (!other.getCid().isEmpty()) {
-          cid_ = other.cid_;
+        if (!other.getPath().isEmpty()) {
+          path_ = other.path_;
           onChanged();
         }
         if (other.getSize() != 0L) {
@@ -51440,71 +51440,71 @@ public final class Model {
         return this;
       }
 
-      private java.lang.Object cid_ = "";
+      private java.lang.Object path_ = "";
       /**
-       * <code>string cid = 2;</code>
+       * <code>string path = 2;</code>
        */
-      public java.lang.String getCid() {
-        java.lang.Object ref = cid_;
+      public java.lang.String getPath() {
+        java.lang.Object ref = path_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
-          cid_ = s;
+          path_ = s;
           return s;
         } else {
           return (java.lang.String) ref;
         }
       }
       /**
-       * <code>string cid = 2;</code>
+       * <code>string path = 2;</code>
        */
       public com.google.protobuf.ByteString
-          getCidBytes() {
-        java.lang.Object ref = cid_;
+          getPathBytes() {
+        java.lang.Object ref = path_;
         if (ref instanceof String) {
           com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
-          cid_ = b;
+          path_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
         }
       }
       /**
-       * <code>string cid = 2;</code>
+       * <code>string path = 2;</code>
        */
-      public Builder setCid(
+      public Builder setPath(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
   
-        cid_ = value;
+        path_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>string cid = 2;</code>
+       * <code>string path = 2;</code>
        */
-      public Builder clearCid() {
+      public Builder clearPath() {
         
-        cid_ = getDefaultInstance().getCid();
+        path_ = getDefaultInstance().getPath();
         onChanged();
         return this;
       }
       /**
-       * <code>string cid = 2;</code>
+       * <code>string path = 2;</code>
        */
-      public Builder setCidBytes(
+      public Builder setPathBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
         
-        cid_ = value;
+        path_ = value;
         onChanged();
         return this;
       }
@@ -54035,16 +54035,16 @@ public final class Model {
       "\023\n\013nsubstreams\030\002 \001(\005\022\017\n\007bitrate\030\003 \001(\005\022\017\n" +
       "\007caption\030\004 \001(\t\022\017\n\007nblocks\030\005 \001(\004\022\020\n\010poste" +
       "rid\030\006 \001(\t\",\n\016StreamMetaList\022\032\n\005items\030\001 \003" +
-      "(\0132\013.StreamMeta\"\024\n\006Stream\022\n\n\002id\030\001 \001(\t\"5\n" +
-      "\nSimpleFile\022\014\n\004name\030\001 \001(\t\022\013\n\003cid\030\002 \001(\t\022\014" +
-      "\n\004size\030\003 \001(\003\"g\n\021CafeClientMessage\022\n\n\002id\030" +
-      "\001 \001(\t\022\014\n\004peer\030\002 \001(\t\022\016\n\006client\030\003 \001(\t\022(\n\004d" +
-      "ate\030\004 \001(\0132\032.google.protobuf.Timestamp\"}\n" +
-      "\005BotKV\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\014\022+\n\007cr" +
-      "eated\030\003 \001(\0132\032.google.protobuf.Timestamp\022" +
-      "+\n\007updated\030\004 \001(\0132\032.google.protobuf.Times" +
-      "tampB\034\n\026sjtu.opennet.textilepbZ\002pbb\006prot" +
-      "o3"
+      "(\0132\013.StreamMeta\"\024\n\006Stream\022\n\n\002id\030\001 \001(\t\"6\n" +
+      "\nSimpleFile\022\014\n\004name\030\001 \001(\t\022\014\n\004path\030\002 \001(\t\022" +
+      "\014\n\004size\030\003 \001(\003\"g\n\021CafeClientMessage\022\n\n\002id" +
+      "\030\001 \001(\t\022\014\n\004peer\030\002 \001(\t\022\016\n\006client\030\003 \001(\t\022(\n\004" +
+      "date\030\004 \001(\0132\032.google.protobuf.Timestamp\"}" +
+      "\n\005BotKV\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\014\022+\n\007c" +
+      "reated\030\003 \001(\0132\032.google.protobuf.Timestamp" +
+      "\022+\n\007updated\030\004 \001(\0132\032.google.protobuf.Time" +
+      "stampB\034\n\026sjtu.opennet.textilepbZ\002pbb\006pro" +
+      "to3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -54354,7 +54354,7 @@ public final class Model {
     internal_static_SimpleFile_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_SimpleFile_descriptor,
-        new java.lang.String[] { "Name", "Cid", "Size", });
+        new java.lang.String[] { "Name", "Path", "Size", });
     internal_static_CafeClientMessage_descriptor =
       getDescriptor().getMessageTypes().get(45);
     internal_static_CafeClientMessage_fieldAccessorTable = new
