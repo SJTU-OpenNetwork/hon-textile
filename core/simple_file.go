@@ -20,6 +20,7 @@ import (
 //		Besides, instead of calling hon-textile/ipfs.AddData, AddSimpleFile use ipfs/coreapi directly to add file.
 func (t *Textile) AddSimpleFile(path string, threadId string) (*pb.Block, error){
 	//hash, err := ipfs.AddData(t.node, reader, mill.Pin(), false)
+	log.Debugf("AddSimpleFile(%s, %s)", path, threadId)
 	api, err := coreapi.NewCoreAPI(t.node)
 	if err != nil {
 		log.Error(err)

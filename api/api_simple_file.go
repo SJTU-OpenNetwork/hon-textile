@@ -25,5 +25,6 @@ func (a *Api) addSimpleFile(g *gin.Context) {
 	}
 
 	block, err := a.Node.AddSimpleFile(path, threadId)
+	log.Debugf("Api done add simple file")
 	pbJSON(g, http.StatusCreated, block)
 }
