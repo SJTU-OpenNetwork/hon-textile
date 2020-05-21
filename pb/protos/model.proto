@@ -276,10 +276,12 @@ message Notification {
         PEER_REMOVED        = 101;
         VIDEO_ADDED         = 102;
         STREAM_ADDED        = 103;
+        SIMPLEFILE_ADDED    = 104;
 
         STREAM_FILE         = 500;
 
         RECORD_REPORT       = 501;
+
     }
 
     // view info

@@ -233,6 +233,9 @@ func (h *ThreadsService) Handle(env *pb.Envelope, pid peer.ID) (*pb.Envelope, er
     case pb.Block_VIDEO:
         note.Type = pb.Notification_VIDEO_ADDED
         note.Body = "add a video"
+	case pb.Block_SIMPLE_FILE:
+		note.Type = pb.Notification_SIMPLEFILE_ADDED
+		note.Body = "add a simple file"
 	default:
 		send = false
 	}

@@ -152,6 +152,13 @@ message FeedVideo {
     Video video                    = 4;
 }
 
+message FeedSimpleFile {
+    string block                   = 1;
+    google.protobuf.Timestamp date = 2;
+    User user                      = 3;
+    SimpleFile simpleFile          = 4;
+}
+
 message RemovePeer {
     string block                   = 1;
     google.protobuf.Timestamp date = 2;

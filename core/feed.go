@@ -21,6 +21,7 @@ var flatFeedTypes = []pb.Block_BlockType{
 	pb.Block_ADDADMIN,
 	pb.Block_REMOVEPEER,
 	pb.Block_VIDEO,
+	pb.Block_SIMPLE_FILE,
 	pb.Block_STREAMMETA,
 	pb.Block_PICTURE,
 }
@@ -31,6 +32,7 @@ var annotatedFeedTypes = []pb.Block_BlockType{
 	pb.Block_FILES,
 	pb.Block_TEXT,
 	pb.Block_VIDEO,
+	pb.Block_SIMPLE_FILE,
 	pb.Block_STREAMMETA,
 	pb.Block_PICTURE,
 }
@@ -185,6 +187,8 @@ func (t *Textile) feedItem(block *pb.Block, opts feedItemOpts) (*pb.FeedItem, er
 		payload, err = t.feedVideo(block, opts)
 	case pb.Block_STREAMMETA:
 		payload, err = t.feedStream(block, opts)
+	case pb.Block_SIMPLE_FILE:
+		payload, err = t.feedSimpleFile(block, opts)
 	default:
 		return nil, nil
 	}
@@ -328,6 +332,8 @@ func GetFeedItemPayload(item *pb.FeedItem) (FeedItemPayload, error) {
 		payload = new(pb.FeedVideo)
 	case pb.Block_STREAMMETA:
 		payload = new(pb.FeedStreamMeta)
+	case pb.Block_SIMPLE_FILE:
+		payload = new(pb.FeedSimpleFile)
 	default:
 		return nil, fmt.Errorf("unable to parse payload")
 	}
