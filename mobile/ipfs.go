@@ -117,7 +117,7 @@ func (m *Mobile) DataAtFeedSimpleFile(feed []byte, cb DataCallback) {
 			Read:                 false,						// Do not send to notification channel directly
 		}
 		recorder.RecordCh <- record
-		data, media, err := m.dataAtPath(feedpb.Block)
+		data, media, err := m.dataAtPath(feedpb.SimpleFile.Path)
 		if err == nil {
 			record2 := &pb.Notification{
 				Block: feedpb.Block,

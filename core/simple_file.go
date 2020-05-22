@@ -61,7 +61,7 @@ func (t *Textile) AddSimpleFile(path string, threadId string) (*pb.Block, error)
 	}
 	// Add file to thread
 	return thread.AddSimpleFile(&pb.SimpleFile{
-		Name:                 "",
+		Name:                 fileInfo.Name(),
 		Path:                 resolvedPath.String(),
 		Size:                 fileInfo.Size(),
 	})
