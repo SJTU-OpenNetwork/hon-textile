@@ -27,4 +27,3 @@ func (m *Mobile) AddSimpleFile(path string, threadId string, cb ProtoCallback) {
 		m.node.FlushCafes()
 	}()
 }
-

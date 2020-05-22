@@ -157,6 +157,7 @@ message FeedSimpleFile {
     google.protobuf.Timestamp date = 2;
     User user                      = 3;
     SimpleFile simpleFile          = 4;
+    string peerId                  = 5;
 }
 
 message RemovePeer {
