@@ -21,6 +21,7 @@ func (t *Textile) feedSimpleFile(block *pb.Block, opts feedItemOpts) (*pb.FeedSi
 		Date:    block.Date,
 		User:    t.PeerUser(block.Author),
 		SimpleFile:   msg,
+		PeerId: block.Author,
 	}
 
 	return item, nil

@@ -2,6 +2,9 @@ package mobile
 
 import (
 	"bytes"
+	"github.com/SJTU-OpenNetwork/hon-textile/pb"
+	"github.com/SJTU-OpenNetwork/hon-textile/recorder"
+	"github.com/golang/protobuf/ptypes"
 
 	ipld "github.com/ipfs/go-ipld-format"
 	"github.com/golang/protobuf/proto"
@@ -94,6 +97,35 @@ func (m *Mobile) dataAtPath(pth string) ([]byte, string, error) {
 	}
 
 	return data, media, nil
+}
+
+func (m *Mobile) DataAtFeedSimpleFile(feed *pb.FeedSimpleFile, cb DataCallback) {
+	m.node.WaitAdd(1, "Mobile.DataAtFeedSimpleFile")
+	go func() {
+		defer m.node.WaitDone("Mobile.DataAtFeedSimpleFile")
+		record := &pb.Notification{
+			Block:                feed.Block,
+			Date:                 ptypes.TimestampNow(),
+			//Actor:                t.node().Identity.Pretty(),	// Whether this is id of this peer ?
+			Subject:              recorder.Event_CallIPFSGet,
+			Target:               feed.PeerId,
+			Read:                 false,						// Do not send to notification channel directly
+		}
+		recorder.RecordCh <- record
+		data, media, err := m.dataAtPath(feed.Block)
+		if err == nil {
+			record2 := &pb.Notification{
+				Block: feed.Block,
+				Date:  ptypes.TimestampNow(),
+				//Actor:                t.node().Identity.Pretty(),	// Whether this is id of this peer ?
+				Subject: recorder.Event_DoneIPFSGet,
+				Target:  feed.PeerId,
+				Read:    false, // Do not send to notification channel directly
+			}
+			recorder.RecordCh <- record2
+		}
+		cb.Call(data, media, err)
+	}()
 }
 
 // IpfsAddData is the async version of ipfsAddData
