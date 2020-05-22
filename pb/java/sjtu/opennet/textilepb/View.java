@@ -19751,6 +19751,16 @@ public final class View {
      * <code>.SimpleFile simpleFile = 4;</code>
      */
     sjtu.opennet.textilepb.Model.SimpleFileOrBuilder getSimpleFileOrBuilder();
+
+    /**
+     * <code>string peerId = 5;</code>
+     */
+    java.lang.String getPeerId();
+    /**
+     * <code>string peerId = 5;</code>
+     */
+    com.google.protobuf.ByteString
+        getPeerIdBytes();
   }
   /**
    * Protobuf type {@code FeedSimpleFile}
@@ -19766,6 +19776,7 @@ public final class View {
     }
     private FeedSimpleFile() {
       block_ = "";
+      peerId_ = "";
     }
 
     @java.lang.Override
@@ -19835,6 +19846,12 @@ public final class View {
                 simpleFile_ = subBuilder.buildPartial();
               }
 
+              break;
+            }
+            case 42: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              peerId_ = s;
               break;
             }
             default: {
@@ -19966,6 +19983,40 @@ public final class View {
       return getSimpleFile();
     }
 
+    public static final int PEERID_FIELD_NUMBER = 5;
+    private volatile java.lang.Object peerId_;
+    /**
+     * <code>string peerId = 5;</code>
+     */
+    public java.lang.String getPeerId() {
+      java.lang.Object ref = peerId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        peerId_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string peerId = 5;</code>
+     */
+    public com.google.protobuf.ByteString
+        getPeerIdBytes() {
+      java.lang.Object ref = peerId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        peerId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -19992,6 +20043,9 @@ public final class View {
       if (simpleFile_ != null) {
         output.writeMessage(4, getSimpleFile());
       }
+      if (!getPeerIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 5, peerId_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -20015,6 +20069,9 @@ public final class View {
       if (simpleFile_ != null) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(4, getSimpleFile());
+      }
+      if (!getPeerIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, peerId_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -20049,6 +20106,8 @@ public final class View {
         result = result && getSimpleFile()
             .equals(other.getSimpleFile());
       }
+      result = result && getPeerId()
+          .equals(other.getPeerId());
       result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
@@ -20074,6 +20133,8 @@ public final class View {
         hash = (37 * hash) + SIMPLEFILE_FIELD_NUMBER;
         hash = (53 * hash) + getSimpleFile().hashCode();
       }
+      hash = (37 * hash) + PEERID_FIELD_NUMBER;
+      hash = (53 * hash) + getPeerId().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -20227,6 +20288,8 @@ public final class View {
           simpleFile_ = null;
           simpleFileBuilder_ = null;
         }
+        peerId_ = "";
+
         return this;
       }
 
@@ -20269,6 +20332,7 @@ public final class View {
         } else {
           result.simpleFile_ = simpleFileBuilder_.build();
         }
+        result.peerId_ = peerId_;
         onBuilt();
         return result;
       }
@@ -20329,6 +20393,10 @@ public final class View {
         }
         if (other.hasSimpleFile()) {
           mergeSimpleFile(other.getSimpleFile());
+        }
+        if (!other.getPeerId().isEmpty()) {
+          peerId_ = other.peerId_;
+          onChanged();
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -20777,6 +20845,75 @@ public final class View {
           simpleFile_ = null;
         }
         return simpleFileBuilder_;
+      }
+
+      private java.lang.Object peerId_ = "";
+      /**
+       * <code>string peerId = 5;</code>
+       */
+      public java.lang.String getPeerId() {
+        java.lang.Object ref = peerId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          peerId_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string peerId = 5;</code>
+       */
+      public com.google.protobuf.ByteString
+          getPeerIdBytes() {
+        java.lang.Object ref = peerId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          peerId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string peerId = 5;</code>
+       */
+      public Builder setPeerId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        peerId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string peerId = 5;</code>
+       */
+      public Builder clearPeerId() {
+        
+        peerId_ = getDefaultInstance().getPeerId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string peerId = 5;</code>
+       */
+      public Builder setPeerIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        peerId_ = value;
+        onChanged();
+        return this;
       }
       @java.lang.Override
       public final Builder setUnknownFields(
@@ -39587,57 +39724,58 @@ public final class View {
       "treammeta\030\004 \001(\0132\013.StreamMeta\"p\n\tFeedVide" +
       "o\022\r\n\005block\030\001 \001(\t\022(\n\004date\030\002 \001(\0132\032.google." +
       "protobuf.Timestamp\022\023\n\004user\030\003 \001(\0132\005.User\022" +
-      "\025\n\005video\030\004 \001(\0132\006.Video\"\177\n\016FeedSimpleFile" +
-      "\022\r\n\005block\030\001 \001(\t\022(\n\004date\030\002 \001(\0132\032.google.p" +
-      "rotobuf.Timestamp\022\023\n\004user\030\003 \001(\0132\005.User\022\037" +
-      "\n\nsimpleFile\030\004 \001(\0132\013.SimpleFile\"j\n\nRemov" +
-      "ePeer\022\r\n\005block\030\001 \001(\t\022(\n\004date\030\002 \001(\0132\032.goo" +
-      "gle.protobuf.Timestamp\022\023\n\004user\030\003 \001(\0132\005.U" +
-      "ser\022\016\n\006target\030\004 \001(\t\"X\n\010Announce\022\r\n\005block" +
-      "\030\001 \001(\t\022(\n\004date\030\002 \001(\0132\032.google.protobuf.T" +
-      "imestamp\022\023\n\004user\030\003 \001(\0132\005.User\"k\n\005Leave\022\r" +
-      "\n\005block\030\001 \001(\t\022(\n\004date\030\002 \001(\0132\032.google.pro" +
-      "tobuf.Timestamp\022\023\n\004user\030\003 \001(\0132\005.User\022\024\n\005" +
-      "likes\030\004 \003(\0132\005.Like\"\224\001\n\004Text\022\r\n\005block\030\001 \001" +
-      "(\t\022(\n\004date\030\002 \001(\0132\032.google.protobuf.Times" +
-      "tamp\022\023\n\004user\030\003 \001(\0132\005.User\022\014\n\004body\030\004 \001(\t\022" +
-      "\032\n\010comments\030\005 \003(\0132\010.Comment\022\024\n\005likes\030\006 \003" +
-      "(\0132\005.Like\" \n\010TextList\022\024\n\005items\030\001 \003(\0132\005.T" +
-      "ext\"\212\001\n\004File\022\r\n\005index\030\001 \001(\005\022\030\n\004file\030\002 \001(" +
-      "\0132\n.FileIndex\022\037\n\005links\030\003 \003(\0132\020.File.Link" +
-      "sEntry\0328\n\nLinksEntry\022\013\n\003key\030\001 \001(\t\022\031\n\005val" +
-      "ue\030\002 \001(\0132\n.FileIndex:\0028\001\"\335\001\n\005Files\022\r\n\005bl" +
-      "ock\030\001 \001(\t\022\016\n\006target\030\002 \001(\t\022\014\n\004data\030\n \001(\t\022" +
-      "(\n\004date\030\003 \001(\0132\032.google.protobuf.Timestam" +
-      "p\022\023\n\004user\030\004 \001(\0132\005.User\022\017\n\007caption\030\005 \001(\t\022" +
-      "\024\n\005files\030\006 \003(\0132\005.File\022\032\n\010comments\030\007 \003(\0132" +
-      "\010.Comment\022\024\n\005likes\030\010 \003(\0132\005.Like\022\017\n\007threa" +
-      "ds\030\t \003(\t\"\"\n\tFilesList\022\025\n\005items\030\001 \003(\0132\006.F" +
-      "iles\"\201\001\n\007Comment\022\n\n\002id\030\001 \001(\t\022(\n\004date\030\002 \001" +
-      "(\0132\032.google.protobuf.Timestamp\022\023\n\004user\030\003" +
-      " \001(\0132\005.User\022\014\n\004body\030\004 \001(\t\022\031\n\006target\030\005 \001(" +
-      "\0132\t.FeedItem:\002\030\001\"*\n\013CommentList\022\027\n\005items" +
-      "\030\001 \003(\0132\010.Comment:\002\030\001\"l\n\004Like\022\n\n\002id\030\001 \001(\t" +
-      "\022(\n\004date\030\002 \001(\0132\032.google.protobuf.Timesta" +
-      "mp\022\023\n\004user\030\003 \001(\0132\005.User\022\031\n\006target\030\004 \001(\0132" +
-      "\t.FeedItem\" \n\010LikeList\022\024\n\005items\030\001 \003(\0132\005." +
-      "Like\"\257\001\n\rAccountUpdate\022\n\n\002id\030\001 \001(\t\022\017\n\003ke" +
-      "y\030\002 \001(\tB\002\030\001\022!\n\004type\030\003 \001(\0162\023.AccountUpdat" +
-      "e.Type\"^\n\004Type\022\020\n\014THREAD_ADDED\020\000\022\022\n\016THRE" +
-      "AD_REMOVED\020\001\022\026\n\022ACCOUNT_PEER_ADDED\020\002\022\030\n\024" +
-      "ACCOUNT_PEER_REMOVED\020\003\"\204\001\n\007Summary\022\n\n\002id" +
-      "\030\001 \001(\t\022\017\n\007address\030\002 \001(\t\022\032\n\022account_peer_" +
-      "count\030\003 \001(\005\022\024\n\014thread_count\030\004 \001(\005\022\023\n\013fil" +
-      "es_count\030\005 \001(\005\022\025\n\rcontact_count\030\006 \001(\005\"\304\001" +
-      "\n\010LogLevel\022\'\n\007systems\030\001 \003(\0132\026.LogLevel.S" +
-      "ystemsEntry\032?\n\014SystemsEntry\022\013\n\003key\030\001 \001(\t" +
-      "\022\036\n\005value\030\002 \001(\0162\017.LogLevel.Level:\0028\001\"N\n\005" +
-      "Level\022\014\n\010CRITICAL\020\000\022\t\n\005ERROR\020\001\022\013\n\007WARNIN" +
-      "G\020\002\022\n\n\006NOTICE\020\003\022\010\n\004INFO\020\004\022\t\n\005DEBUG\020\005\"\031\n\007" +
-      "Strings\022\016\n\006values\030\001 \003(\t\"T\n\020VideoDescript" +
-      "ion\022\r\n\005chunk\030\001 \001(\t\022\021\n\tstartTime\030\002 \001(\003\022\017\n" +
-      "\007endTime\030\003 \001(\003\022\r\n\005index\030\004 \001(\003B\034\n\026sjtu.op" +
-      "ennet.textilepbZ\002pbb\006proto3"
+      "\025\n\005video\030\004 \001(\0132\006.Video\"\217\001\n\016FeedSimpleFil" +
+      "e\022\r\n\005block\030\001 \001(\t\022(\n\004date\030\002 \001(\0132\032.google." +
+      "protobuf.Timestamp\022\023\n\004user\030\003 \001(\0132\005.User\022" +
+      "\037\n\nsimpleFile\030\004 \001(\0132\013.SimpleFile\022\016\n\006peer" +
+      "Id\030\005 \001(\t\"j\n\nRemovePeer\022\r\n\005block\030\001 \001(\t\022(\n" +
+      "\004date\030\002 \001(\0132\032.google.protobuf.Timestamp\022" +
+      "\023\n\004user\030\003 \001(\0132\005.User\022\016\n\006target\030\004 \001(\t\"X\n\010" +
+      "Announce\022\r\n\005block\030\001 \001(\t\022(\n\004date\030\002 \001(\0132\032." +
+      "google.protobuf.Timestamp\022\023\n\004user\030\003 \001(\0132" +
+      "\005.User\"k\n\005Leave\022\r\n\005block\030\001 \001(\t\022(\n\004date\030\002" +
+      " \001(\0132\032.google.protobuf.Timestamp\022\023\n\004user" +
+      "\030\003 \001(\0132\005.User\022\024\n\005likes\030\004 \003(\0132\005.Like\"\224\001\n\004" +
+      "Text\022\r\n\005block\030\001 \001(\t\022(\n\004date\030\002 \001(\0132\032.goog" +
+      "le.protobuf.Timestamp\022\023\n\004user\030\003 \001(\0132\005.Us" +
+      "er\022\014\n\004body\030\004 \001(\t\022\032\n\010comments\030\005 \003(\0132\010.Com" +
+      "ment\022\024\n\005likes\030\006 \003(\0132\005.Like\" \n\010TextList\022\024" +
+      "\n\005items\030\001 \003(\0132\005.Text\"\212\001\n\004File\022\r\n\005index\030\001" +
+      " \001(\005\022\030\n\004file\030\002 \001(\0132\n.FileIndex\022\037\n\005links\030" +
+      "\003 \003(\0132\020.File.LinksEntry\0328\n\nLinksEntry\022\013\n" +
+      "\003key\030\001 \001(\t\022\031\n\005value\030\002 \001(\0132\n.FileIndex:\0028" +
+      "\001\"\335\001\n\005Files\022\r\n\005block\030\001 \001(\t\022\016\n\006target\030\002 \001" +
+      "(\t\022\014\n\004data\030\n \001(\t\022(\n\004date\030\003 \001(\0132\032.google." +
+      "protobuf.Timestamp\022\023\n\004user\030\004 \001(\0132\005.User\022" +
+      "\017\n\007caption\030\005 \001(\t\022\024\n\005files\030\006 \003(\0132\005.File\022\032" +
+      "\n\010comments\030\007 \003(\0132\010.Comment\022\024\n\005likes\030\010 \003(" +
+      "\0132\005.Like\022\017\n\007threads\030\t \003(\t\"\"\n\tFilesList\022\025" +
+      "\n\005items\030\001 \003(\0132\006.Files\"\201\001\n\007Comment\022\n\n\002id\030" +
+      "\001 \001(\t\022(\n\004date\030\002 \001(\0132\032.google.protobuf.Ti" +
+      "mestamp\022\023\n\004user\030\003 \001(\0132\005.User\022\014\n\004body\030\004 \001" +
+      "(\t\022\031\n\006target\030\005 \001(\0132\t.FeedItem:\002\030\001\"*\n\013Com" +
+      "mentList\022\027\n\005items\030\001 \003(\0132\010.Comment:\002\030\001\"l\n" +
+      "\004Like\022\n\n\002id\030\001 \001(\t\022(\n\004date\030\002 \001(\0132\032.google" +
+      ".protobuf.Timestamp\022\023\n\004user\030\003 \001(\0132\005.User" +
+      "\022\031\n\006target\030\004 \001(\0132\t.FeedItem\" \n\010LikeList\022" +
+      "\024\n\005items\030\001 \003(\0132\005.Like\"\257\001\n\rAccountUpdate\022" +
+      "\n\n\002id\030\001 \001(\t\022\017\n\003key\030\002 \001(\tB\002\030\001\022!\n\004type\030\003 \001" +
+      "(\0162\023.AccountUpdate.Type\"^\n\004Type\022\020\n\014THREA" +
+      "D_ADDED\020\000\022\022\n\016THREAD_REMOVED\020\001\022\026\n\022ACCOUNT" +
+      "_PEER_ADDED\020\002\022\030\n\024ACCOUNT_PEER_REMOVED\020\003\"" +
+      "\204\001\n\007Summary\022\n\n\002id\030\001 \001(\t\022\017\n\007address\030\002 \001(\t" +
+      "\022\032\n\022account_peer_count\030\003 \001(\005\022\024\n\014thread_c" +
+      "ount\030\004 \001(\005\022\023\n\013files_count\030\005 \001(\005\022\025\n\rconta" +
+      "ct_count\030\006 \001(\005\"\304\001\n\010LogLevel\022\'\n\007systems\030\001" +
+      " \003(\0132\026.LogLevel.SystemsEntry\032?\n\014SystemsE" +
+      "ntry\022\013\n\003key\030\001 \001(\t\022\036\n\005value\030\002 \001(\0162\017.LogLe" +
+      "vel.Level:\0028\001\"N\n\005Level\022\014\n\010CRITICAL\020\000\022\t\n\005" +
+      "ERROR\020\001\022\013\n\007WARNING\020\002\022\n\n\006NOTICE\020\003\022\010\n\004INFO" +
+      "\020\004\022\t\n\005DEBUG\020\005\"\031\n\007Strings\022\016\n\006values\030\001 \003(\t" +
+      "\"T\n\020VideoDescription\022\r\n\005chunk\030\001 \001(\t\022\021\n\ts" +
+      "tartTime\030\002 \001(\003\022\017\n\007endTime\030\003 \001(\003\022\r\n\005index" +
+      "\030\004 \001(\003B\034\n\026sjtu.opennet.textilepbZ\002pbb\006pr" +
+      "oto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -39791,7 +39929,7 @@ public final class View {
     internal_static_FeedSimpleFile_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_FeedSimpleFile_descriptor,
-        new java.lang.String[] { "Block", "Date", "User", "SimpleFile", });
+        new java.lang.String[] { "Block", "Date", "User", "SimpleFile", "PeerId", });
     internal_static_RemovePeer_descriptor =
       getDescriptor().getMessageTypes().get(20);
     internal_static_RemovePeer_fieldAccessorTable = new
