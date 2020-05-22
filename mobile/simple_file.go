@@ -24,6 +24,7 @@ func (m *Mobile) AddSimpleFile(path string, threadId string, cb ProtoCallback) {
 			return
 		}
 		cb.Call(blockView, nil)
+		m.node.FlushCafes()
 	}()
 }
 
