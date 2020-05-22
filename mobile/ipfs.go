@@ -99,27 +99,32 @@ func (m *Mobile) dataAtPath(pth string) ([]byte, string, error) {
 	return data, media, nil
 }
 
-func (m *Mobile) DataAtFeedSimpleFile(feed *pb.FeedSimpleFile, cb DataCallback) {
+func (m *Mobile) DataAtFeedSimpleFile(feed []byte, cb DataCallback) {
+	feedpb := &pb.FeedSimpleFile{}
+	err := proto.Unmarshal(feed, feedpb)
+	if err != nil {
+		cb.Call(nil, "", err)
+	}
 	m.node.WaitAdd(1, "Mobile.DataAtFeedSimpleFile")
 	go func() {
 		defer m.node.WaitDone("Mobile.DataAtFeedSimpleFile")
 		record := &pb.Notification{
-			Block:                feed.Block,
+			Block:                feedpb.Block,
 			Date:                 ptypes.TimestampNow(),
 			//Actor:                t.node().Identity.Pretty(),	// Whether this is id of this peer ?
 			Subject:              recorder.Event_CallIPFSGet,
-			Target:               feed.PeerId,
+			Target:               feedpb.PeerId,
 			Read:                 false,						// Do not send to notification channel directly
 		}
 		recorder.RecordCh <- record
-		data, media, err := m.dataAtPath(feed.Block)
+		data, media, err := m.dataAtPath(feedpb.Block)
 		if err == nil {
 			record2 := &pb.Notification{
-				Block: feed.Block,
+				Block: feedpb.Block,
 				Date:  ptypes.TimestampNow(),
 				//Actor:                t.node().Identity.Pretty(),	// Whether this is id of this peer ?
 				Subject: recorder.Event_DoneIPFSGet,
-				Target:  feed.PeerId,
+				Target:  feedpb.PeerId,
 				Read:    false, // Do not send to notification channel directly
 			}
 			recorder.RecordCh <- record2
