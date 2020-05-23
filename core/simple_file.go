@@ -11,6 +11,15 @@ import (
 	files "github.com/ipfs/go-ipfs-files"
 	"os"
 )
+
+func (t *Textile) AddSimpleFile(path string, threadId string) (*pb.Block, error) {
+	return t.addSimpleFile(path, threadId, pb.SimpleFile_FILE)
+}
+
+func (t *Textile) AddSimplePicture(path string, threadId string) (*pb.Block, error) {
+	return t.addSimpleFile(path, threadId, pb.SimpleFile_PICTURE)
+}
+
 // Add file to ipfs node
 // Return hash
 // Note:
@@ -18,7 +27,7 @@ import (
 //		But it has nothing to do with Schema, Mill, and Thread.
 //		And file added through AddSimpleFile would not be written in FileStore
 //		Besides, instead of calling hon-textile/ipfs.AddData, AddSimpleFile use ipfs/coreapi directly to add file.
-func (t *Textile) AddSimpleFile(path string, threadId string) (*pb.Block, error){
+func (t *Textile) addSimpleFile(path string, threadId string, fileType pb.SimpleFile_Type) (*pb.Block, error){
 	//hash, err := ipfs.AddData(t.node, reader, mill.Pin(), false)
 	log.Debugf("AddSimpleFile(%s, %s)", path, threadId)
 	api, err := coreapi.NewCoreAPI(t.node)
@@ -64,6 +73,6 @@ func (t *Textile) AddSimpleFile(path string, threadId string) (*pb.Block, error)
 		Name:                 fileInfo.Name(),
 		Path:                 resolvedPath.String(),
 		Size:                 fileInfo.Size(),
+		Type:				  fileType,
 	})
-
 }
