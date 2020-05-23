@@ -9,11 +9,31 @@ import "github.com/golang/protobuf/proto"
 //		- No encryption
 //		- The time used for each step would be kept and sent by record_service.
 func (m *Mobile) AddSimpleFile(path string, threadId string, cb ProtoCallback) {
-	m.node.WaitAdd(1, "Mobile.AddFiles")
+	m.node.WaitAdd(1, "Mobile.AddSimpleFile")
 	go func() {
-		defer m.node.WaitDone("Mobile.AddFiles")
+		defer m.node.WaitDone("Mobile.AddSimpleFile")
 
 		block, err := m.node.AddSimpleFile(path, threadId)
+		if err != nil {
+			cb.Call(nil, err)
+			return
+		}
+		blockView, err := proto.Marshal(block)
+		if err != nil {
+			cb.Call(nil, err)
+			return
+		}
+		m.node.FlushCafes()
+		cb.Call(blockView, nil)
+	}()
+}
+
+func (m *Mobile) AddSimplePicture(path string, threadId string, cb ProtoCallback) {
+	m.node.WaitAdd(1, "Mobile.AddSimplePicture")
+	go func() {
+		defer m.node.WaitDone("Mobile.AddSimplePicture")
+
+		block, err := m.node.AddSimplePicture(path, threadId)
 		if err != nil {
 			cb.Call(nil, err)
 			return
