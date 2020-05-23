@@ -50873,6 +50873,15 @@ public final class Model {
      * <code>int64 size = 3;</code>
      */
     long getSize();
+
+    /**
+     * <code>.SimpleFile.Type type = 4;</code>
+     */
+    int getTypeValue();
+    /**
+     * <code>.SimpleFile.Type type = 4;</code>
+     */
+    sjtu.opennet.textilepb.Model.SimpleFile.Type getType();
   }
   /**
    * Protobuf type {@code SimpleFile}
@@ -50890,6 +50899,7 @@ public final class Model {
       name_ = "";
       path_ = "";
       size_ = 0L;
+      type_ = 0;
     }
 
     @java.lang.Override
@@ -50933,6 +50943,12 @@ public final class Model {
               size_ = input.readInt64();
               break;
             }
+            case 32: {
+              int rawValue = input.readEnum();
+
+              type_ = rawValue;
+              break;
+            }
             default: {
               if (!parseUnknownFieldProto3(
                   input, unknownFields, extensionRegistry, tag)) {
@@ -50963,6 +50979,104 @@ public final class Model {
       return sjtu.opennet.textilepb.Model.internal_static_SimpleFile_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               sjtu.opennet.textilepb.Model.SimpleFile.class, sjtu.opennet.textilepb.Model.SimpleFile.Builder.class);
+    }
+
+    /**
+     * Protobuf enum {@code SimpleFile.Type}
+     */
+    public enum Type
+        implements com.google.protobuf.ProtocolMessageEnum {
+      /**
+       * <code>FILE = 0;</code>
+       */
+      FILE(0),
+      /**
+       * <code>PICTURE = 1;</code>
+       */
+      PICTURE(1),
+      UNRECOGNIZED(-1),
+      ;
+
+      /**
+       * <code>FILE = 0;</code>
+       */
+      public static final int FILE_VALUE = 0;
+      /**
+       * <code>PICTURE = 1;</code>
+       */
+      public static final int PICTURE_VALUE = 1;
+
+
+      public final int getNumber() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalArgumentException(
+              "Can't get the number of an unknown enum value.");
+        }
+        return value;
+      }
+
+      /**
+       * @deprecated Use {@link #forNumber(int)} instead.
+       */
+      @java.lang.Deprecated
+      public static Type valueOf(int value) {
+        return forNumber(value);
+      }
+
+      public static Type forNumber(int value) {
+        switch (value) {
+          case 0: return FILE;
+          case 1: return PICTURE;
+          default: return null;
+        }
+      }
+
+      public static com.google.protobuf.Internal.EnumLiteMap<Type>
+          internalGetValueMap() {
+        return internalValueMap;
+      }
+      private static final com.google.protobuf.Internal.EnumLiteMap<
+          Type> internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<Type>() {
+              public Type findValueByNumber(int number) {
+                return Type.forNumber(number);
+              }
+            };
+
+      public final com.google.protobuf.Descriptors.EnumValueDescriptor
+          getValueDescriptor() {
+        return getDescriptor().getValues().get(ordinal());
+      }
+      public final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptorForType() {
+        return getDescriptor();
+      }
+      public static final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptor() {
+        return sjtu.opennet.textilepb.Model.SimpleFile.getDescriptor().getEnumTypes().get(0);
+      }
+
+      private static final Type[] VALUES = values();
+
+      public static Type valueOf(
+          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+        if (desc.getType() != getDescriptor()) {
+          throw new java.lang.IllegalArgumentException(
+            "EnumValueDescriptor is not for this type.");
+        }
+        if (desc.getIndex() == -1) {
+          return UNRECOGNIZED;
+        }
+        return VALUES[desc.getIndex()];
+      }
+
+      private final int value;
+
+      private Type(int value) {
+        this.value = value;
+      }
+
+      // @@protoc_insertion_point(enum_scope:SimpleFile.Type)
     }
 
     public static final int NAME_FIELD_NUMBER = 1;
@@ -51042,6 +51156,23 @@ public final class Model {
       return size_;
     }
 
+    public static final int TYPE_FIELD_NUMBER = 4;
+    private int type_;
+    /**
+     * <code>.SimpleFile.Type type = 4;</code>
+     */
+    public int getTypeValue() {
+      return type_;
+    }
+    /**
+     * <code>.SimpleFile.Type type = 4;</code>
+     */
+    public sjtu.opennet.textilepb.Model.SimpleFile.Type getType() {
+      @SuppressWarnings("deprecation")
+      sjtu.opennet.textilepb.Model.SimpleFile.Type result = sjtu.opennet.textilepb.Model.SimpleFile.Type.valueOf(type_);
+      return result == null ? sjtu.opennet.textilepb.Model.SimpleFile.Type.UNRECOGNIZED : result;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -51065,6 +51196,9 @@ public final class Model {
       if (size_ != 0L) {
         output.writeInt64(3, size_);
       }
+      if (type_ != sjtu.opennet.textilepb.Model.SimpleFile.Type.FILE.getNumber()) {
+        output.writeEnum(4, type_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -51083,6 +51217,10 @@ public final class Model {
       if (size_ != 0L) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt64Size(3, size_);
+      }
+      if (type_ != sjtu.opennet.textilepb.Model.SimpleFile.Type.FILE.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(4, type_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -51106,6 +51244,7 @@ public final class Model {
           .equals(other.getPath());
       result = result && (getSize()
           == other.getSize());
+      result = result && type_ == other.type_;
       result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
@@ -51124,6 +51263,8 @@ public final class Model {
       hash = (37 * hash) + SIZE_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
           getSize());
+      hash = (37 * hash) + TYPE_FIELD_NUMBER;
+      hash = (53 * hash) + type_;
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -51263,6 +51404,8 @@ public final class Model {
 
         size_ = 0L;
 
+        type_ = 0;
+
         return this;
       }
 
@@ -51292,6 +51435,7 @@ public final class Model {
         result.name_ = name_;
         result.path_ = path_;
         result.size_ = size_;
+        result.type_ = type_;
         onBuilt();
         return result;
       }
@@ -51350,6 +51494,9 @@ public final class Model {
         }
         if (other.getSize() != 0L) {
           setSize(other.getSize());
+        }
+        if (other.type_ != 0) {
+          setTypeValue(other.getTypeValue());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -51540,6 +51687,51 @@ public final class Model {
       public Builder clearSize() {
         
         size_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private int type_ = 0;
+      /**
+       * <code>.SimpleFile.Type type = 4;</code>
+       */
+      public int getTypeValue() {
+        return type_;
+      }
+      /**
+       * <code>.SimpleFile.Type type = 4;</code>
+       */
+      public Builder setTypeValue(int value) {
+        type_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.SimpleFile.Type type = 4;</code>
+       */
+      public sjtu.opennet.textilepb.Model.SimpleFile.Type getType() {
+        @SuppressWarnings("deprecation")
+        sjtu.opennet.textilepb.Model.SimpleFile.Type result = sjtu.opennet.textilepb.Model.SimpleFile.Type.valueOf(type_);
+        return result == null ? sjtu.opennet.textilepb.Model.SimpleFile.Type.UNRECOGNIZED : result;
+      }
+      /**
+       * <code>.SimpleFile.Type type = 4;</code>
+       */
+      public Builder setType(sjtu.opennet.textilepb.Model.SimpleFile.Type value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        type_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.SimpleFile.Type type = 4;</code>
+       */
+      public Builder clearType() {
+        
+        type_ = 0;
         onChanged();
         return this;
       }
@@ -54045,15 +54237,17 @@ public final class Model {
       "(\005\022\017\n\007bitrate\030\003 \001(\005\022\017\n\007caption\030\004 \001(\t\022\017\n\007" +
       "nblocks\030\005 \001(\004\022\020\n\010posterid\030\006 \001(\t\",\n\016Strea" +
       "mMetaList\022\032\n\005items\030\001 \003(\0132\013.StreamMeta\"\024\n" +
-      "\006Stream\022\n\n\002id\030\001 \001(\t\"6\n\nSimpleFile\022\014\n\004nam" +
-      "e\030\001 \001(\t\022\014\n\004path\030\002 \001(\t\022\014\n\004size\030\003 \001(\003\"g\n\021C" +
-      "afeClientMessage\022\n\n\002id\030\001 \001(\t\022\014\n\004peer\030\002 \001" +
-      "(\t\022\016\n\006client\030\003 \001(\t\022(\n\004date\030\004 \001(\0132\032.googl" +
-      "e.protobuf.Timestamp\"}\n\005BotKV\022\013\n\003key\030\001 \001" +
-      "(\t\022\r\n\005value\030\002 \001(\014\022+\n\007created\030\003 \001(\0132\032.goo" +
-      "gle.protobuf.Timestamp\022+\n\007updated\030\004 \001(\0132" +
-      "\032.google.protobuf.TimestampB\034\n\026sjtu.open" +
-      "net.textilepbZ\002pbb\006proto3"
+      "\006Stream\022\n\n\002id\030\001 \001(\t\"u\n\nSimpleFile\022\014\n\004nam" +
+      "e\030\001 \001(\t\022\014\n\004path\030\002 \001(\t\022\014\n\004size\030\003 \001(\003\022\036\n\004t" +
+      "ype\030\004 \001(\0162\020.SimpleFile.Type\"\035\n\004Type\022\010\n\004F" +
+      "ILE\020\000\022\013\n\007PICTURE\020\001\"g\n\021CafeClientMessage\022" +
+      "\n\n\002id\030\001 \001(\t\022\014\n\004peer\030\002 \001(\t\022\016\n\006client\030\003 \001(" +
+      "\t\022(\n\004date\030\004 \001(\0132\032.google.protobuf.Timest" +
+      "amp\"}\n\005BotKV\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\014" +
+      "\022+\n\007created\030\003 \001(\0132\032.google.protobuf.Time" +
+      "stamp\022+\n\007updated\030\004 \001(\0132\032.google.protobuf" +
+      ".TimestampB\034\n\026sjtu.opennet.textilepbZ\002pb" +
+      "b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -54363,7 +54557,7 @@ public final class Model {
     internal_static_SimpleFile_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_SimpleFile_descriptor,
-        new java.lang.String[] { "Name", "Path", "Size", });
+        new java.lang.String[] { "Name", "Path", "Size", "Type", });
     internal_static_CafeClientMessage_descriptor =
       getDescriptor().getMessageTypes().get(45);
     internal_static_CafeClientMessage_fieldAccessorTable = new
