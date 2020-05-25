@@ -605,7 +605,7 @@ There are two types of invites, direct account-to-account and external:
 
 	// ipfs pin
 	ipfsPinCmd := ipfsCmd.Command("pin", "Fetch and pin an IPLD node according to an IPFS CID.")
-	ipfsPinPath := ipfsCatCmd.Arg("path", "IPFS path. Can be a cid.").Required().String()
+	ipfsPinPath := ipfsPinCmd.Arg("path", "IPFS path. Can be a cid.").Required().String()
 	cmds[ipfsPinCmd.FullCommand()] = func() error {
 		return IpfsPinCid(*ipfsPinPath)
 	}
