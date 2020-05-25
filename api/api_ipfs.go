@@ -149,12 +149,18 @@ func (a *Api) ipfsPinCid(g *gin.Context) {
 		a.abort500(g, err)
 		return
 	}
-	log.Debugf("Fetch ipld node with size %v", nd.Size())
+	nodeSize, err := nd.Size()
+	if err != nil {
+		log.Error("Fail to get size of node %s", path)
+	} else {
+		log.Debugf("Fetch ipld node with size %v", nodeSize)
+	}
+
 	err = ipfs.PinNode(a.Node.Ipfs(), nd, true)	// Pin node recursively
 	if err != nil {
 		a.abort500(g, err)
 		return
 	}
-	log.Debugf("Node at %s pinned recursively.")
+	log.Debugf("Node at %s pinned recursively.", path)
 	g.Status(http.StatusOK)
 }
