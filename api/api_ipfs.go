@@ -133,3 +133,28 @@ func (a *Api) ipfsCat(g *gin.Context) {
 
 	g.Data(http.StatusOK, "application/octet-stream", plaintext)
 }
+
+// pin the node at cid.
+// this is used to test the functionality of some data distribute algorithm.
+func (a *Api) ipfsPinCid(g *gin.Context) {
+
+	opts, err := a.readOpts(g)
+	if err != nil {
+		a.abort500(g, err)
+		return
+	}
+	path := opts["path"]
+	nd, err := ipfs.NodeAtPath(a.Node.Ipfs(), path, ipfs.CatTimeout) //One minute at most to fetch the node.
+	if err != nil {
+		a.abort500(g, err)
+		return
+	}
+	log.Debugf("Fetch ipld node with size %v", nd.Size())
+	err = ipfs.PinNode(a.Node.Ipfs(), nd, true)	// Pin node recursively
+	if err != nil {
+		a.abort500(g, err)
+		return
+	}
+	log.Debugf("Node at %s pinned recursively.")
+	g.Status(http.StatusOK)
+}

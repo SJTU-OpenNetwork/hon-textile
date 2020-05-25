@@ -46,3 +46,14 @@ func IpfsCat(hash string, key string) error {
 		opts: map[string]string{"key": key},
 	})
 }
+
+func IpfsPinCid(path string) error {
+	res, err := executeStringCmd(http.MethodPost, "ipfs/pin", params{
+		opts: map[string]string{"path":path},
+	})
+	if err != nil {
+		return err
+	}
+	output(res)
+	return nil
+}
