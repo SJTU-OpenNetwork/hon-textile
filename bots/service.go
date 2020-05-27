@@ -87,6 +87,11 @@ func (kv Datastore) Put(key ds.Key, data []byte) error {
 	return datastore.Bots().AddOrUpdate(key.String(), data)
 }
 
+// Put allows a bot to add a key-val to the store
+func (kv Datastore) Sync(key ds.Key) error {
+    return nil
+}
+
 // Get allows a bot to get a value by string. It responds with the version of the bot that wrote the data.
 func (kv Datastore) Get(key ds.Key) (data []byte, err error) {
 	// TODO: include bot version from row in response, allowing migrations

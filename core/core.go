@@ -16,13 +16,13 @@ import (
 	"sync"
 	"time"
 
-	utilmain "github.com/SJTU-OpenNetwork/go-ipfs/cmd/ipfs/util"
-	"github.com/SJTU-OpenNetwork/go-ipfs/core"
-	"github.com/SJTU-OpenNetwork/go-ipfs/core/bootstrap"
-	"github.com/SJTU-OpenNetwork/go-ipfs/core/corerepo"
-	corenode "github.com/SJTU-OpenNetwork/go-ipfs/core/node"
-	"github.com/SJTU-OpenNetwork/go-ipfs/core/node/libp2p"
-	"github.com/SJTU-OpenNetwork/go-ipfs/repo/fsrepo"
+	utilmain "github.com/ipfs/go-ipfs/cmd/ipfs/util"
+	"github.com/ipfs/go-ipfs/core"
+	"github.com/ipfs/go-ipfs/core/bootstrap"
+	"github.com/ipfs/go-ipfs/core/corerepo"
+	corenode "github.com/ipfs/go-ipfs/core/node"
+	"github.com/ipfs/go-ipfs/core/node/libp2p"
+	"github.com/ipfs/go-ipfs/repo/fsrepo"
 	"github.com/SJTU-OpenNetwork/hon-textile/broadcast"
 	"github.com/SJTU-OpenNetwork/hon-textile/ipfs"
 	"github.com/SJTU-OpenNetwork/hon-textile/keypair"
@@ -39,6 +39,7 @@ import (
 	"github.com/libp2p/go-libp2p-core/peer"
 	"github.com/libp2p/go-libp2p-core/peerstore"
 	logger "github.com/whyrusleeping/go-logging"
+    log2 "github.com/ipfs/go-log/v2"
 	"go.uber.org/fx"
 	"gopkg.in/natefinch/lumberjack.v2"
 )
@@ -1409,14 +1410,14 @@ func setLogLevels(repoPath string, level *pb.LogLevel, disk bool, color bool) (i
 	backendFile := logger.NewLogBackend(writer, "", 0)
 	logger.SetBackend(backendFile)
 
-	var format string
-	if color {
-		format = logging.LogFormats["color"]
-	} else {
-		format = logging.LogFormats["nocolor"]
-	}
-	logger.SetFormatter(logger.MustStringFormatter(format))
-	logging.SetAllLoggers(logger.ERROR)
+//	var format string
+//	if color {
+//		format = logging.LogFormats["color"]
+//	} else {
+//		format = logging.LogFormats["nocolor"]
+//	}
+//	logger.SetFormatter(logger.MustStringFormatter(format))
+	logging.SetAllLoggers(log2.LevelError )
 
 	var err error
 	for key, value := range level.Systems {

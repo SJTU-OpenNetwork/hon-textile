@@ -211,7 +211,7 @@ func InitIpfs(identity native.Identity, mobile bool, server bool) (*native.Confi
 			DisableRelay:            false,
 			EnableRelayHop:          server,
 			EnableAutoRelay:         !server,
-			EnableAutoNATService:    server,
+            //EnableAutoNATService:    server,
 		},
 		Experimental: native.Experiments{
 			FilestoreEnabled:     false,

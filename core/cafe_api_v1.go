@@ -15,7 +15,6 @@ import (
 	"github.com/golang/protobuf/proto"
 	"github.com/golang/protobuf/ptypes"
 	"github.com/ipfs/go-cid"
-	"github.com/SJTU-OpenNetwork/go-ipfs/pin"
 	"github.com/libp2p/go-libp2p-core/peer"
 	"github.com/segmentio/ksuid"
 	"github.com/SJTU-OpenNetwork/hon-textile/ipfs"
@@ -322,7 +321,7 @@ func (c *cafeApi) unstore(g *gin.Context) {
 		return
 	}
 
-	pinned, err := c.node.Ipfs().Pinning.CheckIfPinned(id)
+	pinned, err := c.node.Ipfs().Pinning.CheckIfPinned(nil, id)
 	if err != nil {
 		log.Warning(err)
 		c.abort(g, http.StatusBadRequest, err)
@@ -330,7 +329,7 @@ func (c *cafeApi) unstore(g *gin.Context) {
 	}
 
 	for _, p := range pinned {
-		if p.Mode != pin.NotPinned {
+		if !p.Pinned() {
 			err = ipfs.UnpinCid(c.node.Ipfs(), p.Key, true)
 			if err != nil {
 				log.Warning(err)

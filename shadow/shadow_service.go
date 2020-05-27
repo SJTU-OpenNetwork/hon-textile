@@ -13,7 +13,7 @@ import (
 	ma "github.com/multiformats/go-multiaddr"
 	"sync"
 
-	"github.com/SJTU-OpenNetwork/go-ipfs/core"
+	"github.com/ipfs/go-ipfs/core"
 	//	"github.com/SJTU-OpenNetwork/hon-textile/repo/db"
 	"github.com/SJTU-OpenNetwork/hon-textile/service"
 	logging "github.com/ipfs/go-log"
