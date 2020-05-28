@@ -20,40 +20,48 @@ public final class Model {
 
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
     java.lang.String getId();
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
     com.google.protobuf.ByteString
         getIdBytes();
 
     /**
      * <code>string address = 2;</code>
+     * @return The address.
      */
     java.lang.String getAddress();
     /**
      * <code>string address = 2;</code>
+     * @return The bytes for address.
      */
     com.google.protobuf.ByteString
         getAddressBytes();
 
     /**
      * <code>string name = 3;</code>
+     * @return The name.
      */
     java.lang.String getName();
     /**
      * <code>string name = 3;</code>
+     * @return The bytes for name.
      */
     com.google.protobuf.ByteString
         getNameBytes();
 
     /**
      * <code>string avatar = 4;</code>
+     * @return The avatar.
      */
     java.lang.String getAvatar();
     /**
      * <code>string avatar = 4;</code>
+     * @return The bytes for avatar.
      */
     com.google.protobuf.ByteString
         getAvatarBytes();
@@ -84,10 +92,12 @@ public final class Model {
 
     /**
      * <code>.google.protobuf.Timestamp created = 6;</code>
+     * @return Whether the created field is set.
      */
     boolean hasCreated();
     /**
      * <code>.google.protobuf.Timestamp created = 6;</code>
+     * @return The created.
      */
     com.google.protobuf.Timestamp getCreated();
     /**
@@ -97,10 +107,12 @@ public final class Model {
 
     /**
      * <code>.google.protobuf.Timestamp updated = 7;</code>
+     * @return Whether the updated field is set.
      */
     boolean hasUpdated();
     /**
      * <code>.google.protobuf.Timestamp updated = 7;</code>
+     * @return The updated.
      */
     com.google.protobuf.Timestamp getUpdated();
     /**
@@ -110,13 +122,14 @@ public final class Model {
 
     /**
      * <code>int32 role = 100;</code>
+     * @return The role.
      */
     int getRole();
   }
   /**
    * Protobuf type {@code Peer}
    */
-  public  static final class Peer extends
+  public static final class Peer extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:Peer)
       PeerOrBuilder {
@@ -131,7 +144,13 @@ public final class Model {
       name_ = "";
       avatar_ = "";
       inboxes_ = java.util.Collections.emptyList();
-      role_ = 0;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new Peer();
     }
 
     @java.lang.Override
@@ -183,9 +202,9 @@ public final class Model {
               break;
             }
             case 42: {
-              if (!((mutable_bitField0_ & 0x00000010) == 0x00000010)) {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
                 inboxes_ = new java.util.ArrayList<sjtu.opennet.textilepb.Model.Cafe>();
-                mutable_bitField0_ |= 0x00000010;
+                mutable_bitField0_ |= 0x00000001;
               }
               inboxes_.add(
                   input.readMessage(sjtu.opennet.textilepb.Model.Cafe.parser(), extensionRegistry));
@@ -223,7 +242,7 @@ public final class Model {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -237,7 +256,7 @@ public final class Model {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000010) == 0x00000010)) {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
           inboxes_ = java.util.Collections.unmodifiableList(inboxes_);
         }
         this.unknownFields = unknownFields.build();
@@ -257,12 +276,13 @@ public final class Model {
               sjtu.opennet.textilepb.Model.Peer.class, sjtu.opennet.textilepb.Model.Peer.Builder.class);
     }
 
-    private int bitField0_;
     public static final int ID_FIELD_NUMBER = 1;
     private volatile java.lang.Object id_;
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
+    @java.lang.Override
     public java.lang.String getId() {
       java.lang.Object ref = id_;
       if (ref instanceof java.lang.String) {
@@ -277,7 +297,9 @@ public final class Model {
     }
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getIdBytes() {
       java.lang.Object ref = id_;
@@ -296,7 +318,9 @@ public final class Model {
     private volatile java.lang.Object address_;
     /**
      * <code>string address = 2;</code>
+     * @return The address.
      */
+    @java.lang.Override
     public java.lang.String getAddress() {
       java.lang.Object ref = address_;
       if (ref instanceof java.lang.String) {
@@ -311,7 +335,9 @@ public final class Model {
     }
     /**
      * <code>string address = 2;</code>
+     * @return The bytes for address.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAddressBytes() {
       java.lang.Object ref = address_;
@@ -330,7 +356,9 @@ public final class Model {
     private volatile java.lang.Object name_;
     /**
      * <code>string name = 3;</code>
+     * @return The name.
      */
+    @java.lang.Override
     public java.lang.String getName() {
       java.lang.Object ref = name_;
       if (ref instanceof java.lang.String) {
@@ -345,7 +373,9 @@ public final class Model {
     }
     /**
      * <code>string name = 3;</code>
+     * @return The bytes for name.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getNameBytes() {
       java.lang.Object ref = name_;
@@ -364,7 +394,9 @@ public final class Model {
     private volatile java.lang.Object avatar_;
     /**
      * <code>string avatar = 4;</code>
+     * @return The avatar.
      */
+    @java.lang.Override
     public java.lang.String getAvatar() {
       java.lang.Object ref = avatar_;
       if (ref instanceof java.lang.String) {
@@ -379,7 +411,9 @@ public final class Model {
     }
     /**
      * <code>string avatar = 4;</code>
+     * @return The bytes for avatar.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAvatarBytes() {
       java.lang.Object ref = avatar_;
@@ -399,12 +433,14 @@ public final class Model {
     /**
      * <code>repeated .Cafe inboxes = 5;</code>
      */
+    @java.lang.Override
     public java.util.List<sjtu.opennet.textilepb.Model.Cafe> getInboxesList() {
       return inboxes_;
     }
     /**
      * <code>repeated .Cafe inboxes = 5;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends sjtu.opennet.textilepb.Model.CafeOrBuilder> 
         getInboxesOrBuilderList() {
       return inboxes_;
@@ -412,18 +448,21 @@ public final class Model {
     /**
      * <code>repeated .Cafe inboxes = 5;</code>
      */
+    @java.lang.Override
     public int getInboxesCount() {
       return inboxes_.size();
     }
     /**
      * <code>repeated .Cafe inboxes = 5;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.Cafe getInboxes(int index) {
       return inboxes_.get(index);
     }
     /**
      * <code>repeated .Cafe inboxes = 5;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.CafeOrBuilder getInboxesOrBuilder(
         int index) {
       return inboxes_.get(index);
@@ -433,19 +472,24 @@ public final class Model {
     private com.google.protobuf.Timestamp created_;
     /**
      * <code>.google.protobuf.Timestamp created = 6;</code>
+     * @return Whether the created field is set.
      */
+    @java.lang.Override
     public boolean hasCreated() {
       return created_ != null;
     }
     /**
      * <code>.google.protobuf.Timestamp created = 6;</code>
+     * @return The created.
      */
+    @java.lang.Override
     public com.google.protobuf.Timestamp getCreated() {
       return created_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : created_;
     }
     /**
      * <code>.google.protobuf.Timestamp created = 6;</code>
      */
+    @java.lang.Override
     public com.google.protobuf.TimestampOrBuilder getCreatedOrBuilder() {
       return getCreated();
     }
@@ -454,19 +498,24 @@ public final class Model {
     private com.google.protobuf.Timestamp updated_;
     /**
      * <code>.google.protobuf.Timestamp updated = 7;</code>
+     * @return Whether the updated field is set.
      */
+    @java.lang.Override
     public boolean hasUpdated() {
       return updated_ != null;
     }
     /**
      * <code>.google.protobuf.Timestamp updated = 7;</code>
+     * @return The updated.
      */
+    @java.lang.Override
     public com.google.protobuf.Timestamp getUpdated() {
       return updated_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : updated_;
     }
     /**
      * <code>.google.protobuf.Timestamp updated = 7;</code>
      */
+    @java.lang.Override
     public com.google.protobuf.TimestampOrBuilder getUpdatedOrBuilder() {
       return getUpdated();
     }
@@ -475,7 +524,9 @@ public final class Model {
     private int role_;
     /**
      * <code>int32 role = 100;</code>
+     * @return The role.
      */
+    @java.lang.Override
     public int getRole() {
       return role_;
     }
@@ -570,31 +621,30 @@ public final class Model {
       }
       sjtu.opennet.textilepb.Model.Peer other = (sjtu.opennet.textilepb.Model.Peer) obj;
 
-      boolean result = true;
-      result = result && getId()
-          .equals(other.getId());
-      result = result && getAddress()
-          .equals(other.getAddress());
-      result = result && getName()
-          .equals(other.getName());
-      result = result && getAvatar()
-          .equals(other.getAvatar());
-      result = result && getInboxesList()
-          .equals(other.getInboxesList());
-      result = result && (hasCreated() == other.hasCreated());
+      if (!getId()
+          .equals(other.getId())) return false;
+      if (!getAddress()
+          .equals(other.getAddress())) return false;
+      if (!getName()
+          .equals(other.getName())) return false;
+      if (!getAvatar()
+          .equals(other.getAvatar())) return false;
+      if (!getInboxesList()
+          .equals(other.getInboxesList())) return false;
+      if (hasCreated() != other.hasCreated()) return false;
       if (hasCreated()) {
-        result = result && getCreated()
-            .equals(other.getCreated());
+        if (!getCreated()
+            .equals(other.getCreated())) return false;
       }
-      result = result && (hasUpdated() == other.hasUpdated());
+      if (hasUpdated() != other.hasUpdated()) return false;
       if (hasUpdated()) {
-        result = result && getUpdated()
-            .equals(other.getUpdated());
+        if (!getUpdated()
+            .equals(other.getUpdated())) return false;
       }
-      result = result && (getRole()
-          == other.getRole());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (getRole()
+          != other.getRole()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -770,7 +820,7 @@ public final class Model {
 
         if (inboxesBuilder_ == null) {
           inboxes_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000010);
+          bitField0_ = (bitField0_ & ~0x00000001);
         } else {
           inboxesBuilder_.clear();
         }
@@ -815,15 +865,14 @@ public final class Model {
       public sjtu.opennet.textilepb.Model.Peer buildPartial() {
         sjtu.opennet.textilepb.Model.Peer result = new sjtu.opennet.textilepb.Model.Peer(this);
         int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
         result.id_ = id_;
         result.address_ = address_;
         result.name_ = name_;
         result.avatar_ = avatar_;
         if (inboxesBuilder_ == null) {
-          if (((bitField0_ & 0x00000010) == 0x00000010)) {
+          if (((bitField0_ & 0x00000001) != 0)) {
             inboxes_ = java.util.Collections.unmodifiableList(inboxes_);
-            bitField0_ = (bitField0_ & ~0x00000010);
+            bitField0_ = (bitField0_ & ~0x00000001);
           }
           result.inboxes_ = inboxes_;
         } else {
@@ -840,42 +889,41 @@ public final class Model {
           result.updated_ = updatedBuilder_.build();
         }
         result.role_ = role_;
-        result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -909,7 +957,7 @@ public final class Model {
           if (!other.inboxes_.isEmpty()) {
             if (inboxes_.isEmpty()) {
               inboxes_ = other.inboxes_;
-              bitField0_ = (bitField0_ & ~0x00000010);
+              bitField0_ = (bitField0_ & ~0x00000001);
             } else {
               ensureInboxesIsMutable();
               inboxes_.addAll(other.inboxes_);
@@ -922,7 +970,7 @@ public final class Model {
               inboxesBuilder_.dispose();
               inboxesBuilder_ = null;
               inboxes_ = other.inboxes_;
-              bitField0_ = (bitField0_ & ~0x00000010);
+              bitField0_ = (bitField0_ & ~0x00000001);
               inboxesBuilder_ = 
                 com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
                    getInboxesFieldBuilder() : null;
@@ -973,6 +1021,7 @@ public final class Model {
       private java.lang.Object id_ = "";
       /**
        * <code>string id = 1;</code>
+       * @return The id.
        */
       public java.lang.String getId() {
         java.lang.Object ref = id_;
@@ -988,6 +1037,7 @@ public final class Model {
       }
       /**
        * <code>string id = 1;</code>
+       * @return The bytes for id.
        */
       public com.google.protobuf.ByteString
           getIdBytes() {
@@ -1004,6 +1054,8 @@ public final class Model {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The id to set.
+       * @return This builder for chaining.
        */
       public Builder setId(
           java.lang.String value) {
@@ -1017,6 +1069,7 @@ public final class Model {
       }
       /**
        * <code>string id = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearId() {
         
@@ -1026,6 +1079,8 @@ public final class Model {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The bytes for id to set.
+       * @return This builder for chaining.
        */
       public Builder setIdBytes(
           com.google.protobuf.ByteString value) {
@@ -1042,6 +1097,7 @@ public final class Model {
       private java.lang.Object address_ = "";
       /**
        * <code>string address = 2;</code>
+       * @return The address.
        */
       public java.lang.String getAddress() {
         java.lang.Object ref = address_;
@@ -1057,6 +1113,7 @@ public final class Model {
       }
       /**
        * <code>string address = 2;</code>
+       * @return The bytes for address.
        */
       public com.google.protobuf.ByteString
           getAddressBytes() {
@@ -1073,6 +1130,8 @@ public final class Model {
       }
       /**
        * <code>string address = 2;</code>
+       * @param value The address to set.
+       * @return This builder for chaining.
        */
       public Builder setAddress(
           java.lang.String value) {
@@ -1086,6 +1145,7 @@ public final class Model {
       }
       /**
        * <code>string address = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearAddress() {
         
@@ -1095,6 +1155,8 @@ public final class Model {
       }
       /**
        * <code>string address = 2;</code>
+       * @param value The bytes for address to set.
+       * @return This builder for chaining.
        */
       public Builder setAddressBytes(
           com.google.protobuf.ByteString value) {
@@ -1111,6 +1173,7 @@ public final class Model {
       private java.lang.Object name_ = "";
       /**
        * <code>string name = 3;</code>
+       * @return The name.
        */
       public java.lang.String getName() {
         java.lang.Object ref = name_;
@@ -1126,6 +1189,7 @@ public final class Model {
       }
       /**
        * <code>string name = 3;</code>
+       * @return The bytes for name.
        */
       public com.google.protobuf.ByteString
           getNameBytes() {
@@ -1142,6 +1206,8 @@ public final class Model {
       }
       /**
        * <code>string name = 3;</code>
+       * @param value The name to set.
+       * @return This builder for chaining.
        */
       public Builder setName(
           java.lang.String value) {
@@ -1155,6 +1221,7 @@ public final class Model {
       }
       /**
        * <code>string name = 3;</code>
+       * @return This builder for chaining.
        */
       public Builder clearName() {
         
@@ -1164,6 +1231,8 @@ public final class Model {
       }
       /**
        * <code>string name = 3;</code>
+       * @param value The bytes for name to set.
+       * @return This builder for chaining.
        */
       public Builder setNameBytes(
           com.google.protobuf.ByteString value) {
@@ -1180,6 +1249,7 @@ public final class Model {
       private java.lang.Object avatar_ = "";
       /**
        * <code>string avatar = 4;</code>
+       * @return The avatar.
        */
       public java.lang.String getAvatar() {
         java.lang.Object ref = avatar_;
@@ -1195,6 +1265,7 @@ public final class Model {
       }
       /**
        * <code>string avatar = 4;</code>
+       * @return The bytes for avatar.
        */
       public com.google.protobuf.ByteString
           getAvatarBytes() {
@@ -1211,6 +1282,8 @@ public final class Model {
       }
       /**
        * <code>string avatar = 4;</code>
+       * @param value The avatar to set.
+       * @return This builder for chaining.
        */
       public Builder setAvatar(
           java.lang.String value) {
@@ -1224,6 +1297,7 @@ public final class Model {
       }
       /**
        * <code>string avatar = 4;</code>
+       * @return This builder for chaining.
        */
       public Builder clearAvatar() {
         
@@ -1233,6 +1307,8 @@ public final class Model {
       }
       /**
        * <code>string avatar = 4;</code>
+       * @param value The bytes for avatar to set.
+       * @return This builder for chaining.
        */
       public Builder setAvatarBytes(
           com.google.protobuf.ByteString value) {
@@ -1249,9 +1325,9 @@ public final class Model {
       private java.util.List<sjtu.opennet.textilepb.Model.Cafe> inboxes_ =
         java.util.Collections.emptyList();
       private void ensureInboxesIsMutable() {
-        if (!((bitField0_ & 0x00000010) == 0x00000010)) {
+        if (!((bitField0_ & 0x00000001) != 0)) {
           inboxes_ = new java.util.ArrayList<sjtu.opennet.textilepb.Model.Cafe>(inboxes_);
-          bitField0_ |= 0x00000010;
+          bitField0_ |= 0x00000001;
          }
       }
 
@@ -1401,7 +1477,7 @@ public final class Model {
       public Builder clearInboxes() {
         if (inboxesBuilder_ == null) {
           inboxes_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000010);
+          bitField0_ = (bitField0_ & ~0x00000001);
           onChanged();
         } else {
           inboxesBuilder_.clear();
@@ -1478,7 +1554,7 @@ public final class Model {
           inboxesBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
               sjtu.opennet.textilepb.Model.Cafe, sjtu.opennet.textilepb.Model.Cafe.Builder, sjtu.opennet.textilepb.Model.CafeOrBuilder>(
                   inboxes_,
-                  ((bitField0_ & 0x00000010) == 0x00000010),
+                  ((bitField0_ & 0x00000001) != 0),
                   getParentForChildren(),
                   isClean());
           inboxes_ = null;
@@ -1486,17 +1562,19 @@ public final class Model {
         return inboxesBuilder_;
       }
 
-      private com.google.protobuf.Timestamp created_ = null;
+      private com.google.protobuf.Timestamp created_;
       private com.google.protobuf.SingleFieldBuilderV3<
           com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> createdBuilder_;
       /**
        * <code>.google.protobuf.Timestamp created = 6;</code>
+       * @return Whether the created field is set.
        */
       public boolean hasCreated() {
         return createdBuilder_ != null || created_ != null;
       }
       /**
        * <code>.google.protobuf.Timestamp created = 6;</code>
+       * @return The created.
        */
       public com.google.protobuf.Timestamp getCreated() {
         if (createdBuilder_ == null) {
@@ -1603,17 +1681,19 @@ public final class Model {
         return createdBuilder_;
       }
 
-      private com.google.protobuf.Timestamp updated_ = null;
+      private com.google.protobuf.Timestamp updated_;
       private com.google.protobuf.SingleFieldBuilderV3<
           com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> updatedBuilder_;
       /**
        * <code>.google.protobuf.Timestamp updated = 7;</code>
+       * @return Whether the updated field is set.
        */
       public boolean hasUpdated() {
         return updatedBuilder_ != null || updated_ != null;
       }
       /**
        * <code>.google.protobuf.Timestamp updated = 7;</code>
+       * @return The updated.
        */
       public com.google.protobuf.Timestamp getUpdated() {
         if (updatedBuilder_ == null) {
@@ -1723,12 +1803,16 @@ public final class Model {
       private int role_ ;
       /**
        * <code>int32 role = 100;</code>
+       * @return The role.
        */
+      @java.lang.Override
       public int getRole() {
         return role_;
       }
       /**
        * <code>int32 role = 100;</code>
+       * @param value The role to set.
+       * @return This builder for chaining.
        */
       public Builder setRole(int value) {
         
@@ -1738,6 +1822,7 @@ public final class Model {
       }
       /**
        * <code>int32 role = 100;</code>
+       * @return This builder for chaining.
        */
       public Builder clearRole() {
         
@@ -1748,7 +1833,7 @@ public final class Model {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -1829,7 +1914,7 @@ public final class Model {
   /**
    * Protobuf type {@code PeerList}
    */
-  public  static final class PeerList extends
+  public static final class PeerList extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:PeerList)
       PeerListOrBuilder {
@@ -1840,6 +1925,13 @@ public final class Model {
     }
     private PeerList() {
       items_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new PeerList();
     }
 
     @java.lang.Override
@@ -1867,7 +1959,7 @@ public final class Model {
               done = true;
               break;
             case 10: {
-              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
                 items_ = new java.util.ArrayList<sjtu.opennet.textilepb.Model.Peer>();
                 mutable_bitField0_ |= 0x00000001;
               }
@@ -1876,7 +1968,7 @@ public final class Model {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -1890,7 +1982,7 @@ public final class Model {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
           items_ = java.util.Collections.unmodifiableList(items_);
         }
         this.unknownFields = unknownFields.build();
@@ -1915,12 +2007,14 @@ public final class Model {
     /**
      * <code>repeated .Peer items = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<sjtu.opennet.textilepb.Model.Peer> getItemsList() {
       return items_;
     }
     /**
      * <code>repeated .Peer items = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends sjtu.opennet.textilepb.Model.PeerOrBuilder> 
         getItemsOrBuilderList() {
       return items_;
@@ -1928,18 +2022,21 @@ public final class Model {
     /**
      * <code>repeated .Peer items = 1;</code>
      */
+    @java.lang.Override
     public int getItemsCount() {
       return items_.size();
     }
     /**
      * <code>repeated .Peer items = 1;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.Peer getItems(int index) {
       return items_.get(index);
     }
     /**
      * <code>repeated .Peer items = 1;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.PeerOrBuilder getItemsOrBuilder(
         int index) {
       return items_.get(index);
@@ -1990,11 +2087,10 @@ public final class Model {
       }
       sjtu.opennet.textilepb.Model.PeerList other = (sjtu.opennet.textilepb.Model.PeerList) obj;
 
-      boolean result = true;
-      result = result && getItemsList()
-          .equals(other.getItemsList());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getItemsList()
+          .equals(other.getItemsList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -2176,7 +2272,7 @@ public final class Model {
         sjtu.opennet.textilepb.Model.PeerList result = new sjtu.opennet.textilepb.Model.PeerList(this);
         int from_bitField0_ = bitField0_;
         if (itemsBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) == 0x00000001)) {
+          if (((bitField0_ & 0x00000001) != 0)) {
             items_ = java.util.Collections.unmodifiableList(items_);
             bitField0_ = (bitField0_ & ~0x00000001);
           }
@@ -2190,35 +2286,35 @@ public final class Model {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -2291,7 +2387,7 @@ public final class Model {
       private java.util.List<sjtu.opennet.textilepb.Model.Peer> items_ =
         java.util.Collections.emptyList();
       private void ensureItemsIsMutable() {
-        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+        if (!((bitField0_ & 0x00000001) != 0)) {
           items_ = new java.util.ArrayList<sjtu.opennet.textilepb.Model.Peer>(items_);
           bitField0_ |= 0x00000001;
          }
@@ -2520,7 +2616,7 @@ public final class Model {
           itemsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
               sjtu.opennet.textilepb.Model.Peer, sjtu.opennet.textilepb.Model.Peer.Builder, sjtu.opennet.textilepb.Model.PeerOrBuilder>(
                   items_,
-                  ((bitField0_ & 0x00000001) == 0x00000001),
+                  ((bitField0_ & 0x00000001) != 0),
                   getParentForChildren(),
                   isClean());
           items_ = null;
@@ -2530,7 +2626,7 @@ public final class Model {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -2586,53 +2682,62 @@ public final class Model {
 
     /**
      * <code>string addr = 1;</code>
+     * @return The addr.
      */
     java.lang.String getAddr();
     /**
      * <code>string addr = 1;</code>
+     * @return The bytes for addr.
      */
     com.google.protobuf.ByteString
         getAddrBytes();
 
     /**
      * <code>string id = 2;</code>
+     * @return The id.
      */
     java.lang.String getId();
     /**
      * <code>string id = 2;</code>
+     * @return The bytes for id.
      */
     com.google.protobuf.ByteString
         getIdBytes();
 
     /**
      * <code>string latency = 3;</code>
+     * @return The latency.
      */
     java.lang.String getLatency();
     /**
      * <code>string latency = 3;</code>
+     * @return The bytes for latency.
      */
     com.google.protobuf.ByteString
         getLatencyBytes();
 
     /**
      * <code>string muxer = 4;</code>
+     * @return The muxer.
      */
     java.lang.String getMuxer();
     /**
      * <code>string muxer = 4;</code>
+     * @return The bytes for muxer.
      */
     com.google.protobuf.ByteString
         getMuxerBytes();
 
     /**
      * <code>int32 direction = 5;</code>
+     * @return The direction.
      */
     int getDirection();
   }
   /**
    * Protobuf type {@code SwarmPeer}
    */
-  public  static final class SwarmPeer extends
+  public static final class SwarmPeer extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:SwarmPeer)
       SwarmPeerOrBuilder {
@@ -2646,7 +2751,13 @@ public final class Model {
       id_ = "";
       latency_ = "";
       muxer_ = "";
-      direction_ = 0;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new SwarmPeer();
     }
 
     @java.lang.Override
@@ -2662,7 +2773,6 @@ public final class Model {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -2703,7 +2813,7 @@ public final class Model {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -2738,7 +2848,9 @@ public final class Model {
     private volatile java.lang.Object addr_;
     /**
      * <code>string addr = 1;</code>
+     * @return The addr.
      */
+    @java.lang.Override
     public java.lang.String getAddr() {
       java.lang.Object ref = addr_;
       if (ref instanceof java.lang.String) {
@@ -2753,7 +2865,9 @@ public final class Model {
     }
     /**
      * <code>string addr = 1;</code>
+     * @return The bytes for addr.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAddrBytes() {
       java.lang.Object ref = addr_;
@@ -2772,7 +2886,9 @@ public final class Model {
     private volatile java.lang.Object id_;
     /**
      * <code>string id = 2;</code>
+     * @return The id.
      */
+    @java.lang.Override
     public java.lang.String getId() {
       java.lang.Object ref = id_;
       if (ref instanceof java.lang.String) {
@@ -2787,7 +2903,9 @@ public final class Model {
     }
     /**
      * <code>string id = 2;</code>
+     * @return The bytes for id.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getIdBytes() {
       java.lang.Object ref = id_;
@@ -2806,7 +2924,9 @@ public final class Model {
     private volatile java.lang.Object latency_;
     /**
      * <code>string latency = 3;</code>
+     * @return The latency.
      */
+    @java.lang.Override
     public java.lang.String getLatency() {
       java.lang.Object ref = latency_;
       if (ref instanceof java.lang.String) {
@@ -2821,7 +2941,9 @@ public final class Model {
     }
     /**
      * <code>string latency = 3;</code>
+     * @return The bytes for latency.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getLatencyBytes() {
       java.lang.Object ref = latency_;
@@ -2840,7 +2962,9 @@ public final class Model {
     private volatile java.lang.Object muxer_;
     /**
      * <code>string muxer = 4;</code>
+     * @return The muxer.
      */
+    @java.lang.Override
     public java.lang.String getMuxer() {
       java.lang.Object ref = muxer_;
       if (ref instanceof java.lang.String) {
@@ -2855,7 +2979,9 @@ public final class Model {
     }
     /**
      * <code>string muxer = 4;</code>
+     * @return The bytes for muxer.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getMuxerBytes() {
       java.lang.Object ref = muxer_;
@@ -2874,7 +3000,9 @@ public final class Model {
     private int direction_;
     /**
      * <code>int32 direction = 5;</code>
+     * @return The direction.
      */
+    @java.lang.Override
     public int getDirection() {
       return direction_;
     }
@@ -2948,19 +3076,18 @@ public final class Model {
       }
       sjtu.opennet.textilepb.Model.SwarmPeer other = (sjtu.opennet.textilepb.Model.SwarmPeer) obj;
 
-      boolean result = true;
-      result = result && getAddr()
-          .equals(other.getAddr());
-      result = result && getId()
-          .equals(other.getId());
-      result = result && getLatency()
-          .equals(other.getLatency());
-      result = result && getMuxer()
-          .equals(other.getMuxer());
-      result = result && (getDirection()
-          == other.getDirection());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getAddr()
+          .equals(other.getAddr())) return false;
+      if (!getId()
+          .equals(other.getId())) return false;
+      if (!getLatency()
+          .equals(other.getLatency())) return false;
+      if (!getMuxer()
+          .equals(other.getMuxer())) return false;
+      if (getDirection()
+          != other.getDirection()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -3160,35 +3287,35 @@ public final class Model {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -3253,6 +3380,7 @@ public final class Model {
       private java.lang.Object addr_ = "";
       /**
        * <code>string addr = 1;</code>
+       * @return The addr.
        */
       public java.lang.String getAddr() {
         java.lang.Object ref = addr_;
@@ -3268,6 +3396,7 @@ public final class Model {
       }
       /**
        * <code>string addr = 1;</code>
+       * @return The bytes for addr.
        */
       public com.google.protobuf.ByteString
           getAddrBytes() {
@@ -3284,6 +3413,8 @@ public final class Model {
       }
       /**
        * <code>string addr = 1;</code>
+       * @param value The addr to set.
+       * @return This builder for chaining.
        */
       public Builder setAddr(
           java.lang.String value) {
@@ -3297,6 +3428,7 @@ public final class Model {
       }
       /**
        * <code>string addr = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearAddr() {
         
@@ -3306,6 +3438,8 @@ public final class Model {
       }
       /**
        * <code>string addr = 1;</code>
+       * @param value The bytes for addr to set.
+       * @return This builder for chaining.
        */
       public Builder setAddrBytes(
           com.google.protobuf.ByteString value) {
@@ -3322,6 +3456,7 @@ public final class Model {
       private java.lang.Object id_ = "";
       /**
        * <code>string id = 2;</code>
+       * @return The id.
        */
       public java.lang.String getId() {
         java.lang.Object ref = id_;
@@ -3337,6 +3472,7 @@ public final class Model {
       }
       /**
        * <code>string id = 2;</code>
+       * @return The bytes for id.
        */
       public com.google.protobuf.ByteString
           getIdBytes() {
@@ -3353,6 +3489,8 @@ public final class Model {
       }
       /**
        * <code>string id = 2;</code>
+       * @param value The id to set.
+       * @return This builder for chaining.
        */
       public Builder setId(
           java.lang.String value) {
@@ -3366,6 +3504,7 @@ public final class Model {
       }
       /**
        * <code>string id = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearId() {
         
@@ -3375,6 +3514,8 @@ public final class Model {
       }
       /**
        * <code>string id = 2;</code>
+       * @param value The bytes for id to set.
+       * @return This builder for chaining.
        */
       public Builder setIdBytes(
           com.google.protobuf.ByteString value) {
@@ -3391,6 +3532,7 @@ public final class Model {
       private java.lang.Object latency_ = "";
       /**
        * <code>string latency = 3;</code>
+       * @return The latency.
        */
       public java.lang.String getLatency() {
         java.lang.Object ref = latency_;
@@ -3406,6 +3548,7 @@ public final class Model {
       }
       /**
        * <code>string latency = 3;</code>
+       * @return The bytes for latency.
        */
       public com.google.protobuf.ByteString
           getLatencyBytes() {
@@ -3422,6 +3565,8 @@ public final class Model {
       }
       /**
        * <code>string latency = 3;</code>
+       * @param value The latency to set.
+       * @return This builder for chaining.
        */
       public Builder setLatency(
           java.lang.String value) {
@@ -3435,6 +3580,7 @@ public final class Model {
       }
       /**
        * <code>string latency = 3;</code>
+       * @return This builder for chaining.
        */
       public Builder clearLatency() {
         
@@ -3444,6 +3590,8 @@ public final class Model {
       }
       /**
        * <code>string latency = 3;</code>
+       * @param value The bytes for latency to set.
+       * @return This builder for chaining.
        */
       public Builder setLatencyBytes(
           com.google.protobuf.ByteString value) {
@@ -3460,6 +3608,7 @@ public final class Model {
       private java.lang.Object muxer_ = "";
       /**
        * <code>string muxer = 4;</code>
+       * @return The muxer.
        */
       public java.lang.String getMuxer() {
         java.lang.Object ref = muxer_;
@@ -3475,6 +3624,7 @@ public final class Model {
       }
       /**
        * <code>string muxer = 4;</code>
+       * @return The bytes for muxer.
        */
       public com.google.protobuf.ByteString
           getMuxerBytes() {
@@ -3491,6 +3641,8 @@ public final class Model {
       }
       /**
        * <code>string muxer = 4;</code>
+       * @param value The muxer to set.
+       * @return This builder for chaining.
        */
       public Builder setMuxer(
           java.lang.String value) {
@@ -3504,6 +3656,7 @@ public final class Model {
       }
       /**
        * <code>string muxer = 4;</code>
+       * @return This builder for chaining.
        */
       public Builder clearMuxer() {
         
@@ -3513,6 +3666,8 @@ public final class Model {
       }
       /**
        * <code>string muxer = 4;</code>
+       * @param value The bytes for muxer to set.
+       * @return This builder for chaining.
        */
       public Builder setMuxerBytes(
           com.google.protobuf.ByteString value) {
@@ -3529,12 +3684,16 @@ public final class Model {
       private int direction_ ;
       /**
        * <code>int32 direction = 5;</code>
+       * @return The direction.
        */
+      @java.lang.Override
       public int getDirection() {
         return direction_;
       }
       /**
        * <code>int32 direction = 5;</code>
+       * @param value The direction to set.
+       * @return This builder for chaining.
        */
       public Builder setDirection(int value) {
         
@@ -3544,6 +3703,7 @@ public final class Model {
       }
       /**
        * <code>int32 direction = 5;</code>
+       * @return This builder for chaining.
        */
       public Builder clearDirection() {
         
@@ -3554,7 +3714,7 @@ public final class Model {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -3635,7 +3795,7 @@ public final class Model {
   /**
    * Protobuf type {@code SwarmPeerList}
    */
-  public  static final class SwarmPeerList extends
+  public static final class SwarmPeerList extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:SwarmPeerList)
       SwarmPeerListOrBuilder {
@@ -3646,6 +3806,13 @@ public final class Model {
     }
     private SwarmPeerList() {
       items_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new SwarmPeerList();
     }
 
     @java.lang.Override
@@ -3673,7 +3840,7 @@ public final class Model {
               done = true;
               break;
             case 10: {
-              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
                 items_ = new java.util.ArrayList<sjtu.opennet.textilepb.Model.SwarmPeer>();
                 mutable_bitField0_ |= 0x00000001;
               }
@@ -3682,7 +3849,7 @@ public final class Model {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -3696,7 +3863,7 @@ public final class Model {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
           items_ = java.util.Collections.unmodifiableList(items_);
         }
         this.unknownFields = unknownFields.build();
@@ -3721,12 +3888,14 @@ public final class Model {
     /**
      * <code>repeated .SwarmPeer items = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<sjtu.opennet.textilepb.Model.SwarmPeer> getItemsList() {
       return items_;
     }
     /**
      * <code>repeated .SwarmPeer items = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends sjtu.opennet.textilepb.Model.SwarmPeerOrBuilder> 
         getItemsOrBuilderList() {
       return items_;
@@ -3734,18 +3903,21 @@ public final class Model {
     /**
      * <code>repeated .SwarmPeer items = 1;</code>
      */
+    @java.lang.Override
     public int getItemsCount() {
       return items_.size();
     }
     /**
      * <code>repeated .SwarmPeer items = 1;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.SwarmPeer getItems(int index) {
       return items_.get(index);
     }
     /**
      * <code>repeated .SwarmPeer items = 1;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.SwarmPeerOrBuilder getItemsOrBuilder(
         int index) {
       return items_.get(index);
@@ -3796,11 +3968,10 @@ public final class Model {
       }
       sjtu.opennet.textilepb.Model.SwarmPeerList other = (sjtu.opennet.textilepb.Model.SwarmPeerList) obj;
 
-      boolean result = true;
-      result = result && getItemsList()
-          .equals(other.getItemsList());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getItemsList()
+          .equals(other.getItemsList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -3982,7 +4153,7 @@ public final class Model {
         sjtu.opennet.textilepb.Model.SwarmPeerList result = new sjtu.opennet.textilepb.Model.SwarmPeerList(this);
         int from_bitField0_ = bitField0_;
         if (itemsBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) == 0x00000001)) {
+          if (((bitField0_ & 0x00000001) != 0)) {
             items_ = java.util.Collections.unmodifiableList(items_);
             bitField0_ = (bitField0_ & ~0x00000001);
           }
@@ -3996,35 +4167,35 @@ public final class Model {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -4097,7 +4268,7 @@ public final class Model {
       private java.util.List<sjtu.opennet.textilepb.Model.SwarmPeer> items_ =
         java.util.Collections.emptyList();
       private void ensureItemsIsMutable() {
-        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+        if (!((bitField0_ & 0x00000001) != 0)) {
           items_ = new java.util.ArrayList<sjtu.opennet.textilepb.Model.SwarmPeer>(items_);
           bitField0_ |= 0x00000001;
          }
@@ -4326,7 +4497,7 @@ public final class Model {
           itemsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
               sjtu.opennet.textilepb.Model.SwarmPeer, sjtu.opennet.textilepb.Model.SwarmPeer.Builder, sjtu.opennet.textilepb.Model.SwarmPeerOrBuilder>(
                   items_,
-                  ((bitField0_ & 0x00000001) == 0x00000001),
+                  ((bitField0_ & 0x00000001) != 0),
                   getParentForChildren(),
                   isClean());
           items_ = null;
@@ -4336,7 +4507,7 @@ public final class Model {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -4392,30 +4563,36 @@ public final class Model {
 
     /**
      * <code>string address = 1;</code>
+     * @return The address.
      */
     java.lang.String getAddress();
     /**
      * <code>string address = 1;</code>
+     * @return The bytes for address.
      */
     com.google.protobuf.ByteString
         getAddressBytes();
 
     /**
      * <code>string name = 2;</code>
+     * @return The name.
      */
     java.lang.String getName();
     /**
      * <code>string name = 2;</code>
+     * @return The bytes for name.
      */
     com.google.protobuf.ByteString
         getNameBytes();
 
     /**
      * <code>string avatar = 3;</code>
+     * @return The avatar.
      */
     java.lang.String getAvatar();
     /**
      * <code>string avatar = 3;</code>
+     * @return The bytes for avatar.
      */
     com.google.protobuf.ByteString
         getAvatarBytes();
@@ -4423,7 +4600,7 @@ public final class Model {
   /**
    * Protobuf type {@code User}
    */
-  public  static final class User extends
+  public static final class User extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:User)
       UserOrBuilder {
@@ -4439,6 +4616,13 @@ public final class Model {
     }
 
     @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new User();
+    }
+
+    @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
       return this.unknownFields;
@@ -4451,7 +4635,6 @@ public final class Model {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -4481,7 +4664,7 @@ public final class Model {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -4516,7 +4699,9 @@ public final class Model {
     private volatile java.lang.Object address_;
     /**
      * <code>string address = 1;</code>
+     * @return The address.
      */
+    @java.lang.Override
     public java.lang.String getAddress() {
       java.lang.Object ref = address_;
       if (ref instanceof java.lang.String) {
@@ -4531,7 +4716,9 @@ public final class Model {
     }
     /**
      * <code>string address = 1;</code>
+     * @return The bytes for address.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAddressBytes() {
       java.lang.Object ref = address_;
@@ -4550,7 +4737,9 @@ public final class Model {
     private volatile java.lang.Object name_;
     /**
      * <code>string name = 2;</code>
+     * @return The name.
      */
+    @java.lang.Override
     public java.lang.String getName() {
       java.lang.Object ref = name_;
       if (ref instanceof java.lang.String) {
@@ -4565,7 +4754,9 @@ public final class Model {
     }
     /**
      * <code>string name = 2;</code>
+     * @return The bytes for name.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getNameBytes() {
       java.lang.Object ref = name_;
@@ -4584,7 +4775,9 @@ public final class Model {
     private volatile java.lang.Object avatar_;
     /**
      * <code>string avatar = 3;</code>
+     * @return The avatar.
      */
+    @java.lang.Override
     public java.lang.String getAvatar() {
       java.lang.Object ref = avatar_;
       if (ref instanceof java.lang.String) {
@@ -4599,7 +4792,9 @@ public final class Model {
     }
     /**
      * <code>string avatar = 3;</code>
+     * @return The bytes for avatar.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAvatarBytes() {
       java.lang.Object ref = avatar_;
@@ -4670,15 +4865,14 @@ public final class Model {
       }
       sjtu.opennet.textilepb.Model.User other = (sjtu.opennet.textilepb.Model.User) obj;
 
-      boolean result = true;
-      result = result && getAddress()
-          .equals(other.getAddress());
-      result = result && getName()
-          .equals(other.getName());
-      result = result && getAvatar()
-          .equals(other.getAvatar());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getAddress()
+          .equals(other.getAddress())) return false;
+      if (!getName()
+          .equals(other.getName())) return false;
+      if (!getAvatar()
+          .equals(other.getAvatar())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -4868,35 +5062,35 @@ public final class Model {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -4954,6 +5148,7 @@ public final class Model {
       private java.lang.Object address_ = "";
       /**
        * <code>string address = 1;</code>
+       * @return The address.
        */
       public java.lang.String getAddress() {
         java.lang.Object ref = address_;
@@ -4969,6 +5164,7 @@ public final class Model {
       }
       /**
        * <code>string address = 1;</code>
+       * @return The bytes for address.
        */
       public com.google.protobuf.ByteString
           getAddressBytes() {
@@ -4985,6 +5181,8 @@ public final class Model {
       }
       /**
        * <code>string address = 1;</code>
+       * @param value The address to set.
+       * @return This builder for chaining.
        */
       public Builder setAddress(
           java.lang.String value) {
@@ -4998,6 +5196,7 @@ public final class Model {
       }
       /**
        * <code>string address = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearAddress() {
         
@@ -5007,6 +5206,8 @@ public final class Model {
       }
       /**
        * <code>string address = 1;</code>
+       * @param value The bytes for address to set.
+       * @return This builder for chaining.
        */
       public Builder setAddressBytes(
           com.google.protobuf.ByteString value) {
@@ -5023,6 +5224,7 @@ public final class Model {
       private java.lang.Object name_ = "";
       /**
        * <code>string name = 2;</code>
+       * @return The name.
        */
       public java.lang.String getName() {
         java.lang.Object ref = name_;
@@ -5038,6 +5240,7 @@ public final class Model {
       }
       /**
        * <code>string name = 2;</code>
+       * @return The bytes for name.
        */
       public com.google.protobuf.ByteString
           getNameBytes() {
@@ -5054,6 +5257,8 @@ public final class Model {
       }
       /**
        * <code>string name = 2;</code>
+       * @param value The name to set.
+       * @return This builder for chaining.
        */
       public Builder setName(
           java.lang.String value) {
@@ -5067,6 +5272,7 @@ public final class Model {
       }
       /**
        * <code>string name = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearName() {
         
@@ -5076,6 +5282,8 @@ public final class Model {
       }
       /**
        * <code>string name = 2;</code>
+       * @param value The bytes for name to set.
+       * @return This builder for chaining.
        */
       public Builder setNameBytes(
           com.google.protobuf.ByteString value) {
@@ -5092,6 +5300,7 @@ public final class Model {
       private java.lang.Object avatar_ = "";
       /**
        * <code>string avatar = 3;</code>
+       * @return The avatar.
        */
       public java.lang.String getAvatar() {
         java.lang.Object ref = avatar_;
@@ -5107,6 +5316,7 @@ public final class Model {
       }
       /**
        * <code>string avatar = 3;</code>
+       * @return The bytes for avatar.
        */
       public com.google.protobuf.ByteString
           getAvatarBytes() {
@@ -5123,6 +5333,8 @@ public final class Model {
       }
       /**
        * <code>string avatar = 3;</code>
+       * @param value The avatar to set.
+       * @return This builder for chaining.
        */
       public Builder setAvatar(
           java.lang.String value) {
@@ -5136,6 +5348,7 @@ public final class Model {
       }
       /**
        * <code>string avatar = 3;</code>
+       * @return This builder for chaining.
        */
       public Builder clearAvatar() {
         
@@ -5145,6 +5358,8 @@ public final class Model {
       }
       /**
        * <code>string avatar = 3;</code>
+       * @param value The bytes for avatar to set.
+       * @return This builder for chaining.
        */
       public Builder setAvatarBytes(
           com.google.protobuf.ByteString value) {
@@ -5160,7 +5375,7 @@ public final class Model {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -5216,30 +5431,36 @@ public final class Model {
 
     /**
      * <code>string address = 1;</code>
+     * @return The address.
      */
     java.lang.String getAddress();
     /**
      * <code>string address = 1;</code>
+     * @return The bytes for address.
      */
     com.google.protobuf.ByteString
         getAddressBytes();
 
     /**
      * <code>string name = 2;</code>
+     * @return The name.
      */
     java.lang.String getName();
     /**
      * <code>string name = 2;</code>
+     * @return The bytes for name.
      */
     com.google.protobuf.ByteString
         getNameBytes();
 
     /**
      * <code>string avatar = 3;</code>
+     * @return The avatar.
      */
     java.lang.String getAvatar();
     /**
      * <code>string avatar = 3;</code>
+     * @return The bytes for avatar.
      */
     com.google.protobuf.ByteString
         getAvatarBytes();
@@ -5270,19 +5491,25 @@ public final class Model {
 
     /**
      * <code>repeated string threads = 5;</code>
+     * @return A list containing the threads.
      */
     java.util.List<java.lang.String>
         getThreadsList();
     /**
      * <code>repeated string threads = 5;</code>
+     * @return The count of threads.
      */
     int getThreadsCount();
     /**
      * <code>repeated string threads = 5;</code>
+     * @param index The index of the element to return.
+     * @return The threads at the given index.
      */
     java.lang.String getThreads(int index);
     /**
      * <code>repeated string threads = 5;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the threads at the given index.
      */
     com.google.protobuf.ByteString
         getThreadsBytes(int index);
@@ -5293,13 +5520,14 @@ public final class Model {
      * </pre>
      *
      * <code>int32 role = 100;</code>
+     * @return The role.
      */
     int getRole();
   }
   /**
    * Protobuf type {@code Contact}
    */
-  public  static final class Contact extends
+  public static final class Contact extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:Contact)
       ContactOrBuilder {
@@ -5314,7 +5542,13 @@ public final class Model {
       avatar_ = "";
       peers_ = java.util.Collections.emptyList();
       threads_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-      role_ = 0;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new Contact();
     }
 
     @java.lang.Override
@@ -5360,9 +5594,9 @@ public final class Model {
               break;
             }
             case 34: {
-              if (!((mutable_bitField0_ & 0x00000008) == 0x00000008)) {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
                 peers_ = new java.util.ArrayList<sjtu.opennet.textilepb.Model.Peer>();
-                mutable_bitField0_ |= 0x00000008;
+                mutable_bitField0_ |= 0x00000001;
               }
               peers_.add(
                   input.readMessage(sjtu.opennet.textilepb.Model.Peer.parser(), extensionRegistry));
@@ -5370,9 +5604,9 @@ public final class Model {
             }
             case 42: {
               java.lang.String s = input.readStringRequireUtf8();
-              if (!((mutable_bitField0_ & 0x00000010) == 0x00000010)) {
+              if (!((mutable_bitField0_ & 0x00000002) != 0)) {
                 threads_ = new com.google.protobuf.LazyStringArrayList();
-                mutable_bitField0_ |= 0x00000010;
+                mutable_bitField0_ |= 0x00000002;
               }
               threads_.add(s);
               break;
@@ -5383,7 +5617,7 @@ public final class Model {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -5397,10 +5631,10 @@ public final class Model {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000008) == 0x00000008)) {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
           peers_ = java.util.Collections.unmodifiableList(peers_);
         }
-        if (((mutable_bitField0_ & 0x00000010) == 0x00000010)) {
+        if (((mutable_bitField0_ & 0x00000002) != 0)) {
           threads_ = threads_.getUnmodifiableView();
         }
         this.unknownFields = unknownFields.build();
@@ -5420,12 +5654,13 @@ public final class Model {
               sjtu.opennet.textilepb.Model.Contact.class, sjtu.opennet.textilepb.Model.Contact.Builder.class);
     }
 
-    private int bitField0_;
     public static final int ADDRESS_FIELD_NUMBER = 1;
     private volatile java.lang.Object address_;
     /**
      * <code>string address = 1;</code>
+     * @return The address.
      */
+    @java.lang.Override
     public java.lang.String getAddress() {
       java.lang.Object ref = address_;
       if (ref instanceof java.lang.String) {
@@ -5440,7 +5675,9 @@ public final class Model {
     }
     /**
      * <code>string address = 1;</code>
+     * @return The bytes for address.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAddressBytes() {
       java.lang.Object ref = address_;
@@ -5459,7 +5696,9 @@ public final class Model {
     private volatile java.lang.Object name_;
     /**
      * <code>string name = 2;</code>
+     * @return The name.
      */
+    @java.lang.Override
     public java.lang.String getName() {
       java.lang.Object ref = name_;
       if (ref instanceof java.lang.String) {
@@ -5474,7 +5713,9 @@ public final class Model {
     }
     /**
      * <code>string name = 2;</code>
+     * @return The bytes for name.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getNameBytes() {
       java.lang.Object ref = name_;
@@ -5493,7 +5734,9 @@ public final class Model {
     private volatile java.lang.Object avatar_;
     /**
      * <code>string avatar = 3;</code>
+     * @return The avatar.
      */
+    @java.lang.Override
     public java.lang.String getAvatar() {
       java.lang.Object ref = avatar_;
       if (ref instanceof java.lang.String) {
@@ -5508,7 +5751,9 @@ public final class Model {
     }
     /**
      * <code>string avatar = 3;</code>
+     * @return The bytes for avatar.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAvatarBytes() {
       java.lang.Object ref = avatar_;
@@ -5528,12 +5773,14 @@ public final class Model {
     /**
      * <code>repeated .Peer peers = 4;</code>
      */
+    @java.lang.Override
     public java.util.List<sjtu.opennet.textilepb.Model.Peer> getPeersList() {
       return peers_;
     }
     /**
      * <code>repeated .Peer peers = 4;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends sjtu.opennet.textilepb.Model.PeerOrBuilder> 
         getPeersOrBuilderList() {
       return peers_;
@@ -5541,18 +5788,21 @@ public final class Model {
     /**
      * <code>repeated .Peer peers = 4;</code>
      */
+    @java.lang.Override
     public int getPeersCount() {
       return peers_.size();
     }
     /**
      * <code>repeated .Peer peers = 4;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.Peer getPeers(int index) {
       return peers_.get(index);
     }
     /**
      * <code>repeated .Peer peers = 4;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.PeerOrBuilder getPeersOrBuilder(
         int index) {
       return peers_.get(index);
@@ -5562,6 +5812,7 @@ public final class Model {
     private com.google.protobuf.LazyStringList threads_;
     /**
      * <code>repeated string threads = 5;</code>
+     * @return A list containing the threads.
      */
     public com.google.protobuf.ProtocolStringList
         getThreadsList() {
@@ -5569,18 +5820,23 @@ public final class Model {
     }
     /**
      * <code>repeated string threads = 5;</code>
+     * @return The count of threads.
      */
     public int getThreadsCount() {
       return threads_.size();
     }
     /**
      * <code>repeated string threads = 5;</code>
+     * @param index The index of the element to return.
+     * @return The threads at the given index.
      */
     public java.lang.String getThreads(int index) {
       return threads_.get(index);
     }
     /**
      * <code>repeated string threads = 5;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the threads at the given index.
      */
     public com.google.protobuf.ByteString
         getThreadsBytes(int index) {
@@ -5595,7 +5851,9 @@ public final class Model {
      * </pre>
      *
      * <code>int32 role = 100;</code>
+     * @return The role.
      */
+    @java.lang.Override
     public int getRole() {
       return role_;
     }
@@ -5681,21 +5939,20 @@ public final class Model {
       }
       sjtu.opennet.textilepb.Model.Contact other = (sjtu.opennet.textilepb.Model.Contact) obj;
 
-      boolean result = true;
-      result = result && getAddress()
-          .equals(other.getAddress());
-      result = result && getName()
-          .equals(other.getName());
-      result = result && getAvatar()
-          .equals(other.getAvatar());
-      result = result && getPeersList()
-          .equals(other.getPeersList());
-      result = result && getThreadsList()
-          .equals(other.getThreadsList());
-      result = result && (getRole()
-          == other.getRole());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getAddress()
+          .equals(other.getAddress())) return false;
+      if (!getName()
+          .equals(other.getName())) return false;
+      if (!getAvatar()
+          .equals(other.getAvatar())) return false;
+      if (!getPeersList()
+          .equals(other.getPeersList())) return false;
+      if (!getThreadsList()
+          .equals(other.getThreadsList())) return false;
+      if (getRole()
+          != other.getRole()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -5863,12 +6120,12 @@ public final class Model {
 
         if (peersBuilder_ == null) {
           peers_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000008);
+          bitField0_ = (bitField0_ & ~0x00000001);
         } else {
           peersBuilder_.clear();
         }
         threads_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-        bitField0_ = (bitField0_ & ~0x00000010);
+        bitField0_ = (bitField0_ & ~0x00000002);
         role_ = 0;
 
         return this;
@@ -5898,61 +6155,59 @@ public final class Model {
       public sjtu.opennet.textilepb.Model.Contact buildPartial() {
         sjtu.opennet.textilepb.Model.Contact result = new sjtu.opennet.textilepb.Model.Contact(this);
         int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
         result.address_ = address_;
         result.name_ = name_;
         result.avatar_ = avatar_;
         if (peersBuilder_ == null) {
-          if (((bitField0_ & 0x00000008) == 0x00000008)) {
+          if (((bitField0_ & 0x00000001) != 0)) {
             peers_ = java.util.Collections.unmodifiableList(peers_);
-            bitField0_ = (bitField0_ & ~0x00000008);
+            bitField0_ = (bitField0_ & ~0x00000001);
           }
           result.peers_ = peers_;
         } else {
           result.peers_ = peersBuilder_.build();
         }
-        if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        if (((bitField0_ & 0x00000002) != 0)) {
           threads_ = threads_.getUnmodifiableView();
-          bitField0_ = (bitField0_ & ~0x00000010);
+          bitField0_ = (bitField0_ & ~0x00000002);
         }
         result.threads_ = threads_;
         result.role_ = role_;
-        result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -5982,7 +6237,7 @@ public final class Model {
           if (!other.peers_.isEmpty()) {
             if (peers_.isEmpty()) {
               peers_ = other.peers_;
-              bitField0_ = (bitField0_ & ~0x00000008);
+              bitField0_ = (bitField0_ & ~0x00000001);
             } else {
               ensurePeersIsMutable();
               peers_.addAll(other.peers_);
@@ -5995,7 +6250,7 @@ public final class Model {
               peersBuilder_.dispose();
               peersBuilder_ = null;
               peers_ = other.peers_;
-              bitField0_ = (bitField0_ & ~0x00000008);
+              bitField0_ = (bitField0_ & ~0x00000001);
               peersBuilder_ = 
                 com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
                    getPeersFieldBuilder() : null;
@@ -6007,7 +6262,7 @@ public final class Model {
         if (!other.threads_.isEmpty()) {
           if (threads_.isEmpty()) {
             threads_ = other.threads_;
-            bitField0_ = (bitField0_ & ~0x00000010);
+            bitField0_ = (bitField0_ & ~0x00000002);
           } else {
             ensureThreadsIsMutable();
             threads_.addAll(other.threads_);
@@ -6050,6 +6305,7 @@ public final class Model {
       private java.lang.Object address_ = "";
       /**
        * <code>string address = 1;</code>
+       * @return The address.
        */
       public java.lang.String getAddress() {
         java.lang.Object ref = address_;
@@ -6065,6 +6321,7 @@ public final class Model {
       }
       /**
        * <code>string address = 1;</code>
+       * @return The bytes for address.
        */
       public com.google.protobuf.ByteString
           getAddressBytes() {
@@ -6081,6 +6338,8 @@ public final class Model {
       }
       /**
        * <code>string address = 1;</code>
+       * @param value The address to set.
+       * @return This builder for chaining.
        */
       public Builder setAddress(
           java.lang.String value) {
@@ -6094,6 +6353,7 @@ public final class Model {
       }
       /**
        * <code>string address = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearAddress() {
         
@@ -6103,6 +6363,8 @@ public final class Model {
       }
       /**
        * <code>string address = 1;</code>
+       * @param value The bytes for address to set.
+       * @return This builder for chaining.
        */
       public Builder setAddressBytes(
           com.google.protobuf.ByteString value) {
@@ -6119,6 +6381,7 @@ public final class Model {
       private java.lang.Object name_ = "";
       /**
        * <code>string name = 2;</code>
+       * @return The name.
        */
       public java.lang.String getName() {
         java.lang.Object ref = name_;
@@ -6134,6 +6397,7 @@ public final class Model {
       }
       /**
        * <code>string name = 2;</code>
+       * @return The bytes for name.
        */
       public com.google.protobuf.ByteString
           getNameBytes() {
@@ -6150,6 +6414,8 @@ public final class Model {
       }
       /**
        * <code>string name = 2;</code>
+       * @param value The name to set.
+       * @return This builder for chaining.
        */
       public Builder setName(
           java.lang.String value) {
@@ -6163,6 +6429,7 @@ public final class Model {
       }
       /**
        * <code>string name = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearName() {
         
@@ -6172,6 +6439,8 @@ public final class Model {
       }
       /**
        * <code>string name = 2;</code>
+       * @param value The bytes for name to set.
+       * @return This builder for chaining.
        */
       public Builder setNameBytes(
           com.google.protobuf.ByteString value) {
@@ -6188,6 +6457,7 @@ public final class Model {
       private java.lang.Object avatar_ = "";
       /**
        * <code>string avatar = 3;</code>
+       * @return The avatar.
        */
       public java.lang.String getAvatar() {
         java.lang.Object ref = avatar_;
@@ -6203,6 +6473,7 @@ public final class Model {
       }
       /**
        * <code>string avatar = 3;</code>
+       * @return The bytes for avatar.
        */
       public com.google.protobuf.ByteString
           getAvatarBytes() {
@@ -6219,6 +6490,8 @@ public final class Model {
       }
       /**
        * <code>string avatar = 3;</code>
+       * @param value The avatar to set.
+       * @return This builder for chaining.
        */
       public Builder setAvatar(
           java.lang.String value) {
@@ -6232,6 +6505,7 @@ public final class Model {
       }
       /**
        * <code>string avatar = 3;</code>
+       * @return This builder for chaining.
        */
       public Builder clearAvatar() {
         
@@ -6241,6 +6515,8 @@ public final class Model {
       }
       /**
        * <code>string avatar = 3;</code>
+       * @param value The bytes for avatar to set.
+       * @return This builder for chaining.
        */
       public Builder setAvatarBytes(
           com.google.protobuf.ByteString value) {
@@ -6257,9 +6533,9 @@ public final class Model {
       private java.util.List<sjtu.opennet.textilepb.Model.Peer> peers_ =
         java.util.Collections.emptyList();
       private void ensurePeersIsMutable() {
-        if (!((bitField0_ & 0x00000008) == 0x00000008)) {
+        if (!((bitField0_ & 0x00000001) != 0)) {
           peers_ = new java.util.ArrayList<sjtu.opennet.textilepb.Model.Peer>(peers_);
-          bitField0_ |= 0x00000008;
+          bitField0_ |= 0x00000001;
          }
       }
 
@@ -6409,7 +6685,7 @@ public final class Model {
       public Builder clearPeers() {
         if (peersBuilder_ == null) {
           peers_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000008);
+          bitField0_ = (bitField0_ & ~0x00000001);
           onChanged();
         } else {
           peersBuilder_.clear();
@@ -6486,7 +6762,7 @@ public final class Model {
           peersBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
               sjtu.opennet.textilepb.Model.Peer, sjtu.opennet.textilepb.Model.Peer.Builder, sjtu.opennet.textilepb.Model.PeerOrBuilder>(
                   peers_,
-                  ((bitField0_ & 0x00000008) == 0x00000008),
+                  ((bitField0_ & 0x00000001) != 0),
                   getParentForChildren(),
                   isClean());
           peers_ = null;
@@ -6496,13 +6772,14 @@ public final class Model {
 
       private com.google.protobuf.LazyStringList threads_ = com.google.protobuf.LazyStringArrayList.EMPTY;
       private void ensureThreadsIsMutable() {
-        if (!((bitField0_ & 0x00000010) == 0x00000010)) {
+        if (!((bitField0_ & 0x00000002) != 0)) {
           threads_ = new com.google.protobuf.LazyStringArrayList(threads_);
-          bitField0_ |= 0x00000010;
+          bitField0_ |= 0x00000002;
          }
       }
       /**
        * <code>repeated string threads = 5;</code>
+       * @return A list containing the threads.
        */
       public com.google.protobuf.ProtocolStringList
           getThreadsList() {
@@ -6510,18 +6787,23 @@ public final class Model {
       }
       /**
        * <code>repeated string threads = 5;</code>
+       * @return The count of threads.
        */
       public int getThreadsCount() {
         return threads_.size();
       }
       /**
        * <code>repeated string threads = 5;</code>
+       * @param index The index of the element to return.
+       * @return The threads at the given index.
        */
       public java.lang.String getThreads(int index) {
         return threads_.get(index);
       }
       /**
        * <code>repeated string threads = 5;</code>
+       * @param index The index of the value to return.
+       * @return The bytes of the threads at the given index.
        */
       public com.google.protobuf.ByteString
           getThreadsBytes(int index) {
@@ -6529,6 +6811,9 @@ public final class Model {
       }
       /**
        * <code>repeated string threads = 5;</code>
+       * @param index The index to set the value at.
+       * @param value The threads to set.
+       * @return This builder for chaining.
        */
       public Builder setThreads(
           int index, java.lang.String value) {
@@ -6542,6 +6827,8 @@ public final class Model {
       }
       /**
        * <code>repeated string threads = 5;</code>
+       * @param value The threads to add.
+       * @return This builder for chaining.
        */
       public Builder addThreads(
           java.lang.String value) {
@@ -6555,6 +6842,8 @@ public final class Model {
       }
       /**
        * <code>repeated string threads = 5;</code>
+       * @param values The threads to add.
+       * @return This builder for chaining.
        */
       public Builder addAllThreads(
           java.lang.Iterable<java.lang.String> values) {
@@ -6566,15 +6855,18 @@ public final class Model {
       }
       /**
        * <code>repeated string threads = 5;</code>
+       * @return This builder for chaining.
        */
       public Builder clearThreads() {
         threads_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-        bitField0_ = (bitField0_ & ~0x00000010);
+        bitField0_ = (bitField0_ & ~0x00000002);
         onChanged();
         return this;
       }
       /**
        * <code>repeated string threads = 5;</code>
+       * @param value The bytes of the threads to add.
+       * @return This builder for chaining.
        */
       public Builder addThreadsBytes(
           com.google.protobuf.ByteString value) {
@@ -6595,7 +6887,9 @@ public final class Model {
        * </pre>
        *
        * <code>int32 role = 100;</code>
+       * @return The role.
        */
+      @java.lang.Override
       public int getRole() {
         return role_;
       }
@@ -6605,6 +6899,8 @@ public final class Model {
        * </pre>
        *
        * <code>int32 role = 100;</code>
+       * @param value The role to set.
+       * @return This builder for chaining.
        */
       public Builder setRole(int value) {
         
@@ -6618,6 +6914,7 @@ public final class Model {
        * </pre>
        *
        * <code>int32 role = 100;</code>
+       * @return This builder for chaining.
        */
       public Builder clearRole() {
         
@@ -6628,7 +6925,7 @@ public final class Model {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -6709,7 +7006,7 @@ public final class Model {
   /**
    * Protobuf type {@code ContactList}
    */
-  public  static final class ContactList extends
+  public static final class ContactList extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ContactList)
       ContactListOrBuilder {
@@ -6720,6 +7017,13 @@ public final class Model {
     }
     private ContactList() {
       items_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new ContactList();
     }
 
     @java.lang.Override
@@ -6747,7 +7051,7 @@ public final class Model {
               done = true;
               break;
             case 10: {
-              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
                 items_ = new java.util.ArrayList<sjtu.opennet.textilepb.Model.Contact>();
                 mutable_bitField0_ |= 0x00000001;
               }
@@ -6756,7 +7060,7 @@ public final class Model {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -6770,7 +7074,7 @@ public final class Model {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
           items_ = java.util.Collections.unmodifiableList(items_);
         }
         this.unknownFields = unknownFields.build();
@@ -6795,12 +7099,14 @@ public final class Model {
     /**
      * <code>repeated .Contact items = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<sjtu.opennet.textilepb.Model.Contact> getItemsList() {
       return items_;
     }
     /**
      * <code>repeated .Contact items = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends sjtu.opennet.textilepb.Model.ContactOrBuilder> 
         getItemsOrBuilderList() {
       return items_;
@@ -6808,18 +7114,21 @@ public final class Model {
     /**
      * <code>repeated .Contact items = 1;</code>
      */
+    @java.lang.Override
     public int getItemsCount() {
       return items_.size();
     }
     /**
      * <code>repeated .Contact items = 1;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.Contact getItems(int index) {
       return items_.get(index);
     }
     /**
      * <code>repeated .Contact items = 1;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.ContactOrBuilder getItemsOrBuilder(
         int index) {
       return items_.get(index);
@@ -6870,11 +7179,10 @@ public final class Model {
       }
       sjtu.opennet.textilepb.Model.ContactList other = (sjtu.opennet.textilepb.Model.ContactList) obj;
 
-      boolean result = true;
-      result = result && getItemsList()
-          .equals(other.getItemsList());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getItemsList()
+          .equals(other.getItemsList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -7056,7 +7364,7 @@ public final class Model {
         sjtu.opennet.textilepb.Model.ContactList result = new sjtu.opennet.textilepb.Model.ContactList(this);
         int from_bitField0_ = bitField0_;
         if (itemsBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) == 0x00000001)) {
+          if (((bitField0_ & 0x00000001) != 0)) {
             items_ = java.util.Collections.unmodifiableList(items_);
             bitField0_ = (bitField0_ & ~0x00000001);
           }
@@ -7070,35 +7378,35 @@ public final class Model {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -7171,7 +7479,7 @@ public final class Model {
       private java.util.List<sjtu.opennet.textilepb.Model.Contact> items_ =
         java.util.Collections.emptyList();
       private void ensureItemsIsMutable() {
-        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+        if (!((bitField0_ & 0x00000001) != 0)) {
           items_ = new java.util.ArrayList<sjtu.opennet.textilepb.Model.Contact>(items_);
           bitField0_ |= 0x00000001;
          }
@@ -7400,7 +7708,7 @@ public final class Model {
           itemsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
               sjtu.opennet.textilepb.Model.Contact, sjtu.opennet.textilepb.Model.Contact.Builder, sjtu.opennet.textilepb.Model.ContactOrBuilder>(
                   items_,
-                  ((bitField0_ & 0x00000001) == 0x00000001),
+                  ((bitField0_ & 0x00000001) != 0),
                   getParentForChildren(),
                   isClean());
           items_ = null;
@@ -7410,7 +7718,7 @@ public final class Model {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -7466,111 +7774,136 @@ public final class Model {
 
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
     java.lang.String getId();
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
     com.google.protobuf.ByteString
         getIdBytes();
 
     /**
      * <code>string key = 2;</code>
+     * @return The key.
      */
     java.lang.String getKey();
     /**
      * <code>string key = 2;</code>
+     * @return The bytes for key.
      */
     com.google.protobuf.ByteString
         getKeyBytes();
 
     /**
      * <code>bytes sk = 3;</code>
+     * @return The sk.
      */
     com.google.protobuf.ByteString getSk();
 
     /**
      * <code>string name = 4;</code>
+     * @return The name.
      */
     java.lang.String getName();
     /**
      * <code>string name = 4;</code>
+     * @return The bytes for name.
      */
     com.google.protobuf.ByteString
         getNameBytes();
 
     /**
      * <code>string schema = 5;</code>
+     * @return The schema.
      */
     java.lang.String getSchema();
     /**
      * <code>string schema = 5;</code>
+     * @return The bytes for schema.
      */
     com.google.protobuf.ByteString
         getSchemaBytes();
 
     /**
      * <code>string initiator = 6;</code>
+     * @return The initiator.
      */
     java.lang.String getInitiator();
     /**
      * <code>string initiator = 6;</code>
+     * @return The bytes for initiator.
      */
     com.google.protobuf.ByteString
         getInitiatorBytes();
 
     /**
      * <code>.Thread.Type type = 7;</code>
+     * @return The enum numeric value on the wire for type.
      */
     int getTypeValue();
     /**
      * <code>.Thread.Type type = 7;</code>
+     * @return The type.
      */
     sjtu.opennet.textilepb.Model.Thread.Type getType();
 
     /**
      * <code>.Thread.Sharing sharing = 8;</code>
+     * @return The enum numeric value on the wire for sharing.
      */
     int getSharingValue();
     /**
      * <code>.Thread.Sharing sharing = 8;</code>
+     * @return The sharing.
      */
     sjtu.opennet.textilepb.Model.Thread.Sharing getSharing();
 
     /**
      * <code>repeated string whitelist = 9;</code>
+     * @return A list containing the whitelist.
      */
     java.util.List<java.lang.String>
         getWhitelistList();
     /**
      * <code>repeated string whitelist = 9;</code>
+     * @return The count of whitelist.
      */
     int getWhitelistCount();
     /**
      * <code>repeated string whitelist = 9;</code>
+     * @param index The index of the element to return.
+     * @return The whitelist at the given index.
      */
     java.lang.String getWhitelist(int index);
     /**
      * <code>repeated string whitelist = 9;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the whitelist at the given index.
      */
     com.google.protobuf.ByteString
         getWhitelistBytes(int index);
 
     /**
      * <code>.Thread.State state = 10 [deprecated = true];</code>
+     * @return The enum numeric value on the wire for state.
      */
     @java.lang.Deprecated int getStateValue();
     /**
      * <code>.Thread.State state = 10 [deprecated = true];</code>
+     * @return The state.
      */
     @java.lang.Deprecated sjtu.opennet.textilepb.Model.Thread.State getState();
 
     /**
      * <code>string head = 11;</code>
+     * @return The head.
      */
     java.lang.String getHead();
     /**
      * <code>string head = 11;</code>
+     * @return The bytes for head.
      */
     com.google.protobuf.ByteString
         getHeadBytes();
@@ -7621,10 +7954,12 @@ public final class Model {
 
     /**
      * <code>.Node schema_node = 102;</code>
+     * @return Whether the schemaNode field is set.
      */
     boolean hasSchemaNode();
     /**
      * <code>.Node schema_node = 102;</code>
+     * @return The schemaNode.
      */
     sjtu.opennet.textilepb.Model.Node getSchemaNode();
     /**
@@ -7634,18 +7969,20 @@ public final class Model {
 
     /**
      * <code>int32 block_count = 103;</code>
+     * @return The blockCount.
      */
     int getBlockCount();
 
     /**
      * <code>int32 peer_count = 104;</code>
+     * @return The peerCount.
      */
     int getPeerCount();
   }
   /**
    * Protobuf type {@code Thread}
    */
-  public  static final class Thread extends
+  public static final class Thread extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:Thread)
       ThreadOrBuilder {
@@ -7667,8 +8004,13 @@ public final class Model {
       state_ = 0;
       head_ = "";
       headBlocks_ = java.util.Collections.emptyList();
-      blockCount_ = 0;
-      peerCount_ = 0;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new Thread();
     }
 
     @java.lang.Override
@@ -7744,9 +8086,9 @@ public final class Model {
             }
             case 74: {
               java.lang.String s = input.readStringRequireUtf8();
-              if (!((mutable_bitField0_ & 0x00000100) == 0x00000100)) {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
                 whitelist_ = new com.google.protobuf.LazyStringArrayList();
-                mutable_bitField0_ |= 0x00000100;
+                mutable_bitField0_ |= 0x00000001;
               }
               whitelist_.add(s);
               break;
@@ -7764,9 +8106,9 @@ public final class Model {
               break;
             }
             case 810: {
-              if (!((mutable_bitField0_ & 0x00000800) == 0x00000800)) {
+              if (!((mutable_bitField0_ & 0x00000002) != 0)) {
                 headBlocks_ = new java.util.ArrayList<sjtu.opennet.textilepb.Model.Block>();
-                mutable_bitField0_ |= 0x00000800;
+                mutable_bitField0_ |= 0x00000002;
               }
               headBlocks_.add(
                   input.readMessage(sjtu.opennet.textilepb.Model.Block.parser(), extensionRegistry));
@@ -7796,7 +8138,7 @@ public final class Model {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -7810,10 +8152,10 @@ public final class Model {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000100) == 0x00000100)) {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
           whitelist_ = whitelist_.getUnmodifiableView();
         }
-        if (((mutable_bitField0_ & 0x00000800) == 0x00000800)) {
+        if (((mutable_bitField0_ & 0x00000002) != 0)) {
           headBlocks_ = java.util.Collections.unmodifiableList(headBlocks_);
         }
         this.unknownFields = unknownFields.build();
@@ -7920,6 +8262,8 @@ public final class Model {
       }
 
       /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
        * @deprecated Use {@link #forNumber(int)} instead.
        */
       @java.lang.Deprecated
@@ -7927,6 +8271,10 @@ public final class Model {
         return forNumber(value);
       }
 
+      /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
+       */
       public static Type forNumber(int value) {
         switch (value) {
           case 0: return PRIVATE;
@@ -7951,6 +8299,10 @@ public final class Model {
 
       public final com.google.protobuf.Descriptors.EnumValueDescriptor
           getValueDescriptor() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalStateException(
+              "Can't get the descriptor of an unrecognized enum value.");
+        }
         return getDescriptor().getValues().get(ordinal());
       }
       public final com.google.protobuf.Descriptors.EnumDescriptor
@@ -8056,6 +8408,8 @@ public final class Model {
       }
 
       /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
        * @deprecated Use {@link #forNumber(int)} instead.
        */
       @java.lang.Deprecated
@@ -8063,6 +8417,10 @@ public final class Model {
         return forNumber(value);
       }
 
+      /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
+       */
       public static Sharing forNumber(int value) {
         switch (value) {
           case 0: return NOT_SHARED;
@@ -8086,6 +8444,10 @@ public final class Model {
 
       public final com.google.protobuf.Descriptors.EnumValueDescriptor
           getValueDescriptor() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalStateException(
+              "Can't get the descriptor of an unrecognized enum value.");
+        }
         return getDescriptor().getValues().get(ordinal());
       }
       public final com.google.protobuf.Descriptors.EnumDescriptor
@@ -8191,6 +8553,8 @@ public final class Model {
       }
 
       /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
        * @deprecated Use {@link #forNumber(int)} instead.
        */
       @java.lang.Deprecated
@@ -8198,6 +8562,10 @@ public final class Model {
         return forNumber(value);
       }
 
+      /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
+       */
       public static State forNumber(int value) {
         switch (value) {
           case 0: return LOADING_TAIL;
@@ -8221,6 +8589,10 @@ public final class Model {
 
       public final com.google.protobuf.Descriptors.EnumValueDescriptor
           getValueDescriptor() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalStateException(
+              "Can't get the descriptor of an unrecognized enum value.");
+        }
         return getDescriptor().getValues().get(ordinal());
       }
       public final com.google.protobuf.Descriptors.EnumDescriptor
@@ -8255,12 +8627,13 @@ public final class Model {
       // @@protoc_insertion_point(enum_scope:Thread.State)
     }
 
-    private int bitField0_;
     public static final int ID_FIELD_NUMBER = 1;
     private volatile java.lang.Object id_;
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
+    @java.lang.Override
     public java.lang.String getId() {
       java.lang.Object ref = id_;
       if (ref instanceof java.lang.String) {
@@ -8275,7 +8648,9 @@ public final class Model {
     }
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getIdBytes() {
       java.lang.Object ref = id_;
@@ -8294,7 +8669,9 @@ public final class Model {
     private volatile java.lang.Object key_;
     /**
      * <code>string key = 2;</code>
+     * @return The key.
      */
+    @java.lang.Override
     public java.lang.String getKey() {
       java.lang.Object ref = key_;
       if (ref instanceof java.lang.String) {
@@ -8309,7 +8686,9 @@ public final class Model {
     }
     /**
      * <code>string key = 2;</code>
+     * @return The bytes for key.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getKeyBytes() {
       java.lang.Object ref = key_;
@@ -8328,7 +8707,9 @@ public final class Model {
     private com.google.protobuf.ByteString sk_;
     /**
      * <code>bytes sk = 3;</code>
+     * @return The sk.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getSk() {
       return sk_;
     }
@@ -8337,7 +8718,9 @@ public final class Model {
     private volatile java.lang.Object name_;
     /**
      * <code>string name = 4;</code>
+     * @return The name.
      */
+    @java.lang.Override
     public java.lang.String getName() {
       java.lang.Object ref = name_;
       if (ref instanceof java.lang.String) {
@@ -8352,7 +8735,9 @@ public final class Model {
     }
     /**
      * <code>string name = 4;</code>
+     * @return The bytes for name.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getNameBytes() {
       java.lang.Object ref = name_;
@@ -8371,7 +8756,9 @@ public final class Model {
     private volatile java.lang.Object schema_;
     /**
      * <code>string schema = 5;</code>
+     * @return The schema.
      */
+    @java.lang.Override
     public java.lang.String getSchema() {
       java.lang.Object ref = schema_;
       if (ref instanceof java.lang.String) {
@@ -8386,7 +8773,9 @@ public final class Model {
     }
     /**
      * <code>string schema = 5;</code>
+     * @return The bytes for schema.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSchemaBytes() {
       java.lang.Object ref = schema_;
@@ -8405,7 +8794,9 @@ public final class Model {
     private volatile java.lang.Object initiator_;
     /**
      * <code>string initiator = 6;</code>
+     * @return The initiator.
      */
+    @java.lang.Override
     public java.lang.String getInitiator() {
       java.lang.Object ref = initiator_;
       if (ref instanceof java.lang.String) {
@@ -8420,7 +8811,9 @@ public final class Model {
     }
     /**
      * <code>string initiator = 6;</code>
+     * @return The bytes for initiator.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getInitiatorBytes() {
       java.lang.Object ref = initiator_;
@@ -8439,14 +8832,16 @@ public final class Model {
     private int type_;
     /**
      * <code>.Thread.Type type = 7;</code>
+     * @return The enum numeric value on the wire for type.
      */
-    public int getTypeValue() {
+    @java.lang.Override public int getTypeValue() {
       return type_;
     }
     /**
      * <code>.Thread.Type type = 7;</code>
+     * @return The type.
      */
-    public sjtu.opennet.textilepb.Model.Thread.Type getType() {
+    @java.lang.Override public sjtu.opennet.textilepb.Model.Thread.Type getType() {
       @SuppressWarnings("deprecation")
       sjtu.opennet.textilepb.Model.Thread.Type result = sjtu.opennet.textilepb.Model.Thread.Type.valueOf(type_);
       return result == null ? sjtu.opennet.textilepb.Model.Thread.Type.UNRECOGNIZED : result;
@@ -8456,14 +8851,16 @@ public final class Model {
     private int sharing_;
     /**
      * <code>.Thread.Sharing sharing = 8;</code>
+     * @return The enum numeric value on the wire for sharing.
      */
-    public int getSharingValue() {
+    @java.lang.Override public int getSharingValue() {
       return sharing_;
     }
     /**
      * <code>.Thread.Sharing sharing = 8;</code>
+     * @return The sharing.
      */
-    public sjtu.opennet.textilepb.Model.Thread.Sharing getSharing() {
+    @java.lang.Override public sjtu.opennet.textilepb.Model.Thread.Sharing getSharing() {
       @SuppressWarnings("deprecation")
       sjtu.opennet.textilepb.Model.Thread.Sharing result = sjtu.opennet.textilepb.Model.Thread.Sharing.valueOf(sharing_);
       return result == null ? sjtu.opennet.textilepb.Model.Thread.Sharing.UNRECOGNIZED : result;
@@ -8473,6 +8870,7 @@ public final class Model {
     private com.google.protobuf.LazyStringList whitelist_;
     /**
      * <code>repeated string whitelist = 9;</code>
+     * @return A list containing the whitelist.
      */
     public com.google.protobuf.ProtocolStringList
         getWhitelistList() {
@@ -8480,18 +8878,23 @@ public final class Model {
     }
     /**
      * <code>repeated string whitelist = 9;</code>
+     * @return The count of whitelist.
      */
     public int getWhitelistCount() {
       return whitelist_.size();
     }
     /**
      * <code>repeated string whitelist = 9;</code>
+     * @param index The index of the element to return.
+     * @return The whitelist at the given index.
      */
     public java.lang.String getWhitelist(int index) {
       return whitelist_.get(index);
     }
     /**
      * <code>repeated string whitelist = 9;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the whitelist at the given index.
      */
     public com.google.protobuf.ByteString
         getWhitelistBytes(int index) {
@@ -8502,14 +8905,16 @@ public final class Model {
     private int state_;
     /**
      * <code>.Thread.State state = 10 [deprecated = true];</code>
+     * @return The enum numeric value on the wire for state.
      */
-    @java.lang.Deprecated public int getStateValue() {
+    @java.lang.Override @java.lang.Deprecated public int getStateValue() {
       return state_;
     }
     /**
      * <code>.Thread.State state = 10 [deprecated = true];</code>
+     * @return The state.
      */
-    @java.lang.Deprecated public sjtu.opennet.textilepb.Model.Thread.State getState() {
+    @java.lang.Override @java.lang.Deprecated public sjtu.opennet.textilepb.Model.Thread.State getState() {
       @SuppressWarnings("deprecation")
       sjtu.opennet.textilepb.Model.Thread.State result = sjtu.opennet.textilepb.Model.Thread.State.valueOf(state_);
       return result == null ? sjtu.opennet.textilepb.Model.Thread.State.UNRECOGNIZED : result;
@@ -8519,7 +8924,9 @@ public final class Model {
     private volatile java.lang.Object head_;
     /**
      * <code>string head = 11;</code>
+     * @return The head.
      */
+    @java.lang.Override
     public java.lang.String getHead() {
       java.lang.Object ref = head_;
       if (ref instanceof java.lang.String) {
@@ -8534,7 +8941,9 @@ public final class Model {
     }
     /**
      * <code>string head = 11;</code>
+     * @return The bytes for head.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getHeadBytes() {
       java.lang.Object ref = head_;
@@ -8558,6 +8967,7 @@ public final class Model {
      *
      * <code>repeated .Block head_blocks = 101;</code>
      */
+    @java.lang.Override
     public java.util.List<sjtu.opennet.textilepb.Model.Block> getHeadBlocksList() {
       return headBlocks_;
     }
@@ -8568,6 +8978,7 @@ public final class Model {
      *
      * <code>repeated .Block head_blocks = 101;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends sjtu.opennet.textilepb.Model.BlockOrBuilder> 
         getHeadBlocksOrBuilderList() {
       return headBlocks_;
@@ -8579,6 +8990,7 @@ public final class Model {
      *
      * <code>repeated .Block head_blocks = 101;</code>
      */
+    @java.lang.Override
     public int getHeadBlocksCount() {
       return headBlocks_.size();
     }
@@ -8589,6 +9001,7 @@ public final class Model {
      *
      * <code>repeated .Block head_blocks = 101;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.Block getHeadBlocks(int index) {
       return headBlocks_.get(index);
     }
@@ -8599,6 +9012,7 @@ public final class Model {
      *
      * <code>repeated .Block head_blocks = 101;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.BlockOrBuilder getHeadBlocksOrBuilder(
         int index) {
       return headBlocks_.get(index);
@@ -8608,19 +9022,24 @@ public final class Model {
     private sjtu.opennet.textilepb.Model.Node schemaNode_;
     /**
      * <code>.Node schema_node = 102;</code>
+     * @return Whether the schemaNode field is set.
      */
+    @java.lang.Override
     public boolean hasSchemaNode() {
       return schemaNode_ != null;
     }
     /**
      * <code>.Node schema_node = 102;</code>
+     * @return The schemaNode.
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.Node getSchemaNode() {
       return schemaNode_ == null ? sjtu.opennet.textilepb.Model.Node.getDefaultInstance() : schemaNode_;
     }
     /**
      * <code>.Node schema_node = 102;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.NodeOrBuilder getSchemaNodeOrBuilder() {
       return getSchemaNode();
     }
@@ -8629,7 +9048,9 @@ public final class Model {
     private int blockCount_;
     /**
      * <code>int32 block_count = 103;</code>
+     * @return The blockCount.
      */
+    @java.lang.Override
     public int getBlockCount() {
       return blockCount_;
     }
@@ -8638,7 +9059,9 @@ public final class Model {
     private int peerCount_;
     /**
      * <code>int32 peer_count = 104;</code>
+     * @return The peerCount.
      */
+    @java.lang.Override
     public int getPeerCount() {
       return peerCount_;
     }
@@ -8784,39 +9207,38 @@ public final class Model {
       }
       sjtu.opennet.textilepb.Model.Thread other = (sjtu.opennet.textilepb.Model.Thread) obj;
 
-      boolean result = true;
-      result = result && getId()
-          .equals(other.getId());
-      result = result && getKey()
-          .equals(other.getKey());
-      result = result && getSk()
-          .equals(other.getSk());
-      result = result && getName()
-          .equals(other.getName());
-      result = result && getSchema()
-          .equals(other.getSchema());
-      result = result && getInitiator()
-          .equals(other.getInitiator());
-      result = result && type_ == other.type_;
-      result = result && sharing_ == other.sharing_;
-      result = result && getWhitelistList()
-          .equals(other.getWhitelistList());
-      result = result && state_ == other.state_;
-      result = result && getHead()
-          .equals(other.getHead());
-      result = result && getHeadBlocksList()
-          .equals(other.getHeadBlocksList());
-      result = result && (hasSchemaNode() == other.hasSchemaNode());
+      if (!getId()
+          .equals(other.getId())) return false;
+      if (!getKey()
+          .equals(other.getKey())) return false;
+      if (!getSk()
+          .equals(other.getSk())) return false;
+      if (!getName()
+          .equals(other.getName())) return false;
+      if (!getSchema()
+          .equals(other.getSchema())) return false;
+      if (!getInitiator()
+          .equals(other.getInitiator())) return false;
+      if (type_ != other.type_) return false;
+      if (sharing_ != other.sharing_) return false;
+      if (!getWhitelistList()
+          .equals(other.getWhitelistList())) return false;
+      if (state_ != other.state_) return false;
+      if (!getHead()
+          .equals(other.getHead())) return false;
+      if (!getHeadBlocksList()
+          .equals(other.getHeadBlocksList())) return false;
+      if (hasSchemaNode() != other.hasSchemaNode()) return false;
       if (hasSchemaNode()) {
-        result = result && getSchemaNode()
-            .equals(other.getSchemaNode());
+        if (!getSchemaNode()
+            .equals(other.getSchemaNode())) return false;
       }
-      result = result && (getBlockCount()
-          == other.getBlockCount());
-      result = result && (getPeerCount()
-          == other.getPeerCount());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (getBlockCount()
+          != other.getBlockCount()) return false;
+      if (getPeerCount()
+          != other.getPeerCount()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -9013,14 +9435,14 @@ public final class Model {
         sharing_ = 0;
 
         whitelist_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-        bitField0_ = (bitField0_ & ~0x00000100);
+        bitField0_ = (bitField0_ & ~0x00000001);
         state_ = 0;
 
         head_ = "";
 
         if (headBlocksBuilder_ == null) {
           headBlocks_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000800);
+          bitField0_ = (bitField0_ & ~0x00000002);
         } else {
           headBlocksBuilder_.clear();
         }
@@ -9061,7 +9483,6 @@ public final class Model {
       public sjtu.opennet.textilepb.Model.Thread buildPartial() {
         sjtu.opennet.textilepb.Model.Thread result = new sjtu.opennet.textilepb.Model.Thread(this);
         int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
         result.id_ = id_;
         result.key_ = key_;
         result.sk_ = sk_;
@@ -9070,17 +9491,17 @@ public final class Model {
         result.initiator_ = initiator_;
         result.type_ = type_;
         result.sharing_ = sharing_;
-        if (((bitField0_ & 0x00000100) == 0x00000100)) {
+        if (((bitField0_ & 0x00000001) != 0)) {
           whitelist_ = whitelist_.getUnmodifiableView();
-          bitField0_ = (bitField0_ & ~0x00000100);
+          bitField0_ = (bitField0_ & ~0x00000001);
         }
         result.whitelist_ = whitelist_;
         result.state_ = state_;
         result.head_ = head_;
         if (headBlocksBuilder_ == null) {
-          if (((bitField0_ & 0x00000800) == 0x00000800)) {
+          if (((bitField0_ & 0x00000002) != 0)) {
             headBlocks_ = java.util.Collections.unmodifiableList(headBlocks_);
-            bitField0_ = (bitField0_ & ~0x00000800);
+            bitField0_ = (bitField0_ & ~0x00000002);
           }
           result.headBlocks_ = headBlocks_;
         } else {
@@ -9093,42 +9514,41 @@ public final class Model {
         }
         result.blockCount_ = blockCount_;
         result.peerCount_ = peerCount_;
-        result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -9174,7 +9594,7 @@ public final class Model {
         if (!other.whitelist_.isEmpty()) {
           if (whitelist_.isEmpty()) {
             whitelist_ = other.whitelist_;
-            bitField0_ = (bitField0_ & ~0x00000100);
+            bitField0_ = (bitField0_ & ~0x00000001);
           } else {
             ensureWhitelistIsMutable();
             whitelist_.addAll(other.whitelist_);
@@ -9192,7 +9612,7 @@ public final class Model {
           if (!other.headBlocks_.isEmpty()) {
             if (headBlocks_.isEmpty()) {
               headBlocks_ = other.headBlocks_;
-              bitField0_ = (bitField0_ & ~0x00000800);
+              bitField0_ = (bitField0_ & ~0x00000002);
             } else {
               ensureHeadBlocksIsMutable();
               headBlocks_.addAll(other.headBlocks_);
@@ -9205,7 +9625,7 @@ public final class Model {
               headBlocksBuilder_.dispose();
               headBlocksBuilder_ = null;
               headBlocks_ = other.headBlocks_;
-              bitField0_ = (bitField0_ & ~0x00000800);
+              bitField0_ = (bitField0_ & ~0x00000002);
               headBlocksBuilder_ = 
                 com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
                    getHeadBlocksFieldBuilder() : null;
@@ -9256,6 +9676,7 @@ public final class Model {
       private java.lang.Object id_ = "";
       /**
        * <code>string id = 1;</code>
+       * @return The id.
        */
       public java.lang.String getId() {
         java.lang.Object ref = id_;
@@ -9271,6 +9692,7 @@ public final class Model {
       }
       /**
        * <code>string id = 1;</code>
+       * @return The bytes for id.
        */
       public com.google.protobuf.ByteString
           getIdBytes() {
@@ -9287,6 +9709,8 @@ public final class Model {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The id to set.
+       * @return This builder for chaining.
        */
       public Builder setId(
           java.lang.String value) {
@@ -9300,6 +9724,7 @@ public final class Model {
       }
       /**
        * <code>string id = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearId() {
         
@@ -9309,6 +9734,8 @@ public final class Model {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The bytes for id to set.
+       * @return This builder for chaining.
        */
       public Builder setIdBytes(
           com.google.protobuf.ByteString value) {
@@ -9325,6 +9752,7 @@ public final class Model {
       private java.lang.Object key_ = "";
       /**
        * <code>string key = 2;</code>
+       * @return The key.
        */
       public java.lang.String getKey() {
         java.lang.Object ref = key_;
@@ -9340,6 +9768,7 @@ public final class Model {
       }
       /**
        * <code>string key = 2;</code>
+       * @return The bytes for key.
        */
       public com.google.protobuf.ByteString
           getKeyBytes() {
@@ -9356,6 +9785,8 @@ public final class Model {
       }
       /**
        * <code>string key = 2;</code>
+       * @param value The key to set.
+       * @return This builder for chaining.
        */
       public Builder setKey(
           java.lang.String value) {
@@ -9369,6 +9800,7 @@ public final class Model {
       }
       /**
        * <code>string key = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearKey() {
         
@@ -9378,6 +9810,8 @@ public final class Model {
       }
       /**
        * <code>string key = 2;</code>
+       * @param value The bytes for key to set.
+       * @return This builder for chaining.
        */
       public Builder setKeyBytes(
           com.google.protobuf.ByteString value) {
@@ -9394,12 +9828,16 @@ public final class Model {
       private com.google.protobuf.ByteString sk_ = com.google.protobuf.ByteString.EMPTY;
       /**
        * <code>bytes sk = 3;</code>
+       * @return The sk.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getSk() {
         return sk_;
       }
       /**
        * <code>bytes sk = 3;</code>
+       * @param value The sk to set.
+       * @return This builder for chaining.
        */
       public Builder setSk(com.google.protobuf.ByteString value) {
         if (value == null) {
@@ -9412,6 +9850,7 @@ public final class Model {
       }
       /**
        * <code>bytes sk = 3;</code>
+       * @return This builder for chaining.
        */
       public Builder clearSk() {
         
@@ -9423,6 +9862,7 @@ public final class Model {
       private java.lang.Object name_ = "";
       /**
        * <code>string name = 4;</code>
+       * @return The name.
        */
       public java.lang.String getName() {
         java.lang.Object ref = name_;
@@ -9438,6 +9878,7 @@ public final class Model {
       }
       /**
        * <code>string name = 4;</code>
+       * @return The bytes for name.
        */
       public com.google.protobuf.ByteString
           getNameBytes() {
@@ -9454,6 +9895,8 @@ public final class Model {
       }
       /**
        * <code>string name = 4;</code>
+       * @param value The name to set.
+       * @return This builder for chaining.
        */
       public Builder setName(
           java.lang.String value) {
@@ -9467,6 +9910,7 @@ public final class Model {
       }
       /**
        * <code>string name = 4;</code>
+       * @return This builder for chaining.
        */
       public Builder clearName() {
         
@@ -9476,6 +9920,8 @@ public final class Model {
       }
       /**
        * <code>string name = 4;</code>
+       * @param value The bytes for name to set.
+       * @return This builder for chaining.
        */
       public Builder setNameBytes(
           com.google.protobuf.ByteString value) {
@@ -9492,6 +9938,7 @@ public final class Model {
       private java.lang.Object schema_ = "";
       /**
        * <code>string schema = 5;</code>
+       * @return The schema.
        */
       public java.lang.String getSchema() {
         java.lang.Object ref = schema_;
@@ -9507,6 +9954,7 @@ public final class Model {
       }
       /**
        * <code>string schema = 5;</code>
+       * @return The bytes for schema.
        */
       public com.google.protobuf.ByteString
           getSchemaBytes() {
@@ -9523,6 +9971,8 @@ public final class Model {
       }
       /**
        * <code>string schema = 5;</code>
+       * @param value The schema to set.
+       * @return This builder for chaining.
        */
       public Builder setSchema(
           java.lang.String value) {
@@ -9536,6 +9986,7 @@ public final class Model {
       }
       /**
        * <code>string schema = 5;</code>
+       * @return This builder for chaining.
        */
       public Builder clearSchema() {
         
@@ -9545,6 +9996,8 @@ public final class Model {
       }
       /**
        * <code>string schema = 5;</code>
+       * @param value The bytes for schema to set.
+       * @return This builder for chaining.
        */
       public Builder setSchemaBytes(
           com.google.protobuf.ByteString value) {
@@ -9561,6 +10014,7 @@ public final class Model {
       private java.lang.Object initiator_ = "";
       /**
        * <code>string initiator = 6;</code>
+       * @return The initiator.
        */
       public java.lang.String getInitiator() {
         java.lang.Object ref = initiator_;
@@ -9576,6 +10030,7 @@ public final class Model {
       }
       /**
        * <code>string initiator = 6;</code>
+       * @return The bytes for initiator.
        */
       public com.google.protobuf.ByteString
           getInitiatorBytes() {
@@ -9592,6 +10047,8 @@ public final class Model {
       }
       /**
        * <code>string initiator = 6;</code>
+       * @param value The initiator to set.
+       * @return This builder for chaining.
        */
       public Builder setInitiator(
           java.lang.String value) {
@@ -9605,6 +10062,7 @@ public final class Model {
       }
       /**
        * <code>string initiator = 6;</code>
+       * @return This builder for chaining.
        */
       public Builder clearInitiator() {
         
@@ -9614,6 +10072,8 @@ public final class Model {
       }
       /**
        * <code>string initiator = 6;</code>
+       * @param value The bytes for initiator to set.
+       * @return This builder for chaining.
        */
       public Builder setInitiatorBytes(
           com.google.protobuf.ByteString value) {
@@ -9630,21 +10090,27 @@ public final class Model {
       private int type_ = 0;
       /**
        * <code>.Thread.Type type = 7;</code>
+       * @return The enum numeric value on the wire for type.
        */
-      public int getTypeValue() {
+      @java.lang.Override public int getTypeValue() {
         return type_;
       }
       /**
        * <code>.Thread.Type type = 7;</code>
+       * @param value The enum numeric value on the wire for type to set.
+       * @return This builder for chaining.
        */
       public Builder setTypeValue(int value) {
+        
         type_ = value;
         onChanged();
         return this;
       }
       /**
        * <code>.Thread.Type type = 7;</code>
+       * @return The type.
        */
+      @java.lang.Override
       public sjtu.opennet.textilepb.Model.Thread.Type getType() {
         @SuppressWarnings("deprecation")
         sjtu.opennet.textilepb.Model.Thread.Type result = sjtu.opennet.textilepb.Model.Thread.Type.valueOf(type_);
@@ -9652,6 +10118,8 @@ public final class Model {
       }
       /**
        * <code>.Thread.Type type = 7;</code>
+       * @param value The type to set.
+       * @return This builder for chaining.
        */
       public Builder setType(sjtu.opennet.textilepb.Model.Thread.Type value) {
         if (value == null) {
@@ -9664,6 +10132,7 @@ public final class Model {
       }
       /**
        * <code>.Thread.Type type = 7;</code>
+       * @return This builder for chaining.
        */
       public Builder clearType() {
         
@@ -9675,21 +10144,27 @@ public final class Model {
       private int sharing_ = 0;
       /**
        * <code>.Thread.Sharing sharing = 8;</code>
+       * @return The enum numeric value on the wire for sharing.
        */
-      public int getSharingValue() {
+      @java.lang.Override public int getSharingValue() {
         return sharing_;
       }
       /**
        * <code>.Thread.Sharing sharing = 8;</code>
+       * @param value The enum numeric value on the wire for sharing to set.
+       * @return This builder for chaining.
        */
       public Builder setSharingValue(int value) {
+        
         sharing_ = value;
         onChanged();
         return this;
       }
       /**
        * <code>.Thread.Sharing sharing = 8;</code>
+       * @return The sharing.
        */
+      @java.lang.Override
       public sjtu.opennet.textilepb.Model.Thread.Sharing getSharing() {
         @SuppressWarnings("deprecation")
         sjtu.opennet.textilepb.Model.Thread.Sharing result = sjtu.opennet.textilepb.Model.Thread.Sharing.valueOf(sharing_);
@@ -9697,6 +10172,8 @@ public final class Model {
       }
       /**
        * <code>.Thread.Sharing sharing = 8;</code>
+       * @param value The sharing to set.
+       * @return This builder for chaining.
        */
       public Builder setSharing(sjtu.opennet.textilepb.Model.Thread.Sharing value) {
         if (value == null) {
@@ -9709,6 +10186,7 @@ public final class Model {
       }
       /**
        * <code>.Thread.Sharing sharing = 8;</code>
+       * @return This builder for chaining.
        */
       public Builder clearSharing() {
         
@@ -9719,13 +10197,14 @@ public final class Model {
 
       private com.google.protobuf.LazyStringList whitelist_ = com.google.protobuf.LazyStringArrayList.EMPTY;
       private void ensureWhitelistIsMutable() {
-        if (!((bitField0_ & 0x00000100) == 0x00000100)) {
+        if (!((bitField0_ & 0x00000001) != 0)) {
           whitelist_ = new com.google.protobuf.LazyStringArrayList(whitelist_);
-          bitField0_ |= 0x00000100;
+          bitField0_ |= 0x00000001;
          }
       }
       /**
        * <code>repeated string whitelist = 9;</code>
+       * @return A list containing the whitelist.
        */
       public com.google.protobuf.ProtocolStringList
           getWhitelistList() {
@@ -9733,18 +10212,23 @@ public final class Model {
       }
       /**
        * <code>repeated string whitelist = 9;</code>
+       * @return The count of whitelist.
        */
       public int getWhitelistCount() {
         return whitelist_.size();
       }
       /**
        * <code>repeated string whitelist = 9;</code>
+       * @param index The index of the element to return.
+       * @return The whitelist at the given index.
        */
       public java.lang.String getWhitelist(int index) {
         return whitelist_.get(index);
       }
       /**
        * <code>repeated string whitelist = 9;</code>
+       * @param index The index of the value to return.
+       * @return The bytes of the whitelist at the given index.
        */
       public com.google.protobuf.ByteString
           getWhitelistBytes(int index) {
@@ -9752,6 +10236,9 @@ public final class Model {
       }
       /**
        * <code>repeated string whitelist = 9;</code>
+       * @param index The index to set the value at.
+       * @param value The whitelist to set.
+       * @return This builder for chaining.
        */
       public Builder setWhitelist(
           int index, java.lang.String value) {
@@ -9765,6 +10252,8 @@ public final class Model {
       }
       /**
        * <code>repeated string whitelist = 9;</code>
+       * @param value The whitelist to add.
+       * @return This builder for chaining.
        */
       public Builder addWhitelist(
           java.lang.String value) {
@@ -9778,6 +10267,8 @@ public final class Model {
       }
       /**
        * <code>repeated string whitelist = 9;</code>
+       * @param values The whitelist to add.
+       * @return This builder for chaining.
        */
       public Builder addAllWhitelist(
           java.lang.Iterable<java.lang.String> values) {
@@ -9789,15 +10280,18 @@ public final class Model {
       }
       /**
        * <code>repeated string whitelist = 9;</code>
+       * @return This builder for chaining.
        */
       public Builder clearWhitelist() {
         whitelist_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-        bitField0_ = (bitField0_ & ~0x00000100);
+        bitField0_ = (bitField0_ & ~0x00000001);
         onChanged();
         return this;
       }
       /**
        * <code>repeated string whitelist = 9;</code>
+       * @param value The bytes of the whitelist to add.
+       * @return This builder for chaining.
        */
       public Builder addWhitelistBytes(
           com.google.protobuf.ByteString value) {
@@ -9814,21 +10308,27 @@ public final class Model {
       private int state_ = 0;
       /**
        * <code>.Thread.State state = 10 [deprecated = true];</code>
+       * @return The enum numeric value on the wire for state.
        */
-      @java.lang.Deprecated public int getStateValue() {
+      @java.lang.Override @java.lang.Deprecated public int getStateValue() {
         return state_;
       }
       /**
        * <code>.Thread.State state = 10 [deprecated = true];</code>
+       * @param value The enum numeric value on the wire for state to set.
+       * @return This builder for chaining.
        */
       @java.lang.Deprecated public Builder setStateValue(int value) {
+        
         state_ = value;
         onChanged();
         return this;
       }
       /**
        * <code>.Thread.State state = 10 [deprecated = true];</code>
+       * @return The state.
        */
+      @java.lang.Override
       @java.lang.Deprecated public sjtu.opennet.textilepb.Model.Thread.State getState() {
         @SuppressWarnings("deprecation")
         sjtu.opennet.textilepb.Model.Thread.State result = sjtu.opennet.textilepb.Model.Thread.State.valueOf(state_);
@@ -9836,6 +10336,8 @@ public final class Model {
       }
       /**
        * <code>.Thread.State state = 10 [deprecated = true];</code>
+       * @param value The state to set.
+       * @return This builder for chaining.
        */
       @java.lang.Deprecated public Builder setState(sjtu.opennet.textilepb.Model.Thread.State value) {
         if (value == null) {
@@ -9848,6 +10350,7 @@ public final class Model {
       }
       /**
        * <code>.Thread.State state = 10 [deprecated = true];</code>
+       * @return This builder for chaining.
        */
       @java.lang.Deprecated public Builder clearState() {
         
@@ -9859,6 +10362,7 @@ public final class Model {
       private java.lang.Object head_ = "";
       /**
        * <code>string head = 11;</code>
+       * @return The head.
        */
       public java.lang.String getHead() {
         java.lang.Object ref = head_;
@@ -9874,6 +10378,7 @@ public final class Model {
       }
       /**
        * <code>string head = 11;</code>
+       * @return The bytes for head.
        */
       public com.google.protobuf.ByteString
           getHeadBytes() {
@@ -9890,6 +10395,8 @@ public final class Model {
       }
       /**
        * <code>string head = 11;</code>
+       * @param value The head to set.
+       * @return This builder for chaining.
        */
       public Builder setHead(
           java.lang.String value) {
@@ -9903,6 +10410,7 @@ public final class Model {
       }
       /**
        * <code>string head = 11;</code>
+       * @return This builder for chaining.
        */
       public Builder clearHead() {
         
@@ -9912,6 +10420,8 @@ public final class Model {
       }
       /**
        * <code>string head = 11;</code>
+       * @param value The bytes for head to set.
+       * @return This builder for chaining.
        */
       public Builder setHeadBytes(
           com.google.protobuf.ByteString value) {
@@ -9928,9 +10438,9 @@ public final class Model {
       private java.util.List<sjtu.opennet.textilepb.Model.Block> headBlocks_ =
         java.util.Collections.emptyList();
       private void ensureHeadBlocksIsMutable() {
-        if (!((bitField0_ & 0x00000800) == 0x00000800)) {
+        if (!((bitField0_ & 0x00000002) != 0)) {
           headBlocks_ = new java.util.ArrayList<sjtu.opennet.textilepb.Model.Block>(headBlocks_);
-          bitField0_ |= 0x00000800;
+          bitField0_ |= 0x00000002;
          }
       }
 
@@ -10124,7 +10634,7 @@ public final class Model {
       public Builder clearHeadBlocks() {
         if (headBlocksBuilder_ == null) {
           headBlocks_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000800);
+          bitField0_ = (bitField0_ & ~0x00000002);
           onChanged();
         } else {
           headBlocksBuilder_.clear();
@@ -10229,7 +10739,7 @@ public final class Model {
           headBlocksBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
               sjtu.opennet.textilepb.Model.Block, sjtu.opennet.textilepb.Model.Block.Builder, sjtu.opennet.textilepb.Model.BlockOrBuilder>(
                   headBlocks_,
-                  ((bitField0_ & 0x00000800) == 0x00000800),
+                  ((bitField0_ & 0x00000002) != 0),
                   getParentForChildren(),
                   isClean());
           headBlocks_ = null;
@@ -10237,17 +10747,19 @@ public final class Model {
         return headBlocksBuilder_;
       }
 
-      private sjtu.opennet.textilepb.Model.Node schemaNode_ = null;
+      private sjtu.opennet.textilepb.Model.Node schemaNode_;
       private com.google.protobuf.SingleFieldBuilderV3<
           sjtu.opennet.textilepb.Model.Node, sjtu.opennet.textilepb.Model.Node.Builder, sjtu.opennet.textilepb.Model.NodeOrBuilder> schemaNodeBuilder_;
       /**
        * <code>.Node schema_node = 102;</code>
+       * @return Whether the schemaNode field is set.
        */
       public boolean hasSchemaNode() {
         return schemaNodeBuilder_ != null || schemaNode_ != null;
       }
       /**
        * <code>.Node schema_node = 102;</code>
+       * @return The schemaNode.
        */
       public sjtu.opennet.textilepb.Model.Node getSchemaNode() {
         if (schemaNodeBuilder_ == null) {
@@ -10357,12 +10869,16 @@ public final class Model {
       private int blockCount_ ;
       /**
        * <code>int32 block_count = 103;</code>
+       * @return The blockCount.
        */
+      @java.lang.Override
       public int getBlockCount() {
         return blockCount_;
       }
       /**
        * <code>int32 block_count = 103;</code>
+       * @param value The blockCount to set.
+       * @return This builder for chaining.
        */
       public Builder setBlockCount(int value) {
         
@@ -10372,6 +10888,7 @@ public final class Model {
       }
       /**
        * <code>int32 block_count = 103;</code>
+       * @return This builder for chaining.
        */
       public Builder clearBlockCount() {
         
@@ -10383,12 +10900,16 @@ public final class Model {
       private int peerCount_ ;
       /**
        * <code>int32 peer_count = 104;</code>
+       * @return The peerCount.
        */
+      @java.lang.Override
       public int getPeerCount() {
         return peerCount_;
       }
       /**
        * <code>int32 peer_count = 104;</code>
+       * @param value The peerCount to set.
+       * @return This builder for chaining.
        */
       public Builder setPeerCount(int value) {
         
@@ -10398,6 +10919,7 @@ public final class Model {
       }
       /**
        * <code>int32 peer_count = 104;</code>
+       * @return This builder for chaining.
        */
       public Builder clearPeerCount() {
         
@@ -10408,7 +10930,7 @@ public final class Model {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -10489,7 +11011,7 @@ public final class Model {
   /**
    * Protobuf type {@code ThreadList}
    */
-  public  static final class ThreadList extends
+  public static final class ThreadList extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ThreadList)
       ThreadListOrBuilder {
@@ -10500,6 +11022,13 @@ public final class Model {
     }
     private ThreadList() {
       items_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new ThreadList();
     }
 
     @java.lang.Override
@@ -10527,7 +11056,7 @@ public final class Model {
               done = true;
               break;
             case 10: {
-              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
                 items_ = new java.util.ArrayList<sjtu.opennet.textilepb.Model.Thread>();
                 mutable_bitField0_ |= 0x00000001;
               }
@@ -10536,7 +11065,7 @@ public final class Model {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -10550,7 +11079,7 @@ public final class Model {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
           items_ = java.util.Collections.unmodifiableList(items_);
         }
         this.unknownFields = unknownFields.build();
@@ -10575,12 +11104,14 @@ public final class Model {
     /**
      * <code>repeated .Thread items = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<sjtu.opennet.textilepb.Model.Thread> getItemsList() {
       return items_;
     }
     /**
      * <code>repeated .Thread items = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends sjtu.opennet.textilepb.Model.ThreadOrBuilder> 
         getItemsOrBuilderList() {
       return items_;
@@ -10588,18 +11119,21 @@ public final class Model {
     /**
      * <code>repeated .Thread items = 1;</code>
      */
+    @java.lang.Override
     public int getItemsCount() {
       return items_.size();
     }
     /**
      * <code>repeated .Thread items = 1;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.Thread getItems(int index) {
       return items_.get(index);
     }
     /**
      * <code>repeated .Thread items = 1;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.ThreadOrBuilder getItemsOrBuilder(
         int index) {
       return items_.get(index);
@@ -10650,11 +11184,10 @@ public final class Model {
       }
       sjtu.opennet.textilepb.Model.ThreadList other = (sjtu.opennet.textilepb.Model.ThreadList) obj;
 
-      boolean result = true;
-      result = result && getItemsList()
-          .equals(other.getItemsList());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getItemsList()
+          .equals(other.getItemsList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -10836,7 +11369,7 @@ public final class Model {
         sjtu.opennet.textilepb.Model.ThreadList result = new sjtu.opennet.textilepb.Model.ThreadList(this);
         int from_bitField0_ = bitField0_;
         if (itemsBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) == 0x00000001)) {
+          if (((bitField0_ & 0x00000001) != 0)) {
             items_ = java.util.Collections.unmodifiableList(items_);
             bitField0_ = (bitField0_ & ~0x00000001);
           }
@@ -10850,35 +11383,35 @@ public final class Model {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -10951,7 +11484,7 @@ public final class Model {
       private java.util.List<sjtu.opennet.textilepb.Model.Thread> items_ =
         java.util.Collections.emptyList();
       private void ensureItemsIsMutable() {
-        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+        if (!((bitField0_ & 0x00000001) != 0)) {
           items_ = new java.util.ArrayList<sjtu.opennet.textilepb.Model.Thread>(items_);
           bitField0_ |= 0x00000001;
          }
@@ -11180,7 +11713,7 @@ public final class Model {
           itemsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
               sjtu.opennet.textilepb.Model.Thread, sjtu.opennet.textilepb.Model.Thread.Builder, sjtu.opennet.textilepb.Model.ThreadOrBuilder>(
                   items_,
-                  ((bitField0_ & 0x00000001) == 0x00000001),
+                  ((bitField0_ & 0x00000001) != 0),
                   getParentForChildren(),
                   isClean());
           items_ = null;
@@ -11190,7 +11723,7 @@ public final class Model {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -11246,38 +11779,44 @@ public final class Model {
 
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
     java.lang.String getId();
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
     com.google.protobuf.ByteString
         getIdBytes();
 
     /**
      * <code>string thread = 2;</code>
+     * @return The thread.
      */
     java.lang.String getThread();
     /**
      * <code>string thread = 2;</code>
+     * @return The bytes for thread.
      */
     com.google.protobuf.ByteString
         getThreadBytes();
 
     /**
      * <code>bool welcomed = 3;</code>
+     * @return The welcomed.
      */
     boolean getWelcomed();
 
     /**
      * <code>bool admin = 4;</code>
+     * @return The admin.
      */
     boolean getAdmin();
   }
   /**
    * Protobuf type {@code ThreadPeer}
    */
-  public  static final class ThreadPeer extends
+  public static final class ThreadPeer extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ThreadPeer)
       ThreadPeerOrBuilder {
@@ -11289,8 +11828,13 @@ public final class Model {
     private ThreadPeer() {
       id_ = "";
       thread_ = "";
-      welcomed_ = false;
-      admin_ = false;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new ThreadPeer();
     }
 
     @java.lang.Override
@@ -11306,7 +11850,6 @@ public final class Model {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -11340,7 +11883,7 @@ public final class Model {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -11375,7 +11918,9 @@ public final class Model {
     private volatile java.lang.Object id_;
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
+    @java.lang.Override
     public java.lang.String getId() {
       java.lang.Object ref = id_;
       if (ref instanceof java.lang.String) {
@@ -11390,7 +11935,9 @@ public final class Model {
     }
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getIdBytes() {
       java.lang.Object ref = id_;
@@ -11409,7 +11956,9 @@ public final class Model {
     private volatile java.lang.Object thread_;
     /**
      * <code>string thread = 2;</code>
+     * @return The thread.
      */
+    @java.lang.Override
     public java.lang.String getThread() {
       java.lang.Object ref = thread_;
       if (ref instanceof java.lang.String) {
@@ -11424,7 +11973,9 @@ public final class Model {
     }
     /**
      * <code>string thread = 2;</code>
+     * @return The bytes for thread.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getThreadBytes() {
       java.lang.Object ref = thread_;
@@ -11443,7 +11994,9 @@ public final class Model {
     private boolean welcomed_;
     /**
      * <code>bool welcomed = 3;</code>
+     * @return The welcomed.
      */
+    @java.lang.Override
     public boolean getWelcomed() {
       return welcomed_;
     }
@@ -11452,7 +12005,9 @@ public final class Model {
     private boolean admin_;
     /**
      * <code>bool admin = 4;</code>
+     * @return The admin.
      */
+    @java.lang.Override
     public boolean getAdmin() {
       return admin_;
     }
@@ -11521,17 +12076,16 @@ public final class Model {
       }
       sjtu.opennet.textilepb.Model.ThreadPeer other = (sjtu.opennet.textilepb.Model.ThreadPeer) obj;
 
-      boolean result = true;
-      result = result && getId()
-          .equals(other.getId());
-      result = result && getThread()
-          .equals(other.getThread());
-      result = result && (getWelcomed()
-          == other.getWelcomed());
-      result = result && (getAdmin()
-          == other.getAdmin());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getId()
+          .equals(other.getId())) return false;
+      if (!getThread()
+          .equals(other.getThread())) return false;
+      if (getWelcomed()
+          != other.getWelcomed()) return false;
+      if (getAdmin()
+          != other.getAdmin()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -11728,35 +12282,35 @@ public final class Model {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -11816,6 +12370,7 @@ public final class Model {
       private java.lang.Object id_ = "";
       /**
        * <code>string id = 1;</code>
+       * @return The id.
        */
       public java.lang.String getId() {
         java.lang.Object ref = id_;
@@ -11831,6 +12386,7 @@ public final class Model {
       }
       /**
        * <code>string id = 1;</code>
+       * @return The bytes for id.
        */
       public com.google.protobuf.ByteString
           getIdBytes() {
@@ -11847,6 +12403,8 @@ public final class Model {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The id to set.
+       * @return This builder for chaining.
        */
       public Builder setId(
           java.lang.String value) {
@@ -11860,6 +12418,7 @@ public final class Model {
       }
       /**
        * <code>string id = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearId() {
         
@@ -11869,6 +12428,8 @@ public final class Model {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The bytes for id to set.
+       * @return This builder for chaining.
        */
       public Builder setIdBytes(
           com.google.protobuf.ByteString value) {
@@ -11885,6 +12446,7 @@ public final class Model {
       private java.lang.Object thread_ = "";
       /**
        * <code>string thread = 2;</code>
+       * @return The thread.
        */
       public java.lang.String getThread() {
         java.lang.Object ref = thread_;
@@ -11900,6 +12462,7 @@ public final class Model {
       }
       /**
        * <code>string thread = 2;</code>
+       * @return The bytes for thread.
        */
       public com.google.protobuf.ByteString
           getThreadBytes() {
@@ -11916,6 +12479,8 @@ public final class Model {
       }
       /**
        * <code>string thread = 2;</code>
+       * @param value The thread to set.
+       * @return This builder for chaining.
        */
       public Builder setThread(
           java.lang.String value) {
@@ -11929,6 +12494,7 @@ public final class Model {
       }
       /**
        * <code>string thread = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearThread() {
         
@@ -11938,6 +12504,8 @@ public final class Model {
       }
       /**
        * <code>string thread = 2;</code>
+       * @param value The bytes for thread to set.
+       * @return This builder for chaining.
        */
       public Builder setThreadBytes(
           com.google.protobuf.ByteString value) {
@@ -11954,12 +12522,16 @@ public final class Model {
       private boolean welcomed_ ;
       /**
        * <code>bool welcomed = 3;</code>
+       * @return The welcomed.
        */
+      @java.lang.Override
       public boolean getWelcomed() {
         return welcomed_;
       }
       /**
        * <code>bool welcomed = 3;</code>
+       * @param value The welcomed to set.
+       * @return This builder for chaining.
        */
       public Builder setWelcomed(boolean value) {
         
@@ -11969,6 +12541,7 @@ public final class Model {
       }
       /**
        * <code>bool welcomed = 3;</code>
+       * @return This builder for chaining.
        */
       public Builder clearWelcomed() {
         
@@ -11980,12 +12553,16 @@ public final class Model {
       private boolean admin_ ;
       /**
        * <code>bool admin = 4;</code>
+       * @return The admin.
        */
+      @java.lang.Override
       public boolean getAdmin() {
         return admin_;
       }
       /**
        * <code>bool admin = 4;</code>
+       * @param value The admin to set.
+       * @return This builder for chaining.
        */
       public Builder setAdmin(boolean value) {
         
@@ -11995,6 +12572,7 @@ public final class Model {
       }
       /**
        * <code>bool admin = 4;</code>
+       * @return This builder for chaining.
        */
       public Builder clearAdmin() {
         
@@ -12005,7 +12583,7 @@ public final class Model {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -12061,49 +12639,59 @@ public final class Model {
 
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
     java.lang.String getId();
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
     com.google.protobuf.ByteString
         getIdBytes();
 
     /**
      * <code>string thread = 2;</code>
+     * @return The thread.
      */
     java.lang.String getThread();
     /**
      * <code>string thread = 2;</code>
+     * @return The bytes for thread.
      */
     com.google.protobuf.ByteString
         getThreadBytes();
 
     /**
      * <code>string author = 3;</code>
+     * @return The author.
      */
     java.lang.String getAuthor();
     /**
      * <code>string author = 3;</code>
+     * @return The bytes for author.
      */
     com.google.protobuf.ByteString
         getAuthorBytes();
 
     /**
      * <code>.Block.BlockType type = 4;</code>
+     * @return The enum numeric value on the wire for type.
      */
     int getTypeValue();
     /**
      * <code>.Block.BlockType type = 4;</code>
+     * @return The type.
      */
     sjtu.opennet.textilepb.Model.Block.BlockType getType();
 
     /**
      * <code>.google.protobuf.Timestamp date = 5;</code>
+     * @return Whether the date field is set.
      */
     boolean hasDate();
     /**
      * <code>.google.protobuf.Timestamp date = 5;</code>
+     * @return The date.
      */
     com.google.protobuf.Timestamp getDate();
     /**
@@ -12113,64 +12701,79 @@ public final class Model {
 
     /**
      * <code>repeated string parents = 6;</code>
+     * @return A list containing the parents.
      */
     java.util.List<java.lang.String>
         getParentsList();
     /**
      * <code>repeated string parents = 6;</code>
+     * @return The count of parents.
      */
     int getParentsCount();
     /**
      * <code>repeated string parents = 6;</code>
+     * @param index The index of the element to return.
+     * @return The parents at the given index.
      */
     java.lang.String getParents(int index);
     /**
      * <code>repeated string parents = 6;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the parents at the given index.
      */
     com.google.protobuf.ByteString
         getParentsBytes(int index);
 
     /**
      * <code>string target = 7;</code>
+     * @return The target.
      */
     java.lang.String getTarget();
     /**
      * <code>string target = 7;</code>
+     * @return The bytes for target.
      */
     com.google.protobuf.ByteString
         getTargetBytes();
 
     /**
      * <code>string data = 9;</code>
+     * @return The data.
      */
     java.lang.String getData();
     /**
      * <code>string data = 9;</code>
+     * @return The bytes for data.
      */
     com.google.protobuf.ByteString
         getDataBytes();
 
     /**
      * <code>string body = 8;</code>
+     * @return The body.
      */
     java.lang.String getBody();
     /**
      * <code>string body = 8;</code>
+     * @return The bytes for body.
      */
     com.google.protobuf.ByteString
         getBodyBytes();
 
     /**
      * <code>.Block.BlockStatus status = 10;</code>
+     * @return The enum numeric value on the wire for status.
      */
     int getStatusValue();
     /**
      * <code>.Block.BlockStatus status = 10;</code>
+     * @return The status.
      */
     sjtu.opennet.textilepb.Model.Block.BlockStatus getStatus();
 
     /**
      * <code>int32 attempts = 11;</code>
+     * @return The attempts.
      */
     int getAttempts();
 
@@ -12180,6 +12783,7 @@ public final class Model {
      * </pre>
      *
      * <code>.User user = 101;</code>
+     * @return Whether the user field is set.
      */
     boolean hasUser();
     /**
@@ -12188,6 +12792,7 @@ public final class Model {
      * </pre>
      *
      * <code>.User user = 101;</code>
+     * @return The user.
      */
     sjtu.opennet.textilepb.Model.User getUser();
     /**
@@ -12202,7 +12807,7 @@ public final class Model {
   /**
    * Protobuf type {@code Block}
    */
-  public  static final class Block extends
+  public static final class Block extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:Block)
       BlockOrBuilder {
@@ -12221,7 +12826,13 @@ public final class Model {
       data_ = "";
       body_ = "";
       status_ = 0;
-      attempts_ = 0;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new Block();
     }
 
     @java.lang.Override
@@ -12287,9 +12898,9 @@ public final class Model {
             }
             case 50: {
               java.lang.String s = input.readStringRequireUtf8();
-              if (!((mutable_bitField0_ & 0x00000020) == 0x00000020)) {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
                 parents_ = new com.google.protobuf.LazyStringArrayList();
-                mutable_bitField0_ |= 0x00000020;
+                mutable_bitField0_ |= 0x00000001;
               }
               parents_.add(s);
               break;
@@ -12337,7 +12948,7 @@ public final class Model {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -12351,7 +12962,7 @@ public final class Model {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000020) == 0x00000020)) {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
           parents_ = parents_.getUnmodifiableView();
         }
         this.unknownFields = unknownFields.build();
@@ -12464,7 +13075,7 @@ public final class Model {
        *
        * <code>MERGE = 0 [deprecated = true];</code>
        */
-      public static final int MERGE_VALUE = 0;
+      @java.lang.Deprecated public static final int MERGE_VALUE = 0;
       /**
        * <code>IGNORE = 1;</code>
        */
@@ -12500,7 +13111,7 @@ public final class Model {
       /**
        * <code>COMMENT = 8 [deprecated = true];</code>
        */
-      public static final int COMMENT_VALUE = 8;
+      @java.lang.Deprecated public static final int COMMENT_VALUE = 8;
       /**
        * <code>LIKE = 9;</code>
        */
@@ -12544,6 +13155,8 @@ public final class Model {
       }
 
       /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
        * @deprecated Use {@link #forNumber(int)} instead.
        */
       @java.lang.Deprecated
@@ -12551,6 +13164,10 @@ public final class Model {
         return forNumber(value);
       }
 
+      /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
+       */
       public static BlockType forNumber(int value) {
         switch (value) {
           case 0: return MERGE;
@@ -12588,6 +13205,10 @@ public final class Model {
 
       public final com.google.protobuf.Descriptors.EnumValueDescriptor
           getValueDescriptor() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalStateException(
+              "Can't get the descriptor of an unrecognized enum value.");
+        }
         return getDescriptor().getValues().get(ordinal());
       }
       public final com.google.protobuf.Descriptors.EnumDescriptor
@@ -12689,6 +13310,8 @@ public final class Model {
       }
 
       /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
        * @deprecated Use {@link #forNumber(int)} instead.
        */
       @java.lang.Deprecated
@@ -12696,6 +13319,10 @@ public final class Model {
         return forNumber(value);
       }
 
+      /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
+       */
       public static BlockStatus forNumber(int value) {
         switch (value) {
           case 0: return READY;
@@ -12719,6 +13346,10 @@ public final class Model {
 
       public final com.google.protobuf.Descriptors.EnumValueDescriptor
           getValueDescriptor() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalStateException(
+              "Can't get the descriptor of an unrecognized enum value.");
+        }
         return getDescriptor().getValues().get(ordinal());
       }
       public final com.google.protobuf.Descriptors.EnumDescriptor
@@ -12753,12 +13384,13 @@ public final class Model {
       // @@protoc_insertion_point(enum_scope:Block.BlockStatus)
     }
 
-    private int bitField0_;
     public static final int ID_FIELD_NUMBER = 1;
     private volatile java.lang.Object id_;
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
+    @java.lang.Override
     public java.lang.String getId() {
       java.lang.Object ref = id_;
       if (ref instanceof java.lang.String) {
@@ -12773,7 +13405,9 @@ public final class Model {
     }
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getIdBytes() {
       java.lang.Object ref = id_;
@@ -12792,7 +13426,9 @@ public final class Model {
     private volatile java.lang.Object thread_;
     /**
      * <code>string thread = 2;</code>
+     * @return The thread.
      */
+    @java.lang.Override
     public java.lang.String getThread() {
       java.lang.Object ref = thread_;
       if (ref instanceof java.lang.String) {
@@ -12807,7 +13443,9 @@ public final class Model {
     }
     /**
      * <code>string thread = 2;</code>
+     * @return The bytes for thread.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getThreadBytes() {
       java.lang.Object ref = thread_;
@@ -12826,7 +13464,9 @@ public final class Model {
     private volatile java.lang.Object author_;
     /**
      * <code>string author = 3;</code>
+     * @return The author.
      */
+    @java.lang.Override
     public java.lang.String getAuthor() {
       java.lang.Object ref = author_;
       if (ref instanceof java.lang.String) {
@@ -12841,7 +13481,9 @@ public final class Model {
     }
     /**
      * <code>string author = 3;</code>
+     * @return The bytes for author.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAuthorBytes() {
       java.lang.Object ref = author_;
@@ -12860,14 +13502,16 @@ public final class Model {
     private int type_;
     /**
      * <code>.Block.BlockType type = 4;</code>
+     * @return The enum numeric value on the wire for type.
      */
-    public int getTypeValue() {
+    @java.lang.Override public int getTypeValue() {
       return type_;
     }
     /**
      * <code>.Block.BlockType type = 4;</code>
+     * @return The type.
      */
-    public sjtu.opennet.textilepb.Model.Block.BlockType getType() {
+    @java.lang.Override public sjtu.opennet.textilepb.Model.Block.BlockType getType() {
       @SuppressWarnings("deprecation")
       sjtu.opennet.textilepb.Model.Block.BlockType result = sjtu.opennet.textilepb.Model.Block.BlockType.valueOf(type_);
       return result == null ? sjtu.opennet.textilepb.Model.Block.BlockType.UNRECOGNIZED : result;
@@ -12877,19 +13521,24 @@ public final class Model {
     private com.google.protobuf.Timestamp date_;
     /**
      * <code>.google.protobuf.Timestamp date = 5;</code>
+     * @return Whether the date field is set.
      */
+    @java.lang.Override
     public boolean hasDate() {
       return date_ != null;
     }
     /**
      * <code>.google.protobuf.Timestamp date = 5;</code>
+     * @return The date.
      */
+    @java.lang.Override
     public com.google.protobuf.Timestamp getDate() {
       return date_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : date_;
     }
     /**
      * <code>.google.protobuf.Timestamp date = 5;</code>
      */
+    @java.lang.Override
     public com.google.protobuf.TimestampOrBuilder getDateOrBuilder() {
       return getDate();
     }
@@ -12898,6 +13547,7 @@ public final class Model {
     private com.google.protobuf.LazyStringList parents_;
     /**
      * <code>repeated string parents = 6;</code>
+     * @return A list containing the parents.
      */
     public com.google.protobuf.ProtocolStringList
         getParentsList() {
@@ -12905,18 +13555,23 @@ public final class Model {
     }
     /**
      * <code>repeated string parents = 6;</code>
+     * @return The count of parents.
      */
     public int getParentsCount() {
       return parents_.size();
     }
     /**
      * <code>repeated string parents = 6;</code>
+     * @param index The index of the element to return.
+     * @return The parents at the given index.
      */
     public java.lang.String getParents(int index) {
       return parents_.get(index);
     }
     /**
      * <code>repeated string parents = 6;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the parents at the given index.
      */
     public com.google.protobuf.ByteString
         getParentsBytes(int index) {
@@ -12927,7 +13582,9 @@ public final class Model {
     private volatile java.lang.Object target_;
     /**
      * <code>string target = 7;</code>
+     * @return The target.
      */
+    @java.lang.Override
     public java.lang.String getTarget() {
       java.lang.Object ref = target_;
       if (ref instanceof java.lang.String) {
@@ -12942,7 +13599,9 @@ public final class Model {
     }
     /**
      * <code>string target = 7;</code>
+     * @return The bytes for target.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getTargetBytes() {
       java.lang.Object ref = target_;
@@ -12961,7 +13620,9 @@ public final class Model {
     private volatile java.lang.Object data_;
     /**
      * <code>string data = 9;</code>
+     * @return The data.
      */
+    @java.lang.Override
     public java.lang.String getData() {
       java.lang.Object ref = data_;
       if (ref instanceof java.lang.String) {
@@ -12976,7 +13637,9 @@ public final class Model {
     }
     /**
      * <code>string data = 9;</code>
+     * @return The bytes for data.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDataBytes() {
       java.lang.Object ref = data_;
@@ -12995,7 +13658,9 @@ public final class Model {
     private volatile java.lang.Object body_;
     /**
      * <code>string body = 8;</code>
+     * @return The body.
      */
+    @java.lang.Override
     public java.lang.String getBody() {
       java.lang.Object ref = body_;
       if (ref instanceof java.lang.String) {
@@ -13010,7 +13675,9 @@ public final class Model {
     }
     /**
      * <code>string body = 8;</code>
+     * @return The bytes for body.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getBodyBytes() {
       java.lang.Object ref = body_;
@@ -13029,14 +13696,16 @@ public final class Model {
     private int status_;
     /**
      * <code>.Block.BlockStatus status = 10;</code>
+     * @return The enum numeric value on the wire for status.
      */
-    public int getStatusValue() {
+    @java.lang.Override public int getStatusValue() {
       return status_;
     }
     /**
      * <code>.Block.BlockStatus status = 10;</code>
+     * @return The status.
      */
-    public sjtu.opennet.textilepb.Model.Block.BlockStatus getStatus() {
+    @java.lang.Override public sjtu.opennet.textilepb.Model.Block.BlockStatus getStatus() {
       @SuppressWarnings("deprecation")
       sjtu.opennet.textilepb.Model.Block.BlockStatus result = sjtu.opennet.textilepb.Model.Block.BlockStatus.valueOf(status_);
       return result == null ? sjtu.opennet.textilepb.Model.Block.BlockStatus.UNRECOGNIZED : result;
@@ -13046,7 +13715,9 @@ public final class Model {
     private int attempts_;
     /**
      * <code>int32 attempts = 11;</code>
+     * @return The attempts.
      */
+    @java.lang.Override
     public int getAttempts() {
       return attempts_;
     }
@@ -13059,7 +13730,9 @@ public final class Model {
      * </pre>
      *
      * <code>.User user = 101;</code>
+     * @return Whether the user field is set.
      */
+    @java.lang.Override
     public boolean hasUser() {
       return user_ != null;
     }
@@ -13069,7 +13742,9 @@ public final class Model {
      * </pre>
      *
      * <code>.User user = 101;</code>
+     * @return The user.
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.User getUser() {
       return user_ == null ? sjtu.opennet.textilepb.Model.User.getDefaultInstance() : user_;
     }
@@ -13080,6 +13755,7 @@ public final class Model {
      *
      * <code>.User user = 101;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.UserOrBuilder getUserOrBuilder() {
       return getUser();
     }
@@ -13204,37 +13880,36 @@ public final class Model {
       }
       sjtu.opennet.textilepb.Model.Block other = (sjtu.opennet.textilepb.Model.Block) obj;
 
-      boolean result = true;
-      result = result && getId()
-          .equals(other.getId());
-      result = result && getThread()
-          .equals(other.getThread());
-      result = result && getAuthor()
-          .equals(other.getAuthor());
-      result = result && type_ == other.type_;
-      result = result && (hasDate() == other.hasDate());
+      if (!getId()
+          .equals(other.getId())) return false;
+      if (!getThread()
+          .equals(other.getThread())) return false;
+      if (!getAuthor()
+          .equals(other.getAuthor())) return false;
+      if (type_ != other.type_) return false;
+      if (hasDate() != other.hasDate()) return false;
       if (hasDate()) {
-        result = result && getDate()
-            .equals(other.getDate());
+        if (!getDate()
+            .equals(other.getDate())) return false;
       }
-      result = result && getParentsList()
-          .equals(other.getParentsList());
-      result = result && getTarget()
-          .equals(other.getTarget());
-      result = result && getData()
-          .equals(other.getData());
-      result = result && getBody()
-          .equals(other.getBody());
-      result = result && status_ == other.status_;
-      result = result && (getAttempts()
-          == other.getAttempts());
-      result = result && (hasUser() == other.hasUser());
+      if (!getParentsList()
+          .equals(other.getParentsList())) return false;
+      if (!getTarget()
+          .equals(other.getTarget())) return false;
+      if (!getData()
+          .equals(other.getData())) return false;
+      if (!getBody()
+          .equals(other.getBody())) return false;
+      if (status_ != other.status_) return false;
+      if (getAttempts()
+          != other.getAttempts()) return false;
+      if (hasUser() != other.hasUser()) return false;
       if (hasUser()) {
-        result = result && getUser()
-            .equals(other.getUser());
+        if (!getUser()
+            .equals(other.getUser())) return false;
       }
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -13422,7 +14097,7 @@ public final class Model {
           dateBuilder_ = null;
         }
         parents_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-        bitField0_ = (bitField0_ & ~0x00000020);
+        bitField0_ = (bitField0_ & ~0x00000001);
         target_ = "";
 
         data_ = "";
@@ -13466,7 +14141,6 @@ public final class Model {
       public sjtu.opennet.textilepb.Model.Block buildPartial() {
         sjtu.opennet.textilepb.Model.Block result = new sjtu.opennet.textilepb.Model.Block(this);
         int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
         result.id_ = id_;
         result.thread_ = thread_;
         result.author_ = author_;
@@ -13476,9 +14150,9 @@ public final class Model {
         } else {
           result.date_ = dateBuilder_.build();
         }
-        if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        if (((bitField0_ & 0x00000001) != 0)) {
           parents_ = parents_.getUnmodifiableView();
-          bitField0_ = (bitField0_ & ~0x00000020);
+          bitField0_ = (bitField0_ & ~0x00000001);
         }
         result.parents_ = parents_;
         result.target_ = target_;
@@ -13491,42 +14165,41 @@ public final class Model {
         } else {
           result.user_ = userBuilder_.build();
         }
-        result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -13561,7 +14234,7 @@ public final class Model {
         if (!other.parents_.isEmpty()) {
           if (parents_.isEmpty()) {
             parents_ = other.parents_;
-            bitField0_ = (bitField0_ & ~0x00000020);
+            bitField0_ = (bitField0_ & ~0x00000001);
           } else {
             ensureParentsIsMutable();
             parents_.addAll(other.parents_);
@@ -13622,6 +14295,7 @@ public final class Model {
       private java.lang.Object id_ = "";
       /**
        * <code>string id = 1;</code>
+       * @return The id.
        */
       public java.lang.String getId() {
         java.lang.Object ref = id_;
@@ -13637,6 +14311,7 @@ public final class Model {
       }
       /**
        * <code>string id = 1;</code>
+       * @return The bytes for id.
        */
       public com.google.protobuf.ByteString
           getIdBytes() {
@@ -13653,6 +14328,8 @@ public final class Model {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The id to set.
+       * @return This builder for chaining.
        */
       public Builder setId(
           java.lang.String value) {
@@ -13666,6 +14343,7 @@ public final class Model {
       }
       /**
        * <code>string id = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearId() {
         
@@ -13675,6 +14353,8 @@ public final class Model {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The bytes for id to set.
+       * @return This builder for chaining.
        */
       public Builder setIdBytes(
           com.google.protobuf.ByteString value) {
@@ -13691,6 +14371,7 @@ public final class Model {
       private java.lang.Object thread_ = "";
       /**
        * <code>string thread = 2;</code>
+       * @return The thread.
        */
       public java.lang.String getThread() {
         java.lang.Object ref = thread_;
@@ -13706,6 +14387,7 @@ public final class Model {
       }
       /**
        * <code>string thread = 2;</code>
+       * @return The bytes for thread.
        */
       public com.google.protobuf.ByteString
           getThreadBytes() {
@@ -13722,6 +14404,8 @@ public final class Model {
       }
       /**
        * <code>string thread = 2;</code>
+       * @param value The thread to set.
+       * @return This builder for chaining.
        */
       public Builder setThread(
           java.lang.String value) {
@@ -13735,6 +14419,7 @@ public final class Model {
       }
       /**
        * <code>string thread = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearThread() {
         
@@ -13744,6 +14429,8 @@ public final class Model {
       }
       /**
        * <code>string thread = 2;</code>
+       * @param value The bytes for thread to set.
+       * @return This builder for chaining.
        */
       public Builder setThreadBytes(
           com.google.protobuf.ByteString value) {
@@ -13760,6 +14447,7 @@ public final class Model {
       private java.lang.Object author_ = "";
       /**
        * <code>string author = 3;</code>
+       * @return The author.
        */
       public java.lang.String getAuthor() {
         java.lang.Object ref = author_;
@@ -13775,6 +14463,7 @@ public final class Model {
       }
       /**
        * <code>string author = 3;</code>
+       * @return The bytes for author.
        */
       public com.google.protobuf.ByteString
           getAuthorBytes() {
@@ -13791,6 +14480,8 @@ public final class Model {
       }
       /**
        * <code>string author = 3;</code>
+       * @param value The author to set.
+       * @return This builder for chaining.
        */
       public Builder setAuthor(
           java.lang.String value) {
@@ -13804,6 +14495,7 @@ public final class Model {
       }
       /**
        * <code>string author = 3;</code>
+       * @return This builder for chaining.
        */
       public Builder clearAuthor() {
         
@@ -13813,6 +14505,8 @@ public final class Model {
       }
       /**
        * <code>string author = 3;</code>
+       * @param value The bytes for author to set.
+       * @return This builder for chaining.
        */
       public Builder setAuthorBytes(
           com.google.protobuf.ByteString value) {
@@ -13829,21 +14523,27 @@ public final class Model {
       private int type_ = 0;
       /**
        * <code>.Block.BlockType type = 4;</code>
+       * @return The enum numeric value on the wire for type.
        */
-      public int getTypeValue() {
+      @java.lang.Override public int getTypeValue() {
         return type_;
       }
       /**
        * <code>.Block.BlockType type = 4;</code>
+       * @param value The enum numeric value on the wire for type to set.
+       * @return This builder for chaining.
        */
       public Builder setTypeValue(int value) {
+        
         type_ = value;
         onChanged();
         return this;
       }
       /**
        * <code>.Block.BlockType type = 4;</code>
+       * @return The type.
        */
+      @java.lang.Override
       public sjtu.opennet.textilepb.Model.Block.BlockType getType() {
         @SuppressWarnings("deprecation")
         sjtu.opennet.textilepb.Model.Block.BlockType result = sjtu.opennet.textilepb.Model.Block.BlockType.valueOf(type_);
@@ -13851,6 +14551,8 @@ public final class Model {
       }
       /**
        * <code>.Block.BlockType type = 4;</code>
+       * @param value The type to set.
+       * @return This builder for chaining.
        */
       public Builder setType(sjtu.opennet.textilepb.Model.Block.BlockType value) {
         if (value == null) {
@@ -13863,6 +14565,7 @@ public final class Model {
       }
       /**
        * <code>.Block.BlockType type = 4;</code>
+       * @return This builder for chaining.
        */
       public Builder clearType() {
         
@@ -13871,17 +14574,19 @@ public final class Model {
         return this;
       }
 
-      private com.google.protobuf.Timestamp date_ = null;
+      private com.google.protobuf.Timestamp date_;
       private com.google.protobuf.SingleFieldBuilderV3<
           com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> dateBuilder_;
       /**
        * <code>.google.protobuf.Timestamp date = 5;</code>
+       * @return Whether the date field is set.
        */
       public boolean hasDate() {
         return dateBuilder_ != null || date_ != null;
       }
       /**
        * <code>.google.protobuf.Timestamp date = 5;</code>
+       * @return The date.
        */
       public com.google.protobuf.Timestamp getDate() {
         if (dateBuilder_ == null) {
@@ -13990,13 +14695,14 @@ public final class Model {
 
       private com.google.protobuf.LazyStringList parents_ = com.google.protobuf.LazyStringArrayList.EMPTY;
       private void ensureParentsIsMutable() {
-        if (!((bitField0_ & 0x00000020) == 0x00000020)) {
+        if (!((bitField0_ & 0x00000001) != 0)) {
           parents_ = new com.google.protobuf.LazyStringArrayList(parents_);
-          bitField0_ |= 0x00000020;
+          bitField0_ |= 0x00000001;
          }
       }
       /**
        * <code>repeated string parents = 6;</code>
+       * @return A list containing the parents.
        */
       public com.google.protobuf.ProtocolStringList
           getParentsList() {
@@ -14004,18 +14710,23 @@ public final class Model {
       }
       /**
        * <code>repeated string parents = 6;</code>
+       * @return The count of parents.
        */
       public int getParentsCount() {
         return parents_.size();
       }
       /**
        * <code>repeated string parents = 6;</code>
+       * @param index The index of the element to return.
+       * @return The parents at the given index.
        */
       public java.lang.String getParents(int index) {
         return parents_.get(index);
       }
       /**
        * <code>repeated string parents = 6;</code>
+       * @param index The index of the value to return.
+       * @return The bytes of the parents at the given index.
        */
       public com.google.protobuf.ByteString
           getParentsBytes(int index) {
@@ -14023,6 +14734,9 @@ public final class Model {
       }
       /**
        * <code>repeated string parents = 6;</code>
+       * @param index The index to set the value at.
+       * @param value The parents to set.
+       * @return This builder for chaining.
        */
       public Builder setParents(
           int index, java.lang.String value) {
@@ -14036,6 +14750,8 @@ public final class Model {
       }
       /**
        * <code>repeated string parents = 6;</code>
+       * @param value The parents to add.
+       * @return This builder for chaining.
        */
       public Builder addParents(
           java.lang.String value) {
@@ -14049,6 +14765,8 @@ public final class Model {
       }
       /**
        * <code>repeated string parents = 6;</code>
+       * @param values The parents to add.
+       * @return This builder for chaining.
        */
       public Builder addAllParents(
           java.lang.Iterable<java.lang.String> values) {
@@ -14060,15 +14778,18 @@ public final class Model {
       }
       /**
        * <code>repeated string parents = 6;</code>
+       * @return This builder for chaining.
        */
       public Builder clearParents() {
         parents_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-        bitField0_ = (bitField0_ & ~0x00000020);
+        bitField0_ = (bitField0_ & ~0x00000001);
         onChanged();
         return this;
       }
       /**
        * <code>repeated string parents = 6;</code>
+       * @param value The bytes of the parents to add.
+       * @return This builder for chaining.
        */
       public Builder addParentsBytes(
           com.google.protobuf.ByteString value) {
@@ -14085,6 +14806,7 @@ public final class Model {
       private java.lang.Object target_ = "";
       /**
        * <code>string target = 7;</code>
+       * @return The target.
        */
       public java.lang.String getTarget() {
         java.lang.Object ref = target_;
@@ -14100,6 +14822,7 @@ public final class Model {
       }
       /**
        * <code>string target = 7;</code>
+       * @return The bytes for target.
        */
       public com.google.protobuf.ByteString
           getTargetBytes() {
@@ -14116,6 +14839,8 @@ public final class Model {
       }
       /**
        * <code>string target = 7;</code>
+       * @param value The target to set.
+       * @return This builder for chaining.
        */
       public Builder setTarget(
           java.lang.String value) {
@@ -14129,6 +14854,7 @@ public final class Model {
       }
       /**
        * <code>string target = 7;</code>
+       * @return This builder for chaining.
        */
       public Builder clearTarget() {
         
@@ -14138,6 +14864,8 @@ public final class Model {
       }
       /**
        * <code>string target = 7;</code>
+       * @param value The bytes for target to set.
+       * @return This builder for chaining.
        */
       public Builder setTargetBytes(
           com.google.protobuf.ByteString value) {
@@ -14154,6 +14882,7 @@ public final class Model {
       private java.lang.Object data_ = "";
       /**
        * <code>string data = 9;</code>
+       * @return The data.
        */
       public java.lang.String getData() {
         java.lang.Object ref = data_;
@@ -14169,6 +14898,7 @@ public final class Model {
       }
       /**
        * <code>string data = 9;</code>
+       * @return The bytes for data.
        */
       public com.google.protobuf.ByteString
           getDataBytes() {
@@ -14185,6 +14915,8 @@ public final class Model {
       }
       /**
        * <code>string data = 9;</code>
+       * @param value The data to set.
+       * @return This builder for chaining.
        */
       public Builder setData(
           java.lang.String value) {
@@ -14198,6 +14930,7 @@ public final class Model {
       }
       /**
        * <code>string data = 9;</code>
+       * @return This builder for chaining.
        */
       public Builder clearData() {
         
@@ -14207,6 +14940,8 @@ public final class Model {
       }
       /**
        * <code>string data = 9;</code>
+       * @param value The bytes for data to set.
+       * @return This builder for chaining.
        */
       public Builder setDataBytes(
           com.google.protobuf.ByteString value) {
@@ -14223,6 +14958,7 @@ public final class Model {
       private java.lang.Object body_ = "";
       /**
        * <code>string body = 8;</code>
+       * @return The body.
        */
       public java.lang.String getBody() {
         java.lang.Object ref = body_;
@@ -14238,6 +14974,7 @@ public final class Model {
       }
       /**
        * <code>string body = 8;</code>
+       * @return The bytes for body.
        */
       public com.google.protobuf.ByteString
           getBodyBytes() {
@@ -14254,6 +14991,8 @@ public final class Model {
       }
       /**
        * <code>string body = 8;</code>
+       * @param value The body to set.
+       * @return This builder for chaining.
        */
       public Builder setBody(
           java.lang.String value) {
@@ -14267,6 +15006,7 @@ public final class Model {
       }
       /**
        * <code>string body = 8;</code>
+       * @return This builder for chaining.
        */
       public Builder clearBody() {
         
@@ -14276,6 +15016,8 @@ public final class Model {
       }
       /**
        * <code>string body = 8;</code>
+       * @param value The bytes for body to set.
+       * @return This builder for chaining.
        */
       public Builder setBodyBytes(
           com.google.protobuf.ByteString value) {
@@ -14292,21 +15034,27 @@ public final class Model {
       private int status_ = 0;
       /**
        * <code>.Block.BlockStatus status = 10;</code>
+       * @return The enum numeric value on the wire for status.
        */
-      public int getStatusValue() {
+      @java.lang.Override public int getStatusValue() {
         return status_;
       }
       /**
        * <code>.Block.BlockStatus status = 10;</code>
+       * @param value The enum numeric value on the wire for status to set.
+       * @return This builder for chaining.
        */
       public Builder setStatusValue(int value) {
+        
         status_ = value;
         onChanged();
         return this;
       }
       /**
        * <code>.Block.BlockStatus status = 10;</code>
+       * @return The status.
        */
+      @java.lang.Override
       public sjtu.opennet.textilepb.Model.Block.BlockStatus getStatus() {
         @SuppressWarnings("deprecation")
         sjtu.opennet.textilepb.Model.Block.BlockStatus result = sjtu.opennet.textilepb.Model.Block.BlockStatus.valueOf(status_);
@@ -14314,6 +15062,8 @@ public final class Model {
       }
       /**
        * <code>.Block.BlockStatus status = 10;</code>
+       * @param value The status to set.
+       * @return This builder for chaining.
        */
       public Builder setStatus(sjtu.opennet.textilepb.Model.Block.BlockStatus value) {
         if (value == null) {
@@ -14326,6 +15076,7 @@ public final class Model {
       }
       /**
        * <code>.Block.BlockStatus status = 10;</code>
+       * @return This builder for chaining.
        */
       public Builder clearStatus() {
         
@@ -14337,12 +15088,16 @@ public final class Model {
       private int attempts_ ;
       /**
        * <code>int32 attempts = 11;</code>
+       * @return The attempts.
        */
+      @java.lang.Override
       public int getAttempts() {
         return attempts_;
       }
       /**
        * <code>int32 attempts = 11;</code>
+       * @param value The attempts to set.
+       * @return This builder for chaining.
        */
       public Builder setAttempts(int value) {
         
@@ -14352,6 +15107,7 @@ public final class Model {
       }
       /**
        * <code>int32 attempts = 11;</code>
+       * @return This builder for chaining.
        */
       public Builder clearAttempts() {
         
@@ -14360,7 +15116,7 @@ public final class Model {
         return this;
       }
 
-      private sjtu.opennet.textilepb.Model.User user_ = null;
+      private sjtu.opennet.textilepb.Model.User user_;
       private com.google.protobuf.SingleFieldBuilderV3<
           sjtu.opennet.textilepb.Model.User, sjtu.opennet.textilepb.Model.User.Builder, sjtu.opennet.textilepb.Model.UserOrBuilder> userBuilder_;
       /**
@@ -14369,6 +15125,7 @@ public final class Model {
        * </pre>
        *
        * <code>.User user = 101;</code>
+       * @return Whether the user field is set.
        */
       public boolean hasUser() {
         return userBuilder_ != null || user_ != null;
@@ -14379,6 +15136,7 @@ public final class Model {
        * </pre>
        *
        * <code>.User user = 101;</code>
+       * @return The user.
        */
       public sjtu.opennet.textilepb.Model.User getUser() {
         if (userBuilder_ == null) {
@@ -14515,7 +15273,7 @@ public final class Model {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -14596,7 +15354,7 @@ public final class Model {
   /**
    * Protobuf type {@code BlockList}
    */
-  public  static final class BlockList extends
+  public static final class BlockList extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:BlockList)
       BlockListOrBuilder {
@@ -14607,6 +15365,13 @@ public final class Model {
     }
     private BlockList() {
       items_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new BlockList();
     }
 
     @java.lang.Override
@@ -14634,7 +15399,7 @@ public final class Model {
               done = true;
               break;
             case 10: {
-              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
                 items_ = new java.util.ArrayList<sjtu.opennet.textilepb.Model.Block>();
                 mutable_bitField0_ |= 0x00000001;
               }
@@ -14643,7 +15408,7 @@ public final class Model {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -14657,7 +15422,7 @@ public final class Model {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
           items_ = java.util.Collections.unmodifiableList(items_);
         }
         this.unknownFields = unknownFields.build();
@@ -14682,12 +15447,14 @@ public final class Model {
     /**
      * <code>repeated .Block items = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<sjtu.opennet.textilepb.Model.Block> getItemsList() {
       return items_;
     }
     /**
      * <code>repeated .Block items = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends sjtu.opennet.textilepb.Model.BlockOrBuilder> 
         getItemsOrBuilderList() {
       return items_;
@@ -14695,18 +15462,21 @@ public final class Model {
     /**
      * <code>repeated .Block items = 1;</code>
      */
+    @java.lang.Override
     public int getItemsCount() {
       return items_.size();
     }
     /**
      * <code>repeated .Block items = 1;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.Block getItems(int index) {
       return items_.get(index);
     }
     /**
      * <code>repeated .Block items = 1;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.BlockOrBuilder getItemsOrBuilder(
         int index) {
       return items_.get(index);
@@ -14757,11 +15527,10 @@ public final class Model {
       }
       sjtu.opennet.textilepb.Model.BlockList other = (sjtu.opennet.textilepb.Model.BlockList) obj;
 
-      boolean result = true;
-      result = result && getItemsList()
-          .equals(other.getItemsList());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getItemsList()
+          .equals(other.getItemsList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -14943,7 +15712,7 @@ public final class Model {
         sjtu.opennet.textilepb.Model.BlockList result = new sjtu.opennet.textilepb.Model.BlockList(this);
         int from_bitField0_ = bitField0_;
         if (itemsBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) == 0x00000001)) {
+          if (((bitField0_ & 0x00000001) != 0)) {
             items_ = java.util.Collections.unmodifiableList(items_);
             bitField0_ = (bitField0_ & ~0x00000001);
           }
@@ -14957,35 +15726,35 @@ public final class Model {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -15058,7 +15827,7 @@ public final class Model {
       private java.util.List<sjtu.opennet.textilepb.Model.Block> items_ =
         java.util.Collections.emptyList();
       private void ensureItemsIsMutable() {
-        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+        if (!((bitField0_ & 0x00000001) != 0)) {
           items_ = new java.util.ArrayList<sjtu.opennet.textilepb.Model.Block>(items_);
           bitField0_ |= 0x00000001;
          }
@@ -15287,7 +16056,7 @@ public final class Model {
           itemsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
               sjtu.opennet.textilepb.Model.Block, sjtu.opennet.textilepb.Model.Block.Builder, sjtu.opennet.textilepb.Model.BlockOrBuilder>(
                   items_,
-                  ((bitField0_ & 0x00000001) == 0x00000001),
+                  ((bitField0_ & 0x00000001) != 0),
                   getParentForChildren(),
                   isClean());
           items_ = null;
@@ -15297,7 +16066,7 @@ public final class Model {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -15353,30 +16122,36 @@ public final class Model {
 
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
     java.lang.String getId();
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
     com.google.protobuf.ByteString
         getIdBytes();
 
     /**
      * <code>string peer = 2;</code>
+     * @return The peer.
      */
     java.lang.String getPeer();
     /**
      * <code>string peer = 2;</code>
+     * @return The bytes for peer.
      */
     com.google.protobuf.ByteString
         getPeerBytes();
 
     /**
      * <code>.Envelope env = 3;</code>
+     * @return Whether the env field is set.
      */
     boolean hasEnv();
     /**
      * <code>.Envelope env = 3;</code>
+     * @return The env.
      */
     sjtu.opennet.textilepb.MessageOuterClass.Envelope getEnv();
     /**
@@ -15386,10 +16161,12 @@ public final class Model {
 
     /**
      * <code>.google.protobuf.Timestamp date = 4;</code>
+     * @return Whether the date field is set.
      */
     boolean hasDate();
     /**
      * <code>.google.protobuf.Timestamp date = 4;</code>
+     * @return The date.
      */
     com.google.protobuf.Timestamp getDate();
     /**
@@ -15400,7 +16177,7 @@ public final class Model {
   /**
    * Protobuf type {@code BlockMessage}
    */
-  public  static final class BlockMessage extends
+  public static final class BlockMessage extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:BlockMessage)
       BlockMessageOrBuilder {
@@ -15412,6 +16189,13 @@ public final class Model {
     private BlockMessage() {
       id_ = "";
       peer_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new BlockMessage();
     }
 
     @java.lang.Override
@@ -15427,7 +16211,6 @@ public final class Model {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -15477,7 +16260,7 @@ public final class Model {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -15512,7 +16295,9 @@ public final class Model {
     private volatile java.lang.Object id_;
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
+    @java.lang.Override
     public java.lang.String getId() {
       java.lang.Object ref = id_;
       if (ref instanceof java.lang.String) {
@@ -15527,7 +16312,9 @@ public final class Model {
     }
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getIdBytes() {
       java.lang.Object ref = id_;
@@ -15546,7 +16333,9 @@ public final class Model {
     private volatile java.lang.Object peer_;
     /**
      * <code>string peer = 2;</code>
+     * @return The peer.
      */
+    @java.lang.Override
     public java.lang.String getPeer() {
       java.lang.Object ref = peer_;
       if (ref instanceof java.lang.String) {
@@ -15561,7 +16350,9 @@ public final class Model {
     }
     /**
      * <code>string peer = 2;</code>
+     * @return The bytes for peer.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getPeerBytes() {
       java.lang.Object ref = peer_;
@@ -15580,19 +16371,24 @@ public final class Model {
     private sjtu.opennet.textilepb.MessageOuterClass.Envelope env_;
     /**
      * <code>.Envelope env = 3;</code>
+     * @return Whether the env field is set.
      */
+    @java.lang.Override
     public boolean hasEnv() {
       return env_ != null;
     }
     /**
      * <code>.Envelope env = 3;</code>
+     * @return The env.
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.MessageOuterClass.Envelope getEnv() {
       return env_ == null ? sjtu.opennet.textilepb.MessageOuterClass.Envelope.getDefaultInstance() : env_;
     }
     /**
      * <code>.Envelope env = 3;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.MessageOuterClass.EnvelopeOrBuilder getEnvOrBuilder() {
       return getEnv();
     }
@@ -15601,19 +16397,24 @@ public final class Model {
     private com.google.protobuf.Timestamp date_;
     /**
      * <code>.google.protobuf.Timestamp date = 4;</code>
+     * @return Whether the date field is set.
      */
+    @java.lang.Override
     public boolean hasDate() {
       return date_ != null;
     }
     /**
      * <code>.google.protobuf.Timestamp date = 4;</code>
+     * @return The date.
      */
+    @java.lang.Override
     public com.google.protobuf.Timestamp getDate() {
       return date_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : date_;
     }
     /**
      * <code>.google.protobuf.Timestamp date = 4;</code>
      */
+    @java.lang.Override
     public com.google.protobuf.TimestampOrBuilder getDateOrBuilder() {
       return getDate();
     }
@@ -15682,23 +16483,22 @@ public final class Model {
       }
       sjtu.opennet.textilepb.Model.BlockMessage other = (sjtu.opennet.textilepb.Model.BlockMessage) obj;
 
-      boolean result = true;
-      result = result && getId()
-          .equals(other.getId());
-      result = result && getPeer()
-          .equals(other.getPeer());
-      result = result && (hasEnv() == other.hasEnv());
+      if (!getId()
+          .equals(other.getId())) return false;
+      if (!getPeer()
+          .equals(other.getPeer())) return false;
+      if (hasEnv() != other.hasEnv()) return false;
       if (hasEnv()) {
-        result = result && getEnv()
-            .equals(other.getEnv());
+        if (!getEnv()
+            .equals(other.getEnv())) return false;
       }
-      result = result && (hasDate() == other.hasDate());
+      if (hasDate() != other.hasDate()) return false;
       if (hasDate()) {
-        result = result && getDate()
-            .equals(other.getDate());
+        if (!getDate()
+            .equals(other.getDate())) return false;
       }
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -15913,35 +16713,35 @@ public final class Model {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -16001,6 +16801,7 @@ public final class Model {
       private java.lang.Object id_ = "";
       /**
        * <code>string id = 1;</code>
+       * @return The id.
        */
       public java.lang.String getId() {
         java.lang.Object ref = id_;
@@ -16016,6 +16817,7 @@ public final class Model {
       }
       /**
        * <code>string id = 1;</code>
+       * @return The bytes for id.
        */
       public com.google.protobuf.ByteString
           getIdBytes() {
@@ -16032,6 +16834,8 @@ public final class Model {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The id to set.
+       * @return This builder for chaining.
        */
       public Builder setId(
           java.lang.String value) {
@@ -16045,6 +16849,7 @@ public final class Model {
       }
       /**
        * <code>string id = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearId() {
         
@@ -16054,6 +16859,8 @@ public final class Model {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The bytes for id to set.
+       * @return This builder for chaining.
        */
       public Builder setIdBytes(
           com.google.protobuf.ByteString value) {
@@ -16070,6 +16877,7 @@ public final class Model {
       private java.lang.Object peer_ = "";
       /**
        * <code>string peer = 2;</code>
+       * @return The peer.
        */
       public java.lang.String getPeer() {
         java.lang.Object ref = peer_;
@@ -16085,6 +16893,7 @@ public final class Model {
       }
       /**
        * <code>string peer = 2;</code>
+       * @return The bytes for peer.
        */
       public com.google.protobuf.ByteString
           getPeerBytes() {
@@ -16101,6 +16910,8 @@ public final class Model {
       }
       /**
        * <code>string peer = 2;</code>
+       * @param value The peer to set.
+       * @return This builder for chaining.
        */
       public Builder setPeer(
           java.lang.String value) {
@@ -16114,6 +16925,7 @@ public final class Model {
       }
       /**
        * <code>string peer = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearPeer() {
         
@@ -16123,6 +16935,8 @@ public final class Model {
       }
       /**
        * <code>string peer = 2;</code>
+       * @param value The bytes for peer to set.
+       * @return This builder for chaining.
        */
       public Builder setPeerBytes(
           com.google.protobuf.ByteString value) {
@@ -16136,17 +16950,19 @@ public final class Model {
         return this;
       }
 
-      private sjtu.opennet.textilepb.MessageOuterClass.Envelope env_ = null;
+      private sjtu.opennet.textilepb.MessageOuterClass.Envelope env_;
       private com.google.protobuf.SingleFieldBuilderV3<
           sjtu.opennet.textilepb.MessageOuterClass.Envelope, sjtu.opennet.textilepb.MessageOuterClass.Envelope.Builder, sjtu.opennet.textilepb.MessageOuterClass.EnvelopeOrBuilder> envBuilder_;
       /**
        * <code>.Envelope env = 3;</code>
+       * @return Whether the env field is set.
        */
       public boolean hasEnv() {
         return envBuilder_ != null || env_ != null;
       }
       /**
        * <code>.Envelope env = 3;</code>
+       * @return The env.
        */
       public sjtu.opennet.textilepb.MessageOuterClass.Envelope getEnv() {
         if (envBuilder_ == null) {
@@ -16253,17 +17069,19 @@ public final class Model {
         return envBuilder_;
       }
 
-      private com.google.protobuf.Timestamp date_ = null;
+      private com.google.protobuf.Timestamp date_;
       private com.google.protobuf.SingleFieldBuilderV3<
           com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> dateBuilder_;
       /**
        * <code>.google.protobuf.Timestamp date = 4;</code>
+       * @return Whether the date field is set.
        */
       public boolean hasDate() {
         return dateBuilder_ != null || date_ != null;
       }
       /**
        * <code>.google.protobuf.Timestamp date = 4;</code>
+       * @return The date.
        */
       public com.google.protobuf.Timestamp getDate() {
         if (dateBuilder_ == null) {
@@ -16372,7 +17190,7 @@ public final class Model {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -16428,35 +17246,42 @@ public final class Model {
 
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
     java.lang.String getId();
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
     com.google.protobuf.ByteString
         getIdBytes();
 
     /**
      * <code>bytes block = 2;</code>
+     * @return The block.
      */
     com.google.protobuf.ByteString getBlock();
 
     /**
      * <code>string name = 3;</code>
+     * @return The name.
      */
     java.lang.String getName();
     /**
      * <code>string name = 3;</code>
+     * @return The bytes for name.
      */
     com.google.protobuf.ByteString
         getNameBytes();
 
     /**
      * <code>.Peer inviter = 4;</code>
+     * @return Whether the inviter field is set.
      */
     boolean hasInviter();
     /**
      * <code>.Peer inviter = 4;</code>
+     * @return The inviter.
      */
     sjtu.opennet.textilepb.Model.Peer getInviter();
     /**
@@ -16466,10 +17291,12 @@ public final class Model {
 
     /**
      * <code>.google.protobuf.Timestamp date = 5;</code>
+     * @return Whether the date field is set.
      */
     boolean hasDate();
     /**
      * <code>.google.protobuf.Timestamp date = 5;</code>
+     * @return The date.
      */
     com.google.protobuf.Timestamp getDate();
     /**
@@ -16479,19 +17306,25 @@ public final class Model {
 
     /**
      * <code>repeated string parents = 6;</code>
+     * @return A list containing the parents.
      */
     java.util.List<java.lang.String>
         getParentsList();
     /**
      * <code>repeated string parents = 6;</code>
+     * @return The count of parents.
      */
     int getParentsCount();
     /**
      * <code>repeated string parents = 6;</code>
+     * @param index The index of the element to return.
+     * @return The parents at the given index.
      */
     java.lang.String getParents(int index);
     /**
      * <code>repeated string parents = 6;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the parents at the given index.
      */
     com.google.protobuf.ByteString
         getParentsBytes(int index);
@@ -16499,7 +17332,7 @@ public final class Model {
   /**
    * Protobuf type {@code Invite}
    */
-  public  static final class Invite extends
+  public static final class Invite extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:Invite)
       InviteOrBuilder {
@@ -16513,6 +17346,13 @@ public final class Model {
       block_ = com.google.protobuf.ByteString.EMPTY;
       name_ = "";
       parents_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new Invite();
     }
 
     @java.lang.Override
@@ -16584,15 +17424,15 @@ public final class Model {
             }
             case 50: {
               java.lang.String s = input.readStringRequireUtf8();
-              if (!((mutable_bitField0_ & 0x00000020) == 0x00000020)) {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
                 parents_ = new com.google.protobuf.LazyStringArrayList();
-                mutable_bitField0_ |= 0x00000020;
+                mutable_bitField0_ |= 0x00000001;
               }
               parents_.add(s);
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -16606,7 +17446,7 @@ public final class Model {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000020) == 0x00000020)) {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
           parents_ = parents_.getUnmodifiableView();
         }
         this.unknownFields = unknownFields.build();
@@ -16626,12 +17466,13 @@ public final class Model {
               sjtu.opennet.textilepb.Model.Invite.class, sjtu.opennet.textilepb.Model.Invite.Builder.class);
     }
 
-    private int bitField0_;
     public static final int ID_FIELD_NUMBER = 1;
     private volatile java.lang.Object id_;
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
+    @java.lang.Override
     public java.lang.String getId() {
       java.lang.Object ref = id_;
       if (ref instanceof java.lang.String) {
@@ -16646,7 +17487,9 @@ public final class Model {
     }
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getIdBytes() {
       java.lang.Object ref = id_;
@@ -16665,7 +17508,9 @@ public final class Model {
     private com.google.protobuf.ByteString block_;
     /**
      * <code>bytes block = 2;</code>
+     * @return The block.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getBlock() {
       return block_;
     }
@@ -16674,7 +17519,9 @@ public final class Model {
     private volatile java.lang.Object name_;
     /**
      * <code>string name = 3;</code>
+     * @return The name.
      */
+    @java.lang.Override
     public java.lang.String getName() {
       java.lang.Object ref = name_;
       if (ref instanceof java.lang.String) {
@@ -16689,7 +17536,9 @@ public final class Model {
     }
     /**
      * <code>string name = 3;</code>
+     * @return The bytes for name.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getNameBytes() {
       java.lang.Object ref = name_;
@@ -16708,19 +17557,24 @@ public final class Model {
     private sjtu.opennet.textilepb.Model.Peer inviter_;
     /**
      * <code>.Peer inviter = 4;</code>
+     * @return Whether the inviter field is set.
      */
+    @java.lang.Override
     public boolean hasInviter() {
       return inviter_ != null;
     }
     /**
      * <code>.Peer inviter = 4;</code>
+     * @return The inviter.
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.Peer getInviter() {
       return inviter_ == null ? sjtu.opennet.textilepb.Model.Peer.getDefaultInstance() : inviter_;
     }
     /**
      * <code>.Peer inviter = 4;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.PeerOrBuilder getInviterOrBuilder() {
       return getInviter();
     }
@@ -16729,19 +17583,24 @@ public final class Model {
     private com.google.protobuf.Timestamp date_;
     /**
      * <code>.google.protobuf.Timestamp date = 5;</code>
+     * @return Whether the date field is set.
      */
+    @java.lang.Override
     public boolean hasDate() {
       return date_ != null;
     }
     /**
      * <code>.google.protobuf.Timestamp date = 5;</code>
+     * @return The date.
      */
+    @java.lang.Override
     public com.google.protobuf.Timestamp getDate() {
       return date_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : date_;
     }
     /**
      * <code>.google.protobuf.Timestamp date = 5;</code>
      */
+    @java.lang.Override
     public com.google.protobuf.TimestampOrBuilder getDateOrBuilder() {
       return getDate();
     }
@@ -16750,6 +17609,7 @@ public final class Model {
     private com.google.protobuf.LazyStringList parents_;
     /**
      * <code>repeated string parents = 6;</code>
+     * @return A list containing the parents.
      */
     public com.google.protobuf.ProtocolStringList
         getParentsList() {
@@ -16757,18 +17617,23 @@ public final class Model {
     }
     /**
      * <code>repeated string parents = 6;</code>
+     * @return The count of parents.
      */
     public int getParentsCount() {
       return parents_.size();
     }
     /**
      * <code>repeated string parents = 6;</code>
+     * @param index The index of the element to return.
+     * @return The parents at the given index.
      */
     public java.lang.String getParents(int index) {
       return parents_.get(index);
     }
     /**
      * <code>repeated string parents = 6;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the parents at the given index.
      */
     public com.google.protobuf.ByteString
         getParentsBytes(int index) {
@@ -16857,27 +17722,26 @@ public final class Model {
       }
       sjtu.opennet.textilepb.Model.Invite other = (sjtu.opennet.textilepb.Model.Invite) obj;
 
-      boolean result = true;
-      result = result && getId()
-          .equals(other.getId());
-      result = result && getBlock()
-          .equals(other.getBlock());
-      result = result && getName()
-          .equals(other.getName());
-      result = result && (hasInviter() == other.hasInviter());
+      if (!getId()
+          .equals(other.getId())) return false;
+      if (!getBlock()
+          .equals(other.getBlock())) return false;
+      if (!getName()
+          .equals(other.getName())) return false;
+      if (hasInviter() != other.hasInviter()) return false;
       if (hasInviter()) {
-        result = result && getInviter()
-            .equals(other.getInviter());
+        if (!getInviter()
+            .equals(other.getInviter())) return false;
       }
-      result = result && (hasDate() == other.hasDate());
+      if (hasDate() != other.hasDate()) return false;
       if (hasDate()) {
-        result = result && getDate()
-            .equals(other.getDate());
+        if (!getDate()
+            .equals(other.getDate())) return false;
       }
-      result = result && getParentsList()
-          .equals(other.getParentsList());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getParentsList()
+          .equals(other.getParentsList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -17057,7 +17921,7 @@ public final class Model {
           dateBuilder_ = null;
         }
         parents_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-        bitField0_ = (bitField0_ & ~0x00000020);
+        bitField0_ = (bitField0_ & ~0x00000001);
         return this;
       }
 
@@ -17085,7 +17949,6 @@ public final class Model {
       public sjtu.opennet.textilepb.Model.Invite buildPartial() {
         sjtu.opennet.textilepb.Model.Invite result = new sjtu.opennet.textilepb.Model.Invite(this);
         int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
         result.id_ = id_;
         result.block_ = block_;
         result.name_ = name_;
@@ -17099,47 +17962,46 @@ public final class Model {
         } else {
           result.date_ = dateBuilder_.build();
         }
-        if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        if (((bitField0_ & 0x00000001) != 0)) {
           parents_ = parents_.getUnmodifiableView();
-          bitField0_ = (bitField0_ & ~0x00000020);
+          bitField0_ = (bitField0_ & ~0x00000001);
         }
         result.parents_ = parents_;
-        result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -17173,7 +18035,7 @@ public final class Model {
         if (!other.parents_.isEmpty()) {
           if (parents_.isEmpty()) {
             parents_ = other.parents_;
-            bitField0_ = (bitField0_ & ~0x00000020);
+            bitField0_ = (bitField0_ & ~0x00000001);
           } else {
             ensureParentsIsMutable();
             parents_.addAll(other.parents_);
@@ -17213,6 +18075,7 @@ public final class Model {
       private java.lang.Object id_ = "";
       /**
        * <code>string id = 1;</code>
+       * @return The id.
        */
       public java.lang.String getId() {
         java.lang.Object ref = id_;
@@ -17228,6 +18091,7 @@ public final class Model {
       }
       /**
        * <code>string id = 1;</code>
+       * @return The bytes for id.
        */
       public com.google.protobuf.ByteString
           getIdBytes() {
@@ -17244,6 +18108,8 @@ public final class Model {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The id to set.
+       * @return This builder for chaining.
        */
       public Builder setId(
           java.lang.String value) {
@@ -17257,6 +18123,7 @@ public final class Model {
       }
       /**
        * <code>string id = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearId() {
         
@@ -17266,6 +18133,8 @@ public final class Model {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The bytes for id to set.
+       * @return This builder for chaining.
        */
       public Builder setIdBytes(
           com.google.protobuf.ByteString value) {
@@ -17282,12 +18151,16 @@ public final class Model {
       private com.google.protobuf.ByteString block_ = com.google.protobuf.ByteString.EMPTY;
       /**
        * <code>bytes block = 2;</code>
+       * @return The block.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getBlock() {
         return block_;
       }
       /**
        * <code>bytes block = 2;</code>
+       * @param value The block to set.
+       * @return This builder for chaining.
        */
       public Builder setBlock(com.google.protobuf.ByteString value) {
         if (value == null) {
@@ -17300,6 +18173,7 @@ public final class Model {
       }
       /**
        * <code>bytes block = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearBlock() {
         
@@ -17311,6 +18185,7 @@ public final class Model {
       private java.lang.Object name_ = "";
       /**
        * <code>string name = 3;</code>
+       * @return The name.
        */
       public java.lang.String getName() {
         java.lang.Object ref = name_;
@@ -17326,6 +18201,7 @@ public final class Model {
       }
       /**
        * <code>string name = 3;</code>
+       * @return The bytes for name.
        */
       public com.google.protobuf.ByteString
           getNameBytes() {
@@ -17342,6 +18218,8 @@ public final class Model {
       }
       /**
        * <code>string name = 3;</code>
+       * @param value The name to set.
+       * @return This builder for chaining.
        */
       public Builder setName(
           java.lang.String value) {
@@ -17355,6 +18233,7 @@ public final class Model {
       }
       /**
        * <code>string name = 3;</code>
+       * @return This builder for chaining.
        */
       public Builder clearName() {
         
@@ -17364,6 +18243,8 @@ public final class Model {
       }
       /**
        * <code>string name = 3;</code>
+       * @param value The bytes for name to set.
+       * @return This builder for chaining.
        */
       public Builder setNameBytes(
           com.google.protobuf.ByteString value) {
@@ -17377,17 +18258,19 @@ public final class Model {
         return this;
       }
 
-      private sjtu.opennet.textilepb.Model.Peer inviter_ = null;
+      private sjtu.opennet.textilepb.Model.Peer inviter_;
       private com.google.protobuf.SingleFieldBuilderV3<
           sjtu.opennet.textilepb.Model.Peer, sjtu.opennet.textilepb.Model.Peer.Builder, sjtu.opennet.textilepb.Model.PeerOrBuilder> inviterBuilder_;
       /**
        * <code>.Peer inviter = 4;</code>
+       * @return Whether the inviter field is set.
        */
       public boolean hasInviter() {
         return inviterBuilder_ != null || inviter_ != null;
       }
       /**
        * <code>.Peer inviter = 4;</code>
+       * @return The inviter.
        */
       public sjtu.opennet.textilepb.Model.Peer getInviter() {
         if (inviterBuilder_ == null) {
@@ -17494,17 +18377,19 @@ public final class Model {
         return inviterBuilder_;
       }
 
-      private com.google.protobuf.Timestamp date_ = null;
+      private com.google.protobuf.Timestamp date_;
       private com.google.protobuf.SingleFieldBuilderV3<
           com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> dateBuilder_;
       /**
        * <code>.google.protobuf.Timestamp date = 5;</code>
+       * @return Whether the date field is set.
        */
       public boolean hasDate() {
         return dateBuilder_ != null || date_ != null;
       }
       /**
        * <code>.google.protobuf.Timestamp date = 5;</code>
+       * @return The date.
        */
       public com.google.protobuf.Timestamp getDate() {
         if (dateBuilder_ == null) {
@@ -17613,13 +18498,14 @@ public final class Model {
 
       private com.google.protobuf.LazyStringList parents_ = com.google.protobuf.LazyStringArrayList.EMPTY;
       private void ensureParentsIsMutable() {
-        if (!((bitField0_ & 0x00000020) == 0x00000020)) {
+        if (!((bitField0_ & 0x00000001) != 0)) {
           parents_ = new com.google.protobuf.LazyStringArrayList(parents_);
-          bitField0_ |= 0x00000020;
+          bitField0_ |= 0x00000001;
          }
       }
       /**
        * <code>repeated string parents = 6;</code>
+       * @return A list containing the parents.
        */
       public com.google.protobuf.ProtocolStringList
           getParentsList() {
@@ -17627,18 +18513,23 @@ public final class Model {
       }
       /**
        * <code>repeated string parents = 6;</code>
+       * @return The count of parents.
        */
       public int getParentsCount() {
         return parents_.size();
       }
       /**
        * <code>repeated string parents = 6;</code>
+       * @param index The index of the element to return.
+       * @return The parents at the given index.
        */
       public java.lang.String getParents(int index) {
         return parents_.get(index);
       }
       /**
        * <code>repeated string parents = 6;</code>
+       * @param index The index of the value to return.
+       * @return The bytes of the parents at the given index.
        */
       public com.google.protobuf.ByteString
           getParentsBytes(int index) {
@@ -17646,6 +18537,9 @@ public final class Model {
       }
       /**
        * <code>repeated string parents = 6;</code>
+       * @param index The index to set the value at.
+       * @param value The parents to set.
+       * @return This builder for chaining.
        */
       public Builder setParents(
           int index, java.lang.String value) {
@@ -17659,6 +18553,8 @@ public final class Model {
       }
       /**
        * <code>repeated string parents = 6;</code>
+       * @param value The parents to add.
+       * @return This builder for chaining.
        */
       public Builder addParents(
           java.lang.String value) {
@@ -17672,6 +18568,8 @@ public final class Model {
       }
       /**
        * <code>repeated string parents = 6;</code>
+       * @param values The parents to add.
+       * @return This builder for chaining.
        */
       public Builder addAllParents(
           java.lang.Iterable<java.lang.String> values) {
@@ -17683,15 +18581,18 @@ public final class Model {
       }
       /**
        * <code>repeated string parents = 6;</code>
+       * @return This builder for chaining.
        */
       public Builder clearParents() {
         parents_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-        bitField0_ = (bitField0_ & ~0x00000020);
+        bitField0_ = (bitField0_ & ~0x00000001);
         onChanged();
         return this;
       }
       /**
        * <code>repeated string parents = 6;</code>
+       * @param value The bytes of the parents to add.
+       * @return This builder for chaining.
        */
       public Builder addParentsBytes(
           com.google.protobuf.ByteString value) {
@@ -17707,7 +18608,7 @@ public final class Model {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -17788,7 +18689,7 @@ public final class Model {
   /**
    * Protobuf type {@code InviteList}
    */
-  public  static final class InviteList extends
+  public static final class InviteList extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:InviteList)
       InviteListOrBuilder {
@@ -17799,6 +18700,13 @@ public final class Model {
     }
     private InviteList() {
       items_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new InviteList();
     }
 
     @java.lang.Override
@@ -17826,7 +18734,7 @@ public final class Model {
               done = true;
               break;
             case 10: {
-              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
                 items_ = new java.util.ArrayList<sjtu.opennet.textilepb.Model.Invite>();
                 mutable_bitField0_ |= 0x00000001;
               }
@@ -17835,7 +18743,7 @@ public final class Model {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -17849,7 +18757,7 @@ public final class Model {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
           items_ = java.util.Collections.unmodifiableList(items_);
         }
         this.unknownFields = unknownFields.build();
@@ -17874,12 +18782,14 @@ public final class Model {
     /**
      * <code>repeated .Invite items = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<sjtu.opennet.textilepb.Model.Invite> getItemsList() {
       return items_;
     }
     /**
      * <code>repeated .Invite items = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends sjtu.opennet.textilepb.Model.InviteOrBuilder> 
         getItemsOrBuilderList() {
       return items_;
@@ -17887,18 +18797,21 @@ public final class Model {
     /**
      * <code>repeated .Invite items = 1;</code>
      */
+    @java.lang.Override
     public int getItemsCount() {
       return items_.size();
     }
     /**
      * <code>repeated .Invite items = 1;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.Invite getItems(int index) {
       return items_.get(index);
     }
     /**
      * <code>repeated .Invite items = 1;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.InviteOrBuilder getItemsOrBuilder(
         int index) {
       return items_.get(index);
@@ -17949,11 +18862,10 @@ public final class Model {
       }
       sjtu.opennet.textilepb.Model.InviteList other = (sjtu.opennet.textilepb.Model.InviteList) obj;
 
-      boolean result = true;
-      result = result && getItemsList()
-          .equals(other.getItemsList());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getItemsList()
+          .equals(other.getItemsList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -18135,7 +19047,7 @@ public final class Model {
         sjtu.opennet.textilepb.Model.InviteList result = new sjtu.opennet.textilepb.Model.InviteList(this);
         int from_bitField0_ = bitField0_;
         if (itemsBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) == 0x00000001)) {
+          if (((bitField0_ & 0x00000001) != 0)) {
             items_ = java.util.Collections.unmodifiableList(items_);
             bitField0_ = (bitField0_ & ~0x00000001);
           }
@@ -18149,35 +19061,35 @@ public final class Model {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -18250,7 +19162,7 @@ public final class Model {
       private java.util.List<sjtu.opennet.textilepb.Model.Invite> items_ =
         java.util.Collections.emptyList();
       private void ensureItemsIsMutable() {
-        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+        if (!((bitField0_ & 0x00000001) != 0)) {
           items_ = new java.util.ArrayList<sjtu.opennet.textilepb.Model.Invite>(items_);
           bitField0_ |= 0x00000001;
          }
@@ -18479,7 +19391,7 @@ public final class Model {
           itemsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
               sjtu.opennet.textilepb.Model.Invite, sjtu.opennet.textilepb.Model.Invite.Builder, sjtu.opennet.textilepb.Model.InviteOrBuilder>(
                   items_,
-                  ((bitField0_ & 0x00000001) == 0x00000001),
+                  ((bitField0_ & 0x00000001) != 0),
                   getParentForChildren(),
                   isClean());
           items_ = null;
@@ -18489,7 +19401,7 @@ public final class Model {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -18545,39 +19457,47 @@ public final class Model {
 
     /**
      * <code>string peerAddress = 1;</code>
+     * @return The peerAddress.
      */
     java.lang.String getPeerAddress();
     /**
      * <code>string peerAddress = 1;</code>
+     * @return The bytes for peerAddress.
      */
     com.google.protobuf.ByteString
         getPeerAddressBytes();
 
     /**
      * <code>string file = 2;</code>
+     * @return The file.
      */
     java.lang.String getFile();
     /**
      * <code>string file = 2;</code>
+     * @return The bytes for file.
      */
     com.google.protobuf.ByteString
         getFileBytes();
 
     /**
      * <code>.SyncFile.Type type = 3;</code>
+     * @return The enum numeric value on the wire for type.
      */
     int getTypeValue();
     /**
      * <code>.SyncFile.Type type = 3;</code>
+     * @return The type.
      */
     sjtu.opennet.textilepb.Model.SyncFile.Type getType();
 
     /**
      * <code>.google.protobuf.Timestamp date = 4;</code>
+     * @return Whether the date field is set.
      */
     boolean hasDate();
     /**
      * <code>.google.protobuf.Timestamp date = 4;</code>
+     * @return The date.
      */
     com.google.protobuf.Timestamp getDate();
     /**
@@ -18587,10 +19507,12 @@ public final class Model {
 
     /**
      * <code>.SyncFile.Operation operation = 5;</code>
+     * @return The enum numeric value on the wire for operation.
      */
     int getOperationValue();
     /**
      * <code>.SyncFile.Operation operation = 5;</code>
+     * @return The operation.
      */
     sjtu.opennet.textilepb.Model.SyncFile.Operation getOperation();
   }
@@ -18601,7 +19523,7 @@ public final class Model {
    *
    * Protobuf type {@code SyncFile}
    */
-  public  static final class SyncFile extends
+  public static final class SyncFile extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:SyncFile)
       SyncFileOrBuilder {
@@ -18618,6 +19540,13 @@ public final class Model {
     }
 
     @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new SyncFile();
+    }
+
+    @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
       return this.unknownFields;
@@ -18630,7 +19559,6 @@ public final class Model {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -18679,7 +19607,7 @@ public final class Model {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -18753,6 +19681,8 @@ public final class Model {
       }
 
       /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
        * @deprecated Use {@link #forNumber(int)} instead.
        */
       @java.lang.Deprecated
@@ -18760,6 +19690,10 @@ public final class Model {
         return forNumber(value);
       }
 
+      /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
+       */
       public static Type forNumber(int value) {
         switch (value) {
           case 0: return BLOB;
@@ -18783,6 +19717,10 @@ public final class Model {
 
       public final com.google.protobuf.Descriptors.EnumValueDescriptor
           getValueDescriptor() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalStateException(
+              "Can't get the descriptor of an unrecognized enum value.");
+        }
         return getDescriptor().getValues().get(ordinal());
       }
       public final com.google.protobuf.Descriptors.EnumDescriptor
@@ -18852,6 +19790,8 @@ public final class Model {
       }
 
       /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
        * @deprecated Use {@link #forNumber(int)} instead.
        */
       @java.lang.Deprecated
@@ -18859,6 +19799,10 @@ public final class Model {
         return forNumber(value);
       }
 
+      /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
+       */
       public static Operation forNumber(int value) {
         switch (value) {
           case 0: return ADD;
@@ -18881,6 +19825,10 @@ public final class Model {
 
       public final com.google.protobuf.Descriptors.EnumValueDescriptor
           getValueDescriptor() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalStateException(
+              "Can't get the descriptor of an unrecognized enum value.");
+        }
         return getDescriptor().getValues().get(ordinal());
       }
       public final com.google.protobuf.Descriptors.EnumDescriptor
@@ -18919,7 +19867,9 @@ public final class Model {
     private volatile java.lang.Object peerAddress_;
     /**
      * <code>string peerAddress = 1;</code>
+     * @return The peerAddress.
      */
+    @java.lang.Override
     public java.lang.String getPeerAddress() {
       java.lang.Object ref = peerAddress_;
       if (ref instanceof java.lang.String) {
@@ -18934,7 +19884,9 @@ public final class Model {
     }
     /**
      * <code>string peerAddress = 1;</code>
+     * @return The bytes for peerAddress.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getPeerAddressBytes() {
       java.lang.Object ref = peerAddress_;
@@ -18953,7 +19905,9 @@ public final class Model {
     private volatile java.lang.Object file_;
     /**
      * <code>string file = 2;</code>
+     * @return The file.
      */
+    @java.lang.Override
     public java.lang.String getFile() {
       java.lang.Object ref = file_;
       if (ref instanceof java.lang.String) {
@@ -18968,7 +19922,9 @@ public final class Model {
     }
     /**
      * <code>string file = 2;</code>
+     * @return The bytes for file.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getFileBytes() {
       java.lang.Object ref = file_;
@@ -18987,14 +19943,16 @@ public final class Model {
     private int type_;
     /**
      * <code>.SyncFile.Type type = 3;</code>
+     * @return The enum numeric value on the wire for type.
      */
-    public int getTypeValue() {
+    @java.lang.Override public int getTypeValue() {
       return type_;
     }
     /**
      * <code>.SyncFile.Type type = 3;</code>
+     * @return The type.
      */
-    public sjtu.opennet.textilepb.Model.SyncFile.Type getType() {
+    @java.lang.Override public sjtu.opennet.textilepb.Model.SyncFile.Type getType() {
       @SuppressWarnings("deprecation")
       sjtu.opennet.textilepb.Model.SyncFile.Type result = sjtu.opennet.textilepb.Model.SyncFile.Type.valueOf(type_);
       return result == null ? sjtu.opennet.textilepb.Model.SyncFile.Type.UNRECOGNIZED : result;
@@ -19004,19 +19962,24 @@ public final class Model {
     private com.google.protobuf.Timestamp date_;
     /**
      * <code>.google.protobuf.Timestamp date = 4;</code>
+     * @return Whether the date field is set.
      */
+    @java.lang.Override
     public boolean hasDate() {
       return date_ != null;
     }
     /**
      * <code>.google.protobuf.Timestamp date = 4;</code>
+     * @return The date.
      */
+    @java.lang.Override
     public com.google.protobuf.Timestamp getDate() {
       return date_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : date_;
     }
     /**
      * <code>.google.protobuf.Timestamp date = 4;</code>
      */
+    @java.lang.Override
     public com.google.protobuf.TimestampOrBuilder getDateOrBuilder() {
       return getDate();
     }
@@ -19025,14 +19988,16 @@ public final class Model {
     private int operation_;
     /**
      * <code>.SyncFile.Operation operation = 5;</code>
+     * @return The enum numeric value on the wire for operation.
      */
-    public int getOperationValue() {
+    @java.lang.Override public int getOperationValue() {
       return operation_;
     }
     /**
      * <code>.SyncFile.Operation operation = 5;</code>
+     * @return The operation.
      */
-    public sjtu.opennet.textilepb.Model.SyncFile.Operation getOperation() {
+    @java.lang.Override public sjtu.opennet.textilepb.Model.SyncFile.Operation getOperation() {
       @SuppressWarnings("deprecation")
       sjtu.opennet.textilepb.Model.SyncFile.Operation result = sjtu.opennet.textilepb.Model.SyncFile.Operation.valueOf(operation_);
       return result == null ? sjtu.opennet.textilepb.Model.SyncFile.Operation.UNRECOGNIZED : result;
@@ -19109,20 +20074,19 @@ public final class Model {
       }
       sjtu.opennet.textilepb.Model.SyncFile other = (sjtu.opennet.textilepb.Model.SyncFile) obj;
 
-      boolean result = true;
-      result = result && getPeerAddress()
-          .equals(other.getPeerAddress());
-      result = result && getFile()
-          .equals(other.getFile());
-      result = result && type_ == other.type_;
-      result = result && (hasDate() == other.hasDate());
+      if (!getPeerAddress()
+          .equals(other.getPeerAddress())) return false;
+      if (!getFile()
+          .equals(other.getFile())) return false;
+      if (type_ != other.type_) return false;
+      if (hasDate() != other.hasDate()) return false;
       if (hasDate()) {
-        result = result && getDate()
-            .equals(other.getDate());
+        if (!getDate()
+            .equals(other.getDate())) return false;
       }
-      result = result && operation_ == other.operation_;
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (operation_ != other.operation_) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -19336,35 +20300,35 @@ public final class Model {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -19427,6 +20391,7 @@ public final class Model {
       private java.lang.Object peerAddress_ = "";
       /**
        * <code>string peerAddress = 1;</code>
+       * @return The peerAddress.
        */
       public java.lang.String getPeerAddress() {
         java.lang.Object ref = peerAddress_;
@@ -19442,6 +20407,7 @@ public final class Model {
       }
       /**
        * <code>string peerAddress = 1;</code>
+       * @return The bytes for peerAddress.
        */
       public com.google.protobuf.ByteString
           getPeerAddressBytes() {
@@ -19458,6 +20424,8 @@ public final class Model {
       }
       /**
        * <code>string peerAddress = 1;</code>
+       * @param value The peerAddress to set.
+       * @return This builder for chaining.
        */
       public Builder setPeerAddress(
           java.lang.String value) {
@@ -19471,6 +20439,7 @@ public final class Model {
       }
       /**
        * <code>string peerAddress = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearPeerAddress() {
         
@@ -19480,6 +20449,8 @@ public final class Model {
       }
       /**
        * <code>string peerAddress = 1;</code>
+       * @param value The bytes for peerAddress to set.
+       * @return This builder for chaining.
        */
       public Builder setPeerAddressBytes(
           com.google.protobuf.ByteString value) {
@@ -19496,6 +20467,7 @@ public final class Model {
       private java.lang.Object file_ = "";
       /**
        * <code>string file = 2;</code>
+       * @return The file.
        */
       public java.lang.String getFile() {
         java.lang.Object ref = file_;
@@ -19511,6 +20483,7 @@ public final class Model {
       }
       /**
        * <code>string file = 2;</code>
+       * @return The bytes for file.
        */
       public com.google.protobuf.ByteString
           getFileBytes() {
@@ -19527,6 +20500,8 @@ public final class Model {
       }
       /**
        * <code>string file = 2;</code>
+       * @param value The file to set.
+       * @return This builder for chaining.
        */
       public Builder setFile(
           java.lang.String value) {
@@ -19540,6 +20515,7 @@ public final class Model {
       }
       /**
        * <code>string file = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearFile() {
         
@@ -19549,6 +20525,8 @@ public final class Model {
       }
       /**
        * <code>string file = 2;</code>
+       * @param value The bytes for file to set.
+       * @return This builder for chaining.
        */
       public Builder setFileBytes(
           com.google.protobuf.ByteString value) {
@@ -19565,21 +20543,27 @@ public final class Model {
       private int type_ = 0;
       /**
        * <code>.SyncFile.Type type = 3;</code>
+       * @return The enum numeric value on the wire for type.
        */
-      public int getTypeValue() {
+      @java.lang.Override public int getTypeValue() {
         return type_;
       }
       /**
        * <code>.SyncFile.Type type = 3;</code>
+       * @param value The enum numeric value on the wire for type to set.
+       * @return This builder for chaining.
        */
       public Builder setTypeValue(int value) {
+        
         type_ = value;
         onChanged();
         return this;
       }
       /**
        * <code>.SyncFile.Type type = 3;</code>
+       * @return The type.
        */
+      @java.lang.Override
       public sjtu.opennet.textilepb.Model.SyncFile.Type getType() {
         @SuppressWarnings("deprecation")
         sjtu.opennet.textilepb.Model.SyncFile.Type result = sjtu.opennet.textilepb.Model.SyncFile.Type.valueOf(type_);
@@ -19587,6 +20571,8 @@ public final class Model {
       }
       /**
        * <code>.SyncFile.Type type = 3;</code>
+       * @param value The type to set.
+       * @return This builder for chaining.
        */
       public Builder setType(sjtu.opennet.textilepb.Model.SyncFile.Type value) {
         if (value == null) {
@@ -19599,6 +20585,7 @@ public final class Model {
       }
       /**
        * <code>.SyncFile.Type type = 3;</code>
+       * @return This builder for chaining.
        */
       public Builder clearType() {
         
@@ -19607,17 +20594,19 @@ public final class Model {
         return this;
       }
 
-      private com.google.protobuf.Timestamp date_ = null;
+      private com.google.protobuf.Timestamp date_;
       private com.google.protobuf.SingleFieldBuilderV3<
           com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> dateBuilder_;
       /**
        * <code>.google.protobuf.Timestamp date = 4;</code>
+       * @return Whether the date field is set.
        */
       public boolean hasDate() {
         return dateBuilder_ != null || date_ != null;
       }
       /**
        * <code>.google.protobuf.Timestamp date = 4;</code>
+       * @return The date.
        */
       public com.google.protobuf.Timestamp getDate() {
         if (dateBuilder_ == null) {
@@ -19727,21 +20716,27 @@ public final class Model {
       private int operation_ = 0;
       /**
        * <code>.SyncFile.Operation operation = 5;</code>
+       * @return The enum numeric value on the wire for operation.
        */
-      public int getOperationValue() {
+      @java.lang.Override public int getOperationValue() {
         return operation_;
       }
       /**
        * <code>.SyncFile.Operation operation = 5;</code>
+       * @param value The enum numeric value on the wire for operation to set.
+       * @return This builder for chaining.
        */
       public Builder setOperationValue(int value) {
+        
         operation_ = value;
         onChanged();
         return this;
       }
       /**
        * <code>.SyncFile.Operation operation = 5;</code>
+       * @return The operation.
        */
+      @java.lang.Override
       public sjtu.opennet.textilepb.Model.SyncFile.Operation getOperation() {
         @SuppressWarnings("deprecation")
         sjtu.opennet.textilepb.Model.SyncFile.Operation result = sjtu.opennet.textilepb.Model.SyncFile.Operation.valueOf(operation_);
@@ -19749,6 +20744,8 @@ public final class Model {
       }
       /**
        * <code>.SyncFile.Operation operation = 5;</code>
+       * @param value The operation to set.
+       * @return This builder for chaining.
        */
       public Builder setOperation(sjtu.opennet.textilepb.Model.SyncFile.Operation value) {
         if (value == null) {
@@ -19761,6 +20758,7 @@ public final class Model {
       }
       /**
        * <code>.SyncFile.Operation operation = 5;</code>
+       * @return This builder for chaining.
        */
       public Builder clearOperation() {
         
@@ -19771,7 +20769,7 @@ public final class Model {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -19852,7 +20850,7 @@ public final class Model {
   /**
    * Protobuf type {@code SyncFileList}
    */
-  public  static final class SyncFileList extends
+  public static final class SyncFileList extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:SyncFileList)
       SyncFileListOrBuilder {
@@ -19863,6 +20861,13 @@ public final class Model {
     }
     private SyncFileList() {
       items_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new SyncFileList();
     }
 
     @java.lang.Override
@@ -19890,7 +20895,7 @@ public final class Model {
               done = true;
               break;
             case 10: {
-              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
                 items_ = new java.util.ArrayList<sjtu.opennet.textilepb.Model.SyncFile>();
                 mutable_bitField0_ |= 0x00000001;
               }
@@ -19899,7 +20904,7 @@ public final class Model {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -19913,7 +20918,7 @@ public final class Model {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
           items_ = java.util.Collections.unmodifiableList(items_);
         }
         this.unknownFields = unknownFields.build();
@@ -19938,12 +20943,14 @@ public final class Model {
     /**
      * <code>repeated .SyncFile items = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<sjtu.opennet.textilepb.Model.SyncFile> getItemsList() {
       return items_;
     }
     /**
      * <code>repeated .SyncFile items = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends sjtu.opennet.textilepb.Model.SyncFileOrBuilder> 
         getItemsOrBuilderList() {
       return items_;
@@ -19951,18 +20958,21 @@ public final class Model {
     /**
      * <code>repeated .SyncFile items = 1;</code>
      */
+    @java.lang.Override
     public int getItemsCount() {
       return items_.size();
     }
     /**
      * <code>repeated .SyncFile items = 1;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.SyncFile getItems(int index) {
       return items_.get(index);
     }
     /**
      * <code>repeated .SyncFile items = 1;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.SyncFileOrBuilder getItemsOrBuilder(
         int index) {
       return items_.get(index);
@@ -20013,11 +21023,10 @@ public final class Model {
       }
       sjtu.opennet.textilepb.Model.SyncFileList other = (sjtu.opennet.textilepb.Model.SyncFileList) obj;
 
-      boolean result = true;
-      result = result && getItemsList()
-          .equals(other.getItemsList());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getItemsList()
+          .equals(other.getItemsList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -20199,7 +21208,7 @@ public final class Model {
         sjtu.opennet.textilepb.Model.SyncFileList result = new sjtu.opennet.textilepb.Model.SyncFileList(this);
         int from_bitField0_ = bitField0_;
         if (itemsBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) == 0x00000001)) {
+          if (((bitField0_ & 0x00000001) != 0)) {
             items_ = java.util.Collections.unmodifiableList(items_);
             bitField0_ = (bitField0_ & ~0x00000001);
           }
@@ -20213,35 +21222,35 @@ public final class Model {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -20314,7 +21323,7 @@ public final class Model {
       private java.util.List<sjtu.opennet.textilepb.Model.SyncFile> items_ =
         java.util.Collections.emptyList();
       private void ensureItemsIsMutable() {
-        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+        if (!((bitField0_ & 0x00000001) != 0)) {
           items_ = new java.util.ArrayList<sjtu.opennet.textilepb.Model.SyncFile>(items_);
           bitField0_ |= 0x00000001;
          }
@@ -20543,7 +21552,7 @@ public final class Model {
           itemsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
               sjtu.opennet.textilepb.Model.SyncFile, sjtu.opennet.textilepb.Model.SyncFile.Builder, sjtu.opennet.textilepb.Model.SyncFileOrBuilder>(
                   items_,
-                  ((bitField0_ & 0x00000001) == 0x00000001),
+                  ((bitField0_ & 0x00000001) != 0),
                   getParentForChildren(),
                   isClean());
           items_ = null;
@@ -20553,7 +21562,7 @@ public final class Model {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -20609,18 +21618,20 @@ public final class Model {
 
     /**
      * <code>bytes data = 1;</code>
+     * @return The data.
      */
     com.google.protobuf.ByteString getData();
 
     /**
      * <code>bytes description = 2;</code>
+     * @return The description.
      */
     com.google.protobuf.ByteString getDescription();
   }
   /**
    * Protobuf type {@code StreamFile}
    */
-  public  static final class StreamFile extends
+  public static final class StreamFile extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:StreamFile)
       StreamFileOrBuilder {
@@ -20632,6 +21643,13 @@ public final class Model {
     private StreamFile() {
       data_ = com.google.protobuf.ByteString.EMPTY;
       description_ = com.google.protobuf.ByteString.EMPTY;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new StreamFile();
     }
 
     @java.lang.Override
@@ -20647,7 +21665,6 @@ public final class Model {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -20669,7 +21686,7 @@ public final class Model {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -20704,7 +21721,9 @@ public final class Model {
     private com.google.protobuf.ByteString data_;
     /**
      * <code>bytes data = 1;</code>
+     * @return The data.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getData() {
       return data_;
     }
@@ -20713,7 +21732,9 @@ public final class Model {
     private com.google.protobuf.ByteString description_;
     /**
      * <code>bytes description = 2;</code>
+     * @return The description.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getDescription() {
       return description_;
     }
@@ -20770,13 +21791,12 @@ public final class Model {
       }
       sjtu.opennet.textilepb.Model.StreamFile other = (sjtu.opennet.textilepb.Model.StreamFile) obj;
 
-      boolean result = true;
-      result = result && getData()
-          .equals(other.getData());
-      result = result && getDescription()
-          .equals(other.getDescription());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getData()
+          .equals(other.getData())) return false;
+      if (!getDescription()
+          .equals(other.getDescription())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -20961,35 +21981,35 @@ public final class Model {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -21041,12 +22061,16 @@ public final class Model {
       private com.google.protobuf.ByteString data_ = com.google.protobuf.ByteString.EMPTY;
       /**
        * <code>bytes data = 1;</code>
+       * @return The data.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getData() {
         return data_;
       }
       /**
        * <code>bytes data = 1;</code>
+       * @param value The data to set.
+       * @return This builder for chaining.
        */
       public Builder setData(com.google.protobuf.ByteString value) {
         if (value == null) {
@@ -21059,6 +22083,7 @@ public final class Model {
       }
       /**
        * <code>bytes data = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearData() {
         
@@ -21070,12 +22095,16 @@ public final class Model {
       private com.google.protobuf.ByteString description_ = com.google.protobuf.ByteString.EMPTY;
       /**
        * <code>bytes description = 2;</code>
+       * @return The description.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getDescription() {
         return description_;
       }
       /**
        * <code>bytes description = 2;</code>
+       * @param value The description to set.
+       * @return This builder for chaining.
        */
       public Builder setDescription(com.google.protobuf.ByteString value) {
         if (value == null) {
@@ -21088,6 +22117,7 @@ public final class Model {
       }
       /**
        * <code>bytes description = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearDescription() {
         
@@ -21098,7 +22128,7 @@ public final class Model {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -21154,95 +22184,114 @@ public final class Model {
 
     /**
      * <code>string mill = 1;</code>
+     * @return The mill.
      */
     java.lang.String getMill();
     /**
      * <code>string mill = 1;</code>
+     * @return The bytes for mill.
      */
     com.google.protobuf.ByteString
         getMillBytes();
 
     /**
      * <code>string checksum = 2;</code>
+     * @return The checksum.
      */
     java.lang.String getChecksum();
     /**
      * <code>string checksum = 2;</code>
+     * @return The bytes for checksum.
      */
     com.google.protobuf.ByteString
         getChecksumBytes();
 
     /**
      * <code>string source = 3;</code>
+     * @return The source.
      */
     java.lang.String getSource();
     /**
      * <code>string source = 3;</code>
+     * @return The bytes for source.
      */
     com.google.protobuf.ByteString
         getSourceBytes();
 
     /**
      * <code>string opts = 4;</code>
+     * @return The opts.
      */
     java.lang.String getOpts();
     /**
      * <code>string opts = 4;</code>
+     * @return The bytes for opts.
      */
     com.google.protobuf.ByteString
         getOptsBytes();
 
     /**
      * <code>string hash = 5;</code>
+     * @return The hash.
      */
     java.lang.String getHash();
     /**
      * <code>string hash = 5;</code>
+     * @return The bytes for hash.
      */
     com.google.protobuf.ByteString
         getHashBytes();
 
     /**
      * <code>string key = 6;</code>
+     * @return The key.
      */
     java.lang.String getKey();
     /**
      * <code>string key = 6;</code>
+     * @return The bytes for key.
      */
     com.google.protobuf.ByteString
         getKeyBytes();
 
     /**
      * <code>string media = 7;</code>
+     * @return The media.
      */
     java.lang.String getMedia();
     /**
      * <code>string media = 7;</code>
+     * @return The bytes for media.
      */
     com.google.protobuf.ByteString
         getMediaBytes();
 
     /**
      * <code>string name = 8;</code>
+     * @return The name.
      */
     java.lang.String getName();
     /**
      * <code>string name = 8;</code>
+     * @return The bytes for name.
      */
     com.google.protobuf.ByteString
         getNameBytes();
 
     /**
      * <code>int64 size = 9;</code>
+     * @return The size.
      */
     long getSize();
 
     /**
      * <code>.google.protobuf.Timestamp added = 10;</code>
+     * @return Whether the added field is set.
      */
     boolean hasAdded();
     /**
      * <code>.google.protobuf.Timestamp added = 10;</code>
+     * @return The added.
      */
     com.google.protobuf.Timestamp getAdded();
     /**
@@ -21252,10 +22301,12 @@ public final class Model {
 
     /**
      * <code>.google.protobuf.Struct meta = 11;</code>
+     * @return Whether the meta field is set.
      */
     boolean hasMeta();
     /**
      * <code>.google.protobuf.Struct meta = 11;</code>
+     * @return The meta.
      */
     com.google.protobuf.Struct getMeta();
     /**
@@ -21265,19 +22316,25 @@ public final class Model {
 
     /**
      * <code>repeated string targets = 12;</code>
+     * @return A list containing the targets.
      */
     java.util.List<java.lang.String>
         getTargetsList();
     /**
      * <code>repeated string targets = 12;</code>
+     * @return The count of targets.
      */
     int getTargetsCount();
     /**
      * <code>repeated string targets = 12;</code>
+     * @param index The index of the element to return.
+     * @return The targets at the given index.
      */
     java.lang.String getTargets(int index);
     /**
      * <code>repeated string targets = 12;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the targets at the given index.
      */
     com.google.protobuf.ByteString
         getTargetsBytes(int index);
@@ -21285,7 +22342,7 @@ public final class Model {
   /**
    * Protobuf type {@code FileIndex}
    */
-  public  static final class FileIndex extends
+  public static final class FileIndex extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:FileIndex)
       FileIndexOrBuilder {
@@ -21303,8 +22360,14 @@ public final class Model {
       key_ = "";
       media_ = "";
       name_ = "";
-      size_ = 0L;
       targets_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new FileIndex();
     }
 
     @java.lang.Override
@@ -21412,15 +22475,15 @@ public final class Model {
             }
             case 98: {
               java.lang.String s = input.readStringRequireUtf8();
-              if (!((mutable_bitField0_ & 0x00000800) == 0x00000800)) {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
                 targets_ = new com.google.protobuf.LazyStringArrayList();
-                mutable_bitField0_ |= 0x00000800;
+                mutable_bitField0_ |= 0x00000001;
               }
               targets_.add(s);
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -21434,7 +22497,7 @@ public final class Model {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000800) == 0x00000800)) {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
           targets_ = targets_.getUnmodifiableView();
         }
         this.unknownFields = unknownFields.build();
@@ -21454,12 +22517,13 @@ public final class Model {
               sjtu.opennet.textilepb.Model.FileIndex.class, sjtu.opennet.textilepb.Model.FileIndex.Builder.class);
     }
 
-    private int bitField0_;
     public static final int MILL_FIELD_NUMBER = 1;
     private volatile java.lang.Object mill_;
     /**
      * <code>string mill = 1;</code>
+     * @return The mill.
      */
+    @java.lang.Override
     public java.lang.String getMill() {
       java.lang.Object ref = mill_;
       if (ref instanceof java.lang.String) {
@@ -21474,7 +22538,9 @@ public final class Model {
     }
     /**
      * <code>string mill = 1;</code>
+     * @return The bytes for mill.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getMillBytes() {
       java.lang.Object ref = mill_;
@@ -21493,7 +22559,9 @@ public final class Model {
     private volatile java.lang.Object checksum_;
     /**
      * <code>string checksum = 2;</code>
+     * @return The checksum.
      */
+    @java.lang.Override
     public java.lang.String getChecksum() {
       java.lang.Object ref = checksum_;
       if (ref instanceof java.lang.String) {
@@ -21508,7 +22576,9 @@ public final class Model {
     }
     /**
      * <code>string checksum = 2;</code>
+     * @return The bytes for checksum.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getChecksumBytes() {
       java.lang.Object ref = checksum_;
@@ -21527,7 +22597,9 @@ public final class Model {
     private volatile java.lang.Object source_;
     /**
      * <code>string source = 3;</code>
+     * @return The source.
      */
+    @java.lang.Override
     public java.lang.String getSource() {
       java.lang.Object ref = source_;
       if (ref instanceof java.lang.String) {
@@ -21542,7 +22614,9 @@ public final class Model {
     }
     /**
      * <code>string source = 3;</code>
+     * @return The bytes for source.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSourceBytes() {
       java.lang.Object ref = source_;
@@ -21561,7 +22635,9 @@ public final class Model {
     private volatile java.lang.Object opts_;
     /**
      * <code>string opts = 4;</code>
+     * @return The opts.
      */
+    @java.lang.Override
     public java.lang.String getOpts() {
       java.lang.Object ref = opts_;
       if (ref instanceof java.lang.String) {
@@ -21576,7 +22652,9 @@ public final class Model {
     }
     /**
      * <code>string opts = 4;</code>
+     * @return The bytes for opts.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getOptsBytes() {
       java.lang.Object ref = opts_;
@@ -21595,7 +22673,9 @@ public final class Model {
     private volatile java.lang.Object hash_;
     /**
      * <code>string hash = 5;</code>
+     * @return The hash.
      */
+    @java.lang.Override
     public java.lang.String getHash() {
       java.lang.Object ref = hash_;
       if (ref instanceof java.lang.String) {
@@ -21610,7 +22690,9 @@ public final class Model {
     }
     /**
      * <code>string hash = 5;</code>
+     * @return The bytes for hash.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getHashBytes() {
       java.lang.Object ref = hash_;
@@ -21629,7 +22711,9 @@ public final class Model {
     private volatile java.lang.Object key_;
     /**
      * <code>string key = 6;</code>
+     * @return The key.
      */
+    @java.lang.Override
     public java.lang.String getKey() {
       java.lang.Object ref = key_;
       if (ref instanceof java.lang.String) {
@@ -21644,7 +22728,9 @@ public final class Model {
     }
     /**
      * <code>string key = 6;</code>
+     * @return The bytes for key.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getKeyBytes() {
       java.lang.Object ref = key_;
@@ -21663,7 +22749,9 @@ public final class Model {
     private volatile java.lang.Object media_;
     /**
      * <code>string media = 7;</code>
+     * @return The media.
      */
+    @java.lang.Override
     public java.lang.String getMedia() {
       java.lang.Object ref = media_;
       if (ref instanceof java.lang.String) {
@@ -21678,7 +22766,9 @@ public final class Model {
     }
     /**
      * <code>string media = 7;</code>
+     * @return The bytes for media.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getMediaBytes() {
       java.lang.Object ref = media_;
@@ -21697,7 +22787,9 @@ public final class Model {
     private volatile java.lang.Object name_;
     /**
      * <code>string name = 8;</code>
+     * @return The name.
      */
+    @java.lang.Override
     public java.lang.String getName() {
       java.lang.Object ref = name_;
       if (ref instanceof java.lang.String) {
@@ -21712,7 +22804,9 @@ public final class Model {
     }
     /**
      * <code>string name = 8;</code>
+     * @return The bytes for name.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getNameBytes() {
       java.lang.Object ref = name_;
@@ -21731,7 +22825,9 @@ public final class Model {
     private long size_;
     /**
      * <code>int64 size = 9;</code>
+     * @return The size.
      */
+    @java.lang.Override
     public long getSize() {
       return size_;
     }
@@ -21740,19 +22836,24 @@ public final class Model {
     private com.google.protobuf.Timestamp added_;
     /**
      * <code>.google.protobuf.Timestamp added = 10;</code>
+     * @return Whether the added field is set.
      */
+    @java.lang.Override
     public boolean hasAdded() {
       return added_ != null;
     }
     /**
      * <code>.google.protobuf.Timestamp added = 10;</code>
+     * @return The added.
      */
+    @java.lang.Override
     public com.google.protobuf.Timestamp getAdded() {
       return added_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : added_;
     }
     /**
      * <code>.google.protobuf.Timestamp added = 10;</code>
      */
+    @java.lang.Override
     public com.google.protobuf.TimestampOrBuilder getAddedOrBuilder() {
       return getAdded();
     }
@@ -21761,19 +22862,24 @@ public final class Model {
     private com.google.protobuf.Struct meta_;
     /**
      * <code>.google.protobuf.Struct meta = 11;</code>
+     * @return Whether the meta field is set.
      */
+    @java.lang.Override
     public boolean hasMeta() {
       return meta_ != null;
     }
     /**
      * <code>.google.protobuf.Struct meta = 11;</code>
+     * @return The meta.
      */
+    @java.lang.Override
     public com.google.protobuf.Struct getMeta() {
       return meta_ == null ? com.google.protobuf.Struct.getDefaultInstance() : meta_;
     }
     /**
      * <code>.google.protobuf.Struct meta = 11;</code>
      */
+    @java.lang.Override
     public com.google.protobuf.StructOrBuilder getMetaOrBuilder() {
       return getMeta();
     }
@@ -21782,6 +22888,7 @@ public final class Model {
     private com.google.protobuf.LazyStringList targets_;
     /**
      * <code>repeated string targets = 12;</code>
+     * @return A list containing the targets.
      */
     public com.google.protobuf.ProtocolStringList
         getTargetsList() {
@@ -21789,18 +22896,23 @@ public final class Model {
     }
     /**
      * <code>repeated string targets = 12;</code>
+     * @return The count of targets.
      */
     public int getTargetsCount() {
       return targets_.size();
     }
     /**
      * <code>repeated string targets = 12;</code>
+     * @param index The index of the element to return.
+     * @return The targets at the given index.
      */
     public java.lang.String getTargets(int index) {
       return targets_.get(index);
     }
     /**
      * <code>repeated string targets = 12;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the targets at the given index.
      */
     public com.google.protobuf.ByteString
         getTargetsBytes(int index) {
@@ -21925,39 +23037,38 @@ public final class Model {
       }
       sjtu.opennet.textilepb.Model.FileIndex other = (sjtu.opennet.textilepb.Model.FileIndex) obj;
 
-      boolean result = true;
-      result = result && getMill()
-          .equals(other.getMill());
-      result = result && getChecksum()
-          .equals(other.getChecksum());
-      result = result && getSource()
-          .equals(other.getSource());
-      result = result && getOpts()
-          .equals(other.getOpts());
-      result = result && getHash()
-          .equals(other.getHash());
-      result = result && getKey()
-          .equals(other.getKey());
-      result = result && getMedia()
-          .equals(other.getMedia());
-      result = result && getName()
-          .equals(other.getName());
-      result = result && (getSize()
-          == other.getSize());
-      result = result && (hasAdded() == other.hasAdded());
+      if (!getMill()
+          .equals(other.getMill())) return false;
+      if (!getChecksum()
+          .equals(other.getChecksum())) return false;
+      if (!getSource()
+          .equals(other.getSource())) return false;
+      if (!getOpts()
+          .equals(other.getOpts())) return false;
+      if (!getHash()
+          .equals(other.getHash())) return false;
+      if (!getKey()
+          .equals(other.getKey())) return false;
+      if (!getMedia()
+          .equals(other.getMedia())) return false;
+      if (!getName()
+          .equals(other.getName())) return false;
+      if (getSize()
+          != other.getSize()) return false;
+      if (hasAdded() != other.hasAdded()) return false;
       if (hasAdded()) {
-        result = result && getAdded()
-            .equals(other.getAdded());
+        if (!getAdded()
+            .equals(other.getAdded())) return false;
       }
-      result = result && (hasMeta() == other.hasMeta());
+      if (hasMeta() != other.hasMeta()) return false;
       if (hasMeta()) {
-        result = result && getMeta()
-            .equals(other.getMeta());
+        if (!getMeta()
+            .equals(other.getMeta())) return false;
       }
-      result = result && getTargetsList()
-          .equals(other.getTargetsList());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getTargetsList()
+          .equals(other.getTargetsList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -22162,7 +23273,7 @@ public final class Model {
           metaBuilder_ = null;
         }
         targets_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-        bitField0_ = (bitField0_ & ~0x00000800);
+        bitField0_ = (bitField0_ & ~0x00000001);
         return this;
       }
 
@@ -22190,7 +23301,6 @@ public final class Model {
       public sjtu.opennet.textilepb.Model.FileIndex buildPartial() {
         sjtu.opennet.textilepb.Model.FileIndex result = new sjtu.opennet.textilepb.Model.FileIndex(this);
         int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
         result.mill_ = mill_;
         result.checksum_ = checksum_;
         result.source_ = source_;
@@ -22210,47 +23320,46 @@ public final class Model {
         } else {
           result.meta_ = metaBuilder_.build();
         }
-        if (((bitField0_ & 0x00000800) == 0x00000800)) {
+        if (((bitField0_ & 0x00000001) != 0)) {
           targets_ = targets_.getUnmodifiableView();
-          bitField0_ = (bitField0_ & ~0x00000800);
+          bitField0_ = (bitField0_ & ~0x00000001);
         }
         result.targets_ = targets_;
-        result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -22308,7 +23417,7 @@ public final class Model {
         if (!other.targets_.isEmpty()) {
           if (targets_.isEmpty()) {
             targets_ = other.targets_;
-            bitField0_ = (bitField0_ & ~0x00000800);
+            bitField0_ = (bitField0_ & ~0x00000001);
           } else {
             ensureTargetsIsMutable();
             targets_.addAll(other.targets_);
@@ -22348,6 +23457,7 @@ public final class Model {
       private java.lang.Object mill_ = "";
       /**
        * <code>string mill = 1;</code>
+       * @return The mill.
        */
       public java.lang.String getMill() {
         java.lang.Object ref = mill_;
@@ -22363,6 +23473,7 @@ public final class Model {
       }
       /**
        * <code>string mill = 1;</code>
+       * @return The bytes for mill.
        */
       public com.google.protobuf.ByteString
           getMillBytes() {
@@ -22379,6 +23490,8 @@ public final class Model {
       }
       /**
        * <code>string mill = 1;</code>
+       * @param value The mill to set.
+       * @return This builder for chaining.
        */
       public Builder setMill(
           java.lang.String value) {
@@ -22392,6 +23505,7 @@ public final class Model {
       }
       /**
        * <code>string mill = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearMill() {
         
@@ -22401,6 +23515,8 @@ public final class Model {
       }
       /**
        * <code>string mill = 1;</code>
+       * @param value The bytes for mill to set.
+       * @return This builder for chaining.
        */
       public Builder setMillBytes(
           com.google.protobuf.ByteString value) {
@@ -22417,6 +23533,7 @@ public final class Model {
       private java.lang.Object checksum_ = "";
       /**
        * <code>string checksum = 2;</code>
+       * @return The checksum.
        */
       public java.lang.String getChecksum() {
         java.lang.Object ref = checksum_;
@@ -22432,6 +23549,7 @@ public final class Model {
       }
       /**
        * <code>string checksum = 2;</code>
+       * @return The bytes for checksum.
        */
       public com.google.protobuf.ByteString
           getChecksumBytes() {
@@ -22448,6 +23566,8 @@ public final class Model {
       }
       /**
        * <code>string checksum = 2;</code>
+       * @param value The checksum to set.
+       * @return This builder for chaining.
        */
       public Builder setChecksum(
           java.lang.String value) {
@@ -22461,6 +23581,7 @@ public final class Model {
       }
       /**
        * <code>string checksum = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearChecksum() {
         
@@ -22470,6 +23591,8 @@ public final class Model {
       }
       /**
        * <code>string checksum = 2;</code>
+       * @param value The bytes for checksum to set.
+       * @return This builder for chaining.
        */
       public Builder setChecksumBytes(
           com.google.protobuf.ByteString value) {
@@ -22486,6 +23609,7 @@ public final class Model {
       private java.lang.Object source_ = "";
       /**
        * <code>string source = 3;</code>
+       * @return The source.
        */
       public java.lang.String getSource() {
         java.lang.Object ref = source_;
@@ -22501,6 +23625,7 @@ public final class Model {
       }
       /**
        * <code>string source = 3;</code>
+       * @return The bytes for source.
        */
       public com.google.protobuf.ByteString
           getSourceBytes() {
@@ -22517,6 +23642,8 @@ public final class Model {
       }
       /**
        * <code>string source = 3;</code>
+       * @param value The source to set.
+       * @return This builder for chaining.
        */
       public Builder setSource(
           java.lang.String value) {
@@ -22530,6 +23657,7 @@ public final class Model {
       }
       /**
        * <code>string source = 3;</code>
+       * @return This builder for chaining.
        */
       public Builder clearSource() {
         
@@ -22539,6 +23667,8 @@ public final class Model {
       }
       /**
        * <code>string source = 3;</code>
+       * @param value The bytes for source to set.
+       * @return This builder for chaining.
        */
       public Builder setSourceBytes(
           com.google.protobuf.ByteString value) {
@@ -22555,6 +23685,7 @@ public final class Model {
       private java.lang.Object opts_ = "";
       /**
        * <code>string opts = 4;</code>
+       * @return The opts.
        */
       public java.lang.String getOpts() {
         java.lang.Object ref = opts_;
@@ -22570,6 +23701,7 @@ public final class Model {
       }
       /**
        * <code>string opts = 4;</code>
+       * @return The bytes for opts.
        */
       public com.google.protobuf.ByteString
           getOptsBytes() {
@@ -22586,6 +23718,8 @@ public final class Model {
       }
       /**
        * <code>string opts = 4;</code>
+       * @param value The opts to set.
+       * @return This builder for chaining.
        */
       public Builder setOpts(
           java.lang.String value) {
@@ -22599,6 +23733,7 @@ public final class Model {
       }
       /**
        * <code>string opts = 4;</code>
+       * @return This builder for chaining.
        */
       public Builder clearOpts() {
         
@@ -22608,6 +23743,8 @@ public final class Model {
       }
       /**
        * <code>string opts = 4;</code>
+       * @param value The bytes for opts to set.
+       * @return This builder for chaining.
        */
       public Builder setOptsBytes(
           com.google.protobuf.ByteString value) {
@@ -22624,6 +23761,7 @@ public final class Model {
       private java.lang.Object hash_ = "";
       /**
        * <code>string hash = 5;</code>
+       * @return The hash.
        */
       public java.lang.String getHash() {
         java.lang.Object ref = hash_;
@@ -22639,6 +23777,7 @@ public final class Model {
       }
       /**
        * <code>string hash = 5;</code>
+       * @return The bytes for hash.
        */
       public com.google.protobuf.ByteString
           getHashBytes() {
@@ -22655,6 +23794,8 @@ public final class Model {
       }
       /**
        * <code>string hash = 5;</code>
+       * @param value The hash to set.
+       * @return This builder for chaining.
        */
       public Builder setHash(
           java.lang.String value) {
@@ -22668,6 +23809,7 @@ public final class Model {
       }
       /**
        * <code>string hash = 5;</code>
+       * @return This builder for chaining.
        */
       public Builder clearHash() {
         
@@ -22677,6 +23819,8 @@ public final class Model {
       }
       /**
        * <code>string hash = 5;</code>
+       * @param value The bytes for hash to set.
+       * @return This builder for chaining.
        */
       public Builder setHashBytes(
           com.google.protobuf.ByteString value) {
@@ -22693,6 +23837,7 @@ public final class Model {
       private java.lang.Object key_ = "";
       /**
        * <code>string key = 6;</code>
+       * @return The key.
        */
       public java.lang.String getKey() {
         java.lang.Object ref = key_;
@@ -22708,6 +23853,7 @@ public final class Model {
       }
       /**
        * <code>string key = 6;</code>
+       * @return The bytes for key.
        */
       public com.google.protobuf.ByteString
           getKeyBytes() {
@@ -22724,6 +23870,8 @@ public final class Model {
       }
       /**
        * <code>string key = 6;</code>
+       * @param value The key to set.
+       * @return This builder for chaining.
        */
       public Builder setKey(
           java.lang.String value) {
@@ -22737,6 +23885,7 @@ public final class Model {
       }
       /**
        * <code>string key = 6;</code>
+       * @return This builder for chaining.
        */
       public Builder clearKey() {
         
@@ -22746,6 +23895,8 @@ public final class Model {
       }
       /**
        * <code>string key = 6;</code>
+       * @param value The bytes for key to set.
+       * @return This builder for chaining.
        */
       public Builder setKeyBytes(
           com.google.protobuf.ByteString value) {
@@ -22762,6 +23913,7 @@ public final class Model {
       private java.lang.Object media_ = "";
       /**
        * <code>string media = 7;</code>
+       * @return The media.
        */
       public java.lang.String getMedia() {
         java.lang.Object ref = media_;
@@ -22777,6 +23929,7 @@ public final class Model {
       }
       /**
        * <code>string media = 7;</code>
+       * @return The bytes for media.
        */
       public com.google.protobuf.ByteString
           getMediaBytes() {
@@ -22793,6 +23946,8 @@ public final class Model {
       }
       /**
        * <code>string media = 7;</code>
+       * @param value The media to set.
+       * @return This builder for chaining.
        */
       public Builder setMedia(
           java.lang.String value) {
@@ -22806,6 +23961,7 @@ public final class Model {
       }
       /**
        * <code>string media = 7;</code>
+       * @return This builder for chaining.
        */
       public Builder clearMedia() {
         
@@ -22815,6 +23971,8 @@ public final class Model {
       }
       /**
        * <code>string media = 7;</code>
+       * @param value The bytes for media to set.
+       * @return This builder for chaining.
        */
       public Builder setMediaBytes(
           com.google.protobuf.ByteString value) {
@@ -22831,6 +23989,7 @@ public final class Model {
       private java.lang.Object name_ = "";
       /**
        * <code>string name = 8;</code>
+       * @return The name.
        */
       public java.lang.String getName() {
         java.lang.Object ref = name_;
@@ -22846,6 +24005,7 @@ public final class Model {
       }
       /**
        * <code>string name = 8;</code>
+       * @return The bytes for name.
        */
       public com.google.protobuf.ByteString
           getNameBytes() {
@@ -22862,6 +24022,8 @@ public final class Model {
       }
       /**
        * <code>string name = 8;</code>
+       * @param value The name to set.
+       * @return This builder for chaining.
        */
       public Builder setName(
           java.lang.String value) {
@@ -22875,6 +24037,7 @@ public final class Model {
       }
       /**
        * <code>string name = 8;</code>
+       * @return This builder for chaining.
        */
       public Builder clearName() {
         
@@ -22884,6 +24047,8 @@ public final class Model {
       }
       /**
        * <code>string name = 8;</code>
+       * @param value The bytes for name to set.
+       * @return This builder for chaining.
        */
       public Builder setNameBytes(
           com.google.protobuf.ByteString value) {
@@ -22900,12 +24065,16 @@ public final class Model {
       private long size_ ;
       /**
        * <code>int64 size = 9;</code>
+       * @return The size.
        */
+      @java.lang.Override
       public long getSize() {
         return size_;
       }
       /**
        * <code>int64 size = 9;</code>
+       * @param value The size to set.
+       * @return This builder for chaining.
        */
       public Builder setSize(long value) {
         
@@ -22915,6 +24084,7 @@ public final class Model {
       }
       /**
        * <code>int64 size = 9;</code>
+       * @return This builder for chaining.
        */
       public Builder clearSize() {
         
@@ -22923,17 +24093,19 @@ public final class Model {
         return this;
       }
 
-      private com.google.protobuf.Timestamp added_ = null;
+      private com.google.protobuf.Timestamp added_;
       private com.google.protobuf.SingleFieldBuilderV3<
           com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> addedBuilder_;
       /**
        * <code>.google.protobuf.Timestamp added = 10;</code>
+       * @return Whether the added field is set.
        */
       public boolean hasAdded() {
         return addedBuilder_ != null || added_ != null;
       }
       /**
        * <code>.google.protobuf.Timestamp added = 10;</code>
+       * @return The added.
        */
       public com.google.protobuf.Timestamp getAdded() {
         if (addedBuilder_ == null) {
@@ -23040,17 +24212,19 @@ public final class Model {
         return addedBuilder_;
       }
 
-      private com.google.protobuf.Struct meta_ = null;
+      private com.google.protobuf.Struct meta_;
       private com.google.protobuf.SingleFieldBuilderV3<
           com.google.protobuf.Struct, com.google.protobuf.Struct.Builder, com.google.protobuf.StructOrBuilder> metaBuilder_;
       /**
        * <code>.google.protobuf.Struct meta = 11;</code>
+       * @return Whether the meta field is set.
        */
       public boolean hasMeta() {
         return metaBuilder_ != null || meta_ != null;
       }
       /**
        * <code>.google.protobuf.Struct meta = 11;</code>
+       * @return The meta.
        */
       public com.google.protobuf.Struct getMeta() {
         if (metaBuilder_ == null) {
@@ -23159,13 +24333,14 @@ public final class Model {
 
       private com.google.protobuf.LazyStringList targets_ = com.google.protobuf.LazyStringArrayList.EMPTY;
       private void ensureTargetsIsMutable() {
-        if (!((bitField0_ & 0x00000800) == 0x00000800)) {
+        if (!((bitField0_ & 0x00000001) != 0)) {
           targets_ = new com.google.protobuf.LazyStringArrayList(targets_);
-          bitField0_ |= 0x00000800;
+          bitField0_ |= 0x00000001;
          }
       }
       /**
        * <code>repeated string targets = 12;</code>
+       * @return A list containing the targets.
        */
       public com.google.protobuf.ProtocolStringList
           getTargetsList() {
@@ -23173,18 +24348,23 @@ public final class Model {
       }
       /**
        * <code>repeated string targets = 12;</code>
+       * @return The count of targets.
        */
       public int getTargetsCount() {
         return targets_.size();
       }
       /**
        * <code>repeated string targets = 12;</code>
+       * @param index The index of the element to return.
+       * @return The targets at the given index.
        */
       public java.lang.String getTargets(int index) {
         return targets_.get(index);
       }
       /**
        * <code>repeated string targets = 12;</code>
+       * @param index The index of the value to return.
+       * @return The bytes of the targets at the given index.
        */
       public com.google.protobuf.ByteString
           getTargetsBytes(int index) {
@@ -23192,6 +24372,9 @@ public final class Model {
       }
       /**
        * <code>repeated string targets = 12;</code>
+       * @param index The index to set the value at.
+       * @param value The targets to set.
+       * @return This builder for chaining.
        */
       public Builder setTargets(
           int index, java.lang.String value) {
@@ -23205,6 +24388,8 @@ public final class Model {
       }
       /**
        * <code>repeated string targets = 12;</code>
+       * @param value The targets to add.
+       * @return This builder for chaining.
        */
       public Builder addTargets(
           java.lang.String value) {
@@ -23218,6 +24403,8 @@ public final class Model {
       }
       /**
        * <code>repeated string targets = 12;</code>
+       * @param values The targets to add.
+       * @return This builder for chaining.
        */
       public Builder addAllTargets(
           java.lang.Iterable<java.lang.String> values) {
@@ -23229,15 +24416,18 @@ public final class Model {
       }
       /**
        * <code>repeated string targets = 12;</code>
+       * @return This builder for chaining.
        */
       public Builder clearTargets() {
         targets_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-        bitField0_ = (bitField0_ & ~0x00000800);
+        bitField0_ = (bitField0_ & ~0x00000001);
         onChanged();
         return this;
       }
       /**
        * <code>repeated string targets = 12;</code>
+       * @param value The bytes of the targets to add.
+       * @return This builder for chaining.
        */
       public Builder addTargetsBytes(
           com.google.protobuf.ByteString value) {
@@ -23253,7 +24443,7 @@ public final class Model {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -23309,30 +24499,36 @@ public final class Model {
 
     /**
      * <code>string name = 1;</code>
+     * @return The name.
      */
     java.lang.String getName();
     /**
      * <code>string name = 1;</code>
+     * @return The bytes for name.
      */
     com.google.protobuf.ByteString
         getNameBytes();
 
     /**
      * <code>bool pin = 2;</code>
+     * @return The pin.
      */
     boolean getPin();
 
     /**
      * <code>bool plaintext = 3;</code>
+     * @return The plaintext.
      */
     boolean getPlaintext();
 
     /**
      * <code>string mill = 4;</code>
+     * @return The mill.
      */
     java.lang.String getMill();
     /**
      * <code>string mill = 4;</code>
+     * @return The bytes for mill.
      */
     com.google.protobuf.ByteString
         getMillBytes();
@@ -23373,10 +24569,12 @@ public final class Model {
 
     /**
      * <code>.google.protobuf.Struct json_schema = 6;</code>
+     * @return Whether the jsonSchema field is set.
      */
     boolean hasJsonSchema();
     /**
      * <code>.google.protobuf.Struct json_schema = 6;</code>
+     * @return The jsonSchema.
      */
     com.google.protobuf.Struct getJsonSchema();
     /**
@@ -23421,7 +24619,7 @@ public final class Model {
   /**
    * Protobuf type {@code Node}
    */
-  public  static final class Node extends
+  public static final class Node extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:Node)
       NodeOrBuilder {
@@ -23432,9 +24630,14 @@ public final class Model {
     }
     private Node() {
       name_ = "";
-      pin_ = false;
-      plaintext_ = false;
       mill_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new Node();
     }
 
     @java.lang.Override
@@ -23484,10 +24687,10 @@ public final class Model {
               break;
             }
             case 42: {
-              if (!((mutable_bitField0_ & 0x00000010) == 0x00000010)) {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
                 opts_ = com.google.protobuf.MapField.newMapField(
                     OptsDefaultEntryHolder.defaultEntry);
-                mutable_bitField0_ |= 0x00000010;
+                mutable_bitField0_ |= 0x00000001;
               }
               com.google.protobuf.MapEntry<java.lang.String, java.lang.String>
               opts__ = input.readMessage(
@@ -23510,10 +24713,10 @@ public final class Model {
               break;
             }
             case 66: {
-              if (!((mutable_bitField0_ & 0x00000040) == 0x00000040)) {
+              if (!((mutable_bitField0_ & 0x00000002) != 0)) {
                 links_ = com.google.protobuf.MapField.newMapField(
                     LinksDefaultEntryHolder.defaultEntry);
-                mutable_bitField0_ |= 0x00000040;
+                mutable_bitField0_ |= 0x00000002;
               }
               com.google.protobuf.MapEntry<java.lang.String, sjtu.opennet.textilepb.Model.Link>
               links__ = input.readMessage(
@@ -23523,7 +24726,7 @@ public final class Model {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -23568,12 +24771,13 @@ public final class Model {
               sjtu.opennet.textilepb.Model.Node.class, sjtu.opennet.textilepb.Model.Node.Builder.class);
     }
 
-    private int bitField0_;
     public static final int NAME_FIELD_NUMBER = 1;
     private volatile java.lang.Object name_;
     /**
      * <code>string name = 1;</code>
+     * @return The name.
      */
+    @java.lang.Override
     public java.lang.String getName() {
       java.lang.Object ref = name_;
       if (ref instanceof java.lang.String) {
@@ -23588,7 +24792,9 @@ public final class Model {
     }
     /**
      * <code>string name = 1;</code>
+     * @return The bytes for name.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getNameBytes() {
       java.lang.Object ref = name_;
@@ -23607,7 +24813,9 @@ public final class Model {
     private boolean pin_;
     /**
      * <code>bool pin = 2;</code>
+     * @return The pin.
      */
+    @java.lang.Override
     public boolean getPin() {
       return pin_;
     }
@@ -23616,7 +24824,9 @@ public final class Model {
     private boolean plaintext_;
     /**
      * <code>bool plaintext = 3;</code>
+     * @return The plaintext.
      */
+    @java.lang.Override
     public boolean getPlaintext() {
       return plaintext_;
     }
@@ -23625,7 +24835,9 @@ public final class Model {
     private volatile java.lang.Object mill_;
     /**
      * <code>string mill = 4;</code>
+     * @return The mill.
      */
+    @java.lang.Override
     public java.lang.String getMill() {
       java.lang.Object ref = mill_;
       if (ref instanceof java.lang.String) {
@@ -23640,7 +24852,9 @@ public final class Model {
     }
     /**
      * <code>string mill = 4;</code>
+     * @return The bytes for mill.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getMillBytes() {
       java.lang.Object ref = mill_;
@@ -23685,6 +24899,7 @@ public final class Model {
      * <code>map&lt;string, string&gt; opts = 5;</code>
      */
 
+    @java.lang.Override
     public boolean containsOpts(
         java.lang.String key) {
       if (key == null) { throw new java.lang.NullPointerException(); }
@@ -23693,6 +24908,7 @@ public final class Model {
     /**
      * Use {@link #getOptsMap()} instead.
      */
+    @java.lang.Override
     @java.lang.Deprecated
     public java.util.Map<java.lang.String, java.lang.String> getOpts() {
       return getOptsMap();
@@ -23700,6 +24916,7 @@ public final class Model {
     /**
      * <code>map&lt;string, string&gt; opts = 5;</code>
      */
+    @java.lang.Override
 
     public java.util.Map<java.lang.String, java.lang.String> getOptsMap() {
       return internalGetOpts().getMap();
@@ -23707,6 +24924,7 @@ public final class Model {
     /**
      * <code>map&lt;string, string&gt; opts = 5;</code>
      */
+    @java.lang.Override
 
     public java.lang.String getOptsOrDefault(
         java.lang.String key,
@@ -23719,6 +24937,7 @@ public final class Model {
     /**
      * <code>map&lt;string, string&gt; opts = 5;</code>
      */
+    @java.lang.Override
 
     public java.lang.String getOptsOrThrow(
         java.lang.String key) {
@@ -23735,19 +24954,24 @@ public final class Model {
     private com.google.protobuf.Struct jsonSchema_;
     /**
      * <code>.google.protobuf.Struct json_schema = 6;</code>
+     * @return Whether the jsonSchema field is set.
      */
+    @java.lang.Override
     public boolean hasJsonSchema() {
       return jsonSchema_ != null;
     }
     /**
      * <code>.google.protobuf.Struct json_schema = 6;</code>
+     * @return The jsonSchema.
      */
+    @java.lang.Override
     public com.google.protobuf.Struct getJsonSchema() {
       return jsonSchema_ == null ? com.google.protobuf.Struct.getDefaultInstance() : jsonSchema_;
     }
     /**
      * <code>.google.protobuf.Struct json_schema = 6;</code>
      */
+    @java.lang.Override
     public com.google.protobuf.StructOrBuilder getJsonSchemaOrBuilder() {
       return getJsonSchema();
     }
@@ -23782,6 +25006,7 @@ public final class Model {
      * <code>map&lt;string, .Link&gt; links = 8;</code>
      */
 
+    @java.lang.Override
     public boolean containsLinks(
         java.lang.String key) {
       if (key == null) { throw new java.lang.NullPointerException(); }
@@ -23790,6 +25015,7 @@ public final class Model {
     /**
      * Use {@link #getLinksMap()} instead.
      */
+    @java.lang.Override
     @java.lang.Deprecated
     public java.util.Map<java.lang.String, sjtu.opennet.textilepb.Model.Link> getLinks() {
       return getLinksMap();
@@ -23797,6 +25023,7 @@ public final class Model {
     /**
      * <code>map&lt;string, .Link&gt; links = 8;</code>
      */
+    @java.lang.Override
 
     public java.util.Map<java.lang.String, sjtu.opennet.textilepb.Model.Link> getLinksMap() {
       return internalGetLinks().getMap();
@@ -23804,6 +25031,7 @@ public final class Model {
     /**
      * <code>map&lt;string, .Link&gt; links = 8;</code>
      */
+    @java.lang.Override
 
     public sjtu.opennet.textilepb.Model.Link getLinksOrDefault(
         java.lang.String key,
@@ -23816,6 +25044,7 @@ public final class Model {
     /**
      * <code>map&lt;string, .Link&gt; links = 8;</code>
      */
+    @java.lang.Override
 
     public sjtu.opennet.textilepb.Model.Link getLinksOrThrow(
         java.lang.String key) {
@@ -23931,26 +25160,25 @@ public final class Model {
       }
       sjtu.opennet.textilepb.Model.Node other = (sjtu.opennet.textilepb.Model.Node) obj;
 
-      boolean result = true;
-      result = result && getName()
-          .equals(other.getName());
-      result = result && (getPin()
-          == other.getPin());
-      result = result && (getPlaintext()
-          == other.getPlaintext());
-      result = result && getMill()
-          .equals(other.getMill());
-      result = result && internalGetOpts().equals(
-          other.internalGetOpts());
-      result = result && (hasJsonSchema() == other.hasJsonSchema());
+      if (!getName()
+          .equals(other.getName())) return false;
+      if (getPin()
+          != other.getPin()) return false;
+      if (getPlaintext()
+          != other.getPlaintext()) return false;
+      if (!getMill()
+          .equals(other.getMill())) return false;
+      if (!internalGetOpts().equals(
+          other.internalGetOpts())) return false;
+      if (hasJsonSchema() != other.hasJsonSchema()) return false;
       if (hasJsonSchema()) {
-        result = result && getJsonSchema()
-            .equals(other.getJsonSchema());
+        if (!getJsonSchema()
+            .equals(other.getJsonSchema())) return false;
       }
-      result = result && internalGetLinks().equals(
-          other.internalGetLinks());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!internalGetLinks().equals(
+          other.internalGetLinks())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -24184,7 +25412,6 @@ public final class Model {
       public sjtu.opennet.textilepb.Model.Node buildPartial() {
         sjtu.opennet.textilepb.Model.Node result = new sjtu.opennet.textilepb.Model.Node(this);
         int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
         result.name_ = name_;
         result.pin_ = pin_;
         result.plaintext_ = plaintext_;
@@ -24198,42 +25425,41 @@ public final class Model {
         }
         result.links_ = internalGetLinks();
         result.links_.makeImmutable();
-        result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -24301,6 +25527,7 @@ public final class Model {
       private java.lang.Object name_ = "";
       /**
        * <code>string name = 1;</code>
+       * @return The name.
        */
       public java.lang.String getName() {
         java.lang.Object ref = name_;
@@ -24316,6 +25543,7 @@ public final class Model {
       }
       /**
        * <code>string name = 1;</code>
+       * @return The bytes for name.
        */
       public com.google.protobuf.ByteString
           getNameBytes() {
@@ -24332,6 +25560,8 @@ public final class Model {
       }
       /**
        * <code>string name = 1;</code>
+       * @param value The name to set.
+       * @return This builder for chaining.
        */
       public Builder setName(
           java.lang.String value) {
@@ -24345,6 +25575,7 @@ public final class Model {
       }
       /**
        * <code>string name = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearName() {
         
@@ -24354,6 +25585,8 @@ public final class Model {
       }
       /**
        * <code>string name = 1;</code>
+       * @param value The bytes for name to set.
+       * @return This builder for chaining.
        */
       public Builder setNameBytes(
           com.google.protobuf.ByteString value) {
@@ -24370,12 +25603,16 @@ public final class Model {
       private boolean pin_ ;
       /**
        * <code>bool pin = 2;</code>
+       * @return The pin.
        */
+      @java.lang.Override
       public boolean getPin() {
         return pin_;
       }
       /**
        * <code>bool pin = 2;</code>
+       * @param value The pin to set.
+       * @return This builder for chaining.
        */
       public Builder setPin(boolean value) {
         
@@ -24385,6 +25622,7 @@ public final class Model {
       }
       /**
        * <code>bool pin = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearPin() {
         
@@ -24396,12 +25634,16 @@ public final class Model {
       private boolean plaintext_ ;
       /**
        * <code>bool plaintext = 3;</code>
+       * @return The plaintext.
        */
+      @java.lang.Override
       public boolean getPlaintext() {
         return plaintext_;
       }
       /**
        * <code>bool plaintext = 3;</code>
+       * @param value The plaintext to set.
+       * @return This builder for chaining.
        */
       public Builder setPlaintext(boolean value) {
         
@@ -24411,6 +25653,7 @@ public final class Model {
       }
       /**
        * <code>bool plaintext = 3;</code>
+       * @return This builder for chaining.
        */
       public Builder clearPlaintext() {
         
@@ -24422,6 +25665,7 @@ public final class Model {
       private java.lang.Object mill_ = "";
       /**
        * <code>string mill = 4;</code>
+       * @return The mill.
        */
       public java.lang.String getMill() {
         java.lang.Object ref = mill_;
@@ -24437,6 +25681,7 @@ public final class Model {
       }
       /**
        * <code>string mill = 4;</code>
+       * @return The bytes for mill.
        */
       public com.google.protobuf.ByteString
           getMillBytes() {
@@ -24453,6 +25698,8 @@ public final class Model {
       }
       /**
        * <code>string mill = 4;</code>
+       * @param value The mill to set.
+       * @return This builder for chaining.
        */
       public Builder setMill(
           java.lang.String value) {
@@ -24466,6 +25713,7 @@ public final class Model {
       }
       /**
        * <code>string mill = 4;</code>
+       * @return This builder for chaining.
        */
       public Builder clearMill() {
         
@@ -24475,6 +25723,8 @@ public final class Model {
       }
       /**
        * <code>string mill = 4;</code>
+       * @param value The bytes for mill to set.
+       * @return This builder for chaining.
        */
       public Builder setMillBytes(
           com.google.protobuf.ByteString value) {
@@ -24518,6 +25768,7 @@ public final class Model {
        * <code>map&lt;string, string&gt; opts = 5;</code>
        */
 
+      @java.lang.Override
       public boolean containsOpts(
           java.lang.String key) {
         if (key == null) { throw new java.lang.NullPointerException(); }
@@ -24526,6 +25777,7 @@ public final class Model {
       /**
        * Use {@link #getOptsMap()} instead.
        */
+      @java.lang.Override
       @java.lang.Deprecated
       public java.util.Map<java.lang.String, java.lang.String> getOpts() {
         return getOptsMap();
@@ -24533,6 +25785,7 @@ public final class Model {
       /**
        * <code>map&lt;string, string&gt; opts = 5;</code>
        */
+      @java.lang.Override
 
       public java.util.Map<java.lang.String, java.lang.String> getOptsMap() {
         return internalGetOpts().getMap();
@@ -24540,6 +25793,7 @@ public final class Model {
       /**
        * <code>map&lt;string, string&gt; opts = 5;</code>
        */
+      @java.lang.Override
 
       public java.lang.String getOptsOrDefault(
           java.lang.String key,
@@ -24552,6 +25806,7 @@ public final class Model {
       /**
        * <code>map&lt;string, string&gt; opts = 5;</code>
        */
+      @java.lang.Override
 
       public java.lang.String getOptsOrThrow(
           java.lang.String key) {
@@ -24611,17 +25866,19 @@ public final class Model {
         return this;
       }
 
-      private com.google.protobuf.Struct jsonSchema_ = null;
+      private com.google.protobuf.Struct jsonSchema_;
       private com.google.protobuf.SingleFieldBuilderV3<
           com.google.protobuf.Struct, com.google.protobuf.Struct.Builder, com.google.protobuf.StructOrBuilder> jsonSchemaBuilder_;
       /**
        * <code>.google.protobuf.Struct json_schema = 6;</code>
+       * @return Whether the jsonSchema field is set.
        */
       public boolean hasJsonSchema() {
         return jsonSchemaBuilder_ != null || jsonSchema_ != null;
       }
       /**
        * <code>.google.protobuf.Struct json_schema = 6;</code>
+       * @return The jsonSchema.
        */
       public com.google.protobuf.Struct getJsonSchema() {
         if (jsonSchemaBuilder_ == null) {
@@ -24758,6 +26015,7 @@ public final class Model {
        * <code>map&lt;string, .Link&gt; links = 8;</code>
        */
 
+      @java.lang.Override
       public boolean containsLinks(
           java.lang.String key) {
         if (key == null) { throw new java.lang.NullPointerException(); }
@@ -24766,6 +26024,7 @@ public final class Model {
       /**
        * Use {@link #getLinksMap()} instead.
        */
+      @java.lang.Override
       @java.lang.Deprecated
       public java.util.Map<java.lang.String, sjtu.opennet.textilepb.Model.Link> getLinks() {
         return getLinksMap();
@@ -24773,6 +26032,7 @@ public final class Model {
       /**
        * <code>map&lt;string, .Link&gt; links = 8;</code>
        */
+      @java.lang.Override
 
       public java.util.Map<java.lang.String, sjtu.opennet.textilepb.Model.Link> getLinksMap() {
         return internalGetLinks().getMap();
@@ -24780,6 +26040,7 @@ public final class Model {
       /**
        * <code>map&lt;string, .Link&gt; links = 8;</code>
        */
+      @java.lang.Override
 
       public sjtu.opennet.textilepb.Model.Link getLinksOrDefault(
           java.lang.String key,
@@ -24792,6 +26053,7 @@ public final class Model {
       /**
        * <code>map&lt;string, .Link&gt; links = 8;</code>
        */
+      @java.lang.Override
 
       public sjtu.opennet.textilepb.Model.Link getLinksOrThrow(
           java.lang.String key) {
@@ -24853,7 +26115,7 @@ public final class Model {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -24909,30 +26171,36 @@ public final class Model {
 
     /**
      * <code>string use = 1;</code>
+     * @return The use.
      */
     java.lang.String getUse();
     /**
      * <code>string use = 1;</code>
+     * @return The bytes for use.
      */
     com.google.protobuf.ByteString
         getUseBytes();
 
     /**
      * <code>bool pin = 2;</code>
+     * @return The pin.
      */
     boolean getPin();
 
     /**
      * <code>bool plaintext = 3;</code>
+     * @return The plaintext.
      */
     boolean getPlaintext();
 
     /**
      * <code>string mill = 4;</code>
+     * @return The mill.
      */
     java.lang.String getMill();
     /**
      * <code>string mill = 4;</code>
+     * @return The bytes for mill.
      */
     com.google.protobuf.ByteString
         getMillBytes();
@@ -24973,10 +26241,12 @@ public final class Model {
 
     /**
      * <code>.google.protobuf.Struct json_schema = 6;</code>
+     * @return Whether the jsonSchema field is set.
      */
     boolean hasJsonSchema();
     /**
      * <code>.google.protobuf.Struct json_schema = 6;</code>
+     * @return The jsonSchema.
      */
     com.google.protobuf.Struct getJsonSchema();
     /**
@@ -24987,7 +26257,7 @@ public final class Model {
   /**
    * Protobuf type {@code Link}
    */
-  public  static final class Link extends
+  public static final class Link extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:Link)
       LinkOrBuilder {
@@ -24998,9 +26268,14 @@ public final class Model {
     }
     private Link() {
       use_ = "";
-      pin_ = false;
-      plaintext_ = false;
       mill_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new Link();
     }
 
     @java.lang.Override
@@ -25050,10 +26325,10 @@ public final class Model {
               break;
             }
             case 42: {
-              if (!((mutable_bitField0_ & 0x00000010) == 0x00000010)) {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
                 opts_ = com.google.protobuf.MapField.newMapField(
                     OptsDefaultEntryHolder.defaultEntry);
-                mutable_bitField0_ |= 0x00000010;
+                mutable_bitField0_ |= 0x00000001;
               }
               com.google.protobuf.MapEntry<java.lang.String, java.lang.String>
               opts__ = input.readMessage(
@@ -25076,7 +26351,7 @@ public final class Model {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -25119,12 +26394,13 @@ public final class Model {
               sjtu.opennet.textilepb.Model.Link.class, sjtu.opennet.textilepb.Model.Link.Builder.class);
     }
 
-    private int bitField0_;
     public static final int USE_FIELD_NUMBER = 1;
     private volatile java.lang.Object use_;
     /**
      * <code>string use = 1;</code>
+     * @return The use.
      */
+    @java.lang.Override
     public java.lang.String getUse() {
       java.lang.Object ref = use_;
       if (ref instanceof java.lang.String) {
@@ -25139,7 +26415,9 @@ public final class Model {
     }
     /**
      * <code>string use = 1;</code>
+     * @return The bytes for use.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getUseBytes() {
       java.lang.Object ref = use_;
@@ -25158,7 +26436,9 @@ public final class Model {
     private boolean pin_;
     /**
      * <code>bool pin = 2;</code>
+     * @return The pin.
      */
+    @java.lang.Override
     public boolean getPin() {
       return pin_;
     }
@@ -25167,7 +26447,9 @@ public final class Model {
     private boolean plaintext_;
     /**
      * <code>bool plaintext = 3;</code>
+     * @return The plaintext.
      */
+    @java.lang.Override
     public boolean getPlaintext() {
       return plaintext_;
     }
@@ -25176,7 +26458,9 @@ public final class Model {
     private volatile java.lang.Object mill_;
     /**
      * <code>string mill = 4;</code>
+     * @return The mill.
      */
+    @java.lang.Override
     public java.lang.String getMill() {
       java.lang.Object ref = mill_;
       if (ref instanceof java.lang.String) {
@@ -25191,7 +26475,9 @@ public final class Model {
     }
     /**
      * <code>string mill = 4;</code>
+     * @return The bytes for mill.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getMillBytes() {
       java.lang.Object ref = mill_;
@@ -25236,6 +26522,7 @@ public final class Model {
      * <code>map&lt;string, string&gt; opts = 5;</code>
      */
 
+    @java.lang.Override
     public boolean containsOpts(
         java.lang.String key) {
       if (key == null) { throw new java.lang.NullPointerException(); }
@@ -25244,6 +26531,7 @@ public final class Model {
     /**
      * Use {@link #getOptsMap()} instead.
      */
+    @java.lang.Override
     @java.lang.Deprecated
     public java.util.Map<java.lang.String, java.lang.String> getOpts() {
       return getOptsMap();
@@ -25251,6 +26539,7 @@ public final class Model {
     /**
      * <code>map&lt;string, string&gt; opts = 5;</code>
      */
+    @java.lang.Override
 
     public java.util.Map<java.lang.String, java.lang.String> getOptsMap() {
       return internalGetOpts().getMap();
@@ -25258,6 +26547,7 @@ public final class Model {
     /**
      * <code>map&lt;string, string&gt; opts = 5;</code>
      */
+    @java.lang.Override
 
     public java.lang.String getOptsOrDefault(
         java.lang.String key,
@@ -25270,6 +26560,7 @@ public final class Model {
     /**
      * <code>map&lt;string, string&gt; opts = 5;</code>
      */
+    @java.lang.Override
 
     public java.lang.String getOptsOrThrow(
         java.lang.String key) {
@@ -25286,19 +26577,24 @@ public final class Model {
     private com.google.protobuf.Struct jsonSchema_;
     /**
      * <code>.google.protobuf.Struct json_schema = 6;</code>
+     * @return Whether the jsonSchema field is set.
      */
+    @java.lang.Override
     public boolean hasJsonSchema() {
       return jsonSchema_ != null;
     }
     /**
      * <code>.google.protobuf.Struct json_schema = 6;</code>
+     * @return The jsonSchema.
      */
+    @java.lang.Override
     public com.google.protobuf.Struct getJsonSchema() {
       return jsonSchema_ == null ? com.google.protobuf.Struct.getDefaultInstance() : jsonSchema_;
     }
     /**
      * <code>.google.protobuf.Struct json_schema = 6;</code>
      */
+    @java.lang.Override
     public com.google.protobuf.StructOrBuilder getJsonSchemaOrBuilder() {
       return getJsonSchema();
     }
@@ -25390,24 +26686,23 @@ public final class Model {
       }
       sjtu.opennet.textilepb.Model.Link other = (sjtu.opennet.textilepb.Model.Link) obj;
 
-      boolean result = true;
-      result = result && getUse()
-          .equals(other.getUse());
-      result = result && (getPin()
-          == other.getPin());
-      result = result && (getPlaintext()
-          == other.getPlaintext());
-      result = result && getMill()
-          .equals(other.getMill());
-      result = result && internalGetOpts().equals(
-          other.internalGetOpts());
-      result = result && (hasJsonSchema() == other.hasJsonSchema());
+      if (!getUse()
+          .equals(other.getUse())) return false;
+      if (getPin()
+          != other.getPin()) return false;
+      if (getPlaintext()
+          != other.getPlaintext()) return false;
+      if (!getMill()
+          .equals(other.getMill())) return false;
+      if (!internalGetOpts().equals(
+          other.internalGetOpts())) return false;
+      if (hasJsonSchema() != other.hasJsonSchema()) return false;
       if (hasJsonSchema()) {
-        result = result && getJsonSchema()
-            .equals(other.getJsonSchema());
+        if (!getJsonSchema()
+            .equals(other.getJsonSchema())) return false;
       }
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -25632,7 +26927,6 @@ public final class Model {
       public sjtu.opennet.textilepb.Model.Link buildPartial() {
         sjtu.opennet.textilepb.Model.Link result = new sjtu.opennet.textilepb.Model.Link(this);
         int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
         result.use_ = use_;
         result.pin_ = pin_;
         result.plaintext_ = plaintext_;
@@ -25644,42 +26938,41 @@ public final class Model {
         } else {
           result.jsonSchema_ = jsonSchemaBuilder_.build();
         }
-        result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -25745,6 +27038,7 @@ public final class Model {
       private java.lang.Object use_ = "";
       /**
        * <code>string use = 1;</code>
+       * @return The use.
        */
       public java.lang.String getUse() {
         java.lang.Object ref = use_;
@@ -25760,6 +27054,7 @@ public final class Model {
       }
       /**
        * <code>string use = 1;</code>
+       * @return The bytes for use.
        */
       public com.google.protobuf.ByteString
           getUseBytes() {
@@ -25776,6 +27071,8 @@ public final class Model {
       }
       /**
        * <code>string use = 1;</code>
+       * @param value The use to set.
+       * @return This builder for chaining.
        */
       public Builder setUse(
           java.lang.String value) {
@@ -25789,6 +27086,7 @@ public final class Model {
       }
       /**
        * <code>string use = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearUse() {
         
@@ -25798,6 +27096,8 @@ public final class Model {
       }
       /**
        * <code>string use = 1;</code>
+       * @param value The bytes for use to set.
+       * @return This builder for chaining.
        */
       public Builder setUseBytes(
           com.google.protobuf.ByteString value) {
@@ -25814,12 +27114,16 @@ public final class Model {
       private boolean pin_ ;
       /**
        * <code>bool pin = 2;</code>
+       * @return The pin.
        */
+      @java.lang.Override
       public boolean getPin() {
         return pin_;
       }
       /**
        * <code>bool pin = 2;</code>
+       * @param value The pin to set.
+       * @return This builder for chaining.
        */
       public Builder setPin(boolean value) {
         
@@ -25829,6 +27133,7 @@ public final class Model {
       }
       /**
        * <code>bool pin = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearPin() {
         
@@ -25840,12 +27145,16 @@ public final class Model {
       private boolean plaintext_ ;
       /**
        * <code>bool plaintext = 3;</code>
+       * @return The plaintext.
        */
+      @java.lang.Override
       public boolean getPlaintext() {
         return plaintext_;
       }
       /**
        * <code>bool plaintext = 3;</code>
+       * @param value The plaintext to set.
+       * @return This builder for chaining.
        */
       public Builder setPlaintext(boolean value) {
         
@@ -25855,6 +27164,7 @@ public final class Model {
       }
       /**
        * <code>bool plaintext = 3;</code>
+       * @return This builder for chaining.
        */
       public Builder clearPlaintext() {
         
@@ -25866,6 +27176,7 @@ public final class Model {
       private java.lang.Object mill_ = "";
       /**
        * <code>string mill = 4;</code>
+       * @return The mill.
        */
       public java.lang.String getMill() {
         java.lang.Object ref = mill_;
@@ -25881,6 +27192,7 @@ public final class Model {
       }
       /**
        * <code>string mill = 4;</code>
+       * @return The bytes for mill.
        */
       public com.google.protobuf.ByteString
           getMillBytes() {
@@ -25897,6 +27209,8 @@ public final class Model {
       }
       /**
        * <code>string mill = 4;</code>
+       * @param value The mill to set.
+       * @return This builder for chaining.
        */
       public Builder setMill(
           java.lang.String value) {
@@ -25910,6 +27224,7 @@ public final class Model {
       }
       /**
        * <code>string mill = 4;</code>
+       * @return This builder for chaining.
        */
       public Builder clearMill() {
         
@@ -25919,6 +27234,8 @@ public final class Model {
       }
       /**
        * <code>string mill = 4;</code>
+       * @param value The bytes for mill to set.
+       * @return This builder for chaining.
        */
       public Builder setMillBytes(
           com.google.protobuf.ByteString value) {
@@ -25962,6 +27279,7 @@ public final class Model {
        * <code>map&lt;string, string&gt; opts = 5;</code>
        */
 
+      @java.lang.Override
       public boolean containsOpts(
           java.lang.String key) {
         if (key == null) { throw new java.lang.NullPointerException(); }
@@ -25970,6 +27288,7 @@ public final class Model {
       /**
        * Use {@link #getOptsMap()} instead.
        */
+      @java.lang.Override
       @java.lang.Deprecated
       public java.util.Map<java.lang.String, java.lang.String> getOpts() {
         return getOptsMap();
@@ -25977,6 +27296,7 @@ public final class Model {
       /**
        * <code>map&lt;string, string&gt; opts = 5;</code>
        */
+      @java.lang.Override
 
       public java.util.Map<java.lang.String, java.lang.String> getOptsMap() {
         return internalGetOpts().getMap();
@@ -25984,6 +27304,7 @@ public final class Model {
       /**
        * <code>map&lt;string, string&gt; opts = 5;</code>
        */
+      @java.lang.Override
 
       public java.lang.String getOptsOrDefault(
           java.lang.String key,
@@ -25996,6 +27317,7 @@ public final class Model {
       /**
        * <code>map&lt;string, string&gt; opts = 5;</code>
        */
+      @java.lang.Override
 
       public java.lang.String getOptsOrThrow(
           java.lang.String key) {
@@ -26055,17 +27377,19 @@ public final class Model {
         return this;
       }
 
-      private com.google.protobuf.Struct jsonSchema_ = null;
+      private com.google.protobuf.Struct jsonSchema_;
       private com.google.protobuf.SingleFieldBuilderV3<
           com.google.protobuf.Struct, com.google.protobuf.Struct.Builder, com.google.protobuf.StructOrBuilder> jsonSchemaBuilder_;
       /**
        * <code>.google.protobuf.Struct json_schema = 6;</code>
+       * @return Whether the jsonSchema field is set.
        */
       public boolean hasJsonSchema() {
         return jsonSchemaBuilder_ != null || jsonSchema_ != null;
       }
       /**
        * <code>.google.protobuf.Struct json_schema = 6;</code>
+       * @return The jsonSchema.
        */
       public com.google.protobuf.Struct getJsonSchema() {
         if (jsonSchemaBuilder_ == null) {
@@ -26174,7 +27498,7 @@ public final class Model {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -26230,20 +27554,24 @@ public final class Model {
 
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
     java.lang.String getId();
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
     com.google.protobuf.ByteString
         getIdBytes();
 
     /**
      * <code>.google.protobuf.Timestamp date = 2;</code>
+     * @return Whether the date field is set.
      */
     boolean hasDate();
     /**
      * <code>.google.protobuf.Timestamp date = 2;</code>
+     * @return The date.
      */
     com.google.protobuf.Timestamp getDate();
     /**
@@ -26253,75 +27581,90 @@ public final class Model {
 
     /**
      * <code>string actor = 3;</code>
+     * @return The actor.
      */
     java.lang.String getActor();
     /**
      * <code>string actor = 3;</code>
+     * @return The bytes for actor.
      */
     com.google.protobuf.ByteString
         getActorBytes();
 
     /**
      * <code>string subject = 4;</code>
+     * @return The subject.
      */
     java.lang.String getSubject();
     /**
      * <code>string subject = 4;</code>
+     * @return The bytes for subject.
      */
     com.google.protobuf.ByteString
         getSubjectBytes();
 
     /**
      * <code>string subject_desc = 5;</code>
+     * @return The subjectDesc.
      */
     java.lang.String getSubjectDesc();
     /**
      * <code>string subject_desc = 5;</code>
+     * @return The bytes for subjectDesc.
      */
     com.google.protobuf.ByteString
         getSubjectDescBytes();
 
     /**
      * <code>string block = 6;</code>
+     * @return The block.
      */
     java.lang.String getBlock();
     /**
      * <code>string block = 6;</code>
+     * @return The bytes for block.
      */
     com.google.protobuf.ByteString
         getBlockBytes();
 
     /**
      * <code>string target = 7;</code>
+     * @return The target.
      */
     java.lang.String getTarget();
     /**
      * <code>string target = 7;</code>
+     * @return The bytes for target.
      */
     com.google.protobuf.ByteString
         getTargetBytes();
 
     /**
      * <code>.Notification.Type type = 8;</code>
+     * @return The enum numeric value on the wire for type.
      */
     int getTypeValue();
     /**
      * <code>.Notification.Type type = 8;</code>
+     * @return The type.
      */
     sjtu.opennet.textilepb.Model.Notification.Type getType();
 
     /**
      * <code>string body = 9;</code>
+     * @return The body.
      */
     java.lang.String getBody();
     /**
      * <code>string body = 9;</code>
+     * @return The bytes for body.
      */
     com.google.protobuf.ByteString
         getBodyBytes();
 
     /**
      * <code>bool read = 10;</code>
+     * @return The read.
      */
     boolean getRead();
 
@@ -26331,6 +27674,7 @@ public final class Model {
      * </pre>
      *
      * <code>.User user = 101;</code>
+     * @return Whether the user field is set.
      */
     boolean hasUser();
     /**
@@ -26339,6 +27683,7 @@ public final class Model {
      * </pre>
      *
      * <code>.User user = 101;</code>
+     * @return The user.
      */
     sjtu.opennet.textilepb.Model.User getUser();
     /**
@@ -26353,7 +27698,7 @@ public final class Model {
   /**
    * Protobuf type {@code Notification}
    */
-  public  static final class Notification extends
+  public static final class Notification extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:Notification)
       NotificationOrBuilder {
@@ -26371,7 +27716,13 @@ public final class Model {
       target_ = "";
       type_ = 0;
       body_ = "";
-      read_ = false;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new Notification();
     }
 
     @java.lang.Override
@@ -26387,7 +27738,6 @@ public final class Model {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -26478,7 +27828,7 @@ public final class Model {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -26656,6 +28006,8 @@ public final class Model {
       }
 
       /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
        * @deprecated Use {@link #forNumber(int)} instead.
        */
       @java.lang.Deprecated
@@ -26663,6 +28015,10 @@ public final class Model {
         return forNumber(value);
       }
 
+      /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
+       */
       public static Type forNumber(int value) {
         switch (value) {
           case 0: return INVITE_RECEIVED;
@@ -26699,6 +28055,10 @@ public final class Model {
 
       public final com.google.protobuf.Descriptors.EnumValueDescriptor
           getValueDescriptor() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalStateException(
+              "Can't get the descriptor of an unrecognized enum value.");
+        }
         return getDescriptor().getValues().get(ordinal());
       }
       public final com.google.protobuf.Descriptors.EnumDescriptor
@@ -26737,7 +28097,9 @@ public final class Model {
     private volatile java.lang.Object id_;
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
+    @java.lang.Override
     public java.lang.String getId() {
       java.lang.Object ref = id_;
       if (ref instanceof java.lang.String) {
@@ -26752,7 +28114,9 @@ public final class Model {
     }
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getIdBytes() {
       java.lang.Object ref = id_;
@@ -26771,19 +28135,24 @@ public final class Model {
     private com.google.protobuf.Timestamp date_;
     /**
      * <code>.google.protobuf.Timestamp date = 2;</code>
+     * @return Whether the date field is set.
      */
+    @java.lang.Override
     public boolean hasDate() {
       return date_ != null;
     }
     /**
      * <code>.google.protobuf.Timestamp date = 2;</code>
+     * @return The date.
      */
+    @java.lang.Override
     public com.google.protobuf.Timestamp getDate() {
       return date_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : date_;
     }
     /**
      * <code>.google.protobuf.Timestamp date = 2;</code>
      */
+    @java.lang.Override
     public com.google.protobuf.TimestampOrBuilder getDateOrBuilder() {
       return getDate();
     }
@@ -26792,7 +28161,9 @@ public final class Model {
     private volatile java.lang.Object actor_;
     /**
      * <code>string actor = 3;</code>
+     * @return The actor.
      */
+    @java.lang.Override
     public java.lang.String getActor() {
       java.lang.Object ref = actor_;
       if (ref instanceof java.lang.String) {
@@ -26807,7 +28178,9 @@ public final class Model {
     }
     /**
      * <code>string actor = 3;</code>
+     * @return The bytes for actor.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getActorBytes() {
       java.lang.Object ref = actor_;
@@ -26826,7 +28199,9 @@ public final class Model {
     private volatile java.lang.Object subject_;
     /**
      * <code>string subject = 4;</code>
+     * @return The subject.
      */
+    @java.lang.Override
     public java.lang.String getSubject() {
       java.lang.Object ref = subject_;
       if (ref instanceof java.lang.String) {
@@ -26841,7 +28216,9 @@ public final class Model {
     }
     /**
      * <code>string subject = 4;</code>
+     * @return The bytes for subject.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSubjectBytes() {
       java.lang.Object ref = subject_;
@@ -26860,7 +28237,9 @@ public final class Model {
     private volatile java.lang.Object subjectDesc_;
     /**
      * <code>string subject_desc = 5;</code>
+     * @return The subjectDesc.
      */
+    @java.lang.Override
     public java.lang.String getSubjectDesc() {
       java.lang.Object ref = subjectDesc_;
       if (ref instanceof java.lang.String) {
@@ -26875,7 +28254,9 @@ public final class Model {
     }
     /**
      * <code>string subject_desc = 5;</code>
+     * @return The bytes for subjectDesc.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSubjectDescBytes() {
       java.lang.Object ref = subjectDesc_;
@@ -26894,7 +28275,9 @@ public final class Model {
     private volatile java.lang.Object block_;
     /**
      * <code>string block = 6;</code>
+     * @return The block.
      */
+    @java.lang.Override
     public java.lang.String getBlock() {
       java.lang.Object ref = block_;
       if (ref instanceof java.lang.String) {
@@ -26909,7 +28292,9 @@ public final class Model {
     }
     /**
      * <code>string block = 6;</code>
+     * @return The bytes for block.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getBlockBytes() {
       java.lang.Object ref = block_;
@@ -26928,7 +28313,9 @@ public final class Model {
     private volatile java.lang.Object target_;
     /**
      * <code>string target = 7;</code>
+     * @return The target.
      */
+    @java.lang.Override
     public java.lang.String getTarget() {
       java.lang.Object ref = target_;
       if (ref instanceof java.lang.String) {
@@ -26943,7 +28330,9 @@ public final class Model {
     }
     /**
      * <code>string target = 7;</code>
+     * @return The bytes for target.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getTargetBytes() {
       java.lang.Object ref = target_;
@@ -26962,14 +28351,16 @@ public final class Model {
     private int type_;
     /**
      * <code>.Notification.Type type = 8;</code>
+     * @return The enum numeric value on the wire for type.
      */
-    public int getTypeValue() {
+    @java.lang.Override public int getTypeValue() {
       return type_;
     }
     /**
      * <code>.Notification.Type type = 8;</code>
+     * @return The type.
      */
-    public sjtu.opennet.textilepb.Model.Notification.Type getType() {
+    @java.lang.Override public sjtu.opennet.textilepb.Model.Notification.Type getType() {
       @SuppressWarnings("deprecation")
       sjtu.opennet.textilepb.Model.Notification.Type result = sjtu.opennet.textilepb.Model.Notification.Type.valueOf(type_);
       return result == null ? sjtu.opennet.textilepb.Model.Notification.Type.UNRECOGNIZED : result;
@@ -26979,7 +28370,9 @@ public final class Model {
     private volatile java.lang.Object body_;
     /**
      * <code>string body = 9;</code>
+     * @return The body.
      */
+    @java.lang.Override
     public java.lang.String getBody() {
       java.lang.Object ref = body_;
       if (ref instanceof java.lang.String) {
@@ -26994,7 +28387,9 @@ public final class Model {
     }
     /**
      * <code>string body = 9;</code>
+     * @return The bytes for body.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getBodyBytes() {
       java.lang.Object ref = body_;
@@ -27013,7 +28408,9 @@ public final class Model {
     private boolean read_;
     /**
      * <code>bool read = 10;</code>
+     * @return The read.
      */
+    @java.lang.Override
     public boolean getRead() {
       return read_;
     }
@@ -27026,7 +28423,9 @@ public final class Model {
      * </pre>
      *
      * <code>.User user = 101;</code>
+     * @return Whether the user field is set.
      */
+    @java.lang.Override
     public boolean hasUser() {
       return user_ != null;
     }
@@ -27036,7 +28435,9 @@ public final class Model {
      * </pre>
      *
      * <code>.User user = 101;</code>
+     * @return The user.
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.User getUser() {
       return user_ == null ? sjtu.opennet.textilepb.Model.User.getDefaultInstance() : user_;
     }
@@ -27047,6 +28448,7 @@ public final class Model {
      *
      * <code>.User user = 101;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.UserOrBuilder getUserOrBuilder() {
       return getUser();
     }
@@ -27159,36 +28561,35 @@ public final class Model {
       }
       sjtu.opennet.textilepb.Model.Notification other = (sjtu.opennet.textilepb.Model.Notification) obj;
 
-      boolean result = true;
-      result = result && getId()
-          .equals(other.getId());
-      result = result && (hasDate() == other.hasDate());
+      if (!getId()
+          .equals(other.getId())) return false;
+      if (hasDate() != other.hasDate()) return false;
       if (hasDate()) {
-        result = result && getDate()
-            .equals(other.getDate());
+        if (!getDate()
+            .equals(other.getDate())) return false;
       }
-      result = result && getActor()
-          .equals(other.getActor());
-      result = result && getSubject()
-          .equals(other.getSubject());
-      result = result && getSubjectDesc()
-          .equals(other.getSubjectDesc());
-      result = result && getBlock()
-          .equals(other.getBlock());
-      result = result && getTarget()
-          .equals(other.getTarget());
-      result = result && type_ == other.type_;
-      result = result && getBody()
-          .equals(other.getBody());
-      result = result && (getRead()
-          == other.getRead());
-      result = result && (hasUser() == other.hasUser());
+      if (!getActor()
+          .equals(other.getActor())) return false;
+      if (!getSubject()
+          .equals(other.getSubject())) return false;
+      if (!getSubjectDesc()
+          .equals(other.getSubjectDesc())) return false;
+      if (!getBlock()
+          .equals(other.getBlock())) return false;
+      if (!getTarget()
+          .equals(other.getTarget())) return false;
+      if (type_ != other.type_) return false;
+      if (!getBody()
+          .equals(other.getBody())) return false;
+      if (getRead()
+          != other.getRead()) return false;
+      if (hasUser() != other.hasUser()) return false;
       if (hasUser()) {
-        result = result && getUser()
-            .equals(other.getUser());
+        if (!getUser()
+            .equals(other.getUser())) return false;
       }
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -27439,35 +28840,35 @@ public final class Model {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -27553,6 +28954,7 @@ public final class Model {
       private java.lang.Object id_ = "";
       /**
        * <code>string id = 1;</code>
+       * @return The id.
        */
       public java.lang.String getId() {
         java.lang.Object ref = id_;
@@ -27568,6 +28970,7 @@ public final class Model {
       }
       /**
        * <code>string id = 1;</code>
+       * @return The bytes for id.
        */
       public com.google.protobuf.ByteString
           getIdBytes() {
@@ -27584,6 +28987,8 @@ public final class Model {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The id to set.
+       * @return This builder for chaining.
        */
       public Builder setId(
           java.lang.String value) {
@@ -27597,6 +29002,7 @@ public final class Model {
       }
       /**
        * <code>string id = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearId() {
         
@@ -27606,6 +29012,8 @@ public final class Model {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The bytes for id to set.
+       * @return This builder for chaining.
        */
       public Builder setIdBytes(
           com.google.protobuf.ByteString value) {
@@ -27619,17 +29027,19 @@ public final class Model {
         return this;
       }
 
-      private com.google.protobuf.Timestamp date_ = null;
+      private com.google.protobuf.Timestamp date_;
       private com.google.protobuf.SingleFieldBuilderV3<
           com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> dateBuilder_;
       /**
        * <code>.google.protobuf.Timestamp date = 2;</code>
+       * @return Whether the date field is set.
        */
       public boolean hasDate() {
         return dateBuilder_ != null || date_ != null;
       }
       /**
        * <code>.google.protobuf.Timestamp date = 2;</code>
+       * @return The date.
        */
       public com.google.protobuf.Timestamp getDate() {
         if (dateBuilder_ == null) {
@@ -27739,6 +29149,7 @@ public final class Model {
       private java.lang.Object actor_ = "";
       /**
        * <code>string actor = 3;</code>
+       * @return The actor.
        */
       public java.lang.String getActor() {
         java.lang.Object ref = actor_;
@@ -27754,6 +29165,7 @@ public final class Model {
       }
       /**
        * <code>string actor = 3;</code>
+       * @return The bytes for actor.
        */
       public com.google.protobuf.ByteString
           getActorBytes() {
@@ -27770,6 +29182,8 @@ public final class Model {
       }
       /**
        * <code>string actor = 3;</code>
+       * @param value The actor to set.
+       * @return This builder for chaining.
        */
       public Builder setActor(
           java.lang.String value) {
@@ -27783,6 +29197,7 @@ public final class Model {
       }
       /**
        * <code>string actor = 3;</code>
+       * @return This builder for chaining.
        */
       public Builder clearActor() {
         
@@ -27792,6 +29207,8 @@ public final class Model {
       }
       /**
        * <code>string actor = 3;</code>
+       * @param value The bytes for actor to set.
+       * @return This builder for chaining.
        */
       public Builder setActorBytes(
           com.google.protobuf.ByteString value) {
@@ -27808,6 +29225,7 @@ public final class Model {
       private java.lang.Object subject_ = "";
       /**
        * <code>string subject = 4;</code>
+       * @return The subject.
        */
       public java.lang.String getSubject() {
         java.lang.Object ref = subject_;
@@ -27823,6 +29241,7 @@ public final class Model {
       }
       /**
        * <code>string subject = 4;</code>
+       * @return The bytes for subject.
        */
       public com.google.protobuf.ByteString
           getSubjectBytes() {
@@ -27839,6 +29258,8 @@ public final class Model {
       }
       /**
        * <code>string subject = 4;</code>
+       * @param value The subject to set.
+       * @return This builder for chaining.
        */
       public Builder setSubject(
           java.lang.String value) {
@@ -27852,6 +29273,7 @@ public final class Model {
       }
       /**
        * <code>string subject = 4;</code>
+       * @return This builder for chaining.
        */
       public Builder clearSubject() {
         
@@ -27861,6 +29283,8 @@ public final class Model {
       }
       /**
        * <code>string subject = 4;</code>
+       * @param value The bytes for subject to set.
+       * @return This builder for chaining.
        */
       public Builder setSubjectBytes(
           com.google.protobuf.ByteString value) {
@@ -27877,6 +29301,7 @@ public final class Model {
       private java.lang.Object subjectDesc_ = "";
       /**
        * <code>string subject_desc = 5;</code>
+       * @return The subjectDesc.
        */
       public java.lang.String getSubjectDesc() {
         java.lang.Object ref = subjectDesc_;
@@ -27892,6 +29317,7 @@ public final class Model {
       }
       /**
        * <code>string subject_desc = 5;</code>
+       * @return The bytes for subjectDesc.
        */
       public com.google.protobuf.ByteString
           getSubjectDescBytes() {
@@ -27908,6 +29334,8 @@ public final class Model {
       }
       /**
        * <code>string subject_desc = 5;</code>
+       * @param value The subjectDesc to set.
+       * @return This builder for chaining.
        */
       public Builder setSubjectDesc(
           java.lang.String value) {
@@ -27921,6 +29349,7 @@ public final class Model {
       }
       /**
        * <code>string subject_desc = 5;</code>
+       * @return This builder for chaining.
        */
       public Builder clearSubjectDesc() {
         
@@ -27930,6 +29359,8 @@ public final class Model {
       }
       /**
        * <code>string subject_desc = 5;</code>
+       * @param value The bytes for subjectDesc to set.
+       * @return This builder for chaining.
        */
       public Builder setSubjectDescBytes(
           com.google.protobuf.ByteString value) {
@@ -27946,6 +29377,7 @@ public final class Model {
       private java.lang.Object block_ = "";
       /**
        * <code>string block = 6;</code>
+       * @return The block.
        */
       public java.lang.String getBlock() {
         java.lang.Object ref = block_;
@@ -27961,6 +29393,7 @@ public final class Model {
       }
       /**
        * <code>string block = 6;</code>
+       * @return The bytes for block.
        */
       public com.google.protobuf.ByteString
           getBlockBytes() {
@@ -27977,6 +29410,8 @@ public final class Model {
       }
       /**
        * <code>string block = 6;</code>
+       * @param value The block to set.
+       * @return This builder for chaining.
        */
       public Builder setBlock(
           java.lang.String value) {
@@ -27990,6 +29425,7 @@ public final class Model {
       }
       /**
        * <code>string block = 6;</code>
+       * @return This builder for chaining.
        */
       public Builder clearBlock() {
         
@@ -27999,6 +29435,8 @@ public final class Model {
       }
       /**
        * <code>string block = 6;</code>
+       * @param value The bytes for block to set.
+       * @return This builder for chaining.
        */
       public Builder setBlockBytes(
           com.google.protobuf.ByteString value) {
@@ -28015,6 +29453,7 @@ public final class Model {
       private java.lang.Object target_ = "";
       /**
        * <code>string target = 7;</code>
+       * @return The target.
        */
       public java.lang.String getTarget() {
         java.lang.Object ref = target_;
@@ -28030,6 +29469,7 @@ public final class Model {
       }
       /**
        * <code>string target = 7;</code>
+       * @return The bytes for target.
        */
       public com.google.protobuf.ByteString
           getTargetBytes() {
@@ -28046,6 +29486,8 @@ public final class Model {
       }
       /**
        * <code>string target = 7;</code>
+       * @param value The target to set.
+       * @return This builder for chaining.
        */
       public Builder setTarget(
           java.lang.String value) {
@@ -28059,6 +29501,7 @@ public final class Model {
       }
       /**
        * <code>string target = 7;</code>
+       * @return This builder for chaining.
        */
       public Builder clearTarget() {
         
@@ -28068,6 +29511,8 @@ public final class Model {
       }
       /**
        * <code>string target = 7;</code>
+       * @param value The bytes for target to set.
+       * @return This builder for chaining.
        */
       public Builder setTargetBytes(
           com.google.protobuf.ByteString value) {
@@ -28084,21 +29529,27 @@ public final class Model {
       private int type_ = 0;
       /**
        * <code>.Notification.Type type = 8;</code>
+       * @return The enum numeric value on the wire for type.
        */
-      public int getTypeValue() {
+      @java.lang.Override public int getTypeValue() {
         return type_;
       }
       /**
        * <code>.Notification.Type type = 8;</code>
+       * @param value The enum numeric value on the wire for type to set.
+       * @return This builder for chaining.
        */
       public Builder setTypeValue(int value) {
+        
         type_ = value;
         onChanged();
         return this;
       }
       /**
        * <code>.Notification.Type type = 8;</code>
+       * @return The type.
        */
+      @java.lang.Override
       public sjtu.opennet.textilepb.Model.Notification.Type getType() {
         @SuppressWarnings("deprecation")
         sjtu.opennet.textilepb.Model.Notification.Type result = sjtu.opennet.textilepb.Model.Notification.Type.valueOf(type_);
@@ -28106,6 +29557,8 @@ public final class Model {
       }
       /**
        * <code>.Notification.Type type = 8;</code>
+       * @param value The type to set.
+       * @return This builder for chaining.
        */
       public Builder setType(sjtu.opennet.textilepb.Model.Notification.Type value) {
         if (value == null) {
@@ -28118,6 +29571,7 @@ public final class Model {
       }
       /**
        * <code>.Notification.Type type = 8;</code>
+       * @return This builder for chaining.
        */
       public Builder clearType() {
         
@@ -28129,6 +29583,7 @@ public final class Model {
       private java.lang.Object body_ = "";
       /**
        * <code>string body = 9;</code>
+       * @return The body.
        */
       public java.lang.String getBody() {
         java.lang.Object ref = body_;
@@ -28144,6 +29599,7 @@ public final class Model {
       }
       /**
        * <code>string body = 9;</code>
+       * @return The bytes for body.
        */
       public com.google.protobuf.ByteString
           getBodyBytes() {
@@ -28160,6 +29616,8 @@ public final class Model {
       }
       /**
        * <code>string body = 9;</code>
+       * @param value The body to set.
+       * @return This builder for chaining.
        */
       public Builder setBody(
           java.lang.String value) {
@@ -28173,6 +29631,7 @@ public final class Model {
       }
       /**
        * <code>string body = 9;</code>
+       * @return This builder for chaining.
        */
       public Builder clearBody() {
         
@@ -28182,6 +29641,8 @@ public final class Model {
       }
       /**
        * <code>string body = 9;</code>
+       * @param value The bytes for body to set.
+       * @return This builder for chaining.
        */
       public Builder setBodyBytes(
           com.google.protobuf.ByteString value) {
@@ -28198,12 +29659,16 @@ public final class Model {
       private boolean read_ ;
       /**
        * <code>bool read = 10;</code>
+       * @return The read.
        */
+      @java.lang.Override
       public boolean getRead() {
         return read_;
       }
       /**
        * <code>bool read = 10;</code>
+       * @param value The read to set.
+       * @return This builder for chaining.
        */
       public Builder setRead(boolean value) {
         
@@ -28213,6 +29678,7 @@ public final class Model {
       }
       /**
        * <code>bool read = 10;</code>
+       * @return This builder for chaining.
        */
       public Builder clearRead() {
         
@@ -28221,7 +29687,7 @@ public final class Model {
         return this;
       }
 
-      private sjtu.opennet.textilepb.Model.User user_ = null;
+      private sjtu.opennet.textilepb.Model.User user_;
       private com.google.protobuf.SingleFieldBuilderV3<
           sjtu.opennet.textilepb.Model.User, sjtu.opennet.textilepb.Model.User.Builder, sjtu.opennet.textilepb.Model.UserOrBuilder> userBuilder_;
       /**
@@ -28230,6 +29696,7 @@ public final class Model {
        * </pre>
        *
        * <code>.User user = 101;</code>
+       * @return Whether the user field is set.
        */
       public boolean hasUser() {
         return userBuilder_ != null || user_ != null;
@@ -28240,6 +29707,7 @@ public final class Model {
        * </pre>
        *
        * <code>.User user = 101;</code>
+       * @return The user.
        */
       public sjtu.opennet.textilepb.Model.User getUser() {
         if (userBuilder_ == null) {
@@ -28376,7 +29844,7 @@ public final class Model {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -28457,7 +29925,7 @@ public final class Model {
   /**
    * Protobuf type {@code NotificationList}
    */
-  public  static final class NotificationList extends
+  public static final class NotificationList extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:NotificationList)
       NotificationListOrBuilder {
@@ -28468,6 +29936,13 @@ public final class Model {
     }
     private NotificationList() {
       items_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new NotificationList();
     }
 
     @java.lang.Override
@@ -28495,7 +29970,7 @@ public final class Model {
               done = true;
               break;
             case 10: {
-              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
                 items_ = new java.util.ArrayList<sjtu.opennet.textilepb.Model.Notification>();
                 mutable_bitField0_ |= 0x00000001;
               }
@@ -28504,7 +29979,7 @@ public final class Model {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -28518,7 +29993,7 @@ public final class Model {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
           items_ = java.util.Collections.unmodifiableList(items_);
         }
         this.unknownFields = unknownFields.build();
@@ -28543,12 +30018,14 @@ public final class Model {
     /**
      * <code>repeated .Notification items = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<sjtu.opennet.textilepb.Model.Notification> getItemsList() {
       return items_;
     }
     /**
      * <code>repeated .Notification items = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends sjtu.opennet.textilepb.Model.NotificationOrBuilder> 
         getItemsOrBuilderList() {
       return items_;
@@ -28556,18 +30033,21 @@ public final class Model {
     /**
      * <code>repeated .Notification items = 1;</code>
      */
+    @java.lang.Override
     public int getItemsCount() {
       return items_.size();
     }
     /**
      * <code>repeated .Notification items = 1;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.Notification getItems(int index) {
       return items_.get(index);
     }
     /**
      * <code>repeated .Notification items = 1;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.NotificationOrBuilder getItemsOrBuilder(
         int index) {
       return items_.get(index);
@@ -28618,11 +30098,10 @@ public final class Model {
       }
       sjtu.opennet.textilepb.Model.NotificationList other = (sjtu.opennet.textilepb.Model.NotificationList) obj;
 
-      boolean result = true;
-      result = result && getItemsList()
-          .equals(other.getItemsList());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getItemsList()
+          .equals(other.getItemsList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -28804,7 +30283,7 @@ public final class Model {
         sjtu.opennet.textilepb.Model.NotificationList result = new sjtu.opennet.textilepb.Model.NotificationList(this);
         int from_bitField0_ = bitField0_;
         if (itemsBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) == 0x00000001)) {
+          if (((bitField0_ & 0x00000001) != 0)) {
             items_ = java.util.Collections.unmodifiableList(items_);
             bitField0_ = (bitField0_ & ~0x00000001);
           }
@@ -28818,35 +30297,35 @@ public final class Model {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -28919,7 +30398,7 @@ public final class Model {
       private java.util.List<sjtu.opennet.textilepb.Model.Notification> items_ =
         java.util.Collections.emptyList();
       private void ensureItemsIsMutable() {
-        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+        if (!((bitField0_ & 0x00000001) != 0)) {
           items_ = new java.util.ArrayList<sjtu.opennet.textilepb.Model.Notification>(items_);
           bitField0_ |= 0x00000001;
          }
@@ -29148,7 +30627,7 @@ public final class Model {
           itemsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
               sjtu.opennet.textilepb.Model.Notification, sjtu.opennet.textilepb.Model.Notification.Builder, sjtu.opennet.textilepb.Model.NotificationOrBuilder>(
                   items_,
-                  ((bitField0_ & 0x00000001) == 0x00000001),
+                  ((bitField0_ & 0x00000001) != 0),
                   getParentForChildren(),
                   isClean());
           items_ = null;
@@ -29158,7 +30637,7 @@ public final class Model {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -29214,60 +30693,72 @@ public final class Model {
 
     /**
      * <code>string peer = 1;</code>
+     * @return The peer.
      */
     java.lang.String getPeer();
     /**
      * <code>string peer = 1;</code>
+     * @return The bytes for peer.
      */
     com.google.protobuf.ByteString
         getPeerBytes();
 
     /**
      * <code>string address = 2;</code>
+     * @return The address.
      */
     java.lang.String getAddress();
     /**
      * <code>string address = 2;</code>
+     * @return The bytes for address.
      */
     com.google.protobuf.ByteString
         getAddressBytes();
 
     /**
      * <code>string api = 3;</code>
+     * @return The api.
      */
     java.lang.String getApi();
     /**
      * <code>string api = 3;</code>
+     * @return The bytes for api.
      */
     com.google.protobuf.ByteString
         getApiBytes();
 
     /**
      * <code>string protocol = 4;</code>
+     * @return The protocol.
      */
     java.lang.String getProtocol();
     /**
      * <code>string protocol = 4;</code>
+     * @return The bytes for protocol.
      */
     com.google.protobuf.ByteString
         getProtocolBytes();
 
     /**
      * <code>string node = 5;</code>
+     * @return The node.
      */
     java.lang.String getNode();
     /**
      * <code>string node = 5;</code>
+     * @return The bytes for node.
      */
     com.google.protobuf.ByteString
         getNodeBytes();
 
     /**
      * <code>string url = 6;</code>
+     * @return The url.
      */
     java.lang.String getUrl();
     /**
      * <code>string url = 6;</code>
+     * @return The bytes for url.
      */
     com.google.protobuf.ByteString
         getUrlBytes();
@@ -29275,7 +30766,7 @@ public final class Model {
   /**
    * Protobuf type {@code Cafe}
    */
-  public  static final class Cafe extends
+  public static final class Cafe extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:Cafe)
       CafeOrBuilder {
@@ -29294,6 +30785,13 @@ public final class Model {
     }
 
     @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new Cafe();
+    }
+
+    @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
       return this.unknownFields;
@@ -29306,7 +30804,6 @@ public final class Model {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -29354,7 +30851,7 @@ public final class Model {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -29389,7 +30886,9 @@ public final class Model {
     private volatile java.lang.Object peer_;
     /**
      * <code>string peer = 1;</code>
+     * @return The peer.
      */
+    @java.lang.Override
     public java.lang.String getPeer() {
       java.lang.Object ref = peer_;
       if (ref instanceof java.lang.String) {
@@ -29404,7 +30903,9 @@ public final class Model {
     }
     /**
      * <code>string peer = 1;</code>
+     * @return The bytes for peer.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getPeerBytes() {
       java.lang.Object ref = peer_;
@@ -29423,7 +30924,9 @@ public final class Model {
     private volatile java.lang.Object address_;
     /**
      * <code>string address = 2;</code>
+     * @return The address.
      */
+    @java.lang.Override
     public java.lang.String getAddress() {
       java.lang.Object ref = address_;
       if (ref instanceof java.lang.String) {
@@ -29438,7 +30941,9 @@ public final class Model {
     }
     /**
      * <code>string address = 2;</code>
+     * @return The bytes for address.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAddressBytes() {
       java.lang.Object ref = address_;
@@ -29457,7 +30962,9 @@ public final class Model {
     private volatile java.lang.Object api_;
     /**
      * <code>string api = 3;</code>
+     * @return The api.
      */
+    @java.lang.Override
     public java.lang.String getApi() {
       java.lang.Object ref = api_;
       if (ref instanceof java.lang.String) {
@@ -29472,7 +30979,9 @@ public final class Model {
     }
     /**
      * <code>string api = 3;</code>
+     * @return The bytes for api.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getApiBytes() {
       java.lang.Object ref = api_;
@@ -29491,7 +31000,9 @@ public final class Model {
     private volatile java.lang.Object protocol_;
     /**
      * <code>string protocol = 4;</code>
+     * @return The protocol.
      */
+    @java.lang.Override
     public java.lang.String getProtocol() {
       java.lang.Object ref = protocol_;
       if (ref instanceof java.lang.String) {
@@ -29506,7 +31017,9 @@ public final class Model {
     }
     /**
      * <code>string protocol = 4;</code>
+     * @return The bytes for protocol.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getProtocolBytes() {
       java.lang.Object ref = protocol_;
@@ -29525,7 +31038,9 @@ public final class Model {
     private volatile java.lang.Object node_;
     /**
      * <code>string node = 5;</code>
+     * @return The node.
      */
+    @java.lang.Override
     public java.lang.String getNode() {
       java.lang.Object ref = node_;
       if (ref instanceof java.lang.String) {
@@ -29540,7 +31055,9 @@ public final class Model {
     }
     /**
      * <code>string node = 5;</code>
+     * @return The bytes for node.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getNodeBytes() {
       java.lang.Object ref = node_;
@@ -29559,7 +31076,9 @@ public final class Model {
     private volatile java.lang.Object url_;
     /**
      * <code>string url = 6;</code>
+     * @return The url.
      */
+    @java.lang.Override
     public java.lang.String getUrl() {
       java.lang.Object ref = url_;
       if (ref instanceof java.lang.String) {
@@ -29574,7 +31093,9 @@ public final class Model {
     }
     /**
      * <code>string url = 6;</code>
+     * @return The bytes for url.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getUrlBytes() {
       java.lang.Object ref = url_;
@@ -29663,21 +31184,20 @@ public final class Model {
       }
       sjtu.opennet.textilepb.Model.Cafe other = (sjtu.opennet.textilepb.Model.Cafe) obj;
 
-      boolean result = true;
-      result = result && getPeer()
-          .equals(other.getPeer());
-      result = result && getAddress()
-          .equals(other.getAddress());
-      result = result && getApi()
-          .equals(other.getApi());
-      result = result && getProtocol()
-          .equals(other.getProtocol());
-      result = result && getNode()
-          .equals(other.getNode());
-      result = result && getUrl()
-          .equals(other.getUrl());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getPeer()
+          .equals(other.getPeer())) return false;
+      if (!getAddress()
+          .equals(other.getAddress())) return false;
+      if (!getApi()
+          .equals(other.getApi())) return false;
+      if (!getProtocol()
+          .equals(other.getProtocol())) return false;
+      if (!getNode()
+          .equals(other.getNode())) return false;
+      if (!getUrl()
+          .equals(other.getUrl())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -29882,35 +31402,35 @@ public final class Model {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -29980,6 +31500,7 @@ public final class Model {
       private java.lang.Object peer_ = "";
       /**
        * <code>string peer = 1;</code>
+       * @return The peer.
        */
       public java.lang.String getPeer() {
         java.lang.Object ref = peer_;
@@ -29995,6 +31516,7 @@ public final class Model {
       }
       /**
        * <code>string peer = 1;</code>
+       * @return The bytes for peer.
        */
       public com.google.protobuf.ByteString
           getPeerBytes() {
@@ -30011,6 +31533,8 @@ public final class Model {
       }
       /**
        * <code>string peer = 1;</code>
+       * @param value The peer to set.
+       * @return This builder for chaining.
        */
       public Builder setPeer(
           java.lang.String value) {
@@ -30024,6 +31548,7 @@ public final class Model {
       }
       /**
        * <code>string peer = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearPeer() {
         
@@ -30033,6 +31558,8 @@ public final class Model {
       }
       /**
        * <code>string peer = 1;</code>
+       * @param value The bytes for peer to set.
+       * @return This builder for chaining.
        */
       public Builder setPeerBytes(
           com.google.protobuf.ByteString value) {
@@ -30049,6 +31576,7 @@ public final class Model {
       private java.lang.Object address_ = "";
       /**
        * <code>string address = 2;</code>
+       * @return The address.
        */
       public java.lang.String getAddress() {
         java.lang.Object ref = address_;
@@ -30064,6 +31592,7 @@ public final class Model {
       }
       /**
        * <code>string address = 2;</code>
+       * @return The bytes for address.
        */
       public com.google.protobuf.ByteString
           getAddressBytes() {
@@ -30080,6 +31609,8 @@ public final class Model {
       }
       /**
        * <code>string address = 2;</code>
+       * @param value The address to set.
+       * @return This builder for chaining.
        */
       public Builder setAddress(
           java.lang.String value) {
@@ -30093,6 +31624,7 @@ public final class Model {
       }
       /**
        * <code>string address = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearAddress() {
         
@@ -30102,6 +31634,8 @@ public final class Model {
       }
       /**
        * <code>string address = 2;</code>
+       * @param value The bytes for address to set.
+       * @return This builder for chaining.
        */
       public Builder setAddressBytes(
           com.google.protobuf.ByteString value) {
@@ -30118,6 +31652,7 @@ public final class Model {
       private java.lang.Object api_ = "";
       /**
        * <code>string api = 3;</code>
+       * @return The api.
        */
       public java.lang.String getApi() {
         java.lang.Object ref = api_;
@@ -30133,6 +31668,7 @@ public final class Model {
       }
       /**
        * <code>string api = 3;</code>
+       * @return The bytes for api.
        */
       public com.google.protobuf.ByteString
           getApiBytes() {
@@ -30149,6 +31685,8 @@ public final class Model {
       }
       /**
        * <code>string api = 3;</code>
+       * @param value The api to set.
+       * @return This builder for chaining.
        */
       public Builder setApi(
           java.lang.String value) {
@@ -30162,6 +31700,7 @@ public final class Model {
       }
       /**
        * <code>string api = 3;</code>
+       * @return This builder for chaining.
        */
       public Builder clearApi() {
         
@@ -30171,6 +31710,8 @@ public final class Model {
       }
       /**
        * <code>string api = 3;</code>
+       * @param value The bytes for api to set.
+       * @return This builder for chaining.
        */
       public Builder setApiBytes(
           com.google.protobuf.ByteString value) {
@@ -30187,6 +31728,7 @@ public final class Model {
       private java.lang.Object protocol_ = "";
       /**
        * <code>string protocol = 4;</code>
+       * @return The protocol.
        */
       public java.lang.String getProtocol() {
         java.lang.Object ref = protocol_;
@@ -30202,6 +31744,7 @@ public final class Model {
       }
       /**
        * <code>string protocol = 4;</code>
+       * @return The bytes for protocol.
        */
       public com.google.protobuf.ByteString
           getProtocolBytes() {
@@ -30218,6 +31761,8 @@ public final class Model {
       }
       /**
        * <code>string protocol = 4;</code>
+       * @param value The protocol to set.
+       * @return This builder for chaining.
        */
       public Builder setProtocol(
           java.lang.String value) {
@@ -30231,6 +31776,7 @@ public final class Model {
       }
       /**
        * <code>string protocol = 4;</code>
+       * @return This builder for chaining.
        */
       public Builder clearProtocol() {
         
@@ -30240,6 +31786,8 @@ public final class Model {
       }
       /**
        * <code>string protocol = 4;</code>
+       * @param value The bytes for protocol to set.
+       * @return This builder for chaining.
        */
       public Builder setProtocolBytes(
           com.google.protobuf.ByteString value) {
@@ -30256,6 +31804,7 @@ public final class Model {
       private java.lang.Object node_ = "";
       /**
        * <code>string node = 5;</code>
+       * @return The node.
        */
       public java.lang.String getNode() {
         java.lang.Object ref = node_;
@@ -30271,6 +31820,7 @@ public final class Model {
       }
       /**
        * <code>string node = 5;</code>
+       * @return The bytes for node.
        */
       public com.google.protobuf.ByteString
           getNodeBytes() {
@@ -30287,6 +31837,8 @@ public final class Model {
       }
       /**
        * <code>string node = 5;</code>
+       * @param value The node to set.
+       * @return This builder for chaining.
        */
       public Builder setNode(
           java.lang.String value) {
@@ -30300,6 +31852,7 @@ public final class Model {
       }
       /**
        * <code>string node = 5;</code>
+       * @return This builder for chaining.
        */
       public Builder clearNode() {
         
@@ -30309,6 +31862,8 @@ public final class Model {
       }
       /**
        * <code>string node = 5;</code>
+       * @param value The bytes for node to set.
+       * @return This builder for chaining.
        */
       public Builder setNodeBytes(
           com.google.protobuf.ByteString value) {
@@ -30325,6 +31880,7 @@ public final class Model {
       private java.lang.Object url_ = "";
       /**
        * <code>string url = 6;</code>
+       * @return The url.
        */
       public java.lang.String getUrl() {
         java.lang.Object ref = url_;
@@ -30340,6 +31896,7 @@ public final class Model {
       }
       /**
        * <code>string url = 6;</code>
+       * @return The bytes for url.
        */
       public com.google.protobuf.ByteString
           getUrlBytes() {
@@ -30356,6 +31913,8 @@ public final class Model {
       }
       /**
        * <code>string url = 6;</code>
+       * @param value The url to set.
+       * @return This builder for chaining.
        */
       public Builder setUrl(
           java.lang.String value) {
@@ -30369,6 +31928,7 @@ public final class Model {
       }
       /**
        * <code>string url = 6;</code>
+       * @return This builder for chaining.
        */
       public Builder clearUrl() {
         
@@ -30378,6 +31938,8 @@ public final class Model {
       }
       /**
        * <code>string url = 6;</code>
+       * @param value The bytes for url to set.
+       * @return This builder for chaining.
        */
       public Builder setUrlBytes(
           com.google.protobuf.ByteString value) {
@@ -30393,7 +31955,7 @@ public final class Model {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -30449,30 +32011,36 @@ public final class Model {
 
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
     java.lang.String getId();
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
     com.google.protobuf.ByteString
         getIdBytes();
 
     /**
      * <code>string access = 2;</code>
+     * @return The access.
      */
     java.lang.String getAccess();
     /**
      * <code>string access = 2;</code>
+     * @return The bytes for access.
      */
     com.google.protobuf.ByteString
         getAccessBytes();
 
     /**
      * <code>.google.protobuf.Timestamp exp = 3;</code>
+     * @return Whether the exp field is set.
      */
     boolean hasExp();
     /**
      * <code>.google.protobuf.Timestamp exp = 3;</code>
+     * @return The exp.
      */
     com.google.protobuf.Timestamp getExp();
     /**
@@ -30482,20 +32050,24 @@ public final class Model {
 
     /**
      * <code>string refresh = 4;</code>
+     * @return The refresh.
      */
     java.lang.String getRefresh();
     /**
      * <code>string refresh = 4;</code>
+     * @return The bytes for refresh.
      */
     com.google.protobuf.ByteString
         getRefreshBytes();
 
     /**
      * <code>.google.protobuf.Timestamp rexp = 5;</code>
+     * @return Whether the rexp field is set.
      */
     boolean hasRexp();
     /**
      * <code>.google.protobuf.Timestamp rexp = 5;</code>
+     * @return The rexp.
      */
     com.google.protobuf.Timestamp getRexp();
     /**
@@ -30505,30 +32077,36 @@ public final class Model {
 
     /**
      * <code>string subject = 6;</code>
+     * @return The subject.
      */
     java.lang.String getSubject();
     /**
      * <code>string subject = 6;</code>
+     * @return The bytes for subject.
      */
     com.google.protobuf.ByteString
         getSubjectBytes();
 
     /**
      * <code>string type = 7;</code>
+     * @return The type.
      */
     java.lang.String getType();
     /**
      * <code>string type = 7;</code>
+     * @return The bytes for type.
      */
     com.google.protobuf.ByteString
         getTypeBytes();
 
     /**
      * <code>.Cafe cafe = 8;</code>
+     * @return Whether the cafe field is set.
      */
     boolean hasCafe();
     /**
      * <code>.Cafe cafe = 8;</code>
+     * @return The cafe.
      */
     sjtu.opennet.textilepb.Model.Cafe getCafe();
     /**
@@ -30539,7 +32117,7 @@ public final class Model {
   /**
    * Protobuf type {@code CafeSession}
    */
-  public  static final class CafeSession extends
+  public static final class CafeSession extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:CafeSession)
       CafeSessionOrBuilder {
@@ -30557,6 +32135,13 @@ public final class Model {
     }
 
     @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new CafeSession();
+    }
+
+    @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
       return this.unknownFields;
@@ -30569,7 +32154,6 @@ public final class Model {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -30650,7 +32234,7 @@ public final class Model {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -30685,7 +32269,9 @@ public final class Model {
     private volatile java.lang.Object id_;
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
+    @java.lang.Override
     public java.lang.String getId() {
       java.lang.Object ref = id_;
       if (ref instanceof java.lang.String) {
@@ -30700,7 +32286,9 @@ public final class Model {
     }
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getIdBytes() {
       java.lang.Object ref = id_;
@@ -30719,7 +32307,9 @@ public final class Model {
     private volatile java.lang.Object access_;
     /**
      * <code>string access = 2;</code>
+     * @return The access.
      */
+    @java.lang.Override
     public java.lang.String getAccess() {
       java.lang.Object ref = access_;
       if (ref instanceof java.lang.String) {
@@ -30734,7 +32324,9 @@ public final class Model {
     }
     /**
      * <code>string access = 2;</code>
+     * @return The bytes for access.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAccessBytes() {
       java.lang.Object ref = access_;
@@ -30753,19 +32345,24 @@ public final class Model {
     private com.google.protobuf.Timestamp exp_;
     /**
      * <code>.google.protobuf.Timestamp exp = 3;</code>
+     * @return Whether the exp field is set.
      */
+    @java.lang.Override
     public boolean hasExp() {
       return exp_ != null;
     }
     /**
      * <code>.google.protobuf.Timestamp exp = 3;</code>
+     * @return The exp.
      */
+    @java.lang.Override
     public com.google.protobuf.Timestamp getExp() {
       return exp_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : exp_;
     }
     /**
      * <code>.google.protobuf.Timestamp exp = 3;</code>
      */
+    @java.lang.Override
     public com.google.protobuf.TimestampOrBuilder getExpOrBuilder() {
       return getExp();
     }
@@ -30774,7 +32371,9 @@ public final class Model {
     private volatile java.lang.Object refresh_;
     /**
      * <code>string refresh = 4;</code>
+     * @return The refresh.
      */
+    @java.lang.Override
     public java.lang.String getRefresh() {
       java.lang.Object ref = refresh_;
       if (ref instanceof java.lang.String) {
@@ -30789,7 +32388,9 @@ public final class Model {
     }
     /**
      * <code>string refresh = 4;</code>
+     * @return The bytes for refresh.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getRefreshBytes() {
       java.lang.Object ref = refresh_;
@@ -30808,19 +32409,24 @@ public final class Model {
     private com.google.protobuf.Timestamp rexp_;
     /**
      * <code>.google.protobuf.Timestamp rexp = 5;</code>
+     * @return Whether the rexp field is set.
      */
+    @java.lang.Override
     public boolean hasRexp() {
       return rexp_ != null;
     }
     /**
      * <code>.google.protobuf.Timestamp rexp = 5;</code>
+     * @return The rexp.
      */
+    @java.lang.Override
     public com.google.protobuf.Timestamp getRexp() {
       return rexp_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : rexp_;
     }
     /**
      * <code>.google.protobuf.Timestamp rexp = 5;</code>
      */
+    @java.lang.Override
     public com.google.protobuf.TimestampOrBuilder getRexpOrBuilder() {
       return getRexp();
     }
@@ -30829,7 +32435,9 @@ public final class Model {
     private volatile java.lang.Object subject_;
     /**
      * <code>string subject = 6;</code>
+     * @return The subject.
      */
+    @java.lang.Override
     public java.lang.String getSubject() {
       java.lang.Object ref = subject_;
       if (ref instanceof java.lang.String) {
@@ -30844,7 +32452,9 @@ public final class Model {
     }
     /**
      * <code>string subject = 6;</code>
+     * @return The bytes for subject.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSubjectBytes() {
       java.lang.Object ref = subject_;
@@ -30863,7 +32473,9 @@ public final class Model {
     private volatile java.lang.Object type_;
     /**
      * <code>string type = 7;</code>
+     * @return The type.
      */
+    @java.lang.Override
     public java.lang.String getType() {
       java.lang.Object ref = type_;
       if (ref instanceof java.lang.String) {
@@ -30878,7 +32490,9 @@ public final class Model {
     }
     /**
      * <code>string type = 7;</code>
+     * @return The bytes for type.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getTypeBytes() {
       java.lang.Object ref = type_;
@@ -30897,19 +32511,24 @@ public final class Model {
     private sjtu.opennet.textilepb.Model.Cafe cafe_;
     /**
      * <code>.Cafe cafe = 8;</code>
+     * @return Whether the cafe field is set.
      */
+    @java.lang.Override
     public boolean hasCafe() {
       return cafe_ != null;
     }
     /**
      * <code>.Cafe cafe = 8;</code>
+     * @return The cafe.
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.Cafe getCafe() {
       return cafe_ == null ? sjtu.opennet.textilepb.Model.Cafe.getDefaultInstance() : cafe_;
     }
     /**
      * <code>.Cafe cafe = 8;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.CafeOrBuilder getCafeOrBuilder() {
       return getCafe();
     }
@@ -31003,34 +32622,33 @@ public final class Model {
       }
       sjtu.opennet.textilepb.Model.CafeSession other = (sjtu.opennet.textilepb.Model.CafeSession) obj;
 
-      boolean result = true;
-      result = result && getId()
-          .equals(other.getId());
-      result = result && getAccess()
-          .equals(other.getAccess());
-      result = result && (hasExp() == other.hasExp());
+      if (!getId()
+          .equals(other.getId())) return false;
+      if (!getAccess()
+          .equals(other.getAccess())) return false;
+      if (hasExp() != other.hasExp()) return false;
       if (hasExp()) {
-        result = result && getExp()
-            .equals(other.getExp());
+        if (!getExp()
+            .equals(other.getExp())) return false;
       }
-      result = result && getRefresh()
-          .equals(other.getRefresh());
-      result = result && (hasRexp() == other.hasRexp());
+      if (!getRefresh()
+          .equals(other.getRefresh())) return false;
+      if (hasRexp() != other.hasRexp()) return false;
       if (hasRexp()) {
-        result = result && getRexp()
-            .equals(other.getRexp());
+        if (!getRexp()
+            .equals(other.getRexp())) return false;
       }
-      result = result && getSubject()
-          .equals(other.getSubject());
-      result = result && getType()
-          .equals(other.getType());
-      result = result && (hasCafe() == other.hasCafe());
+      if (!getSubject()
+          .equals(other.getSubject())) return false;
+      if (!getType()
+          .equals(other.getType())) return false;
+      if (hasCafe() != other.hasCafe()) return false;
       if (hasCafe()) {
-        result = result && getCafe()
-            .equals(other.getCafe());
+        if (!getCafe()
+            .equals(other.getCafe())) return false;
       }
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -31275,35 +32893,35 @@ public final class Model {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -31378,6 +32996,7 @@ public final class Model {
       private java.lang.Object id_ = "";
       /**
        * <code>string id = 1;</code>
+       * @return The id.
        */
       public java.lang.String getId() {
         java.lang.Object ref = id_;
@@ -31393,6 +33012,7 @@ public final class Model {
       }
       /**
        * <code>string id = 1;</code>
+       * @return The bytes for id.
        */
       public com.google.protobuf.ByteString
           getIdBytes() {
@@ -31409,6 +33029,8 @@ public final class Model {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The id to set.
+       * @return This builder for chaining.
        */
       public Builder setId(
           java.lang.String value) {
@@ -31422,6 +33044,7 @@ public final class Model {
       }
       /**
        * <code>string id = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearId() {
         
@@ -31431,6 +33054,8 @@ public final class Model {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The bytes for id to set.
+       * @return This builder for chaining.
        */
       public Builder setIdBytes(
           com.google.protobuf.ByteString value) {
@@ -31447,6 +33072,7 @@ public final class Model {
       private java.lang.Object access_ = "";
       /**
        * <code>string access = 2;</code>
+       * @return The access.
        */
       public java.lang.String getAccess() {
         java.lang.Object ref = access_;
@@ -31462,6 +33088,7 @@ public final class Model {
       }
       /**
        * <code>string access = 2;</code>
+       * @return The bytes for access.
        */
       public com.google.protobuf.ByteString
           getAccessBytes() {
@@ -31478,6 +33105,8 @@ public final class Model {
       }
       /**
        * <code>string access = 2;</code>
+       * @param value The access to set.
+       * @return This builder for chaining.
        */
       public Builder setAccess(
           java.lang.String value) {
@@ -31491,6 +33120,7 @@ public final class Model {
       }
       /**
        * <code>string access = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearAccess() {
         
@@ -31500,6 +33130,8 @@ public final class Model {
       }
       /**
        * <code>string access = 2;</code>
+       * @param value The bytes for access to set.
+       * @return This builder for chaining.
        */
       public Builder setAccessBytes(
           com.google.protobuf.ByteString value) {
@@ -31513,17 +33145,19 @@ public final class Model {
         return this;
       }
 
-      private com.google.protobuf.Timestamp exp_ = null;
+      private com.google.protobuf.Timestamp exp_;
       private com.google.protobuf.SingleFieldBuilderV3<
           com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> expBuilder_;
       /**
        * <code>.google.protobuf.Timestamp exp = 3;</code>
+       * @return Whether the exp field is set.
        */
       public boolean hasExp() {
         return expBuilder_ != null || exp_ != null;
       }
       /**
        * <code>.google.protobuf.Timestamp exp = 3;</code>
+       * @return The exp.
        */
       public com.google.protobuf.Timestamp getExp() {
         if (expBuilder_ == null) {
@@ -31633,6 +33267,7 @@ public final class Model {
       private java.lang.Object refresh_ = "";
       /**
        * <code>string refresh = 4;</code>
+       * @return The refresh.
        */
       public java.lang.String getRefresh() {
         java.lang.Object ref = refresh_;
@@ -31648,6 +33283,7 @@ public final class Model {
       }
       /**
        * <code>string refresh = 4;</code>
+       * @return The bytes for refresh.
        */
       public com.google.protobuf.ByteString
           getRefreshBytes() {
@@ -31664,6 +33300,8 @@ public final class Model {
       }
       /**
        * <code>string refresh = 4;</code>
+       * @param value The refresh to set.
+       * @return This builder for chaining.
        */
       public Builder setRefresh(
           java.lang.String value) {
@@ -31677,6 +33315,7 @@ public final class Model {
       }
       /**
        * <code>string refresh = 4;</code>
+       * @return This builder for chaining.
        */
       public Builder clearRefresh() {
         
@@ -31686,6 +33325,8 @@ public final class Model {
       }
       /**
        * <code>string refresh = 4;</code>
+       * @param value The bytes for refresh to set.
+       * @return This builder for chaining.
        */
       public Builder setRefreshBytes(
           com.google.protobuf.ByteString value) {
@@ -31699,17 +33340,19 @@ public final class Model {
         return this;
       }
 
-      private com.google.protobuf.Timestamp rexp_ = null;
+      private com.google.protobuf.Timestamp rexp_;
       private com.google.protobuf.SingleFieldBuilderV3<
           com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> rexpBuilder_;
       /**
        * <code>.google.protobuf.Timestamp rexp = 5;</code>
+       * @return Whether the rexp field is set.
        */
       public boolean hasRexp() {
         return rexpBuilder_ != null || rexp_ != null;
       }
       /**
        * <code>.google.protobuf.Timestamp rexp = 5;</code>
+       * @return The rexp.
        */
       public com.google.protobuf.Timestamp getRexp() {
         if (rexpBuilder_ == null) {
@@ -31819,6 +33462,7 @@ public final class Model {
       private java.lang.Object subject_ = "";
       /**
        * <code>string subject = 6;</code>
+       * @return The subject.
        */
       public java.lang.String getSubject() {
         java.lang.Object ref = subject_;
@@ -31834,6 +33478,7 @@ public final class Model {
       }
       /**
        * <code>string subject = 6;</code>
+       * @return The bytes for subject.
        */
       public com.google.protobuf.ByteString
           getSubjectBytes() {
@@ -31850,6 +33495,8 @@ public final class Model {
       }
       /**
        * <code>string subject = 6;</code>
+       * @param value The subject to set.
+       * @return This builder for chaining.
        */
       public Builder setSubject(
           java.lang.String value) {
@@ -31863,6 +33510,7 @@ public final class Model {
       }
       /**
        * <code>string subject = 6;</code>
+       * @return This builder for chaining.
        */
       public Builder clearSubject() {
         
@@ -31872,6 +33520,8 @@ public final class Model {
       }
       /**
        * <code>string subject = 6;</code>
+       * @param value The bytes for subject to set.
+       * @return This builder for chaining.
        */
       public Builder setSubjectBytes(
           com.google.protobuf.ByteString value) {
@@ -31888,6 +33538,7 @@ public final class Model {
       private java.lang.Object type_ = "";
       /**
        * <code>string type = 7;</code>
+       * @return The type.
        */
       public java.lang.String getType() {
         java.lang.Object ref = type_;
@@ -31903,6 +33554,7 @@ public final class Model {
       }
       /**
        * <code>string type = 7;</code>
+       * @return The bytes for type.
        */
       public com.google.protobuf.ByteString
           getTypeBytes() {
@@ -31919,6 +33571,8 @@ public final class Model {
       }
       /**
        * <code>string type = 7;</code>
+       * @param value The type to set.
+       * @return This builder for chaining.
        */
       public Builder setType(
           java.lang.String value) {
@@ -31932,6 +33586,7 @@ public final class Model {
       }
       /**
        * <code>string type = 7;</code>
+       * @return This builder for chaining.
        */
       public Builder clearType() {
         
@@ -31941,6 +33596,8 @@ public final class Model {
       }
       /**
        * <code>string type = 7;</code>
+       * @param value The bytes for type to set.
+       * @return This builder for chaining.
        */
       public Builder setTypeBytes(
           com.google.protobuf.ByteString value) {
@@ -31954,17 +33611,19 @@ public final class Model {
         return this;
       }
 
-      private sjtu.opennet.textilepb.Model.Cafe cafe_ = null;
+      private sjtu.opennet.textilepb.Model.Cafe cafe_;
       private com.google.protobuf.SingleFieldBuilderV3<
           sjtu.opennet.textilepb.Model.Cafe, sjtu.opennet.textilepb.Model.Cafe.Builder, sjtu.opennet.textilepb.Model.CafeOrBuilder> cafeBuilder_;
       /**
        * <code>.Cafe cafe = 8;</code>
+       * @return Whether the cafe field is set.
        */
       public boolean hasCafe() {
         return cafeBuilder_ != null || cafe_ != null;
       }
       /**
        * <code>.Cafe cafe = 8;</code>
+       * @return The cafe.
        */
       public sjtu.opennet.textilepb.Model.Cafe getCafe() {
         if (cafeBuilder_ == null) {
@@ -32073,7 +33732,7 @@ public final class Model {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -32154,7 +33813,7 @@ public final class Model {
   /**
    * Protobuf type {@code CafeSessionList}
    */
-  public  static final class CafeSessionList extends
+  public static final class CafeSessionList extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:CafeSessionList)
       CafeSessionListOrBuilder {
@@ -32165,6 +33824,13 @@ public final class Model {
     }
     private CafeSessionList() {
       items_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new CafeSessionList();
     }
 
     @java.lang.Override
@@ -32192,7 +33858,7 @@ public final class Model {
               done = true;
               break;
             case 10: {
-              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
                 items_ = new java.util.ArrayList<sjtu.opennet.textilepb.Model.CafeSession>();
                 mutable_bitField0_ |= 0x00000001;
               }
@@ -32201,7 +33867,7 @@ public final class Model {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -32215,7 +33881,7 @@ public final class Model {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
           items_ = java.util.Collections.unmodifiableList(items_);
         }
         this.unknownFields = unknownFields.build();
@@ -32240,12 +33906,14 @@ public final class Model {
     /**
      * <code>repeated .CafeSession items = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<sjtu.opennet.textilepb.Model.CafeSession> getItemsList() {
       return items_;
     }
     /**
      * <code>repeated .CafeSession items = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends sjtu.opennet.textilepb.Model.CafeSessionOrBuilder> 
         getItemsOrBuilderList() {
       return items_;
@@ -32253,18 +33921,21 @@ public final class Model {
     /**
      * <code>repeated .CafeSession items = 1;</code>
      */
+    @java.lang.Override
     public int getItemsCount() {
       return items_.size();
     }
     /**
      * <code>repeated .CafeSession items = 1;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.CafeSession getItems(int index) {
       return items_.get(index);
     }
     /**
      * <code>repeated .CafeSession items = 1;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.CafeSessionOrBuilder getItemsOrBuilder(
         int index) {
       return items_.get(index);
@@ -32315,11 +33986,10 @@ public final class Model {
       }
       sjtu.opennet.textilepb.Model.CafeSessionList other = (sjtu.opennet.textilepb.Model.CafeSessionList) obj;
 
-      boolean result = true;
-      result = result && getItemsList()
-          .equals(other.getItemsList());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getItemsList()
+          .equals(other.getItemsList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -32501,7 +34171,7 @@ public final class Model {
         sjtu.opennet.textilepb.Model.CafeSessionList result = new sjtu.opennet.textilepb.Model.CafeSessionList(this);
         int from_bitField0_ = bitField0_;
         if (itemsBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) == 0x00000001)) {
+          if (((bitField0_ & 0x00000001) != 0)) {
             items_ = java.util.Collections.unmodifiableList(items_);
             bitField0_ = (bitField0_ & ~0x00000001);
           }
@@ -32515,35 +34185,35 @@ public final class Model {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -32616,7 +34286,7 @@ public final class Model {
       private java.util.List<sjtu.opennet.textilepb.Model.CafeSession> items_ =
         java.util.Collections.emptyList();
       private void ensureItemsIsMutable() {
-        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+        if (!((bitField0_ & 0x00000001) != 0)) {
           items_ = new java.util.ArrayList<sjtu.opennet.textilepb.Model.CafeSession>(items_);
           bitField0_ |= 0x00000001;
          }
@@ -32845,7 +34515,7 @@ public final class Model {
           itemsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
               sjtu.opennet.textilepb.Model.CafeSession, sjtu.opennet.textilepb.Model.CafeSession.Builder, sjtu.opennet.textilepb.Model.CafeSessionOrBuilder>(
                   items_,
-                  ((bitField0_ & 0x00000001) == 0x00000001),
+                  ((bitField0_ & 0x00000001) != 0),
                   getParentForChildren(),
                   isClean());
           items_ = null;
@@ -32855,7 +34525,7 @@ public final class Model {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -32911,40 +34581,48 @@ public final class Model {
 
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
     java.lang.String getId();
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
     com.google.protobuf.ByteString
         getIdBytes();
 
     /**
      * <code>string peer = 2;</code>
+     * @return The peer.
      */
     java.lang.String getPeer();
     /**
      * <code>string peer = 2;</code>
+     * @return The bytes for peer.
      */
     com.google.protobuf.ByteString
         getPeerBytes();
 
     /**
      * <code>string target = 3;</code>
+     * @return The target.
      */
     java.lang.String getTarget();
     /**
      * <code>string target = 3;</code>
+     * @return The bytes for target.
      */
     com.google.protobuf.ByteString
         getTargetBytes();
 
     /**
      * <code>.Cafe cafe = 4;</code>
+     * @return Whether the cafe field is set.
      */
     boolean hasCafe();
     /**
      * <code>.Cafe cafe = 4;</code>
+     * @return The cafe.
      */
     sjtu.opennet.textilepb.Model.Cafe getCafe();
     /**
@@ -32954,39 +34632,47 @@ public final class Model {
 
     /**
      * <code>string group = 8;</code>
+     * @return The group.
      */
     java.lang.String getGroup();
     /**
      * <code>string group = 8;</code>
+     * @return The bytes for group.
      */
     com.google.protobuf.ByteString
         getGroupBytes();
 
     /**
      * <code>string sync_group = 10;</code>
+     * @return The syncGroup.
      */
     java.lang.String getSyncGroup();
     /**
      * <code>string sync_group = 10;</code>
+     * @return The bytes for syncGroup.
      */
     com.google.protobuf.ByteString
         getSyncGroupBytes();
 
     /**
      * <code>.CafeRequest.Type type = 5;</code>
+     * @return The enum numeric value on the wire for type.
      */
     int getTypeValue();
     /**
      * <code>.CafeRequest.Type type = 5;</code>
+     * @return The type.
      */
     sjtu.opennet.textilepb.Model.CafeRequest.Type getType();
 
     /**
      * <code>.google.protobuf.Timestamp date = 6;</code>
+     * @return Whether the date field is set.
      */
     boolean hasDate();
     /**
      * <code>.google.protobuf.Timestamp date = 6;</code>
+     * @return The date.
      */
     com.google.protobuf.Timestamp getDate();
     /**
@@ -32996,37 +34682,43 @@ public final class Model {
 
     /**
      * <code>int64 size = 7;</code>
+     * @return The size.
      */
     long getSize();
 
     /**
      * <code>.CafeRequest.Status status = 9;</code>
+     * @return The enum numeric value on the wire for status.
      */
     int getStatusValue();
     /**
      * <code>.CafeRequest.Status status = 9;</code>
+     * @return The status.
      */
     sjtu.opennet.textilepb.Model.CafeRequest.Status getStatus();
 
     /**
      * <code>int32 attempts = 11;</code>
+     * @return The attempts.
      */
     int getAttempts();
 
     /**
      * <code>int64 group_size = 12;</code>
+     * @return The groupSize.
      */
     long getGroupSize();
 
     /**
      * <code>int64 group_transferred = 13;</code>
+     * @return The groupTransferred.
      */
     long getGroupTransferred();
   }
   /**
    * Protobuf type {@code CafeRequest}
    */
-  public  static final class CafeRequest extends
+  public static final class CafeRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:CafeRequest)
       CafeRequestOrBuilder {
@@ -33042,11 +34734,14 @@ public final class Model {
       group_ = "";
       syncGroup_ = "";
       type_ = 0;
-      size_ = 0L;
       status_ = 0;
-      attempts_ = 0;
-      groupSize_ = 0L;
-      groupTransferred_ = 0L;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new CafeRequest();
     }
 
     @java.lang.Override
@@ -33062,7 +34757,6 @@ public final class Model {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -33162,7 +34856,7 @@ public final class Model {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -33252,6 +34946,8 @@ public final class Model {
       }
 
       /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
        * @deprecated Use {@link #forNumber(int)} instead.
        */
       @java.lang.Deprecated
@@ -33259,6 +34955,10 @@ public final class Model {
         return forNumber(value);
       }
 
+      /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
+       */
       public static Type forNumber(int value) {
         switch (value) {
           case 0: return STORE;
@@ -33284,6 +34984,10 @@ public final class Model {
 
       public final com.google.protobuf.Descriptors.EnumValueDescriptor
           getValueDescriptor() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalStateException(
+              "Can't get the descriptor of an unrecognized enum value.");
+        }
         return getDescriptor().getValues().get(ordinal());
       }
       public final com.google.protobuf.Descriptors.EnumDescriptor
@@ -33361,6 +35065,8 @@ public final class Model {
       }
 
       /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
        * @deprecated Use {@link #forNumber(int)} instead.
        */
       @java.lang.Deprecated
@@ -33368,6 +35074,10 @@ public final class Model {
         return forNumber(value);
       }
 
+      /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
+       */
       public static Status forNumber(int value) {
         switch (value) {
           case 0: return NEW;
@@ -33391,6 +35101,10 @@ public final class Model {
 
       public final com.google.protobuf.Descriptors.EnumValueDescriptor
           getValueDescriptor() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalStateException(
+              "Can't get the descriptor of an unrecognized enum value.");
+        }
         return getDescriptor().getValues().get(ordinal());
       }
       public final com.google.protobuf.Descriptors.EnumDescriptor
@@ -33429,7 +35143,9 @@ public final class Model {
     private volatile java.lang.Object id_;
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
+    @java.lang.Override
     public java.lang.String getId() {
       java.lang.Object ref = id_;
       if (ref instanceof java.lang.String) {
@@ -33444,7 +35160,9 @@ public final class Model {
     }
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getIdBytes() {
       java.lang.Object ref = id_;
@@ -33463,7 +35181,9 @@ public final class Model {
     private volatile java.lang.Object peer_;
     /**
      * <code>string peer = 2;</code>
+     * @return The peer.
      */
+    @java.lang.Override
     public java.lang.String getPeer() {
       java.lang.Object ref = peer_;
       if (ref instanceof java.lang.String) {
@@ -33478,7 +35198,9 @@ public final class Model {
     }
     /**
      * <code>string peer = 2;</code>
+     * @return The bytes for peer.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getPeerBytes() {
       java.lang.Object ref = peer_;
@@ -33497,7 +35219,9 @@ public final class Model {
     private volatile java.lang.Object target_;
     /**
      * <code>string target = 3;</code>
+     * @return The target.
      */
+    @java.lang.Override
     public java.lang.String getTarget() {
       java.lang.Object ref = target_;
       if (ref instanceof java.lang.String) {
@@ -33512,7 +35236,9 @@ public final class Model {
     }
     /**
      * <code>string target = 3;</code>
+     * @return The bytes for target.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getTargetBytes() {
       java.lang.Object ref = target_;
@@ -33531,19 +35257,24 @@ public final class Model {
     private sjtu.opennet.textilepb.Model.Cafe cafe_;
     /**
      * <code>.Cafe cafe = 4;</code>
+     * @return Whether the cafe field is set.
      */
+    @java.lang.Override
     public boolean hasCafe() {
       return cafe_ != null;
     }
     /**
      * <code>.Cafe cafe = 4;</code>
+     * @return The cafe.
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.Cafe getCafe() {
       return cafe_ == null ? sjtu.opennet.textilepb.Model.Cafe.getDefaultInstance() : cafe_;
     }
     /**
      * <code>.Cafe cafe = 4;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.CafeOrBuilder getCafeOrBuilder() {
       return getCafe();
     }
@@ -33552,7 +35283,9 @@ public final class Model {
     private volatile java.lang.Object group_;
     /**
      * <code>string group = 8;</code>
+     * @return The group.
      */
+    @java.lang.Override
     public java.lang.String getGroup() {
       java.lang.Object ref = group_;
       if (ref instanceof java.lang.String) {
@@ -33567,7 +35300,9 @@ public final class Model {
     }
     /**
      * <code>string group = 8;</code>
+     * @return The bytes for group.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getGroupBytes() {
       java.lang.Object ref = group_;
@@ -33586,7 +35321,9 @@ public final class Model {
     private volatile java.lang.Object syncGroup_;
     /**
      * <code>string sync_group = 10;</code>
+     * @return The syncGroup.
      */
+    @java.lang.Override
     public java.lang.String getSyncGroup() {
       java.lang.Object ref = syncGroup_;
       if (ref instanceof java.lang.String) {
@@ -33601,7 +35338,9 @@ public final class Model {
     }
     /**
      * <code>string sync_group = 10;</code>
+     * @return The bytes for syncGroup.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSyncGroupBytes() {
       java.lang.Object ref = syncGroup_;
@@ -33620,14 +35359,16 @@ public final class Model {
     private int type_;
     /**
      * <code>.CafeRequest.Type type = 5;</code>
+     * @return The enum numeric value on the wire for type.
      */
-    public int getTypeValue() {
+    @java.lang.Override public int getTypeValue() {
       return type_;
     }
     /**
      * <code>.CafeRequest.Type type = 5;</code>
+     * @return The type.
      */
-    public sjtu.opennet.textilepb.Model.CafeRequest.Type getType() {
+    @java.lang.Override public sjtu.opennet.textilepb.Model.CafeRequest.Type getType() {
       @SuppressWarnings("deprecation")
       sjtu.opennet.textilepb.Model.CafeRequest.Type result = sjtu.opennet.textilepb.Model.CafeRequest.Type.valueOf(type_);
       return result == null ? sjtu.opennet.textilepb.Model.CafeRequest.Type.UNRECOGNIZED : result;
@@ -33637,19 +35378,24 @@ public final class Model {
     private com.google.protobuf.Timestamp date_;
     /**
      * <code>.google.protobuf.Timestamp date = 6;</code>
+     * @return Whether the date field is set.
      */
+    @java.lang.Override
     public boolean hasDate() {
       return date_ != null;
     }
     /**
      * <code>.google.protobuf.Timestamp date = 6;</code>
+     * @return The date.
      */
+    @java.lang.Override
     public com.google.protobuf.Timestamp getDate() {
       return date_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : date_;
     }
     /**
      * <code>.google.protobuf.Timestamp date = 6;</code>
      */
+    @java.lang.Override
     public com.google.protobuf.TimestampOrBuilder getDateOrBuilder() {
       return getDate();
     }
@@ -33658,7 +35404,9 @@ public final class Model {
     private long size_;
     /**
      * <code>int64 size = 7;</code>
+     * @return The size.
      */
+    @java.lang.Override
     public long getSize() {
       return size_;
     }
@@ -33667,14 +35415,16 @@ public final class Model {
     private int status_;
     /**
      * <code>.CafeRequest.Status status = 9;</code>
+     * @return The enum numeric value on the wire for status.
      */
-    public int getStatusValue() {
+    @java.lang.Override public int getStatusValue() {
       return status_;
     }
     /**
      * <code>.CafeRequest.Status status = 9;</code>
+     * @return The status.
      */
-    public sjtu.opennet.textilepb.Model.CafeRequest.Status getStatus() {
+    @java.lang.Override public sjtu.opennet.textilepb.Model.CafeRequest.Status getStatus() {
       @SuppressWarnings("deprecation")
       sjtu.opennet.textilepb.Model.CafeRequest.Status result = sjtu.opennet.textilepb.Model.CafeRequest.Status.valueOf(status_);
       return result == null ? sjtu.opennet.textilepb.Model.CafeRequest.Status.UNRECOGNIZED : result;
@@ -33684,7 +35434,9 @@ public final class Model {
     private int attempts_;
     /**
      * <code>int32 attempts = 11;</code>
+     * @return The attempts.
      */
+    @java.lang.Override
     public int getAttempts() {
       return attempts_;
     }
@@ -33693,7 +35445,9 @@ public final class Model {
     private long groupSize_;
     /**
      * <code>int64 group_size = 12;</code>
+     * @return The groupSize.
      */
+    @java.lang.Override
     public long getGroupSize() {
       return groupSize_;
     }
@@ -33702,7 +35456,9 @@ public final class Model {
     private long groupTransferred_;
     /**
      * <code>int64 group_transferred = 13;</code>
+     * @return The groupTransferred.
      */
+    @java.lang.Override
     public long getGroupTransferred() {
       return groupTransferred_;
     }
@@ -33831,39 +35587,38 @@ public final class Model {
       }
       sjtu.opennet.textilepb.Model.CafeRequest other = (sjtu.opennet.textilepb.Model.CafeRequest) obj;
 
-      boolean result = true;
-      result = result && getId()
-          .equals(other.getId());
-      result = result && getPeer()
-          .equals(other.getPeer());
-      result = result && getTarget()
-          .equals(other.getTarget());
-      result = result && (hasCafe() == other.hasCafe());
+      if (!getId()
+          .equals(other.getId())) return false;
+      if (!getPeer()
+          .equals(other.getPeer())) return false;
+      if (!getTarget()
+          .equals(other.getTarget())) return false;
+      if (hasCafe() != other.hasCafe()) return false;
       if (hasCafe()) {
-        result = result && getCafe()
-            .equals(other.getCafe());
+        if (!getCafe()
+            .equals(other.getCafe())) return false;
       }
-      result = result && getGroup()
-          .equals(other.getGroup());
-      result = result && getSyncGroup()
-          .equals(other.getSyncGroup());
-      result = result && type_ == other.type_;
-      result = result && (hasDate() == other.hasDate());
+      if (!getGroup()
+          .equals(other.getGroup())) return false;
+      if (!getSyncGroup()
+          .equals(other.getSyncGroup())) return false;
+      if (type_ != other.type_) return false;
+      if (hasDate() != other.hasDate()) return false;
       if (hasDate()) {
-        result = result && getDate()
-            .equals(other.getDate());
+        if (!getDate()
+            .equals(other.getDate())) return false;
       }
-      result = result && (getSize()
-          == other.getSize());
-      result = result && status_ == other.status_;
-      result = result && (getAttempts()
-          == other.getAttempts());
-      result = result && (getGroupSize()
-          == other.getGroupSize());
-      result = result && (getGroupTransferred()
-          == other.getGroupTransferred());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (getSize()
+          != other.getSize()) return false;
+      if (status_ != other.status_) return false;
+      if (getAttempts()
+          != other.getAttempts()) return false;
+      if (getGroupSize()
+          != other.getGroupSize()) return false;
+      if (getGroupTransferred()
+          != other.getGroupTransferred()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -34126,35 +35881,35 @@ public final class Model {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -34244,6 +35999,7 @@ public final class Model {
       private java.lang.Object id_ = "";
       /**
        * <code>string id = 1;</code>
+       * @return The id.
        */
       public java.lang.String getId() {
         java.lang.Object ref = id_;
@@ -34259,6 +36015,7 @@ public final class Model {
       }
       /**
        * <code>string id = 1;</code>
+       * @return The bytes for id.
        */
       public com.google.protobuf.ByteString
           getIdBytes() {
@@ -34275,6 +36032,8 @@ public final class Model {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The id to set.
+       * @return This builder for chaining.
        */
       public Builder setId(
           java.lang.String value) {
@@ -34288,6 +36047,7 @@ public final class Model {
       }
       /**
        * <code>string id = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearId() {
         
@@ -34297,6 +36057,8 @@ public final class Model {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The bytes for id to set.
+       * @return This builder for chaining.
        */
       public Builder setIdBytes(
           com.google.protobuf.ByteString value) {
@@ -34313,6 +36075,7 @@ public final class Model {
       private java.lang.Object peer_ = "";
       /**
        * <code>string peer = 2;</code>
+       * @return The peer.
        */
       public java.lang.String getPeer() {
         java.lang.Object ref = peer_;
@@ -34328,6 +36091,7 @@ public final class Model {
       }
       /**
        * <code>string peer = 2;</code>
+       * @return The bytes for peer.
        */
       public com.google.protobuf.ByteString
           getPeerBytes() {
@@ -34344,6 +36108,8 @@ public final class Model {
       }
       /**
        * <code>string peer = 2;</code>
+       * @param value The peer to set.
+       * @return This builder for chaining.
        */
       public Builder setPeer(
           java.lang.String value) {
@@ -34357,6 +36123,7 @@ public final class Model {
       }
       /**
        * <code>string peer = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearPeer() {
         
@@ -34366,6 +36133,8 @@ public final class Model {
       }
       /**
        * <code>string peer = 2;</code>
+       * @param value The bytes for peer to set.
+       * @return This builder for chaining.
        */
       public Builder setPeerBytes(
           com.google.protobuf.ByteString value) {
@@ -34382,6 +36151,7 @@ public final class Model {
       private java.lang.Object target_ = "";
       /**
        * <code>string target = 3;</code>
+       * @return The target.
        */
       public java.lang.String getTarget() {
         java.lang.Object ref = target_;
@@ -34397,6 +36167,7 @@ public final class Model {
       }
       /**
        * <code>string target = 3;</code>
+       * @return The bytes for target.
        */
       public com.google.protobuf.ByteString
           getTargetBytes() {
@@ -34413,6 +36184,8 @@ public final class Model {
       }
       /**
        * <code>string target = 3;</code>
+       * @param value The target to set.
+       * @return This builder for chaining.
        */
       public Builder setTarget(
           java.lang.String value) {
@@ -34426,6 +36199,7 @@ public final class Model {
       }
       /**
        * <code>string target = 3;</code>
+       * @return This builder for chaining.
        */
       public Builder clearTarget() {
         
@@ -34435,6 +36209,8 @@ public final class Model {
       }
       /**
        * <code>string target = 3;</code>
+       * @param value The bytes for target to set.
+       * @return This builder for chaining.
        */
       public Builder setTargetBytes(
           com.google.protobuf.ByteString value) {
@@ -34448,17 +36224,19 @@ public final class Model {
         return this;
       }
 
-      private sjtu.opennet.textilepb.Model.Cafe cafe_ = null;
+      private sjtu.opennet.textilepb.Model.Cafe cafe_;
       private com.google.protobuf.SingleFieldBuilderV3<
           sjtu.opennet.textilepb.Model.Cafe, sjtu.opennet.textilepb.Model.Cafe.Builder, sjtu.opennet.textilepb.Model.CafeOrBuilder> cafeBuilder_;
       /**
        * <code>.Cafe cafe = 4;</code>
+       * @return Whether the cafe field is set.
        */
       public boolean hasCafe() {
         return cafeBuilder_ != null || cafe_ != null;
       }
       /**
        * <code>.Cafe cafe = 4;</code>
+       * @return The cafe.
        */
       public sjtu.opennet.textilepb.Model.Cafe getCafe() {
         if (cafeBuilder_ == null) {
@@ -34568,6 +36346,7 @@ public final class Model {
       private java.lang.Object group_ = "";
       /**
        * <code>string group = 8;</code>
+       * @return The group.
        */
       public java.lang.String getGroup() {
         java.lang.Object ref = group_;
@@ -34583,6 +36362,7 @@ public final class Model {
       }
       /**
        * <code>string group = 8;</code>
+       * @return The bytes for group.
        */
       public com.google.protobuf.ByteString
           getGroupBytes() {
@@ -34599,6 +36379,8 @@ public final class Model {
       }
       /**
        * <code>string group = 8;</code>
+       * @param value The group to set.
+       * @return This builder for chaining.
        */
       public Builder setGroup(
           java.lang.String value) {
@@ -34612,6 +36394,7 @@ public final class Model {
       }
       /**
        * <code>string group = 8;</code>
+       * @return This builder for chaining.
        */
       public Builder clearGroup() {
         
@@ -34621,6 +36404,8 @@ public final class Model {
       }
       /**
        * <code>string group = 8;</code>
+       * @param value The bytes for group to set.
+       * @return This builder for chaining.
        */
       public Builder setGroupBytes(
           com.google.protobuf.ByteString value) {
@@ -34637,6 +36422,7 @@ public final class Model {
       private java.lang.Object syncGroup_ = "";
       /**
        * <code>string sync_group = 10;</code>
+       * @return The syncGroup.
        */
       public java.lang.String getSyncGroup() {
         java.lang.Object ref = syncGroup_;
@@ -34652,6 +36438,7 @@ public final class Model {
       }
       /**
        * <code>string sync_group = 10;</code>
+       * @return The bytes for syncGroup.
        */
       public com.google.protobuf.ByteString
           getSyncGroupBytes() {
@@ -34668,6 +36455,8 @@ public final class Model {
       }
       /**
        * <code>string sync_group = 10;</code>
+       * @param value The syncGroup to set.
+       * @return This builder for chaining.
        */
       public Builder setSyncGroup(
           java.lang.String value) {
@@ -34681,6 +36470,7 @@ public final class Model {
       }
       /**
        * <code>string sync_group = 10;</code>
+       * @return This builder for chaining.
        */
       public Builder clearSyncGroup() {
         
@@ -34690,6 +36480,8 @@ public final class Model {
       }
       /**
        * <code>string sync_group = 10;</code>
+       * @param value The bytes for syncGroup to set.
+       * @return This builder for chaining.
        */
       public Builder setSyncGroupBytes(
           com.google.protobuf.ByteString value) {
@@ -34706,21 +36498,27 @@ public final class Model {
       private int type_ = 0;
       /**
        * <code>.CafeRequest.Type type = 5;</code>
+       * @return The enum numeric value on the wire for type.
        */
-      public int getTypeValue() {
+      @java.lang.Override public int getTypeValue() {
         return type_;
       }
       /**
        * <code>.CafeRequest.Type type = 5;</code>
+       * @param value The enum numeric value on the wire for type to set.
+       * @return This builder for chaining.
        */
       public Builder setTypeValue(int value) {
+        
         type_ = value;
         onChanged();
         return this;
       }
       /**
        * <code>.CafeRequest.Type type = 5;</code>
+       * @return The type.
        */
+      @java.lang.Override
       public sjtu.opennet.textilepb.Model.CafeRequest.Type getType() {
         @SuppressWarnings("deprecation")
         sjtu.opennet.textilepb.Model.CafeRequest.Type result = sjtu.opennet.textilepb.Model.CafeRequest.Type.valueOf(type_);
@@ -34728,6 +36526,8 @@ public final class Model {
       }
       /**
        * <code>.CafeRequest.Type type = 5;</code>
+       * @param value The type to set.
+       * @return This builder for chaining.
        */
       public Builder setType(sjtu.opennet.textilepb.Model.CafeRequest.Type value) {
         if (value == null) {
@@ -34740,6 +36540,7 @@ public final class Model {
       }
       /**
        * <code>.CafeRequest.Type type = 5;</code>
+       * @return This builder for chaining.
        */
       public Builder clearType() {
         
@@ -34748,17 +36549,19 @@ public final class Model {
         return this;
       }
 
-      private com.google.protobuf.Timestamp date_ = null;
+      private com.google.protobuf.Timestamp date_;
       private com.google.protobuf.SingleFieldBuilderV3<
           com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> dateBuilder_;
       /**
        * <code>.google.protobuf.Timestamp date = 6;</code>
+       * @return Whether the date field is set.
        */
       public boolean hasDate() {
         return dateBuilder_ != null || date_ != null;
       }
       /**
        * <code>.google.protobuf.Timestamp date = 6;</code>
+       * @return The date.
        */
       public com.google.protobuf.Timestamp getDate() {
         if (dateBuilder_ == null) {
@@ -34868,12 +36671,16 @@ public final class Model {
       private long size_ ;
       /**
        * <code>int64 size = 7;</code>
+       * @return The size.
        */
+      @java.lang.Override
       public long getSize() {
         return size_;
       }
       /**
        * <code>int64 size = 7;</code>
+       * @param value The size to set.
+       * @return This builder for chaining.
        */
       public Builder setSize(long value) {
         
@@ -34883,6 +36690,7 @@ public final class Model {
       }
       /**
        * <code>int64 size = 7;</code>
+       * @return This builder for chaining.
        */
       public Builder clearSize() {
         
@@ -34894,21 +36702,27 @@ public final class Model {
       private int status_ = 0;
       /**
        * <code>.CafeRequest.Status status = 9;</code>
+       * @return The enum numeric value on the wire for status.
        */
-      public int getStatusValue() {
+      @java.lang.Override public int getStatusValue() {
         return status_;
       }
       /**
        * <code>.CafeRequest.Status status = 9;</code>
+       * @param value The enum numeric value on the wire for status to set.
+       * @return This builder for chaining.
        */
       public Builder setStatusValue(int value) {
+        
         status_ = value;
         onChanged();
         return this;
       }
       /**
        * <code>.CafeRequest.Status status = 9;</code>
+       * @return The status.
        */
+      @java.lang.Override
       public sjtu.opennet.textilepb.Model.CafeRequest.Status getStatus() {
         @SuppressWarnings("deprecation")
         sjtu.opennet.textilepb.Model.CafeRequest.Status result = sjtu.opennet.textilepb.Model.CafeRequest.Status.valueOf(status_);
@@ -34916,6 +36730,8 @@ public final class Model {
       }
       /**
        * <code>.CafeRequest.Status status = 9;</code>
+       * @param value The status to set.
+       * @return This builder for chaining.
        */
       public Builder setStatus(sjtu.opennet.textilepb.Model.CafeRequest.Status value) {
         if (value == null) {
@@ -34928,6 +36744,7 @@ public final class Model {
       }
       /**
        * <code>.CafeRequest.Status status = 9;</code>
+       * @return This builder for chaining.
        */
       public Builder clearStatus() {
         
@@ -34939,12 +36756,16 @@ public final class Model {
       private int attempts_ ;
       /**
        * <code>int32 attempts = 11;</code>
+       * @return The attempts.
        */
+      @java.lang.Override
       public int getAttempts() {
         return attempts_;
       }
       /**
        * <code>int32 attempts = 11;</code>
+       * @param value The attempts to set.
+       * @return This builder for chaining.
        */
       public Builder setAttempts(int value) {
         
@@ -34954,6 +36775,7 @@ public final class Model {
       }
       /**
        * <code>int32 attempts = 11;</code>
+       * @return This builder for chaining.
        */
       public Builder clearAttempts() {
         
@@ -34965,12 +36787,16 @@ public final class Model {
       private long groupSize_ ;
       /**
        * <code>int64 group_size = 12;</code>
+       * @return The groupSize.
        */
+      @java.lang.Override
       public long getGroupSize() {
         return groupSize_;
       }
       /**
        * <code>int64 group_size = 12;</code>
+       * @param value The groupSize to set.
+       * @return This builder for chaining.
        */
       public Builder setGroupSize(long value) {
         
@@ -34980,6 +36806,7 @@ public final class Model {
       }
       /**
        * <code>int64 group_size = 12;</code>
+       * @return This builder for chaining.
        */
       public Builder clearGroupSize() {
         
@@ -34991,12 +36818,16 @@ public final class Model {
       private long groupTransferred_ ;
       /**
        * <code>int64 group_transferred = 13;</code>
+       * @return The groupTransferred.
        */
+      @java.lang.Override
       public long getGroupTransferred() {
         return groupTransferred_;
       }
       /**
        * <code>int64 group_transferred = 13;</code>
+       * @param value The groupTransferred to set.
+       * @return This builder for chaining.
        */
       public Builder setGroupTransferred(long value) {
         
@@ -35006,6 +36837,7 @@ public final class Model {
       }
       /**
        * <code>int64 group_transferred = 13;</code>
+       * @return This builder for chaining.
        */
       public Builder clearGroupTransferred() {
         
@@ -35016,7 +36848,7 @@ public final class Model {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -35097,7 +36929,7 @@ public final class Model {
   /**
    * Protobuf type {@code CafeRequestList}
    */
-  public  static final class CafeRequestList extends
+  public static final class CafeRequestList extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:CafeRequestList)
       CafeRequestListOrBuilder {
@@ -35108,6 +36940,13 @@ public final class Model {
     }
     private CafeRequestList() {
       items_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new CafeRequestList();
     }
 
     @java.lang.Override
@@ -35135,7 +36974,7 @@ public final class Model {
               done = true;
               break;
             case 10: {
-              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
                 items_ = new java.util.ArrayList<sjtu.opennet.textilepb.Model.CafeRequest>();
                 mutable_bitField0_ |= 0x00000001;
               }
@@ -35144,7 +36983,7 @@ public final class Model {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -35158,7 +36997,7 @@ public final class Model {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
           items_ = java.util.Collections.unmodifiableList(items_);
         }
         this.unknownFields = unknownFields.build();
@@ -35183,12 +37022,14 @@ public final class Model {
     /**
      * <code>repeated .CafeRequest items = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<sjtu.opennet.textilepb.Model.CafeRequest> getItemsList() {
       return items_;
     }
     /**
      * <code>repeated .CafeRequest items = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends sjtu.opennet.textilepb.Model.CafeRequestOrBuilder> 
         getItemsOrBuilderList() {
       return items_;
@@ -35196,18 +37037,21 @@ public final class Model {
     /**
      * <code>repeated .CafeRequest items = 1;</code>
      */
+    @java.lang.Override
     public int getItemsCount() {
       return items_.size();
     }
     /**
      * <code>repeated .CafeRequest items = 1;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.CafeRequest getItems(int index) {
       return items_.get(index);
     }
     /**
      * <code>repeated .CafeRequest items = 1;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.CafeRequestOrBuilder getItemsOrBuilder(
         int index) {
       return items_.get(index);
@@ -35258,11 +37102,10 @@ public final class Model {
       }
       sjtu.opennet.textilepb.Model.CafeRequestList other = (sjtu.opennet.textilepb.Model.CafeRequestList) obj;
 
-      boolean result = true;
-      result = result && getItemsList()
-          .equals(other.getItemsList());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getItemsList()
+          .equals(other.getItemsList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -35444,7 +37287,7 @@ public final class Model {
         sjtu.opennet.textilepb.Model.CafeRequestList result = new sjtu.opennet.textilepb.Model.CafeRequestList(this);
         int from_bitField0_ = bitField0_;
         if (itemsBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) == 0x00000001)) {
+          if (((bitField0_ & 0x00000001) != 0)) {
             items_ = java.util.Collections.unmodifiableList(items_);
             bitField0_ = (bitField0_ & ~0x00000001);
           }
@@ -35458,35 +37301,35 @@ public final class Model {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -35559,7 +37402,7 @@ public final class Model {
       private java.util.List<sjtu.opennet.textilepb.Model.CafeRequest> items_ =
         java.util.Collections.emptyList();
       private void ensureItemsIsMutable() {
-        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+        if (!((bitField0_ & 0x00000001) != 0)) {
           items_ = new java.util.ArrayList<sjtu.opennet.textilepb.Model.CafeRequest>(items_);
           bitField0_ |= 0x00000001;
          }
@@ -35788,7 +37631,7 @@ public final class Model {
           itemsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
               sjtu.opennet.textilepb.Model.CafeRequest, sjtu.opennet.textilepb.Model.CafeRequest.Builder, sjtu.opennet.textilepb.Model.CafeRequestOrBuilder>(
                   items_,
-                  ((bitField0_ & 0x00000001) == 0x00000001),
+                  ((bitField0_ & 0x00000001) != 0),
                   getParentForChildren(),
                   isClean());
           items_ = null;
@@ -35798,7 +37641,7 @@ public final class Model {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -35858,6 +37701,7 @@ public final class Model {
      * </pre>
      *
      * <code>string id = 1;</code>
+     * @return The id.
      */
     java.lang.String getId();
     /**
@@ -35866,66 +37710,79 @@ public final class Model {
      * </pre>
      *
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
     com.google.protobuf.ByteString
         getIdBytes();
 
     /**
      * <code>int32 num_total = 2;</code>
+     * @return The numTotal.
      */
     int getNumTotal();
 
     /**
      * <code>int32 num_pending = 3;</code>
+     * @return The numPending.
      */
     int getNumPending();
 
     /**
      * <code>int32 num_complete = 4;</code>
+     * @return The numComplete.
      */
     int getNumComplete();
 
     /**
      * <code>int64 size_total = 5;</code>
+     * @return The sizeTotal.
      */
     long getSizeTotal();
 
     /**
      * <code>int64 size_pending = 6;</code>
+     * @return The sizePending.
      */
     long getSizePending();
 
     /**
      * <code>int64 size_complete = 7;</code>
+     * @return The sizeComplete.
      */
     long getSizeComplete();
 
     /**
      * <code>int64 groups_size_total = 8;</code>
+     * @return The groupsSizeTotal.
      */
     long getGroupsSizeTotal();
 
     /**
      * <code>int64 groups_size_complete = 9;</code>
+     * @return The groupsSizeComplete.
      */
     long getGroupsSizeComplete();
 
     /**
      * <code>string error = 50;</code>
+     * @return The error.
      */
     java.lang.String getError();
     /**
      * <code>string error = 50;</code>
+     * @return The bytes for error.
      */
     com.google.protobuf.ByteString
         getErrorBytes();
 
     /**
      * <code>string error_id = 51;</code>
+     * @return The errorId.
      */
     java.lang.String getErrorId();
     /**
      * <code>string error_id = 51;</code>
+     * @return The bytes for errorId.
      */
     com.google.protobuf.ByteString
         getErrorIdBytes();
@@ -35933,7 +37790,7 @@ public final class Model {
   /**
    * Protobuf type {@code CafeSyncGroupStatus}
    */
-  public  static final class CafeSyncGroupStatus extends
+  public static final class CafeSyncGroupStatus extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:CafeSyncGroupStatus)
       CafeSyncGroupStatusOrBuilder {
@@ -35944,16 +37801,15 @@ public final class Model {
     }
     private CafeSyncGroupStatus() {
       id_ = "";
-      numTotal_ = 0;
-      numPending_ = 0;
-      numComplete_ = 0;
-      sizeTotal_ = 0L;
-      sizePending_ = 0L;
-      sizeComplete_ = 0L;
-      groupsSizeTotal_ = 0L;
-      groupsSizeComplete_ = 0L;
       error_ = "";
       errorId_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new CafeSyncGroupStatus();
     }
 
     @java.lang.Override
@@ -35969,7 +37825,6 @@ public final class Model {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -36039,7 +37894,7 @@ public final class Model {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -36078,7 +37933,9 @@ public final class Model {
      * </pre>
      *
      * <code>string id = 1;</code>
+     * @return The id.
      */
+    @java.lang.Override
     public java.lang.String getId() {
       java.lang.Object ref = id_;
       if (ref instanceof java.lang.String) {
@@ -36097,7 +37954,9 @@ public final class Model {
      * </pre>
      *
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getIdBytes() {
       java.lang.Object ref = id_;
@@ -36116,7 +37975,9 @@ public final class Model {
     private int numTotal_;
     /**
      * <code>int32 num_total = 2;</code>
+     * @return The numTotal.
      */
+    @java.lang.Override
     public int getNumTotal() {
       return numTotal_;
     }
@@ -36125,7 +37986,9 @@ public final class Model {
     private int numPending_;
     /**
      * <code>int32 num_pending = 3;</code>
+     * @return The numPending.
      */
+    @java.lang.Override
     public int getNumPending() {
       return numPending_;
     }
@@ -36134,7 +37997,9 @@ public final class Model {
     private int numComplete_;
     /**
      * <code>int32 num_complete = 4;</code>
+     * @return The numComplete.
      */
+    @java.lang.Override
     public int getNumComplete() {
       return numComplete_;
     }
@@ -36143,7 +38008,9 @@ public final class Model {
     private long sizeTotal_;
     /**
      * <code>int64 size_total = 5;</code>
+     * @return The sizeTotal.
      */
+    @java.lang.Override
     public long getSizeTotal() {
       return sizeTotal_;
     }
@@ -36152,7 +38019,9 @@ public final class Model {
     private long sizePending_;
     /**
      * <code>int64 size_pending = 6;</code>
+     * @return The sizePending.
      */
+    @java.lang.Override
     public long getSizePending() {
       return sizePending_;
     }
@@ -36161,7 +38030,9 @@ public final class Model {
     private long sizeComplete_;
     /**
      * <code>int64 size_complete = 7;</code>
+     * @return The sizeComplete.
      */
+    @java.lang.Override
     public long getSizeComplete() {
       return sizeComplete_;
     }
@@ -36170,7 +38041,9 @@ public final class Model {
     private long groupsSizeTotal_;
     /**
      * <code>int64 groups_size_total = 8;</code>
+     * @return The groupsSizeTotal.
      */
+    @java.lang.Override
     public long getGroupsSizeTotal() {
       return groupsSizeTotal_;
     }
@@ -36179,7 +38052,9 @@ public final class Model {
     private long groupsSizeComplete_;
     /**
      * <code>int64 groups_size_complete = 9;</code>
+     * @return The groupsSizeComplete.
      */
+    @java.lang.Override
     public long getGroupsSizeComplete() {
       return groupsSizeComplete_;
     }
@@ -36188,7 +38063,9 @@ public final class Model {
     private volatile java.lang.Object error_;
     /**
      * <code>string error = 50;</code>
+     * @return The error.
      */
+    @java.lang.Override
     public java.lang.String getError() {
       java.lang.Object ref = error_;
       if (ref instanceof java.lang.String) {
@@ -36203,7 +38080,9 @@ public final class Model {
     }
     /**
      * <code>string error = 50;</code>
+     * @return The bytes for error.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getErrorBytes() {
       java.lang.Object ref = error_;
@@ -36222,7 +38101,9 @@ public final class Model {
     private volatile java.lang.Object errorId_;
     /**
      * <code>string error_id = 51;</code>
+     * @return The errorId.
      */
+    @java.lang.Override
     public java.lang.String getErrorId() {
       java.lang.Object ref = errorId_;
       if (ref instanceof java.lang.String) {
@@ -36237,7 +38118,9 @@ public final class Model {
     }
     /**
      * <code>string error_id = 51;</code>
+     * @return The bytes for errorId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getErrorIdBytes() {
       java.lang.Object ref = errorId_;
@@ -36364,31 +38247,30 @@ public final class Model {
       }
       sjtu.opennet.textilepb.Model.CafeSyncGroupStatus other = (sjtu.opennet.textilepb.Model.CafeSyncGroupStatus) obj;
 
-      boolean result = true;
-      result = result && getId()
-          .equals(other.getId());
-      result = result && (getNumTotal()
-          == other.getNumTotal());
-      result = result && (getNumPending()
-          == other.getNumPending());
-      result = result && (getNumComplete()
-          == other.getNumComplete());
-      result = result && (getSizeTotal()
-          == other.getSizeTotal());
-      result = result && (getSizePending()
-          == other.getSizePending());
-      result = result && (getSizeComplete()
-          == other.getSizeComplete());
-      result = result && (getGroupsSizeTotal()
-          == other.getGroupsSizeTotal());
-      result = result && (getGroupsSizeComplete()
-          == other.getGroupsSizeComplete());
-      result = result && getError()
-          .equals(other.getError());
-      result = result && getErrorId()
-          .equals(other.getErrorId());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getId()
+          .equals(other.getId())) return false;
+      if (getNumTotal()
+          != other.getNumTotal()) return false;
+      if (getNumPending()
+          != other.getNumPending()) return false;
+      if (getNumComplete()
+          != other.getNumComplete()) return false;
+      if (getSizeTotal()
+          != other.getSizeTotal()) return false;
+      if (getSizePending()
+          != other.getSizePending()) return false;
+      if (getSizeComplete()
+          != other.getSizeComplete()) return false;
+      if (getGroupsSizeTotal()
+          != other.getGroupsSizeTotal()) return false;
+      if (getGroupsSizeComplete()
+          != other.getGroupsSizeComplete()) return false;
+      if (!getError()
+          .equals(other.getError())) return false;
+      if (!getErrorId()
+          .equals(other.getErrorId())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -36623,35 +38505,35 @@ public final class Model {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -36737,6 +38619,7 @@ public final class Model {
        * </pre>
        *
        * <code>string id = 1;</code>
+       * @return The id.
        */
       public java.lang.String getId() {
         java.lang.Object ref = id_;
@@ -36756,6 +38639,7 @@ public final class Model {
        * </pre>
        *
        * <code>string id = 1;</code>
+       * @return The bytes for id.
        */
       public com.google.protobuf.ByteString
           getIdBytes() {
@@ -36776,6 +38660,8 @@ public final class Model {
        * </pre>
        *
        * <code>string id = 1;</code>
+       * @param value The id to set.
+       * @return This builder for chaining.
        */
       public Builder setId(
           java.lang.String value) {
@@ -36793,6 +38679,7 @@ public final class Model {
        * </pre>
        *
        * <code>string id = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearId() {
         
@@ -36806,6 +38693,8 @@ public final class Model {
        * </pre>
        *
        * <code>string id = 1;</code>
+       * @param value The bytes for id to set.
+       * @return This builder for chaining.
        */
       public Builder setIdBytes(
           com.google.protobuf.ByteString value) {
@@ -36822,12 +38711,16 @@ public final class Model {
       private int numTotal_ ;
       /**
        * <code>int32 num_total = 2;</code>
+       * @return The numTotal.
        */
+      @java.lang.Override
       public int getNumTotal() {
         return numTotal_;
       }
       /**
        * <code>int32 num_total = 2;</code>
+       * @param value The numTotal to set.
+       * @return This builder for chaining.
        */
       public Builder setNumTotal(int value) {
         
@@ -36837,6 +38730,7 @@ public final class Model {
       }
       /**
        * <code>int32 num_total = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearNumTotal() {
         
@@ -36848,12 +38742,16 @@ public final class Model {
       private int numPending_ ;
       /**
        * <code>int32 num_pending = 3;</code>
+       * @return The numPending.
        */
+      @java.lang.Override
       public int getNumPending() {
         return numPending_;
       }
       /**
        * <code>int32 num_pending = 3;</code>
+       * @param value The numPending to set.
+       * @return This builder for chaining.
        */
       public Builder setNumPending(int value) {
         
@@ -36863,6 +38761,7 @@ public final class Model {
       }
       /**
        * <code>int32 num_pending = 3;</code>
+       * @return This builder for chaining.
        */
       public Builder clearNumPending() {
         
@@ -36874,12 +38773,16 @@ public final class Model {
       private int numComplete_ ;
       /**
        * <code>int32 num_complete = 4;</code>
+       * @return The numComplete.
        */
+      @java.lang.Override
       public int getNumComplete() {
         return numComplete_;
       }
       /**
        * <code>int32 num_complete = 4;</code>
+       * @param value The numComplete to set.
+       * @return This builder for chaining.
        */
       public Builder setNumComplete(int value) {
         
@@ -36889,6 +38792,7 @@ public final class Model {
       }
       /**
        * <code>int32 num_complete = 4;</code>
+       * @return This builder for chaining.
        */
       public Builder clearNumComplete() {
         
@@ -36900,12 +38804,16 @@ public final class Model {
       private long sizeTotal_ ;
       /**
        * <code>int64 size_total = 5;</code>
+       * @return The sizeTotal.
        */
+      @java.lang.Override
       public long getSizeTotal() {
         return sizeTotal_;
       }
       /**
        * <code>int64 size_total = 5;</code>
+       * @param value The sizeTotal to set.
+       * @return This builder for chaining.
        */
       public Builder setSizeTotal(long value) {
         
@@ -36915,6 +38823,7 @@ public final class Model {
       }
       /**
        * <code>int64 size_total = 5;</code>
+       * @return This builder for chaining.
        */
       public Builder clearSizeTotal() {
         
@@ -36926,12 +38835,16 @@ public final class Model {
       private long sizePending_ ;
       /**
        * <code>int64 size_pending = 6;</code>
+       * @return The sizePending.
        */
+      @java.lang.Override
       public long getSizePending() {
         return sizePending_;
       }
       /**
        * <code>int64 size_pending = 6;</code>
+       * @param value The sizePending to set.
+       * @return This builder for chaining.
        */
       public Builder setSizePending(long value) {
         
@@ -36941,6 +38854,7 @@ public final class Model {
       }
       /**
        * <code>int64 size_pending = 6;</code>
+       * @return This builder for chaining.
        */
       public Builder clearSizePending() {
         
@@ -36952,12 +38866,16 @@ public final class Model {
       private long sizeComplete_ ;
       /**
        * <code>int64 size_complete = 7;</code>
+       * @return The sizeComplete.
        */
+      @java.lang.Override
       public long getSizeComplete() {
         return sizeComplete_;
       }
       /**
        * <code>int64 size_complete = 7;</code>
+       * @param value The sizeComplete to set.
+       * @return This builder for chaining.
        */
       public Builder setSizeComplete(long value) {
         
@@ -36967,6 +38885,7 @@ public final class Model {
       }
       /**
        * <code>int64 size_complete = 7;</code>
+       * @return This builder for chaining.
        */
       public Builder clearSizeComplete() {
         
@@ -36978,12 +38897,16 @@ public final class Model {
       private long groupsSizeTotal_ ;
       /**
        * <code>int64 groups_size_total = 8;</code>
+       * @return The groupsSizeTotal.
        */
+      @java.lang.Override
       public long getGroupsSizeTotal() {
         return groupsSizeTotal_;
       }
       /**
        * <code>int64 groups_size_total = 8;</code>
+       * @param value The groupsSizeTotal to set.
+       * @return This builder for chaining.
        */
       public Builder setGroupsSizeTotal(long value) {
         
@@ -36993,6 +38916,7 @@ public final class Model {
       }
       /**
        * <code>int64 groups_size_total = 8;</code>
+       * @return This builder for chaining.
        */
       public Builder clearGroupsSizeTotal() {
         
@@ -37004,12 +38928,16 @@ public final class Model {
       private long groupsSizeComplete_ ;
       /**
        * <code>int64 groups_size_complete = 9;</code>
+       * @return The groupsSizeComplete.
        */
+      @java.lang.Override
       public long getGroupsSizeComplete() {
         return groupsSizeComplete_;
       }
       /**
        * <code>int64 groups_size_complete = 9;</code>
+       * @param value The groupsSizeComplete to set.
+       * @return This builder for chaining.
        */
       public Builder setGroupsSizeComplete(long value) {
         
@@ -37019,6 +38947,7 @@ public final class Model {
       }
       /**
        * <code>int64 groups_size_complete = 9;</code>
+       * @return This builder for chaining.
        */
       public Builder clearGroupsSizeComplete() {
         
@@ -37030,6 +38959,7 @@ public final class Model {
       private java.lang.Object error_ = "";
       /**
        * <code>string error = 50;</code>
+       * @return The error.
        */
       public java.lang.String getError() {
         java.lang.Object ref = error_;
@@ -37045,6 +38975,7 @@ public final class Model {
       }
       /**
        * <code>string error = 50;</code>
+       * @return The bytes for error.
        */
       public com.google.protobuf.ByteString
           getErrorBytes() {
@@ -37061,6 +38992,8 @@ public final class Model {
       }
       /**
        * <code>string error = 50;</code>
+       * @param value The error to set.
+       * @return This builder for chaining.
        */
       public Builder setError(
           java.lang.String value) {
@@ -37074,6 +39007,7 @@ public final class Model {
       }
       /**
        * <code>string error = 50;</code>
+       * @return This builder for chaining.
        */
       public Builder clearError() {
         
@@ -37083,6 +39017,8 @@ public final class Model {
       }
       /**
        * <code>string error = 50;</code>
+       * @param value The bytes for error to set.
+       * @return This builder for chaining.
        */
       public Builder setErrorBytes(
           com.google.protobuf.ByteString value) {
@@ -37099,6 +39035,7 @@ public final class Model {
       private java.lang.Object errorId_ = "";
       /**
        * <code>string error_id = 51;</code>
+       * @return The errorId.
        */
       public java.lang.String getErrorId() {
         java.lang.Object ref = errorId_;
@@ -37114,6 +39051,7 @@ public final class Model {
       }
       /**
        * <code>string error_id = 51;</code>
+       * @return The bytes for errorId.
        */
       public com.google.protobuf.ByteString
           getErrorIdBytes() {
@@ -37130,6 +39068,8 @@ public final class Model {
       }
       /**
        * <code>string error_id = 51;</code>
+       * @param value The errorId to set.
+       * @return This builder for chaining.
        */
       public Builder setErrorId(
           java.lang.String value) {
@@ -37143,6 +39083,7 @@ public final class Model {
       }
       /**
        * <code>string error_id = 51;</code>
+       * @return This builder for chaining.
        */
       public Builder clearErrorId() {
         
@@ -37152,6 +39093,8 @@ public final class Model {
       }
       /**
        * <code>string error_id = 51;</code>
+       * @param value The bytes for errorId to set.
+       * @return This builder for chaining.
        */
       public Builder setErrorIdBytes(
           com.google.protobuf.ByteString value) {
@@ -37167,7 +39110,7 @@ public final class Model {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -37223,19 +39166,23 @@ public final class Model {
 
     /**
      * <code>.CafeHTTPRequest.Type type = 1;</code>
+     * @return The enum numeric value on the wire for type.
      */
     int getTypeValue();
     /**
      * <code>.CafeHTTPRequest.Type type = 1;</code>
+     * @return The type.
      */
     sjtu.opennet.textilepb.Model.CafeHTTPRequest.Type getType();
 
     /**
      * <code>string url = 2;</code>
+     * @return The url.
      */
     java.lang.String getUrl();
     /**
      * <code>string url = 2;</code>
+     * @return The bytes for url.
      */
     com.google.protobuf.ByteString
         getUrlBytes();
@@ -37276,10 +39223,12 @@ public final class Model {
 
     /**
      * <code>string path = 4;</code>
+     * @return The path.
      */
     java.lang.String getPath();
     /**
      * <code>string path = 4;</code>
+     * @return The bytes for path.
      */
     com.google.protobuf.ByteString
         getPathBytes();
@@ -37287,7 +39236,7 @@ public final class Model {
   /**
    * Protobuf type {@code CafeHTTPRequest}
    */
-  public  static final class CafeHTTPRequest extends
+  public static final class CafeHTTPRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:CafeHTTPRequest)
       CafeHTTPRequestOrBuilder {
@@ -37300,6 +39249,13 @@ public final class Model {
       type_ = 0;
       url_ = "";
       path_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new CafeHTTPRequest();
     }
 
     @java.lang.Override
@@ -37339,10 +39295,10 @@ public final class Model {
               break;
             }
             case 26: {
-              if (!((mutable_bitField0_ & 0x00000004) == 0x00000004)) {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
                 headers_ = com.google.protobuf.MapField.newMapField(
                     HeadersDefaultEntryHolder.defaultEntry);
-                mutable_bitField0_ |= 0x00000004;
+                mutable_bitField0_ |= 0x00000001;
               }
               com.google.protobuf.MapEntry<java.lang.String, java.lang.String>
               headers__ = input.readMessage(
@@ -37358,7 +39314,7 @@ public final class Model {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -37444,6 +39400,8 @@ public final class Model {
       }
 
       /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
        * @deprecated Use {@link #forNumber(int)} instead.
        */
       @java.lang.Deprecated
@@ -37451,6 +39409,10 @@ public final class Model {
         return forNumber(value);
       }
 
+      /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
+       */
       public static Type forNumber(int value) {
         switch (value) {
           case 0: return PUT;
@@ -37474,6 +39436,10 @@ public final class Model {
 
       public final com.google.protobuf.Descriptors.EnumValueDescriptor
           getValueDescriptor() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalStateException(
+              "Can't get the descriptor of an unrecognized enum value.");
+        }
         return getDescriptor().getValues().get(ordinal());
       }
       public final com.google.protobuf.Descriptors.EnumDescriptor
@@ -37508,19 +39474,20 @@ public final class Model {
       // @@protoc_insertion_point(enum_scope:CafeHTTPRequest.Type)
     }
 
-    private int bitField0_;
     public static final int TYPE_FIELD_NUMBER = 1;
     private int type_;
     /**
      * <code>.CafeHTTPRequest.Type type = 1;</code>
+     * @return The enum numeric value on the wire for type.
      */
-    public int getTypeValue() {
+    @java.lang.Override public int getTypeValue() {
       return type_;
     }
     /**
      * <code>.CafeHTTPRequest.Type type = 1;</code>
+     * @return The type.
      */
-    public sjtu.opennet.textilepb.Model.CafeHTTPRequest.Type getType() {
+    @java.lang.Override public sjtu.opennet.textilepb.Model.CafeHTTPRequest.Type getType() {
       @SuppressWarnings("deprecation")
       sjtu.opennet.textilepb.Model.CafeHTTPRequest.Type result = sjtu.opennet.textilepb.Model.CafeHTTPRequest.Type.valueOf(type_);
       return result == null ? sjtu.opennet.textilepb.Model.CafeHTTPRequest.Type.UNRECOGNIZED : result;
@@ -37530,7 +39497,9 @@ public final class Model {
     private volatile java.lang.Object url_;
     /**
      * <code>string url = 2;</code>
+     * @return The url.
      */
+    @java.lang.Override
     public java.lang.String getUrl() {
       java.lang.Object ref = url_;
       if (ref instanceof java.lang.String) {
@@ -37545,7 +39514,9 @@ public final class Model {
     }
     /**
      * <code>string url = 2;</code>
+     * @return The bytes for url.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getUrlBytes() {
       java.lang.Object ref = url_;
@@ -37590,6 +39561,7 @@ public final class Model {
      * <code>map&lt;string, string&gt; headers = 3;</code>
      */
 
+    @java.lang.Override
     public boolean containsHeaders(
         java.lang.String key) {
       if (key == null) { throw new java.lang.NullPointerException(); }
@@ -37598,6 +39570,7 @@ public final class Model {
     /**
      * Use {@link #getHeadersMap()} instead.
      */
+    @java.lang.Override
     @java.lang.Deprecated
     public java.util.Map<java.lang.String, java.lang.String> getHeaders() {
       return getHeadersMap();
@@ -37605,6 +39578,7 @@ public final class Model {
     /**
      * <code>map&lt;string, string&gt; headers = 3;</code>
      */
+    @java.lang.Override
 
     public java.util.Map<java.lang.String, java.lang.String> getHeadersMap() {
       return internalGetHeaders().getMap();
@@ -37612,6 +39586,7 @@ public final class Model {
     /**
      * <code>map&lt;string, string&gt; headers = 3;</code>
      */
+    @java.lang.Override
 
     public java.lang.String getHeadersOrDefault(
         java.lang.String key,
@@ -37624,6 +39599,7 @@ public final class Model {
     /**
      * <code>map&lt;string, string&gt; headers = 3;</code>
      */
+    @java.lang.Override
 
     public java.lang.String getHeadersOrThrow(
         java.lang.String key) {
@@ -37640,7 +39616,9 @@ public final class Model {
     private volatile java.lang.Object path_;
     /**
      * <code>string path = 4;</code>
+     * @return The path.
      */
+    @java.lang.Override
     public java.lang.String getPath() {
       java.lang.Object ref = path_;
       if (ref instanceof java.lang.String) {
@@ -37655,7 +39633,9 @@ public final class Model {
     }
     /**
      * <code>string path = 4;</code>
+     * @return The bytes for path.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getPathBytes() {
       java.lang.Object ref = path_;
@@ -37743,16 +39723,15 @@ public final class Model {
       }
       sjtu.opennet.textilepb.Model.CafeHTTPRequest other = (sjtu.opennet.textilepb.Model.CafeHTTPRequest) obj;
 
-      boolean result = true;
-      result = result && type_ == other.type_;
-      result = result && getUrl()
-          .equals(other.getUrl());
-      result = result && internalGetHeaders().equals(
-          other.internalGetHeaders());
-      result = result && getPath()
-          .equals(other.getPath());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (type_ != other.type_) return false;
+      if (!getUrl()
+          .equals(other.getUrl())) return false;
+      if (!internalGetHeaders().equals(
+          other.internalGetHeaders())) return false;
+      if (!getPath()
+          .equals(other.getPath())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -37961,48 +39940,46 @@ public final class Model {
       public sjtu.opennet.textilepb.Model.CafeHTTPRequest buildPartial() {
         sjtu.opennet.textilepb.Model.CafeHTTPRequest result = new sjtu.opennet.textilepb.Model.CafeHTTPRequest(this);
         int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
         result.type_ = type_;
         result.url_ = url_;
         result.headers_ = internalGetHeaders();
         result.headers_.makeImmutable();
         result.path_ = path_;
-        result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -38062,21 +40039,27 @@ public final class Model {
       private int type_ = 0;
       /**
        * <code>.CafeHTTPRequest.Type type = 1;</code>
+       * @return The enum numeric value on the wire for type.
        */
-      public int getTypeValue() {
+      @java.lang.Override public int getTypeValue() {
         return type_;
       }
       /**
        * <code>.CafeHTTPRequest.Type type = 1;</code>
+       * @param value The enum numeric value on the wire for type to set.
+       * @return This builder for chaining.
        */
       public Builder setTypeValue(int value) {
+        
         type_ = value;
         onChanged();
         return this;
       }
       /**
        * <code>.CafeHTTPRequest.Type type = 1;</code>
+       * @return The type.
        */
+      @java.lang.Override
       public sjtu.opennet.textilepb.Model.CafeHTTPRequest.Type getType() {
         @SuppressWarnings("deprecation")
         sjtu.opennet.textilepb.Model.CafeHTTPRequest.Type result = sjtu.opennet.textilepb.Model.CafeHTTPRequest.Type.valueOf(type_);
@@ -38084,6 +40067,8 @@ public final class Model {
       }
       /**
        * <code>.CafeHTTPRequest.Type type = 1;</code>
+       * @param value The type to set.
+       * @return This builder for chaining.
        */
       public Builder setType(sjtu.opennet.textilepb.Model.CafeHTTPRequest.Type value) {
         if (value == null) {
@@ -38096,6 +40081,7 @@ public final class Model {
       }
       /**
        * <code>.CafeHTTPRequest.Type type = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearType() {
         
@@ -38107,6 +40093,7 @@ public final class Model {
       private java.lang.Object url_ = "";
       /**
        * <code>string url = 2;</code>
+       * @return The url.
        */
       public java.lang.String getUrl() {
         java.lang.Object ref = url_;
@@ -38122,6 +40109,7 @@ public final class Model {
       }
       /**
        * <code>string url = 2;</code>
+       * @return The bytes for url.
        */
       public com.google.protobuf.ByteString
           getUrlBytes() {
@@ -38138,6 +40126,8 @@ public final class Model {
       }
       /**
        * <code>string url = 2;</code>
+       * @param value The url to set.
+       * @return This builder for chaining.
        */
       public Builder setUrl(
           java.lang.String value) {
@@ -38151,6 +40141,7 @@ public final class Model {
       }
       /**
        * <code>string url = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearUrl() {
         
@@ -38160,6 +40151,8 @@ public final class Model {
       }
       /**
        * <code>string url = 2;</code>
+       * @param value The bytes for url to set.
+       * @return This builder for chaining.
        */
       public Builder setUrlBytes(
           com.google.protobuf.ByteString value) {
@@ -38203,6 +40196,7 @@ public final class Model {
        * <code>map&lt;string, string&gt; headers = 3;</code>
        */
 
+      @java.lang.Override
       public boolean containsHeaders(
           java.lang.String key) {
         if (key == null) { throw new java.lang.NullPointerException(); }
@@ -38211,6 +40205,7 @@ public final class Model {
       /**
        * Use {@link #getHeadersMap()} instead.
        */
+      @java.lang.Override
       @java.lang.Deprecated
       public java.util.Map<java.lang.String, java.lang.String> getHeaders() {
         return getHeadersMap();
@@ -38218,6 +40213,7 @@ public final class Model {
       /**
        * <code>map&lt;string, string&gt; headers = 3;</code>
        */
+      @java.lang.Override
 
       public java.util.Map<java.lang.String, java.lang.String> getHeadersMap() {
         return internalGetHeaders().getMap();
@@ -38225,6 +40221,7 @@ public final class Model {
       /**
        * <code>map&lt;string, string&gt; headers = 3;</code>
        */
+      @java.lang.Override
 
       public java.lang.String getHeadersOrDefault(
           java.lang.String key,
@@ -38237,6 +40234,7 @@ public final class Model {
       /**
        * <code>map&lt;string, string&gt; headers = 3;</code>
        */
+      @java.lang.Override
 
       public java.lang.String getHeadersOrThrow(
           java.lang.String key) {
@@ -38299,6 +40297,7 @@ public final class Model {
       private java.lang.Object path_ = "";
       /**
        * <code>string path = 4;</code>
+       * @return The path.
        */
       public java.lang.String getPath() {
         java.lang.Object ref = path_;
@@ -38314,6 +40313,7 @@ public final class Model {
       }
       /**
        * <code>string path = 4;</code>
+       * @return The bytes for path.
        */
       public com.google.protobuf.ByteString
           getPathBytes() {
@@ -38330,6 +40330,8 @@ public final class Model {
       }
       /**
        * <code>string path = 4;</code>
+       * @param value The path to set.
+       * @return This builder for chaining.
        */
       public Builder setPath(
           java.lang.String value) {
@@ -38343,6 +40345,7 @@ public final class Model {
       }
       /**
        * <code>string path = 4;</code>
+       * @return This builder for chaining.
        */
       public Builder clearPath() {
         
@@ -38352,6 +40355,8 @@ public final class Model {
       }
       /**
        * <code>string path = 4;</code>
+       * @param value The bytes for path to set.
+       * @return This builder for chaining.
        */
       public Builder setPathBytes(
           com.google.protobuf.ByteString value) {
@@ -38367,7 +40372,7 @@ public final class Model {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -38423,30 +40428,36 @@ public final class Model {
 
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
     java.lang.String getId();
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
     com.google.protobuf.ByteString
         getIdBytes();
 
     /**
      * <code>string peer = 2;</code>
+     * @return The peer.
      */
     java.lang.String getPeer();
     /**
      * <code>string peer = 2;</code>
+     * @return The bytes for peer.
      */
     com.google.protobuf.ByteString
         getPeerBytes();
 
     /**
      * <code>.google.protobuf.Timestamp date = 3;</code>
+     * @return Whether the date field is set.
      */
     boolean hasDate();
     /**
      * <code>.google.protobuf.Timestamp date = 3;</code>
+     * @return The date.
      */
     com.google.protobuf.Timestamp getDate();
     /**
@@ -38456,13 +40467,14 @@ public final class Model {
 
     /**
      * <code>int32 attempts = 4;</code>
+     * @return The attempts.
      */
     int getAttempts();
   }
   /**
    * Protobuf type {@code CafeMessage}
    */
-  public  static final class CafeMessage extends
+  public static final class CafeMessage extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:CafeMessage)
       CafeMessageOrBuilder {
@@ -38474,7 +40486,13 @@ public final class Model {
     private CafeMessage() {
       id_ = "";
       peer_ = "";
-      attempts_ = 0;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new CafeMessage();
     }
 
     @java.lang.Override
@@ -38490,7 +40508,6 @@ public final class Model {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -38532,7 +40549,7 @@ public final class Model {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -38567,7 +40584,9 @@ public final class Model {
     private volatile java.lang.Object id_;
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
+    @java.lang.Override
     public java.lang.String getId() {
       java.lang.Object ref = id_;
       if (ref instanceof java.lang.String) {
@@ -38582,7 +40601,9 @@ public final class Model {
     }
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getIdBytes() {
       java.lang.Object ref = id_;
@@ -38601,7 +40622,9 @@ public final class Model {
     private volatile java.lang.Object peer_;
     /**
      * <code>string peer = 2;</code>
+     * @return The peer.
      */
+    @java.lang.Override
     public java.lang.String getPeer() {
       java.lang.Object ref = peer_;
       if (ref instanceof java.lang.String) {
@@ -38616,7 +40639,9 @@ public final class Model {
     }
     /**
      * <code>string peer = 2;</code>
+     * @return The bytes for peer.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getPeerBytes() {
       java.lang.Object ref = peer_;
@@ -38635,19 +40660,24 @@ public final class Model {
     private com.google.protobuf.Timestamp date_;
     /**
      * <code>.google.protobuf.Timestamp date = 3;</code>
+     * @return Whether the date field is set.
      */
+    @java.lang.Override
     public boolean hasDate() {
       return date_ != null;
     }
     /**
      * <code>.google.protobuf.Timestamp date = 3;</code>
+     * @return The date.
      */
+    @java.lang.Override
     public com.google.protobuf.Timestamp getDate() {
       return date_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : date_;
     }
     /**
      * <code>.google.protobuf.Timestamp date = 3;</code>
      */
+    @java.lang.Override
     public com.google.protobuf.TimestampOrBuilder getDateOrBuilder() {
       return getDate();
     }
@@ -38656,7 +40686,9 @@ public final class Model {
     private int attempts_;
     /**
      * <code>int32 attempts = 4;</code>
+     * @return The attempts.
      */
+    @java.lang.Override
     public int getAttempts() {
       return attempts_;
     }
@@ -38725,20 +40757,19 @@ public final class Model {
       }
       sjtu.opennet.textilepb.Model.CafeMessage other = (sjtu.opennet.textilepb.Model.CafeMessage) obj;
 
-      boolean result = true;
-      result = result && getId()
-          .equals(other.getId());
-      result = result && getPeer()
-          .equals(other.getPeer());
-      result = result && (hasDate() == other.hasDate());
+      if (!getId()
+          .equals(other.getId())) return false;
+      if (!getPeer()
+          .equals(other.getPeer())) return false;
+      if (hasDate() != other.hasDate()) return false;
       if (hasDate()) {
-        result = result && getDate()
-            .equals(other.getDate());
+        if (!getDate()
+            .equals(other.getDate())) return false;
       }
-      result = result && (getAttempts()
-          == other.getAttempts());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (getAttempts()
+          != other.getAttempts()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -38943,35 +40974,35 @@ public final class Model {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -39031,6 +41062,7 @@ public final class Model {
       private java.lang.Object id_ = "";
       /**
        * <code>string id = 1;</code>
+       * @return The id.
        */
       public java.lang.String getId() {
         java.lang.Object ref = id_;
@@ -39046,6 +41078,7 @@ public final class Model {
       }
       /**
        * <code>string id = 1;</code>
+       * @return The bytes for id.
        */
       public com.google.protobuf.ByteString
           getIdBytes() {
@@ -39062,6 +41095,8 @@ public final class Model {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The id to set.
+       * @return This builder for chaining.
        */
       public Builder setId(
           java.lang.String value) {
@@ -39075,6 +41110,7 @@ public final class Model {
       }
       /**
        * <code>string id = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearId() {
         
@@ -39084,6 +41120,8 @@ public final class Model {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The bytes for id to set.
+       * @return This builder for chaining.
        */
       public Builder setIdBytes(
           com.google.protobuf.ByteString value) {
@@ -39100,6 +41138,7 @@ public final class Model {
       private java.lang.Object peer_ = "";
       /**
        * <code>string peer = 2;</code>
+       * @return The peer.
        */
       public java.lang.String getPeer() {
         java.lang.Object ref = peer_;
@@ -39115,6 +41154,7 @@ public final class Model {
       }
       /**
        * <code>string peer = 2;</code>
+       * @return The bytes for peer.
        */
       public com.google.protobuf.ByteString
           getPeerBytes() {
@@ -39131,6 +41171,8 @@ public final class Model {
       }
       /**
        * <code>string peer = 2;</code>
+       * @param value The peer to set.
+       * @return This builder for chaining.
        */
       public Builder setPeer(
           java.lang.String value) {
@@ -39144,6 +41186,7 @@ public final class Model {
       }
       /**
        * <code>string peer = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearPeer() {
         
@@ -39153,6 +41196,8 @@ public final class Model {
       }
       /**
        * <code>string peer = 2;</code>
+       * @param value The bytes for peer to set.
+       * @return This builder for chaining.
        */
       public Builder setPeerBytes(
           com.google.protobuf.ByteString value) {
@@ -39166,17 +41211,19 @@ public final class Model {
         return this;
       }
 
-      private com.google.protobuf.Timestamp date_ = null;
+      private com.google.protobuf.Timestamp date_;
       private com.google.protobuf.SingleFieldBuilderV3<
           com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> dateBuilder_;
       /**
        * <code>.google.protobuf.Timestamp date = 3;</code>
+       * @return Whether the date field is set.
        */
       public boolean hasDate() {
         return dateBuilder_ != null || date_ != null;
       }
       /**
        * <code>.google.protobuf.Timestamp date = 3;</code>
+       * @return The date.
        */
       public com.google.protobuf.Timestamp getDate() {
         if (dateBuilder_ == null) {
@@ -39286,12 +41333,16 @@ public final class Model {
       private int attempts_ ;
       /**
        * <code>int32 attempts = 4;</code>
+       * @return The attempts.
        */
+      @java.lang.Override
       public int getAttempts() {
         return attempts_;
       }
       /**
        * <code>int32 attempts = 4;</code>
+       * @param value The attempts to set.
+       * @return This builder for chaining.
        */
       public Builder setAttempts(int value) {
         
@@ -39301,6 +41352,7 @@ public final class Model {
       }
       /**
        * <code>int32 attempts = 4;</code>
+       * @return This builder for chaining.
        */
       public Builder clearAttempts() {
         
@@ -39311,7 +41363,7 @@ public final class Model {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -39367,30 +41419,36 @@ public final class Model {
 
     /**
      * <code>string value = 1;</code>
+     * @return The value.
      */
     java.lang.String getValue();
     /**
      * <code>string value = 1;</code>
+     * @return The bytes for value.
      */
     com.google.protobuf.ByteString
         getValueBytes();
 
     /**
      * <code>string address = 2;</code>
+     * @return The address.
      */
     java.lang.String getAddress();
     /**
      * <code>string address = 2;</code>
+     * @return The bytes for address.
      */
     com.google.protobuf.ByteString
         getAddressBytes();
 
     /**
      * <code>.google.protobuf.Timestamp date = 3;</code>
+     * @return Whether the date field is set.
      */
     boolean hasDate();
     /**
      * <code>.google.protobuf.Timestamp date = 3;</code>
+     * @return The date.
      */
     com.google.protobuf.Timestamp getDate();
     /**
@@ -39401,7 +41459,7 @@ public final class Model {
   /**
    * Protobuf type {@code CafeClientNonce}
    */
-  public  static final class CafeClientNonce extends
+  public static final class CafeClientNonce extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:CafeClientNonce)
       CafeClientNonceOrBuilder {
@@ -39413,6 +41471,13 @@ public final class Model {
     private CafeClientNonce() {
       value_ = "";
       address_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new CafeClientNonce();
     }
 
     @java.lang.Override
@@ -39428,7 +41493,6 @@ public final class Model {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -39465,7 +41529,7 @@ public final class Model {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -39500,7 +41564,9 @@ public final class Model {
     private volatile java.lang.Object value_;
     /**
      * <code>string value = 1;</code>
+     * @return The value.
      */
+    @java.lang.Override
     public java.lang.String getValue() {
       java.lang.Object ref = value_;
       if (ref instanceof java.lang.String) {
@@ -39515,7 +41581,9 @@ public final class Model {
     }
     /**
      * <code>string value = 1;</code>
+     * @return The bytes for value.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getValueBytes() {
       java.lang.Object ref = value_;
@@ -39534,7 +41602,9 @@ public final class Model {
     private volatile java.lang.Object address_;
     /**
      * <code>string address = 2;</code>
+     * @return The address.
      */
+    @java.lang.Override
     public java.lang.String getAddress() {
       java.lang.Object ref = address_;
       if (ref instanceof java.lang.String) {
@@ -39549,7 +41619,9 @@ public final class Model {
     }
     /**
      * <code>string address = 2;</code>
+     * @return The bytes for address.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAddressBytes() {
       java.lang.Object ref = address_;
@@ -39568,19 +41640,24 @@ public final class Model {
     private com.google.protobuf.Timestamp date_;
     /**
      * <code>.google.protobuf.Timestamp date = 3;</code>
+     * @return Whether the date field is set.
      */
+    @java.lang.Override
     public boolean hasDate() {
       return date_ != null;
     }
     /**
      * <code>.google.protobuf.Timestamp date = 3;</code>
+     * @return The date.
      */
+    @java.lang.Override
     public com.google.protobuf.Timestamp getDate() {
       return date_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : date_;
     }
     /**
      * <code>.google.protobuf.Timestamp date = 3;</code>
      */
+    @java.lang.Override
     public com.google.protobuf.TimestampOrBuilder getDateOrBuilder() {
       return getDate();
     }
@@ -39642,18 +41719,17 @@ public final class Model {
       }
       sjtu.opennet.textilepb.Model.CafeClientNonce other = (sjtu.opennet.textilepb.Model.CafeClientNonce) obj;
 
-      boolean result = true;
-      result = result && getValue()
-          .equals(other.getValue());
-      result = result && getAddress()
-          .equals(other.getAddress());
-      result = result && (hasDate() == other.hasDate());
+      if (!getValue()
+          .equals(other.getValue())) return false;
+      if (!getAddress()
+          .equals(other.getAddress())) return false;
+      if (hasDate() != other.hasDate()) return false;
       if (hasDate()) {
-        result = result && getDate()
-            .equals(other.getDate());
+        if (!getDate()
+            .equals(other.getDate())) return false;
       }
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -39853,35 +41929,35 @@ public final class Model {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -39938,6 +42014,7 @@ public final class Model {
       private java.lang.Object value_ = "";
       /**
        * <code>string value = 1;</code>
+       * @return The value.
        */
       public java.lang.String getValue() {
         java.lang.Object ref = value_;
@@ -39953,6 +42030,7 @@ public final class Model {
       }
       /**
        * <code>string value = 1;</code>
+       * @return The bytes for value.
        */
       public com.google.protobuf.ByteString
           getValueBytes() {
@@ -39969,6 +42047,8 @@ public final class Model {
       }
       /**
        * <code>string value = 1;</code>
+       * @param value The value to set.
+       * @return This builder for chaining.
        */
       public Builder setValue(
           java.lang.String value) {
@@ -39982,6 +42062,7 @@ public final class Model {
       }
       /**
        * <code>string value = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearValue() {
         
@@ -39991,6 +42072,8 @@ public final class Model {
       }
       /**
        * <code>string value = 1;</code>
+       * @param value The bytes for value to set.
+       * @return This builder for chaining.
        */
       public Builder setValueBytes(
           com.google.protobuf.ByteString value) {
@@ -40007,6 +42090,7 @@ public final class Model {
       private java.lang.Object address_ = "";
       /**
        * <code>string address = 2;</code>
+       * @return The address.
        */
       public java.lang.String getAddress() {
         java.lang.Object ref = address_;
@@ -40022,6 +42106,7 @@ public final class Model {
       }
       /**
        * <code>string address = 2;</code>
+       * @return The bytes for address.
        */
       public com.google.protobuf.ByteString
           getAddressBytes() {
@@ -40038,6 +42123,8 @@ public final class Model {
       }
       /**
        * <code>string address = 2;</code>
+       * @param value The address to set.
+       * @return This builder for chaining.
        */
       public Builder setAddress(
           java.lang.String value) {
@@ -40051,6 +42138,7 @@ public final class Model {
       }
       /**
        * <code>string address = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearAddress() {
         
@@ -40060,6 +42148,8 @@ public final class Model {
       }
       /**
        * <code>string address = 2;</code>
+       * @param value The bytes for address to set.
+       * @return This builder for chaining.
        */
       public Builder setAddressBytes(
           com.google.protobuf.ByteString value) {
@@ -40073,17 +42163,19 @@ public final class Model {
         return this;
       }
 
-      private com.google.protobuf.Timestamp date_ = null;
+      private com.google.protobuf.Timestamp date_;
       private com.google.protobuf.SingleFieldBuilderV3<
           com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> dateBuilder_;
       /**
        * <code>.google.protobuf.Timestamp date = 3;</code>
+       * @return Whether the date field is set.
        */
       public boolean hasDate() {
         return dateBuilder_ != null || date_ != null;
       }
       /**
        * <code>.google.protobuf.Timestamp date = 3;</code>
+       * @return The date.
        */
       public com.google.protobuf.Timestamp getDate() {
         if (dateBuilder_ == null) {
@@ -40192,7 +42284,7 @@ public final class Model {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -40248,30 +42340,36 @@ public final class Model {
 
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
     java.lang.String getId();
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
     com.google.protobuf.ByteString
         getIdBytes();
 
     /**
      * <code>string address = 2;</code>
+     * @return The address.
      */
     java.lang.String getAddress();
     /**
      * <code>string address = 2;</code>
+     * @return The bytes for address.
      */
     com.google.protobuf.ByteString
         getAddressBytes();
 
     /**
      * <code>.google.protobuf.Timestamp created = 3;</code>
+     * @return Whether the created field is set.
      */
     boolean hasCreated();
     /**
      * <code>.google.protobuf.Timestamp created = 3;</code>
+     * @return The created.
      */
     com.google.protobuf.Timestamp getCreated();
     /**
@@ -40281,10 +42379,12 @@ public final class Model {
 
     /**
      * <code>.google.protobuf.Timestamp seen = 4;</code>
+     * @return Whether the seen field is set.
      */
     boolean hasSeen();
     /**
      * <code>.google.protobuf.Timestamp seen = 4;</code>
+     * @return The seen.
      */
     com.google.protobuf.Timestamp getSeen();
     /**
@@ -40294,10 +42394,12 @@ public final class Model {
 
     /**
      * <code>string token = 5;</code>
+     * @return The token.
      */
     java.lang.String getToken();
     /**
      * <code>string token = 5;</code>
+     * @return The bytes for token.
      */
     com.google.protobuf.ByteString
         getTokenBytes();
@@ -40305,7 +42407,7 @@ public final class Model {
   /**
    * Protobuf type {@code CafeClient}
    */
-  public  static final class CafeClient extends
+  public static final class CafeClient extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:CafeClient)
       CafeClientOrBuilder {
@@ -40321,6 +42423,13 @@ public final class Model {
     }
 
     @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new CafeClient();
+    }
+
+    @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
       return this.unknownFields;
@@ -40333,7 +42442,6 @@ public final class Model {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -40389,7 +42497,7 @@ public final class Model {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -40424,7 +42532,9 @@ public final class Model {
     private volatile java.lang.Object id_;
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
+    @java.lang.Override
     public java.lang.String getId() {
       java.lang.Object ref = id_;
       if (ref instanceof java.lang.String) {
@@ -40439,7 +42549,9 @@ public final class Model {
     }
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getIdBytes() {
       java.lang.Object ref = id_;
@@ -40458,7 +42570,9 @@ public final class Model {
     private volatile java.lang.Object address_;
     /**
      * <code>string address = 2;</code>
+     * @return The address.
      */
+    @java.lang.Override
     public java.lang.String getAddress() {
       java.lang.Object ref = address_;
       if (ref instanceof java.lang.String) {
@@ -40473,7 +42587,9 @@ public final class Model {
     }
     /**
      * <code>string address = 2;</code>
+     * @return The bytes for address.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAddressBytes() {
       java.lang.Object ref = address_;
@@ -40492,19 +42608,24 @@ public final class Model {
     private com.google.protobuf.Timestamp created_;
     /**
      * <code>.google.protobuf.Timestamp created = 3;</code>
+     * @return Whether the created field is set.
      */
+    @java.lang.Override
     public boolean hasCreated() {
       return created_ != null;
     }
     /**
      * <code>.google.protobuf.Timestamp created = 3;</code>
+     * @return The created.
      */
+    @java.lang.Override
     public com.google.protobuf.Timestamp getCreated() {
       return created_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : created_;
     }
     /**
      * <code>.google.protobuf.Timestamp created = 3;</code>
      */
+    @java.lang.Override
     public com.google.protobuf.TimestampOrBuilder getCreatedOrBuilder() {
       return getCreated();
     }
@@ -40513,19 +42634,24 @@ public final class Model {
     private com.google.protobuf.Timestamp seen_;
     /**
      * <code>.google.protobuf.Timestamp seen = 4;</code>
+     * @return Whether the seen field is set.
      */
+    @java.lang.Override
     public boolean hasSeen() {
       return seen_ != null;
     }
     /**
      * <code>.google.protobuf.Timestamp seen = 4;</code>
+     * @return The seen.
      */
+    @java.lang.Override
     public com.google.protobuf.Timestamp getSeen() {
       return seen_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : seen_;
     }
     /**
      * <code>.google.protobuf.Timestamp seen = 4;</code>
      */
+    @java.lang.Override
     public com.google.protobuf.TimestampOrBuilder getSeenOrBuilder() {
       return getSeen();
     }
@@ -40534,7 +42660,9 @@ public final class Model {
     private volatile java.lang.Object token_;
     /**
      * <code>string token = 5;</code>
+     * @return The token.
      */
+    @java.lang.Override
     public java.lang.String getToken() {
       java.lang.Object ref = token_;
       if (ref instanceof java.lang.String) {
@@ -40549,7 +42677,9 @@ public final class Model {
     }
     /**
      * <code>string token = 5;</code>
+     * @return The bytes for token.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getTokenBytes() {
       java.lang.Object ref = token_;
@@ -40634,25 +42764,24 @@ public final class Model {
       }
       sjtu.opennet.textilepb.Model.CafeClient other = (sjtu.opennet.textilepb.Model.CafeClient) obj;
 
-      boolean result = true;
-      result = result && getId()
-          .equals(other.getId());
-      result = result && getAddress()
-          .equals(other.getAddress());
-      result = result && (hasCreated() == other.hasCreated());
+      if (!getId()
+          .equals(other.getId())) return false;
+      if (!getAddress()
+          .equals(other.getAddress())) return false;
+      if (hasCreated() != other.hasCreated()) return false;
       if (hasCreated()) {
-        result = result && getCreated()
-            .equals(other.getCreated());
+        if (!getCreated()
+            .equals(other.getCreated())) return false;
       }
-      result = result && (hasSeen() == other.hasSeen());
+      if (hasSeen() != other.hasSeen()) return false;
       if (hasSeen()) {
-        result = result && getSeen()
-            .equals(other.getSeen());
+        if (!getSeen()
+            .equals(other.getSeen())) return false;
       }
-      result = result && getToken()
-          .equals(other.getToken());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getToken()
+          .equals(other.getToken())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -40872,35 +43001,35 @@ public final class Model {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -40964,6 +43093,7 @@ public final class Model {
       private java.lang.Object id_ = "";
       /**
        * <code>string id = 1;</code>
+       * @return The id.
        */
       public java.lang.String getId() {
         java.lang.Object ref = id_;
@@ -40979,6 +43109,7 @@ public final class Model {
       }
       /**
        * <code>string id = 1;</code>
+       * @return The bytes for id.
        */
       public com.google.protobuf.ByteString
           getIdBytes() {
@@ -40995,6 +43126,8 @@ public final class Model {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The id to set.
+       * @return This builder for chaining.
        */
       public Builder setId(
           java.lang.String value) {
@@ -41008,6 +43141,7 @@ public final class Model {
       }
       /**
        * <code>string id = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearId() {
         
@@ -41017,6 +43151,8 @@ public final class Model {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The bytes for id to set.
+       * @return This builder for chaining.
        */
       public Builder setIdBytes(
           com.google.protobuf.ByteString value) {
@@ -41033,6 +43169,7 @@ public final class Model {
       private java.lang.Object address_ = "";
       /**
        * <code>string address = 2;</code>
+       * @return The address.
        */
       public java.lang.String getAddress() {
         java.lang.Object ref = address_;
@@ -41048,6 +43185,7 @@ public final class Model {
       }
       /**
        * <code>string address = 2;</code>
+       * @return The bytes for address.
        */
       public com.google.protobuf.ByteString
           getAddressBytes() {
@@ -41064,6 +43202,8 @@ public final class Model {
       }
       /**
        * <code>string address = 2;</code>
+       * @param value The address to set.
+       * @return This builder for chaining.
        */
       public Builder setAddress(
           java.lang.String value) {
@@ -41077,6 +43217,7 @@ public final class Model {
       }
       /**
        * <code>string address = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearAddress() {
         
@@ -41086,6 +43227,8 @@ public final class Model {
       }
       /**
        * <code>string address = 2;</code>
+       * @param value The bytes for address to set.
+       * @return This builder for chaining.
        */
       public Builder setAddressBytes(
           com.google.protobuf.ByteString value) {
@@ -41099,17 +43242,19 @@ public final class Model {
         return this;
       }
 
-      private com.google.protobuf.Timestamp created_ = null;
+      private com.google.protobuf.Timestamp created_;
       private com.google.protobuf.SingleFieldBuilderV3<
           com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> createdBuilder_;
       /**
        * <code>.google.protobuf.Timestamp created = 3;</code>
+       * @return Whether the created field is set.
        */
       public boolean hasCreated() {
         return createdBuilder_ != null || created_ != null;
       }
       /**
        * <code>.google.protobuf.Timestamp created = 3;</code>
+       * @return The created.
        */
       public com.google.protobuf.Timestamp getCreated() {
         if (createdBuilder_ == null) {
@@ -41216,17 +43361,19 @@ public final class Model {
         return createdBuilder_;
       }
 
-      private com.google.protobuf.Timestamp seen_ = null;
+      private com.google.protobuf.Timestamp seen_;
       private com.google.protobuf.SingleFieldBuilderV3<
           com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> seenBuilder_;
       /**
        * <code>.google.protobuf.Timestamp seen = 4;</code>
+       * @return Whether the seen field is set.
        */
       public boolean hasSeen() {
         return seenBuilder_ != null || seen_ != null;
       }
       /**
        * <code>.google.protobuf.Timestamp seen = 4;</code>
+       * @return The seen.
        */
       public com.google.protobuf.Timestamp getSeen() {
         if (seenBuilder_ == null) {
@@ -41336,6 +43483,7 @@ public final class Model {
       private java.lang.Object token_ = "";
       /**
        * <code>string token = 5;</code>
+       * @return The token.
        */
       public java.lang.String getToken() {
         java.lang.Object ref = token_;
@@ -41351,6 +43499,7 @@ public final class Model {
       }
       /**
        * <code>string token = 5;</code>
+       * @return The bytes for token.
        */
       public com.google.protobuf.ByteString
           getTokenBytes() {
@@ -41367,6 +43516,8 @@ public final class Model {
       }
       /**
        * <code>string token = 5;</code>
+       * @param value The token to set.
+       * @return This builder for chaining.
        */
       public Builder setToken(
           java.lang.String value) {
@@ -41380,6 +43531,7 @@ public final class Model {
       }
       /**
        * <code>string token = 5;</code>
+       * @return This builder for chaining.
        */
       public Builder clearToken() {
         
@@ -41389,6 +43541,8 @@ public final class Model {
       }
       /**
        * <code>string token = 5;</code>
+       * @param value The bytes for token to set.
+       * @return This builder for chaining.
        */
       public Builder setTokenBytes(
           com.google.protobuf.ByteString value) {
@@ -41404,7 +43558,7 @@ public final class Model {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -41485,7 +43639,7 @@ public final class Model {
   /**
    * Protobuf type {@code CafeClientList}
    */
-  public  static final class CafeClientList extends
+  public static final class CafeClientList extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:CafeClientList)
       CafeClientListOrBuilder {
@@ -41496,6 +43650,13 @@ public final class Model {
     }
     private CafeClientList() {
       items_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new CafeClientList();
     }
 
     @java.lang.Override
@@ -41523,7 +43684,7 @@ public final class Model {
               done = true;
               break;
             case 10: {
-              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
                 items_ = new java.util.ArrayList<sjtu.opennet.textilepb.Model.CafeClient>();
                 mutable_bitField0_ |= 0x00000001;
               }
@@ -41532,7 +43693,7 @@ public final class Model {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -41546,7 +43707,7 @@ public final class Model {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
           items_ = java.util.Collections.unmodifiableList(items_);
         }
         this.unknownFields = unknownFields.build();
@@ -41571,12 +43732,14 @@ public final class Model {
     /**
      * <code>repeated .CafeClient items = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<sjtu.opennet.textilepb.Model.CafeClient> getItemsList() {
       return items_;
     }
     /**
      * <code>repeated .CafeClient items = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends sjtu.opennet.textilepb.Model.CafeClientOrBuilder> 
         getItemsOrBuilderList() {
       return items_;
@@ -41584,18 +43747,21 @@ public final class Model {
     /**
      * <code>repeated .CafeClient items = 1;</code>
      */
+    @java.lang.Override
     public int getItemsCount() {
       return items_.size();
     }
     /**
      * <code>repeated .CafeClient items = 1;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.CafeClient getItems(int index) {
       return items_.get(index);
     }
     /**
      * <code>repeated .CafeClient items = 1;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.CafeClientOrBuilder getItemsOrBuilder(
         int index) {
       return items_.get(index);
@@ -41646,11 +43812,10 @@ public final class Model {
       }
       sjtu.opennet.textilepb.Model.CafeClientList other = (sjtu.opennet.textilepb.Model.CafeClientList) obj;
 
-      boolean result = true;
-      result = result && getItemsList()
-          .equals(other.getItemsList());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getItemsList()
+          .equals(other.getItemsList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -41832,7 +43997,7 @@ public final class Model {
         sjtu.opennet.textilepb.Model.CafeClientList result = new sjtu.opennet.textilepb.Model.CafeClientList(this);
         int from_bitField0_ = bitField0_;
         if (itemsBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) == 0x00000001)) {
+          if (((bitField0_ & 0x00000001) != 0)) {
             items_ = java.util.Collections.unmodifiableList(items_);
             bitField0_ = (bitField0_ & ~0x00000001);
           }
@@ -41846,35 +44011,35 @@ public final class Model {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -41947,7 +44112,7 @@ public final class Model {
       private java.util.List<sjtu.opennet.textilepb.Model.CafeClient> items_ =
         java.util.Collections.emptyList();
       private void ensureItemsIsMutable() {
-        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+        if (!((bitField0_ & 0x00000001) != 0)) {
           items_ = new java.util.ArrayList<sjtu.opennet.textilepb.Model.CafeClient>(items_);
           bitField0_ |= 0x00000001;
          }
@@ -42176,7 +44341,7 @@ public final class Model {
           itemsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
               sjtu.opennet.textilepb.Model.CafeClient, sjtu.opennet.textilepb.Model.CafeClient.Builder, sjtu.opennet.textilepb.Model.CafeClientOrBuilder>(
                   items_,
-                  ((bitField0_ & 0x00000001) == 0x00000001),
+                  ((bitField0_ & 0x00000001) != 0),
                   getParentForChildren(),
                   isClean());
           items_ = null;
@@ -42186,7 +44351,7 @@ public final class Model {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -42242,25 +44407,30 @@ public final class Model {
 
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
     java.lang.String getId();
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
     com.google.protobuf.ByteString
         getIdBytes();
 
     /**
      * <code>bytes value = 2;</code>
+     * @return The value.
      */
     com.google.protobuf.ByteString getValue();
 
     /**
      * <code>.google.protobuf.Timestamp date = 3;</code>
+     * @return Whether the date field is set.
      */
     boolean hasDate();
     /**
      * <code>.google.protobuf.Timestamp date = 3;</code>
+     * @return The date.
      */
     com.google.protobuf.Timestamp getDate();
     /**
@@ -42271,7 +44441,7 @@ public final class Model {
   /**
    * Protobuf type {@code CafeToken}
    */
-  public  static final class CafeToken extends
+  public static final class CafeToken extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:CafeToken)
       CafeTokenOrBuilder {
@@ -42283,6 +44453,13 @@ public final class Model {
     private CafeToken() {
       id_ = "";
       value_ = com.google.protobuf.ByteString.EMPTY;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new CafeToken();
     }
 
     @java.lang.Override
@@ -42298,7 +44475,6 @@ public final class Model {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -42334,7 +44510,7 @@ public final class Model {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -42369,7 +44545,9 @@ public final class Model {
     private volatile java.lang.Object id_;
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
+    @java.lang.Override
     public java.lang.String getId() {
       java.lang.Object ref = id_;
       if (ref instanceof java.lang.String) {
@@ -42384,7 +44562,9 @@ public final class Model {
     }
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getIdBytes() {
       java.lang.Object ref = id_;
@@ -42403,7 +44583,9 @@ public final class Model {
     private com.google.protobuf.ByteString value_;
     /**
      * <code>bytes value = 2;</code>
+     * @return The value.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getValue() {
       return value_;
     }
@@ -42412,19 +44594,24 @@ public final class Model {
     private com.google.protobuf.Timestamp date_;
     /**
      * <code>.google.protobuf.Timestamp date = 3;</code>
+     * @return Whether the date field is set.
      */
+    @java.lang.Override
     public boolean hasDate() {
       return date_ != null;
     }
     /**
      * <code>.google.protobuf.Timestamp date = 3;</code>
+     * @return The date.
      */
+    @java.lang.Override
     public com.google.protobuf.Timestamp getDate() {
       return date_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : date_;
     }
     /**
      * <code>.google.protobuf.Timestamp date = 3;</code>
      */
+    @java.lang.Override
     public com.google.protobuf.TimestampOrBuilder getDateOrBuilder() {
       return getDate();
     }
@@ -42487,18 +44674,17 @@ public final class Model {
       }
       sjtu.opennet.textilepb.Model.CafeToken other = (sjtu.opennet.textilepb.Model.CafeToken) obj;
 
-      boolean result = true;
-      result = result && getId()
-          .equals(other.getId());
-      result = result && getValue()
-          .equals(other.getValue());
-      result = result && (hasDate() == other.hasDate());
+      if (!getId()
+          .equals(other.getId())) return false;
+      if (!getValue()
+          .equals(other.getValue())) return false;
+      if (hasDate() != other.hasDate()) return false;
       if (hasDate()) {
-        result = result && getDate()
-            .equals(other.getDate());
+        if (!getDate()
+            .equals(other.getDate())) return false;
       }
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -42698,35 +44884,35 @@ public final class Model {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -42782,6 +44968,7 @@ public final class Model {
       private java.lang.Object id_ = "";
       /**
        * <code>string id = 1;</code>
+       * @return The id.
        */
       public java.lang.String getId() {
         java.lang.Object ref = id_;
@@ -42797,6 +44984,7 @@ public final class Model {
       }
       /**
        * <code>string id = 1;</code>
+       * @return The bytes for id.
        */
       public com.google.protobuf.ByteString
           getIdBytes() {
@@ -42813,6 +45001,8 @@ public final class Model {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The id to set.
+       * @return This builder for chaining.
        */
       public Builder setId(
           java.lang.String value) {
@@ -42826,6 +45016,7 @@ public final class Model {
       }
       /**
        * <code>string id = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearId() {
         
@@ -42835,6 +45026,8 @@ public final class Model {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The bytes for id to set.
+       * @return This builder for chaining.
        */
       public Builder setIdBytes(
           com.google.protobuf.ByteString value) {
@@ -42851,12 +45044,16 @@ public final class Model {
       private com.google.protobuf.ByteString value_ = com.google.protobuf.ByteString.EMPTY;
       /**
        * <code>bytes value = 2;</code>
+       * @return The value.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getValue() {
         return value_;
       }
       /**
        * <code>bytes value = 2;</code>
+       * @param value The value to set.
+       * @return This builder for chaining.
        */
       public Builder setValue(com.google.protobuf.ByteString value) {
         if (value == null) {
@@ -42869,6 +45066,7 @@ public final class Model {
       }
       /**
        * <code>bytes value = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearValue() {
         
@@ -42877,17 +45075,19 @@ public final class Model {
         return this;
       }
 
-      private com.google.protobuf.Timestamp date_ = null;
+      private com.google.protobuf.Timestamp date_;
       private com.google.protobuf.SingleFieldBuilderV3<
           com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> dateBuilder_;
       /**
        * <code>.google.protobuf.Timestamp date = 3;</code>
+       * @return Whether the date field is set.
        */
       public boolean hasDate() {
         return dateBuilder_ != null || date_ != null;
       }
       /**
        * <code>.google.protobuf.Timestamp date = 3;</code>
+       * @return The date.
        */
       public com.google.protobuf.Timestamp getDate() {
         if (dateBuilder_ == null) {
@@ -42996,7 +45196,7 @@ public final class Model {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -43052,20 +45252,24 @@ public final class Model {
 
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
     java.lang.String getId();
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
     com.google.protobuf.ByteString
         getIdBytes();
 
     /**
      * <code>string client = 2;</code>
+     * @return The client.
      */
     java.lang.String getClient();
     /**
      * <code>string client = 2;</code>
+     * @return The bytes for client.
      */
     com.google.protobuf.ByteString
         getClientBytes();
@@ -43076,13 +45280,14 @@ public final class Model {
      * </pre>
      *
      * <code>bytes ciphertext = 3;</code>
+     * @return The ciphertext.
      */
     com.google.protobuf.ByteString getCiphertext();
   }
   /**
    * Protobuf type {@code CafeClientThread}
    */
-  public  static final class CafeClientThread extends
+  public static final class CafeClientThread extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:CafeClientThread)
       CafeClientThreadOrBuilder {
@@ -43098,6 +45303,13 @@ public final class Model {
     }
 
     @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new CafeClientThread();
+    }
+
+    @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
       return this.unknownFields;
@@ -43110,7 +45322,6 @@ public final class Model {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -43139,7 +45350,7 @@ public final class Model {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -43174,7 +45385,9 @@ public final class Model {
     private volatile java.lang.Object id_;
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
+    @java.lang.Override
     public java.lang.String getId() {
       java.lang.Object ref = id_;
       if (ref instanceof java.lang.String) {
@@ -43189,7 +45402,9 @@ public final class Model {
     }
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getIdBytes() {
       java.lang.Object ref = id_;
@@ -43208,7 +45423,9 @@ public final class Model {
     private volatile java.lang.Object client_;
     /**
      * <code>string client = 2;</code>
+     * @return The client.
      */
+    @java.lang.Override
     public java.lang.String getClient() {
       java.lang.Object ref = client_;
       if (ref instanceof java.lang.String) {
@@ -43223,7 +45440,9 @@ public final class Model {
     }
     /**
      * <code>string client = 2;</code>
+     * @return The bytes for client.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getClientBytes() {
       java.lang.Object ref = client_;
@@ -43246,7 +45465,9 @@ public final class Model {
      * </pre>
      *
      * <code>bytes ciphertext = 3;</code>
+     * @return The ciphertext.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getCiphertext() {
       return ciphertext_;
     }
@@ -43308,15 +45529,14 @@ public final class Model {
       }
       sjtu.opennet.textilepb.Model.CafeClientThread other = (sjtu.opennet.textilepb.Model.CafeClientThread) obj;
 
-      boolean result = true;
-      result = result && getId()
-          .equals(other.getId());
-      result = result && getClient()
-          .equals(other.getClient());
-      result = result && getCiphertext()
-          .equals(other.getCiphertext());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getId()
+          .equals(other.getId())) return false;
+      if (!getClient()
+          .equals(other.getClient())) return false;
+      if (!getCiphertext()
+          .equals(other.getCiphertext())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -43506,35 +45726,35 @@ public final class Model {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -43591,6 +45811,7 @@ public final class Model {
       private java.lang.Object id_ = "";
       /**
        * <code>string id = 1;</code>
+       * @return The id.
        */
       public java.lang.String getId() {
         java.lang.Object ref = id_;
@@ -43606,6 +45827,7 @@ public final class Model {
       }
       /**
        * <code>string id = 1;</code>
+       * @return The bytes for id.
        */
       public com.google.protobuf.ByteString
           getIdBytes() {
@@ -43622,6 +45844,8 @@ public final class Model {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The id to set.
+       * @return This builder for chaining.
        */
       public Builder setId(
           java.lang.String value) {
@@ -43635,6 +45859,7 @@ public final class Model {
       }
       /**
        * <code>string id = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearId() {
         
@@ -43644,6 +45869,8 @@ public final class Model {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The bytes for id to set.
+       * @return This builder for chaining.
        */
       public Builder setIdBytes(
           com.google.protobuf.ByteString value) {
@@ -43660,6 +45887,7 @@ public final class Model {
       private java.lang.Object client_ = "";
       /**
        * <code>string client = 2;</code>
+       * @return The client.
        */
       public java.lang.String getClient() {
         java.lang.Object ref = client_;
@@ -43675,6 +45903,7 @@ public final class Model {
       }
       /**
        * <code>string client = 2;</code>
+       * @return The bytes for client.
        */
       public com.google.protobuf.ByteString
           getClientBytes() {
@@ -43691,6 +45920,8 @@ public final class Model {
       }
       /**
        * <code>string client = 2;</code>
+       * @param value The client to set.
+       * @return This builder for chaining.
        */
       public Builder setClient(
           java.lang.String value) {
@@ -43704,6 +45935,7 @@ public final class Model {
       }
       /**
        * <code>string client = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearClient() {
         
@@ -43713,6 +45945,8 @@ public final class Model {
       }
       /**
        * <code>string client = 2;</code>
+       * @param value The bytes for client to set.
+       * @return This builder for chaining.
        */
       public Builder setClientBytes(
           com.google.protobuf.ByteString value) {
@@ -43733,7 +45967,9 @@ public final class Model {
        * </pre>
        *
        * <code>bytes ciphertext = 3;</code>
+       * @return The ciphertext.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getCiphertext() {
         return ciphertext_;
       }
@@ -43743,6 +45979,8 @@ public final class Model {
        * </pre>
        *
        * <code>bytes ciphertext = 3;</code>
+       * @param value The ciphertext to set.
+       * @return This builder for chaining.
        */
       public Builder setCiphertext(com.google.protobuf.ByteString value) {
         if (value == null) {
@@ -43759,6 +45997,7 @@ public final class Model {
        * </pre>
        *
        * <code>bytes ciphertext = 3;</code>
+       * @return This builder for chaining.
        */
       public Builder clearCiphertext() {
         
@@ -43769,7 +46008,7 @@ public final class Model {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -43825,58 +46064,68 @@ public final class Model {
 
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
     java.lang.String getId();
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
     com.google.protobuf.ByteString
         getIdBytes();
 
     /**
      * <code>string caption = 2;</code>
+     * @return The caption.
      */
     java.lang.String getCaption();
     /**
      * <code>string caption = 2;</code>
+     * @return The bytes for caption.
      */
     com.google.protobuf.ByteString
         getCaptionBytes();
 
     /**
      * <code>int64 videoLength = 3;</code>
+     * @return The videoLength.
      */
     long getVideoLength();
 
     /**
      * <code>string poster = 4;</code>
+     * @return The poster.
      */
     java.lang.String getPoster();
     /**
      * <code>string poster = 4;</code>
+     * @return The bytes for poster.
      */
     com.google.protobuf.ByteString
         getPosterBytes();
 
     /**
      * <code>int32 width = 5;</code>
+     * @return The width.
      */
     int getWidth();
 
     /**
      * <code>int32 height = 6;</code>
+     * @return The height.
      */
     int getHeight();
 
     /**
      * <code>int32 rotation = 7;</code>
+     * @return The rotation.
      */
     int getRotation();
   }
   /**
    * Protobuf type {@code Video}
    */
-  public  static final class Video extends
+  public static final class Video extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:Video)
       VideoOrBuilder {
@@ -43888,11 +46137,14 @@ public final class Model {
     private Video() {
       id_ = "";
       caption_ = "";
-      videoLength_ = 0L;
       poster_ = "";
-      width_ = 0;
-      height_ = 0;
-      rotation_ = 0;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new Video();
     }
 
     @java.lang.Override
@@ -43908,7 +46160,6 @@ public final class Model {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -43958,7 +46209,7 @@ public final class Model {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -43993,7 +46244,9 @@ public final class Model {
     private volatile java.lang.Object id_;
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
+    @java.lang.Override
     public java.lang.String getId() {
       java.lang.Object ref = id_;
       if (ref instanceof java.lang.String) {
@@ -44008,7 +46261,9 @@ public final class Model {
     }
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getIdBytes() {
       java.lang.Object ref = id_;
@@ -44027,7 +46282,9 @@ public final class Model {
     private volatile java.lang.Object caption_;
     /**
      * <code>string caption = 2;</code>
+     * @return The caption.
      */
+    @java.lang.Override
     public java.lang.String getCaption() {
       java.lang.Object ref = caption_;
       if (ref instanceof java.lang.String) {
@@ -44042,7 +46299,9 @@ public final class Model {
     }
     /**
      * <code>string caption = 2;</code>
+     * @return The bytes for caption.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getCaptionBytes() {
       java.lang.Object ref = caption_;
@@ -44061,7 +46320,9 @@ public final class Model {
     private long videoLength_;
     /**
      * <code>int64 videoLength = 3;</code>
+     * @return The videoLength.
      */
+    @java.lang.Override
     public long getVideoLength() {
       return videoLength_;
     }
@@ -44070,7 +46331,9 @@ public final class Model {
     private volatile java.lang.Object poster_;
     /**
      * <code>string poster = 4;</code>
+     * @return The poster.
      */
+    @java.lang.Override
     public java.lang.String getPoster() {
       java.lang.Object ref = poster_;
       if (ref instanceof java.lang.String) {
@@ -44085,7 +46348,9 @@ public final class Model {
     }
     /**
      * <code>string poster = 4;</code>
+     * @return The bytes for poster.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getPosterBytes() {
       java.lang.Object ref = poster_;
@@ -44104,7 +46369,9 @@ public final class Model {
     private int width_;
     /**
      * <code>int32 width = 5;</code>
+     * @return The width.
      */
+    @java.lang.Override
     public int getWidth() {
       return width_;
     }
@@ -44113,7 +46380,9 @@ public final class Model {
     private int height_;
     /**
      * <code>int32 height = 6;</code>
+     * @return The height.
      */
+    @java.lang.Override
     public int getHeight() {
       return height_;
     }
@@ -44122,7 +46391,9 @@ public final class Model {
     private int rotation_;
     /**
      * <code>int32 rotation = 7;</code>
+     * @return The rotation.
      */
+    @java.lang.Override
     public int getRotation() {
       return rotation_;
     }
@@ -44211,23 +46482,22 @@ public final class Model {
       }
       sjtu.opennet.textilepb.Model.Video other = (sjtu.opennet.textilepb.Model.Video) obj;
 
-      boolean result = true;
-      result = result && getId()
-          .equals(other.getId());
-      result = result && getCaption()
-          .equals(other.getCaption());
-      result = result && (getVideoLength()
-          == other.getVideoLength());
-      result = result && getPoster()
-          .equals(other.getPoster());
-      result = result && (getWidth()
-          == other.getWidth());
-      result = result && (getHeight()
-          == other.getHeight());
-      result = result && (getRotation()
-          == other.getRotation());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getId()
+          .equals(other.getId())) return false;
+      if (!getCaption()
+          .equals(other.getCaption())) return false;
+      if (getVideoLength()
+          != other.getVideoLength()) return false;
+      if (!getPoster()
+          .equals(other.getPoster())) return false;
+      if (getWidth()
+          != other.getWidth()) return false;
+      if (getHeight()
+          != other.getHeight()) return false;
+      if (getRotation()
+          != other.getRotation()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -44438,35 +46708,35 @@ public final class Model {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -44536,6 +46806,7 @@ public final class Model {
       private java.lang.Object id_ = "";
       /**
        * <code>string id = 1;</code>
+       * @return The id.
        */
       public java.lang.String getId() {
         java.lang.Object ref = id_;
@@ -44551,6 +46822,7 @@ public final class Model {
       }
       /**
        * <code>string id = 1;</code>
+       * @return The bytes for id.
        */
       public com.google.protobuf.ByteString
           getIdBytes() {
@@ -44567,6 +46839,8 @@ public final class Model {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The id to set.
+       * @return This builder for chaining.
        */
       public Builder setId(
           java.lang.String value) {
@@ -44580,6 +46854,7 @@ public final class Model {
       }
       /**
        * <code>string id = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearId() {
         
@@ -44589,6 +46864,8 @@ public final class Model {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The bytes for id to set.
+       * @return This builder for chaining.
        */
       public Builder setIdBytes(
           com.google.protobuf.ByteString value) {
@@ -44605,6 +46882,7 @@ public final class Model {
       private java.lang.Object caption_ = "";
       /**
        * <code>string caption = 2;</code>
+       * @return The caption.
        */
       public java.lang.String getCaption() {
         java.lang.Object ref = caption_;
@@ -44620,6 +46898,7 @@ public final class Model {
       }
       /**
        * <code>string caption = 2;</code>
+       * @return The bytes for caption.
        */
       public com.google.protobuf.ByteString
           getCaptionBytes() {
@@ -44636,6 +46915,8 @@ public final class Model {
       }
       /**
        * <code>string caption = 2;</code>
+       * @param value The caption to set.
+       * @return This builder for chaining.
        */
       public Builder setCaption(
           java.lang.String value) {
@@ -44649,6 +46930,7 @@ public final class Model {
       }
       /**
        * <code>string caption = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearCaption() {
         
@@ -44658,6 +46940,8 @@ public final class Model {
       }
       /**
        * <code>string caption = 2;</code>
+       * @param value The bytes for caption to set.
+       * @return This builder for chaining.
        */
       public Builder setCaptionBytes(
           com.google.protobuf.ByteString value) {
@@ -44674,12 +46958,16 @@ public final class Model {
       private long videoLength_ ;
       /**
        * <code>int64 videoLength = 3;</code>
+       * @return The videoLength.
        */
+      @java.lang.Override
       public long getVideoLength() {
         return videoLength_;
       }
       /**
        * <code>int64 videoLength = 3;</code>
+       * @param value The videoLength to set.
+       * @return This builder for chaining.
        */
       public Builder setVideoLength(long value) {
         
@@ -44689,6 +46977,7 @@ public final class Model {
       }
       /**
        * <code>int64 videoLength = 3;</code>
+       * @return This builder for chaining.
        */
       public Builder clearVideoLength() {
         
@@ -44700,6 +46989,7 @@ public final class Model {
       private java.lang.Object poster_ = "";
       /**
        * <code>string poster = 4;</code>
+       * @return The poster.
        */
       public java.lang.String getPoster() {
         java.lang.Object ref = poster_;
@@ -44715,6 +47005,7 @@ public final class Model {
       }
       /**
        * <code>string poster = 4;</code>
+       * @return The bytes for poster.
        */
       public com.google.protobuf.ByteString
           getPosterBytes() {
@@ -44731,6 +47022,8 @@ public final class Model {
       }
       /**
        * <code>string poster = 4;</code>
+       * @param value The poster to set.
+       * @return This builder for chaining.
        */
       public Builder setPoster(
           java.lang.String value) {
@@ -44744,6 +47037,7 @@ public final class Model {
       }
       /**
        * <code>string poster = 4;</code>
+       * @return This builder for chaining.
        */
       public Builder clearPoster() {
         
@@ -44753,6 +47047,8 @@ public final class Model {
       }
       /**
        * <code>string poster = 4;</code>
+       * @param value The bytes for poster to set.
+       * @return This builder for chaining.
        */
       public Builder setPosterBytes(
           com.google.protobuf.ByteString value) {
@@ -44769,12 +47065,16 @@ public final class Model {
       private int width_ ;
       /**
        * <code>int32 width = 5;</code>
+       * @return The width.
        */
+      @java.lang.Override
       public int getWidth() {
         return width_;
       }
       /**
        * <code>int32 width = 5;</code>
+       * @param value The width to set.
+       * @return This builder for chaining.
        */
       public Builder setWidth(int value) {
         
@@ -44784,6 +47084,7 @@ public final class Model {
       }
       /**
        * <code>int32 width = 5;</code>
+       * @return This builder for chaining.
        */
       public Builder clearWidth() {
         
@@ -44795,12 +47096,16 @@ public final class Model {
       private int height_ ;
       /**
        * <code>int32 height = 6;</code>
+       * @return The height.
        */
+      @java.lang.Override
       public int getHeight() {
         return height_;
       }
       /**
        * <code>int32 height = 6;</code>
+       * @param value The height to set.
+       * @return This builder for chaining.
        */
       public Builder setHeight(int value) {
         
@@ -44810,6 +47115,7 @@ public final class Model {
       }
       /**
        * <code>int32 height = 6;</code>
+       * @return This builder for chaining.
        */
       public Builder clearHeight() {
         
@@ -44821,12 +47127,16 @@ public final class Model {
       private int rotation_ ;
       /**
        * <code>int32 rotation = 7;</code>
+       * @return The rotation.
        */
+      @java.lang.Override
       public int getRotation() {
         return rotation_;
       }
       /**
        * <code>int32 rotation = 7;</code>
+       * @param value The rotation to set.
+       * @return This builder for chaining.
        */
       public Builder setRotation(int value) {
         
@@ -44836,6 +47146,7 @@ public final class Model {
       }
       /**
        * <code>int32 rotation = 7;</code>
+       * @return This builder for chaining.
        */
       public Builder clearRotation() {
         
@@ -44846,7 +47157,7 @@ public final class Model {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -44902,53 +47213,62 @@ public final class Model {
 
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
     java.lang.String getId();
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
     com.google.protobuf.ByteString
         getIdBytes();
 
     /**
      * <code>string chunk = 2;</code>
+     * @return The chunk.
      */
     java.lang.String getChunk();
     /**
      * <code>string chunk = 2;</code>
+     * @return The bytes for chunk.
      */
     com.google.protobuf.ByteString
         getChunkBytes();
 
     /**
      * <code>string address = 3;</code>
+     * @return The address.
      */
     java.lang.String getAddress();
     /**
      * <code>string address = 3;</code>
+     * @return The bytes for address.
      */
     com.google.protobuf.ByteString
         getAddressBytes();
 
     /**
      * <code>int64 startTime = 4;</code>
+     * @return The startTime.
      */
     long getStartTime();
 
     /**
      * <code>int64 endTime = 5;</code>
+     * @return The endTime.
      */
     long getEndTime();
 
     /**
      * <code>int64 index = 6;</code>
+     * @return The index.
      */
     long getIndex();
   }
   /**
    * Protobuf type {@code VideoChunk}
    */
-  public  static final class VideoChunk extends
+  public static final class VideoChunk extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:VideoChunk)
       VideoChunkOrBuilder {
@@ -44961,9 +47281,13 @@ public final class Model {
       id_ = "";
       chunk_ = "";
       address_ = "";
-      startTime_ = 0L;
-      endTime_ = 0L;
-      index_ = 0L;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new VideoChunk();
     }
 
     @java.lang.Override
@@ -44979,7 +47303,6 @@ public final class Model {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -45024,7 +47347,7 @@ public final class Model {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -45059,7 +47382,9 @@ public final class Model {
     private volatile java.lang.Object id_;
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
+    @java.lang.Override
     public java.lang.String getId() {
       java.lang.Object ref = id_;
       if (ref instanceof java.lang.String) {
@@ -45074,7 +47399,9 @@ public final class Model {
     }
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getIdBytes() {
       java.lang.Object ref = id_;
@@ -45093,7 +47420,9 @@ public final class Model {
     private volatile java.lang.Object chunk_;
     /**
      * <code>string chunk = 2;</code>
+     * @return The chunk.
      */
+    @java.lang.Override
     public java.lang.String getChunk() {
       java.lang.Object ref = chunk_;
       if (ref instanceof java.lang.String) {
@@ -45108,7 +47437,9 @@ public final class Model {
     }
     /**
      * <code>string chunk = 2;</code>
+     * @return The bytes for chunk.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getChunkBytes() {
       java.lang.Object ref = chunk_;
@@ -45127,7 +47458,9 @@ public final class Model {
     private volatile java.lang.Object address_;
     /**
      * <code>string address = 3;</code>
+     * @return The address.
      */
+    @java.lang.Override
     public java.lang.String getAddress() {
       java.lang.Object ref = address_;
       if (ref instanceof java.lang.String) {
@@ -45142,7 +47475,9 @@ public final class Model {
     }
     /**
      * <code>string address = 3;</code>
+     * @return The bytes for address.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAddressBytes() {
       java.lang.Object ref = address_;
@@ -45161,7 +47496,9 @@ public final class Model {
     private long startTime_;
     /**
      * <code>int64 startTime = 4;</code>
+     * @return The startTime.
      */
+    @java.lang.Override
     public long getStartTime() {
       return startTime_;
     }
@@ -45170,7 +47507,9 @@ public final class Model {
     private long endTime_;
     /**
      * <code>int64 endTime = 5;</code>
+     * @return The endTime.
      */
+    @java.lang.Override
     public long getEndTime() {
       return endTime_;
     }
@@ -45179,7 +47518,9 @@ public final class Model {
     private long index_;
     /**
      * <code>int64 index = 6;</code>
+     * @return The index.
      */
+    @java.lang.Override
     public long getIndex() {
       return index_;
     }
@@ -45261,21 +47602,20 @@ public final class Model {
       }
       sjtu.opennet.textilepb.Model.VideoChunk other = (sjtu.opennet.textilepb.Model.VideoChunk) obj;
 
-      boolean result = true;
-      result = result && getId()
-          .equals(other.getId());
-      result = result && getChunk()
-          .equals(other.getChunk());
-      result = result && getAddress()
-          .equals(other.getAddress());
-      result = result && (getStartTime()
-          == other.getStartTime());
-      result = result && (getEndTime()
-          == other.getEndTime());
-      result = result && (getIndex()
-          == other.getIndex());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getId()
+          .equals(other.getId())) return false;
+      if (!getChunk()
+          .equals(other.getChunk())) return false;
+      if (!getAddress()
+          .equals(other.getAddress())) return false;
+      if (getStartTime()
+          != other.getStartTime()) return false;
+      if (getEndTime()
+          != other.getEndTime()) return false;
+      if (getIndex()
+          != other.getIndex()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -45483,35 +47823,35 @@ public final class Model {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -45578,6 +47918,7 @@ public final class Model {
       private java.lang.Object id_ = "";
       /**
        * <code>string id = 1;</code>
+       * @return The id.
        */
       public java.lang.String getId() {
         java.lang.Object ref = id_;
@@ -45593,6 +47934,7 @@ public final class Model {
       }
       /**
        * <code>string id = 1;</code>
+       * @return The bytes for id.
        */
       public com.google.protobuf.ByteString
           getIdBytes() {
@@ -45609,6 +47951,8 @@ public final class Model {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The id to set.
+       * @return This builder for chaining.
        */
       public Builder setId(
           java.lang.String value) {
@@ -45622,6 +47966,7 @@ public final class Model {
       }
       /**
        * <code>string id = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearId() {
         
@@ -45631,6 +47976,8 @@ public final class Model {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The bytes for id to set.
+       * @return This builder for chaining.
        */
       public Builder setIdBytes(
           com.google.protobuf.ByteString value) {
@@ -45647,6 +47994,7 @@ public final class Model {
       private java.lang.Object chunk_ = "";
       /**
        * <code>string chunk = 2;</code>
+       * @return The chunk.
        */
       public java.lang.String getChunk() {
         java.lang.Object ref = chunk_;
@@ -45662,6 +48010,7 @@ public final class Model {
       }
       /**
        * <code>string chunk = 2;</code>
+       * @return The bytes for chunk.
        */
       public com.google.protobuf.ByteString
           getChunkBytes() {
@@ -45678,6 +48027,8 @@ public final class Model {
       }
       /**
        * <code>string chunk = 2;</code>
+       * @param value The chunk to set.
+       * @return This builder for chaining.
        */
       public Builder setChunk(
           java.lang.String value) {
@@ -45691,6 +48042,7 @@ public final class Model {
       }
       /**
        * <code>string chunk = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearChunk() {
         
@@ -45700,6 +48052,8 @@ public final class Model {
       }
       /**
        * <code>string chunk = 2;</code>
+       * @param value The bytes for chunk to set.
+       * @return This builder for chaining.
        */
       public Builder setChunkBytes(
           com.google.protobuf.ByteString value) {
@@ -45716,6 +48070,7 @@ public final class Model {
       private java.lang.Object address_ = "";
       /**
        * <code>string address = 3;</code>
+       * @return The address.
        */
       public java.lang.String getAddress() {
         java.lang.Object ref = address_;
@@ -45731,6 +48086,7 @@ public final class Model {
       }
       /**
        * <code>string address = 3;</code>
+       * @return The bytes for address.
        */
       public com.google.protobuf.ByteString
           getAddressBytes() {
@@ -45747,6 +48103,8 @@ public final class Model {
       }
       /**
        * <code>string address = 3;</code>
+       * @param value The address to set.
+       * @return This builder for chaining.
        */
       public Builder setAddress(
           java.lang.String value) {
@@ -45760,6 +48118,7 @@ public final class Model {
       }
       /**
        * <code>string address = 3;</code>
+       * @return This builder for chaining.
        */
       public Builder clearAddress() {
         
@@ -45769,6 +48128,8 @@ public final class Model {
       }
       /**
        * <code>string address = 3;</code>
+       * @param value The bytes for address to set.
+       * @return This builder for chaining.
        */
       public Builder setAddressBytes(
           com.google.protobuf.ByteString value) {
@@ -45785,12 +48146,16 @@ public final class Model {
       private long startTime_ ;
       /**
        * <code>int64 startTime = 4;</code>
+       * @return The startTime.
        */
+      @java.lang.Override
       public long getStartTime() {
         return startTime_;
       }
       /**
        * <code>int64 startTime = 4;</code>
+       * @param value The startTime to set.
+       * @return This builder for chaining.
        */
       public Builder setStartTime(long value) {
         
@@ -45800,6 +48165,7 @@ public final class Model {
       }
       /**
        * <code>int64 startTime = 4;</code>
+       * @return This builder for chaining.
        */
       public Builder clearStartTime() {
         
@@ -45811,12 +48177,16 @@ public final class Model {
       private long endTime_ ;
       /**
        * <code>int64 endTime = 5;</code>
+       * @return The endTime.
        */
+      @java.lang.Override
       public long getEndTime() {
         return endTime_;
       }
       /**
        * <code>int64 endTime = 5;</code>
+       * @param value The endTime to set.
+       * @return This builder for chaining.
        */
       public Builder setEndTime(long value) {
         
@@ -45826,6 +48196,7 @@ public final class Model {
       }
       /**
        * <code>int64 endTime = 5;</code>
+       * @return This builder for chaining.
        */
       public Builder clearEndTime() {
         
@@ -45837,12 +48208,16 @@ public final class Model {
       private long index_ ;
       /**
        * <code>int64 index = 6;</code>
+       * @return The index.
        */
+      @java.lang.Override
       public long getIndex() {
         return index_;
       }
       /**
        * <code>int64 index = 6;</code>
+       * @param value The index to set.
+       * @return This builder for chaining.
        */
       public Builder setIndex(long value) {
         
@@ -45852,6 +48227,7 @@ public final class Model {
       }
       /**
        * <code>int64 index = 6;</code>
+       * @return This builder for chaining.
        */
       public Builder clearIndex() {
         
@@ -45862,7 +48238,7 @@ public final class Model {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -45943,7 +48319,7 @@ public final class Model {
   /**
    * Protobuf type {@code VideoChunkList}
    */
-  public  static final class VideoChunkList extends
+  public static final class VideoChunkList extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:VideoChunkList)
       VideoChunkListOrBuilder {
@@ -45954,6 +48330,13 @@ public final class Model {
     }
     private VideoChunkList() {
       items_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new VideoChunkList();
     }
 
     @java.lang.Override
@@ -45981,7 +48364,7 @@ public final class Model {
               done = true;
               break;
             case 10: {
-              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
                 items_ = new java.util.ArrayList<sjtu.opennet.textilepb.Model.VideoChunk>();
                 mutable_bitField0_ |= 0x00000001;
               }
@@ -45990,7 +48373,7 @@ public final class Model {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -46004,7 +48387,7 @@ public final class Model {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
           items_ = java.util.Collections.unmodifiableList(items_);
         }
         this.unknownFields = unknownFields.build();
@@ -46029,12 +48412,14 @@ public final class Model {
     /**
      * <code>repeated .VideoChunk items = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<sjtu.opennet.textilepb.Model.VideoChunk> getItemsList() {
       return items_;
     }
     /**
      * <code>repeated .VideoChunk items = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends sjtu.opennet.textilepb.Model.VideoChunkOrBuilder> 
         getItemsOrBuilderList() {
       return items_;
@@ -46042,18 +48427,21 @@ public final class Model {
     /**
      * <code>repeated .VideoChunk items = 1;</code>
      */
+    @java.lang.Override
     public int getItemsCount() {
       return items_.size();
     }
     /**
      * <code>repeated .VideoChunk items = 1;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.VideoChunk getItems(int index) {
       return items_.get(index);
     }
     /**
      * <code>repeated .VideoChunk items = 1;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.VideoChunkOrBuilder getItemsOrBuilder(
         int index) {
       return items_.get(index);
@@ -46104,11 +48492,10 @@ public final class Model {
       }
       sjtu.opennet.textilepb.Model.VideoChunkList other = (sjtu.opennet.textilepb.Model.VideoChunkList) obj;
 
-      boolean result = true;
-      result = result && getItemsList()
-          .equals(other.getItemsList());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getItemsList()
+          .equals(other.getItemsList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -46290,7 +48677,7 @@ public final class Model {
         sjtu.opennet.textilepb.Model.VideoChunkList result = new sjtu.opennet.textilepb.Model.VideoChunkList(this);
         int from_bitField0_ = bitField0_;
         if (itemsBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) == 0x00000001)) {
+          if (((bitField0_ & 0x00000001) != 0)) {
             items_ = java.util.Collections.unmodifiableList(items_);
             bitField0_ = (bitField0_ & ~0x00000001);
           }
@@ -46304,35 +48691,35 @@ public final class Model {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -46405,7 +48792,7 @@ public final class Model {
       private java.util.List<sjtu.opennet.textilepb.Model.VideoChunk> items_ =
         java.util.Collections.emptyList();
       private void ensureItemsIsMutable() {
-        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+        if (!((bitField0_ & 0x00000001) != 0)) {
           items_ = new java.util.ArrayList<sjtu.opennet.textilepb.Model.VideoChunk>(items_);
           bitField0_ |= 0x00000001;
          }
@@ -46634,7 +49021,7 @@ public final class Model {
           itemsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
               sjtu.opennet.textilepb.Model.VideoChunk, sjtu.opennet.textilepb.Model.VideoChunk.Builder, sjtu.opennet.textilepb.Model.VideoChunkOrBuilder>(
                   items_,
-                  ((bitField0_ & 0x00000001) == 0x00000001),
+                  ((bitField0_ & 0x00000001) != 0),
                   getParentForChildren(),
                   isClean());
           items_ = null;
@@ -46644,7 +49031,7 @@ public final class Model {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -46700,45 +49087,54 @@ public final class Model {
 
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
     java.lang.String getId();
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
     com.google.protobuf.ByteString
         getIdBytes();
 
     /**
      * <code>string streamid = 2;</code>
+     * @return The streamid.
      */
     java.lang.String getStreamid();
     /**
      * <code>string streamid = 2;</code>
+     * @return The bytes for streamid.
      */
     com.google.protobuf.ByteString
         getStreamidBytes();
 
     /**
      * <code>uint64 index = 3;</code>
+     * @return The index.
      */
     long getIndex();
 
     /**
      * <code>int32 size = 4;</code>
+     * @return The size.
      */
     int getSize();
 
     /**
      * <code>bool isRoot = 5;</code>
+     * @return The isRoot.
      */
     boolean getIsRoot();
 
     /**
      * <code>string description = 6;</code>
+     * @return The description.
      */
     java.lang.String getDescription();
     /**
      * <code>string description = 6;</code>
+     * @return The bytes for description.
      */
     com.google.protobuf.ByteString
         getDescriptionBytes();
@@ -46746,7 +49142,7 @@ public final class Model {
   /**
    * Protobuf type {@code StreamBlock}
    */
-  public  static final class StreamBlock extends
+  public static final class StreamBlock extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:StreamBlock)
       StreamBlockOrBuilder {
@@ -46758,10 +49154,14 @@ public final class Model {
     private StreamBlock() {
       id_ = "";
       streamid_ = "";
-      index_ = 0L;
-      size_ = 0;
-      isRoot_ = false;
       description_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new StreamBlock();
     }
 
     @java.lang.Override
@@ -46777,7 +49177,6 @@ public final class Model {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -46822,7 +49221,7 @@ public final class Model {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -46857,7 +49256,9 @@ public final class Model {
     private volatile java.lang.Object id_;
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
+    @java.lang.Override
     public java.lang.String getId() {
       java.lang.Object ref = id_;
       if (ref instanceof java.lang.String) {
@@ -46872,7 +49273,9 @@ public final class Model {
     }
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getIdBytes() {
       java.lang.Object ref = id_;
@@ -46891,7 +49294,9 @@ public final class Model {
     private volatile java.lang.Object streamid_;
     /**
      * <code>string streamid = 2;</code>
+     * @return The streamid.
      */
+    @java.lang.Override
     public java.lang.String getStreamid() {
       java.lang.Object ref = streamid_;
       if (ref instanceof java.lang.String) {
@@ -46906,7 +49311,9 @@ public final class Model {
     }
     /**
      * <code>string streamid = 2;</code>
+     * @return The bytes for streamid.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getStreamidBytes() {
       java.lang.Object ref = streamid_;
@@ -46925,7 +49332,9 @@ public final class Model {
     private long index_;
     /**
      * <code>uint64 index = 3;</code>
+     * @return The index.
      */
+    @java.lang.Override
     public long getIndex() {
       return index_;
     }
@@ -46934,7 +49343,9 @@ public final class Model {
     private int size_;
     /**
      * <code>int32 size = 4;</code>
+     * @return The size.
      */
+    @java.lang.Override
     public int getSize() {
       return size_;
     }
@@ -46943,7 +49354,9 @@ public final class Model {
     private boolean isRoot_;
     /**
      * <code>bool isRoot = 5;</code>
+     * @return The isRoot.
      */
+    @java.lang.Override
     public boolean getIsRoot() {
       return isRoot_;
     }
@@ -46952,7 +49365,9 @@ public final class Model {
     private volatile java.lang.Object description_;
     /**
      * <code>string description = 6;</code>
+     * @return The description.
      */
+    @java.lang.Override
     public java.lang.String getDescription() {
       java.lang.Object ref = description_;
       if (ref instanceof java.lang.String) {
@@ -46967,7 +49382,9 @@ public final class Model {
     }
     /**
      * <code>string description = 6;</code>
+     * @return The bytes for description.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDescriptionBytes() {
       java.lang.Object ref = description_;
@@ -47059,21 +49476,20 @@ public final class Model {
       }
       sjtu.opennet.textilepb.Model.StreamBlock other = (sjtu.opennet.textilepb.Model.StreamBlock) obj;
 
-      boolean result = true;
-      result = result && getId()
-          .equals(other.getId());
-      result = result && getStreamid()
-          .equals(other.getStreamid());
-      result = result && (getIndex()
-          == other.getIndex());
-      result = result && (getSize()
-          == other.getSize());
-      result = result && (getIsRoot()
-          == other.getIsRoot());
-      result = result && getDescription()
-          .equals(other.getDescription());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getId()
+          .equals(other.getId())) return false;
+      if (!getStreamid()
+          .equals(other.getStreamid())) return false;
+      if (getIndex()
+          != other.getIndex()) return false;
+      if (getSize()
+          != other.getSize()) return false;
+      if (getIsRoot()
+          != other.getIsRoot()) return false;
+      if (!getDescription()
+          .equals(other.getDescription())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -47280,35 +49696,35 @@ public final class Model {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -47375,6 +49791,7 @@ public final class Model {
       private java.lang.Object id_ = "";
       /**
        * <code>string id = 1;</code>
+       * @return The id.
        */
       public java.lang.String getId() {
         java.lang.Object ref = id_;
@@ -47390,6 +49807,7 @@ public final class Model {
       }
       /**
        * <code>string id = 1;</code>
+       * @return The bytes for id.
        */
       public com.google.protobuf.ByteString
           getIdBytes() {
@@ -47406,6 +49824,8 @@ public final class Model {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The id to set.
+       * @return This builder for chaining.
        */
       public Builder setId(
           java.lang.String value) {
@@ -47419,6 +49839,7 @@ public final class Model {
       }
       /**
        * <code>string id = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearId() {
         
@@ -47428,6 +49849,8 @@ public final class Model {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The bytes for id to set.
+       * @return This builder for chaining.
        */
       public Builder setIdBytes(
           com.google.protobuf.ByteString value) {
@@ -47444,6 +49867,7 @@ public final class Model {
       private java.lang.Object streamid_ = "";
       /**
        * <code>string streamid = 2;</code>
+       * @return The streamid.
        */
       public java.lang.String getStreamid() {
         java.lang.Object ref = streamid_;
@@ -47459,6 +49883,7 @@ public final class Model {
       }
       /**
        * <code>string streamid = 2;</code>
+       * @return The bytes for streamid.
        */
       public com.google.protobuf.ByteString
           getStreamidBytes() {
@@ -47475,6 +49900,8 @@ public final class Model {
       }
       /**
        * <code>string streamid = 2;</code>
+       * @param value The streamid to set.
+       * @return This builder for chaining.
        */
       public Builder setStreamid(
           java.lang.String value) {
@@ -47488,6 +49915,7 @@ public final class Model {
       }
       /**
        * <code>string streamid = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearStreamid() {
         
@@ -47497,6 +49925,8 @@ public final class Model {
       }
       /**
        * <code>string streamid = 2;</code>
+       * @param value The bytes for streamid to set.
+       * @return This builder for chaining.
        */
       public Builder setStreamidBytes(
           com.google.protobuf.ByteString value) {
@@ -47513,12 +49943,16 @@ public final class Model {
       private long index_ ;
       /**
        * <code>uint64 index = 3;</code>
+       * @return The index.
        */
+      @java.lang.Override
       public long getIndex() {
         return index_;
       }
       /**
        * <code>uint64 index = 3;</code>
+       * @param value The index to set.
+       * @return This builder for chaining.
        */
       public Builder setIndex(long value) {
         
@@ -47528,6 +49962,7 @@ public final class Model {
       }
       /**
        * <code>uint64 index = 3;</code>
+       * @return This builder for chaining.
        */
       public Builder clearIndex() {
         
@@ -47539,12 +49974,16 @@ public final class Model {
       private int size_ ;
       /**
        * <code>int32 size = 4;</code>
+       * @return The size.
        */
+      @java.lang.Override
       public int getSize() {
         return size_;
       }
       /**
        * <code>int32 size = 4;</code>
+       * @param value The size to set.
+       * @return This builder for chaining.
        */
       public Builder setSize(int value) {
         
@@ -47554,6 +49993,7 @@ public final class Model {
       }
       /**
        * <code>int32 size = 4;</code>
+       * @return This builder for chaining.
        */
       public Builder clearSize() {
         
@@ -47565,12 +50005,16 @@ public final class Model {
       private boolean isRoot_ ;
       /**
        * <code>bool isRoot = 5;</code>
+       * @return The isRoot.
        */
+      @java.lang.Override
       public boolean getIsRoot() {
         return isRoot_;
       }
       /**
        * <code>bool isRoot = 5;</code>
+       * @param value The isRoot to set.
+       * @return This builder for chaining.
        */
       public Builder setIsRoot(boolean value) {
         
@@ -47580,6 +50024,7 @@ public final class Model {
       }
       /**
        * <code>bool isRoot = 5;</code>
+       * @return This builder for chaining.
        */
       public Builder clearIsRoot() {
         
@@ -47591,6 +50036,7 @@ public final class Model {
       private java.lang.Object description_ = "";
       /**
        * <code>string description = 6;</code>
+       * @return The description.
        */
       public java.lang.String getDescription() {
         java.lang.Object ref = description_;
@@ -47606,6 +50052,7 @@ public final class Model {
       }
       /**
        * <code>string description = 6;</code>
+       * @return The bytes for description.
        */
       public com.google.protobuf.ByteString
           getDescriptionBytes() {
@@ -47622,6 +50069,8 @@ public final class Model {
       }
       /**
        * <code>string description = 6;</code>
+       * @param value The description to set.
+       * @return This builder for chaining.
        */
       public Builder setDescription(
           java.lang.String value) {
@@ -47635,6 +50084,7 @@ public final class Model {
       }
       /**
        * <code>string description = 6;</code>
+       * @return This builder for chaining.
        */
       public Builder clearDescription() {
         
@@ -47644,6 +50094,8 @@ public final class Model {
       }
       /**
        * <code>string description = 6;</code>
+       * @param value The bytes for description to set.
+       * @return This builder for chaining.
        */
       public Builder setDescriptionBytes(
           com.google.protobuf.ByteString value) {
@@ -47659,7 +50111,7 @@ public final class Model {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -47740,7 +50192,7 @@ public final class Model {
   /**
    * Protobuf type {@code StreamBlockList}
    */
-  public  static final class StreamBlockList extends
+  public static final class StreamBlockList extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:StreamBlockList)
       StreamBlockListOrBuilder {
@@ -47751,6 +50203,13 @@ public final class Model {
     }
     private StreamBlockList() {
       items_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new StreamBlockList();
     }
 
     @java.lang.Override
@@ -47778,7 +50237,7 @@ public final class Model {
               done = true;
               break;
             case 10: {
-              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
                 items_ = new java.util.ArrayList<sjtu.opennet.textilepb.Model.StreamBlock>();
                 mutable_bitField0_ |= 0x00000001;
               }
@@ -47787,7 +50246,7 @@ public final class Model {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -47801,7 +50260,7 @@ public final class Model {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
           items_ = java.util.Collections.unmodifiableList(items_);
         }
         this.unknownFields = unknownFields.build();
@@ -47826,12 +50285,14 @@ public final class Model {
     /**
      * <code>repeated .StreamBlock items = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<sjtu.opennet.textilepb.Model.StreamBlock> getItemsList() {
       return items_;
     }
     /**
      * <code>repeated .StreamBlock items = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends sjtu.opennet.textilepb.Model.StreamBlockOrBuilder> 
         getItemsOrBuilderList() {
       return items_;
@@ -47839,18 +50300,21 @@ public final class Model {
     /**
      * <code>repeated .StreamBlock items = 1;</code>
      */
+    @java.lang.Override
     public int getItemsCount() {
       return items_.size();
     }
     /**
      * <code>repeated .StreamBlock items = 1;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.StreamBlock getItems(int index) {
       return items_.get(index);
     }
     /**
      * <code>repeated .StreamBlock items = 1;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.StreamBlockOrBuilder getItemsOrBuilder(
         int index) {
       return items_.get(index);
@@ -47901,11 +50365,10 @@ public final class Model {
       }
       sjtu.opennet.textilepb.Model.StreamBlockList other = (sjtu.opennet.textilepb.Model.StreamBlockList) obj;
 
-      boolean result = true;
-      result = result && getItemsList()
-          .equals(other.getItemsList());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getItemsList()
+          .equals(other.getItemsList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -48087,7 +50550,7 @@ public final class Model {
         sjtu.opennet.textilepb.Model.StreamBlockList result = new sjtu.opennet.textilepb.Model.StreamBlockList(this);
         int from_bitField0_ = bitField0_;
         if (itemsBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) == 0x00000001)) {
+          if (((bitField0_ & 0x00000001) != 0)) {
             items_ = java.util.Collections.unmodifiableList(items_);
             bitField0_ = (bitField0_ & ~0x00000001);
           }
@@ -48101,35 +50564,35 @@ public final class Model {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -48202,7 +50665,7 @@ public final class Model {
       private java.util.List<sjtu.opennet.textilepb.Model.StreamBlock> items_ =
         java.util.Collections.emptyList();
       private void ensureItemsIsMutable() {
-        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+        if (!((bitField0_ & 0x00000001) != 0)) {
           items_ = new java.util.ArrayList<sjtu.opennet.textilepb.Model.StreamBlock>(items_);
           bitField0_ |= 0x00000001;
          }
@@ -48431,7 +50894,7 @@ public final class Model {
           itemsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
               sjtu.opennet.textilepb.Model.StreamBlock, sjtu.opennet.textilepb.Model.StreamBlock.Builder, sjtu.opennet.textilepb.Model.StreamBlockOrBuilder>(
                   items_,
-                  ((bitField0_ & 0x00000001) == 0x00000001),
+                  ((bitField0_ & 0x00000001) != 0),
                   getParentForChildren(),
                   isClean());
           items_ = null;
@@ -48441,7 +50904,7 @@ public final class Model {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -48497,53 +50960,73 @@ public final class Model {
 
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
     java.lang.String getId();
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
     com.google.protobuf.ByteString
         getIdBytes();
 
     /**
      * <code>int32 nsubstreams = 2;</code>
+     * @return The nsubstreams.
      */
     int getNsubstreams();
 
     /**
      * <code>int32 bitrate = 3;</code>
+     * @return The bitrate.
      */
     int getBitrate();
 
     /**
      * <code>string caption = 4;</code>
+     * @return The caption.
      */
     java.lang.String getCaption();
     /**
      * <code>string caption = 4;</code>
+     * @return The bytes for caption.
      */
     com.google.protobuf.ByteString
         getCaptionBytes();
 
     /**
      * <code>uint64 nblocks = 5;</code>
+     * @return The nblocks.
      */
     long getNblocks();
 
     /**
      * <code>string posterid = 6;</code>
+     * @return The posterid.
      */
     java.lang.String getPosterid();
     /**
      * <code>string posterid = 6;</code>
+     * @return The bytes for posterid.
      */
     com.google.protobuf.ByteString
         getPosteridBytes();
+
+    /**
+     * <code>.StreamMeta.Type type = 7;</code>
+     * @return The enum numeric value on the wire for type.
+     */
+    int getTypeValue();
+    /**
+     * <code>.StreamMeta.Type type = 7;</code>
+     * @return The type.
+     */
+    sjtu.opennet.textilepb.Model.StreamMeta.Type getType();
   }
   /**
    * Protobuf type {@code StreamMeta}
    */
-  public  static final class StreamMeta extends
+  public static final class StreamMeta extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:StreamMeta)
       StreamMetaOrBuilder {
@@ -48554,11 +51037,16 @@ public final class Model {
     }
     private StreamMeta() {
       id_ = "";
-      nsubstreams_ = 0;
-      bitrate_ = 0;
       caption_ = "";
-      nblocks_ = 0L;
       posterid_ = "";
+      type_ = 0;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new StreamMeta();
     }
 
     @java.lang.Override
@@ -48574,7 +51062,6 @@ public final class Model {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -48618,8 +51105,14 @@ public final class Model {
               posterid_ = s;
               break;
             }
+            case 56: {
+              int rawValue = input.readEnum();
+
+              type_ = rawValue;
+              break;
+            }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -48650,11 +51143,130 @@ public final class Model {
               sjtu.opennet.textilepb.Model.StreamMeta.class, sjtu.opennet.textilepb.Model.StreamMeta.Builder.class);
     }
 
+    /**
+     * Protobuf enum {@code StreamMeta.Type}
+     */
+    public enum Type
+        implements com.google.protobuf.ProtocolMessageEnum {
+      /**
+       * <code>FILE = 0;</code>
+       */
+      FILE(0),
+      /**
+       * <code>PICTURE = 1;</code>
+       */
+      PICTURE(1),
+      /**
+       * <code>VIDEO = 2;</code>
+       */
+      VIDEO(2),
+      UNRECOGNIZED(-1),
+      ;
+
+      /**
+       * <code>FILE = 0;</code>
+       */
+      public static final int FILE_VALUE = 0;
+      /**
+       * <code>PICTURE = 1;</code>
+       */
+      public static final int PICTURE_VALUE = 1;
+      /**
+       * <code>VIDEO = 2;</code>
+       */
+      public static final int VIDEO_VALUE = 2;
+
+
+      public final int getNumber() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalArgumentException(
+              "Can't get the number of an unknown enum value.");
+        }
+        return value;
+      }
+
+      /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
+       * @deprecated Use {@link #forNumber(int)} instead.
+       */
+      @java.lang.Deprecated
+      public static Type valueOf(int value) {
+        return forNumber(value);
+      }
+
+      /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
+       */
+      public static Type forNumber(int value) {
+        switch (value) {
+          case 0: return FILE;
+          case 1: return PICTURE;
+          case 2: return VIDEO;
+          default: return null;
+        }
+      }
+
+      public static com.google.protobuf.Internal.EnumLiteMap<Type>
+          internalGetValueMap() {
+        return internalValueMap;
+      }
+      private static final com.google.protobuf.Internal.EnumLiteMap<
+          Type> internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<Type>() {
+              public Type findValueByNumber(int number) {
+                return Type.forNumber(number);
+              }
+            };
+
+      public final com.google.protobuf.Descriptors.EnumValueDescriptor
+          getValueDescriptor() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalStateException(
+              "Can't get the descriptor of an unrecognized enum value.");
+        }
+        return getDescriptor().getValues().get(ordinal());
+      }
+      public final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptorForType() {
+        return getDescriptor();
+      }
+      public static final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptor() {
+        return sjtu.opennet.textilepb.Model.StreamMeta.getDescriptor().getEnumTypes().get(0);
+      }
+
+      private static final Type[] VALUES = values();
+
+      public static Type valueOf(
+          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+        if (desc.getType() != getDescriptor()) {
+          throw new java.lang.IllegalArgumentException(
+            "EnumValueDescriptor is not for this type.");
+        }
+        if (desc.getIndex() == -1) {
+          return UNRECOGNIZED;
+        }
+        return VALUES[desc.getIndex()];
+      }
+
+      private final int value;
+
+      private Type(int value) {
+        this.value = value;
+      }
+
+      // @@protoc_insertion_point(enum_scope:StreamMeta.Type)
+    }
+
     public static final int ID_FIELD_NUMBER = 1;
     private volatile java.lang.Object id_;
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
+    @java.lang.Override
     public java.lang.String getId() {
       java.lang.Object ref = id_;
       if (ref instanceof java.lang.String) {
@@ -48669,7 +51281,9 @@ public final class Model {
     }
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getIdBytes() {
       java.lang.Object ref = id_;
@@ -48688,7 +51302,9 @@ public final class Model {
     private int nsubstreams_;
     /**
      * <code>int32 nsubstreams = 2;</code>
+     * @return The nsubstreams.
      */
+    @java.lang.Override
     public int getNsubstreams() {
       return nsubstreams_;
     }
@@ -48697,7 +51313,9 @@ public final class Model {
     private int bitrate_;
     /**
      * <code>int32 bitrate = 3;</code>
+     * @return The bitrate.
      */
+    @java.lang.Override
     public int getBitrate() {
       return bitrate_;
     }
@@ -48706,7 +51324,9 @@ public final class Model {
     private volatile java.lang.Object caption_;
     /**
      * <code>string caption = 4;</code>
+     * @return The caption.
      */
+    @java.lang.Override
     public java.lang.String getCaption() {
       java.lang.Object ref = caption_;
       if (ref instanceof java.lang.String) {
@@ -48721,7 +51341,9 @@ public final class Model {
     }
     /**
      * <code>string caption = 4;</code>
+     * @return The bytes for caption.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getCaptionBytes() {
       java.lang.Object ref = caption_;
@@ -48740,7 +51362,9 @@ public final class Model {
     private long nblocks_;
     /**
      * <code>uint64 nblocks = 5;</code>
+     * @return The nblocks.
      */
+    @java.lang.Override
     public long getNblocks() {
       return nblocks_;
     }
@@ -48749,7 +51373,9 @@ public final class Model {
     private volatile java.lang.Object posterid_;
     /**
      * <code>string posterid = 6;</code>
+     * @return The posterid.
      */
+    @java.lang.Override
     public java.lang.String getPosterid() {
       java.lang.Object ref = posterid_;
       if (ref instanceof java.lang.String) {
@@ -48764,7 +51390,9 @@ public final class Model {
     }
     /**
      * <code>string posterid = 6;</code>
+     * @return The bytes for posterid.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getPosteridBytes() {
       java.lang.Object ref = posterid_;
@@ -48777,6 +51405,25 @@ public final class Model {
       } else {
         return (com.google.protobuf.ByteString) ref;
       }
+    }
+
+    public static final int TYPE_FIELD_NUMBER = 7;
+    private int type_;
+    /**
+     * <code>.StreamMeta.Type type = 7;</code>
+     * @return The enum numeric value on the wire for type.
+     */
+    @java.lang.Override public int getTypeValue() {
+      return type_;
+    }
+    /**
+     * <code>.StreamMeta.Type type = 7;</code>
+     * @return The type.
+     */
+    @java.lang.Override public sjtu.opennet.textilepb.Model.StreamMeta.Type getType() {
+      @SuppressWarnings("deprecation")
+      sjtu.opennet.textilepb.Model.StreamMeta.Type result = sjtu.opennet.textilepb.Model.StreamMeta.Type.valueOf(type_);
+      return result == null ? sjtu.opennet.textilepb.Model.StreamMeta.Type.UNRECOGNIZED : result;
     }
 
     private byte memoizedIsInitialized = -1;
@@ -48811,6 +51458,9 @@ public final class Model {
       if (!getPosteridBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 6, posterid_);
       }
+      if (type_ != sjtu.opennet.textilepb.Model.StreamMeta.Type.FILE.getNumber()) {
+        output.writeEnum(7, type_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -48841,6 +51491,10 @@ public final class Model {
       if (!getPosteridBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, posterid_);
       }
+      if (type_ != sjtu.opennet.textilepb.Model.StreamMeta.Type.FILE.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(7, type_);
+      }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
@@ -48856,21 +51510,21 @@ public final class Model {
       }
       sjtu.opennet.textilepb.Model.StreamMeta other = (sjtu.opennet.textilepb.Model.StreamMeta) obj;
 
-      boolean result = true;
-      result = result && getId()
-          .equals(other.getId());
-      result = result && (getNsubstreams()
-          == other.getNsubstreams());
-      result = result && (getBitrate()
-          == other.getBitrate());
-      result = result && getCaption()
-          .equals(other.getCaption());
-      result = result && (getNblocks()
-          == other.getNblocks());
-      result = result && getPosterid()
-          .equals(other.getPosterid());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getId()
+          .equals(other.getId())) return false;
+      if (getNsubstreams()
+          != other.getNsubstreams()) return false;
+      if (getBitrate()
+          != other.getBitrate()) return false;
+      if (!getCaption()
+          .equals(other.getCaption())) return false;
+      if (getNblocks()
+          != other.getNblocks()) return false;
+      if (!getPosterid()
+          .equals(other.getPosterid())) return false;
+      if (type_ != other.type_) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -48893,6 +51547,8 @@ public final class Model {
           getNblocks());
       hash = (37 * hash) + POSTERID_FIELD_NUMBER;
       hash = (53 * hash) + getPosterid().hashCode();
+      hash = (37 * hash) + TYPE_FIELD_NUMBER;
+      hash = (53 * hash) + type_;
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -49038,6 +51694,8 @@ public final class Model {
 
         posterid_ = "";
 
+        type_ = 0;
+
         return this;
       }
 
@@ -49070,41 +51728,42 @@ public final class Model {
         result.caption_ = caption_;
         result.nblocks_ = nblocks_;
         result.posterid_ = posterid_;
+        result.type_ = type_;
         onBuilt();
         return result;
       }
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -49139,6 +51798,9 @@ public final class Model {
           posterid_ = other.posterid_;
           onChanged();
         }
+        if (other.type_ != 0) {
+          setTypeValue(other.getTypeValue());
+        }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
@@ -49171,6 +51833,7 @@ public final class Model {
       private java.lang.Object id_ = "";
       /**
        * <code>string id = 1;</code>
+       * @return The id.
        */
       public java.lang.String getId() {
         java.lang.Object ref = id_;
@@ -49186,6 +51849,7 @@ public final class Model {
       }
       /**
        * <code>string id = 1;</code>
+       * @return The bytes for id.
        */
       public com.google.protobuf.ByteString
           getIdBytes() {
@@ -49202,6 +51866,8 @@ public final class Model {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The id to set.
+       * @return This builder for chaining.
        */
       public Builder setId(
           java.lang.String value) {
@@ -49215,6 +51881,7 @@ public final class Model {
       }
       /**
        * <code>string id = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearId() {
         
@@ -49224,6 +51891,8 @@ public final class Model {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The bytes for id to set.
+       * @return This builder for chaining.
        */
       public Builder setIdBytes(
           com.google.protobuf.ByteString value) {
@@ -49240,12 +51909,16 @@ public final class Model {
       private int nsubstreams_ ;
       /**
        * <code>int32 nsubstreams = 2;</code>
+       * @return The nsubstreams.
        */
+      @java.lang.Override
       public int getNsubstreams() {
         return nsubstreams_;
       }
       /**
        * <code>int32 nsubstreams = 2;</code>
+       * @param value The nsubstreams to set.
+       * @return This builder for chaining.
        */
       public Builder setNsubstreams(int value) {
         
@@ -49255,6 +51928,7 @@ public final class Model {
       }
       /**
        * <code>int32 nsubstreams = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearNsubstreams() {
         
@@ -49266,12 +51940,16 @@ public final class Model {
       private int bitrate_ ;
       /**
        * <code>int32 bitrate = 3;</code>
+       * @return The bitrate.
        */
+      @java.lang.Override
       public int getBitrate() {
         return bitrate_;
       }
       /**
        * <code>int32 bitrate = 3;</code>
+       * @param value The bitrate to set.
+       * @return This builder for chaining.
        */
       public Builder setBitrate(int value) {
         
@@ -49281,6 +51959,7 @@ public final class Model {
       }
       /**
        * <code>int32 bitrate = 3;</code>
+       * @return This builder for chaining.
        */
       public Builder clearBitrate() {
         
@@ -49292,6 +51971,7 @@ public final class Model {
       private java.lang.Object caption_ = "";
       /**
        * <code>string caption = 4;</code>
+       * @return The caption.
        */
       public java.lang.String getCaption() {
         java.lang.Object ref = caption_;
@@ -49307,6 +51987,7 @@ public final class Model {
       }
       /**
        * <code>string caption = 4;</code>
+       * @return The bytes for caption.
        */
       public com.google.protobuf.ByteString
           getCaptionBytes() {
@@ -49323,6 +52004,8 @@ public final class Model {
       }
       /**
        * <code>string caption = 4;</code>
+       * @param value The caption to set.
+       * @return This builder for chaining.
        */
       public Builder setCaption(
           java.lang.String value) {
@@ -49336,6 +52019,7 @@ public final class Model {
       }
       /**
        * <code>string caption = 4;</code>
+       * @return This builder for chaining.
        */
       public Builder clearCaption() {
         
@@ -49345,6 +52029,8 @@ public final class Model {
       }
       /**
        * <code>string caption = 4;</code>
+       * @param value The bytes for caption to set.
+       * @return This builder for chaining.
        */
       public Builder setCaptionBytes(
           com.google.protobuf.ByteString value) {
@@ -49361,12 +52047,16 @@ public final class Model {
       private long nblocks_ ;
       /**
        * <code>uint64 nblocks = 5;</code>
+       * @return The nblocks.
        */
+      @java.lang.Override
       public long getNblocks() {
         return nblocks_;
       }
       /**
        * <code>uint64 nblocks = 5;</code>
+       * @param value The nblocks to set.
+       * @return This builder for chaining.
        */
       public Builder setNblocks(long value) {
         
@@ -49376,6 +52066,7 @@ public final class Model {
       }
       /**
        * <code>uint64 nblocks = 5;</code>
+       * @return This builder for chaining.
        */
       public Builder clearNblocks() {
         
@@ -49387,6 +52078,7 @@ public final class Model {
       private java.lang.Object posterid_ = "";
       /**
        * <code>string posterid = 6;</code>
+       * @return The posterid.
        */
       public java.lang.String getPosterid() {
         java.lang.Object ref = posterid_;
@@ -49402,6 +52094,7 @@ public final class Model {
       }
       /**
        * <code>string posterid = 6;</code>
+       * @return The bytes for posterid.
        */
       public com.google.protobuf.ByteString
           getPosteridBytes() {
@@ -49418,6 +52111,8 @@ public final class Model {
       }
       /**
        * <code>string posterid = 6;</code>
+       * @param value The posterid to set.
+       * @return This builder for chaining.
        */
       public Builder setPosterid(
           java.lang.String value) {
@@ -49431,6 +52126,7 @@ public final class Model {
       }
       /**
        * <code>string posterid = 6;</code>
+       * @return This builder for chaining.
        */
       public Builder clearPosterid() {
         
@@ -49440,6 +52136,8 @@ public final class Model {
       }
       /**
        * <code>string posterid = 6;</code>
+       * @param value The bytes for posterid to set.
+       * @return This builder for chaining.
        */
       public Builder setPosteridBytes(
           com.google.protobuf.ByteString value) {
@@ -49452,10 +52150,64 @@ public final class Model {
         onChanged();
         return this;
       }
+
+      private int type_ = 0;
+      /**
+       * <code>.StreamMeta.Type type = 7;</code>
+       * @return The enum numeric value on the wire for type.
+       */
+      @java.lang.Override public int getTypeValue() {
+        return type_;
+      }
+      /**
+       * <code>.StreamMeta.Type type = 7;</code>
+       * @param value The enum numeric value on the wire for type to set.
+       * @return This builder for chaining.
+       */
+      public Builder setTypeValue(int value) {
+        
+        type_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.StreamMeta.Type type = 7;</code>
+       * @return The type.
+       */
+      @java.lang.Override
+      public sjtu.opennet.textilepb.Model.StreamMeta.Type getType() {
+        @SuppressWarnings("deprecation")
+        sjtu.opennet.textilepb.Model.StreamMeta.Type result = sjtu.opennet.textilepb.Model.StreamMeta.Type.valueOf(type_);
+        return result == null ? sjtu.opennet.textilepb.Model.StreamMeta.Type.UNRECOGNIZED : result;
+      }
+      /**
+       * <code>.StreamMeta.Type type = 7;</code>
+       * @param value The type to set.
+       * @return This builder for chaining.
+       */
+      public Builder setType(sjtu.opennet.textilepb.Model.StreamMeta.Type value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        type_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.StreamMeta.Type type = 7;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearType() {
+        
+        type_ = 0;
+        onChanged();
+        return this;
+      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -49536,7 +52288,7 @@ public final class Model {
   /**
    * Protobuf type {@code StreamMetaList}
    */
-  public  static final class StreamMetaList extends
+  public static final class StreamMetaList extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:StreamMetaList)
       StreamMetaListOrBuilder {
@@ -49547,6 +52299,13 @@ public final class Model {
     }
     private StreamMetaList() {
       items_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new StreamMetaList();
     }
 
     @java.lang.Override
@@ -49574,7 +52333,7 @@ public final class Model {
               done = true;
               break;
             case 10: {
-              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
                 items_ = new java.util.ArrayList<sjtu.opennet.textilepb.Model.StreamMeta>();
                 mutable_bitField0_ |= 0x00000001;
               }
@@ -49583,7 +52342,7 @@ public final class Model {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -49597,7 +52356,7 @@ public final class Model {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
           items_ = java.util.Collections.unmodifiableList(items_);
         }
         this.unknownFields = unknownFields.build();
@@ -49622,12 +52381,14 @@ public final class Model {
     /**
      * <code>repeated .StreamMeta items = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<sjtu.opennet.textilepb.Model.StreamMeta> getItemsList() {
       return items_;
     }
     /**
      * <code>repeated .StreamMeta items = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends sjtu.opennet.textilepb.Model.StreamMetaOrBuilder> 
         getItemsOrBuilderList() {
       return items_;
@@ -49635,18 +52396,21 @@ public final class Model {
     /**
      * <code>repeated .StreamMeta items = 1;</code>
      */
+    @java.lang.Override
     public int getItemsCount() {
       return items_.size();
     }
     /**
      * <code>repeated .StreamMeta items = 1;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.StreamMeta getItems(int index) {
       return items_.get(index);
     }
     /**
      * <code>repeated .StreamMeta items = 1;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.StreamMetaOrBuilder getItemsOrBuilder(
         int index) {
       return items_.get(index);
@@ -49697,11 +52461,10 @@ public final class Model {
       }
       sjtu.opennet.textilepb.Model.StreamMetaList other = (sjtu.opennet.textilepb.Model.StreamMetaList) obj;
 
-      boolean result = true;
-      result = result && getItemsList()
-          .equals(other.getItemsList());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getItemsList()
+          .equals(other.getItemsList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -49883,7 +52646,7 @@ public final class Model {
         sjtu.opennet.textilepb.Model.StreamMetaList result = new sjtu.opennet.textilepb.Model.StreamMetaList(this);
         int from_bitField0_ = bitField0_;
         if (itemsBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) == 0x00000001)) {
+          if (((bitField0_ & 0x00000001) != 0)) {
             items_ = java.util.Collections.unmodifiableList(items_);
             bitField0_ = (bitField0_ & ~0x00000001);
           }
@@ -49897,35 +52660,35 @@ public final class Model {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -49998,7 +52761,7 @@ public final class Model {
       private java.util.List<sjtu.opennet.textilepb.Model.StreamMeta> items_ =
         java.util.Collections.emptyList();
       private void ensureItemsIsMutable() {
-        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+        if (!((bitField0_ & 0x00000001) != 0)) {
           items_ = new java.util.ArrayList<sjtu.opennet.textilepb.Model.StreamMeta>(items_);
           bitField0_ |= 0x00000001;
          }
@@ -50227,7 +52990,7 @@ public final class Model {
           itemsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
               sjtu.opennet.textilepb.Model.StreamMeta, sjtu.opennet.textilepb.Model.StreamMeta.Builder, sjtu.opennet.textilepb.Model.StreamMetaOrBuilder>(
                   items_,
-                  ((bitField0_ & 0x00000001) == 0x00000001),
+                  ((bitField0_ & 0x00000001) != 0),
                   getParentForChildren(),
                   isClean());
           items_ = null;
@@ -50237,7 +53000,7 @@ public final class Model {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -50293,10 +53056,12 @@ public final class Model {
 
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
     java.lang.String getId();
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
     com.google.protobuf.ByteString
         getIdBytes();
@@ -50308,7 +53073,7 @@ public final class Model {
    *
    * Protobuf type {@code Stream}
    */
-  public  static final class Stream extends
+  public static final class Stream extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:Stream)
       StreamOrBuilder {
@@ -50319,6 +53084,13 @@ public final class Model {
     }
     private Stream() {
       id_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new Stream();
     }
 
     @java.lang.Override
@@ -50334,7 +53106,6 @@ public final class Model {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -50352,7 +53123,7 @@ public final class Model {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -50387,7 +53158,9 @@ public final class Model {
     private volatile java.lang.Object id_;
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
+    @java.lang.Override
     public java.lang.String getId() {
       java.lang.Object ref = id_;
       if (ref instanceof java.lang.String) {
@@ -50402,7 +53175,9 @@ public final class Model {
     }
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getIdBytes() {
       java.lang.Object ref = id_;
@@ -50461,11 +53236,10 @@ public final class Model {
       }
       sjtu.opennet.textilepb.Model.Stream other = (sjtu.opennet.textilepb.Model.Stream) obj;
 
-      boolean result = true;
-      result = result && getId()
-          .equals(other.getId());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getId()
+          .equals(other.getId())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -50649,35 +53423,35 @@ public final class Model {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -50727,6 +53501,7 @@ public final class Model {
       private java.lang.Object id_ = "";
       /**
        * <code>string id = 1;</code>
+       * @return The id.
        */
       public java.lang.String getId() {
         java.lang.Object ref = id_;
@@ -50742,6 +53517,7 @@ public final class Model {
       }
       /**
        * <code>string id = 1;</code>
+       * @return The bytes for id.
        */
       public com.google.protobuf.ByteString
           getIdBytes() {
@@ -50758,6 +53534,8 @@ public final class Model {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The id to set.
+       * @return This builder for chaining.
        */
       public Builder setId(
           java.lang.String value) {
@@ -50771,6 +53549,7 @@ public final class Model {
       }
       /**
        * <code>string id = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearId() {
         
@@ -50780,6 +53559,8 @@ public final class Model {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The bytes for id to set.
+       * @return This builder for chaining.
        */
       public Builder setIdBytes(
           com.google.protobuf.ByteString value) {
@@ -50795,7 +53576,7 @@ public final class Model {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -50851,42 +53632,49 @@ public final class Model {
 
     /**
      * <code>string name = 1;</code>
+     * @return The name.
      */
     java.lang.String getName();
     /**
      * <code>string name = 1;</code>
+     * @return The bytes for name.
      */
     com.google.protobuf.ByteString
         getNameBytes();
 
     /**
      * <code>string path = 2;</code>
+     * @return The path.
      */
     java.lang.String getPath();
     /**
      * <code>string path = 2;</code>
+     * @return The bytes for path.
      */
     com.google.protobuf.ByteString
         getPathBytes();
 
     /**
      * <code>int64 size = 3;</code>
+     * @return The size.
      */
     long getSize();
 
     /**
      * <code>.SimpleFile.Type type = 4;</code>
+     * @return The enum numeric value on the wire for type.
      */
     int getTypeValue();
     /**
      * <code>.SimpleFile.Type type = 4;</code>
+     * @return The type.
      */
     sjtu.opennet.textilepb.Model.SimpleFile.Type getType();
   }
   /**
    * Protobuf type {@code SimpleFile}
    */
-  public  static final class SimpleFile extends
+  public static final class SimpleFile extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:SimpleFile)
       SimpleFileOrBuilder {
@@ -50898,8 +53686,14 @@ public final class Model {
     private SimpleFile() {
       name_ = "";
       path_ = "";
-      size_ = 0L;
       type_ = 0;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new SimpleFile();
     }
 
     @java.lang.Override
@@ -50915,7 +53709,6 @@ public final class Model {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -50950,7 +53743,7 @@ public final class Model {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -51016,6 +53809,8 @@ public final class Model {
       }
 
       /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
        * @deprecated Use {@link #forNumber(int)} instead.
        */
       @java.lang.Deprecated
@@ -51023,6 +53818,10 @@ public final class Model {
         return forNumber(value);
       }
 
+      /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
+       */
       public static Type forNumber(int value) {
         switch (value) {
           case 0: return FILE;
@@ -51045,6 +53844,10 @@ public final class Model {
 
       public final com.google.protobuf.Descriptors.EnumValueDescriptor
           getValueDescriptor() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalStateException(
+              "Can't get the descriptor of an unrecognized enum value.");
+        }
         return getDescriptor().getValues().get(ordinal());
       }
       public final com.google.protobuf.Descriptors.EnumDescriptor
@@ -51083,7 +53886,9 @@ public final class Model {
     private volatile java.lang.Object name_;
     /**
      * <code>string name = 1;</code>
+     * @return The name.
      */
+    @java.lang.Override
     public java.lang.String getName() {
       java.lang.Object ref = name_;
       if (ref instanceof java.lang.String) {
@@ -51098,7 +53903,9 @@ public final class Model {
     }
     /**
      * <code>string name = 1;</code>
+     * @return The bytes for name.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getNameBytes() {
       java.lang.Object ref = name_;
@@ -51117,7 +53924,9 @@ public final class Model {
     private volatile java.lang.Object path_;
     /**
      * <code>string path = 2;</code>
+     * @return The path.
      */
+    @java.lang.Override
     public java.lang.String getPath() {
       java.lang.Object ref = path_;
       if (ref instanceof java.lang.String) {
@@ -51132,7 +53941,9 @@ public final class Model {
     }
     /**
      * <code>string path = 2;</code>
+     * @return The bytes for path.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getPathBytes() {
       java.lang.Object ref = path_;
@@ -51151,7 +53962,9 @@ public final class Model {
     private long size_;
     /**
      * <code>int64 size = 3;</code>
+     * @return The size.
      */
+    @java.lang.Override
     public long getSize() {
       return size_;
     }
@@ -51160,14 +53973,16 @@ public final class Model {
     private int type_;
     /**
      * <code>.SimpleFile.Type type = 4;</code>
+     * @return The enum numeric value on the wire for type.
      */
-    public int getTypeValue() {
+    @java.lang.Override public int getTypeValue() {
       return type_;
     }
     /**
      * <code>.SimpleFile.Type type = 4;</code>
+     * @return The type.
      */
-    public sjtu.opennet.textilepb.Model.SimpleFile.Type getType() {
+    @java.lang.Override public sjtu.opennet.textilepb.Model.SimpleFile.Type getType() {
       @SuppressWarnings("deprecation")
       sjtu.opennet.textilepb.Model.SimpleFile.Type result = sjtu.opennet.textilepb.Model.SimpleFile.Type.valueOf(type_);
       return result == null ? sjtu.opennet.textilepb.Model.SimpleFile.Type.UNRECOGNIZED : result;
@@ -51237,16 +54052,15 @@ public final class Model {
       }
       sjtu.opennet.textilepb.Model.SimpleFile other = (sjtu.opennet.textilepb.Model.SimpleFile) obj;
 
-      boolean result = true;
-      result = result && getName()
-          .equals(other.getName());
-      result = result && getPath()
-          .equals(other.getPath());
-      result = result && (getSize()
-          == other.getSize());
-      result = result && type_ == other.type_;
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getName()
+          .equals(other.getName())) return false;
+      if (!getPath()
+          .equals(other.getPath())) return false;
+      if (getSize()
+          != other.getSize()) return false;
+      if (type_ != other.type_) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -51442,35 +54256,35 @@ public final class Model {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -51530,6 +54344,7 @@ public final class Model {
       private java.lang.Object name_ = "";
       /**
        * <code>string name = 1;</code>
+       * @return The name.
        */
       public java.lang.String getName() {
         java.lang.Object ref = name_;
@@ -51545,6 +54360,7 @@ public final class Model {
       }
       /**
        * <code>string name = 1;</code>
+       * @return The bytes for name.
        */
       public com.google.protobuf.ByteString
           getNameBytes() {
@@ -51561,6 +54377,8 @@ public final class Model {
       }
       /**
        * <code>string name = 1;</code>
+       * @param value The name to set.
+       * @return This builder for chaining.
        */
       public Builder setName(
           java.lang.String value) {
@@ -51574,6 +54392,7 @@ public final class Model {
       }
       /**
        * <code>string name = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearName() {
         
@@ -51583,6 +54402,8 @@ public final class Model {
       }
       /**
        * <code>string name = 1;</code>
+       * @param value The bytes for name to set.
+       * @return This builder for chaining.
        */
       public Builder setNameBytes(
           com.google.protobuf.ByteString value) {
@@ -51599,6 +54420,7 @@ public final class Model {
       private java.lang.Object path_ = "";
       /**
        * <code>string path = 2;</code>
+       * @return The path.
        */
       public java.lang.String getPath() {
         java.lang.Object ref = path_;
@@ -51614,6 +54436,7 @@ public final class Model {
       }
       /**
        * <code>string path = 2;</code>
+       * @return The bytes for path.
        */
       public com.google.protobuf.ByteString
           getPathBytes() {
@@ -51630,6 +54453,8 @@ public final class Model {
       }
       /**
        * <code>string path = 2;</code>
+       * @param value The path to set.
+       * @return This builder for chaining.
        */
       public Builder setPath(
           java.lang.String value) {
@@ -51643,6 +54468,7 @@ public final class Model {
       }
       /**
        * <code>string path = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearPath() {
         
@@ -51652,6 +54478,8 @@ public final class Model {
       }
       /**
        * <code>string path = 2;</code>
+       * @param value The bytes for path to set.
+       * @return This builder for chaining.
        */
       public Builder setPathBytes(
           com.google.protobuf.ByteString value) {
@@ -51668,12 +54496,16 @@ public final class Model {
       private long size_ ;
       /**
        * <code>int64 size = 3;</code>
+       * @return The size.
        */
+      @java.lang.Override
       public long getSize() {
         return size_;
       }
       /**
        * <code>int64 size = 3;</code>
+       * @param value The size to set.
+       * @return This builder for chaining.
        */
       public Builder setSize(long value) {
         
@@ -51683,6 +54515,7 @@ public final class Model {
       }
       /**
        * <code>int64 size = 3;</code>
+       * @return This builder for chaining.
        */
       public Builder clearSize() {
         
@@ -51694,21 +54527,27 @@ public final class Model {
       private int type_ = 0;
       /**
        * <code>.SimpleFile.Type type = 4;</code>
+       * @return The enum numeric value on the wire for type.
        */
-      public int getTypeValue() {
+      @java.lang.Override public int getTypeValue() {
         return type_;
       }
       /**
        * <code>.SimpleFile.Type type = 4;</code>
+       * @param value The enum numeric value on the wire for type to set.
+       * @return This builder for chaining.
        */
       public Builder setTypeValue(int value) {
+        
         type_ = value;
         onChanged();
         return this;
       }
       /**
        * <code>.SimpleFile.Type type = 4;</code>
+       * @return The type.
        */
+      @java.lang.Override
       public sjtu.opennet.textilepb.Model.SimpleFile.Type getType() {
         @SuppressWarnings("deprecation")
         sjtu.opennet.textilepb.Model.SimpleFile.Type result = sjtu.opennet.textilepb.Model.SimpleFile.Type.valueOf(type_);
@@ -51716,6 +54555,8 @@ public final class Model {
       }
       /**
        * <code>.SimpleFile.Type type = 4;</code>
+       * @param value The type to set.
+       * @return This builder for chaining.
        */
       public Builder setType(sjtu.opennet.textilepb.Model.SimpleFile.Type value) {
         if (value == null) {
@@ -51728,6 +54569,7 @@ public final class Model {
       }
       /**
        * <code>.SimpleFile.Type type = 4;</code>
+       * @return This builder for chaining.
        */
       public Builder clearType() {
         
@@ -51738,7 +54580,7 @@ public final class Model {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -51794,40 +54636,48 @@ public final class Model {
 
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
     java.lang.String getId();
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
     com.google.protobuf.ByteString
         getIdBytes();
 
     /**
      * <code>string peer = 2;</code>
+     * @return The peer.
      */
     java.lang.String getPeer();
     /**
      * <code>string peer = 2;</code>
+     * @return The bytes for peer.
      */
     com.google.protobuf.ByteString
         getPeerBytes();
 
     /**
      * <code>string client = 3;</code>
+     * @return The client.
      */
     java.lang.String getClient();
     /**
      * <code>string client = 3;</code>
+     * @return The bytes for client.
      */
     com.google.protobuf.ByteString
         getClientBytes();
 
     /**
      * <code>.google.protobuf.Timestamp date = 4;</code>
+     * @return Whether the date field is set.
      */
     boolean hasDate();
     /**
      * <code>.google.protobuf.Timestamp date = 4;</code>
+     * @return The date.
      */
     com.google.protobuf.Timestamp getDate();
     /**
@@ -51838,7 +54688,7 @@ public final class Model {
   /**
    * Protobuf type {@code CafeClientMessage}
    */
-  public  static final class CafeClientMessage extends
+  public static final class CafeClientMessage extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:CafeClientMessage)
       CafeClientMessageOrBuilder {
@@ -51854,6 +54704,13 @@ public final class Model {
     }
 
     @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new CafeClientMessage();
+    }
+
+    @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
       return this.unknownFields;
@@ -51866,7 +54723,6 @@ public final class Model {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -51909,7 +54765,7 @@ public final class Model {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -51944,7 +54800,9 @@ public final class Model {
     private volatile java.lang.Object id_;
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
+    @java.lang.Override
     public java.lang.String getId() {
       java.lang.Object ref = id_;
       if (ref instanceof java.lang.String) {
@@ -51959,7 +54817,9 @@ public final class Model {
     }
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getIdBytes() {
       java.lang.Object ref = id_;
@@ -51978,7 +54838,9 @@ public final class Model {
     private volatile java.lang.Object peer_;
     /**
      * <code>string peer = 2;</code>
+     * @return The peer.
      */
+    @java.lang.Override
     public java.lang.String getPeer() {
       java.lang.Object ref = peer_;
       if (ref instanceof java.lang.String) {
@@ -51993,7 +54855,9 @@ public final class Model {
     }
     /**
      * <code>string peer = 2;</code>
+     * @return The bytes for peer.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getPeerBytes() {
       java.lang.Object ref = peer_;
@@ -52012,7 +54876,9 @@ public final class Model {
     private volatile java.lang.Object client_;
     /**
      * <code>string client = 3;</code>
+     * @return The client.
      */
+    @java.lang.Override
     public java.lang.String getClient() {
       java.lang.Object ref = client_;
       if (ref instanceof java.lang.String) {
@@ -52027,7 +54893,9 @@ public final class Model {
     }
     /**
      * <code>string client = 3;</code>
+     * @return The bytes for client.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getClientBytes() {
       java.lang.Object ref = client_;
@@ -52046,19 +54914,24 @@ public final class Model {
     private com.google.protobuf.Timestamp date_;
     /**
      * <code>.google.protobuf.Timestamp date = 4;</code>
+     * @return Whether the date field is set.
      */
+    @java.lang.Override
     public boolean hasDate() {
       return date_ != null;
     }
     /**
      * <code>.google.protobuf.Timestamp date = 4;</code>
+     * @return The date.
      */
+    @java.lang.Override
     public com.google.protobuf.Timestamp getDate() {
       return date_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : date_;
     }
     /**
      * <code>.google.protobuf.Timestamp date = 4;</code>
      */
+    @java.lang.Override
     public com.google.protobuf.TimestampOrBuilder getDateOrBuilder() {
       return getDate();
     }
@@ -52126,20 +54999,19 @@ public final class Model {
       }
       sjtu.opennet.textilepb.Model.CafeClientMessage other = (sjtu.opennet.textilepb.Model.CafeClientMessage) obj;
 
-      boolean result = true;
-      result = result && getId()
-          .equals(other.getId());
-      result = result && getPeer()
-          .equals(other.getPeer());
-      result = result && getClient()
-          .equals(other.getClient());
-      result = result && (hasDate() == other.hasDate());
+      if (!getId()
+          .equals(other.getId())) return false;
+      if (!getPeer()
+          .equals(other.getPeer())) return false;
+      if (!getClient()
+          .equals(other.getClient())) return false;
+      if (hasDate() != other.hasDate()) return false;
       if (hasDate()) {
-        result = result && getDate()
-            .equals(other.getDate());
+        if (!getDate()
+            .equals(other.getDate())) return false;
       }
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -52344,35 +55216,35 @@ public final class Model {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -52433,6 +55305,7 @@ public final class Model {
       private java.lang.Object id_ = "";
       /**
        * <code>string id = 1;</code>
+       * @return The id.
        */
       public java.lang.String getId() {
         java.lang.Object ref = id_;
@@ -52448,6 +55321,7 @@ public final class Model {
       }
       /**
        * <code>string id = 1;</code>
+       * @return The bytes for id.
        */
       public com.google.protobuf.ByteString
           getIdBytes() {
@@ -52464,6 +55338,8 @@ public final class Model {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The id to set.
+       * @return This builder for chaining.
        */
       public Builder setId(
           java.lang.String value) {
@@ -52477,6 +55353,7 @@ public final class Model {
       }
       /**
        * <code>string id = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearId() {
         
@@ -52486,6 +55363,8 @@ public final class Model {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The bytes for id to set.
+       * @return This builder for chaining.
        */
       public Builder setIdBytes(
           com.google.protobuf.ByteString value) {
@@ -52502,6 +55381,7 @@ public final class Model {
       private java.lang.Object peer_ = "";
       /**
        * <code>string peer = 2;</code>
+       * @return The peer.
        */
       public java.lang.String getPeer() {
         java.lang.Object ref = peer_;
@@ -52517,6 +55397,7 @@ public final class Model {
       }
       /**
        * <code>string peer = 2;</code>
+       * @return The bytes for peer.
        */
       public com.google.protobuf.ByteString
           getPeerBytes() {
@@ -52533,6 +55414,8 @@ public final class Model {
       }
       /**
        * <code>string peer = 2;</code>
+       * @param value The peer to set.
+       * @return This builder for chaining.
        */
       public Builder setPeer(
           java.lang.String value) {
@@ -52546,6 +55429,7 @@ public final class Model {
       }
       /**
        * <code>string peer = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearPeer() {
         
@@ -52555,6 +55439,8 @@ public final class Model {
       }
       /**
        * <code>string peer = 2;</code>
+       * @param value The bytes for peer to set.
+       * @return This builder for chaining.
        */
       public Builder setPeerBytes(
           com.google.protobuf.ByteString value) {
@@ -52571,6 +55457,7 @@ public final class Model {
       private java.lang.Object client_ = "";
       /**
        * <code>string client = 3;</code>
+       * @return The client.
        */
       public java.lang.String getClient() {
         java.lang.Object ref = client_;
@@ -52586,6 +55473,7 @@ public final class Model {
       }
       /**
        * <code>string client = 3;</code>
+       * @return The bytes for client.
        */
       public com.google.protobuf.ByteString
           getClientBytes() {
@@ -52602,6 +55490,8 @@ public final class Model {
       }
       /**
        * <code>string client = 3;</code>
+       * @param value The client to set.
+       * @return This builder for chaining.
        */
       public Builder setClient(
           java.lang.String value) {
@@ -52615,6 +55505,7 @@ public final class Model {
       }
       /**
        * <code>string client = 3;</code>
+       * @return This builder for chaining.
        */
       public Builder clearClient() {
         
@@ -52624,6 +55515,8 @@ public final class Model {
       }
       /**
        * <code>string client = 3;</code>
+       * @param value The bytes for client to set.
+       * @return This builder for chaining.
        */
       public Builder setClientBytes(
           com.google.protobuf.ByteString value) {
@@ -52637,17 +55530,19 @@ public final class Model {
         return this;
       }
 
-      private com.google.protobuf.Timestamp date_ = null;
+      private com.google.protobuf.Timestamp date_;
       private com.google.protobuf.SingleFieldBuilderV3<
           com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> dateBuilder_;
       /**
        * <code>.google.protobuf.Timestamp date = 4;</code>
+       * @return Whether the date field is set.
        */
       public boolean hasDate() {
         return dateBuilder_ != null || date_ != null;
       }
       /**
        * <code>.google.protobuf.Timestamp date = 4;</code>
+       * @return The date.
        */
       public com.google.protobuf.Timestamp getDate() {
         if (dateBuilder_ == null) {
@@ -52756,7 +55651,7 @@ public final class Model {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -52812,25 +55707,30 @@ public final class Model {
 
     /**
      * <code>string key = 1;</code>
+     * @return The key.
      */
     java.lang.String getKey();
     /**
      * <code>string key = 1;</code>
+     * @return The bytes for key.
      */
     com.google.protobuf.ByteString
         getKeyBytes();
 
     /**
      * <code>bytes value = 2;</code>
+     * @return The value.
      */
     com.google.protobuf.ByteString getValue();
 
     /**
      * <code>.google.protobuf.Timestamp created = 3;</code>
+     * @return Whether the created field is set.
      */
     boolean hasCreated();
     /**
      * <code>.google.protobuf.Timestamp created = 3;</code>
+     * @return The created.
      */
     com.google.protobuf.Timestamp getCreated();
     /**
@@ -52840,10 +55740,12 @@ public final class Model {
 
     /**
      * <code>.google.protobuf.Timestamp updated = 4;</code>
+     * @return Whether the updated field is set.
      */
     boolean hasUpdated();
     /**
      * <code>.google.protobuf.Timestamp updated = 4;</code>
+     * @return The updated.
      */
     com.google.protobuf.Timestamp getUpdated();
     /**
@@ -52858,7 +55760,7 @@ public final class Model {
    *
    * Protobuf type {@code BotKV}
    */
-  public  static final class BotKV extends
+  public static final class BotKV extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:BotKV)
       BotKVOrBuilder {
@@ -52870,6 +55772,13 @@ public final class Model {
     private BotKV() {
       key_ = "";
       value_ = com.google.protobuf.ByteString.EMPTY;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new BotKV();
     }
 
     @java.lang.Override
@@ -52885,7 +55794,6 @@ public final class Model {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -52934,7 +55842,7 @@ public final class Model {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -52969,7 +55877,9 @@ public final class Model {
     private volatile java.lang.Object key_;
     /**
      * <code>string key = 1;</code>
+     * @return The key.
      */
+    @java.lang.Override
     public java.lang.String getKey() {
       java.lang.Object ref = key_;
       if (ref instanceof java.lang.String) {
@@ -52984,7 +55894,9 @@ public final class Model {
     }
     /**
      * <code>string key = 1;</code>
+     * @return The bytes for key.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getKeyBytes() {
       java.lang.Object ref = key_;
@@ -53003,7 +55915,9 @@ public final class Model {
     private com.google.protobuf.ByteString value_;
     /**
      * <code>bytes value = 2;</code>
+     * @return The value.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getValue() {
       return value_;
     }
@@ -53012,19 +55926,24 @@ public final class Model {
     private com.google.protobuf.Timestamp created_;
     /**
      * <code>.google.protobuf.Timestamp created = 3;</code>
+     * @return Whether the created field is set.
      */
+    @java.lang.Override
     public boolean hasCreated() {
       return created_ != null;
     }
     /**
      * <code>.google.protobuf.Timestamp created = 3;</code>
+     * @return The created.
      */
+    @java.lang.Override
     public com.google.protobuf.Timestamp getCreated() {
       return created_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : created_;
     }
     /**
      * <code>.google.protobuf.Timestamp created = 3;</code>
      */
+    @java.lang.Override
     public com.google.protobuf.TimestampOrBuilder getCreatedOrBuilder() {
       return getCreated();
     }
@@ -53033,19 +55952,24 @@ public final class Model {
     private com.google.protobuf.Timestamp updated_;
     /**
      * <code>.google.protobuf.Timestamp updated = 4;</code>
+     * @return Whether the updated field is set.
      */
+    @java.lang.Override
     public boolean hasUpdated() {
       return updated_ != null;
     }
     /**
      * <code>.google.protobuf.Timestamp updated = 4;</code>
+     * @return The updated.
      */
+    @java.lang.Override
     public com.google.protobuf.Timestamp getUpdated() {
       return updated_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : updated_;
     }
     /**
      * <code>.google.protobuf.Timestamp updated = 4;</code>
      */
+    @java.lang.Override
     public com.google.protobuf.TimestampOrBuilder getUpdatedOrBuilder() {
       return getUpdated();
     }
@@ -53115,23 +56039,22 @@ public final class Model {
       }
       sjtu.opennet.textilepb.Model.BotKV other = (sjtu.opennet.textilepb.Model.BotKV) obj;
 
-      boolean result = true;
-      result = result && getKey()
-          .equals(other.getKey());
-      result = result && getValue()
-          .equals(other.getValue());
-      result = result && (hasCreated() == other.hasCreated());
+      if (!getKey()
+          .equals(other.getKey())) return false;
+      if (!getValue()
+          .equals(other.getValue())) return false;
+      if (hasCreated() != other.hasCreated()) return false;
       if (hasCreated()) {
-        result = result && getCreated()
-            .equals(other.getCreated());
+        if (!getCreated()
+            .equals(other.getCreated())) return false;
       }
-      result = result && (hasUpdated() == other.hasUpdated());
+      if (hasUpdated() != other.hasUpdated()) return false;
       if (hasUpdated()) {
-        result = result && getUpdated()
-            .equals(other.getUpdated());
+        if (!getUpdated()
+            .equals(other.getUpdated())) return false;
       }
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -53350,35 +56273,35 @@ public final class Model {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -53437,6 +56360,7 @@ public final class Model {
       private java.lang.Object key_ = "";
       /**
        * <code>string key = 1;</code>
+       * @return The key.
        */
       public java.lang.String getKey() {
         java.lang.Object ref = key_;
@@ -53452,6 +56376,7 @@ public final class Model {
       }
       /**
        * <code>string key = 1;</code>
+       * @return The bytes for key.
        */
       public com.google.protobuf.ByteString
           getKeyBytes() {
@@ -53468,6 +56393,8 @@ public final class Model {
       }
       /**
        * <code>string key = 1;</code>
+       * @param value The key to set.
+       * @return This builder for chaining.
        */
       public Builder setKey(
           java.lang.String value) {
@@ -53481,6 +56408,7 @@ public final class Model {
       }
       /**
        * <code>string key = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearKey() {
         
@@ -53490,6 +56418,8 @@ public final class Model {
       }
       /**
        * <code>string key = 1;</code>
+       * @param value The bytes for key to set.
+       * @return This builder for chaining.
        */
       public Builder setKeyBytes(
           com.google.protobuf.ByteString value) {
@@ -53506,12 +56436,16 @@ public final class Model {
       private com.google.protobuf.ByteString value_ = com.google.protobuf.ByteString.EMPTY;
       /**
        * <code>bytes value = 2;</code>
+       * @return The value.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getValue() {
         return value_;
       }
       /**
        * <code>bytes value = 2;</code>
+       * @param value The value to set.
+       * @return This builder for chaining.
        */
       public Builder setValue(com.google.protobuf.ByteString value) {
         if (value == null) {
@@ -53524,6 +56458,7 @@ public final class Model {
       }
       /**
        * <code>bytes value = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearValue() {
         
@@ -53532,17 +56467,19 @@ public final class Model {
         return this;
       }
 
-      private com.google.protobuf.Timestamp created_ = null;
+      private com.google.protobuf.Timestamp created_;
       private com.google.protobuf.SingleFieldBuilderV3<
           com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> createdBuilder_;
       /**
        * <code>.google.protobuf.Timestamp created = 3;</code>
+       * @return Whether the created field is set.
        */
       public boolean hasCreated() {
         return createdBuilder_ != null || created_ != null;
       }
       /**
        * <code>.google.protobuf.Timestamp created = 3;</code>
+       * @return The created.
        */
       public com.google.protobuf.Timestamp getCreated() {
         if (createdBuilder_ == null) {
@@ -53649,17 +56586,19 @@ public final class Model {
         return createdBuilder_;
       }
 
-      private com.google.protobuf.Timestamp updated_ = null;
+      private com.google.protobuf.Timestamp updated_;
       private com.google.protobuf.SingleFieldBuilderV3<
           com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> updatedBuilder_;
       /**
        * <code>.google.protobuf.Timestamp updated = 4;</code>
+       * @return Whether the updated field is set.
        */
       public boolean hasUpdated() {
         return updatedBuilder_ != null || updated_ != null;
       }
       /**
        * <code>.google.protobuf.Timestamp updated = 4;</code>
+       * @return The updated.
        */
       public com.google.protobuf.Timestamp getUpdated() {
         if (updatedBuilder_ == null) {
@@ -53768,7 +56707,7 @@ public final class Model {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -54232,38 +57171,32 @@ public final class Model {
       "StreamBlock\022\n\n\002id\030\001 \001(\t\022\020\n\010streamid\030\002 \001(" +
       "\t\022\r\n\005index\030\003 \001(\004\022\014\n\004size\030\004 \001(\005\022\016\n\006isRoot" +
       "\030\005 \001(\010\022\023\n\013description\030\006 \001(\t\".\n\017StreamBlo" +
-      "ckList\022\033\n\005items\030\001 \003(\0132\014.StreamBlock\"r\n\nS" +
-      "treamMeta\022\n\n\002id\030\001 \001(\t\022\023\n\013nsubstreams\030\002 \001" +
-      "(\005\022\017\n\007bitrate\030\003 \001(\005\022\017\n\007caption\030\004 \001(\t\022\017\n\007" +
-      "nblocks\030\005 \001(\004\022\020\n\010posterid\030\006 \001(\t\",\n\016Strea" +
-      "mMetaList\022\032\n\005items\030\001 \003(\0132\013.StreamMeta\"\024\n" +
-      "\006Stream\022\n\n\002id\030\001 \001(\t\"u\n\nSimpleFile\022\014\n\004nam" +
-      "e\030\001 \001(\t\022\014\n\004path\030\002 \001(\t\022\014\n\004size\030\003 \001(\003\022\036\n\004t" +
-      "ype\030\004 \001(\0162\020.SimpleFile.Type\"\035\n\004Type\022\010\n\004F" +
-      "ILE\020\000\022\013\n\007PICTURE\020\001\"g\n\021CafeClientMessage\022" +
-      "\n\n\002id\030\001 \001(\t\022\014\n\004peer\030\002 \001(\t\022\016\n\006client\030\003 \001(" +
-      "\t\022(\n\004date\030\004 \001(\0132\032.google.protobuf.Timest" +
-      "amp\"}\n\005BotKV\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\014" +
-      "\022+\n\007created\030\003 \001(\0132\032.google.protobuf.Time" +
-      "stamp\022+\n\007updated\030\004 \001(\0132\032.google.protobuf" +
-      ".TimestampB\034\n\026sjtu.opennet.textilepbZ\002pb" +
-      "b\006proto3"
+      "ckList\022\033\n\005items\030\001 \003(\0132\014.StreamBlock\"\274\001\n\n" +
+      "StreamMeta\022\n\n\002id\030\001 \001(\t\022\023\n\013nsubstreams\030\002 " +
+      "\001(\005\022\017\n\007bitrate\030\003 \001(\005\022\017\n\007caption\030\004 \001(\t\022\017\n" +
+      "\007nblocks\030\005 \001(\004\022\020\n\010posterid\030\006 \001(\t\022\036\n\004type" +
+      "\030\007 \001(\0162\020.StreamMeta.Type\"(\n\004Type\022\010\n\004FILE" +
+      "\020\000\022\013\n\007PICTURE\020\001\022\t\n\005VIDEO\020\002\",\n\016StreamMeta" +
+      "List\022\032\n\005items\030\001 \003(\0132\013.StreamMeta\"\024\n\006Stre" +
+      "am\022\n\n\002id\030\001 \001(\t\"u\n\nSimpleFile\022\014\n\004name\030\001 \001" +
+      "(\t\022\014\n\004path\030\002 \001(\t\022\014\n\004size\030\003 \001(\003\022\036\n\004type\030\004" +
+      " \001(\0162\020.SimpleFile.Type\"\035\n\004Type\022\010\n\004FILE\020\000" +
+      "\022\013\n\007PICTURE\020\001\"g\n\021CafeClientMessage\022\n\n\002id" +
+      "\030\001 \001(\t\022\014\n\004peer\030\002 \001(\t\022\016\n\006client\030\003 \001(\t\022(\n\004" +
+      "date\030\004 \001(\0132\032.google.protobuf.Timestamp\"}" +
+      "\n\005BotKV\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\014\022+\n\007c" +
+      "reated\030\003 \001(\0132\032.google.protobuf.Timestamp" +
+      "\022+\n\007updated\030\004 \001(\0132\032.google.protobuf.Time" +
+      "stampB\034\n\026sjtu.opennet.textilepbZ\002pbb\006pro" +
+      "to3"
     };
-    com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
-        new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
-          public com.google.protobuf.ExtensionRegistry assignDescriptors(
-              com.google.protobuf.Descriptors.FileDescriptor root) {
-            descriptor = root;
-            return null;
-          }
-        };
-    com.google.protobuf.Descriptors.FileDescriptor
+    descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           com.google.protobuf.TimestampProto.getDescriptor(),
           com.google.protobuf.StructProto.getDescriptor(),
           sjtu.opennet.textilepb.MessageOuterClass.getDescriptor(),
-        }, assigner);
+        });
     internal_static_Peer_descriptor =
       getDescriptor().getMessageTypes().get(0);
     internal_static_Peer_fieldAccessorTable = new
@@ -54539,7 +57472,7 @@ public final class Model {
     internal_static_StreamMeta_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_StreamMeta_descriptor,
-        new java.lang.String[] { "Id", "Nsubstreams", "Bitrate", "Caption", "Nblocks", "Posterid", });
+        new java.lang.String[] { "Id", "Nsubstreams", "Bitrate", "Caption", "Nblocks", "Posterid", "Type", });
     internal_static_StreamMetaList_descriptor =
       getDescriptor().getMessageTypes().get(42);
     internal_static_StreamMetaList_fieldAccessorTable = new

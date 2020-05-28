@@ -20,30 +20,36 @@ public final class View {
 
     /**
      * <code>string key = 1;</code>
+     * @return The key.
      */
     java.lang.String getKey();
     /**
      * <code>string key = 1;</code>
+     * @return The bytes for key.
      */
     com.google.protobuf.ByteString
         getKeyBytes();
 
     /**
      * <code>string name = 2;</code>
+     * @return The name.
      */
     java.lang.String getName();
     /**
      * <code>string name = 2;</code>
+     * @return The bytes for name.
      */
     com.google.protobuf.ByteString
         getNameBytes();
 
     /**
      * <code>.AddThreadConfig.Schema schema = 3;</code>
+     * @return Whether the schema field is set.
      */
     boolean hasSchema();
     /**
      * <code>.AddThreadConfig.Schema schema = 3;</code>
+     * @return The schema.
      */
     sjtu.opennet.textilepb.View.AddThreadConfig.Schema getSchema();
     /**
@@ -53,37 +59,47 @@ public final class View {
 
     /**
      * <code>.Thread.Type type = 4;</code>
+     * @return The enum numeric value on the wire for type.
      */
     int getTypeValue();
     /**
      * <code>.Thread.Type type = 4;</code>
+     * @return The type.
      */
     sjtu.opennet.textilepb.Model.Thread.Type getType();
 
     /**
      * <code>.Thread.Sharing sharing = 5;</code>
+     * @return The enum numeric value on the wire for sharing.
      */
     int getSharingValue();
     /**
      * <code>.Thread.Sharing sharing = 5;</code>
+     * @return The sharing.
      */
     sjtu.opennet.textilepb.Model.Thread.Sharing getSharing();
 
     /**
      * <code>repeated string whitelist = 6;</code>
+     * @return A list containing the whitelist.
      */
     java.util.List<java.lang.String>
         getWhitelistList();
     /**
      * <code>repeated string whitelist = 6;</code>
+     * @return The count of whitelist.
      */
     int getWhitelistCount();
     /**
      * <code>repeated string whitelist = 6;</code>
+     * @param index The index of the element to return.
+     * @return The whitelist at the given index.
      */
     java.lang.String getWhitelist(int index);
     /**
      * <code>repeated string whitelist = 6;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the whitelist at the given index.
      */
     com.google.protobuf.ByteString
         getWhitelistBytes(int index);
@@ -94,13 +110,14 @@ public final class View {
      * </pre>
      *
      * <code>bool force = 7;</code>
+     * @return The force.
      */
     boolean getForce();
   }
   /**
    * Protobuf type {@code AddThreadConfig}
    */
-  public  static final class AddThreadConfig extends
+  public static final class AddThreadConfig extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:AddThreadConfig)
       AddThreadConfigOrBuilder {
@@ -115,7 +132,13 @@ public final class View {
       type_ = 0;
       sharing_ = 0;
       whitelist_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-      force_ = false;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new AddThreadConfig();
     }
 
     @java.lang.Override
@@ -181,9 +204,9 @@ public final class View {
             }
             case 50: {
               java.lang.String s = input.readStringRequireUtf8();
-              if (!((mutable_bitField0_ & 0x00000020) == 0x00000020)) {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
                 whitelist_ = new com.google.protobuf.LazyStringArrayList();
-                mutable_bitField0_ |= 0x00000020;
+                mutable_bitField0_ |= 0x00000001;
               }
               whitelist_.add(s);
               break;
@@ -194,7 +217,7 @@ public final class View {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -208,7 +231,7 @@ public final class View {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000020) == 0x00000020)) {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
           whitelist_ = whitelist_.getUnmodifiableView();
         }
         this.unknownFields = unknownFields.build();
@@ -234,37 +257,43 @@ public final class View {
 
       /**
        * <code>string id = 1;</code>
+       * @return The id.
        */
       java.lang.String getId();
       /**
        * <code>string id = 1;</code>
+       * @return The bytes for id.
        */
       com.google.protobuf.ByteString
           getIdBytes();
 
       /**
        * <code>string json = 2;</code>
+       * @return The json.
        */
       java.lang.String getJson();
       /**
        * <code>string json = 2;</code>
+       * @return The bytes for json.
        */
       com.google.protobuf.ByteString
           getJsonBytes();
 
       /**
        * <code>.AddThreadConfig.Schema.Preset preset = 3;</code>
+       * @return The enum numeric value on the wire for preset.
        */
       int getPresetValue();
       /**
        * <code>.AddThreadConfig.Schema.Preset preset = 3;</code>
+       * @return The preset.
        */
       sjtu.opennet.textilepb.View.AddThreadConfig.Schema.Preset getPreset();
     }
     /**
      * Protobuf type {@code AddThreadConfig.Schema}
      */
-    public  static final class Schema extends
+    public static final class Schema extends
         com.google.protobuf.GeneratedMessageV3 implements
         // @@protoc_insertion_point(message_implements:AddThreadConfig.Schema)
         SchemaOrBuilder {
@@ -280,6 +309,13 @@ public final class View {
       }
 
       @java.lang.Override
+      @SuppressWarnings({"unused"})
+      protected java.lang.Object newInstance(
+          UnusedPrivateParameter unused) {
+        return new Schema();
+      }
+
+      @java.lang.Override
       public final com.google.protobuf.UnknownFieldSet
       getUnknownFields() {
         return this.unknownFields;
@@ -292,7 +328,6 @@ public final class View {
         if (extensionRegistry == null) {
           throw new java.lang.NullPointerException();
         }
-        int mutable_bitField0_ = 0;
         com.google.protobuf.UnknownFieldSet.Builder unknownFields =
             com.google.protobuf.UnknownFieldSet.newBuilder();
         try {
@@ -322,7 +357,7 @@ public final class View {
                 break;
               }
               default: {
-                if (!parseUnknownFieldProto3(
+                if (!parseUnknownField(
                     input, unknownFields, extensionRegistry, tag)) {
                   done = true;
                 }
@@ -404,6 +439,8 @@ public final class View {
         }
 
         /**
+         * @param value The numeric wire value of the corresponding enum entry.
+         * @return The enum associated with the given numeric wire value.
          * @deprecated Use {@link #forNumber(int)} instead.
          */
         @java.lang.Deprecated
@@ -411,6 +448,10 @@ public final class View {
           return forNumber(value);
         }
 
+        /**
+         * @param value The numeric wire value of the corresponding enum entry.
+         * @return The enum associated with the given numeric wire value.
+         */
         public static Preset forNumber(int value) {
           switch (value) {
             case 0: return NONE;
@@ -435,6 +476,10 @@ public final class View {
 
         public final com.google.protobuf.Descriptors.EnumValueDescriptor
             getValueDescriptor() {
+          if (this == UNRECOGNIZED) {
+            throw new java.lang.IllegalStateException(
+                "Can't get the descriptor of an unrecognized enum value.");
+          }
           return getDescriptor().getValues().get(ordinal());
         }
         public final com.google.protobuf.Descriptors.EnumDescriptor
@@ -473,7 +518,9 @@ public final class View {
       private volatile java.lang.Object id_;
       /**
        * <code>string id = 1;</code>
+       * @return The id.
        */
+      @java.lang.Override
       public java.lang.String getId() {
         java.lang.Object ref = id_;
         if (ref instanceof java.lang.String) {
@@ -488,7 +535,9 @@ public final class View {
       }
       /**
        * <code>string id = 1;</code>
+       * @return The bytes for id.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString
           getIdBytes() {
         java.lang.Object ref = id_;
@@ -507,7 +556,9 @@ public final class View {
       private volatile java.lang.Object json_;
       /**
        * <code>string json = 2;</code>
+       * @return The json.
        */
+      @java.lang.Override
       public java.lang.String getJson() {
         java.lang.Object ref = json_;
         if (ref instanceof java.lang.String) {
@@ -522,7 +573,9 @@ public final class View {
       }
       /**
        * <code>string json = 2;</code>
+       * @return The bytes for json.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString
           getJsonBytes() {
         java.lang.Object ref = json_;
@@ -541,14 +594,16 @@ public final class View {
       private int preset_;
       /**
        * <code>.AddThreadConfig.Schema.Preset preset = 3;</code>
+       * @return The enum numeric value on the wire for preset.
        */
-      public int getPresetValue() {
+      @java.lang.Override public int getPresetValue() {
         return preset_;
       }
       /**
        * <code>.AddThreadConfig.Schema.Preset preset = 3;</code>
+       * @return The preset.
        */
-      public sjtu.opennet.textilepb.View.AddThreadConfig.Schema.Preset getPreset() {
+      @java.lang.Override public sjtu.opennet.textilepb.View.AddThreadConfig.Schema.Preset getPreset() {
         @SuppressWarnings("deprecation")
         sjtu.opennet.textilepb.View.AddThreadConfig.Schema.Preset result = sjtu.opennet.textilepb.View.AddThreadConfig.Schema.Preset.valueOf(preset_);
         return result == null ? sjtu.opennet.textilepb.View.AddThreadConfig.Schema.Preset.UNRECOGNIZED : result;
@@ -611,14 +666,13 @@ public final class View {
         }
         sjtu.opennet.textilepb.View.AddThreadConfig.Schema other = (sjtu.opennet.textilepb.View.AddThreadConfig.Schema) obj;
 
-        boolean result = true;
-        result = result && getId()
-            .equals(other.getId());
-        result = result && getJson()
-            .equals(other.getJson());
-        result = result && preset_ == other.preset_;
-        result = result && unknownFields.equals(other.unknownFields);
-        return result;
+        if (!getId()
+            .equals(other.getId())) return false;
+        if (!getJson()
+            .equals(other.getJson())) return false;
+        if (preset_ != other.preset_) return false;
+        if (!unknownFields.equals(other.unknownFields)) return false;
+        return true;
       }
 
       @java.lang.Override
@@ -808,35 +862,35 @@ public final class View {
 
         @java.lang.Override
         public Builder clone() {
-          return (Builder) super.clone();
+          return super.clone();
         }
         @java.lang.Override
         public Builder setField(
             com.google.protobuf.Descriptors.FieldDescriptor field,
             java.lang.Object value) {
-          return (Builder) super.setField(field, value);
+          return super.setField(field, value);
         }
         @java.lang.Override
         public Builder clearField(
             com.google.protobuf.Descriptors.FieldDescriptor field) {
-          return (Builder) super.clearField(field);
+          return super.clearField(field);
         }
         @java.lang.Override
         public Builder clearOneof(
             com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-          return (Builder) super.clearOneof(oneof);
+          return super.clearOneof(oneof);
         }
         @java.lang.Override
         public Builder setRepeatedField(
             com.google.protobuf.Descriptors.FieldDescriptor field,
             int index, java.lang.Object value) {
-          return (Builder) super.setRepeatedField(field, index, value);
+          return super.setRepeatedField(field, index, value);
         }
         @java.lang.Override
         public Builder addRepeatedField(
             com.google.protobuf.Descriptors.FieldDescriptor field,
             java.lang.Object value) {
-          return (Builder) super.addRepeatedField(field, value);
+          return super.addRepeatedField(field, value);
         }
         @java.lang.Override
         public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -893,6 +947,7 @@ public final class View {
         private java.lang.Object id_ = "";
         /**
          * <code>string id = 1;</code>
+         * @return The id.
          */
         public java.lang.String getId() {
           java.lang.Object ref = id_;
@@ -908,6 +963,7 @@ public final class View {
         }
         /**
          * <code>string id = 1;</code>
+         * @return The bytes for id.
          */
         public com.google.protobuf.ByteString
             getIdBytes() {
@@ -924,6 +980,8 @@ public final class View {
         }
         /**
          * <code>string id = 1;</code>
+         * @param value The id to set.
+         * @return This builder for chaining.
          */
         public Builder setId(
             java.lang.String value) {
@@ -937,6 +995,7 @@ public final class View {
         }
         /**
          * <code>string id = 1;</code>
+         * @return This builder for chaining.
          */
         public Builder clearId() {
           
@@ -946,6 +1005,8 @@ public final class View {
         }
         /**
          * <code>string id = 1;</code>
+         * @param value The bytes for id to set.
+         * @return This builder for chaining.
          */
         public Builder setIdBytes(
             com.google.protobuf.ByteString value) {
@@ -962,6 +1023,7 @@ public final class View {
         private java.lang.Object json_ = "";
         /**
          * <code>string json = 2;</code>
+         * @return The json.
          */
         public java.lang.String getJson() {
           java.lang.Object ref = json_;
@@ -977,6 +1039,7 @@ public final class View {
         }
         /**
          * <code>string json = 2;</code>
+         * @return The bytes for json.
          */
         public com.google.protobuf.ByteString
             getJsonBytes() {
@@ -993,6 +1056,8 @@ public final class View {
         }
         /**
          * <code>string json = 2;</code>
+         * @param value The json to set.
+         * @return This builder for chaining.
          */
         public Builder setJson(
             java.lang.String value) {
@@ -1006,6 +1071,7 @@ public final class View {
         }
         /**
          * <code>string json = 2;</code>
+         * @return This builder for chaining.
          */
         public Builder clearJson() {
           
@@ -1015,6 +1081,8 @@ public final class View {
         }
         /**
          * <code>string json = 2;</code>
+         * @param value The bytes for json to set.
+         * @return This builder for chaining.
          */
         public Builder setJsonBytes(
             com.google.protobuf.ByteString value) {
@@ -1031,21 +1099,27 @@ public final class View {
         private int preset_ = 0;
         /**
          * <code>.AddThreadConfig.Schema.Preset preset = 3;</code>
+         * @return The enum numeric value on the wire for preset.
          */
-        public int getPresetValue() {
+        @java.lang.Override public int getPresetValue() {
           return preset_;
         }
         /**
          * <code>.AddThreadConfig.Schema.Preset preset = 3;</code>
+         * @param value The enum numeric value on the wire for preset to set.
+         * @return This builder for chaining.
          */
         public Builder setPresetValue(int value) {
+          
           preset_ = value;
           onChanged();
           return this;
         }
         /**
          * <code>.AddThreadConfig.Schema.Preset preset = 3;</code>
+         * @return The preset.
          */
+        @java.lang.Override
         public sjtu.opennet.textilepb.View.AddThreadConfig.Schema.Preset getPreset() {
           @SuppressWarnings("deprecation")
           sjtu.opennet.textilepb.View.AddThreadConfig.Schema.Preset result = sjtu.opennet.textilepb.View.AddThreadConfig.Schema.Preset.valueOf(preset_);
@@ -1053,6 +1127,8 @@ public final class View {
         }
         /**
          * <code>.AddThreadConfig.Schema.Preset preset = 3;</code>
+         * @param value The preset to set.
+         * @return This builder for chaining.
          */
         public Builder setPreset(sjtu.opennet.textilepb.View.AddThreadConfig.Schema.Preset value) {
           if (value == null) {
@@ -1065,6 +1141,7 @@ public final class View {
         }
         /**
          * <code>.AddThreadConfig.Schema.Preset preset = 3;</code>
+         * @return This builder for chaining.
          */
         public Builder clearPreset() {
           
@@ -1075,7 +1152,7 @@ public final class View {
         @java.lang.Override
         public final Builder setUnknownFields(
             final com.google.protobuf.UnknownFieldSet unknownFields) {
-          return super.setUnknownFieldsProto3(unknownFields);
+          return super.setUnknownFields(unknownFields);
         }
 
         @java.lang.Override
@@ -1125,12 +1202,13 @@ public final class View {
 
     }
 
-    private int bitField0_;
     public static final int KEY_FIELD_NUMBER = 1;
     private volatile java.lang.Object key_;
     /**
      * <code>string key = 1;</code>
+     * @return The key.
      */
+    @java.lang.Override
     public java.lang.String getKey() {
       java.lang.Object ref = key_;
       if (ref instanceof java.lang.String) {
@@ -1145,7 +1223,9 @@ public final class View {
     }
     /**
      * <code>string key = 1;</code>
+     * @return The bytes for key.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getKeyBytes() {
       java.lang.Object ref = key_;
@@ -1164,7 +1244,9 @@ public final class View {
     private volatile java.lang.Object name_;
     /**
      * <code>string name = 2;</code>
+     * @return The name.
      */
+    @java.lang.Override
     public java.lang.String getName() {
       java.lang.Object ref = name_;
       if (ref instanceof java.lang.String) {
@@ -1179,7 +1261,9 @@ public final class View {
     }
     /**
      * <code>string name = 2;</code>
+     * @return The bytes for name.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getNameBytes() {
       java.lang.Object ref = name_;
@@ -1198,19 +1282,24 @@ public final class View {
     private sjtu.opennet.textilepb.View.AddThreadConfig.Schema schema_;
     /**
      * <code>.AddThreadConfig.Schema schema = 3;</code>
+     * @return Whether the schema field is set.
      */
+    @java.lang.Override
     public boolean hasSchema() {
       return schema_ != null;
     }
     /**
      * <code>.AddThreadConfig.Schema schema = 3;</code>
+     * @return The schema.
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.View.AddThreadConfig.Schema getSchema() {
       return schema_ == null ? sjtu.opennet.textilepb.View.AddThreadConfig.Schema.getDefaultInstance() : schema_;
     }
     /**
      * <code>.AddThreadConfig.Schema schema = 3;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.View.AddThreadConfig.SchemaOrBuilder getSchemaOrBuilder() {
       return getSchema();
     }
@@ -1219,14 +1308,16 @@ public final class View {
     private int type_;
     /**
      * <code>.Thread.Type type = 4;</code>
+     * @return The enum numeric value on the wire for type.
      */
-    public int getTypeValue() {
+    @java.lang.Override public int getTypeValue() {
       return type_;
     }
     /**
      * <code>.Thread.Type type = 4;</code>
+     * @return The type.
      */
-    public sjtu.opennet.textilepb.Model.Thread.Type getType() {
+    @java.lang.Override public sjtu.opennet.textilepb.Model.Thread.Type getType() {
       @SuppressWarnings("deprecation")
       sjtu.opennet.textilepb.Model.Thread.Type result = sjtu.opennet.textilepb.Model.Thread.Type.valueOf(type_);
       return result == null ? sjtu.opennet.textilepb.Model.Thread.Type.UNRECOGNIZED : result;
@@ -1236,14 +1327,16 @@ public final class View {
     private int sharing_;
     /**
      * <code>.Thread.Sharing sharing = 5;</code>
+     * @return The enum numeric value on the wire for sharing.
      */
-    public int getSharingValue() {
+    @java.lang.Override public int getSharingValue() {
       return sharing_;
     }
     /**
      * <code>.Thread.Sharing sharing = 5;</code>
+     * @return The sharing.
      */
-    public sjtu.opennet.textilepb.Model.Thread.Sharing getSharing() {
+    @java.lang.Override public sjtu.opennet.textilepb.Model.Thread.Sharing getSharing() {
       @SuppressWarnings("deprecation")
       sjtu.opennet.textilepb.Model.Thread.Sharing result = sjtu.opennet.textilepb.Model.Thread.Sharing.valueOf(sharing_);
       return result == null ? sjtu.opennet.textilepb.Model.Thread.Sharing.UNRECOGNIZED : result;
@@ -1253,6 +1346,7 @@ public final class View {
     private com.google.protobuf.LazyStringList whitelist_;
     /**
      * <code>repeated string whitelist = 6;</code>
+     * @return A list containing the whitelist.
      */
     public com.google.protobuf.ProtocolStringList
         getWhitelistList() {
@@ -1260,18 +1354,23 @@ public final class View {
     }
     /**
      * <code>repeated string whitelist = 6;</code>
+     * @return The count of whitelist.
      */
     public int getWhitelistCount() {
       return whitelist_.size();
     }
     /**
      * <code>repeated string whitelist = 6;</code>
+     * @param index The index of the element to return.
+     * @return The whitelist at the given index.
      */
     public java.lang.String getWhitelist(int index) {
       return whitelist_.get(index);
     }
     /**
      * <code>repeated string whitelist = 6;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the whitelist at the given index.
      */
     public com.google.protobuf.ByteString
         getWhitelistBytes(int index) {
@@ -1286,7 +1385,9 @@ public final class View {
      * </pre>
      *
      * <code>bool force = 7;</code>
+     * @return The force.
      */
+    @java.lang.Override
     public boolean getForce() {
       return force_;
     }
@@ -1380,24 +1481,23 @@ public final class View {
       }
       sjtu.opennet.textilepb.View.AddThreadConfig other = (sjtu.opennet.textilepb.View.AddThreadConfig) obj;
 
-      boolean result = true;
-      result = result && getKey()
-          .equals(other.getKey());
-      result = result && getName()
-          .equals(other.getName());
-      result = result && (hasSchema() == other.hasSchema());
+      if (!getKey()
+          .equals(other.getKey())) return false;
+      if (!getName()
+          .equals(other.getName())) return false;
+      if (hasSchema() != other.hasSchema()) return false;
       if (hasSchema()) {
-        result = result && getSchema()
-            .equals(other.getSchema());
+        if (!getSchema()
+            .equals(other.getSchema())) return false;
       }
-      result = result && type_ == other.type_;
-      result = result && sharing_ == other.sharing_;
-      result = result && getWhitelistList()
-          .equals(other.getWhitelistList());
-      result = result && (getForce()
-          == other.getForce());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (type_ != other.type_) return false;
+      if (sharing_ != other.sharing_) return false;
+      if (!getWhitelistList()
+          .equals(other.getWhitelistList())) return false;
+      if (getForce()
+          != other.getForce()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -1574,7 +1674,7 @@ public final class View {
         sharing_ = 0;
 
         whitelist_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-        bitField0_ = (bitField0_ & ~0x00000020);
+        bitField0_ = (bitField0_ & ~0x00000001);
         force_ = false;
 
         return this;
@@ -1604,7 +1704,6 @@ public final class View {
       public sjtu.opennet.textilepb.View.AddThreadConfig buildPartial() {
         sjtu.opennet.textilepb.View.AddThreadConfig result = new sjtu.opennet.textilepb.View.AddThreadConfig(this);
         int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
         result.key_ = key_;
         result.name_ = name_;
         if (schemaBuilder_ == null) {
@@ -1614,48 +1713,47 @@ public final class View {
         }
         result.type_ = type_;
         result.sharing_ = sharing_;
-        if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        if (((bitField0_ & 0x00000001) != 0)) {
           whitelist_ = whitelist_.getUnmodifiableView();
-          bitField0_ = (bitField0_ & ~0x00000020);
+          bitField0_ = (bitField0_ & ~0x00000001);
         }
         result.whitelist_ = whitelist_;
         result.force_ = force_;
-        result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -1689,7 +1787,7 @@ public final class View {
         if (!other.whitelist_.isEmpty()) {
           if (whitelist_.isEmpty()) {
             whitelist_ = other.whitelist_;
-            bitField0_ = (bitField0_ & ~0x00000020);
+            bitField0_ = (bitField0_ & ~0x00000001);
           } else {
             ensureWhitelistIsMutable();
             whitelist_.addAll(other.whitelist_);
@@ -1732,6 +1830,7 @@ public final class View {
       private java.lang.Object key_ = "";
       /**
        * <code>string key = 1;</code>
+       * @return The key.
        */
       public java.lang.String getKey() {
         java.lang.Object ref = key_;
@@ -1747,6 +1846,7 @@ public final class View {
       }
       /**
        * <code>string key = 1;</code>
+       * @return The bytes for key.
        */
       public com.google.protobuf.ByteString
           getKeyBytes() {
@@ -1763,6 +1863,8 @@ public final class View {
       }
       /**
        * <code>string key = 1;</code>
+       * @param value The key to set.
+       * @return This builder for chaining.
        */
       public Builder setKey(
           java.lang.String value) {
@@ -1776,6 +1878,7 @@ public final class View {
       }
       /**
        * <code>string key = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearKey() {
         
@@ -1785,6 +1888,8 @@ public final class View {
       }
       /**
        * <code>string key = 1;</code>
+       * @param value The bytes for key to set.
+       * @return This builder for chaining.
        */
       public Builder setKeyBytes(
           com.google.protobuf.ByteString value) {
@@ -1801,6 +1906,7 @@ public final class View {
       private java.lang.Object name_ = "";
       /**
        * <code>string name = 2;</code>
+       * @return The name.
        */
       public java.lang.String getName() {
         java.lang.Object ref = name_;
@@ -1816,6 +1922,7 @@ public final class View {
       }
       /**
        * <code>string name = 2;</code>
+       * @return The bytes for name.
        */
       public com.google.protobuf.ByteString
           getNameBytes() {
@@ -1832,6 +1939,8 @@ public final class View {
       }
       /**
        * <code>string name = 2;</code>
+       * @param value The name to set.
+       * @return This builder for chaining.
        */
       public Builder setName(
           java.lang.String value) {
@@ -1845,6 +1954,7 @@ public final class View {
       }
       /**
        * <code>string name = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearName() {
         
@@ -1854,6 +1964,8 @@ public final class View {
       }
       /**
        * <code>string name = 2;</code>
+       * @param value The bytes for name to set.
+       * @return This builder for chaining.
        */
       public Builder setNameBytes(
           com.google.protobuf.ByteString value) {
@@ -1867,17 +1979,19 @@ public final class View {
         return this;
       }
 
-      private sjtu.opennet.textilepb.View.AddThreadConfig.Schema schema_ = null;
+      private sjtu.opennet.textilepb.View.AddThreadConfig.Schema schema_;
       private com.google.protobuf.SingleFieldBuilderV3<
           sjtu.opennet.textilepb.View.AddThreadConfig.Schema, sjtu.opennet.textilepb.View.AddThreadConfig.Schema.Builder, sjtu.opennet.textilepb.View.AddThreadConfig.SchemaOrBuilder> schemaBuilder_;
       /**
        * <code>.AddThreadConfig.Schema schema = 3;</code>
+       * @return Whether the schema field is set.
        */
       public boolean hasSchema() {
         return schemaBuilder_ != null || schema_ != null;
       }
       /**
        * <code>.AddThreadConfig.Schema schema = 3;</code>
+       * @return The schema.
        */
       public sjtu.opennet.textilepb.View.AddThreadConfig.Schema getSchema() {
         if (schemaBuilder_ == null) {
@@ -1987,21 +2101,27 @@ public final class View {
       private int type_ = 0;
       /**
        * <code>.Thread.Type type = 4;</code>
+       * @return The enum numeric value on the wire for type.
        */
-      public int getTypeValue() {
+      @java.lang.Override public int getTypeValue() {
         return type_;
       }
       /**
        * <code>.Thread.Type type = 4;</code>
+       * @param value The enum numeric value on the wire for type to set.
+       * @return This builder for chaining.
        */
       public Builder setTypeValue(int value) {
+        
         type_ = value;
         onChanged();
         return this;
       }
       /**
        * <code>.Thread.Type type = 4;</code>
+       * @return The type.
        */
+      @java.lang.Override
       public sjtu.opennet.textilepb.Model.Thread.Type getType() {
         @SuppressWarnings("deprecation")
         sjtu.opennet.textilepb.Model.Thread.Type result = sjtu.opennet.textilepb.Model.Thread.Type.valueOf(type_);
@@ -2009,6 +2129,8 @@ public final class View {
       }
       /**
        * <code>.Thread.Type type = 4;</code>
+       * @param value The type to set.
+       * @return This builder for chaining.
        */
       public Builder setType(sjtu.opennet.textilepb.Model.Thread.Type value) {
         if (value == null) {
@@ -2021,6 +2143,7 @@ public final class View {
       }
       /**
        * <code>.Thread.Type type = 4;</code>
+       * @return This builder for chaining.
        */
       public Builder clearType() {
         
@@ -2032,21 +2155,27 @@ public final class View {
       private int sharing_ = 0;
       /**
        * <code>.Thread.Sharing sharing = 5;</code>
+       * @return The enum numeric value on the wire for sharing.
        */
-      public int getSharingValue() {
+      @java.lang.Override public int getSharingValue() {
         return sharing_;
       }
       /**
        * <code>.Thread.Sharing sharing = 5;</code>
+       * @param value The enum numeric value on the wire for sharing to set.
+       * @return This builder for chaining.
        */
       public Builder setSharingValue(int value) {
+        
         sharing_ = value;
         onChanged();
         return this;
       }
       /**
        * <code>.Thread.Sharing sharing = 5;</code>
+       * @return The sharing.
        */
+      @java.lang.Override
       public sjtu.opennet.textilepb.Model.Thread.Sharing getSharing() {
         @SuppressWarnings("deprecation")
         sjtu.opennet.textilepb.Model.Thread.Sharing result = sjtu.opennet.textilepb.Model.Thread.Sharing.valueOf(sharing_);
@@ -2054,6 +2183,8 @@ public final class View {
       }
       /**
        * <code>.Thread.Sharing sharing = 5;</code>
+       * @param value The sharing to set.
+       * @return This builder for chaining.
        */
       public Builder setSharing(sjtu.opennet.textilepb.Model.Thread.Sharing value) {
         if (value == null) {
@@ -2066,6 +2197,7 @@ public final class View {
       }
       /**
        * <code>.Thread.Sharing sharing = 5;</code>
+       * @return This builder for chaining.
        */
       public Builder clearSharing() {
         
@@ -2076,13 +2208,14 @@ public final class View {
 
       private com.google.protobuf.LazyStringList whitelist_ = com.google.protobuf.LazyStringArrayList.EMPTY;
       private void ensureWhitelistIsMutable() {
-        if (!((bitField0_ & 0x00000020) == 0x00000020)) {
+        if (!((bitField0_ & 0x00000001) != 0)) {
           whitelist_ = new com.google.protobuf.LazyStringArrayList(whitelist_);
-          bitField0_ |= 0x00000020;
+          bitField0_ |= 0x00000001;
          }
       }
       /**
        * <code>repeated string whitelist = 6;</code>
+       * @return A list containing the whitelist.
        */
       public com.google.protobuf.ProtocolStringList
           getWhitelistList() {
@@ -2090,18 +2223,23 @@ public final class View {
       }
       /**
        * <code>repeated string whitelist = 6;</code>
+       * @return The count of whitelist.
        */
       public int getWhitelistCount() {
         return whitelist_.size();
       }
       /**
        * <code>repeated string whitelist = 6;</code>
+       * @param index The index of the element to return.
+       * @return The whitelist at the given index.
        */
       public java.lang.String getWhitelist(int index) {
         return whitelist_.get(index);
       }
       /**
        * <code>repeated string whitelist = 6;</code>
+       * @param index The index of the value to return.
+       * @return The bytes of the whitelist at the given index.
        */
       public com.google.protobuf.ByteString
           getWhitelistBytes(int index) {
@@ -2109,6 +2247,9 @@ public final class View {
       }
       /**
        * <code>repeated string whitelist = 6;</code>
+       * @param index The index to set the value at.
+       * @param value The whitelist to set.
+       * @return This builder for chaining.
        */
       public Builder setWhitelist(
           int index, java.lang.String value) {
@@ -2122,6 +2263,8 @@ public final class View {
       }
       /**
        * <code>repeated string whitelist = 6;</code>
+       * @param value The whitelist to add.
+       * @return This builder for chaining.
        */
       public Builder addWhitelist(
           java.lang.String value) {
@@ -2135,6 +2278,8 @@ public final class View {
       }
       /**
        * <code>repeated string whitelist = 6;</code>
+       * @param values The whitelist to add.
+       * @return This builder for chaining.
        */
       public Builder addAllWhitelist(
           java.lang.Iterable<java.lang.String> values) {
@@ -2146,15 +2291,18 @@ public final class View {
       }
       /**
        * <code>repeated string whitelist = 6;</code>
+       * @return This builder for chaining.
        */
       public Builder clearWhitelist() {
         whitelist_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-        bitField0_ = (bitField0_ & ~0x00000020);
+        bitField0_ = (bitField0_ & ~0x00000001);
         onChanged();
         return this;
       }
       /**
        * <code>repeated string whitelist = 6;</code>
+       * @param value The bytes of the whitelist to add.
+       * @return This builder for chaining.
        */
       public Builder addWhitelistBytes(
           com.google.protobuf.ByteString value) {
@@ -2175,7 +2323,9 @@ public final class View {
        * </pre>
        *
        * <code>bool force = 7;</code>
+       * @return The force.
        */
+      @java.lang.Override
       public boolean getForce() {
         return force_;
       }
@@ -2185,6 +2335,8 @@ public final class View {
        * </pre>
        *
        * <code>bool force = 7;</code>
+       * @param value The force to set.
+       * @return This builder for chaining.
        */
       public Builder setForce(boolean value) {
         
@@ -2198,6 +2350,7 @@ public final class View {
        * </pre>
        *
        * <code>bool force = 7;</code>
+       * @return This builder for chaining.
        */
       public Builder clearForce() {
         
@@ -2208,7 +2361,7 @@ public final class View {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -2264,25 +2417,30 @@ public final class View {
 
     /**
      * <code>string dots = 1;</code>
+     * @return The dots.
      */
     java.lang.String getDots();
     /**
      * <code>string dots = 1;</code>
+     * @return The bytes for dots.
      */
     com.google.protobuf.ByteString
         getDotsBytes();
 
     /**
      * <code>int32 count = 2;</code>
+     * @return The count.
      */
     int getCount();
 
     /**
      * <code>string next = 3;</code>
+     * @return The next.
      */
     java.lang.String getNext();
     /**
      * <code>string next = 3;</code>
+     * @return The bytes for next.
      */
     com.google.protobuf.ByteString
         getNextBytes();
@@ -2290,7 +2448,7 @@ public final class View {
   /**
    * Protobuf type {@code BlockViz}
    */
-  public  static final class BlockViz extends
+  public static final class BlockViz extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:BlockViz)
       BlockVizOrBuilder {
@@ -2301,8 +2459,14 @@ public final class View {
     }
     private BlockViz() {
       dots_ = "";
-      count_ = 0;
       next_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new BlockViz();
     }
 
     @java.lang.Override
@@ -2318,7 +2482,6 @@ public final class View {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -2347,7 +2510,7 @@ public final class View {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -2382,7 +2545,9 @@ public final class View {
     private volatile java.lang.Object dots_;
     /**
      * <code>string dots = 1;</code>
+     * @return The dots.
      */
+    @java.lang.Override
     public java.lang.String getDots() {
       java.lang.Object ref = dots_;
       if (ref instanceof java.lang.String) {
@@ -2397,7 +2562,9 @@ public final class View {
     }
     /**
      * <code>string dots = 1;</code>
+     * @return The bytes for dots.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDotsBytes() {
       java.lang.Object ref = dots_;
@@ -2416,7 +2583,9 @@ public final class View {
     private int count_;
     /**
      * <code>int32 count = 2;</code>
+     * @return The count.
      */
+    @java.lang.Override
     public int getCount() {
       return count_;
     }
@@ -2425,7 +2594,9 @@ public final class View {
     private volatile java.lang.Object next_;
     /**
      * <code>string next = 3;</code>
+     * @return The next.
      */
+    @java.lang.Override
     public java.lang.String getNext() {
       java.lang.Object ref = next_;
       if (ref instanceof java.lang.String) {
@@ -2440,7 +2611,9 @@ public final class View {
     }
     /**
      * <code>string next = 3;</code>
+     * @return The bytes for next.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getNextBytes() {
       java.lang.Object ref = next_;
@@ -2512,15 +2685,14 @@ public final class View {
       }
       sjtu.opennet.textilepb.View.BlockViz other = (sjtu.opennet.textilepb.View.BlockViz) obj;
 
-      boolean result = true;
-      result = result && getDots()
-          .equals(other.getDots());
-      result = result && (getCount()
-          == other.getCount());
-      result = result && getNext()
-          .equals(other.getNext());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getDots()
+          .equals(other.getDots())) return false;
+      if (getCount()
+          != other.getCount()) return false;
+      if (!getNext()
+          .equals(other.getNext())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -2710,35 +2882,35 @@ public final class View {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -2795,6 +2967,7 @@ public final class View {
       private java.lang.Object dots_ = "";
       /**
        * <code>string dots = 1;</code>
+       * @return The dots.
        */
       public java.lang.String getDots() {
         java.lang.Object ref = dots_;
@@ -2810,6 +2983,7 @@ public final class View {
       }
       /**
        * <code>string dots = 1;</code>
+       * @return The bytes for dots.
        */
       public com.google.protobuf.ByteString
           getDotsBytes() {
@@ -2826,6 +3000,8 @@ public final class View {
       }
       /**
        * <code>string dots = 1;</code>
+       * @param value The dots to set.
+       * @return This builder for chaining.
        */
       public Builder setDots(
           java.lang.String value) {
@@ -2839,6 +3015,7 @@ public final class View {
       }
       /**
        * <code>string dots = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearDots() {
         
@@ -2848,6 +3025,8 @@ public final class View {
       }
       /**
        * <code>string dots = 1;</code>
+       * @param value The bytes for dots to set.
+       * @return This builder for chaining.
        */
       public Builder setDotsBytes(
           com.google.protobuf.ByteString value) {
@@ -2864,12 +3043,16 @@ public final class View {
       private int count_ ;
       /**
        * <code>int32 count = 2;</code>
+       * @return The count.
        */
+      @java.lang.Override
       public int getCount() {
         return count_;
       }
       /**
        * <code>int32 count = 2;</code>
+       * @param value The count to set.
+       * @return This builder for chaining.
        */
       public Builder setCount(int value) {
         
@@ -2879,6 +3062,7 @@ public final class View {
       }
       /**
        * <code>int32 count = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearCount() {
         
@@ -2890,6 +3074,7 @@ public final class View {
       private java.lang.Object next_ = "";
       /**
        * <code>string next = 3;</code>
+       * @return The next.
        */
       public java.lang.String getNext() {
         java.lang.Object ref = next_;
@@ -2905,6 +3090,7 @@ public final class View {
       }
       /**
        * <code>string next = 3;</code>
+       * @return The bytes for next.
        */
       public com.google.protobuf.ByteString
           getNextBytes() {
@@ -2921,6 +3107,8 @@ public final class View {
       }
       /**
        * <code>string next = 3;</code>
+       * @param value The next to set.
+       * @return This builder for chaining.
        */
       public Builder setNext(
           java.lang.String value) {
@@ -2934,6 +3122,7 @@ public final class View {
       }
       /**
        * <code>string next = 3;</code>
+       * @return This builder for chaining.
        */
       public Builder clearNext() {
         
@@ -2943,6 +3132,8 @@ public final class View {
       }
       /**
        * <code>string next = 3;</code>
+       * @param value The bytes for next to set.
+       * @return This builder for chaining.
        */
       public Builder setNextBytes(
           com.google.protobuf.ByteString value) {
@@ -2958,7 +3149,7 @@ public final class View {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -3014,20 +3205,24 @@ public final class View {
 
     /**
      * <code>string name = 1;</code>
+     * @return The name.
      */
     java.lang.String getName();
     /**
      * <code>string name = 1;</code>
+     * @return The bytes for name.
      */
     com.google.protobuf.ByteString
         getNameBytes();
 
     /**
      * <code>.Link link = 2;</code>
+     * @return Whether the link field is set.
      */
     boolean hasLink();
     /**
      * <code>.Link link = 2;</code>
+     * @return The link.
      */
     sjtu.opennet.textilepb.Model.Link getLink();
     /**
@@ -3038,7 +3233,7 @@ public final class View {
   /**
    * Protobuf type {@code Step}
    */
-  public  static final class Step extends
+  public static final class Step extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:Step)
       StepOrBuilder {
@@ -3049,6 +3244,13 @@ public final class View {
     }
     private Step() {
       name_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new Step();
     }
 
     @java.lang.Override
@@ -3064,7 +3266,6 @@ public final class View {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -3095,7 +3296,7 @@ public final class View {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -3130,7 +3331,9 @@ public final class View {
     private volatile java.lang.Object name_;
     /**
      * <code>string name = 1;</code>
+     * @return The name.
      */
+    @java.lang.Override
     public java.lang.String getName() {
       java.lang.Object ref = name_;
       if (ref instanceof java.lang.String) {
@@ -3145,7 +3348,9 @@ public final class View {
     }
     /**
      * <code>string name = 1;</code>
+     * @return The bytes for name.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getNameBytes() {
       java.lang.Object ref = name_;
@@ -3164,19 +3369,24 @@ public final class View {
     private sjtu.opennet.textilepb.Model.Link link_;
     /**
      * <code>.Link link = 2;</code>
+     * @return Whether the link field is set.
      */
+    @java.lang.Override
     public boolean hasLink() {
       return link_ != null;
     }
     /**
      * <code>.Link link = 2;</code>
+     * @return The link.
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.Link getLink() {
       return link_ == null ? sjtu.opennet.textilepb.Model.Link.getDefaultInstance() : link_;
     }
     /**
      * <code>.Link link = 2;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.LinkOrBuilder getLinkOrBuilder() {
       return getLink();
     }
@@ -3232,16 +3442,15 @@ public final class View {
       }
       sjtu.opennet.textilepb.View.Step other = (sjtu.opennet.textilepb.View.Step) obj;
 
-      boolean result = true;
-      result = result && getName()
-          .equals(other.getName());
-      result = result && (hasLink() == other.hasLink());
+      if (!getName()
+          .equals(other.getName())) return false;
+      if (hasLink() != other.hasLink()) return false;
       if (hasLink()) {
-        result = result && getLink()
-            .equals(other.getLink());
+        if (!getLink()
+            .equals(other.getLink())) return false;
       }
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -3436,35 +3645,35 @@ public final class View {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -3517,6 +3726,7 @@ public final class View {
       private java.lang.Object name_ = "";
       /**
        * <code>string name = 1;</code>
+       * @return The name.
        */
       public java.lang.String getName() {
         java.lang.Object ref = name_;
@@ -3532,6 +3742,7 @@ public final class View {
       }
       /**
        * <code>string name = 1;</code>
+       * @return The bytes for name.
        */
       public com.google.protobuf.ByteString
           getNameBytes() {
@@ -3548,6 +3759,8 @@ public final class View {
       }
       /**
        * <code>string name = 1;</code>
+       * @param value The name to set.
+       * @return This builder for chaining.
        */
       public Builder setName(
           java.lang.String value) {
@@ -3561,6 +3774,7 @@ public final class View {
       }
       /**
        * <code>string name = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearName() {
         
@@ -3570,6 +3784,8 @@ public final class View {
       }
       /**
        * <code>string name = 1;</code>
+       * @param value The bytes for name to set.
+       * @return This builder for chaining.
        */
       public Builder setNameBytes(
           com.google.protobuf.ByteString value) {
@@ -3583,17 +3799,19 @@ public final class View {
         return this;
       }
 
-      private sjtu.opennet.textilepb.Model.Link link_ = null;
+      private sjtu.opennet.textilepb.Model.Link link_;
       private com.google.protobuf.SingleFieldBuilderV3<
           sjtu.opennet.textilepb.Model.Link, sjtu.opennet.textilepb.Model.Link.Builder, sjtu.opennet.textilepb.Model.LinkOrBuilder> linkBuilder_;
       /**
        * <code>.Link link = 2;</code>
+       * @return Whether the link field is set.
        */
       public boolean hasLink() {
         return linkBuilder_ != null || link_ != null;
       }
       /**
        * <code>.Link link = 2;</code>
+       * @return The link.
        */
       public sjtu.opennet.textilepb.Model.Link getLink() {
         if (linkBuilder_ == null) {
@@ -3702,7 +3920,7 @@ public final class View {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -3793,7 +4011,7 @@ public final class View {
   /**
    * Protobuf type {@code Directory}
    */
-  public  static final class Directory extends
+  public static final class Directory extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:Directory)
       DirectoryOrBuilder {
@@ -3803,6 +4021,13 @@ public final class View {
       super(builder);
     }
     private Directory() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new Directory();
     }
 
     @java.lang.Override
@@ -3830,7 +4055,7 @@ public final class View {
               done = true;
               break;
             case 10: {
-              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
                 files_ = com.google.protobuf.MapField.newMapField(
                     FilesDefaultEntryHolder.defaultEntry);
                 mutable_bitField0_ |= 0x00000001;
@@ -3843,7 +4068,7 @@ public final class View {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -3916,6 +4141,7 @@ public final class View {
      * <code>map&lt;string, .FileIndex&gt; files = 1;</code>
      */
 
+    @java.lang.Override
     public boolean containsFiles(
         java.lang.String key) {
       if (key == null) { throw new java.lang.NullPointerException(); }
@@ -3924,6 +4150,7 @@ public final class View {
     /**
      * Use {@link #getFilesMap()} instead.
      */
+    @java.lang.Override
     @java.lang.Deprecated
     public java.util.Map<java.lang.String, sjtu.opennet.textilepb.Model.FileIndex> getFiles() {
       return getFilesMap();
@@ -3931,6 +4158,7 @@ public final class View {
     /**
      * <code>map&lt;string, .FileIndex&gt; files = 1;</code>
      */
+    @java.lang.Override
 
     public java.util.Map<java.lang.String, sjtu.opennet.textilepb.Model.FileIndex> getFilesMap() {
       return internalGetFiles().getMap();
@@ -3938,6 +4166,7 @@ public final class View {
     /**
      * <code>map&lt;string, .FileIndex&gt; files = 1;</code>
      */
+    @java.lang.Override
 
     public sjtu.opennet.textilepb.Model.FileIndex getFilesOrDefault(
         java.lang.String key,
@@ -3950,6 +4179,7 @@ public final class View {
     /**
      * <code>map&lt;string, .FileIndex&gt; files = 1;</code>
      */
+    @java.lang.Override
 
     public sjtu.opennet.textilepb.Model.FileIndex getFilesOrThrow(
         java.lang.String key) {
@@ -4016,11 +4246,10 @@ public final class View {
       }
       sjtu.opennet.textilepb.View.Directory other = (sjtu.opennet.textilepb.View.Directory) obj;
 
-      boolean result = true;
-      result = result && internalGetFiles().equals(
-          other.internalGetFiles());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!internalGetFiles().equals(
+          other.internalGetFiles())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -4225,35 +4454,35 @@ public final class View {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -4329,6 +4558,7 @@ public final class View {
        * <code>map&lt;string, .FileIndex&gt; files = 1;</code>
        */
 
+      @java.lang.Override
       public boolean containsFiles(
           java.lang.String key) {
         if (key == null) { throw new java.lang.NullPointerException(); }
@@ -4337,6 +4567,7 @@ public final class View {
       /**
        * Use {@link #getFilesMap()} instead.
        */
+      @java.lang.Override
       @java.lang.Deprecated
       public java.util.Map<java.lang.String, sjtu.opennet.textilepb.Model.FileIndex> getFiles() {
         return getFilesMap();
@@ -4344,6 +4575,7 @@ public final class View {
       /**
        * <code>map&lt;string, .FileIndex&gt; files = 1;</code>
        */
+      @java.lang.Override
 
       public java.util.Map<java.lang.String, sjtu.opennet.textilepb.Model.FileIndex> getFilesMap() {
         return internalGetFiles().getMap();
@@ -4351,6 +4583,7 @@ public final class View {
       /**
        * <code>map&lt;string, .FileIndex&gt; files = 1;</code>
        */
+      @java.lang.Override
 
       public sjtu.opennet.textilepb.Model.FileIndex getFilesOrDefault(
           java.lang.String key,
@@ -4363,6 +4596,7 @@ public final class View {
       /**
        * <code>map&lt;string, .FileIndex&gt; files = 1;</code>
        */
+      @java.lang.Override
 
       public sjtu.opennet.textilepb.Model.FileIndex getFilesOrThrow(
           java.lang.String key) {
@@ -4424,7 +4658,7 @@ public final class View {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -4505,7 +4739,7 @@ public final class View {
   /**
    * Protobuf type {@code DirectoryList}
    */
-  public  static final class DirectoryList extends
+  public static final class DirectoryList extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:DirectoryList)
       DirectoryListOrBuilder {
@@ -4516,6 +4750,13 @@ public final class View {
     }
     private DirectoryList() {
       items_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new DirectoryList();
     }
 
     @java.lang.Override
@@ -4543,7 +4784,7 @@ public final class View {
               done = true;
               break;
             case 10: {
-              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
                 items_ = new java.util.ArrayList<sjtu.opennet.textilepb.View.Directory>();
                 mutable_bitField0_ |= 0x00000001;
               }
@@ -4552,7 +4793,7 @@ public final class View {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -4566,7 +4807,7 @@ public final class View {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
           items_ = java.util.Collections.unmodifiableList(items_);
         }
         this.unknownFields = unknownFields.build();
@@ -4591,12 +4832,14 @@ public final class View {
     /**
      * <code>repeated .Directory items = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<sjtu.opennet.textilepb.View.Directory> getItemsList() {
       return items_;
     }
     /**
      * <code>repeated .Directory items = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends sjtu.opennet.textilepb.View.DirectoryOrBuilder> 
         getItemsOrBuilderList() {
       return items_;
@@ -4604,18 +4847,21 @@ public final class View {
     /**
      * <code>repeated .Directory items = 1;</code>
      */
+    @java.lang.Override
     public int getItemsCount() {
       return items_.size();
     }
     /**
      * <code>repeated .Directory items = 1;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.View.Directory getItems(int index) {
       return items_.get(index);
     }
     /**
      * <code>repeated .Directory items = 1;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.View.DirectoryOrBuilder getItemsOrBuilder(
         int index) {
       return items_.get(index);
@@ -4666,11 +4912,10 @@ public final class View {
       }
       sjtu.opennet.textilepb.View.DirectoryList other = (sjtu.opennet.textilepb.View.DirectoryList) obj;
 
-      boolean result = true;
-      result = result && getItemsList()
-          .equals(other.getItemsList());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getItemsList()
+          .equals(other.getItemsList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -4852,7 +5097,7 @@ public final class View {
         sjtu.opennet.textilepb.View.DirectoryList result = new sjtu.opennet.textilepb.View.DirectoryList(this);
         int from_bitField0_ = bitField0_;
         if (itemsBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) == 0x00000001)) {
+          if (((bitField0_ & 0x00000001) != 0)) {
             items_ = java.util.Collections.unmodifiableList(items_);
             bitField0_ = (bitField0_ & ~0x00000001);
           }
@@ -4866,35 +5111,35 @@ public final class View {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -4967,7 +5212,7 @@ public final class View {
       private java.util.List<sjtu.opennet.textilepb.View.Directory> items_ =
         java.util.Collections.emptyList();
       private void ensureItemsIsMutable() {
-        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+        if (!((bitField0_ & 0x00000001) != 0)) {
           items_ = new java.util.ArrayList<sjtu.opennet.textilepb.View.Directory>(items_);
           bitField0_ |= 0x00000001;
          }
@@ -5196,7 +5441,7 @@ public final class View {
           itemsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
               sjtu.opennet.textilepb.View.Directory, sjtu.opennet.textilepb.View.Directory.Builder, sjtu.opennet.textilepb.View.DirectoryOrBuilder>(
                   items_,
-                  ((bitField0_ & 0x00000001) == 0x00000001),
+                  ((bitField0_ & 0x00000001) != 0),
                   getParentForChildren(),
                   isClean());
           items_ = null;
@@ -5206,7 +5451,7 @@ public final class View {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -5297,7 +5542,7 @@ public final class View {
   /**
    * Protobuf type {@code Keys}
    */
-  public  static final class Keys extends
+  public static final class Keys extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:Keys)
       KeysOrBuilder {
@@ -5307,6 +5552,13 @@ public final class View {
       super(builder);
     }
     private Keys() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new Keys();
     }
 
     @java.lang.Override
@@ -5334,7 +5586,7 @@ public final class View {
               done = true;
               break;
             case 10: {
-              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
                 files_ = com.google.protobuf.MapField.newMapField(
                     FilesDefaultEntryHolder.defaultEntry);
                 mutable_bitField0_ |= 0x00000001;
@@ -5347,7 +5599,7 @@ public final class View {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -5420,6 +5672,7 @@ public final class View {
      * <code>map&lt;string, string&gt; files = 1;</code>
      */
 
+    @java.lang.Override
     public boolean containsFiles(
         java.lang.String key) {
       if (key == null) { throw new java.lang.NullPointerException(); }
@@ -5428,6 +5681,7 @@ public final class View {
     /**
      * Use {@link #getFilesMap()} instead.
      */
+    @java.lang.Override
     @java.lang.Deprecated
     public java.util.Map<java.lang.String, java.lang.String> getFiles() {
       return getFilesMap();
@@ -5435,6 +5689,7 @@ public final class View {
     /**
      * <code>map&lt;string, string&gt; files = 1;</code>
      */
+    @java.lang.Override
 
     public java.util.Map<java.lang.String, java.lang.String> getFilesMap() {
       return internalGetFiles().getMap();
@@ -5442,6 +5697,7 @@ public final class View {
     /**
      * <code>map&lt;string, string&gt; files = 1;</code>
      */
+    @java.lang.Override
 
     public java.lang.String getFilesOrDefault(
         java.lang.String key,
@@ -5454,6 +5710,7 @@ public final class View {
     /**
      * <code>map&lt;string, string&gt; files = 1;</code>
      */
+    @java.lang.Override
 
     public java.lang.String getFilesOrThrow(
         java.lang.String key) {
@@ -5520,11 +5777,10 @@ public final class View {
       }
       sjtu.opennet.textilepb.View.Keys other = (sjtu.opennet.textilepb.View.Keys) obj;
 
-      boolean result = true;
-      result = result && internalGetFiles().equals(
-          other.internalGetFiles());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!internalGetFiles().equals(
+          other.internalGetFiles())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -5729,35 +5985,35 @@ public final class View {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -5833,6 +6089,7 @@ public final class View {
        * <code>map&lt;string, string&gt; files = 1;</code>
        */
 
+      @java.lang.Override
       public boolean containsFiles(
           java.lang.String key) {
         if (key == null) { throw new java.lang.NullPointerException(); }
@@ -5841,6 +6098,7 @@ public final class View {
       /**
        * Use {@link #getFilesMap()} instead.
        */
+      @java.lang.Override
       @java.lang.Deprecated
       public java.util.Map<java.lang.String, java.lang.String> getFiles() {
         return getFilesMap();
@@ -5848,6 +6106,7 @@ public final class View {
       /**
        * <code>map&lt;string, string&gt; files = 1;</code>
        */
+      @java.lang.Override
 
       public java.util.Map<java.lang.String, java.lang.String> getFilesMap() {
         return internalGetFiles().getMap();
@@ -5855,6 +6114,7 @@ public final class View {
       /**
        * <code>map&lt;string, string&gt; files = 1;</code>
        */
+      @java.lang.Override
 
       public java.lang.String getFilesOrDefault(
           java.lang.String key,
@@ -5867,6 +6127,7 @@ public final class View {
       /**
        * <code>map&lt;string, string&gt; files = 1;</code>
        */
+      @java.lang.Override
 
       public java.lang.String getFilesOrThrow(
           java.lang.String key) {
@@ -5928,7 +6189,7 @@ public final class View {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -5984,30 +6245,36 @@ public final class View {
 
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
     java.lang.String getId();
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
     com.google.protobuf.ByteString
         getIdBytes();
 
     /**
      * <code>string name = 2;</code>
+     * @return The name.
      */
     java.lang.String getName();
     /**
      * <code>string name = 2;</code>
+     * @return The bytes for name.
      */
     com.google.protobuf.ByteString
         getNameBytes();
 
     /**
      * <code>.User inviter = 3;</code>
+     * @return Whether the inviter field is set.
      */
     boolean hasInviter();
     /**
      * <code>.User inviter = 3;</code>
+     * @return The inviter.
      */
     sjtu.opennet.textilepb.Model.User getInviter();
     /**
@@ -6017,10 +6284,12 @@ public final class View {
 
     /**
      * <code>.google.protobuf.Timestamp date = 4;</code>
+     * @return Whether the date field is set.
      */
     boolean hasDate();
     /**
      * <code>.google.protobuf.Timestamp date = 4;</code>
+     * @return The date.
      */
     com.google.protobuf.Timestamp getDate();
     /**
@@ -6031,7 +6300,7 @@ public final class View {
   /**
    * Protobuf type {@code InviteView}
    */
-  public  static final class InviteView extends
+  public static final class InviteView extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:InviteView)
       InviteViewOrBuilder {
@@ -6043,6 +6312,13 @@ public final class View {
     private InviteView() {
       id_ = "";
       name_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new InviteView();
     }
 
     @java.lang.Override
@@ -6058,7 +6334,6 @@ public final class View {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -6108,7 +6383,7 @@ public final class View {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -6143,7 +6418,9 @@ public final class View {
     private volatile java.lang.Object id_;
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
+    @java.lang.Override
     public java.lang.String getId() {
       java.lang.Object ref = id_;
       if (ref instanceof java.lang.String) {
@@ -6158,7 +6435,9 @@ public final class View {
     }
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getIdBytes() {
       java.lang.Object ref = id_;
@@ -6177,7 +6456,9 @@ public final class View {
     private volatile java.lang.Object name_;
     /**
      * <code>string name = 2;</code>
+     * @return The name.
      */
+    @java.lang.Override
     public java.lang.String getName() {
       java.lang.Object ref = name_;
       if (ref instanceof java.lang.String) {
@@ -6192,7 +6473,9 @@ public final class View {
     }
     /**
      * <code>string name = 2;</code>
+     * @return The bytes for name.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getNameBytes() {
       java.lang.Object ref = name_;
@@ -6211,19 +6494,24 @@ public final class View {
     private sjtu.opennet.textilepb.Model.User inviter_;
     /**
      * <code>.User inviter = 3;</code>
+     * @return Whether the inviter field is set.
      */
+    @java.lang.Override
     public boolean hasInviter() {
       return inviter_ != null;
     }
     /**
      * <code>.User inviter = 3;</code>
+     * @return The inviter.
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.User getInviter() {
       return inviter_ == null ? sjtu.opennet.textilepb.Model.User.getDefaultInstance() : inviter_;
     }
     /**
      * <code>.User inviter = 3;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.UserOrBuilder getInviterOrBuilder() {
       return getInviter();
     }
@@ -6232,19 +6520,24 @@ public final class View {
     private com.google.protobuf.Timestamp date_;
     /**
      * <code>.google.protobuf.Timestamp date = 4;</code>
+     * @return Whether the date field is set.
      */
+    @java.lang.Override
     public boolean hasDate() {
       return date_ != null;
     }
     /**
      * <code>.google.protobuf.Timestamp date = 4;</code>
+     * @return The date.
      */
+    @java.lang.Override
     public com.google.protobuf.Timestamp getDate() {
       return date_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : date_;
     }
     /**
      * <code>.google.protobuf.Timestamp date = 4;</code>
      */
+    @java.lang.Override
     public com.google.protobuf.TimestampOrBuilder getDateOrBuilder() {
       return getDate();
     }
@@ -6313,23 +6606,22 @@ public final class View {
       }
       sjtu.opennet.textilepb.View.InviteView other = (sjtu.opennet.textilepb.View.InviteView) obj;
 
-      boolean result = true;
-      result = result && getId()
-          .equals(other.getId());
-      result = result && getName()
-          .equals(other.getName());
-      result = result && (hasInviter() == other.hasInviter());
+      if (!getId()
+          .equals(other.getId())) return false;
+      if (!getName()
+          .equals(other.getName())) return false;
+      if (hasInviter() != other.hasInviter()) return false;
       if (hasInviter()) {
-        result = result && getInviter()
-            .equals(other.getInviter());
+        if (!getInviter()
+            .equals(other.getInviter())) return false;
       }
-      result = result && (hasDate() == other.hasDate());
+      if (hasDate() != other.hasDate()) return false;
       if (hasDate()) {
-        result = result && getDate()
-            .equals(other.getDate());
+        if (!getDate()
+            .equals(other.getDate())) return false;
       }
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -6544,35 +6836,35 @@ public final class View {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -6632,6 +6924,7 @@ public final class View {
       private java.lang.Object id_ = "";
       /**
        * <code>string id = 1;</code>
+       * @return The id.
        */
       public java.lang.String getId() {
         java.lang.Object ref = id_;
@@ -6647,6 +6940,7 @@ public final class View {
       }
       /**
        * <code>string id = 1;</code>
+       * @return The bytes for id.
        */
       public com.google.protobuf.ByteString
           getIdBytes() {
@@ -6663,6 +6957,8 @@ public final class View {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The id to set.
+       * @return This builder for chaining.
        */
       public Builder setId(
           java.lang.String value) {
@@ -6676,6 +6972,7 @@ public final class View {
       }
       /**
        * <code>string id = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearId() {
         
@@ -6685,6 +6982,8 @@ public final class View {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The bytes for id to set.
+       * @return This builder for chaining.
        */
       public Builder setIdBytes(
           com.google.protobuf.ByteString value) {
@@ -6701,6 +7000,7 @@ public final class View {
       private java.lang.Object name_ = "";
       /**
        * <code>string name = 2;</code>
+       * @return The name.
        */
       public java.lang.String getName() {
         java.lang.Object ref = name_;
@@ -6716,6 +7016,7 @@ public final class View {
       }
       /**
        * <code>string name = 2;</code>
+       * @return The bytes for name.
        */
       public com.google.protobuf.ByteString
           getNameBytes() {
@@ -6732,6 +7033,8 @@ public final class View {
       }
       /**
        * <code>string name = 2;</code>
+       * @param value The name to set.
+       * @return This builder for chaining.
        */
       public Builder setName(
           java.lang.String value) {
@@ -6745,6 +7048,7 @@ public final class View {
       }
       /**
        * <code>string name = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearName() {
         
@@ -6754,6 +7058,8 @@ public final class View {
       }
       /**
        * <code>string name = 2;</code>
+       * @param value The bytes for name to set.
+       * @return This builder for chaining.
        */
       public Builder setNameBytes(
           com.google.protobuf.ByteString value) {
@@ -6767,17 +7073,19 @@ public final class View {
         return this;
       }
 
-      private sjtu.opennet.textilepb.Model.User inviter_ = null;
+      private sjtu.opennet.textilepb.Model.User inviter_;
       private com.google.protobuf.SingleFieldBuilderV3<
           sjtu.opennet.textilepb.Model.User, sjtu.opennet.textilepb.Model.User.Builder, sjtu.opennet.textilepb.Model.UserOrBuilder> inviterBuilder_;
       /**
        * <code>.User inviter = 3;</code>
+       * @return Whether the inviter field is set.
        */
       public boolean hasInviter() {
         return inviterBuilder_ != null || inviter_ != null;
       }
       /**
        * <code>.User inviter = 3;</code>
+       * @return The inviter.
        */
       public sjtu.opennet.textilepb.Model.User getInviter() {
         if (inviterBuilder_ == null) {
@@ -6884,17 +7192,19 @@ public final class View {
         return inviterBuilder_;
       }
 
-      private com.google.protobuf.Timestamp date_ = null;
+      private com.google.protobuf.Timestamp date_;
       private com.google.protobuf.SingleFieldBuilderV3<
           com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> dateBuilder_;
       /**
        * <code>.google.protobuf.Timestamp date = 4;</code>
+       * @return Whether the date field is set.
        */
       public boolean hasDate() {
         return dateBuilder_ != null || date_ != null;
       }
       /**
        * <code>.google.protobuf.Timestamp date = 4;</code>
+       * @return The date.
        */
       public com.google.protobuf.Timestamp getDate() {
         if (dateBuilder_ == null) {
@@ -7003,7 +7313,7 @@ public final class View {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -7084,7 +7394,7 @@ public final class View {
   /**
    * Protobuf type {@code InviteViewList}
    */
-  public  static final class InviteViewList extends
+  public static final class InviteViewList extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:InviteViewList)
       InviteViewListOrBuilder {
@@ -7095,6 +7405,13 @@ public final class View {
     }
     private InviteViewList() {
       items_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new InviteViewList();
     }
 
     @java.lang.Override
@@ -7122,7 +7439,7 @@ public final class View {
               done = true;
               break;
             case 10: {
-              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
                 items_ = new java.util.ArrayList<sjtu.opennet.textilepb.View.InviteView>();
                 mutable_bitField0_ |= 0x00000001;
               }
@@ -7131,7 +7448,7 @@ public final class View {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -7145,7 +7462,7 @@ public final class View {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
           items_ = java.util.Collections.unmodifiableList(items_);
         }
         this.unknownFields = unknownFields.build();
@@ -7170,12 +7487,14 @@ public final class View {
     /**
      * <code>repeated .InviteView items = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<sjtu.opennet.textilepb.View.InviteView> getItemsList() {
       return items_;
     }
     /**
      * <code>repeated .InviteView items = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends sjtu.opennet.textilepb.View.InviteViewOrBuilder> 
         getItemsOrBuilderList() {
       return items_;
@@ -7183,18 +7502,21 @@ public final class View {
     /**
      * <code>repeated .InviteView items = 1;</code>
      */
+    @java.lang.Override
     public int getItemsCount() {
       return items_.size();
     }
     /**
      * <code>repeated .InviteView items = 1;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.View.InviteView getItems(int index) {
       return items_.get(index);
     }
     /**
      * <code>repeated .InviteView items = 1;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.View.InviteViewOrBuilder getItemsOrBuilder(
         int index) {
       return items_.get(index);
@@ -7245,11 +7567,10 @@ public final class View {
       }
       sjtu.opennet.textilepb.View.InviteViewList other = (sjtu.opennet.textilepb.View.InviteViewList) obj;
 
-      boolean result = true;
-      result = result && getItemsList()
-          .equals(other.getItemsList());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getItemsList()
+          .equals(other.getItemsList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -7431,7 +7752,7 @@ public final class View {
         sjtu.opennet.textilepb.View.InviteViewList result = new sjtu.opennet.textilepb.View.InviteViewList(this);
         int from_bitField0_ = bitField0_;
         if (itemsBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) == 0x00000001)) {
+          if (((bitField0_ & 0x00000001) != 0)) {
             items_ = java.util.Collections.unmodifiableList(items_);
             bitField0_ = (bitField0_ & ~0x00000001);
           }
@@ -7445,35 +7766,35 @@ public final class View {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -7546,7 +7867,7 @@ public final class View {
       private java.util.List<sjtu.opennet.textilepb.View.InviteView> items_ =
         java.util.Collections.emptyList();
       private void ensureItemsIsMutable() {
-        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+        if (!((bitField0_ & 0x00000001) != 0)) {
           items_ = new java.util.ArrayList<sjtu.opennet.textilepb.View.InviteView>(items_);
           bitField0_ |= 0x00000001;
          }
@@ -7775,7 +8096,7 @@ public final class View {
           itemsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
               sjtu.opennet.textilepb.View.InviteView, sjtu.opennet.textilepb.View.InviteView.Builder, sjtu.opennet.textilepb.View.InviteViewOrBuilder>(
                   items_,
-                  ((bitField0_ & 0x00000001) == 0x00000001),
+                  ((bitField0_ & 0x00000001) != 0),
                   getParentForChildren(),
                   isClean());
           items_ = null;
@@ -7785,7 +8106,7 @@ public final class View {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -7841,30 +8162,36 @@ public final class View {
 
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
     java.lang.String getId();
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
     com.google.protobuf.ByteString
         getIdBytes();
 
     /**
      * <code>string key = 2;</code>
+     * @return The key.
      */
     java.lang.String getKey();
     /**
      * <code>string key = 2;</code>
+     * @return The bytes for key.
      */
     com.google.protobuf.ByteString
         getKeyBytes();
 
     /**
      * <code>string inviter = 3;</code>
+     * @return The inviter.
      */
     java.lang.String getInviter();
     /**
      * <code>string inviter = 3;</code>
+     * @return The bytes for inviter.
      */
     com.google.protobuf.ByteString
         getInviterBytes();
@@ -7872,7 +8199,7 @@ public final class View {
   /**
    * Protobuf type {@code ExternalInvite}
    */
-  public  static final class ExternalInvite extends
+  public static final class ExternalInvite extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ExternalInvite)
       ExternalInviteOrBuilder {
@@ -7888,6 +8215,13 @@ public final class View {
     }
 
     @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new ExternalInvite();
+    }
+
+    @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
       return this.unknownFields;
@@ -7900,7 +8234,6 @@ public final class View {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -7930,7 +8263,7 @@ public final class View {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -7965,7 +8298,9 @@ public final class View {
     private volatile java.lang.Object id_;
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
+    @java.lang.Override
     public java.lang.String getId() {
       java.lang.Object ref = id_;
       if (ref instanceof java.lang.String) {
@@ -7980,7 +8315,9 @@ public final class View {
     }
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getIdBytes() {
       java.lang.Object ref = id_;
@@ -7999,7 +8336,9 @@ public final class View {
     private volatile java.lang.Object key_;
     /**
      * <code>string key = 2;</code>
+     * @return The key.
      */
+    @java.lang.Override
     public java.lang.String getKey() {
       java.lang.Object ref = key_;
       if (ref instanceof java.lang.String) {
@@ -8014,7 +8353,9 @@ public final class View {
     }
     /**
      * <code>string key = 2;</code>
+     * @return The bytes for key.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getKeyBytes() {
       java.lang.Object ref = key_;
@@ -8033,7 +8374,9 @@ public final class View {
     private volatile java.lang.Object inviter_;
     /**
      * <code>string inviter = 3;</code>
+     * @return The inviter.
      */
+    @java.lang.Override
     public java.lang.String getInviter() {
       java.lang.Object ref = inviter_;
       if (ref instanceof java.lang.String) {
@@ -8048,7 +8391,9 @@ public final class View {
     }
     /**
      * <code>string inviter = 3;</code>
+     * @return The bytes for inviter.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getInviterBytes() {
       java.lang.Object ref = inviter_;
@@ -8119,15 +8464,14 @@ public final class View {
       }
       sjtu.opennet.textilepb.View.ExternalInvite other = (sjtu.opennet.textilepb.View.ExternalInvite) obj;
 
-      boolean result = true;
-      result = result && getId()
-          .equals(other.getId());
-      result = result && getKey()
-          .equals(other.getKey());
-      result = result && getInviter()
-          .equals(other.getInviter());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getId()
+          .equals(other.getId())) return false;
+      if (!getKey()
+          .equals(other.getKey())) return false;
+      if (!getInviter()
+          .equals(other.getInviter())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -8317,35 +8661,35 @@ public final class View {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -8403,6 +8747,7 @@ public final class View {
       private java.lang.Object id_ = "";
       /**
        * <code>string id = 1;</code>
+       * @return The id.
        */
       public java.lang.String getId() {
         java.lang.Object ref = id_;
@@ -8418,6 +8763,7 @@ public final class View {
       }
       /**
        * <code>string id = 1;</code>
+       * @return The bytes for id.
        */
       public com.google.protobuf.ByteString
           getIdBytes() {
@@ -8434,6 +8780,8 @@ public final class View {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The id to set.
+       * @return This builder for chaining.
        */
       public Builder setId(
           java.lang.String value) {
@@ -8447,6 +8795,7 @@ public final class View {
       }
       /**
        * <code>string id = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearId() {
         
@@ -8456,6 +8805,8 @@ public final class View {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The bytes for id to set.
+       * @return This builder for chaining.
        */
       public Builder setIdBytes(
           com.google.protobuf.ByteString value) {
@@ -8472,6 +8823,7 @@ public final class View {
       private java.lang.Object key_ = "";
       /**
        * <code>string key = 2;</code>
+       * @return The key.
        */
       public java.lang.String getKey() {
         java.lang.Object ref = key_;
@@ -8487,6 +8839,7 @@ public final class View {
       }
       /**
        * <code>string key = 2;</code>
+       * @return The bytes for key.
        */
       public com.google.protobuf.ByteString
           getKeyBytes() {
@@ -8503,6 +8856,8 @@ public final class View {
       }
       /**
        * <code>string key = 2;</code>
+       * @param value The key to set.
+       * @return This builder for chaining.
        */
       public Builder setKey(
           java.lang.String value) {
@@ -8516,6 +8871,7 @@ public final class View {
       }
       /**
        * <code>string key = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearKey() {
         
@@ -8525,6 +8881,8 @@ public final class View {
       }
       /**
        * <code>string key = 2;</code>
+       * @param value The bytes for key to set.
+       * @return This builder for chaining.
        */
       public Builder setKeyBytes(
           com.google.protobuf.ByteString value) {
@@ -8541,6 +8899,7 @@ public final class View {
       private java.lang.Object inviter_ = "";
       /**
        * <code>string inviter = 3;</code>
+       * @return The inviter.
        */
       public java.lang.String getInviter() {
         java.lang.Object ref = inviter_;
@@ -8556,6 +8915,7 @@ public final class View {
       }
       /**
        * <code>string inviter = 3;</code>
+       * @return The bytes for inviter.
        */
       public com.google.protobuf.ByteString
           getInviterBytes() {
@@ -8572,6 +8932,8 @@ public final class View {
       }
       /**
        * <code>string inviter = 3;</code>
+       * @param value The inviter to set.
+       * @return This builder for chaining.
        */
       public Builder setInviter(
           java.lang.String value) {
@@ -8585,6 +8947,7 @@ public final class View {
       }
       /**
        * <code>string inviter = 3;</code>
+       * @return This builder for chaining.
        */
       public Builder clearInviter() {
         
@@ -8594,6 +8957,8 @@ public final class View {
       }
       /**
        * <code>string inviter = 3;</code>
+       * @param value The bytes for inviter to set.
+       * @return This builder for chaining.
        */
       public Builder setInviterBytes(
           com.google.protobuf.ByteString value) {
@@ -8609,7 +8974,7 @@ public final class View {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -8665,42 +9030,49 @@ public final class View {
 
     /**
      * <code>string thread = 1;</code>
+     * @return The thread.
      */
     java.lang.String getThread();
     /**
      * <code>string thread = 1;</code>
+     * @return The bytes for thread.
      */
     com.google.protobuf.ByteString
         getThreadBytes();
 
     /**
      * <code>string offset = 2;</code>
+     * @return The offset.
      */
     java.lang.String getOffset();
     /**
      * <code>string offset = 2;</code>
+     * @return The bytes for offset.
      */
     com.google.protobuf.ByteString
         getOffsetBytes();
 
     /**
      * <code>int32 limit = 3;</code>
+     * @return The limit.
      */
     int getLimit();
 
     /**
      * <code>.FeedRequest.Mode mode = 4;</code>
+     * @return The enum numeric value on the wire for mode.
      */
     int getModeValue();
     /**
      * <code>.FeedRequest.Mode mode = 4;</code>
+     * @return The mode.
      */
     sjtu.opennet.textilepb.View.FeedRequest.Mode getMode();
   }
   /**
    * Protobuf type {@code FeedRequest}
    */
-  public  static final class FeedRequest extends
+  public static final class FeedRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:FeedRequest)
       FeedRequestOrBuilder {
@@ -8712,8 +9084,14 @@ public final class View {
     private FeedRequest() {
       thread_ = "";
       offset_ = "";
-      limit_ = 0;
       mode_ = 0;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new FeedRequest();
     }
 
     @java.lang.Override
@@ -8729,7 +9107,6 @@ public final class View {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -8764,7 +9141,7 @@ public final class View {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -8838,6 +9215,8 @@ public final class View {
       }
 
       /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
        * @deprecated Use {@link #forNumber(int)} instead.
        */
       @java.lang.Deprecated
@@ -8845,6 +9224,10 @@ public final class View {
         return forNumber(value);
       }
 
+      /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
+       */
       public static Mode forNumber(int value) {
         switch (value) {
           case 0: return CHRONO;
@@ -8868,6 +9251,10 @@ public final class View {
 
       public final com.google.protobuf.Descriptors.EnumValueDescriptor
           getValueDescriptor() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalStateException(
+              "Can't get the descriptor of an unrecognized enum value.");
+        }
         return getDescriptor().getValues().get(ordinal());
       }
       public final com.google.protobuf.Descriptors.EnumDescriptor
@@ -8906,7 +9293,9 @@ public final class View {
     private volatile java.lang.Object thread_;
     /**
      * <code>string thread = 1;</code>
+     * @return The thread.
      */
+    @java.lang.Override
     public java.lang.String getThread() {
       java.lang.Object ref = thread_;
       if (ref instanceof java.lang.String) {
@@ -8921,7 +9310,9 @@ public final class View {
     }
     /**
      * <code>string thread = 1;</code>
+     * @return The bytes for thread.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getThreadBytes() {
       java.lang.Object ref = thread_;
@@ -8940,7 +9331,9 @@ public final class View {
     private volatile java.lang.Object offset_;
     /**
      * <code>string offset = 2;</code>
+     * @return The offset.
      */
+    @java.lang.Override
     public java.lang.String getOffset() {
       java.lang.Object ref = offset_;
       if (ref instanceof java.lang.String) {
@@ -8955,7 +9348,9 @@ public final class View {
     }
     /**
      * <code>string offset = 2;</code>
+     * @return The bytes for offset.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getOffsetBytes() {
       java.lang.Object ref = offset_;
@@ -8974,7 +9369,9 @@ public final class View {
     private int limit_;
     /**
      * <code>int32 limit = 3;</code>
+     * @return The limit.
      */
+    @java.lang.Override
     public int getLimit() {
       return limit_;
     }
@@ -8983,14 +9380,16 @@ public final class View {
     private int mode_;
     /**
      * <code>.FeedRequest.Mode mode = 4;</code>
+     * @return The enum numeric value on the wire for mode.
      */
-    public int getModeValue() {
+    @java.lang.Override public int getModeValue() {
       return mode_;
     }
     /**
      * <code>.FeedRequest.Mode mode = 4;</code>
+     * @return The mode.
      */
-    public sjtu.opennet.textilepb.View.FeedRequest.Mode getMode() {
+    @java.lang.Override public sjtu.opennet.textilepb.View.FeedRequest.Mode getMode() {
       @SuppressWarnings("deprecation")
       sjtu.opennet.textilepb.View.FeedRequest.Mode result = sjtu.opennet.textilepb.View.FeedRequest.Mode.valueOf(mode_);
       return result == null ? sjtu.opennet.textilepb.View.FeedRequest.Mode.UNRECOGNIZED : result;
@@ -9060,16 +9459,15 @@ public final class View {
       }
       sjtu.opennet.textilepb.View.FeedRequest other = (sjtu.opennet.textilepb.View.FeedRequest) obj;
 
-      boolean result = true;
-      result = result && getThread()
-          .equals(other.getThread());
-      result = result && getOffset()
-          .equals(other.getOffset());
-      result = result && (getLimit()
-          == other.getLimit());
-      result = result && mode_ == other.mode_;
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getThread()
+          .equals(other.getThread())) return false;
+      if (!getOffset()
+          .equals(other.getOffset())) return false;
+      if (getLimit()
+          != other.getLimit()) return false;
+      if (mode_ != other.mode_) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -9264,35 +9662,35 @@ public final class View {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -9352,6 +9750,7 @@ public final class View {
       private java.lang.Object thread_ = "";
       /**
        * <code>string thread = 1;</code>
+       * @return The thread.
        */
       public java.lang.String getThread() {
         java.lang.Object ref = thread_;
@@ -9367,6 +9766,7 @@ public final class View {
       }
       /**
        * <code>string thread = 1;</code>
+       * @return The bytes for thread.
        */
       public com.google.protobuf.ByteString
           getThreadBytes() {
@@ -9383,6 +9783,8 @@ public final class View {
       }
       /**
        * <code>string thread = 1;</code>
+       * @param value The thread to set.
+       * @return This builder for chaining.
        */
       public Builder setThread(
           java.lang.String value) {
@@ -9396,6 +9798,7 @@ public final class View {
       }
       /**
        * <code>string thread = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearThread() {
         
@@ -9405,6 +9808,8 @@ public final class View {
       }
       /**
        * <code>string thread = 1;</code>
+       * @param value The bytes for thread to set.
+       * @return This builder for chaining.
        */
       public Builder setThreadBytes(
           com.google.protobuf.ByteString value) {
@@ -9421,6 +9826,7 @@ public final class View {
       private java.lang.Object offset_ = "";
       /**
        * <code>string offset = 2;</code>
+       * @return The offset.
        */
       public java.lang.String getOffset() {
         java.lang.Object ref = offset_;
@@ -9436,6 +9842,7 @@ public final class View {
       }
       /**
        * <code>string offset = 2;</code>
+       * @return The bytes for offset.
        */
       public com.google.protobuf.ByteString
           getOffsetBytes() {
@@ -9452,6 +9859,8 @@ public final class View {
       }
       /**
        * <code>string offset = 2;</code>
+       * @param value The offset to set.
+       * @return This builder for chaining.
        */
       public Builder setOffset(
           java.lang.String value) {
@@ -9465,6 +9874,7 @@ public final class View {
       }
       /**
        * <code>string offset = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearOffset() {
         
@@ -9474,6 +9884,8 @@ public final class View {
       }
       /**
        * <code>string offset = 2;</code>
+       * @param value The bytes for offset to set.
+       * @return This builder for chaining.
        */
       public Builder setOffsetBytes(
           com.google.protobuf.ByteString value) {
@@ -9490,12 +9902,16 @@ public final class View {
       private int limit_ ;
       /**
        * <code>int32 limit = 3;</code>
+       * @return The limit.
        */
+      @java.lang.Override
       public int getLimit() {
         return limit_;
       }
       /**
        * <code>int32 limit = 3;</code>
+       * @param value The limit to set.
+       * @return This builder for chaining.
        */
       public Builder setLimit(int value) {
         
@@ -9505,6 +9921,7 @@ public final class View {
       }
       /**
        * <code>int32 limit = 3;</code>
+       * @return This builder for chaining.
        */
       public Builder clearLimit() {
         
@@ -9516,21 +9933,27 @@ public final class View {
       private int mode_ = 0;
       /**
        * <code>.FeedRequest.Mode mode = 4;</code>
+       * @return The enum numeric value on the wire for mode.
        */
-      public int getModeValue() {
+      @java.lang.Override public int getModeValue() {
         return mode_;
       }
       /**
        * <code>.FeedRequest.Mode mode = 4;</code>
+       * @param value The enum numeric value on the wire for mode to set.
+       * @return This builder for chaining.
        */
       public Builder setModeValue(int value) {
+        
         mode_ = value;
         onChanged();
         return this;
       }
       /**
        * <code>.FeedRequest.Mode mode = 4;</code>
+       * @return The mode.
        */
+      @java.lang.Override
       public sjtu.opennet.textilepb.View.FeedRequest.Mode getMode() {
         @SuppressWarnings("deprecation")
         sjtu.opennet.textilepb.View.FeedRequest.Mode result = sjtu.opennet.textilepb.View.FeedRequest.Mode.valueOf(mode_);
@@ -9538,6 +9961,8 @@ public final class View {
       }
       /**
        * <code>.FeedRequest.Mode mode = 4;</code>
+       * @param value The mode to set.
+       * @return This builder for chaining.
        */
       public Builder setMode(sjtu.opennet.textilepb.View.FeedRequest.Mode value) {
         if (value == null) {
@@ -9550,6 +9975,7 @@ public final class View {
       }
       /**
        * <code>.FeedRequest.Mode mode = 4;</code>
+       * @return This builder for chaining.
        */
       public Builder clearMode() {
         
@@ -9560,7 +9986,7 @@ public final class View {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -9616,30 +10042,36 @@ public final class View {
 
     /**
      * <code>string block = 1;</code>
+     * @return The block.
      */
     java.lang.String getBlock();
     /**
      * <code>string block = 1;</code>
+     * @return The bytes for block.
      */
     com.google.protobuf.ByteString
         getBlockBytes();
 
     /**
      * <code>string thread = 2;</code>
+     * @return The thread.
      */
     java.lang.String getThread();
     /**
      * <code>string thread = 2;</code>
+     * @return The bytes for thread.
      */
     com.google.protobuf.ByteString
         getThreadBytes();
 
     /**
      * <code>.google.protobuf.Any payload = 3;</code>
+     * @return Whether the payload field is set.
      */
     boolean hasPayload();
     /**
      * <code>.google.protobuf.Any payload = 3;</code>
+     * @return The payload.
      */
     com.google.protobuf.Any getPayload();
     /**
@@ -9650,7 +10082,7 @@ public final class View {
   /**
    * Protobuf type {@code FeedItem}
    */
-  public  static final class FeedItem extends
+  public static final class FeedItem extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:FeedItem)
       FeedItemOrBuilder {
@@ -9662,6 +10094,13 @@ public final class View {
     private FeedItem() {
       block_ = "";
       thread_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new FeedItem();
     }
 
     @java.lang.Override
@@ -9677,7 +10116,6 @@ public final class View {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -9714,7 +10152,7 @@ public final class View {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -9749,7 +10187,9 @@ public final class View {
     private volatile java.lang.Object block_;
     /**
      * <code>string block = 1;</code>
+     * @return The block.
      */
+    @java.lang.Override
     public java.lang.String getBlock() {
       java.lang.Object ref = block_;
       if (ref instanceof java.lang.String) {
@@ -9764,7 +10204,9 @@ public final class View {
     }
     /**
      * <code>string block = 1;</code>
+     * @return The bytes for block.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getBlockBytes() {
       java.lang.Object ref = block_;
@@ -9783,7 +10225,9 @@ public final class View {
     private volatile java.lang.Object thread_;
     /**
      * <code>string thread = 2;</code>
+     * @return The thread.
      */
+    @java.lang.Override
     public java.lang.String getThread() {
       java.lang.Object ref = thread_;
       if (ref instanceof java.lang.String) {
@@ -9798,7 +10242,9 @@ public final class View {
     }
     /**
      * <code>string thread = 2;</code>
+     * @return The bytes for thread.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getThreadBytes() {
       java.lang.Object ref = thread_;
@@ -9817,19 +10263,24 @@ public final class View {
     private com.google.protobuf.Any payload_;
     /**
      * <code>.google.protobuf.Any payload = 3;</code>
+     * @return Whether the payload field is set.
      */
+    @java.lang.Override
     public boolean hasPayload() {
       return payload_ != null;
     }
     /**
      * <code>.google.protobuf.Any payload = 3;</code>
+     * @return The payload.
      */
+    @java.lang.Override
     public com.google.protobuf.Any getPayload() {
       return payload_ == null ? com.google.protobuf.Any.getDefaultInstance() : payload_;
     }
     /**
      * <code>.google.protobuf.Any payload = 3;</code>
      */
+    @java.lang.Override
     public com.google.protobuf.AnyOrBuilder getPayloadOrBuilder() {
       return getPayload();
     }
@@ -9891,18 +10342,17 @@ public final class View {
       }
       sjtu.opennet.textilepb.View.FeedItem other = (sjtu.opennet.textilepb.View.FeedItem) obj;
 
-      boolean result = true;
-      result = result && getBlock()
-          .equals(other.getBlock());
-      result = result && getThread()
-          .equals(other.getThread());
-      result = result && (hasPayload() == other.hasPayload());
+      if (!getBlock()
+          .equals(other.getBlock())) return false;
+      if (!getThread()
+          .equals(other.getThread())) return false;
+      if (hasPayload() != other.hasPayload()) return false;
       if (hasPayload()) {
-        result = result && getPayload()
-            .equals(other.getPayload());
+        if (!getPayload()
+            .equals(other.getPayload())) return false;
       }
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -10102,35 +10552,35 @@ public final class View {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -10187,6 +10637,7 @@ public final class View {
       private java.lang.Object block_ = "";
       /**
        * <code>string block = 1;</code>
+       * @return The block.
        */
       public java.lang.String getBlock() {
         java.lang.Object ref = block_;
@@ -10202,6 +10653,7 @@ public final class View {
       }
       /**
        * <code>string block = 1;</code>
+       * @return The bytes for block.
        */
       public com.google.protobuf.ByteString
           getBlockBytes() {
@@ -10218,6 +10670,8 @@ public final class View {
       }
       /**
        * <code>string block = 1;</code>
+       * @param value The block to set.
+       * @return This builder for chaining.
        */
       public Builder setBlock(
           java.lang.String value) {
@@ -10231,6 +10685,7 @@ public final class View {
       }
       /**
        * <code>string block = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearBlock() {
         
@@ -10240,6 +10695,8 @@ public final class View {
       }
       /**
        * <code>string block = 1;</code>
+       * @param value The bytes for block to set.
+       * @return This builder for chaining.
        */
       public Builder setBlockBytes(
           com.google.protobuf.ByteString value) {
@@ -10256,6 +10713,7 @@ public final class View {
       private java.lang.Object thread_ = "";
       /**
        * <code>string thread = 2;</code>
+       * @return The thread.
        */
       public java.lang.String getThread() {
         java.lang.Object ref = thread_;
@@ -10271,6 +10729,7 @@ public final class View {
       }
       /**
        * <code>string thread = 2;</code>
+       * @return The bytes for thread.
        */
       public com.google.protobuf.ByteString
           getThreadBytes() {
@@ -10287,6 +10746,8 @@ public final class View {
       }
       /**
        * <code>string thread = 2;</code>
+       * @param value The thread to set.
+       * @return This builder for chaining.
        */
       public Builder setThread(
           java.lang.String value) {
@@ -10300,6 +10761,7 @@ public final class View {
       }
       /**
        * <code>string thread = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearThread() {
         
@@ -10309,6 +10771,8 @@ public final class View {
       }
       /**
        * <code>string thread = 2;</code>
+       * @param value The bytes for thread to set.
+       * @return This builder for chaining.
        */
       public Builder setThreadBytes(
           com.google.protobuf.ByteString value) {
@@ -10322,17 +10786,19 @@ public final class View {
         return this;
       }
 
-      private com.google.protobuf.Any payload_ = null;
+      private com.google.protobuf.Any payload_;
       private com.google.protobuf.SingleFieldBuilderV3<
           com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> payloadBuilder_;
       /**
        * <code>.google.protobuf.Any payload = 3;</code>
+       * @return Whether the payload field is set.
        */
       public boolean hasPayload() {
         return payloadBuilder_ != null || payload_ != null;
       }
       /**
        * <code>.google.protobuf.Any payload = 3;</code>
+       * @return The payload.
        */
       public com.google.protobuf.Any getPayload() {
         if (payloadBuilder_ == null) {
@@ -10441,7 +10907,7 @@ public final class View {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -10521,15 +10987,18 @@ public final class View {
 
     /**
      * <code>int32 count = 2;</code>
+     * @return The count.
      */
     int getCount();
 
     /**
      * <code>string next = 3;</code>
+     * @return The next.
      */
     java.lang.String getNext();
     /**
      * <code>string next = 3;</code>
+     * @return The bytes for next.
      */
     com.google.protobuf.ByteString
         getNextBytes();
@@ -10537,7 +11006,7 @@ public final class View {
   /**
    * Protobuf type {@code FeedItemList}
    */
-  public  static final class FeedItemList extends
+  public static final class FeedItemList extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:FeedItemList)
       FeedItemListOrBuilder {
@@ -10548,8 +11017,14 @@ public final class View {
     }
     private FeedItemList() {
       items_ = java.util.Collections.emptyList();
-      count_ = 0;
       next_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new FeedItemList();
     }
 
     @java.lang.Override
@@ -10577,7 +11052,7 @@ public final class View {
               done = true;
               break;
             case 10: {
-              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
                 items_ = new java.util.ArrayList<sjtu.opennet.textilepb.View.FeedItem>();
                 mutable_bitField0_ |= 0x00000001;
               }
@@ -10597,7 +11072,7 @@ public final class View {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -10611,7 +11086,7 @@ public final class View {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
           items_ = java.util.Collections.unmodifiableList(items_);
         }
         this.unknownFields = unknownFields.build();
@@ -10631,18 +11106,19 @@ public final class View {
               sjtu.opennet.textilepb.View.FeedItemList.class, sjtu.opennet.textilepb.View.FeedItemList.Builder.class);
     }
 
-    private int bitField0_;
     public static final int ITEMS_FIELD_NUMBER = 1;
     private java.util.List<sjtu.opennet.textilepb.View.FeedItem> items_;
     /**
      * <code>repeated .FeedItem items = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<sjtu.opennet.textilepb.View.FeedItem> getItemsList() {
       return items_;
     }
     /**
      * <code>repeated .FeedItem items = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends sjtu.opennet.textilepb.View.FeedItemOrBuilder> 
         getItemsOrBuilderList() {
       return items_;
@@ -10650,18 +11126,21 @@ public final class View {
     /**
      * <code>repeated .FeedItem items = 1;</code>
      */
+    @java.lang.Override
     public int getItemsCount() {
       return items_.size();
     }
     /**
      * <code>repeated .FeedItem items = 1;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.View.FeedItem getItems(int index) {
       return items_.get(index);
     }
     /**
      * <code>repeated .FeedItem items = 1;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.View.FeedItemOrBuilder getItemsOrBuilder(
         int index) {
       return items_.get(index);
@@ -10671,7 +11150,9 @@ public final class View {
     private int count_;
     /**
      * <code>int32 count = 2;</code>
+     * @return The count.
      */
+    @java.lang.Override
     public int getCount() {
       return count_;
     }
@@ -10680,7 +11161,9 @@ public final class View {
     private volatile java.lang.Object next_;
     /**
      * <code>string next = 3;</code>
+     * @return The next.
      */
+    @java.lang.Override
     public java.lang.String getNext() {
       java.lang.Object ref = next_;
       if (ref instanceof java.lang.String) {
@@ -10695,7 +11178,9 @@ public final class View {
     }
     /**
      * <code>string next = 3;</code>
+     * @return The bytes for next.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getNextBytes() {
       java.lang.Object ref = next_;
@@ -10768,15 +11253,14 @@ public final class View {
       }
       sjtu.opennet.textilepb.View.FeedItemList other = (sjtu.opennet.textilepb.View.FeedItemList) obj;
 
-      boolean result = true;
-      result = result && getItemsList()
-          .equals(other.getItemsList());
-      result = result && (getCount()
-          == other.getCount());
-      result = result && getNext()
-          .equals(other.getNext());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getItemsList()
+          .equals(other.getItemsList())) return false;
+      if (getCount()
+          != other.getCount()) return false;
+      if (!getNext()
+          .equals(other.getNext())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -10965,9 +11449,8 @@ public final class View {
       public sjtu.opennet.textilepb.View.FeedItemList buildPartial() {
         sjtu.opennet.textilepb.View.FeedItemList result = new sjtu.opennet.textilepb.View.FeedItemList(this);
         int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
         if (itemsBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) == 0x00000001)) {
+          if (((bitField0_ & 0x00000001) != 0)) {
             items_ = java.util.Collections.unmodifiableList(items_);
             bitField0_ = (bitField0_ & ~0x00000001);
           }
@@ -10977,42 +11460,41 @@ public final class View {
         }
         result.count_ = count_;
         result.next_ = next_;
-        result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -11092,7 +11574,7 @@ public final class View {
       private java.util.List<sjtu.opennet.textilepb.View.FeedItem> items_ =
         java.util.Collections.emptyList();
       private void ensureItemsIsMutable() {
-        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+        if (!((bitField0_ & 0x00000001) != 0)) {
           items_ = new java.util.ArrayList<sjtu.opennet.textilepb.View.FeedItem>(items_);
           bitField0_ |= 0x00000001;
          }
@@ -11321,7 +11803,7 @@ public final class View {
           itemsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
               sjtu.opennet.textilepb.View.FeedItem, sjtu.opennet.textilepb.View.FeedItem.Builder, sjtu.opennet.textilepb.View.FeedItemOrBuilder>(
                   items_,
-                  ((bitField0_ & 0x00000001) == 0x00000001),
+                  ((bitField0_ & 0x00000001) != 0),
                   getParentForChildren(),
                   isClean());
           items_ = null;
@@ -11332,12 +11814,16 @@ public final class View {
       private int count_ ;
       /**
        * <code>int32 count = 2;</code>
+       * @return The count.
        */
+      @java.lang.Override
       public int getCount() {
         return count_;
       }
       /**
        * <code>int32 count = 2;</code>
+       * @param value The count to set.
+       * @return This builder for chaining.
        */
       public Builder setCount(int value) {
         
@@ -11347,6 +11833,7 @@ public final class View {
       }
       /**
        * <code>int32 count = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearCount() {
         
@@ -11358,6 +11845,7 @@ public final class View {
       private java.lang.Object next_ = "";
       /**
        * <code>string next = 3;</code>
+       * @return The next.
        */
       public java.lang.String getNext() {
         java.lang.Object ref = next_;
@@ -11373,6 +11861,7 @@ public final class View {
       }
       /**
        * <code>string next = 3;</code>
+       * @return The bytes for next.
        */
       public com.google.protobuf.ByteString
           getNextBytes() {
@@ -11389,6 +11878,8 @@ public final class View {
       }
       /**
        * <code>string next = 3;</code>
+       * @param value The next to set.
+       * @return This builder for chaining.
        */
       public Builder setNext(
           java.lang.String value) {
@@ -11402,6 +11893,7 @@ public final class View {
       }
       /**
        * <code>string next = 3;</code>
+       * @return This builder for chaining.
        */
       public Builder clearNext() {
         
@@ -11411,6 +11903,8 @@ public final class View {
       }
       /**
        * <code>string next = 3;</code>
+       * @param value The bytes for next to set.
+       * @return This builder for chaining.
        */
       public Builder setNextBytes(
           com.google.protobuf.ByteString value) {
@@ -11426,7 +11920,7 @@ public final class View {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -11482,20 +11976,24 @@ public final class View {
 
     /**
      * <code>string block = 1;</code>
+     * @return The block.
      */
     java.lang.String getBlock();
     /**
      * <code>string block = 1;</code>
+     * @return The bytes for block.
      */
     com.google.protobuf.ByteString
         getBlockBytes();
 
     /**
      * <code>.google.protobuf.Timestamp date = 2;</code>
+     * @return Whether the date field is set.
      */
     boolean hasDate();
     /**
      * <code>.google.protobuf.Timestamp date = 2;</code>
+     * @return The date.
      */
     com.google.protobuf.Timestamp getDate();
     /**
@@ -11505,10 +12003,12 @@ public final class View {
 
     /**
      * <code>.User user = 3;</code>
+     * @return Whether the user field is set.
      */
     boolean hasUser();
     /**
      * <code>.User user = 3;</code>
+     * @return The user.
      */
     sjtu.opennet.textilepb.Model.User getUser();
     /**
@@ -11543,7 +12043,7 @@ public final class View {
   /**
    * Protobuf type {@code Merge}
    */
-  @java.lang.Deprecated public  static final class Merge extends
+  @java.lang.Deprecated public static final class Merge extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:Merge)
       MergeOrBuilder {
@@ -11555,6 +12055,13 @@ public final class View {
     private Merge() {
       block_ = "";
       targets_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new Merge();
     }
 
     @java.lang.Override
@@ -11614,16 +12121,16 @@ public final class View {
               break;
             }
             case 34: {
-              if (!((mutable_bitField0_ & 0x00000008) == 0x00000008)) {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
                 targets_ = new java.util.ArrayList<sjtu.opennet.textilepb.View.FeedItem>();
-                mutable_bitField0_ |= 0x00000008;
+                mutable_bitField0_ |= 0x00000001;
               }
               targets_.add(
                   input.readMessage(sjtu.opennet.textilepb.View.FeedItem.parser(), extensionRegistry));
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -11637,7 +12144,7 @@ public final class View {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000008) == 0x00000008)) {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
           targets_ = java.util.Collections.unmodifiableList(targets_);
         }
         this.unknownFields = unknownFields.build();
@@ -11657,12 +12164,13 @@ public final class View {
               sjtu.opennet.textilepb.View.Merge.class, sjtu.opennet.textilepb.View.Merge.Builder.class);
     }
 
-    private int bitField0_;
     public static final int BLOCK_FIELD_NUMBER = 1;
     private volatile java.lang.Object block_;
     /**
      * <code>string block = 1;</code>
+     * @return The block.
      */
+    @java.lang.Override
     public java.lang.String getBlock() {
       java.lang.Object ref = block_;
       if (ref instanceof java.lang.String) {
@@ -11677,7 +12185,9 @@ public final class View {
     }
     /**
      * <code>string block = 1;</code>
+     * @return The bytes for block.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getBlockBytes() {
       java.lang.Object ref = block_;
@@ -11696,19 +12206,24 @@ public final class View {
     private com.google.protobuf.Timestamp date_;
     /**
      * <code>.google.protobuf.Timestamp date = 2;</code>
+     * @return Whether the date field is set.
      */
+    @java.lang.Override
     public boolean hasDate() {
       return date_ != null;
     }
     /**
      * <code>.google.protobuf.Timestamp date = 2;</code>
+     * @return The date.
      */
+    @java.lang.Override
     public com.google.protobuf.Timestamp getDate() {
       return date_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : date_;
     }
     /**
      * <code>.google.protobuf.Timestamp date = 2;</code>
      */
+    @java.lang.Override
     public com.google.protobuf.TimestampOrBuilder getDateOrBuilder() {
       return getDate();
     }
@@ -11717,19 +12232,24 @@ public final class View {
     private sjtu.opennet.textilepb.Model.User user_;
     /**
      * <code>.User user = 3;</code>
+     * @return Whether the user field is set.
      */
+    @java.lang.Override
     public boolean hasUser() {
       return user_ != null;
     }
     /**
      * <code>.User user = 3;</code>
+     * @return The user.
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.User getUser() {
       return user_ == null ? sjtu.opennet.textilepb.Model.User.getDefaultInstance() : user_;
     }
     /**
      * <code>.User user = 3;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.UserOrBuilder getUserOrBuilder() {
       return getUser();
     }
@@ -11739,12 +12259,14 @@ public final class View {
     /**
      * <code>repeated .FeedItem targets = 4;</code>
      */
+    @java.lang.Override
     public java.util.List<sjtu.opennet.textilepb.View.FeedItem> getTargetsList() {
       return targets_;
     }
     /**
      * <code>repeated .FeedItem targets = 4;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends sjtu.opennet.textilepb.View.FeedItemOrBuilder> 
         getTargetsOrBuilderList() {
       return targets_;
@@ -11752,18 +12274,21 @@ public final class View {
     /**
      * <code>repeated .FeedItem targets = 4;</code>
      */
+    @java.lang.Override
     public int getTargetsCount() {
       return targets_.size();
     }
     /**
      * <code>repeated .FeedItem targets = 4;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.View.FeedItem getTargets(int index) {
       return targets_.get(index);
     }
     /**
      * <code>repeated .FeedItem targets = 4;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.View.FeedItemOrBuilder getTargetsOrBuilder(
         int index) {
       return targets_.get(index);
@@ -11834,23 +12359,22 @@ public final class View {
       }
       sjtu.opennet.textilepb.View.Merge other = (sjtu.opennet.textilepb.View.Merge) obj;
 
-      boolean result = true;
-      result = result && getBlock()
-          .equals(other.getBlock());
-      result = result && (hasDate() == other.hasDate());
+      if (!getBlock()
+          .equals(other.getBlock())) return false;
+      if (hasDate() != other.hasDate()) return false;
       if (hasDate()) {
-        result = result && getDate()
-            .equals(other.getDate());
+        if (!getDate()
+            .equals(other.getDate())) return false;
       }
-      result = result && (hasUser() == other.hasUser());
+      if (hasUser() != other.hasUser()) return false;
       if (hasUser()) {
-        result = result && getUser()
-            .equals(other.getUser());
+        if (!getUser()
+            .equals(other.getUser())) return false;
       }
-      result = result && getTargetsList()
-          .equals(other.getTargetsList());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getTargetsList()
+          .equals(other.getTargetsList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -12024,7 +12548,7 @@ public final class View {
         }
         if (targetsBuilder_ == null) {
           targets_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000008);
+          bitField0_ = (bitField0_ & ~0x00000001);
         } else {
           targetsBuilder_.clear();
         }
@@ -12055,7 +12579,6 @@ public final class View {
       public sjtu.opennet.textilepb.View.Merge buildPartial() {
         sjtu.opennet.textilepb.View.Merge result = new sjtu.opennet.textilepb.View.Merge(this);
         int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
         result.block_ = block_;
         if (dateBuilder_ == null) {
           result.date_ = date_;
@@ -12068,50 +12591,49 @@ public final class View {
           result.user_ = userBuilder_.build();
         }
         if (targetsBuilder_ == null) {
-          if (((bitField0_ & 0x00000008) == 0x00000008)) {
+          if (((bitField0_ & 0x00000001) != 0)) {
             targets_ = java.util.Collections.unmodifiableList(targets_);
-            bitField0_ = (bitField0_ & ~0x00000008);
+            bitField0_ = (bitField0_ & ~0x00000001);
           }
           result.targets_ = targets_;
         } else {
           result.targets_ = targetsBuilder_.build();
         }
-        result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -12139,7 +12661,7 @@ public final class View {
           if (!other.targets_.isEmpty()) {
             if (targets_.isEmpty()) {
               targets_ = other.targets_;
-              bitField0_ = (bitField0_ & ~0x00000008);
+              bitField0_ = (bitField0_ & ~0x00000001);
             } else {
               ensureTargetsIsMutable();
               targets_.addAll(other.targets_);
@@ -12152,7 +12674,7 @@ public final class View {
               targetsBuilder_.dispose();
               targetsBuilder_ = null;
               targets_ = other.targets_;
-              bitField0_ = (bitField0_ & ~0x00000008);
+              bitField0_ = (bitField0_ & ~0x00000001);
               targetsBuilder_ = 
                 com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
                    getTargetsFieldBuilder() : null;
@@ -12194,6 +12716,7 @@ public final class View {
       private java.lang.Object block_ = "";
       /**
        * <code>string block = 1;</code>
+       * @return The block.
        */
       public java.lang.String getBlock() {
         java.lang.Object ref = block_;
@@ -12209,6 +12732,7 @@ public final class View {
       }
       /**
        * <code>string block = 1;</code>
+       * @return The bytes for block.
        */
       public com.google.protobuf.ByteString
           getBlockBytes() {
@@ -12225,6 +12749,8 @@ public final class View {
       }
       /**
        * <code>string block = 1;</code>
+       * @param value The block to set.
+       * @return This builder for chaining.
        */
       public Builder setBlock(
           java.lang.String value) {
@@ -12238,6 +12764,7 @@ public final class View {
       }
       /**
        * <code>string block = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearBlock() {
         
@@ -12247,6 +12774,8 @@ public final class View {
       }
       /**
        * <code>string block = 1;</code>
+       * @param value The bytes for block to set.
+       * @return This builder for chaining.
        */
       public Builder setBlockBytes(
           com.google.protobuf.ByteString value) {
@@ -12260,17 +12789,19 @@ public final class View {
         return this;
       }
 
-      private com.google.protobuf.Timestamp date_ = null;
+      private com.google.protobuf.Timestamp date_;
       private com.google.protobuf.SingleFieldBuilderV3<
           com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> dateBuilder_;
       /**
        * <code>.google.protobuf.Timestamp date = 2;</code>
+       * @return Whether the date field is set.
        */
       public boolean hasDate() {
         return dateBuilder_ != null || date_ != null;
       }
       /**
        * <code>.google.protobuf.Timestamp date = 2;</code>
+       * @return The date.
        */
       public com.google.protobuf.Timestamp getDate() {
         if (dateBuilder_ == null) {
@@ -12377,17 +12908,19 @@ public final class View {
         return dateBuilder_;
       }
 
-      private sjtu.opennet.textilepb.Model.User user_ = null;
+      private sjtu.opennet.textilepb.Model.User user_;
       private com.google.protobuf.SingleFieldBuilderV3<
           sjtu.opennet.textilepb.Model.User, sjtu.opennet.textilepb.Model.User.Builder, sjtu.opennet.textilepb.Model.UserOrBuilder> userBuilder_;
       /**
        * <code>.User user = 3;</code>
+       * @return Whether the user field is set.
        */
       public boolean hasUser() {
         return userBuilder_ != null || user_ != null;
       }
       /**
        * <code>.User user = 3;</code>
+       * @return The user.
        */
       public sjtu.opennet.textilepb.Model.User getUser() {
         if (userBuilder_ == null) {
@@ -12497,9 +13030,9 @@ public final class View {
       private java.util.List<sjtu.opennet.textilepb.View.FeedItem> targets_ =
         java.util.Collections.emptyList();
       private void ensureTargetsIsMutable() {
-        if (!((bitField0_ & 0x00000008) == 0x00000008)) {
+        if (!((bitField0_ & 0x00000001) != 0)) {
           targets_ = new java.util.ArrayList<sjtu.opennet.textilepb.View.FeedItem>(targets_);
-          bitField0_ |= 0x00000008;
+          bitField0_ |= 0x00000001;
          }
       }
 
@@ -12649,7 +13182,7 @@ public final class View {
       public Builder clearTargets() {
         if (targetsBuilder_ == null) {
           targets_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000008);
+          bitField0_ = (bitField0_ & ~0x00000001);
           onChanged();
         } else {
           targetsBuilder_.clear();
@@ -12726,7 +13259,7 @@ public final class View {
           targetsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
               sjtu.opennet.textilepb.View.FeedItem, sjtu.opennet.textilepb.View.FeedItem.Builder, sjtu.opennet.textilepb.View.FeedItemOrBuilder>(
                   targets_,
-                  ((bitField0_ & 0x00000008) == 0x00000008),
+                  ((bitField0_ & 0x00000001) != 0),
                   getParentForChildren(),
                   isClean());
           targets_ = null;
@@ -12736,7 +13269,7 @@ public final class View {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -12792,20 +13325,24 @@ public final class View {
 
     /**
      * <code>string block = 1;</code>
+     * @return The block.
      */
     java.lang.String getBlock();
     /**
      * <code>string block = 1;</code>
+     * @return The bytes for block.
      */
     com.google.protobuf.ByteString
         getBlockBytes();
 
     /**
      * <code>.google.protobuf.Timestamp date = 2;</code>
+     * @return Whether the date field is set.
      */
     boolean hasDate();
     /**
      * <code>.google.protobuf.Timestamp date = 2;</code>
+     * @return The date.
      */
     com.google.protobuf.Timestamp getDate();
     /**
@@ -12815,10 +13352,12 @@ public final class View {
 
     /**
      * <code>.User user = 3;</code>
+     * @return Whether the user field is set.
      */
     boolean hasUser();
     /**
      * <code>.User user = 3;</code>
+     * @return The user.
      */
     sjtu.opennet.textilepb.Model.User getUser();
     /**
@@ -12828,10 +13367,12 @@ public final class View {
 
     /**
      * <code>.FeedItem target = 4;</code>
+     * @return Whether the target field is set.
      */
     boolean hasTarget();
     /**
      * <code>.FeedItem target = 4;</code>
+     * @return The target.
      */
     sjtu.opennet.textilepb.View.FeedItem getTarget();
     /**
@@ -12842,7 +13383,7 @@ public final class View {
   /**
    * Protobuf type {@code Ignore}
    */
-  public  static final class Ignore extends
+  public static final class Ignore extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:Ignore)
       IgnoreOrBuilder {
@@ -12853,6 +13394,13 @@ public final class View {
     }
     private Ignore() {
       block_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new Ignore();
     }
 
     @java.lang.Override
@@ -12868,7 +13416,6 @@ public final class View {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -12925,7 +13472,7 @@ public final class View {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -12960,7 +13507,9 @@ public final class View {
     private volatile java.lang.Object block_;
     /**
      * <code>string block = 1;</code>
+     * @return The block.
      */
+    @java.lang.Override
     public java.lang.String getBlock() {
       java.lang.Object ref = block_;
       if (ref instanceof java.lang.String) {
@@ -12975,7 +13524,9 @@ public final class View {
     }
     /**
      * <code>string block = 1;</code>
+     * @return The bytes for block.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getBlockBytes() {
       java.lang.Object ref = block_;
@@ -12994,19 +13545,24 @@ public final class View {
     private com.google.protobuf.Timestamp date_;
     /**
      * <code>.google.protobuf.Timestamp date = 2;</code>
+     * @return Whether the date field is set.
      */
+    @java.lang.Override
     public boolean hasDate() {
       return date_ != null;
     }
     /**
      * <code>.google.protobuf.Timestamp date = 2;</code>
+     * @return The date.
      */
+    @java.lang.Override
     public com.google.protobuf.Timestamp getDate() {
       return date_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : date_;
     }
     /**
      * <code>.google.protobuf.Timestamp date = 2;</code>
      */
+    @java.lang.Override
     public com.google.protobuf.TimestampOrBuilder getDateOrBuilder() {
       return getDate();
     }
@@ -13015,19 +13571,24 @@ public final class View {
     private sjtu.opennet.textilepb.Model.User user_;
     /**
      * <code>.User user = 3;</code>
+     * @return Whether the user field is set.
      */
+    @java.lang.Override
     public boolean hasUser() {
       return user_ != null;
     }
     /**
      * <code>.User user = 3;</code>
+     * @return The user.
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.User getUser() {
       return user_ == null ? sjtu.opennet.textilepb.Model.User.getDefaultInstance() : user_;
     }
     /**
      * <code>.User user = 3;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.UserOrBuilder getUserOrBuilder() {
       return getUser();
     }
@@ -13036,19 +13597,24 @@ public final class View {
     private sjtu.opennet.textilepb.View.FeedItem target_;
     /**
      * <code>.FeedItem target = 4;</code>
+     * @return Whether the target field is set.
      */
+    @java.lang.Override
     public boolean hasTarget() {
       return target_ != null;
     }
     /**
      * <code>.FeedItem target = 4;</code>
+     * @return The target.
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.View.FeedItem getTarget() {
       return target_ == null ? sjtu.opennet.textilepb.View.FeedItem.getDefaultInstance() : target_;
     }
     /**
      * <code>.FeedItem target = 4;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.View.FeedItemOrBuilder getTargetOrBuilder() {
       return getTarget();
     }
@@ -13118,26 +13684,25 @@ public final class View {
       }
       sjtu.opennet.textilepb.View.Ignore other = (sjtu.opennet.textilepb.View.Ignore) obj;
 
-      boolean result = true;
-      result = result && getBlock()
-          .equals(other.getBlock());
-      result = result && (hasDate() == other.hasDate());
+      if (!getBlock()
+          .equals(other.getBlock())) return false;
+      if (hasDate() != other.hasDate()) return false;
       if (hasDate()) {
-        result = result && getDate()
-            .equals(other.getDate());
+        if (!getDate()
+            .equals(other.getDate())) return false;
       }
-      result = result && (hasUser() == other.hasUser());
+      if (hasUser() != other.hasUser()) return false;
       if (hasUser()) {
-        result = result && getUser()
-            .equals(other.getUser());
+        if (!getUser()
+            .equals(other.getUser())) return false;
       }
-      result = result && (hasTarget() == other.hasTarget());
+      if (hasTarget() != other.hasTarget()) return false;
       if (hasTarget()) {
-        result = result && getTarget()
-            .equals(other.getTarget());
+        if (!getTarget()
+            .equals(other.getTarget())) return false;
       }
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -13362,35 +13927,35 @@ public final class View {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -13449,6 +14014,7 @@ public final class View {
       private java.lang.Object block_ = "";
       /**
        * <code>string block = 1;</code>
+       * @return The block.
        */
       public java.lang.String getBlock() {
         java.lang.Object ref = block_;
@@ -13464,6 +14030,7 @@ public final class View {
       }
       /**
        * <code>string block = 1;</code>
+       * @return The bytes for block.
        */
       public com.google.protobuf.ByteString
           getBlockBytes() {
@@ -13480,6 +14047,8 @@ public final class View {
       }
       /**
        * <code>string block = 1;</code>
+       * @param value The block to set.
+       * @return This builder for chaining.
        */
       public Builder setBlock(
           java.lang.String value) {
@@ -13493,6 +14062,7 @@ public final class View {
       }
       /**
        * <code>string block = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearBlock() {
         
@@ -13502,6 +14072,8 @@ public final class View {
       }
       /**
        * <code>string block = 1;</code>
+       * @param value The bytes for block to set.
+       * @return This builder for chaining.
        */
       public Builder setBlockBytes(
           com.google.protobuf.ByteString value) {
@@ -13515,17 +14087,19 @@ public final class View {
         return this;
       }
 
-      private com.google.protobuf.Timestamp date_ = null;
+      private com.google.protobuf.Timestamp date_;
       private com.google.protobuf.SingleFieldBuilderV3<
           com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> dateBuilder_;
       /**
        * <code>.google.protobuf.Timestamp date = 2;</code>
+       * @return Whether the date field is set.
        */
       public boolean hasDate() {
         return dateBuilder_ != null || date_ != null;
       }
       /**
        * <code>.google.protobuf.Timestamp date = 2;</code>
+       * @return The date.
        */
       public com.google.protobuf.Timestamp getDate() {
         if (dateBuilder_ == null) {
@@ -13632,17 +14206,19 @@ public final class View {
         return dateBuilder_;
       }
 
-      private sjtu.opennet.textilepb.Model.User user_ = null;
+      private sjtu.opennet.textilepb.Model.User user_;
       private com.google.protobuf.SingleFieldBuilderV3<
           sjtu.opennet.textilepb.Model.User, sjtu.opennet.textilepb.Model.User.Builder, sjtu.opennet.textilepb.Model.UserOrBuilder> userBuilder_;
       /**
        * <code>.User user = 3;</code>
+       * @return Whether the user field is set.
        */
       public boolean hasUser() {
         return userBuilder_ != null || user_ != null;
       }
       /**
        * <code>.User user = 3;</code>
+       * @return The user.
        */
       public sjtu.opennet.textilepb.Model.User getUser() {
         if (userBuilder_ == null) {
@@ -13749,17 +14325,19 @@ public final class View {
         return userBuilder_;
       }
 
-      private sjtu.opennet.textilepb.View.FeedItem target_ = null;
+      private sjtu.opennet.textilepb.View.FeedItem target_;
       private com.google.protobuf.SingleFieldBuilderV3<
           sjtu.opennet.textilepb.View.FeedItem, sjtu.opennet.textilepb.View.FeedItem.Builder, sjtu.opennet.textilepb.View.FeedItemOrBuilder> targetBuilder_;
       /**
        * <code>.FeedItem target = 4;</code>
+       * @return Whether the target field is set.
        */
       public boolean hasTarget() {
         return targetBuilder_ != null || target_ != null;
       }
       /**
        * <code>.FeedItem target = 4;</code>
+       * @return The target.
        */
       public sjtu.opennet.textilepb.View.FeedItem getTarget() {
         if (targetBuilder_ == null) {
@@ -13868,7 +14446,7 @@ public final class View {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -13924,20 +14502,24 @@ public final class View {
 
     /**
      * <code>string block = 1;</code>
+     * @return The block.
      */
     java.lang.String getBlock();
     /**
      * <code>string block = 1;</code>
+     * @return The bytes for block.
      */
     com.google.protobuf.ByteString
         getBlockBytes();
 
     /**
      * <code>.google.protobuf.Timestamp date = 2;</code>
+     * @return Whether the date field is set.
      */
     boolean hasDate();
     /**
      * <code>.google.protobuf.Timestamp date = 2;</code>
+     * @return The date.
      */
     com.google.protobuf.Timestamp getDate();
     /**
@@ -13947,10 +14529,12 @@ public final class View {
 
     /**
      * <code>.User user = 3;</code>
+     * @return Whether the user field is set.
      */
     boolean hasUser();
     /**
      * <code>.User user = 3;</code>
+     * @return The user.
      */
     sjtu.opennet.textilepb.Model.User getUser();
     /**
@@ -13960,10 +14544,12 @@ public final class View {
 
     /**
      * <code>.FeedItem target = 4;</code>
+     * @return Whether the target field is set.
      */
     boolean hasTarget();
     /**
      * <code>.FeedItem target = 4;</code>
+     * @return The target.
      */
     sjtu.opennet.textilepb.View.FeedItem getTarget();
     /**
@@ -13974,7 +14560,7 @@ public final class View {
   /**
    * Protobuf type {@code Flag}
    */
-  public  static final class Flag extends
+  public static final class Flag extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:Flag)
       FlagOrBuilder {
@@ -13985,6 +14571,13 @@ public final class View {
     }
     private Flag() {
       block_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new Flag();
     }
 
     @java.lang.Override
@@ -14000,7 +14593,6 @@ public final class View {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -14057,7 +14649,7 @@ public final class View {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -14092,7 +14684,9 @@ public final class View {
     private volatile java.lang.Object block_;
     /**
      * <code>string block = 1;</code>
+     * @return The block.
      */
+    @java.lang.Override
     public java.lang.String getBlock() {
       java.lang.Object ref = block_;
       if (ref instanceof java.lang.String) {
@@ -14107,7 +14701,9 @@ public final class View {
     }
     /**
      * <code>string block = 1;</code>
+     * @return The bytes for block.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getBlockBytes() {
       java.lang.Object ref = block_;
@@ -14126,19 +14722,24 @@ public final class View {
     private com.google.protobuf.Timestamp date_;
     /**
      * <code>.google.protobuf.Timestamp date = 2;</code>
+     * @return Whether the date field is set.
      */
+    @java.lang.Override
     public boolean hasDate() {
       return date_ != null;
     }
     /**
      * <code>.google.protobuf.Timestamp date = 2;</code>
+     * @return The date.
      */
+    @java.lang.Override
     public com.google.protobuf.Timestamp getDate() {
       return date_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : date_;
     }
     /**
      * <code>.google.protobuf.Timestamp date = 2;</code>
      */
+    @java.lang.Override
     public com.google.protobuf.TimestampOrBuilder getDateOrBuilder() {
       return getDate();
     }
@@ -14147,19 +14748,24 @@ public final class View {
     private sjtu.opennet.textilepb.Model.User user_;
     /**
      * <code>.User user = 3;</code>
+     * @return Whether the user field is set.
      */
+    @java.lang.Override
     public boolean hasUser() {
       return user_ != null;
     }
     /**
      * <code>.User user = 3;</code>
+     * @return The user.
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.User getUser() {
       return user_ == null ? sjtu.opennet.textilepb.Model.User.getDefaultInstance() : user_;
     }
     /**
      * <code>.User user = 3;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.UserOrBuilder getUserOrBuilder() {
       return getUser();
     }
@@ -14168,19 +14774,24 @@ public final class View {
     private sjtu.opennet.textilepb.View.FeedItem target_;
     /**
      * <code>.FeedItem target = 4;</code>
+     * @return Whether the target field is set.
      */
+    @java.lang.Override
     public boolean hasTarget() {
       return target_ != null;
     }
     /**
      * <code>.FeedItem target = 4;</code>
+     * @return The target.
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.View.FeedItem getTarget() {
       return target_ == null ? sjtu.opennet.textilepb.View.FeedItem.getDefaultInstance() : target_;
     }
     /**
      * <code>.FeedItem target = 4;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.View.FeedItemOrBuilder getTargetOrBuilder() {
       return getTarget();
     }
@@ -14250,26 +14861,25 @@ public final class View {
       }
       sjtu.opennet.textilepb.View.Flag other = (sjtu.opennet.textilepb.View.Flag) obj;
 
-      boolean result = true;
-      result = result && getBlock()
-          .equals(other.getBlock());
-      result = result && (hasDate() == other.hasDate());
+      if (!getBlock()
+          .equals(other.getBlock())) return false;
+      if (hasDate() != other.hasDate()) return false;
       if (hasDate()) {
-        result = result && getDate()
-            .equals(other.getDate());
+        if (!getDate()
+            .equals(other.getDate())) return false;
       }
-      result = result && (hasUser() == other.hasUser());
+      if (hasUser() != other.hasUser()) return false;
       if (hasUser()) {
-        result = result && getUser()
-            .equals(other.getUser());
+        if (!getUser()
+            .equals(other.getUser())) return false;
       }
-      result = result && (hasTarget() == other.hasTarget());
+      if (hasTarget() != other.hasTarget()) return false;
       if (hasTarget()) {
-        result = result && getTarget()
-            .equals(other.getTarget());
+        if (!getTarget()
+            .equals(other.getTarget())) return false;
       }
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -14494,35 +15104,35 @@ public final class View {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -14581,6 +15191,7 @@ public final class View {
       private java.lang.Object block_ = "";
       /**
        * <code>string block = 1;</code>
+       * @return The block.
        */
       public java.lang.String getBlock() {
         java.lang.Object ref = block_;
@@ -14596,6 +15207,7 @@ public final class View {
       }
       /**
        * <code>string block = 1;</code>
+       * @return The bytes for block.
        */
       public com.google.protobuf.ByteString
           getBlockBytes() {
@@ -14612,6 +15224,8 @@ public final class View {
       }
       /**
        * <code>string block = 1;</code>
+       * @param value The block to set.
+       * @return This builder for chaining.
        */
       public Builder setBlock(
           java.lang.String value) {
@@ -14625,6 +15239,7 @@ public final class View {
       }
       /**
        * <code>string block = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearBlock() {
         
@@ -14634,6 +15249,8 @@ public final class View {
       }
       /**
        * <code>string block = 1;</code>
+       * @param value The bytes for block to set.
+       * @return This builder for chaining.
        */
       public Builder setBlockBytes(
           com.google.protobuf.ByteString value) {
@@ -14647,17 +15264,19 @@ public final class View {
         return this;
       }
 
-      private com.google.protobuf.Timestamp date_ = null;
+      private com.google.protobuf.Timestamp date_;
       private com.google.protobuf.SingleFieldBuilderV3<
           com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> dateBuilder_;
       /**
        * <code>.google.protobuf.Timestamp date = 2;</code>
+       * @return Whether the date field is set.
        */
       public boolean hasDate() {
         return dateBuilder_ != null || date_ != null;
       }
       /**
        * <code>.google.protobuf.Timestamp date = 2;</code>
+       * @return The date.
        */
       public com.google.protobuf.Timestamp getDate() {
         if (dateBuilder_ == null) {
@@ -14764,17 +15383,19 @@ public final class View {
         return dateBuilder_;
       }
 
-      private sjtu.opennet.textilepb.Model.User user_ = null;
+      private sjtu.opennet.textilepb.Model.User user_;
       private com.google.protobuf.SingleFieldBuilderV3<
           sjtu.opennet.textilepb.Model.User, sjtu.opennet.textilepb.Model.User.Builder, sjtu.opennet.textilepb.Model.UserOrBuilder> userBuilder_;
       /**
        * <code>.User user = 3;</code>
+       * @return Whether the user field is set.
        */
       public boolean hasUser() {
         return userBuilder_ != null || user_ != null;
       }
       /**
        * <code>.User user = 3;</code>
+       * @return The user.
        */
       public sjtu.opennet.textilepb.Model.User getUser() {
         if (userBuilder_ == null) {
@@ -14881,17 +15502,19 @@ public final class View {
         return userBuilder_;
       }
 
-      private sjtu.opennet.textilepb.View.FeedItem target_ = null;
+      private sjtu.opennet.textilepb.View.FeedItem target_;
       private com.google.protobuf.SingleFieldBuilderV3<
           sjtu.opennet.textilepb.View.FeedItem, sjtu.opennet.textilepb.View.FeedItem.Builder, sjtu.opennet.textilepb.View.FeedItemOrBuilder> targetBuilder_;
       /**
        * <code>.FeedItem target = 4;</code>
+       * @return Whether the target field is set.
        */
       public boolean hasTarget() {
         return targetBuilder_ != null || target_ != null;
       }
       /**
        * <code>.FeedItem target = 4;</code>
+       * @return The target.
        */
       public sjtu.opennet.textilepb.View.FeedItem getTarget() {
         if (targetBuilder_ == null) {
@@ -15000,7 +15623,7 @@ public final class View {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -15056,20 +15679,24 @@ public final class View {
 
     /**
      * <code>string block = 1;</code>
+     * @return The block.
      */
     java.lang.String getBlock();
     /**
      * <code>string block = 1;</code>
+     * @return The bytes for block.
      */
     com.google.protobuf.ByteString
         getBlockBytes();
 
     /**
      * <code>.google.protobuf.Timestamp date = 2;</code>
+     * @return Whether the date field is set.
      */
     boolean hasDate();
     /**
      * <code>.google.protobuf.Timestamp date = 2;</code>
+     * @return The date.
      */
     com.google.protobuf.Timestamp getDate();
     /**
@@ -15079,10 +15706,12 @@ public final class View {
 
     /**
      * <code>.User user = 3;</code>
+     * @return Whether the user field is set.
      */
     boolean hasUser();
     /**
      * <code>.User user = 3;</code>
+     * @return The user.
      */
     sjtu.opennet.textilepb.Model.User getUser();
     /**
@@ -15117,7 +15746,7 @@ public final class View {
   /**
    * Protobuf type {@code Join}
    */
-  public  static final class Join extends
+  public static final class Join extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:Join)
       JoinOrBuilder {
@@ -15129,6 +15758,13 @@ public final class View {
     private Join() {
       block_ = "";
       likes_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new Join();
     }
 
     @java.lang.Override
@@ -15188,16 +15824,16 @@ public final class View {
               break;
             }
             case 34: {
-              if (!((mutable_bitField0_ & 0x00000008) == 0x00000008)) {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
                 likes_ = new java.util.ArrayList<sjtu.opennet.textilepb.View.Like>();
-                mutable_bitField0_ |= 0x00000008;
+                mutable_bitField0_ |= 0x00000001;
               }
               likes_.add(
                   input.readMessage(sjtu.opennet.textilepb.View.Like.parser(), extensionRegistry));
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -15211,7 +15847,7 @@ public final class View {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000008) == 0x00000008)) {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
           likes_ = java.util.Collections.unmodifiableList(likes_);
         }
         this.unknownFields = unknownFields.build();
@@ -15231,12 +15867,13 @@ public final class View {
               sjtu.opennet.textilepb.View.Join.class, sjtu.opennet.textilepb.View.Join.Builder.class);
     }
 
-    private int bitField0_;
     public static final int BLOCK_FIELD_NUMBER = 1;
     private volatile java.lang.Object block_;
     /**
      * <code>string block = 1;</code>
+     * @return The block.
      */
+    @java.lang.Override
     public java.lang.String getBlock() {
       java.lang.Object ref = block_;
       if (ref instanceof java.lang.String) {
@@ -15251,7 +15888,9 @@ public final class View {
     }
     /**
      * <code>string block = 1;</code>
+     * @return The bytes for block.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getBlockBytes() {
       java.lang.Object ref = block_;
@@ -15270,19 +15909,24 @@ public final class View {
     private com.google.protobuf.Timestamp date_;
     /**
      * <code>.google.protobuf.Timestamp date = 2;</code>
+     * @return Whether the date field is set.
      */
+    @java.lang.Override
     public boolean hasDate() {
       return date_ != null;
     }
     /**
      * <code>.google.protobuf.Timestamp date = 2;</code>
+     * @return The date.
      */
+    @java.lang.Override
     public com.google.protobuf.Timestamp getDate() {
       return date_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : date_;
     }
     /**
      * <code>.google.protobuf.Timestamp date = 2;</code>
      */
+    @java.lang.Override
     public com.google.protobuf.TimestampOrBuilder getDateOrBuilder() {
       return getDate();
     }
@@ -15291,19 +15935,24 @@ public final class View {
     private sjtu.opennet.textilepb.Model.User user_;
     /**
      * <code>.User user = 3;</code>
+     * @return Whether the user field is set.
      */
+    @java.lang.Override
     public boolean hasUser() {
       return user_ != null;
     }
     /**
      * <code>.User user = 3;</code>
+     * @return The user.
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.User getUser() {
       return user_ == null ? sjtu.opennet.textilepb.Model.User.getDefaultInstance() : user_;
     }
     /**
      * <code>.User user = 3;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.UserOrBuilder getUserOrBuilder() {
       return getUser();
     }
@@ -15313,12 +15962,14 @@ public final class View {
     /**
      * <code>repeated .Like likes = 4;</code>
      */
+    @java.lang.Override
     public java.util.List<sjtu.opennet.textilepb.View.Like> getLikesList() {
       return likes_;
     }
     /**
      * <code>repeated .Like likes = 4;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends sjtu.opennet.textilepb.View.LikeOrBuilder> 
         getLikesOrBuilderList() {
       return likes_;
@@ -15326,18 +15977,21 @@ public final class View {
     /**
      * <code>repeated .Like likes = 4;</code>
      */
+    @java.lang.Override
     public int getLikesCount() {
       return likes_.size();
     }
     /**
      * <code>repeated .Like likes = 4;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.View.Like getLikes(int index) {
       return likes_.get(index);
     }
     /**
      * <code>repeated .Like likes = 4;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.View.LikeOrBuilder getLikesOrBuilder(
         int index) {
       return likes_.get(index);
@@ -15408,23 +16062,22 @@ public final class View {
       }
       sjtu.opennet.textilepb.View.Join other = (sjtu.opennet.textilepb.View.Join) obj;
 
-      boolean result = true;
-      result = result && getBlock()
-          .equals(other.getBlock());
-      result = result && (hasDate() == other.hasDate());
+      if (!getBlock()
+          .equals(other.getBlock())) return false;
+      if (hasDate() != other.hasDate()) return false;
       if (hasDate()) {
-        result = result && getDate()
-            .equals(other.getDate());
+        if (!getDate()
+            .equals(other.getDate())) return false;
       }
-      result = result && (hasUser() == other.hasUser());
+      if (hasUser() != other.hasUser()) return false;
       if (hasUser()) {
-        result = result && getUser()
-            .equals(other.getUser());
+        if (!getUser()
+            .equals(other.getUser())) return false;
       }
-      result = result && getLikesList()
-          .equals(other.getLikesList());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getLikesList()
+          .equals(other.getLikesList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -15598,7 +16251,7 @@ public final class View {
         }
         if (likesBuilder_ == null) {
           likes_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000008);
+          bitField0_ = (bitField0_ & ~0x00000001);
         } else {
           likesBuilder_.clear();
         }
@@ -15629,7 +16282,6 @@ public final class View {
       public sjtu.opennet.textilepb.View.Join buildPartial() {
         sjtu.opennet.textilepb.View.Join result = new sjtu.opennet.textilepb.View.Join(this);
         int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
         result.block_ = block_;
         if (dateBuilder_ == null) {
           result.date_ = date_;
@@ -15642,50 +16294,49 @@ public final class View {
           result.user_ = userBuilder_.build();
         }
         if (likesBuilder_ == null) {
-          if (((bitField0_ & 0x00000008) == 0x00000008)) {
+          if (((bitField0_ & 0x00000001) != 0)) {
             likes_ = java.util.Collections.unmodifiableList(likes_);
-            bitField0_ = (bitField0_ & ~0x00000008);
+            bitField0_ = (bitField0_ & ~0x00000001);
           }
           result.likes_ = likes_;
         } else {
           result.likes_ = likesBuilder_.build();
         }
-        result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -15713,7 +16364,7 @@ public final class View {
           if (!other.likes_.isEmpty()) {
             if (likes_.isEmpty()) {
               likes_ = other.likes_;
-              bitField0_ = (bitField0_ & ~0x00000008);
+              bitField0_ = (bitField0_ & ~0x00000001);
             } else {
               ensureLikesIsMutable();
               likes_.addAll(other.likes_);
@@ -15726,7 +16377,7 @@ public final class View {
               likesBuilder_.dispose();
               likesBuilder_ = null;
               likes_ = other.likes_;
-              bitField0_ = (bitField0_ & ~0x00000008);
+              bitField0_ = (bitField0_ & ~0x00000001);
               likesBuilder_ = 
                 com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
                    getLikesFieldBuilder() : null;
@@ -15768,6 +16419,7 @@ public final class View {
       private java.lang.Object block_ = "";
       /**
        * <code>string block = 1;</code>
+       * @return The block.
        */
       public java.lang.String getBlock() {
         java.lang.Object ref = block_;
@@ -15783,6 +16435,7 @@ public final class View {
       }
       /**
        * <code>string block = 1;</code>
+       * @return The bytes for block.
        */
       public com.google.protobuf.ByteString
           getBlockBytes() {
@@ -15799,6 +16452,8 @@ public final class View {
       }
       /**
        * <code>string block = 1;</code>
+       * @param value The block to set.
+       * @return This builder for chaining.
        */
       public Builder setBlock(
           java.lang.String value) {
@@ -15812,6 +16467,7 @@ public final class View {
       }
       /**
        * <code>string block = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearBlock() {
         
@@ -15821,6 +16477,8 @@ public final class View {
       }
       /**
        * <code>string block = 1;</code>
+       * @param value The bytes for block to set.
+       * @return This builder for chaining.
        */
       public Builder setBlockBytes(
           com.google.protobuf.ByteString value) {
@@ -15834,17 +16492,19 @@ public final class View {
         return this;
       }
 
-      private com.google.protobuf.Timestamp date_ = null;
+      private com.google.protobuf.Timestamp date_;
       private com.google.protobuf.SingleFieldBuilderV3<
           com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> dateBuilder_;
       /**
        * <code>.google.protobuf.Timestamp date = 2;</code>
+       * @return Whether the date field is set.
        */
       public boolean hasDate() {
         return dateBuilder_ != null || date_ != null;
       }
       /**
        * <code>.google.protobuf.Timestamp date = 2;</code>
+       * @return The date.
        */
       public com.google.protobuf.Timestamp getDate() {
         if (dateBuilder_ == null) {
@@ -15951,17 +16611,19 @@ public final class View {
         return dateBuilder_;
       }
 
-      private sjtu.opennet.textilepb.Model.User user_ = null;
+      private sjtu.opennet.textilepb.Model.User user_;
       private com.google.protobuf.SingleFieldBuilderV3<
           sjtu.opennet.textilepb.Model.User, sjtu.opennet.textilepb.Model.User.Builder, sjtu.opennet.textilepb.Model.UserOrBuilder> userBuilder_;
       /**
        * <code>.User user = 3;</code>
+       * @return Whether the user field is set.
        */
       public boolean hasUser() {
         return userBuilder_ != null || user_ != null;
       }
       /**
        * <code>.User user = 3;</code>
+       * @return The user.
        */
       public sjtu.opennet.textilepb.Model.User getUser() {
         if (userBuilder_ == null) {
@@ -16071,9 +16733,9 @@ public final class View {
       private java.util.List<sjtu.opennet.textilepb.View.Like> likes_ =
         java.util.Collections.emptyList();
       private void ensureLikesIsMutable() {
-        if (!((bitField0_ & 0x00000008) == 0x00000008)) {
+        if (!((bitField0_ & 0x00000001) != 0)) {
           likes_ = new java.util.ArrayList<sjtu.opennet.textilepb.View.Like>(likes_);
-          bitField0_ |= 0x00000008;
+          bitField0_ |= 0x00000001;
          }
       }
 
@@ -16223,7 +16885,7 @@ public final class View {
       public Builder clearLikes() {
         if (likesBuilder_ == null) {
           likes_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000008);
+          bitField0_ = (bitField0_ & ~0x00000001);
           onChanged();
         } else {
           likesBuilder_.clear();
@@ -16300,7 +16962,7 @@ public final class View {
           likesBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
               sjtu.opennet.textilepb.View.Like, sjtu.opennet.textilepb.View.Like.Builder, sjtu.opennet.textilepb.View.LikeOrBuilder>(
                   likes_,
-                  ((bitField0_ & 0x00000008) == 0x00000008),
+                  ((bitField0_ & 0x00000001) != 0),
                   getParentForChildren(),
                   isClean());
           likes_ = null;
@@ -16310,7 +16972,7 @@ public final class View {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -16366,20 +17028,24 @@ public final class View {
 
     /**
      * <code>string block = 1;</code>
+     * @return The block.
      */
     java.lang.String getBlock();
     /**
      * <code>string block = 1;</code>
+     * @return The bytes for block.
      */
     com.google.protobuf.ByteString
         getBlockBytes();
 
     /**
      * <code>.google.protobuf.Timestamp date = 2;</code>
+     * @return Whether the date field is set.
      */
     boolean hasDate();
     /**
      * <code>.google.protobuf.Timestamp date = 2;</code>
+     * @return The date.
      */
     com.google.protobuf.Timestamp getDate();
     /**
@@ -16389,10 +17055,12 @@ public final class View {
 
     /**
      * <code>.User user = 3;</code>
+     * @return Whether the user field is set.
      */
     boolean hasUser();
     /**
      * <code>.User user = 3;</code>
+     * @return The user.
      */
     sjtu.opennet.textilepb.Model.User getUser();
     /**
@@ -16402,10 +17070,12 @@ public final class View {
 
     /**
      * <code>string target = 4;</code>
+     * @return The target.
      */
     java.lang.String getTarget();
     /**
      * <code>string target = 4;</code>
+     * @return The bytes for target.
      */
     com.google.protobuf.ByteString
         getTargetBytes();
@@ -16413,7 +17083,7 @@ public final class View {
   /**
    * Protobuf type {@code AddAdmin}
    */
-  public  static final class AddAdmin extends
+  public static final class AddAdmin extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:AddAdmin)
       AddAdminOrBuilder {
@@ -16425,6 +17095,13 @@ public final class View {
     private AddAdmin() {
       block_ = "";
       target_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new AddAdmin();
     }
 
     @java.lang.Override
@@ -16440,7 +17117,6 @@ public final class View {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -16490,7 +17166,7 @@ public final class View {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -16525,7 +17201,9 @@ public final class View {
     private volatile java.lang.Object block_;
     /**
      * <code>string block = 1;</code>
+     * @return The block.
      */
+    @java.lang.Override
     public java.lang.String getBlock() {
       java.lang.Object ref = block_;
       if (ref instanceof java.lang.String) {
@@ -16540,7 +17218,9 @@ public final class View {
     }
     /**
      * <code>string block = 1;</code>
+     * @return The bytes for block.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getBlockBytes() {
       java.lang.Object ref = block_;
@@ -16559,19 +17239,24 @@ public final class View {
     private com.google.protobuf.Timestamp date_;
     /**
      * <code>.google.protobuf.Timestamp date = 2;</code>
+     * @return Whether the date field is set.
      */
+    @java.lang.Override
     public boolean hasDate() {
       return date_ != null;
     }
     /**
      * <code>.google.protobuf.Timestamp date = 2;</code>
+     * @return The date.
      */
+    @java.lang.Override
     public com.google.protobuf.Timestamp getDate() {
       return date_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : date_;
     }
     /**
      * <code>.google.protobuf.Timestamp date = 2;</code>
      */
+    @java.lang.Override
     public com.google.protobuf.TimestampOrBuilder getDateOrBuilder() {
       return getDate();
     }
@@ -16580,19 +17265,24 @@ public final class View {
     private sjtu.opennet.textilepb.Model.User user_;
     /**
      * <code>.User user = 3;</code>
+     * @return Whether the user field is set.
      */
+    @java.lang.Override
     public boolean hasUser() {
       return user_ != null;
     }
     /**
      * <code>.User user = 3;</code>
+     * @return The user.
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.User getUser() {
       return user_ == null ? sjtu.opennet.textilepb.Model.User.getDefaultInstance() : user_;
     }
     /**
      * <code>.User user = 3;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.UserOrBuilder getUserOrBuilder() {
       return getUser();
     }
@@ -16601,7 +17291,9 @@ public final class View {
     private volatile java.lang.Object target_;
     /**
      * <code>string target = 4;</code>
+     * @return The target.
      */
+    @java.lang.Override
     public java.lang.String getTarget() {
       java.lang.Object ref = target_;
       if (ref instanceof java.lang.String) {
@@ -16616,7 +17308,9 @@ public final class View {
     }
     /**
      * <code>string target = 4;</code>
+     * @return The bytes for target.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getTargetBytes() {
       java.lang.Object ref = target_;
@@ -16695,23 +17389,22 @@ public final class View {
       }
       sjtu.opennet.textilepb.View.AddAdmin other = (sjtu.opennet.textilepb.View.AddAdmin) obj;
 
-      boolean result = true;
-      result = result && getBlock()
-          .equals(other.getBlock());
-      result = result && (hasDate() == other.hasDate());
+      if (!getBlock()
+          .equals(other.getBlock())) return false;
+      if (hasDate() != other.hasDate()) return false;
       if (hasDate()) {
-        result = result && getDate()
-            .equals(other.getDate());
+        if (!getDate()
+            .equals(other.getDate())) return false;
       }
-      result = result && (hasUser() == other.hasUser());
+      if (hasUser() != other.hasUser()) return false;
       if (hasUser()) {
-        result = result && getUser()
-            .equals(other.getUser());
+        if (!getUser()
+            .equals(other.getUser())) return false;
       }
-      result = result && getTarget()
-          .equals(other.getTarget());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getTarget()
+          .equals(other.getTarget())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -16926,35 +17619,35 @@ public final class View {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -17014,6 +17707,7 @@ public final class View {
       private java.lang.Object block_ = "";
       /**
        * <code>string block = 1;</code>
+       * @return The block.
        */
       public java.lang.String getBlock() {
         java.lang.Object ref = block_;
@@ -17029,6 +17723,7 @@ public final class View {
       }
       /**
        * <code>string block = 1;</code>
+       * @return The bytes for block.
        */
       public com.google.protobuf.ByteString
           getBlockBytes() {
@@ -17045,6 +17740,8 @@ public final class View {
       }
       /**
        * <code>string block = 1;</code>
+       * @param value The block to set.
+       * @return This builder for chaining.
        */
       public Builder setBlock(
           java.lang.String value) {
@@ -17058,6 +17755,7 @@ public final class View {
       }
       /**
        * <code>string block = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearBlock() {
         
@@ -17067,6 +17765,8 @@ public final class View {
       }
       /**
        * <code>string block = 1;</code>
+       * @param value The bytes for block to set.
+       * @return This builder for chaining.
        */
       public Builder setBlockBytes(
           com.google.protobuf.ByteString value) {
@@ -17080,17 +17780,19 @@ public final class View {
         return this;
       }
 
-      private com.google.protobuf.Timestamp date_ = null;
+      private com.google.protobuf.Timestamp date_;
       private com.google.protobuf.SingleFieldBuilderV3<
           com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> dateBuilder_;
       /**
        * <code>.google.protobuf.Timestamp date = 2;</code>
+       * @return Whether the date field is set.
        */
       public boolean hasDate() {
         return dateBuilder_ != null || date_ != null;
       }
       /**
        * <code>.google.protobuf.Timestamp date = 2;</code>
+       * @return The date.
        */
       public com.google.protobuf.Timestamp getDate() {
         if (dateBuilder_ == null) {
@@ -17197,17 +17899,19 @@ public final class View {
         return dateBuilder_;
       }
 
-      private sjtu.opennet.textilepb.Model.User user_ = null;
+      private sjtu.opennet.textilepb.Model.User user_;
       private com.google.protobuf.SingleFieldBuilderV3<
           sjtu.opennet.textilepb.Model.User, sjtu.opennet.textilepb.Model.User.Builder, sjtu.opennet.textilepb.Model.UserOrBuilder> userBuilder_;
       /**
        * <code>.User user = 3;</code>
+       * @return Whether the user field is set.
        */
       public boolean hasUser() {
         return userBuilder_ != null || user_ != null;
       }
       /**
        * <code>.User user = 3;</code>
+       * @return The user.
        */
       public sjtu.opennet.textilepb.Model.User getUser() {
         if (userBuilder_ == null) {
@@ -17317,6 +18021,7 @@ public final class View {
       private java.lang.Object target_ = "";
       /**
        * <code>string target = 4;</code>
+       * @return The target.
        */
       public java.lang.String getTarget() {
         java.lang.Object ref = target_;
@@ -17332,6 +18037,7 @@ public final class View {
       }
       /**
        * <code>string target = 4;</code>
+       * @return The bytes for target.
        */
       public com.google.protobuf.ByteString
           getTargetBytes() {
@@ -17348,6 +18054,8 @@ public final class View {
       }
       /**
        * <code>string target = 4;</code>
+       * @param value The target to set.
+       * @return This builder for chaining.
        */
       public Builder setTarget(
           java.lang.String value) {
@@ -17361,6 +18069,7 @@ public final class View {
       }
       /**
        * <code>string target = 4;</code>
+       * @return This builder for chaining.
        */
       public Builder clearTarget() {
         
@@ -17370,6 +18079,8 @@ public final class View {
       }
       /**
        * <code>string target = 4;</code>
+       * @param value The bytes for target to set.
+       * @return This builder for chaining.
        */
       public Builder setTargetBytes(
           com.google.protobuf.ByteString value) {
@@ -17385,7 +18096,7 @@ public final class View {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -17441,20 +18152,24 @@ public final class View {
 
     /**
      * <code>string block = 1;</code>
+     * @return The block.
      */
     java.lang.String getBlock();
     /**
      * <code>string block = 1;</code>
+     * @return The bytes for block.
      */
     com.google.protobuf.ByteString
         getBlockBytes();
 
     /**
      * <code>.google.protobuf.Timestamp date = 2;</code>
+     * @return Whether the date field is set.
      */
     boolean hasDate();
     /**
      * <code>.google.protobuf.Timestamp date = 2;</code>
+     * @return The date.
      */
     com.google.protobuf.Timestamp getDate();
     /**
@@ -17464,10 +18179,12 @@ public final class View {
 
     /**
      * <code>.User user = 3;</code>
+     * @return Whether the user field is set.
      */
     boolean hasUser();
     /**
      * <code>.User user = 3;</code>
+     * @return The user.
      */
     sjtu.opennet.textilepb.Model.User getUser();
     /**
@@ -17477,10 +18194,12 @@ public final class View {
 
     /**
      * <code>.StreamMeta streammeta = 4;</code>
+     * @return Whether the streammeta field is set.
      */
     boolean hasStreammeta();
     /**
      * <code>.StreamMeta streammeta = 4;</code>
+     * @return The streammeta.
      */
     sjtu.opennet.textilepb.Model.StreamMeta getStreammeta();
     /**
@@ -17491,7 +18210,7 @@ public final class View {
   /**
    * Protobuf type {@code FeedStreamMeta}
    */
-  public  static final class FeedStreamMeta extends
+  public static final class FeedStreamMeta extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:FeedStreamMeta)
       FeedStreamMetaOrBuilder {
@@ -17502,6 +18221,13 @@ public final class View {
     }
     private FeedStreamMeta() {
       block_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new FeedStreamMeta();
     }
 
     @java.lang.Override
@@ -17517,7 +18243,6 @@ public final class View {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -17574,7 +18299,7 @@ public final class View {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -17609,7 +18334,9 @@ public final class View {
     private volatile java.lang.Object block_;
     /**
      * <code>string block = 1;</code>
+     * @return The block.
      */
+    @java.lang.Override
     public java.lang.String getBlock() {
       java.lang.Object ref = block_;
       if (ref instanceof java.lang.String) {
@@ -17624,7 +18351,9 @@ public final class View {
     }
     /**
      * <code>string block = 1;</code>
+     * @return The bytes for block.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getBlockBytes() {
       java.lang.Object ref = block_;
@@ -17643,19 +18372,24 @@ public final class View {
     private com.google.protobuf.Timestamp date_;
     /**
      * <code>.google.protobuf.Timestamp date = 2;</code>
+     * @return Whether the date field is set.
      */
+    @java.lang.Override
     public boolean hasDate() {
       return date_ != null;
     }
     /**
      * <code>.google.protobuf.Timestamp date = 2;</code>
+     * @return The date.
      */
+    @java.lang.Override
     public com.google.protobuf.Timestamp getDate() {
       return date_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : date_;
     }
     /**
      * <code>.google.protobuf.Timestamp date = 2;</code>
      */
+    @java.lang.Override
     public com.google.protobuf.TimestampOrBuilder getDateOrBuilder() {
       return getDate();
     }
@@ -17664,19 +18398,24 @@ public final class View {
     private sjtu.opennet.textilepb.Model.User user_;
     /**
      * <code>.User user = 3;</code>
+     * @return Whether the user field is set.
      */
+    @java.lang.Override
     public boolean hasUser() {
       return user_ != null;
     }
     /**
      * <code>.User user = 3;</code>
+     * @return The user.
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.User getUser() {
       return user_ == null ? sjtu.opennet.textilepb.Model.User.getDefaultInstance() : user_;
     }
     /**
      * <code>.User user = 3;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.UserOrBuilder getUserOrBuilder() {
       return getUser();
     }
@@ -17685,19 +18424,24 @@ public final class View {
     private sjtu.opennet.textilepb.Model.StreamMeta streammeta_;
     /**
      * <code>.StreamMeta streammeta = 4;</code>
+     * @return Whether the streammeta field is set.
      */
+    @java.lang.Override
     public boolean hasStreammeta() {
       return streammeta_ != null;
     }
     /**
      * <code>.StreamMeta streammeta = 4;</code>
+     * @return The streammeta.
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.StreamMeta getStreammeta() {
       return streammeta_ == null ? sjtu.opennet.textilepb.Model.StreamMeta.getDefaultInstance() : streammeta_;
     }
     /**
      * <code>.StreamMeta streammeta = 4;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.StreamMetaOrBuilder getStreammetaOrBuilder() {
       return getStreammeta();
     }
@@ -17767,26 +18511,25 @@ public final class View {
       }
       sjtu.opennet.textilepb.View.FeedStreamMeta other = (sjtu.opennet.textilepb.View.FeedStreamMeta) obj;
 
-      boolean result = true;
-      result = result && getBlock()
-          .equals(other.getBlock());
-      result = result && (hasDate() == other.hasDate());
+      if (!getBlock()
+          .equals(other.getBlock())) return false;
+      if (hasDate() != other.hasDate()) return false;
       if (hasDate()) {
-        result = result && getDate()
-            .equals(other.getDate());
+        if (!getDate()
+            .equals(other.getDate())) return false;
       }
-      result = result && (hasUser() == other.hasUser());
+      if (hasUser() != other.hasUser()) return false;
       if (hasUser()) {
-        result = result && getUser()
-            .equals(other.getUser());
+        if (!getUser()
+            .equals(other.getUser())) return false;
       }
-      result = result && (hasStreammeta() == other.hasStreammeta());
+      if (hasStreammeta() != other.hasStreammeta()) return false;
       if (hasStreammeta()) {
-        result = result && getStreammeta()
-            .equals(other.getStreammeta());
+        if (!getStreammeta()
+            .equals(other.getStreammeta())) return false;
       }
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -18011,35 +18754,35 @@ public final class View {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -18098,6 +18841,7 @@ public final class View {
       private java.lang.Object block_ = "";
       /**
        * <code>string block = 1;</code>
+       * @return The block.
        */
       public java.lang.String getBlock() {
         java.lang.Object ref = block_;
@@ -18113,6 +18857,7 @@ public final class View {
       }
       /**
        * <code>string block = 1;</code>
+       * @return The bytes for block.
        */
       public com.google.protobuf.ByteString
           getBlockBytes() {
@@ -18129,6 +18874,8 @@ public final class View {
       }
       /**
        * <code>string block = 1;</code>
+       * @param value The block to set.
+       * @return This builder for chaining.
        */
       public Builder setBlock(
           java.lang.String value) {
@@ -18142,6 +18889,7 @@ public final class View {
       }
       /**
        * <code>string block = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearBlock() {
         
@@ -18151,6 +18899,8 @@ public final class View {
       }
       /**
        * <code>string block = 1;</code>
+       * @param value The bytes for block to set.
+       * @return This builder for chaining.
        */
       public Builder setBlockBytes(
           com.google.protobuf.ByteString value) {
@@ -18164,17 +18914,19 @@ public final class View {
         return this;
       }
 
-      private com.google.protobuf.Timestamp date_ = null;
+      private com.google.protobuf.Timestamp date_;
       private com.google.protobuf.SingleFieldBuilderV3<
           com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> dateBuilder_;
       /**
        * <code>.google.protobuf.Timestamp date = 2;</code>
+       * @return Whether the date field is set.
        */
       public boolean hasDate() {
         return dateBuilder_ != null || date_ != null;
       }
       /**
        * <code>.google.protobuf.Timestamp date = 2;</code>
+       * @return The date.
        */
       public com.google.protobuf.Timestamp getDate() {
         if (dateBuilder_ == null) {
@@ -18281,17 +19033,19 @@ public final class View {
         return dateBuilder_;
       }
 
-      private sjtu.opennet.textilepb.Model.User user_ = null;
+      private sjtu.opennet.textilepb.Model.User user_;
       private com.google.protobuf.SingleFieldBuilderV3<
           sjtu.opennet.textilepb.Model.User, sjtu.opennet.textilepb.Model.User.Builder, sjtu.opennet.textilepb.Model.UserOrBuilder> userBuilder_;
       /**
        * <code>.User user = 3;</code>
+       * @return Whether the user field is set.
        */
       public boolean hasUser() {
         return userBuilder_ != null || user_ != null;
       }
       /**
        * <code>.User user = 3;</code>
+       * @return The user.
        */
       public sjtu.opennet.textilepb.Model.User getUser() {
         if (userBuilder_ == null) {
@@ -18398,17 +19152,19 @@ public final class View {
         return userBuilder_;
       }
 
-      private sjtu.opennet.textilepb.Model.StreamMeta streammeta_ = null;
+      private sjtu.opennet.textilepb.Model.StreamMeta streammeta_;
       private com.google.protobuf.SingleFieldBuilderV3<
           sjtu.opennet.textilepb.Model.StreamMeta, sjtu.opennet.textilepb.Model.StreamMeta.Builder, sjtu.opennet.textilepb.Model.StreamMetaOrBuilder> streammetaBuilder_;
       /**
        * <code>.StreamMeta streammeta = 4;</code>
+       * @return Whether the streammeta field is set.
        */
       public boolean hasStreammeta() {
         return streammetaBuilder_ != null || streammeta_ != null;
       }
       /**
        * <code>.StreamMeta streammeta = 4;</code>
+       * @return The streammeta.
        */
       public sjtu.opennet.textilepb.Model.StreamMeta getStreammeta() {
         if (streammetaBuilder_ == null) {
@@ -18517,7 +19273,7 @@ public final class View {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -18573,20 +19329,24 @@ public final class View {
 
     /**
      * <code>string block = 1;</code>
+     * @return The block.
      */
     java.lang.String getBlock();
     /**
      * <code>string block = 1;</code>
+     * @return The bytes for block.
      */
     com.google.protobuf.ByteString
         getBlockBytes();
 
     /**
      * <code>.google.protobuf.Timestamp date = 2;</code>
+     * @return Whether the date field is set.
      */
     boolean hasDate();
     /**
      * <code>.google.protobuf.Timestamp date = 2;</code>
+     * @return The date.
      */
     com.google.protobuf.Timestamp getDate();
     /**
@@ -18596,10 +19356,12 @@ public final class View {
 
     /**
      * <code>.User user = 3;</code>
+     * @return Whether the user field is set.
      */
     boolean hasUser();
     /**
      * <code>.User user = 3;</code>
+     * @return The user.
      */
     sjtu.opennet.textilepb.Model.User getUser();
     /**
@@ -18609,10 +19371,12 @@ public final class View {
 
     /**
      * <code>.Video video = 4;</code>
+     * @return Whether the video field is set.
      */
     boolean hasVideo();
     /**
      * <code>.Video video = 4;</code>
+     * @return The video.
      */
     sjtu.opennet.textilepb.Model.Video getVideo();
     /**
@@ -18623,7 +19387,7 @@ public final class View {
   /**
    * Protobuf type {@code FeedVideo}
    */
-  public  static final class FeedVideo extends
+  public static final class FeedVideo extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:FeedVideo)
       FeedVideoOrBuilder {
@@ -18634,6 +19398,13 @@ public final class View {
     }
     private FeedVideo() {
       block_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new FeedVideo();
     }
 
     @java.lang.Override
@@ -18649,7 +19420,6 @@ public final class View {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -18706,7 +19476,7 @@ public final class View {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -18741,7 +19511,9 @@ public final class View {
     private volatile java.lang.Object block_;
     /**
      * <code>string block = 1;</code>
+     * @return The block.
      */
+    @java.lang.Override
     public java.lang.String getBlock() {
       java.lang.Object ref = block_;
       if (ref instanceof java.lang.String) {
@@ -18756,7 +19528,9 @@ public final class View {
     }
     /**
      * <code>string block = 1;</code>
+     * @return The bytes for block.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getBlockBytes() {
       java.lang.Object ref = block_;
@@ -18775,19 +19549,24 @@ public final class View {
     private com.google.protobuf.Timestamp date_;
     /**
      * <code>.google.protobuf.Timestamp date = 2;</code>
+     * @return Whether the date field is set.
      */
+    @java.lang.Override
     public boolean hasDate() {
       return date_ != null;
     }
     /**
      * <code>.google.protobuf.Timestamp date = 2;</code>
+     * @return The date.
      */
+    @java.lang.Override
     public com.google.protobuf.Timestamp getDate() {
       return date_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : date_;
     }
     /**
      * <code>.google.protobuf.Timestamp date = 2;</code>
      */
+    @java.lang.Override
     public com.google.protobuf.TimestampOrBuilder getDateOrBuilder() {
       return getDate();
     }
@@ -18796,19 +19575,24 @@ public final class View {
     private sjtu.opennet.textilepb.Model.User user_;
     /**
      * <code>.User user = 3;</code>
+     * @return Whether the user field is set.
      */
+    @java.lang.Override
     public boolean hasUser() {
       return user_ != null;
     }
     /**
      * <code>.User user = 3;</code>
+     * @return The user.
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.User getUser() {
       return user_ == null ? sjtu.opennet.textilepb.Model.User.getDefaultInstance() : user_;
     }
     /**
      * <code>.User user = 3;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.UserOrBuilder getUserOrBuilder() {
       return getUser();
     }
@@ -18817,19 +19601,24 @@ public final class View {
     private sjtu.opennet.textilepb.Model.Video video_;
     /**
      * <code>.Video video = 4;</code>
+     * @return Whether the video field is set.
      */
+    @java.lang.Override
     public boolean hasVideo() {
       return video_ != null;
     }
     /**
      * <code>.Video video = 4;</code>
+     * @return The video.
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.Video getVideo() {
       return video_ == null ? sjtu.opennet.textilepb.Model.Video.getDefaultInstance() : video_;
     }
     /**
      * <code>.Video video = 4;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.VideoOrBuilder getVideoOrBuilder() {
       return getVideo();
     }
@@ -18899,26 +19688,25 @@ public final class View {
       }
       sjtu.opennet.textilepb.View.FeedVideo other = (sjtu.opennet.textilepb.View.FeedVideo) obj;
 
-      boolean result = true;
-      result = result && getBlock()
-          .equals(other.getBlock());
-      result = result && (hasDate() == other.hasDate());
+      if (!getBlock()
+          .equals(other.getBlock())) return false;
+      if (hasDate() != other.hasDate()) return false;
       if (hasDate()) {
-        result = result && getDate()
-            .equals(other.getDate());
+        if (!getDate()
+            .equals(other.getDate())) return false;
       }
-      result = result && (hasUser() == other.hasUser());
+      if (hasUser() != other.hasUser()) return false;
       if (hasUser()) {
-        result = result && getUser()
-            .equals(other.getUser());
+        if (!getUser()
+            .equals(other.getUser())) return false;
       }
-      result = result && (hasVideo() == other.hasVideo());
+      if (hasVideo() != other.hasVideo()) return false;
       if (hasVideo()) {
-        result = result && getVideo()
-            .equals(other.getVideo());
+        if (!getVideo()
+            .equals(other.getVideo())) return false;
       }
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -19143,35 +19931,35 @@ public final class View {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -19230,6 +20018,7 @@ public final class View {
       private java.lang.Object block_ = "";
       /**
        * <code>string block = 1;</code>
+       * @return The block.
        */
       public java.lang.String getBlock() {
         java.lang.Object ref = block_;
@@ -19245,6 +20034,7 @@ public final class View {
       }
       /**
        * <code>string block = 1;</code>
+       * @return The bytes for block.
        */
       public com.google.protobuf.ByteString
           getBlockBytes() {
@@ -19261,6 +20051,8 @@ public final class View {
       }
       /**
        * <code>string block = 1;</code>
+       * @param value The block to set.
+       * @return This builder for chaining.
        */
       public Builder setBlock(
           java.lang.String value) {
@@ -19274,6 +20066,7 @@ public final class View {
       }
       /**
        * <code>string block = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearBlock() {
         
@@ -19283,6 +20076,8 @@ public final class View {
       }
       /**
        * <code>string block = 1;</code>
+       * @param value The bytes for block to set.
+       * @return This builder for chaining.
        */
       public Builder setBlockBytes(
           com.google.protobuf.ByteString value) {
@@ -19296,17 +20091,19 @@ public final class View {
         return this;
       }
 
-      private com.google.protobuf.Timestamp date_ = null;
+      private com.google.protobuf.Timestamp date_;
       private com.google.protobuf.SingleFieldBuilderV3<
           com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> dateBuilder_;
       /**
        * <code>.google.protobuf.Timestamp date = 2;</code>
+       * @return Whether the date field is set.
        */
       public boolean hasDate() {
         return dateBuilder_ != null || date_ != null;
       }
       /**
        * <code>.google.protobuf.Timestamp date = 2;</code>
+       * @return The date.
        */
       public com.google.protobuf.Timestamp getDate() {
         if (dateBuilder_ == null) {
@@ -19413,17 +20210,19 @@ public final class View {
         return dateBuilder_;
       }
 
-      private sjtu.opennet.textilepb.Model.User user_ = null;
+      private sjtu.opennet.textilepb.Model.User user_;
       private com.google.protobuf.SingleFieldBuilderV3<
           sjtu.opennet.textilepb.Model.User, sjtu.opennet.textilepb.Model.User.Builder, sjtu.opennet.textilepb.Model.UserOrBuilder> userBuilder_;
       /**
        * <code>.User user = 3;</code>
+       * @return Whether the user field is set.
        */
       public boolean hasUser() {
         return userBuilder_ != null || user_ != null;
       }
       /**
        * <code>.User user = 3;</code>
+       * @return The user.
        */
       public sjtu.opennet.textilepb.Model.User getUser() {
         if (userBuilder_ == null) {
@@ -19530,17 +20329,19 @@ public final class View {
         return userBuilder_;
       }
 
-      private sjtu.opennet.textilepb.Model.Video video_ = null;
+      private sjtu.opennet.textilepb.Model.Video video_;
       private com.google.protobuf.SingleFieldBuilderV3<
           sjtu.opennet.textilepb.Model.Video, sjtu.opennet.textilepb.Model.Video.Builder, sjtu.opennet.textilepb.Model.VideoOrBuilder> videoBuilder_;
       /**
        * <code>.Video video = 4;</code>
+       * @return Whether the video field is set.
        */
       public boolean hasVideo() {
         return videoBuilder_ != null || video_ != null;
       }
       /**
        * <code>.Video video = 4;</code>
+       * @return The video.
        */
       public sjtu.opennet.textilepb.Model.Video getVideo() {
         if (videoBuilder_ == null) {
@@ -19649,7 +20450,7 @@ public final class View {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -19705,20 +20506,24 @@ public final class View {
 
     /**
      * <code>string block = 1;</code>
+     * @return The block.
      */
     java.lang.String getBlock();
     /**
      * <code>string block = 1;</code>
+     * @return The bytes for block.
      */
     com.google.protobuf.ByteString
         getBlockBytes();
 
     /**
      * <code>.google.protobuf.Timestamp date = 2;</code>
+     * @return Whether the date field is set.
      */
     boolean hasDate();
     /**
      * <code>.google.protobuf.Timestamp date = 2;</code>
+     * @return The date.
      */
     com.google.protobuf.Timestamp getDate();
     /**
@@ -19728,10 +20533,12 @@ public final class View {
 
     /**
      * <code>.User user = 3;</code>
+     * @return Whether the user field is set.
      */
     boolean hasUser();
     /**
      * <code>.User user = 3;</code>
+     * @return The user.
      */
     sjtu.opennet.textilepb.Model.User getUser();
     /**
@@ -19741,10 +20548,12 @@ public final class View {
 
     /**
      * <code>.SimpleFile simpleFile = 4;</code>
+     * @return Whether the simpleFile field is set.
      */
     boolean hasSimpleFile();
     /**
      * <code>.SimpleFile simpleFile = 4;</code>
+     * @return The simpleFile.
      */
     sjtu.opennet.textilepb.Model.SimpleFile getSimpleFile();
     /**
@@ -19754,10 +20563,12 @@ public final class View {
 
     /**
      * <code>string peerId = 5;</code>
+     * @return The peerId.
      */
     java.lang.String getPeerId();
     /**
      * <code>string peerId = 5;</code>
+     * @return The bytes for peerId.
      */
     com.google.protobuf.ByteString
         getPeerIdBytes();
@@ -19765,7 +20576,7 @@ public final class View {
   /**
    * Protobuf type {@code FeedSimpleFile}
    */
-  public  static final class FeedSimpleFile extends
+  public static final class FeedSimpleFile extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:FeedSimpleFile)
       FeedSimpleFileOrBuilder {
@@ -19777,6 +20588,13 @@ public final class View {
     private FeedSimpleFile() {
       block_ = "";
       peerId_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new FeedSimpleFile();
     }
 
     @java.lang.Override
@@ -19792,7 +20610,6 @@ public final class View {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -19855,7 +20672,7 @@ public final class View {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -19890,7 +20707,9 @@ public final class View {
     private volatile java.lang.Object block_;
     /**
      * <code>string block = 1;</code>
+     * @return The block.
      */
+    @java.lang.Override
     public java.lang.String getBlock() {
       java.lang.Object ref = block_;
       if (ref instanceof java.lang.String) {
@@ -19905,7 +20724,9 @@ public final class View {
     }
     /**
      * <code>string block = 1;</code>
+     * @return The bytes for block.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getBlockBytes() {
       java.lang.Object ref = block_;
@@ -19924,19 +20745,24 @@ public final class View {
     private com.google.protobuf.Timestamp date_;
     /**
      * <code>.google.protobuf.Timestamp date = 2;</code>
+     * @return Whether the date field is set.
      */
+    @java.lang.Override
     public boolean hasDate() {
       return date_ != null;
     }
     /**
      * <code>.google.protobuf.Timestamp date = 2;</code>
+     * @return The date.
      */
+    @java.lang.Override
     public com.google.protobuf.Timestamp getDate() {
       return date_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : date_;
     }
     /**
      * <code>.google.protobuf.Timestamp date = 2;</code>
      */
+    @java.lang.Override
     public com.google.protobuf.TimestampOrBuilder getDateOrBuilder() {
       return getDate();
     }
@@ -19945,19 +20771,24 @@ public final class View {
     private sjtu.opennet.textilepb.Model.User user_;
     /**
      * <code>.User user = 3;</code>
+     * @return Whether the user field is set.
      */
+    @java.lang.Override
     public boolean hasUser() {
       return user_ != null;
     }
     /**
      * <code>.User user = 3;</code>
+     * @return The user.
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.User getUser() {
       return user_ == null ? sjtu.opennet.textilepb.Model.User.getDefaultInstance() : user_;
     }
     /**
      * <code>.User user = 3;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.UserOrBuilder getUserOrBuilder() {
       return getUser();
     }
@@ -19966,19 +20797,24 @@ public final class View {
     private sjtu.opennet.textilepb.Model.SimpleFile simpleFile_;
     /**
      * <code>.SimpleFile simpleFile = 4;</code>
+     * @return Whether the simpleFile field is set.
      */
+    @java.lang.Override
     public boolean hasSimpleFile() {
       return simpleFile_ != null;
     }
     /**
      * <code>.SimpleFile simpleFile = 4;</code>
+     * @return The simpleFile.
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.SimpleFile getSimpleFile() {
       return simpleFile_ == null ? sjtu.opennet.textilepb.Model.SimpleFile.getDefaultInstance() : simpleFile_;
     }
     /**
      * <code>.SimpleFile simpleFile = 4;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.SimpleFileOrBuilder getSimpleFileOrBuilder() {
       return getSimpleFile();
     }
@@ -19987,7 +20823,9 @@ public final class View {
     private volatile java.lang.Object peerId_;
     /**
      * <code>string peerId = 5;</code>
+     * @return The peerId.
      */
+    @java.lang.Override
     public java.lang.String getPeerId() {
       java.lang.Object ref = peerId_;
       if (ref instanceof java.lang.String) {
@@ -20002,7 +20840,9 @@ public final class View {
     }
     /**
      * <code>string peerId = 5;</code>
+     * @return The bytes for peerId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getPeerIdBytes() {
       java.lang.Object ref = peerId_;
@@ -20088,28 +20928,27 @@ public final class View {
       }
       sjtu.opennet.textilepb.View.FeedSimpleFile other = (sjtu.opennet.textilepb.View.FeedSimpleFile) obj;
 
-      boolean result = true;
-      result = result && getBlock()
-          .equals(other.getBlock());
-      result = result && (hasDate() == other.hasDate());
+      if (!getBlock()
+          .equals(other.getBlock())) return false;
+      if (hasDate() != other.hasDate()) return false;
       if (hasDate()) {
-        result = result && getDate()
-            .equals(other.getDate());
+        if (!getDate()
+            .equals(other.getDate())) return false;
       }
-      result = result && (hasUser() == other.hasUser());
+      if (hasUser() != other.hasUser()) return false;
       if (hasUser()) {
-        result = result && getUser()
-            .equals(other.getUser());
+        if (!getUser()
+            .equals(other.getUser())) return false;
       }
-      result = result && (hasSimpleFile() == other.hasSimpleFile());
+      if (hasSimpleFile() != other.hasSimpleFile()) return false;
       if (hasSimpleFile()) {
-        result = result && getSimpleFile()
-            .equals(other.getSimpleFile());
+        if (!getSimpleFile()
+            .equals(other.getSimpleFile())) return false;
       }
-      result = result && getPeerId()
-          .equals(other.getPeerId());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getPeerId()
+          .equals(other.getPeerId())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -20339,35 +21178,35 @@ public final class View {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -20430,6 +21269,7 @@ public final class View {
       private java.lang.Object block_ = "";
       /**
        * <code>string block = 1;</code>
+       * @return The block.
        */
       public java.lang.String getBlock() {
         java.lang.Object ref = block_;
@@ -20445,6 +21285,7 @@ public final class View {
       }
       /**
        * <code>string block = 1;</code>
+       * @return The bytes for block.
        */
       public com.google.protobuf.ByteString
           getBlockBytes() {
@@ -20461,6 +21302,8 @@ public final class View {
       }
       /**
        * <code>string block = 1;</code>
+       * @param value The block to set.
+       * @return This builder for chaining.
        */
       public Builder setBlock(
           java.lang.String value) {
@@ -20474,6 +21317,7 @@ public final class View {
       }
       /**
        * <code>string block = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearBlock() {
         
@@ -20483,6 +21327,8 @@ public final class View {
       }
       /**
        * <code>string block = 1;</code>
+       * @param value The bytes for block to set.
+       * @return This builder for chaining.
        */
       public Builder setBlockBytes(
           com.google.protobuf.ByteString value) {
@@ -20496,17 +21342,19 @@ public final class View {
         return this;
       }
 
-      private com.google.protobuf.Timestamp date_ = null;
+      private com.google.protobuf.Timestamp date_;
       private com.google.protobuf.SingleFieldBuilderV3<
           com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> dateBuilder_;
       /**
        * <code>.google.protobuf.Timestamp date = 2;</code>
+       * @return Whether the date field is set.
        */
       public boolean hasDate() {
         return dateBuilder_ != null || date_ != null;
       }
       /**
        * <code>.google.protobuf.Timestamp date = 2;</code>
+       * @return The date.
        */
       public com.google.protobuf.Timestamp getDate() {
         if (dateBuilder_ == null) {
@@ -20613,17 +21461,19 @@ public final class View {
         return dateBuilder_;
       }
 
-      private sjtu.opennet.textilepb.Model.User user_ = null;
+      private sjtu.opennet.textilepb.Model.User user_;
       private com.google.protobuf.SingleFieldBuilderV3<
           sjtu.opennet.textilepb.Model.User, sjtu.opennet.textilepb.Model.User.Builder, sjtu.opennet.textilepb.Model.UserOrBuilder> userBuilder_;
       /**
        * <code>.User user = 3;</code>
+       * @return Whether the user field is set.
        */
       public boolean hasUser() {
         return userBuilder_ != null || user_ != null;
       }
       /**
        * <code>.User user = 3;</code>
+       * @return The user.
        */
       public sjtu.opennet.textilepb.Model.User getUser() {
         if (userBuilder_ == null) {
@@ -20730,17 +21580,19 @@ public final class View {
         return userBuilder_;
       }
 
-      private sjtu.opennet.textilepb.Model.SimpleFile simpleFile_ = null;
+      private sjtu.opennet.textilepb.Model.SimpleFile simpleFile_;
       private com.google.protobuf.SingleFieldBuilderV3<
           sjtu.opennet.textilepb.Model.SimpleFile, sjtu.opennet.textilepb.Model.SimpleFile.Builder, sjtu.opennet.textilepb.Model.SimpleFileOrBuilder> simpleFileBuilder_;
       /**
        * <code>.SimpleFile simpleFile = 4;</code>
+       * @return Whether the simpleFile field is set.
        */
       public boolean hasSimpleFile() {
         return simpleFileBuilder_ != null || simpleFile_ != null;
       }
       /**
        * <code>.SimpleFile simpleFile = 4;</code>
+       * @return The simpleFile.
        */
       public sjtu.opennet.textilepb.Model.SimpleFile getSimpleFile() {
         if (simpleFileBuilder_ == null) {
@@ -20850,6 +21702,7 @@ public final class View {
       private java.lang.Object peerId_ = "";
       /**
        * <code>string peerId = 5;</code>
+       * @return The peerId.
        */
       public java.lang.String getPeerId() {
         java.lang.Object ref = peerId_;
@@ -20865,6 +21718,7 @@ public final class View {
       }
       /**
        * <code>string peerId = 5;</code>
+       * @return The bytes for peerId.
        */
       public com.google.protobuf.ByteString
           getPeerIdBytes() {
@@ -20881,6 +21735,8 @@ public final class View {
       }
       /**
        * <code>string peerId = 5;</code>
+       * @param value The peerId to set.
+       * @return This builder for chaining.
        */
       public Builder setPeerId(
           java.lang.String value) {
@@ -20894,6 +21750,7 @@ public final class View {
       }
       /**
        * <code>string peerId = 5;</code>
+       * @return This builder for chaining.
        */
       public Builder clearPeerId() {
         
@@ -20903,6 +21760,8 @@ public final class View {
       }
       /**
        * <code>string peerId = 5;</code>
+       * @param value The bytes for peerId to set.
+       * @return This builder for chaining.
        */
       public Builder setPeerIdBytes(
           com.google.protobuf.ByteString value) {
@@ -20918,7 +21777,7 @@ public final class View {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -20974,20 +21833,24 @@ public final class View {
 
     /**
      * <code>string block = 1;</code>
+     * @return The block.
      */
     java.lang.String getBlock();
     /**
      * <code>string block = 1;</code>
+     * @return The bytes for block.
      */
     com.google.protobuf.ByteString
         getBlockBytes();
 
     /**
      * <code>.google.protobuf.Timestamp date = 2;</code>
+     * @return Whether the date field is set.
      */
     boolean hasDate();
     /**
      * <code>.google.protobuf.Timestamp date = 2;</code>
+     * @return The date.
      */
     com.google.protobuf.Timestamp getDate();
     /**
@@ -20997,10 +21860,12 @@ public final class View {
 
     /**
      * <code>.User user = 3;</code>
+     * @return Whether the user field is set.
      */
     boolean hasUser();
     /**
      * <code>.User user = 3;</code>
+     * @return The user.
      */
     sjtu.opennet.textilepb.Model.User getUser();
     /**
@@ -21010,10 +21875,12 @@ public final class View {
 
     /**
      * <code>string target = 4;</code>
+     * @return The target.
      */
     java.lang.String getTarget();
     /**
      * <code>string target = 4;</code>
+     * @return The bytes for target.
      */
     com.google.protobuf.ByteString
         getTargetBytes();
@@ -21021,7 +21888,7 @@ public final class View {
   /**
    * Protobuf type {@code RemovePeer}
    */
-  public  static final class RemovePeer extends
+  public static final class RemovePeer extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:RemovePeer)
       RemovePeerOrBuilder {
@@ -21033,6 +21900,13 @@ public final class View {
     private RemovePeer() {
       block_ = "";
       target_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new RemovePeer();
     }
 
     @java.lang.Override
@@ -21048,7 +21922,6 @@ public final class View {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -21098,7 +21971,7 @@ public final class View {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -21133,7 +22006,9 @@ public final class View {
     private volatile java.lang.Object block_;
     /**
      * <code>string block = 1;</code>
+     * @return The block.
      */
+    @java.lang.Override
     public java.lang.String getBlock() {
       java.lang.Object ref = block_;
       if (ref instanceof java.lang.String) {
@@ -21148,7 +22023,9 @@ public final class View {
     }
     /**
      * <code>string block = 1;</code>
+     * @return The bytes for block.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getBlockBytes() {
       java.lang.Object ref = block_;
@@ -21167,19 +22044,24 @@ public final class View {
     private com.google.protobuf.Timestamp date_;
     /**
      * <code>.google.protobuf.Timestamp date = 2;</code>
+     * @return Whether the date field is set.
      */
+    @java.lang.Override
     public boolean hasDate() {
       return date_ != null;
     }
     /**
      * <code>.google.protobuf.Timestamp date = 2;</code>
+     * @return The date.
      */
+    @java.lang.Override
     public com.google.protobuf.Timestamp getDate() {
       return date_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : date_;
     }
     /**
      * <code>.google.protobuf.Timestamp date = 2;</code>
      */
+    @java.lang.Override
     public com.google.protobuf.TimestampOrBuilder getDateOrBuilder() {
       return getDate();
     }
@@ -21188,19 +22070,24 @@ public final class View {
     private sjtu.opennet.textilepb.Model.User user_;
     /**
      * <code>.User user = 3;</code>
+     * @return Whether the user field is set.
      */
+    @java.lang.Override
     public boolean hasUser() {
       return user_ != null;
     }
     /**
      * <code>.User user = 3;</code>
+     * @return The user.
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.User getUser() {
       return user_ == null ? sjtu.opennet.textilepb.Model.User.getDefaultInstance() : user_;
     }
     /**
      * <code>.User user = 3;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.UserOrBuilder getUserOrBuilder() {
       return getUser();
     }
@@ -21209,7 +22096,9 @@ public final class View {
     private volatile java.lang.Object target_;
     /**
      * <code>string target = 4;</code>
+     * @return The target.
      */
+    @java.lang.Override
     public java.lang.String getTarget() {
       java.lang.Object ref = target_;
       if (ref instanceof java.lang.String) {
@@ -21224,7 +22113,9 @@ public final class View {
     }
     /**
      * <code>string target = 4;</code>
+     * @return The bytes for target.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getTargetBytes() {
       java.lang.Object ref = target_;
@@ -21303,23 +22194,22 @@ public final class View {
       }
       sjtu.opennet.textilepb.View.RemovePeer other = (sjtu.opennet.textilepb.View.RemovePeer) obj;
 
-      boolean result = true;
-      result = result && getBlock()
-          .equals(other.getBlock());
-      result = result && (hasDate() == other.hasDate());
+      if (!getBlock()
+          .equals(other.getBlock())) return false;
+      if (hasDate() != other.hasDate()) return false;
       if (hasDate()) {
-        result = result && getDate()
-            .equals(other.getDate());
+        if (!getDate()
+            .equals(other.getDate())) return false;
       }
-      result = result && (hasUser() == other.hasUser());
+      if (hasUser() != other.hasUser()) return false;
       if (hasUser()) {
-        result = result && getUser()
-            .equals(other.getUser());
+        if (!getUser()
+            .equals(other.getUser())) return false;
       }
-      result = result && getTarget()
-          .equals(other.getTarget());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getTarget()
+          .equals(other.getTarget())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -21534,35 +22424,35 @@ public final class View {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -21622,6 +22512,7 @@ public final class View {
       private java.lang.Object block_ = "";
       /**
        * <code>string block = 1;</code>
+       * @return The block.
        */
       public java.lang.String getBlock() {
         java.lang.Object ref = block_;
@@ -21637,6 +22528,7 @@ public final class View {
       }
       /**
        * <code>string block = 1;</code>
+       * @return The bytes for block.
        */
       public com.google.protobuf.ByteString
           getBlockBytes() {
@@ -21653,6 +22545,8 @@ public final class View {
       }
       /**
        * <code>string block = 1;</code>
+       * @param value The block to set.
+       * @return This builder for chaining.
        */
       public Builder setBlock(
           java.lang.String value) {
@@ -21666,6 +22560,7 @@ public final class View {
       }
       /**
        * <code>string block = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearBlock() {
         
@@ -21675,6 +22570,8 @@ public final class View {
       }
       /**
        * <code>string block = 1;</code>
+       * @param value The bytes for block to set.
+       * @return This builder for chaining.
        */
       public Builder setBlockBytes(
           com.google.protobuf.ByteString value) {
@@ -21688,17 +22585,19 @@ public final class View {
         return this;
       }
 
-      private com.google.protobuf.Timestamp date_ = null;
+      private com.google.protobuf.Timestamp date_;
       private com.google.protobuf.SingleFieldBuilderV3<
           com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> dateBuilder_;
       /**
        * <code>.google.protobuf.Timestamp date = 2;</code>
+       * @return Whether the date field is set.
        */
       public boolean hasDate() {
         return dateBuilder_ != null || date_ != null;
       }
       /**
        * <code>.google.protobuf.Timestamp date = 2;</code>
+       * @return The date.
        */
       public com.google.protobuf.Timestamp getDate() {
         if (dateBuilder_ == null) {
@@ -21805,17 +22704,19 @@ public final class View {
         return dateBuilder_;
       }
 
-      private sjtu.opennet.textilepb.Model.User user_ = null;
+      private sjtu.opennet.textilepb.Model.User user_;
       private com.google.protobuf.SingleFieldBuilderV3<
           sjtu.opennet.textilepb.Model.User, sjtu.opennet.textilepb.Model.User.Builder, sjtu.opennet.textilepb.Model.UserOrBuilder> userBuilder_;
       /**
        * <code>.User user = 3;</code>
+       * @return Whether the user field is set.
        */
       public boolean hasUser() {
         return userBuilder_ != null || user_ != null;
       }
       /**
        * <code>.User user = 3;</code>
+       * @return The user.
        */
       public sjtu.opennet.textilepb.Model.User getUser() {
         if (userBuilder_ == null) {
@@ -21925,6 +22826,7 @@ public final class View {
       private java.lang.Object target_ = "";
       /**
        * <code>string target = 4;</code>
+       * @return The target.
        */
       public java.lang.String getTarget() {
         java.lang.Object ref = target_;
@@ -21940,6 +22842,7 @@ public final class View {
       }
       /**
        * <code>string target = 4;</code>
+       * @return The bytes for target.
        */
       public com.google.protobuf.ByteString
           getTargetBytes() {
@@ -21956,6 +22859,8 @@ public final class View {
       }
       /**
        * <code>string target = 4;</code>
+       * @param value The target to set.
+       * @return This builder for chaining.
        */
       public Builder setTarget(
           java.lang.String value) {
@@ -21969,6 +22874,7 @@ public final class View {
       }
       /**
        * <code>string target = 4;</code>
+       * @return This builder for chaining.
        */
       public Builder clearTarget() {
         
@@ -21978,6 +22884,8 @@ public final class View {
       }
       /**
        * <code>string target = 4;</code>
+       * @param value The bytes for target to set.
+       * @return This builder for chaining.
        */
       public Builder setTargetBytes(
           com.google.protobuf.ByteString value) {
@@ -21993,7 +22901,7 @@ public final class View {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -22049,20 +22957,24 @@ public final class View {
 
     /**
      * <code>string block = 1;</code>
+     * @return The block.
      */
     java.lang.String getBlock();
     /**
      * <code>string block = 1;</code>
+     * @return The bytes for block.
      */
     com.google.protobuf.ByteString
         getBlockBytes();
 
     /**
      * <code>.google.protobuf.Timestamp date = 2;</code>
+     * @return Whether the date field is set.
      */
     boolean hasDate();
     /**
      * <code>.google.protobuf.Timestamp date = 2;</code>
+     * @return The date.
      */
     com.google.protobuf.Timestamp getDate();
     /**
@@ -22072,10 +22984,12 @@ public final class View {
 
     /**
      * <code>.User user = 3;</code>
+     * @return Whether the user field is set.
      */
     boolean hasUser();
     /**
      * <code>.User user = 3;</code>
+     * @return The user.
      */
     sjtu.opennet.textilepb.Model.User getUser();
     /**
@@ -22086,7 +23000,7 @@ public final class View {
   /**
    * Protobuf type {@code Announce}
    */
-  public  static final class Announce extends
+  public static final class Announce extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:Announce)
       AnnounceOrBuilder {
@@ -22097,6 +23011,13 @@ public final class View {
     }
     private Announce() {
       block_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new Announce();
     }
 
     @java.lang.Override
@@ -22112,7 +23033,6 @@ public final class View {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -22156,7 +23076,7 @@ public final class View {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -22191,7 +23111,9 @@ public final class View {
     private volatile java.lang.Object block_;
     /**
      * <code>string block = 1;</code>
+     * @return The block.
      */
+    @java.lang.Override
     public java.lang.String getBlock() {
       java.lang.Object ref = block_;
       if (ref instanceof java.lang.String) {
@@ -22206,7 +23128,9 @@ public final class View {
     }
     /**
      * <code>string block = 1;</code>
+     * @return The bytes for block.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getBlockBytes() {
       java.lang.Object ref = block_;
@@ -22225,19 +23149,24 @@ public final class View {
     private com.google.protobuf.Timestamp date_;
     /**
      * <code>.google.protobuf.Timestamp date = 2;</code>
+     * @return Whether the date field is set.
      */
+    @java.lang.Override
     public boolean hasDate() {
       return date_ != null;
     }
     /**
      * <code>.google.protobuf.Timestamp date = 2;</code>
+     * @return The date.
      */
+    @java.lang.Override
     public com.google.protobuf.Timestamp getDate() {
       return date_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : date_;
     }
     /**
      * <code>.google.protobuf.Timestamp date = 2;</code>
      */
+    @java.lang.Override
     public com.google.protobuf.TimestampOrBuilder getDateOrBuilder() {
       return getDate();
     }
@@ -22246,19 +23175,24 @@ public final class View {
     private sjtu.opennet.textilepb.Model.User user_;
     /**
      * <code>.User user = 3;</code>
+     * @return Whether the user field is set.
      */
+    @java.lang.Override
     public boolean hasUser() {
       return user_ != null;
     }
     /**
      * <code>.User user = 3;</code>
+     * @return The user.
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.User getUser() {
       return user_ == null ? sjtu.opennet.textilepb.Model.User.getDefaultInstance() : user_;
     }
     /**
      * <code>.User user = 3;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.UserOrBuilder getUserOrBuilder() {
       return getUser();
     }
@@ -22321,21 +23255,20 @@ public final class View {
       }
       sjtu.opennet.textilepb.View.Announce other = (sjtu.opennet.textilepb.View.Announce) obj;
 
-      boolean result = true;
-      result = result && getBlock()
-          .equals(other.getBlock());
-      result = result && (hasDate() == other.hasDate());
+      if (!getBlock()
+          .equals(other.getBlock())) return false;
+      if (hasDate() != other.hasDate()) return false;
       if (hasDate()) {
-        result = result && getDate()
-            .equals(other.getDate());
+        if (!getDate()
+            .equals(other.getDate())) return false;
       }
-      result = result && (hasUser() == other.hasUser());
+      if (hasUser() != other.hasUser()) return false;
       if (hasUser()) {
-        result = result && getUser()
-            .equals(other.getUser());
+        if (!getUser()
+            .equals(other.getUser())) return false;
       }
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -22545,35 +23478,35 @@ public final class View {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -22629,6 +23562,7 @@ public final class View {
       private java.lang.Object block_ = "";
       /**
        * <code>string block = 1;</code>
+       * @return The block.
        */
       public java.lang.String getBlock() {
         java.lang.Object ref = block_;
@@ -22644,6 +23578,7 @@ public final class View {
       }
       /**
        * <code>string block = 1;</code>
+       * @return The bytes for block.
        */
       public com.google.protobuf.ByteString
           getBlockBytes() {
@@ -22660,6 +23595,8 @@ public final class View {
       }
       /**
        * <code>string block = 1;</code>
+       * @param value The block to set.
+       * @return This builder for chaining.
        */
       public Builder setBlock(
           java.lang.String value) {
@@ -22673,6 +23610,7 @@ public final class View {
       }
       /**
        * <code>string block = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearBlock() {
         
@@ -22682,6 +23620,8 @@ public final class View {
       }
       /**
        * <code>string block = 1;</code>
+       * @param value The bytes for block to set.
+       * @return This builder for chaining.
        */
       public Builder setBlockBytes(
           com.google.protobuf.ByteString value) {
@@ -22695,17 +23635,19 @@ public final class View {
         return this;
       }
 
-      private com.google.protobuf.Timestamp date_ = null;
+      private com.google.protobuf.Timestamp date_;
       private com.google.protobuf.SingleFieldBuilderV3<
           com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> dateBuilder_;
       /**
        * <code>.google.protobuf.Timestamp date = 2;</code>
+       * @return Whether the date field is set.
        */
       public boolean hasDate() {
         return dateBuilder_ != null || date_ != null;
       }
       /**
        * <code>.google.protobuf.Timestamp date = 2;</code>
+       * @return The date.
        */
       public com.google.protobuf.Timestamp getDate() {
         if (dateBuilder_ == null) {
@@ -22812,17 +23754,19 @@ public final class View {
         return dateBuilder_;
       }
 
-      private sjtu.opennet.textilepb.Model.User user_ = null;
+      private sjtu.opennet.textilepb.Model.User user_;
       private com.google.protobuf.SingleFieldBuilderV3<
           sjtu.opennet.textilepb.Model.User, sjtu.opennet.textilepb.Model.User.Builder, sjtu.opennet.textilepb.Model.UserOrBuilder> userBuilder_;
       /**
        * <code>.User user = 3;</code>
+       * @return Whether the user field is set.
        */
       public boolean hasUser() {
         return userBuilder_ != null || user_ != null;
       }
       /**
        * <code>.User user = 3;</code>
+       * @return The user.
        */
       public sjtu.opennet.textilepb.Model.User getUser() {
         if (userBuilder_ == null) {
@@ -22931,7 +23875,7 @@ public final class View {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -22987,20 +23931,24 @@ public final class View {
 
     /**
      * <code>string block = 1;</code>
+     * @return The block.
      */
     java.lang.String getBlock();
     /**
      * <code>string block = 1;</code>
+     * @return The bytes for block.
      */
     com.google.protobuf.ByteString
         getBlockBytes();
 
     /**
      * <code>.google.protobuf.Timestamp date = 2;</code>
+     * @return Whether the date field is set.
      */
     boolean hasDate();
     /**
      * <code>.google.protobuf.Timestamp date = 2;</code>
+     * @return The date.
      */
     com.google.protobuf.Timestamp getDate();
     /**
@@ -23010,10 +23958,12 @@ public final class View {
 
     /**
      * <code>.User user = 3;</code>
+     * @return Whether the user field is set.
      */
     boolean hasUser();
     /**
      * <code>.User user = 3;</code>
+     * @return The user.
      */
     sjtu.opennet.textilepb.Model.User getUser();
     /**
@@ -23048,7 +23998,7 @@ public final class View {
   /**
    * Protobuf type {@code Leave}
    */
-  public  static final class Leave extends
+  public static final class Leave extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:Leave)
       LeaveOrBuilder {
@@ -23060,6 +24010,13 @@ public final class View {
     private Leave() {
       block_ = "";
       likes_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new Leave();
     }
 
     @java.lang.Override
@@ -23119,16 +24076,16 @@ public final class View {
               break;
             }
             case 34: {
-              if (!((mutable_bitField0_ & 0x00000008) == 0x00000008)) {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
                 likes_ = new java.util.ArrayList<sjtu.opennet.textilepb.View.Like>();
-                mutable_bitField0_ |= 0x00000008;
+                mutable_bitField0_ |= 0x00000001;
               }
               likes_.add(
                   input.readMessage(sjtu.opennet.textilepb.View.Like.parser(), extensionRegistry));
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -23142,7 +24099,7 @@ public final class View {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000008) == 0x00000008)) {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
           likes_ = java.util.Collections.unmodifiableList(likes_);
         }
         this.unknownFields = unknownFields.build();
@@ -23162,12 +24119,13 @@ public final class View {
               sjtu.opennet.textilepb.View.Leave.class, sjtu.opennet.textilepb.View.Leave.Builder.class);
     }
 
-    private int bitField0_;
     public static final int BLOCK_FIELD_NUMBER = 1;
     private volatile java.lang.Object block_;
     /**
      * <code>string block = 1;</code>
+     * @return The block.
      */
+    @java.lang.Override
     public java.lang.String getBlock() {
       java.lang.Object ref = block_;
       if (ref instanceof java.lang.String) {
@@ -23182,7 +24140,9 @@ public final class View {
     }
     /**
      * <code>string block = 1;</code>
+     * @return The bytes for block.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getBlockBytes() {
       java.lang.Object ref = block_;
@@ -23201,19 +24161,24 @@ public final class View {
     private com.google.protobuf.Timestamp date_;
     /**
      * <code>.google.protobuf.Timestamp date = 2;</code>
+     * @return Whether the date field is set.
      */
+    @java.lang.Override
     public boolean hasDate() {
       return date_ != null;
     }
     /**
      * <code>.google.protobuf.Timestamp date = 2;</code>
+     * @return The date.
      */
+    @java.lang.Override
     public com.google.protobuf.Timestamp getDate() {
       return date_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : date_;
     }
     /**
      * <code>.google.protobuf.Timestamp date = 2;</code>
      */
+    @java.lang.Override
     public com.google.protobuf.TimestampOrBuilder getDateOrBuilder() {
       return getDate();
     }
@@ -23222,19 +24187,24 @@ public final class View {
     private sjtu.opennet.textilepb.Model.User user_;
     /**
      * <code>.User user = 3;</code>
+     * @return Whether the user field is set.
      */
+    @java.lang.Override
     public boolean hasUser() {
       return user_ != null;
     }
     /**
      * <code>.User user = 3;</code>
+     * @return The user.
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.User getUser() {
       return user_ == null ? sjtu.opennet.textilepb.Model.User.getDefaultInstance() : user_;
     }
     /**
      * <code>.User user = 3;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.UserOrBuilder getUserOrBuilder() {
       return getUser();
     }
@@ -23244,12 +24214,14 @@ public final class View {
     /**
      * <code>repeated .Like likes = 4;</code>
      */
+    @java.lang.Override
     public java.util.List<sjtu.opennet.textilepb.View.Like> getLikesList() {
       return likes_;
     }
     /**
      * <code>repeated .Like likes = 4;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends sjtu.opennet.textilepb.View.LikeOrBuilder> 
         getLikesOrBuilderList() {
       return likes_;
@@ -23257,18 +24229,21 @@ public final class View {
     /**
      * <code>repeated .Like likes = 4;</code>
      */
+    @java.lang.Override
     public int getLikesCount() {
       return likes_.size();
     }
     /**
      * <code>repeated .Like likes = 4;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.View.Like getLikes(int index) {
       return likes_.get(index);
     }
     /**
      * <code>repeated .Like likes = 4;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.View.LikeOrBuilder getLikesOrBuilder(
         int index) {
       return likes_.get(index);
@@ -23339,23 +24314,22 @@ public final class View {
       }
       sjtu.opennet.textilepb.View.Leave other = (sjtu.opennet.textilepb.View.Leave) obj;
 
-      boolean result = true;
-      result = result && getBlock()
-          .equals(other.getBlock());
-      result = result && (hasDate() == other.hasDate());
+      if (!getBlock()
+          .equals(other.getBlock())) return false;
+      if (hasDate() != other.hasDate()) return false;
       if (hasDate()) {
-        result = result && getDate()
-            .equals(other.getDate());
+        if (!getDate()
+            .equals(other.getDate())) return false;
       }
-      result = result && (hasUser() == other.hasUser());
+      if (hasUser() != other.hasUser()) return false;
       if (hasUser()) {
-        result = result && getUser()
-            .equals(other.getUser());
+        if (!getUser()
+            .equals(other.getUser())) return false;
       }
-      result = result && getLikesList()
-          .equals(other.getLikesList());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getLikesList()
+          .equals(other.getLikesList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -23529,7 +24503,7 @@ public final class View {
         }
         if (likesBuilder_ == null) {
           likes_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000008);
+          bitField0_ = (bitField0_ & ~0x00000001);
         } else {
           likesBuilder_.clear();
         }
@@ -23560,7 +24534,6 @@ public final class View {
       public sjtu.opennet.textilepb.View.Leave buildPartial() {
         sjtu.opennet.textilepb.View.Leave result = new sjtu.opennet.textilepb.View.Leave(this);
         int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
         result.block_ = block_;
         if (dateBuilder_ == null) {
           result.date_ = date_;
@@ -23573,50 +24546,49 @@ public final class View {
           result.user_ = userBuilder_.build();
         }
         if (likesBuilder_ == null) {
-          if (((bitField0_ & 0x00000008) == 0x00000008)) {
+          if (((bitField0_ & 0x00000001) != 0)) {
             likes_ = java.util.Collections.unmodifiableList(likes_);
-            bitField0_ = (bitField0_ & ~0x00000008);
+            bitField0_ = (bitField0_ & ~0x00000001);
           }
           result.likes_ = likes_;
         } else {
           result.likes_ = likesBuilder_.build();
         }
-        result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -23644,7 +24616,7 @@ public final class View {
           if (!other.likes_.isEmpty()) {
             if (likes_.isEmpty()) {
               likes_ = other.likes_;
-              bitField0_ = (bitField0_ & ~0x00000008);
+              bitField0_ = (bitField0_ & ~0x00000001);
             } else {
               ensureLikesIsMutable();
               likes_.addAll(other.likes_);
@@ -23657,7 +24629,7 @@ public final class View {
               likesBuilder_.dispose();
               likesBuilder_ = null;
               likes_ = other.likes_;
-              bitField0_ = (bitField0_ & ~0x00000008);
+              bitField0_ = (bitField0_ & ~0x00000001);
               likesBuilder_ = 
                 com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
                    getLikesFieldBuilder() : null;
@@ -23699,6 +24671,7 @@ public final class View {
       private java.lang.Object block_ = "";
       /**
        * <code>string block = 1;</code>
+       * @return The block.
        */
       public java.lang.String getBlock() {
         java.lang.Object ref = block_;
@@ -23714,6 +24687,7 @@ public final class View {
       }
       /**
        * <code>string block = 1;</code>
+       * @return The bytes for block.
        */
       public com.google.protobuf.ByteString
           getBlockBytes() {
@@ -23730,6 +24704,8 @@ public final class View {
       }
       /**
        * <code>string block = 1;</code>
+       * @param value The block to set.
+       * @return This builder for chaining.
        */
       public Builder setBlock(
           java.lang.String value) {
@@ -23743,6 +24719,7 @@ public final class View {
       }
       /**
        * <code>string block = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearBlock() {
         
@@ -23752,6 +24729,8 @@ public final class View {
       }
       /**
        * <code>string block = 1;</code>
+       * @param value The bytes for block to set.
+       * @return This builder for chaining.
        */
       public Builder setBlockBytes(
           com.google.protobuf.ByteString value) {
@@ -23765,17 +24744,19 @@ public final class View {
         return this;
       }
 
-      private com.google.protobuf.Timestamp date_ = null;
+      private com.google.protobuf.Timestamp date_;
       private com.google.protobuf.SingleFieldBuilderV3<
           com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> dateBuilder_;
       /**
        * <code>.google.protobuf.Timestamp date = 2;</code>
+       * @return Whether the date field is set.
        */
       public boolean hasDate() {
         return dateBuilder_ != null || date_ != null;
       }
       /**
        * <code>.google.protobuf.Timestamp date = 2;</code>
+       * @return The date.
        */
       public com.google.protobuf.Timestamp getDate() {
         if (dateBuilder_ == null) {
@@ -23882,17 +24863,19 @@ public final class View {
         return dateBuilder_;
       }
 
-      private sjtu.opennet.textilepb.Model.User user_ = null;
+      private sjtu.opennet.textilepb.Model.User user_;
       private com.google.protobuf.SingleFieldBuilderV3<
           sjtu.opennet.textilepb.Model.User, sjtu.opennet.textilepb.Model.User.Builder, sjtu.opennet.textilepb.Model.UserOrBuilder> userBuilder_;
       /**
        * <code>.User user = 3;</code>
+       * @return Whether the user field is set.
        */
       public boolean hasUser() {
         return userBuilder_ != null || user_ != null;
       }
       /**
        * <code>.User user = 3;</code>
+       * @return The user.
        */
       public sjtu.opennet.textilepb.Model.User getUser() {
         if (userBuilder_ == null) {
@@ -24002,9 +24985,9 @@ public final class View {
       private java.util.List<sjtu.opennet.textilepb.View.Like> likes_ =
         java.util.Collections.emptyList();
       private void ensureLikesIsMutable() {
-        if (!((bitField0_ & 0x00000008) == 0x00000008)) {
+        if (!((bitField0_ & 0x00000001) != 0)) {
           likes_ = new java.util.ArrayList<sjtu.opennet.textilepb.View.Like>(likes_);
-          bitField0_ |= 0x00000008;
+          bitField0_ |= 0x00000001;
          }
       }
 
@@ -24154,7 +25137,7 @@ public final class View {
       public Builder clearLikes() {
         if (likesBuilder_ == null) {
           likes_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000008);
+          bitField0_ = (bitField0_ & ~0x00000001);
           onChanged();
         } else {
           likesBuilder_.clear();
@@ -24231,7 +25214,7 @@ public final class View {
           likesBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
               sjtu.opennet.textilepb.View.Like, sjtu.opennet.textilepb.View.Like.Builder, sjtu.opennet.textilepb.View.LikeOrBuilder>(
                   likes_,
-                  ((bitField0_ & 0x00000008) == 0x00000008),
+                  ((bitField0_ & 0x00000001) != 0),
                   getParentForChildren(),
                   isClean());
           likes_ = null;
@@ -24241,7 +25224,7 @@ public final class View {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -24297,20 +25280,24 @@ public final class View {
 
     /**
      * <code>string block = 1;</code>
+     * @return The block.
      */
     java.lang.String getBlock();
     /**
      * <code>string block = 1;</code>
+     * @return The bytes for block.
      */
     com.google.protobuf.ByteString
         getBlockBytes();
 
     /**
      * <code>.google.protobuf.Timestamp date = 2;</code>
+     * @return Whether the date field is set.
      */
     boolean hasDate();
     /**
      * <code>.google.protobuf.Timestamp date = 2;</code>
+     * @return The date.
      */
     com.google.protobuf.Timestamp getDate();
     /**
@@ -24320,10 +25307,12 @@ public final class View {
 
     /**
      * <code>.User user = 3;</code>
+     * @return Whether the user field is set.
      */
     boolean hasUser();
     /**
      * <code>.User user = 3;</code>
+     * @return The user.
      */
     sjtu.opennet.textilepb.Model.User getUser();
     /**
@@ -24333,10 +25322,12 @@ public final class View {
 
     /**
      * <code>string body = 4;</code>
+     * @return The body.
      */
     java.lang.String getBody();
     /**
      * <code>string body = 4;</code>
+     * @return The bytes for body.
      */
     com.google.protobuf.ByteString
         getBodyBytes();
@@ -24392,7 +25383,7 @@ public final class View {
   /**
    * Protobuf type {@code Text}
    */
-  public  static final class Text extends
+  public static final class Text extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:Text)
       TextOrBuilder {
@@ -24406,6 +25397,13 @@ public final class View {
       body_ = "";
       comments_ = java.util.Collections.emptyList();
       likes_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new Text();
     }
 
     @java.lang.Override
@@ -24471,25 +25469,25 @@ public final class View {
               break;
             }
             case 42: {
-              if (!((mutable_bitField0_ & 0x00000010) == 0x00000010)) {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
                 comments_ = new java.util.ArrayList<sjtu.opennet.textilepb.View.Comment>();
-                mutable_bitField0_ |= 0x00000010;
+                mutable_bitField0_ |= 0x00000001;
               }
               comments_.add(
                   input.readMessage(sjtu.opennet.textilepb.View.Comment.parser(), extensionRegistry));
               break;
             }
             case 50: {
-              if (!((mutable_bitField0_ & 0x00000020) == 0x00000020)) {
+              if (!((mutable_bitField0_ & 0x00000002) != 0)) {
                 likes_ = new java.util.ArrayList<sjtu.opennet.textilepb.View.Like>();
-                mutable_bitField0_ |= 0x00000020;
+                mutable_bitField0_ |= 0x00000002;
               }
               likes_.add(
                   input.readMessage(sjtu.opennet.textilepb.View.Like.parser(), extensionRegistry));
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -24503,10 +25501,10 @@ public final class View {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000010) == 0x00000010)) {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
           comments_ = java.util.Collections.unmodifiableList(comments_);
         }
-        if (((mutable_bitField0_ & 0x00000020) == 0x00000020)) {
+        if (((mutable_bitField0_ & 0x00000002) != 0)) {
           likes_ = java.util.Collections.unmodifiableList(likes_);
         }
         this.unknownFields = unknownFields.build();
@@ -24526,12 +25524,13 @@ public final class View {
               sjtu.opennet.textilepb.View.Text.class, sjtu.opennet.textilepb.View.Text.Builder.class);
     }
 
-    private int bitField0_;
     public static final int BLOCK_FIELD_NUMBER = 1;
     private volatile java.lang.Object block_;
     /**
      * <code>string block = 1;</code>
+     * @return The block.
      */
+    @java.lang.Override
     public java.lang.String getBlock() {
       java.lang.Object ref = block_;
       if (ref instanceof java.lang.String) {
@@ -24546,7 +25545,9 @@ public final class View {
     }
     /**
      * <code>string block = 1;</code>
+     * @return The bytes for block.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getBlockBytes() {
       java.lang.Object ref = block_;
@@ -24565,19 +25566,24 @@ public final class View {
     private com.google.protobuf.Timestamp date_;
     /**
      * <code>.google.protobuf.Timestamp date = 2;</code>
+     * @return Whether the date field is set.
      */
+    @java.lang.Override
     public boolean hasDate() {
       return date_ != null;
     }
     /**
      * <code>.google.protobuf.Timestamp date = 2;</code>
+     * @return The date.
      */
+    @java.lang.Override
     public com.google.protobuf.Timestamp getDate() {
       return date_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : date_;
     }
     /**
      * <code>.google.protobuf.Timestamp date = 2;</code>
      */
+    @java.lang.Override
     public com.google.protobuf.TimestampOrBuilder getDateOrBuilder() {
       return getDate();
     }
@@ -24586,19 +25592,24 @@ public final class View {
     private sjtu.opennet.textilepb.Model.User user_;
     /**
      * <code>.User user = 3;</code>
+     * @return Whether the user field is set.
      */
+    @java.lang.Override
     public boolean hasUser() {
       return user_ != null;
     }
     /**
      * <code>.User user = 3;</code>
+     * @return The user.
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.User getUser() {
       return user_ == null ? sjtu.opennet.textilepb.Model.User.getDefaultInstance() : user_;
     }
     /**
      * <code>.User user = 3;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.UserOrBuilder getUserOrBuilder() {
       return getUser();
     }
@@ -24607,7 +25618,9 @@ public final class View {
     private volatile java.lang.Object body_;
     /**
      * <code>string body = 4;</code>
+     * @return The body.
      */
+    @java.lang.Override
     public java.lang.String getBody() {
       java.lang.Object ref = body_;
       if (ref instanceof java.lang.String) {
@@ -24622,7 +25635,9 @@ public final class View {
     }
     /**
      * <code>string body = 4;</code>
+     * @return The bytes for body.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getBodyBytes() {
       java.lang.Object ref = body_;
@@ -24642,12 +25657,14 @@ public final class View {
     /**
      * <code>repeated .Comment comments = 5;</code>
      */
+    @java.lang.Override
     public java.util.List<sjtu.opennet.textilepb.View.Comment> getCommentsList() {
       return comments_;
     }
     /**
      * <code>repeated .Comment comments = 5;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends sjtu.opennet.textilepb.View.CommentOrBuilder> 
         getCommentsOrBuilderList() {
       return comments_;
@@ -24655,18 +25672,21 @@ public final class View {
     /**
      * <code>repeated .Comment comments = 5;</code>
      */
+    @java.lang.Override
     public int getCommentsCount() {
       return comments_.size();
     }
     /**
      * <code>repeated .Comment comments = 5;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.View.Comment getComments(int index) {
       return comments_.get(index);
     }
     /**
      * <code>repeated .Comment comments = 5;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.View.CommentOrBuilder getCommentsOrBuilder(
         int index) {
       return comments_.get(index);
@@ -24677,12 +25697,14 @@ public final class View {
     /**
      * <code>repeated .Like likes = 6;</code>
      */
+    @java.lang.Override
     public java.util.List<sjtu.opennet.textilepb.View.Like> getLikesList() {
       return likes_;
     }
     /**
      * <code>repeated .Like likes = 6;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends sjtu.opennet.textilepb.View.LikeOrBuilder> 
         getLikesOrBuilderList() {
       return likes_;
@@ -24690,18 +25712,21 @@ public final class View {
     /**
      * <code>repeated .Like likes = 6;</code>
      */
+    @java.lang.Override
     public int getLikesCount() {
       return likes_.size();
     }
     /**
      * <code>repeated .Like likes = 6;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.View.Like getLikes(int index) {
       return likes_.get(index);
     }
     /**
      * <code>repeated .Like likes = 6;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.View.LikeOrBuilder getLikesOrBuilder(
         int index) {
       return likes_.get(index);
@@ -24785,27 +25810,26 @@ public final class View {
       }
       sjtu.opennet.textilepb.View.Text other = (sjtu.opennet.textilepb.View.Text) obj;
 
-      boolean result = true;
-      result = result && getBlock()
-          .equals(other.getBlock());
-      result = result && (hasDate() == other.hasDate());
+      if (!getBlock()
+          .equals(other.getBlock())) return false;
+      if (hasDate() != other.hasDate()) return false;
       if (hasDate()) {
-        result = result && getDate()
-            .equals(other.getDate());
+        if (!getDate()
+            .equals(other.getDate())) return false;
       }
-      result = result && (hasUser() == other.hasUser());
+      if (hasUser() != other.hasUser()) return false;
       if (hasUser()) {
-        result = result && getUser()
-            .equals(other.getUser());
+        if (!getUser()
+            .equals(other.getUser())) return false;
       }
-      result = result && getBody()
-          .equals(other.getBody());
-      result = result && getCommentsList()
-          .equals(other.getCommentsList());
-      result = result && getLikesList()
-          .equals(other.getLikesList());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getBody()
+          .equals(other.getBody())) return false;
+      if (!getCommentsList()
+          .equals(other.getCommentsList())) return false;
+      if (!getLikesList()
+          .equals(other.getLikesList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -24988,13 +26012,13 @@ public final class View {
 
         if (commentsBuilder_ == null) {
           comments_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000010);
+          bitField0_ = (bitField0_ & ~0x00000001);
         } else {
           commentsBuilder_.clear();
         }
         if (likesBuilder_ == null) {
           likes_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000020);
+          bitField0_ = (bitField0_ & ~0x00000002);
         } else {
           likesBuilder_.clear();
         }
@@ -25025,7 +26049,6 @@ public final class View {
       public sjtu.opennet.textilepb.View.Text buildPartial() {
         sjtu.opennet.textilepb.View.Text result = new sjtu.opennet.textilepb.View.Text(this);
         int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
         result.block_ = block_;
         if (dateBuilder_ == null) {
           result.date_ = date_;
@@ -25039,59 +26062,58 @@ public final class View {
         }
         result.body_ = body_;
         if (commentsBuilder_ == null) {
-          if (((bitField0_ & 0x00000010) == 0x00000010)) {
+          if (((bitField0_ & 0x00000001) != 0)) {
             comments_ = java.util.Collections.unmodifiableList(comments_);
-            bitField0_ = (bitField0_ & ~0x00000010);
+            bitField0_ = (bitField0_ & ~0x00000001);
           }
           result.comments_ = comments_;
         } else {
           result.comments_ = commentsBuilder_.build();
         }
         if (likesBuilder_ == null) {
-          if (((bitField0_ & 0x00000020) == 0x00000020)) {
+          if (((bitField0_ & 0x00000002) != 0)) {
             likes_ = java.util.Collections.unmodifiableList(likes_);
-            bitField0_ = (bitField0_ & ~0x00000020);
+            bitField0_ = (bitField0_ & ~0x00000002);
           }
           result.likes_ = likes_;
         } else {
           result.likes_ = likesBuilder_.build();
         }
-        result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -25123,7 +26145,7 @@ public final class View {
           if (!other.comments_.isEmpty()) {
             if (comments_.isEmpty()) {
               comments_ = other.comments_;
-              bitField0_ = (bitField0_ & ~0x00000010);
+              bitField0_ = (bitField0_ & ~0x00000001);
             } else {
               ensureCommentsIsMutable();
               comments_.addAll(other.comments_);
@@ -25136,7 +26158,7 @@ public final class View {
               commentsBuilder_.dispose();
               commentsBuilder_ = null;
               comments_ = other.comments_;
-              bitField0_ = (bitField0_ & ~0x00000010);
+              bitField0_ = (bitField0_ & ~0x00000001);
               commentsBuilder_ = 
                 com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
                    getCommentsFieldBuilder() : null;
@@ -25149,7 +26171,7 @@ public final class View {
           if (!other.likes_.isEmpty()) {
             if (likes_.isEmpty()) {
               likes_ = other.likes_;
-              bitField0_ = (bitField0_ & ~0x00000020);
+              bitField0_ = (bitField0_ & ~0x00000002);
             } else {
               ensureLikesIsMutable();
               likes_.addAll(other.likes_);
@@ -25162,7 +26184,7 @@ public final class View {
               likesBuilder_.dispose();
               likesBuilder_ = null;
               likes_ = other.likes_;
-              bitField0_ = (bitField0_ & ~0x00000020);
+              bitField0_ = (bitField0_ & ~0x00000002);
               likesBuilder_ = 
                 com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
                    getLikesFieldBuilder() : null;
@@ -25204,6 +26226,7 @@ public final class View {
       private java.lang.Object block_ = "";
       /**
        * <code>string block = 1;</code>
+       * @return The block.
        */
       public java.lang.String getBlock() {
         java.lang.Object ref = block_;
@@ -25219,6 +26242,7 @@ public final class View {
       }
       /**
        * <code>string block = 1;</code>
+       * @return The bytes for block.
        */
       public com.google.protobuf.ByteString
           getBlockBytes() {
@@ -25235,6 +26259,8 @@ public final class View {
       }
       /**
        * <code>string block = 1;</code>
+       * @param value The block to set.
+       * @return This builder for chaining.
        */
       public Builder setBlock(
           java.lang.String value) {
@@ -25248,6 +26274,7 @@ public final class View {
       }
       /**
        * <code>string block = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearBlock() {
         
@@ -25257,6 +26284,8 @@ public final class View {
       }
       /**
        * <code>string block = 1;</code>
+       * @param value The bytes for block to set.
+       * @return This builder for chaining.
        */
       public Builder setBlockBytes(
           com.google.protobuf.ByteString value) {
@@ -25270,17 +26299,19 @@ public final class View {
         return this;
       }
 
-      private com.google.protobuf.Timestamp date_ = null;
+      private com.google.protobuf.Timestamp date_;
       private com.google.protobuf.SingleFieldBuilderV3<
           com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> dateBuilder_;
       /**
        * <code>.google.protobuf.Timestamp date = 2;</code>
+       * @return Whether the date field is set.
        */
       public boolean hasDate() {
         return dateBuilder_ != null || date_ != null;
       }
       /**
        * <code>.google.protobuf.Timestamp date = 2;</code>
+       * @return The date.
        */
       public com.google.protobuf.Timestamp getDate() {
         if (dateBuilder_ == null) {
@@ -25387,17 +26418,19 @@ public final class View {
         return dateBuilder_;
       }
 
-      private sjtu.opennet.textilepb.Model.User user_ = null;
+      private sjtu.opennet.textilepb.Model.User user_;
       private com.google.protobuf.SingleFieldBuilderV3<
           sjtu.opennet.textilepb.Model.User, sjtu.opennet.textilepb.Model.User.Builder, sjtu.opennet.textilepb.Model.UserOrBuilder> userBuilder_;
       /**
        * <code>.User user = 3;</code>
+       * @return Whether the user field is set.
        */
       public boolean hasUser() {
         return userBuilder_ != null || user_ != null;
       }
       /**
        * <code>.User user = 3;</code>
+       * @return The user.
        */
       public sjtu.opennet.textilepb.Model.User getUser() {
         if (userBuilder_ == null) {
@@ -25507,6 +26540,7 @@ public final class View {
       private java.lang.Object body_ = "";
       /**
        * <code>string body = 4;</code>
+       * @return The body.
        */
       public java.lang.String getBody() {
         java.lang.Object ref = body_;
@@ -25522,6 +26556,7 @@ public final class View {
       }
       /**
        * <code>string body = 4;</code>
+       * @return The bytes for body.
        */
       public com.google.protobuf.ByteString
           getBodyBytes() {
@@ -25538,6 +26573,8 @@ public final class View {
       }
       /**
        * <code>string body = 4;</code>
+       * @param value The body to set.
+       * @return This builder for chaining.
        */
       public Builder setBody(
           java.lang.String value) {
@@ -25551,6 +26588,7 @@ public final class View {
       }
       /**
        * <code>string body = 4;</code>
+       * @return This builder for chaining.
        */
       public Builder clearBody() {
         
@@ -25560,6 +26598,8 @@ public final class View {
       }
       /**
        * <code>string body = 4;</code>
+       * @param value The bytes for body to set.
+       * @return This builder for chaining.
        */
       public Builder setBodyBytes(
           com.google.protobuf.ByteString value) {
@@ -25576,9 +26616,9 @@ public final class View {
       private java.util.List<sjtu.opennet.textilepb.View.Comment> comments_ =
         java.util.Collections.emptyList();
       private void ensureCommentsIsMutable() {
-        if (!((bitField0_ & 0x00000010) == 0x00000010)) {
+        if (!((bitField0_ & 0x00000001) != 0)) {
           comments_ = new java.util.ArrayList<sjtu.opennet.textilepb.View.Comment>(comments_);
-          bitField0_ |= 0x00000010;
+          bitField0_ |= 0x00000001;
          }
       }
 
@@ -25728,7 +26768,7 @@ public final class View {
       public Builder clearComments() {
         if (commentsBuilder_ == null) {
           comments_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000010);
+          bitField0_ = (bitField0_ & ~0x00000001);
           onChanged();
         } else {
           commentsBuilder_.clear();
@@ -25805,7 +26845,7 @@ public final class View {
           commentsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
               sjtu.opennet.textilepb.View.Comment, sjtu.opennet.textilepb.View.Comment.Builder, sjtu.opennet.textilepb.View.CommentOrBuilder>(
                   comments_,
-                  ((bitField0_ & 0x00000010) == 0x00000010),
+                  ((bitField0_ & 0x00000001) != 0),
                   getParentForChildren(),
                   isClean());
           comments_ = null;
@@ -25816,9 +26856,9 @@ public final class View {
       private java.util.List<sjtu.opennet.textilepb.View.Like> likes_ =
         java.util.Collections.emptyList();
       private void ensureLikesIsMutable() {
-        if (!((bitField0_ & 0x00000020) == 0x00000020)) {
+        if (!((bitField0_ & 0x00000002) != 0)) {
           likes_ = new java.util.ArrayList<sjtu.opennet.textilepb.View.Like>(likes_);
-          bitField0_ |= 0x00000020;
+          bitField0_ |= 0x00000002;
          }
       }
 
@@ -25968,7 +27008,7 @@ public final class View {
       public Builder clearLikes() {
         if (likesBuilder_ == null) {
           likes_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000020);
+          bitField0_ = (bitField0_ & ~0x00000002);
           onChanged();
         } else {
           likesBuilder_.clear();
@@ -26045,7 +27085,7 @@ public final class View {
           likesBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
               sjtu.opennet.textilepb.View.Like, sjtu.opennet.textilepb.View.Like.Builder, sjtu.opennet.textilepb.View.LikeOrBuilder>(
                   likes_,
-                  ((bitField0_ & 0x00000020) == 0x00000020),
+                  ((bitField0_ & 0x00000002) != 0),
                   getParentForChildren(),
                   isClean());
           likes_ = null;
@@ -26055,7 +27095,7 @@ public final class View {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -26136,7 +27176,7 @@ public final class View {
   /**
    * Protobuf type {@code TextList}
    */
-  public  static final class TextList extends
+  public static final class TextList extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:TextList)
       TextListOrBuilder {
@@ -26147,6 +27187,13 @@ public final class View {
     }
     private TextList() {
       items_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new TextList();
     }
 
     @java.lang.Override
@@ -26174,7 +27221,7 @@ public final class View {
               done = true;
               break;
             case 10: {
-              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
                 items_ = new java.util.ArrayList<sjtu.opennet.textilepb.View.Text>();
                 mutable_bitField0_ |= 0x00000001;
               }
@@ -26183,7 +27230,7 @@ public final class View {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -26197,7 +27244,7 @@ public final class View {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
           items_ = java.util.Collections.unmodifiableList(items_);
         }
         this.unknownFields = unknownFields.build();
@@ -26222,12 +27269,14 @@ public final class View {
     /**
      * <code>repeated .Text items = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<sjtu.opennet.textilepb.View.Text> getItemsList() {
       return items_;
     }
     /**
      * <code>repeated .Text items = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends sjtu.opennet.textilepb.View.TextOrBuilder> 
         getItemsOrBuilderList() {
       return items_;
@@ -26235,18 +27284,21 @@ public final class View {
     /**
      * <code>repeated .Text items = 1;</code>
      */
+    @java.lang.Override
     public int getItemsCount() {
       return items_.size();
     }
     /**
      * <code>repeated .Text items = 1;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.View.Text getItems(int index) {
       return items_.get(index);
     }
     /**
      * <code>repeated .Text items = 1;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.View.TextOrBuilder getItemsOrBuilder(
         int index) {
       return items_.get(index);
@@ -26297,11 +27349,10 @@ public final class View {
       }
       sjtu.opennet.textilepb.View.TextList other = (sjtu.opennet.textilepb.View.TextList) obj;
 
-      boolean result = true;
-      result = result && getItemsList()
-          .equals(other.getItemsList());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getItemsList()
+          .equals(other.getItemsList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -26483,7 +27534,7 @@ public final class View {
         sjtu.opennet.textilepb.View.TextList result = new sjtu.opennet.textilepb.View.TextList(this);
         int from_bitField0_ = bitField0_;
         if (itemsBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) == 0x00000001)) {
+          if (((bitField0_ & 0x00000001) != 0)) {
             items_ = java.util.Collections.unmodifiableList(items_);
             bitField0_ = (bitField0_ & ~0x00000001);
           }
@@ -26497,35 +27548,35 @@ public final class View {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -26598,7 +27649,7 @@ public final class View {
       private java.util.List<sjtu.opennet.textilepb.View.Text> items_ =
         java.util.Collections.emptyList();
       private void ensureItemsIsMutable() {
-        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+        if (!((bitField0_ & 0x00000001) != 0)) {
           items_ = new java.util.ArrayList<sjtu.opennet.textilepb.View.Text>(items_);
           bitField0_ |= 0x00000001;
          }
@@ -26827,7 +27878,7 @@ public final class View {
           itemsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
               sjtu.opennet.textilepb.View.Text, sjtu.opennet.textilepb.View.Text.Builder, sjtu.opennet.textilepb.View.TextOrBuilder>(
                   items_,
-                  ((bitField0_ & 0x00000001) == 0x00000001),
+                  ((bitField0_ & 0x00000001) != 0),
                   getParentForChildren(),
                   isClean());
           items_ = null;
@@ -26837,7 +27888,7 @@ public final class View {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -26893,15 +27944,18 @@ public final class View {
 
     /**
      * <code>int32 index = 1;</code>
+     * @return The index.
      */
     int getIndex();
 
     /**
      * <code>.FileIndex file = 2;</code>
+     * @return Whether the file field is set.
      */
     boolean hasFile();
     /**
      * <code>.FileIndex file = 2;</code>
+     * @return The file.
      */
     sjtu.opennet.textilepb.Model.FileIndex getFile();
     /**
@@ -26946,7 +28000,7 @@ public final class View {
   /**
    * Protobuf type {@code File}
    */
-  public  static final class File extends
+  public static final class File extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:File)
       FileOrBuilder {
@@ -26956,7 +28010,13 @@ public final class View {
       super(builder);
     }
     private File() {
-      index_ = 0;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new File();
     }
 
     @java.lang.Override
@@ -27002,10 +28062,10 @@ public final class View {
               break;
             }
             case 26: {
-              if (!((mutable_bitField0_ & 0x00000004) == 0x00000004)) {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
                 links_ = com.google.protobuf.MapField.newMapField(
                     LinksDefaultEntryHolder.defaultEntry);
-                mutable_bitField0_ |= 0x00000004;
+                mutable_bitField0_ |= 0x00000001;
               }
               com.google.protobuf.MapEntry<java.lang.String, sjtu.opennet.textilepb.Model.FileIndex>
               links__ = input.readMessage(
@@ -27015,7 +28075,7 @@ public final class View {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -27058,12 +28118,13 @@ public final class View {
               sjtu.opennet.textilepb.View.File.class, sjtu.opennet.textilepb.View.File.Builder.class);
     }
 
-    private int bitField0_;
     public static final int INDEX_FIELD_NUMBER = 1;
     private int index_;
     /**
      * <code>int32 index = 1;</code>
+     * @return The index.
      */
+    @java.lang.Override
     public int getIndex() {
       return index_;
     }
@@ -27072,19 +28133,24 @@ public final class View {
     private sjtu.opennet.textilepb.Model.FileIndex file_;
     /**
      * <code>.FileIndex file = 2;</code>
+     * @return Whether the file field is set.
      */
+    @java.lang.Override
     public boolean hasFile() {
       return file_ != null;
     }
     /**
      * <code>.FileIndex file = 2;</code>
+     * @return The file.
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.FileIndex getFile() {
       return file_ == null ? sjtu.opennet.textilepb.Model.FileIndex.getDefaultInstance() : file_;
     }
     /**
      * <code>.FileIndex file = 2;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.FileIndexOrBuilder getFileOrBuilder() {
       return getFile();
     }
@@ -27119,6 +28185,7 @@ public final class View {
      * <code>map&lt;string, .FileIndex&gt; links = 3;</code>
      */
 
+    @java.lang.Override
     public boolean containsLinks(
         java.lang.String key) {
       if (key == null) { throw new java.lang.NullPointerException(); }
@@ -27127,6 +28194,7 @@ public final class View {
     /**
      * Use {@link #getLinksMap()} instead.
      */
+    @java.lang.Override
     @java.lang.Deprecated
     public java.util.Map<java.lang.String, sjtu.opennet.textilepb.Model.FileIndex> getLinks() {
       return getLinksMap();
@@ -27134,6 +28202,7 @@ public final class View {
     /**
      * <code>map&lt;string, .FileIndex&gt; links = 3;</code>
      */
+    @java.lang.Override
 
     public java.util.Map<java.lang.String, sjtu.opennet.textilepb.Model.FileIndex> getLinksMap() {
       return internalGetLinks().getMap();
@@ -27141,6 +28210,7 @@ public final class View {
     /**
      * <code>map&lt;string, .FileIndex&gt; links = 3;</code>
      */
+    @java.lang.Override
 
     public sjtu.opennet.textilepb.Model.FileIndex getLinksOrDefault(
         java.lang.String key,
@@ -27153,6 +28223,7 @@ public final class View {
     /**
      * <code>map&lt;string, .FileIndex&gt; links = 3;</code>
      */
+    @java.lang.Override
 
     public sjtu.opennet.textilepb.Model.FileIndex getLinksOrThrow(
         java.lang.String key) {
@@ -27233,18 +28304,17 @@ public final class View {
       }
       sjtu.opennet.textilepb.View.File other = (sjtu.opennet.textilepb.View.File) obj;
 
-      boolean result = true;
-      result = result && (getIndex()
-          == other.getIndex());
-      result = result && (hasFile() == other.hasFile());
+      if (getIndex()
+          != other.getIndex()) return false;
+      if (hasFile() != other.hasFile()) return false;
       if (hasFile()) {
-        result = result && getFile()
-            .equals(other.getFile());
+        if (!getFile()
+            .equals(other.getFile())) return false;
       }
-      result = result && internalGetLinks().equals(
-          other.internalGetLinks());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!internalGetLinks().equals(
+          other.internalGetLinks())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -27455,7 +28525,6 @@ public final class View {
       public sjtu.opennet.textilepb.View.File buildPartial() {
         sjtu.opennet.textilepb.View.File result = new sjtu.opennet.textilepb.View.File(this);
         int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
         result.index_ = index_;
         if (fileBuilder_ == null) {
           result.file_ = file_;
@@ -27464,42 +28533,41 @@ public final class View {
         }
         result.links_ = internalGetLinks();
         result.links_.makeImmutable();
-        result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -27554,12 +28622,16 @@ public final class View {
       private int index_ ;
       /**
        * <code>int32 index = 1;</code>
+       * @return The index.
        */
+      @java.lang.Override
       public int getIndex() {
         return index_;
       }
       /**
        * <code>int32 index = 1;</code>
+       * @param value The index to set.
+       * @return This builder for chaining.
        */
       public Builder setIndex(int value) {
         
@@ -27569,6 +28641,7 @@ public final class View {
       }
       /**
        * <code>int32 index = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearIndex() {
         
@@ -27577,17 +28650,19 @@ public final class View {
         return this;
       }
 
-      private sjtu.opennet.textilepb.Model.FileIndex file_ = null;
+      private sjtu.opennet.textilepb.Model.FileIndex file_;
       private com.google.protobuf.SingleFieldBuilderV3<
           sjtu.opennet.textilepb.Model.FileIndex, sjtu.opennet.textilepb.Model.FileIndex.Builder, sjtu.opennet.textilepb.Model.FileIndexOrBuilder> fileBuilder_;
       /**
        * <code>.FileIndex file = 2;</code>
+       * @return Whether the file field is set.
        */
       public boolean hasFile() {
         return fileBuilder_ != null || file_ != null;
       }
       /**
        * <code>.FileIndex file = 2;</code>
+       * @return The file.
        */
       public sjtu.opennet.textilepb.Model.FileIndex getFile() {
         if (fileBuilder_ == null) {
@@ -27724,6 +28799,7 @@ public final class View {
        * <code>map&lt;string, .FileIndex&gt; links = 3;</code>
        */
 
+      @java.lang.Override
       public boolean containsLinks(
           java.lang.String key) {
         if (key == null) { throw new java.lang.NullPointerException(); }
@@ -27732,6 +28808,7 @@ public final class View {
       /**
        * Use {@link #getLinksMap()} instead.
        */
+      @java.lang.Override
       @java.lang.Deprecated
       public java.util.Map<java.lang.String, sjtu.opennet.textilepb.Model.FileIndex> getLinks() {
         return getLinksMap();
@@ -27739,6 +28816,7 @@ public final class View {
       /**
        * <code>map&lt;string, .FileIndex&gt; links = 3;</code>
        */
+      @java.lang.Override
 
       public java.util.Map<java.lang.String, sjtu.opennet.textilepb.Model.FileIndex> getLinksMap() {
         return internalGetLinks().getMap();
@@ -27746,6 +28824,7 @@ public final class View {
       /**
        * <code>map&lt;string, .FileIndex&gt; links = 3;</code>
        */
+      @java.lang.Override
 
       public sjtu.opennet.textilepb.Model.FileIndex getLinksOrDefault(
           java.lang.String key,
@@ -27758,6 +28837,7 @@ public final class View {
       /**
        * <code>map&lt;string, .FileIndex&gt; links = 3;</code>
        */
+      @java.lang.Override
 
       public sjtu.opennet.textilepb.Model.FileIndex getLinksOrThrow(
           java.lang.String key) {
@@ -27819,7 +28899,7 @@ public final class View {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -27875,40 +28955,48 @@ public final class View {
 
     /**
      * <code>string block = 1;</code>
+     * @return The block.
      */
     java.lang.String getBlock();
     /**
      * <code>string block = 1;</code>
+     * @return The bytes for block.
      */
     com.google.protobuf.ByteString
         getBlockBytes();
 
     /**
      * <code>string target = 2;</code>
+     * @return The target.
      */
     java.lang.String getTarget();
     /**
      * <code>string target = 2;</code>
+     * @return The bytes for target.
      */
     com.google.protobuf.ByteString
         getTargetBytes();
 
     /**
      * <code>string data = 10;</code>
+     * @return The data.
      */
     java.lang.String getData();
     /**
      * <code>string data = 10;</code>
+     * @return The bytes for data.
      */
     com.google.protobuf.ByteString
         getDataBytes();
 
     /**
      * <code>.google.protobuf.Timestamp date = 3;</code>
+     * @return Whether the date field is set.
      */
     boolean hasDate();
     /**
      * <code>.google.protobuf.Timestamp date = 3;</code>
+     * @return The date.
      */
     com.google.protobuf.Timestamp getDate();
     /**
@@ -27918,10 +29006,12 @@ public final class View {
 
     /**
      * <code>.User user = 4;</code>
+     * @return Whether the user field is set.
      */
     boolean hasUser();
     /**
      * <code>.User user = 4;</code>
+     * @return The user.
      */
     sjtu.opennet.textilepb.Model.User getUser();
     /**
@@ -27931,10 +29021,12 @@ public final class View {
 
     /**
      * <code>string caption = 5;</code>
+     * @return The caption.
      */
     java.lang.String getCaption();
     /**
      * <code>string caption = 5;</code>
+     * @return The bytes for caption.
      */
     com.google.protobuf.ByteString
         getCaptionBytes();
@@ -28013,19 +29105,25 @@ public final class View {
 
     /**
      * <code>repeated string threads = 9;</code>
+     * @return A list containing the threads.
      */
     java.util.List<java.lang.String>
         getThreadsList();
     /**
      * <code>repeated string threads = 9;</code>
+     * @return The count of threads.
      */
     int getThreadsCount();
     /**
      * <code>repeated string threads = 9;</code>
+     * @param index The index of the element to return.
+     * @return The threads at the given index.
      */
     java.lang.String getThreads(int index);
     /**
      * <code>repeated string threads = 9;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the threads at the given index.
      */
     com.google.protobuf.ByteString
         getThreadsBytes(int index);
@@ -28033,7 +29131,7 @@ public final class View {
   /**
    * Protobuf type {@code Files}
    */
-  public  static final class Files extends
+  public static final class Files extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:Files)
       FilesOrBuilder {
@@ -28051,6 +29149,13 @@ public final class View {
       comments_ = java.util.Collections.emptyList();
       likes_ = java.util.Collections.emptyList();
       threads_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new Files();
     }
 
     @java.lang.Override
@@ -28122,27 +29227,27 @@ public final class View {
               break;
             }
             case 50: {
-              if (!((mutable_bitField0_ & 0x00000040) == 0x00000040)) {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
                 files_ = new java.util.ArrayList<sjtu.opennet.textilepb.View.File>();
-                mutable_bitField0_ |= 0x00000040;
+                mutable_bitField0_ |= 0x00000001;
               }
               files_.add(
                   input.readMessage(sjtu.opennet.textilepb.View.File.parser(), extensionRegistry));
               break;
             }
             case 58: {
-              if (!((mutable_bitField0_ & 0x00000080) == 0x00000080)) {
+              if (!((mutable_bitField0_ & 0x00000002) != 0)) {
                 comments_ = new java.util.ArrayList<sjtu.opennet.textilepb.View.Comment>();
-                mutable_bitField0_ |= 0x00000080;
+                mutable_bitField0_ |= 0x00000002;
               }
               comments_.add(
                   input.readMessage(sjtu.opennet.textilepb.View.Comment.parser(), extensionRegistry));
               break;
             }
             case 66: {
-              if (!((mutable_bitField0_ & 0x00000100) == 0x00000100)) {
+              if (!((mutable_bitField0_ & 0x00000004) != 0)) {
                 likes_ = new java.util.ArrayList<sjtu.opennet.textilepb.View.Like>();
-                mutable_bitField0_ |= 0x00000100;
+                mutable_bitField0_ |= 0x00000004;
               }
               likes_.add(
                   input.readMessage(sjtu.opennet.textilepb.View.Like.parser(), extensionRegistry));
@@ -28150,9 +29255,9 @@ public final class View {
             }
             case 74: {
               java.lang.String s = input.readStringRequireUtf8();
-              if (!((mutable_bitField0_ & 0x00000200) == 0x00000200)) {
+              if (!((mutable_bitField0_ & 0x00000008) != 0)) {
                 threads_ = new com.google.protobuf.LazyStringArrayList();
-                mutable_bitField0_ |= 0x00000200;
+                mutable_bitField0_ |= 0x00000008;
               }
               threads_.add(s);
               break;
@@ -28164,7 +29269,7 @@ public final class View {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -28178,16 +29283,16 @@ public final class View {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000040) == 0x00000040)) {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
           files_ = java.util.Collections.unmodifiableList(files_);
         }
-        if (((mutable_bitField0_ & 0x00000080) == 0x00000080)) {
+        if (((mutable_bitField0_ & 0x00000002) != 0)) {
           comments_ = java.util.Collections.unmodifiableList(comments_);
         }
-        if (((mutable_bitField0_ & 0x00000100) == 0x00000100)) {
+        if (((mutable_bitField0_ & 0x00000004) != 0)) {
           likes_ = java.util.Collections.unmodifiableList(likes_);
         }
-        if (((mutable_bitField0_ & 0x00000200) == 0x00000200)) {
+        if (((mutable_bitField0_ & 0x00000008) != 0)) {
           threads_ = threads_.getUnmodifiableView();
         }
         this.unknownFields = unknownFields.build();
@@ -28207,12 +29312,13 @@ public final class View {
               sjtu.opennet.textilepb.View.Files.class, sjtu.opennet.textilepb.View.Files.Builder.class);
     }
 
-    private int bitField0_;
     public static final int BLOCK_FIELD_NUMBER = 1;
     private volatile java.lang.Object block_;
     /**
      * <code>string block = 1;</code>
+     * @return The block.
      */
+    @java.lang.Override
     public java.lang.String getBlock() {
       java.lang.Object ref = block_;
       if (ref instanceof java.lang.String) {
@@ -28227,7 +29333,9 @@ public final class View {
     }
     /**
      * <code>string block = 1;</code>
+     * @return The bytes for block.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getBlockBytes() {
       java.lang.Object ref = block_;
@@ -28246,7 +29354,9 @@ public final class View {
     private volatile java.lang.Object target_;
     /**
      * <code>string target = 2;</code>
+     * @return The target.
      */
+    @java.lang.Override
     public java.lang.String getTarget() {
       java.lang.Object ref = target_;
       if (ref instanceof java.lang.String) {
@@ -28261,7 +29371,9 @@ public final class View {
     }
     /**
      * <code>string target = 2;</code>
+     * @return The bytes for target.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getTargetBytes() {
       java.lang.Object ref = target_;
@@ -28280,7 +29392,9 @@ public final class View {
     private volatile java.lang.Object data_;
     /**
      * <code>string data = 10;</code>
+     * @return The data.
      */
+    @java.lang.Override
     public java.lang.String getData() {
       java.lang.Object ref = data_;
       if (ref instanceof java.lang.String) {
@@ -28295,7 +29409,9 @@ public final class View {
     }
     /**
      * <code>string data = 10;</code>
+     * @return The bytes for data.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDataBytes() {
       java.lang.Object ref = data_;
@@ -28314,19 +29430,24 @@ public final class View {
     private com.google.protobuf.Timestamp date_;
     /**
      * <code>.google.protobuf.Timestamp date = 3;</code>
+     * @return Whether the date field is set.
      */
+    @java.lang.Override
     public boolean hasDate() {
       return date_ != null;
     }
     /**
      * <code>.google.protobuf.Timestamp date = 3;</code>
+     * @return The date.
      */
+    @java.lang.Override
     public com.google.protobuf.Timestamp getDate() {
       return date_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : date_;
     }
     /**
      * <code>.google.protobuf.Timestamp date = 3;</code>
      */
+    @java.lang.Override
     public com.google.protobuf.TimestampOrBuilder getDateOrBuilder() {
       return getDate();
     }
@@ -28335,19 +29456,24 @@ public final class View {
     private sjtu.opennet.textilepb.Model.User user_;
     /**
      * <code>.User user = 4;</code>
+     * @return Whether the user field is set.
      */
+    @java.lang.Override
     public boolean hasUser() {
       return user_ != null;
     }
     /**
      * <code>.User user = 4;</code>
+     * @return The user.
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.User getUser() {
       return user_ == null ? sjtu.opennet.textilepb.Model.User.getDefaultInstance() : user_;
     }
     /**
      * <code>.User user = 4;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.UserOrBuilder getUserOrBuilder() {
       return getUser();
     }
@@ -28356,7 +29482,9 @@ public final class View {
     private volatile java.lang.Object caption_;
     /**
      * <code>string caption = 5;</code>
+     * @return The caption.
      */
+    @java.lang.Override
     public java.lang.String getCaption() {
       java.lang.Object ref = caption_;
       if (ref instanceof java.lang.String) {
@@ -28371,7 +29499,9 @@ public final class View {
     }
     /**
      * <code>string caption = 5;</code>
+     * @return The bytes for caption.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getCaptionBytes() {
       java.lang.Object ref = caption_;
@@ -28391,12 +29521,14 @@ public final class View {
     /**
      * <code>repeated .File files = 6;</code>
      */
+    @java.lang.Override
     public java.util.List<sjtu.opennet.textilepb.View.File> getFilesList() {
       return files_;
     }
     /**
      * <code>repeated .File files = 6;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends sjtu.opennet.textilepb.View.FileOrBuilder> 
         getFilesOrBuilderList() {
       return files_;
@@ -28404,18 +29536,21 @@ public final class View {
     /**
      * <code>repeated .File files = 6;</code>
      */
+    @java.lang.Override
     public int getFilesCount() {
       return files_.size();
     }
     /**
      * <code>repeated .File files = 6;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.View.File getFiles(int index) {
       return files_.get(index);
     }
     /**
      * <code>repeated .File files = 6;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.View.FileOrBuilder getFilesOrBuilder(
         int index) {
       return files_.get(index);
@@ -28426,12 +29561,14 @@ public final class View {
     /**
      * <code>repeated .Comment comments = 7;</code>
      */
+    @java.lang.Override
     public java.util.List<sjtu.opennet.textilepb.View.Comment> getCommentsList() {
       return comments_;
     }
     /**
      * <code>repeated .Comment comments = 7;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends sjtu.opennet.textilepb.View.CommentOrBuilder> 
         getCommentsOrBuilderList() {
       return comments_;
@@ -28439,18 +29576,21 @@ public final class View {
     /**
      * <code>repeated .Comment comments = 7;</code>
      */
+    @java.lang.Override
     public int getCommentsCount() {
       return comments_.size();
     }
     /**
      * <code>repeated .Comment comments = 7;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.View.Comment getComments(int index) {
       return comments_.get(index);
     }
     /**
      * <code>repeated .Comment comments = 7;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.View.CommentOrBuilder getCommentsOrBuilder(
         int index) {
       return comments_.get(index);
@@ -28461,12 +29601,14 @@ public final class View {
     /**
      * <code>repeated .Like likes = 8;</code>
      */
+    @java.lang.Override
     public java.util.List<sjtu.opennet.textilepb.View.Like> getLikesList() {
       return likes_;
     }
     /**
      * <code>repeated .Like likes = 8;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends sjtu.opennet.textilepb.View.LikeOrBuilder> 
         getLikesOrBuilderList() {
       return likes_;
@@ -28474,18 +29616,21 @@ public final class View {
     /**
      * <code>repeated .Like likes = 8;</code>
      */
+    @java.lang.Override
     public int getLikesCount() {
       return likes_.size();
     }
     /**
      * <code>repeated .Like likes = 8;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.View.Like getLikes(int index) {
       return likes_.get(index);
     }
     /**
      * <code>repeated .Like likes = 8;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.View.LikeOrBuilder getLikesOrBuilder(
         int index) {
       return likes_.get(index);
@@ -28495,6 +29640,7 @@ public final class View {
     private com.google.protobuf.LazyStringList threads_;
     /**
      * <code>repeated string threads = 9;</code>
+     * @return A list containing the threads.
      */
     public com.google.protobuf.ProtocolStringList
         getThreadsList() {
@@ -28502,18 +29648,23 @@ public final class View {
     }
     /**
      * <code>repeated string threads = 9;</code>
+     * @return The count of threads.
      */
     public int getThreadsCount() {
       return threads_.size();
     }
     /**
      * <code>repeated string threads = 9;</code>
+     * @param index The index of the element to return.
+     * @return The threads at the given index.
      */
     public java.lang.String getThreads(int index) {
       return threads_.get(index);
     }
     /**
      * <code>repeated string threads = 9;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the threads at the given index.
      */
     public com.google.protobuf.ByteString
         getThreadsBytes(int index) {
@@ -28628,35 +29779,34 @@ public final class View {
       }
       sjtu.opennet.textilepb.View.Files other = (sjtu.opennet.textilepb.View.Files) obj;
 
-      boolean result = true;
-      result = result && getBlock()
-          .equals(other.getBlock());
-      result = result && getTarget()
-          .equals(other.getTarget());
-      result = result && getData()
-          .equals(other.getData());
-      result = result && (hasDate() == other.hasDate());
+      if (!getBlock()
+          .equals(other.getBlock())) return false;
+      if (!getTarget()
+          .equals(other.getTarget())) return false;
+      if (!getData()
+          .equals(other.getData())) return false;
+      if (hasDate() != other.hasDate()) return false;
       if (hasDate()) {
-        result = result && getDate()
-            .equals(other.getDate());
+        if (!getDate()
+            .equals(other.getDate())) return false;
       }
-      result = result && (hasUser() == other.hasUser());
+      if (hasUser() != other.hasUser()) return false;
       if (hasUser()) {
-        result = result && getUser()
-            .equals(other.getUser());
+        if (!getUser()
+            .equals(other.getUser())) return false;
       }
-      result = result && getCaption()
-          .equals(other.getCaption());
-      result = result && getFilesList()
-          .equals(other.getFilesList());
-      result = result && getCommentsList()
-          .equals(other.getCommentsList());
-      result = result && getLikesList()
-          .equals(other.getLikesList());
-      result = result && getThreadsList()
-          .equals(other.getThreadsList());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getCaption()
+          .equals(other.getCaption())) return false;
+      if (!getFilesList()
+          .equals(other.getFilesList())) return false;
+      if (!getCommentsList()
+          .equals(other.getCommentsList())) return false;
+      if (!getLikesList()
+          .equals(other.getLikesList())) return false;
+      if (!getThreadsList()
+          .equals(other.getThreadsList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -28856,24 +30006,24 @@ public final class View {
 
         if (filesBuilder_ == null) {
           files_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000040);
+          bitField0_ = (bitField0_ & ~0x00000001);
         } else {
           filesBuilder_.clear();
         }
         if (commentsBuilder_ == null) {
           comments_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000080);
+          bitField0_ = (bitField0_ & ~0x00000002);
         } else {
           commentsBuilder_.clear();
         }
         if (likesBuilder_ == null) {
           likes_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000100);
+          bitField0_ = (bitField0_ & ~0x00000004);
         } else {
           likesBuilder_.clear();
         }
         threads_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-        bitField0_ = (bitField0_ & ~0x00000200);
+        bitField0_ = (bitField0_ & ~0x00000008);
         return this;
       }
 
@@ -28901,7 +30051,6 @@ public final class View {
       public sjtu.opennet.textilepb.View.Files buildPartial() {
         sjtu.opennet.textilepb.View.Files result = new sjtu.opennet.textilepb.View.Files(this);
         int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
         result.block_ = block_;
         result.target_ = target_;
         result.data_ = data_;
@@ -28917,73 +30066,72 @@ public final class View {
         }
         result.caption_ = caption_;
         if (filesBuilder_ == null) {
-          if (((bitField0_ & 0x00000040) == 0x00000040)) {
+          if (((bitField0_ & 0x00000001) != 0)) {
             files_ = java.util.Collections.unmodifiableList(files_);
-            bitField0_ = (bitField0_ & ~0x00000040);
+            bitField0_ = (bitField0_ & ~0x00000001);
           }
           result.files_ = files_;
         } else {
           result.files_ = filesBuilder_.build();
         }
         if (commentsBuilder_ == null) {
-          if (((bitField0_ & 0x00000080) == 0x00000080)) {
+          if (((bitField0_ & 0x00000002) != 0)) {
             comments_ = java.util.Collections.unmodifiableList(comments_);
-            bitField0_ = (bitField0_ & ~0x00000080);
+            bitField0_ = (bitField0_ & ~0x00000002);
           }
           result.comments_ = comments_;
         } else {
           result.comments_ = commentsBuilder_.build();
         }
         if (likesBuilder_ == null) {
-          if (((bitField0_ & 0x00000100) == 0x00000100)) {
+          if (((bitField0_ & 0x00000004) != 0)) {
             likes_ = java.util.Collections.unmodifiableList(likes_);
-            bitField0_ = (bitField0_ & ~0x00000100);
+            bitField0_ = (bitField0_ & ~0x00000004);
           }
           result.likes_ = likes_;
         } else {
           result.likes_ = likesBuilder_.build();
         }
-        if (((bitField0_ & 0x00000200) == 0x00000200)) {
+        if (((bitField0_ & 0x00000008) != 0)) {
           threads_ = threads_.getUnmodifiableView();
-          bitField0_ = (bitField0_ & ~0x00000200);
+          bitField0_ = (bitField0_ & ~0x00000008);
         }
         result.threads_ = threads_;
-        result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -29023,7 +30171,7 @@ public final class View {
           if (!other.files_.isEmpty()) {
             if (files_.isEmpty()) {
               files_ = other.files_;
-              bitField0_ = (bitField0_ & ~0x00000040);
+              bitField0_ = (bitField0_ & ~0x00000001);
             } else {
               ensureFilesIsMutable();
               files_.addAll(other.files_);
@@ -29036,7 +30184,7 @@ public final class View {
               filesBuilder_.dispose();
               filesBuilder_ = null;
               files_ = other.files_;
-              bitField0_ = (bitField0_ & ~0x00000040);
+              bitField0_ = (bitField0_ & ~0x00000001);
               filesBuilder_ = 
                 com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
                    getFilesFieldBuilder() : null;
@@ -29049,7 +30197,7 @@ public final class View {
           if (!other.comments_.isEmpty()) {
             if (comments_.isEmpty()) {
               comments_ = other.comments_;
-              bitField0_ = (bitField0_ & ~0x00000080);
+              bitField0_ = (bitField0_ & ~0x00000002);
             } else {
               ensureCommentsIsMutable();
               comments_.addAll(other.comments_);
@@ -29062,7 +30210,7 @@ public final class View {
               commentsBuilder_.dispose();
               commentsBuilder_ = null;
               comments_ = other.comments_;
-              bitField0_ = (bitField0_ & ~0x00000080);
+              bitField0_ = (bitField0_ & ~0x00000002);
               commentsBuilder_ = 
                 com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
                    getCommentsFieldBuilder() : null;
@@ -29075,7 +30223,7 @@ public final class View {
           if (!other.likes_.isEmpty()) {
             if (likes_.isEmpty()) {
               likes_ = other.likes_;
-              bitField0_ = (bitField0_ & ~0x00000100);
+              bitField0_ = (bitField0_ & ~0x00000004);
             } else {
               ensureLikesIsMutable();
               likes_.addAll(other.likes_);
@@ -29088,7 +30236,7 @@ public final class View {
               likesBuilder_.dispose();
               likesBuilder_ = null;
               likes_ = other.likes_;
-              bitField0_ = (bitField0_ & ~0x00000100);
+              bitField0_ = (bitField0_ & ~0x00000004);
               likesBuilder_ = 
                 com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
                    getLikesFieldBuilder() : null;
@@ -29100,7 +30248,7 @@ public final class View {
         if (!other.threads_.isEmpty()) {
           if (threads_.isEmpty()) {
             threads_ = other.threads_;
-            bitField0_ = (bitField0_ & ~0x00000200);
+            bitField0_ = (bitField0_ & ~0x00000008);
           } else {
             ensureThreadsIsMutable();
             threads_.addAll(other.threads_);
@@ -29140,6 +30288,7 @@ public final class View {
       private java.lang.Object block_ = "";
       /**
        * <code>string block = 1;</code>
+       * @return The block.
        */
       public java.lang.String getBlock() {
         java.lang.Object ref = block_;
@@ -29155,6 +30304,7 @@ public final class View {
       }
       /**
        * <code>string block = 1;</code>
+       * @return The bytes for block.
        */
       public com.google.protobuf.ByteString
           getBlockBytes() {
@@ -29171,6 +30321,8 @@ public final class View {
       }
       /**
        * <code>string block = 1;</code>
+       * @param value The block to set.
+       * @return This builder for chaining.
        */
       public Builder setBlock(
           java.lang.String value) {
@@ -29184,6 +30336,7 @@ public final class View {
       }
       /**
        * <code>string block = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearBlock() {
         
@@ -29193,6 +30346,8 @@ public final class View {
       }
       /**
        * <code>string block = 1;</code>
+       * @param value The bytes for block to set.
+       * @return This builder for chaining.
        */
       public Builder setBlockBytes(
           com.google.protobuf.ByteString value) {
@@ -29209,6 +30364,7 @@ public final class View {
       private java.lang.Object target_ = "";
       /**
        * <code>string target = 2;</code>
+       * @return The target.
        */
       public java.lang.String getTarget() {
         java.lang.Object ref = target_;
@@ -29224,6 +30380,7 @@ public final class View {
       }
       /**
        * <code>string target = 2;</code>
+       * @return The bytes for target.
        */
       public com.google.protobuf.ByteString
           getTargetBytes() {
@@ -29240,6 +30397,8 @@ public final class View {
       }
       /**
        * <code>string target = 2;</code>
+       * @param value The target to set.
+       * @return This builder for chaining.
        */
       public Builder setTarget(
           java.lang.String value) {
@@ -29253,6 +30412,7 @@ public final class View {
       }
       /**
        * <code>string target = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearTarget() {
         
@@ -29262,6 +30422,8 @@ public final class View {
       }
       /**
        * <code>string target = 2;</code>
+       * @param value The bytes for target to set.
+       * @return This builder for chaining.
        */
       public Builder setTargetBytes(
           com.google.protobuf.ByteString value) {
@@ -29278,6 +30440,7 @@ public final class View {
       private java.lang.Object data_ = "";
       /**
        * <code>string data = 10;</code>
+       * @return The data.
        */
       public java.lang.String getData() {
         java.lang.Object ref = data_;
@@ -29293,6 +30456,7 @@ public final class View {
       }
       /**
        * <code>string data = 10;</code>
+       * @return The bytes for data.
        */
       public com.google.protobuf.ByteString
           getDataBytes() {
@@ -29309,6 +30473,8 @@ public final class View {
       }
       /**
        * <code>string data = 10;</code>
+       * @param value The data to set.
+       * @return This builder for chaining.
        */
       public Builder setData(
           java.lang.String value) {
@@ -29322,6 +30488,7 @@ public final class View {
       }
       /**
        * <code>string data = 10;</code>
+       * @return This builder for chaining.
        */
       public Builder clearData() {
         
@@ -29331,6 +30498,8 @@ public final class View {
       }
       /**
        * <code>string data = 10;</code>
+       * @param value The bytes for data to set.
+       * @return This builder for chaining.
        */
       public Builder setDataBytes(
           com.google.protobuf.ByteString value) {
@@ -29344,17 +30513,19 @@ public final class View {
         return this;
       }
 
-      private com.google.protobuf.Timestamp date_ = null;
+      private com.google.protobuf.Timestamp date_;
       private com.google.protobuf.SingleFieldBuilderV3<
           com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> dateBuilder_;
       /**
        * <code>.google.protobuf.Timestamp date = 3;</code>
+       * @return Whether the date field is set.
        */
       public boolean hasDate() {
         return dateBuilder_ != null || date_ != null;
       }
       /**
        * <code>.google.protobuf.Timestamp date = 3;</code>
+       * @return The date.
        */
       public com.google.protobuf.Timestamp getDate() {
         if (dateBuilder_ == null) {
@@ -29461,17 +30632,19 @@ public final class View {
         return dateBuilder_;
       }
 
-      private sjtu.opennet.textilepb.Model.User user_ = null;
+      private sjtu.opennet.textilepb.Model.User user_;
       private com.google.protobuf.SingleFieldBuilderV3<
           sjtu.opennet.textilepb.Model.User, sjtu.opennet.textilepb.Model.User.Builder, sjtu.opennet.textilepb.Model.UserOrBuilder> userBuilder_;
       /**
        * <code>.User user = 4;</code>
+       * @return Whether the user field is set.
        */
       public boolean hasUser() {
         return userBuilder_ != null || user_ != null;
       }
       /**
        * <code>.User user = 4;</code>
+       * @return The user.
        */
       public sjtu.opennet.textilepb.Model.User getUser() {
         if (userBuilder_ == null) {
@@ -29581,6 +30754,7 @@ public final class View {
       private java.lang.Object caption_ = "";
       /**
        * <code>string caption = 5;</code>
+       * @return The caption.
        */
       public java.lang.String getCaption() {
         java.lang.Object ref = caption_;
@@ -29596,6 +30770,7 @@ public final class View {
       }
       /**
        * <code>string caption = 5;</code>
+       * @return The bytes for caption.
        */
       public com.google.protobuf.ByteString
           getCaptionBytes() {
@@ -29612,6 +30787,8 @@ public final class View {
       }
       /**
        * <code>string caption = 5;</code>
+       * @param value The caption to set.
+       * @return This builder for chaining.
        */
       public Builder setCaption(
           java.lang.String value) {
@@ -29625,6 +30802,7 @@ public final class View {
       }
       /**
        * <code>string caption = 5;</code>
+       * @return This builder for chaining.
        */
       public Builder clearCaption() {
         
@@ -29634,6 +30812,8 @@ public final class View {
       }
       /**
        * <code>string caption = 5;</code>
+       * @param value The bytes for caption to set.
+       * @return This builder for chaining.
        */
       public Builder setCaptionBytes(
           com.google.protobuf.ByteString value) {
@@ -29650,9 +30830,9 @@ public final class View {
       private java.util.List<sjtu.opennet.textilepb.View.File> files_ =
         java.util.Collections.emptyList();
       private void ensureFilesIsMutable() {
-        if (!((bitField0_ & 0x00000040) == 0x00000040)) {
+        if (!((bitField0_ & 0x00000001) != 0)) {
           files_ = new java.util.ArrayList<sjtu.opennet.textilepb.View.File>(files_);
-          bitField0_ |= 0x00000040;
+          bitField0_ |= 0x00000001;
          }
       }
 
@@ -29802,7 +30982,7 @@ public final class View {
       public Builder clearFiles() {
         if (filesBuilder_ == null) {
           files_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000040);
+          bitField0_ = (bitField0_ & ~0x00000001);
           onChanged();
         } else {
           filesBuilder_.clear();
@@ -29879,7 +31059,7 @@ public final class View {
           filesBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
               sjtu.opennet.textilepb.View.File, sjtu.opennet.textilepb.View.File.Builder, sjtu.opennet.textilepb.View.FileOrBuilder>(
                   files_,
-                  ((bitField0_ & 0x00000040) == 0x00000040),
+                  ((bitField0_ & 0x00000001) != 0),
                   getParentForChildren(),
                   isClean());
           files_ = null;
@@ -29890,9 +31070,9 @@ public final class View {
       private java.util.List<sjtu.opennet.textilepb.View.Comment> comments_ =
         java.util.Collections.emptyList();
       private void ensureCommentsIsMutable() {
-        if (!((bitField0_ & 0x00000080) == 0x00000080)) {
+        if (!((bitField0_ & 0x00000002) != 0)) {
           comments_ = new java.util.ArrayList<sjtu.opennet.textilepb.View.Comment>(comments_);
-          bitField0_ |= 0x00000080;
+          bitField0_ |= 0x00000002;
          }
       }
 
@@ -30042,7 +31222,7 @@ public final class View {
       public Builder clearComments() {
         if (commentsBuilder_ == null) {
           comments_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000080);
+          bitField0_ = (bitField0_ & ~0x00000002);
           onChanged();
         } else {
           commentsBuilder_.clear();
@@ -30119,7 +31299,7 @@ public final class View {
           commentsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
               sjtu.opennet.textilepb.View.Comment, sjtu.opennet.textilepb.View.Comment.Builder, sjtu.opennet.textilepb.View.CommentOrBuilder>(
                   comments_,
-                  ((bitField0_ & 0x00000080) == 0x00000080),
+                  ((bitField0_ & 0x00000002) != 0),
                   getParentForChildren(),
                   isClean());
           comments_ = null;
@@ -30130,9 +31310,9 @@ public final class View {
       private java.util.List<sjtu.opennet.textilepb.View.Like> likes_ =
         java.util.Collections.emptyList();
       private void ensureLikesIsMutable() {
-        if (!((bitField0_ & 0x00000100) == 0x00000100)) {
+        if (!((bitField0_ & 0x00000004) != 0)) {
           likes_ = new java.util.ArrayList<sjtu.opennet.textilepb.View.Like>(likes_);
-          bitField0_ |= 0x00000100;
+          bitField0_ |= 0x00000004;
          }
       }
 
@@ -30282,7 +31462,7 @@ public final class View {
       public Builder clearLikes() {
         if (likesBuilder_ == null) {
           likes_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000100);
+          bitField0_ = (bitField0_ & ~0x00000004);
           onChanged();
         } else {
           likesBuilder_.clear();
@@ -30359,7 +31539,7 @@ public final class View {
           likesBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
               sjtu.opennet.textilepb.View.Like, sjtu.opennet.textilepb.View.Like.Builder, sjtu.opennet.textilepb.View.LikeOrBuilder>(
                   likes_,
-                  ((bitField0_ & 0x00000100) == 0x00000100),
+                  ((bitField0_ & 0x00000004) != 0),
                   getParentForChildren(),
                   isClean());
           likes_ = null;
@@ -30369,13 +31549,14 @@ public final class View {
 
       private com.google.protobuf.LazyStringList threads_ = com.google.protobuf.LazyStringArrayList.EMPTY;
       private void ensureThreadsIsMutable() {
-        if (!((bitField0_ & 0x00000200) == 0x00000200)) {
+        if (!((bitField0_ & 0x00000008) != 0)) {
           threads_ = new com.google.protobuf.LazyStringArrayList(threads_);
-          bitField0_ |= 0x00000200;
+          bitField0_ |= 0x00000008;
          }
       }
       /**
        * <code>repeated string threads = 9;</code>
+       * @return A list containing the threads.
        */
       public com.google.protobuf.ProtocolStringList
           getThreadsList() {
@@ -30383,18 +31564,23 @@ public final class View {
       }
       /**
        * <code>repeated string threads = 9;</code>
+       * @return The count of threads.
        */
       public int getThreadsCount() {
         return threads_.size();
       }
       /**
        * <code>repeated string threads = 9;</code>
+       * @param index The index of the element to return.
+       * @return The threads at the given index.
        */
       public java.lang.String getThreads(int index) {
         return threads_.get(index);
       }
       /**
        * <code>repeated string threads = 9;</code>
+       * @param index The index of the value to return.
+       * @return The bytes of the threads at the given index.
        */
       public com.google.protobuf.ByteString
           getThreadsBytes(int index) {
@@ -30402,6 +31588,9 @@ public final class View {
       }
       /**
        * <code>repeated string threads = 9;</code>
+       * @param index The index to set the value at.
+       * @param value The threads to set.
+       * @return This builder for chaining.
        */
       public Builder setThreads(
           int index, java.lang.String value) {
@@ -30415,6 +31604,8 @@ public final class View {
       }
       /**
        * <code>repeated string threads = 9;</code>
+       * @param value The threads to add.
+       * @return This builder for chaining.
        */
       public Builder addThreads(
           java.lang.String value) {
@@ -30428,6 +31619,8 @@ public final class View {
       }
       /**
        * <code>repeated string threads = 9;</code>
+       * @param values The threads to add.
+       * @return This builder for chaining.
        */
       public Builder addAllThreads(
           java.lang.Iterable<java.lang.String> values) {
@@ -30439,15 +31632,18 @@ public final class View {
       }
       /**
        * <code>repeated string threads = 9;</code>
+       * @return This builder for chaining.
        */
       public Builder clearThreads() {
         threads_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-        bitField0_ = (bitField0_ & ~0x00000200);
+        bitField0_ = (bitField0_ & ~0x00000008);
         onChanged();
         return this;
       }
       /**
        * <code>repeated string threads = 9;</code>
+       * @param value The bytes of the threads to add.
+       * @return This builder for chaining.
        */
       public Builder addThreadsBytes(
           com.google.protobuf.ByteString value) {
@@ -30463,7 +31659,7 @@ public final class View {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -30544,7 +31740,7 @@ public final class View {
   /**
    * Protobuf type {@code FilesList}
    */
-  public  static final class FilesList extends
+  public static final class FilesList extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:FilesList)
       FilesListOrBuilder {
@@ -30555,6 +31751,13 @@ public final class View {
     }
     private FilesList() {
       items_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new FilesList();
     }
 
     @java.lang.Override
@@ -30582,7 +31785,7 @@ public final class View {
               done = true;
               break;
             case 10: {
-              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
                 items_ = new java.util.ArrayList<sjtu.opennet.textilepb.View.Files>();
                 mutable_bitField0_ |= 0x00000001;
               }
@@ -30591,7 +31794,7 @@ public final class View {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -30605,7 +31808,7 @@ public final class View {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
           items_ = java.util.Collections.unmodifiableList(items_);
         }
         this.unknownFields = unknownFields.build();
@@ -30630,12 +31833,14 @@ public final class View {
     /**
      * <code>repeated .Files items = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<sjtu.opennet.textilepb.View.Files> getItemsList() {
       return items_;
     }
     /**
      * <code>repeated .Files items = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends sjtu.opennet.textilepb.View.FilesOrBuilder> 
         getItemsOrBuilderList() {
       return items_;
@@ -30643,18 +31848,21 @@ public final class View {
     /**
      * <code>repeated .Files items = 1;</code>
      */
+    @java.lang.Override
     public int getItemsCount() {
       return items_.size();
     }
     /**
      * <code>repeated .Files items = 1;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.View.Files getItems(int index) {
       return items_.get(index);
     }
     /**
      * <code>repeated .Files items = 1;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.View.FilesOrBuilder getItemsOrBuilder(
         int index) {
       return items_.get(index);
@@ -30705,11 +31913,10 @@ public final class View {
       }
       sjtu.opennet.textilepb.View.FilesList other = (sjtu.opennet.textilepb.View.FilesList) obj;
 
-      boolean result = true;
-      result = result && getItemsList()
-          .equals(other.getItemsList());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getItemsList()
+          .equals(other.getItemsList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -30891,7 +32098,7 @@ public final class View {
         sjtu.opennet.textilepb.View.FilesList result = new sjtu.opennet.textilepb.View.FilesList(this);
         int from_bitField0_ = bitField0_;
         if (itemsBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) == 0x00000001)) {
+          if (((bitField0_ & 0x00000001) != 0)) {
             items_ = java.util.Collections.unmodifiableList(items_);
             bitField0_ = (bitField0_ & ~0x00000001);
           }
@@ -30905,35 +32112,35 @@ public final class View {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -31006,7 +32213,7 @@ public final class View {
       private java.util.List<sjtu.opennet.textilepb.View.Files> items_ =
         java.util.Collections.emptyList();
       private void ensureItemsIsMutable() {
-        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+        if (!((bitField0_ & 0x00000001) != 0)) {
           items_ = new java.util.ArrayList<sjtu.opennet.textilepb.View.Files>(items_);
           bitField0_ |= 0x00000001;
          }
@@ -31235,7 +32442,7 @@ public final class View {
           itemsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
               sjtu.opennet.textilepb.View.Files, sjtu.opennet.textilepb.View.Files.Builder, sjtu.opennet.textilepb.View.FilesOrBuilder>(
                   items_,
-                  ((bitField0_ & 0x00000001) == 0x00000001),
+                  ((bitField0_ & 0x00000001) != 0),
                   getParentForChildren(),
                   isClean());
           items_ = null;
@@ -31245,7 +32452,7 @@ public final class View {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -31301,20 +32508,24 @@ public final class View {
 
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
     java.lang.String getId();
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
     com.google.protobuf.ByteString
         getIdBytes();
 
     /**
      * <code>.google.protobuf.Timestamp date = 2;</code>
+     * @return Whether the date field is set.
      */
     boolean hasDate();
     /**
      * <code>.google.protobuf.Timestamp date = 2;</code>
+     * @return The date.
      */
     com.google.protobuf.Timestamp getDate();
     /**
@@ -31324,10 +32535,12 @@ public final class View {
 
     /**
      * <code>.User user = 3;</code>
+     * @return Whether the user field is set.
      */
     boolean hasUser();
     /**
      * <code>.User user = 3;</code>
+     * @return The user.
      */
     sjtu.opennet.textilepb.Model.User getUser();
     /**
@@ -31337,20 +32550,24 @@ public final class View {
 
     /**
      * <code>string body = 4;</code>
+     * @return The body.
      */
     java.lang.String getBody();
     /**
      * <code>string body = 4;</code>
+     * @return The bytes for body.
      */
     com.google.protobuf.ByteString
         getBodyBytes();
 
     /**
      * <code>.FeedItem target = 5;</code>
+     * @return Whether the target field is set.
      */
     boolean hasTarget();
     /**
      * <code>.FeedItem target = 5;</code>
+     * @return The target.
      */
     sjtu.opennet.textilepb.View.FeedItem getTarget();
     /**
@@ -31361,7 +32578,7 @@ public final class View {
   /**
    * Protobuf type {@code Comment}
    */
-  @java.lang.Deprecated public  static final class Comment extends
+  @java.lang.Deprecated public static final class Comment extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:Comment)
       CommentOrBuilder {
@@ -31373,6 +32590,13 @@ public final class View {
     private Comment() {
       id_ = "";
       body_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new Comment();
     }
 
     @java.lang.Override
@@ -31388,7 +32612,6 @@ public final class View {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -31451,7 +32674,7 @@ public final class View {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -31486,7 +32709,9 @@ public final class View {
     private volatile java.lang.Object id_;
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
+    @java.lang.Override
     public java.lang.String getId() {
       java.lang.Object ref = id_;
       if (ref instanceof java.lang.String) {
@@ -31501,7 +32726,9 @@ public final class View {
     }
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getIdBytes() {
       java.lang.Object ref = id_;
@@ -31520,19 +32747,24 @@ public final class View {
     private com.google.protobuf.Timestamp date_;
     /**
      * <code>.google.protobuf.Timestamp date = 2;</code>
+     * @return Whether the date field is set.
      */
+    @java.lang.Override
     public boolean hasDate() {
       return date_ != null;
     }
     /**
      * <code>.google.protobuf.Timestamp date = 2;</code>
+     * @return The date.
      */
+    @java.lang.Override
     public com.google.protobuf.Timestamp getDate() {
       return date_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : date_;
     }
     /**
      * <code>.google.protobuf.Timestamp date = 2;</code>
      */
+    @java.lang.Override
     public com.google.protobuf.TimestampOrBuilder getDateOrBuilder() {
       return getDate();
     }
@@ -31541,19 +32773,24 @@ public final class View {
     private sjtu.opennet.textilepb.Model.User user_;
     /**
      * <code>.User user = 3;</code>
+     * @return Whether the user field is set.
      */
+    @java.lang.Override
     public boolean hasUser() {
       return user_ != null;
     }
     /**
      * <code>.User user = 3;</code>
+     * @return The user.
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.User getUser() {
       return user_ == null ? sjtu.opennet.textilepb.Model.User.getDefaultInstance() : user_;
     }
     /**
      * <code>.User user = 3;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.UserOrBuilder getUserOrBuilder() {
       return getUser();
     }
@@ -31562,7 +32799,9 @@ public final class View {
     private volatile java.lang.Object body_;
     /**
      * <code>string body = 4;</code>
+     * @return The body.
      */
+    @java.lang.Override
     public java.lang.String getBody() {
       java.lang.Object ref = body_;
       if (ref instanceof java.lang.String) {
@@ -31577,7 +32816,9 @@ public final class View {
     }
     /**
      * <code>string body = 4;</code>
+     * @return The bytes for body.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getBodyBytes() {
       java.lang.Object ref = body_;
@@ -31596,19 +32837,24 @@ public final class View {
     private sjtu.opennet.textilepb.View.FeedItem target_;
     /**
      * <code>.FeedItem target = 5;</code>
+     * @return Whether the target field is set.
      */
+    @java.lang.Override
     public boolean hasTarget() {
       return target_ != null;
     }
     /**
      * <code>.FeedItem target = 5;</code>
+     * @return The target.
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.View.FeedItem getTarget() {
       return target_ == null ? sjtu.opennet.textilepb.View.FeedItem.getDefaultInstance() : target_;
     }
     /**
      * <code>.FeedItem target = 5;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.View.FeedItemOrBuilder getTargetOrBuilder() {
       return getTarget();
     }
@@ -31684,28 +32930,27 @@ public final class View {
       }
       sjtu.opennet.textilepb.View.Comment other = (sjtu.opennet.textilepb.View.Comment) obj;
 
-      boolean result = true;
-      result = result && getId()
-          .equals(other.getId());
-      result = result && (hasDate() == other.hasDate());
+      if (!getId()
+          .equals(other.getId())) return false;
+      if (hasDate() != other.hasDate()) return false;
       if (hasDate()) {
-        result = result && getDate()
-            .equals(other.getDate());
+        if (!getDate()
+            .equals(other.getDate())) return false;
       }
-      result = result && (hasUser() == other.hasUser());
+      if (hasUser() != other.hasUser()) return false;
       if (hasUser()) {
-        result = result && getUser()
-            .equals(other.getUser());
+        if (!getUser()
+            .equals(other.getUser())) return false;
       }
-      result = result && getBody()
-          .equals(other.getBody());
-      result = result && (hasTarget() == other.hasTarget());
+      if (!getBody()
+          .equals(other.getBody())) return false;
+      if (hasTarget() != other.hasTarget()) return false;
       if (hasTarget()) {
-        result = result && getTarget()
-            .equals(other.getTarget());
+        if (!getTarget()
+            .equals(other.getTarget())) return false;
       }
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -31935,35 +33180,35 @@ public final class View {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -32026,6 +33271,7 @@ public final class View {
       private java.lang.Object id_ = "";
       /**
        * <code>string id = 1;</code>
+       * @return The id.
        */
       public java.lang.String getId() {
         java.lang.Object ref = id_;
@@ -32041,6 +33287,7 @@ public final class View {
       }
       /**
        * <code>string id = 1;</code>
+       * @return The bytes for id.
        */
       public com.google.protobuf.ByteString
           getIdBytes() {
@@ -32057,6 +33304,8 @@ public final class View {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The id to set.
+       * @return This builder for chaining.
        */
       public Builder setId(
           java.lang.String value) {
@@ -32070,6 +33319,7 @@ public final class View {
       }
       /**
        * <code>string id = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearId() {
         
@@ -32079,6 +33329,8 @@ public final class View {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The bytes for id to set.
+       * @return This builder for chaining.
        */
       public Builder setIdBytes(
           com.google.protobuf.ByteString value) {
@@ -32092,17 +33344,19 @@ public final class View {
         return this;
       }
 
-      private com.google.protobuf.Timestamp date_ = null;
+      private com.google.protobuf.Timestamp date_;
       private com.google.protobuf.SingleFieldBuilderV3<
           com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> dateBuilder_;
       /**
        * <code>.google.protobuf.Timestamp date = 2;</code>
+       * @return Whether the date field is set.
        */
       public boolean hasDate() {
         return dateBuilder_ != null || date_ != null;
       }
       /**
        * <code>.google.protobuf.Timestamp date = 2;</code>
+       * @return The date.
        */
       public com.google.protobuf.Timestamp getDate() {
         if (dateBuilder_ == null) {
@@ -32209,17 +33463,19 @@ public final class View {
         return dateBuilder_;
       }
 
-      private sjtu.opennet.textilepb.Model.User user_ = null;
+      private sjtu.opennet.textilepb.Model.User user_;
       private com.google.protobuf.SingleFieldBuilderV3<
           sjtu.opennet.textilepb.Model.User, sjtu.opennet.textilepb.Model.User.Builder, sjtu.opennet.textilepb.Model.UserOrBuilder> userBuilder_;
       /**
        * <code>.User user = 3;</code>
+       * @return Whether the user field is set.
        */
       public boolean hasUser() {
         return userBuilder_ != null || user_ != null;
       }
       /**
        * <code>.User user = 3;</code>
+       * @return The user.
        */
       public sjtu.opennet.textilepb.Model.User getUser() {
         if (userBuilder_ == null) {
@@ -32329,6 +33585,7 @@ public final class View {
       private java.lang.Object body_ = "";
       /**
        * <code>string body = 4;</code>
+       * @return The body.
        */
       public java.lang.String getBody() {
         java.lang.Object ref = body_;
@@ -32344,6 +33601,7 @@ public final class View {
       }
       /**
        * <code>string body = 4;</code>
+       * @return The bytes for body.
        */
       public com.google.protobuf.ByteString
           getBodyBytes() {
@@ -32360,6 +33618,8 @@ public final class View {
       }
       /**
        * <code>string body = 4;</code>
+       * @param value The body to set.
+       * @return This builder for chaining.
        */
       public Builder setBody(
           java.lang.String value) {
@@ -32373,6 +33633,7 @@ public final class View {
       }
       /**
        * <code>string body = 4;</code>
+       * @return This builder for chaining.
        */
       public Builder clearBody() {
         
@@ -32382,6 +33643,8 @@ public final class View {
       }
       /**
        * <code>string body = 4;</code>
+       * @param value The bytes for body to set.
+       * @return This builder for chaining.
        */
       public Builder setBodyBytes(
           com.google.protobuf.ByteString value) {
@@ -32395,17 +33658,19 @@ public final class View {
         return this;
       }
 
-      private sjtu.opennet.textilepb.View.FeedItem target_ = null;
+      private sjtu.opennet.textilepb.View.FeedItem target_;
       private com.google.protobuf.SingleFieldBuilderV3<
           sjtu.opennet.textilepb.View.FeedItem, sjtu.opennet.textilepb.View.FeedItem.Builder, sjtu.opennet.textilepb.View.FeedItemOrBuilder> targetBuilder_;
       /**
        * <code>.FeedItem target = 5;</code>
+       * @return Whether the target field is set.
        */
       public boolean hasTarget() {
         return targetBuilder_ != null || target_ != null;
       }
       /**
        * <code>.FeedItem target = 5;</code>
+       * @return The target.
        */
       public sjtu.opennet.textilepb.View.FeedItem getTarget() {
         if (targetBuilder_ == null) {
@@ -32514,7 +33779,7 @@ public final class View {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -32595,7 +33860,7 @@ public final class View {
   /**
    * Protobuf type {@code CommentList}
    */
-  @java.lang.Deprecated public  static final class CommentList extends
+  @java.lang.Deprecated public static final class CommentList extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:CommentList)
       CommentListOrBuilder {
@@ -32606,6 +33871,13 @@ public final class View {
     }
     private CommentList() {
       items_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new CommentList();
     }
 
     @java.lang.Override
@@ -32633,7 +33905,7 @@ public final class View {
               done = true;
               break;
             case 10: {
-              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
                 items_ = new java.util.ArrayList<sjtu.opennet.textilepb.View.Comment>();
                 mutable_bitField0_ |= 0x00000001;
               }
@@ -32642,7 +33914,7 @@ public final class View {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -32656,7 +33928,7 @@ public final class View {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
           items_ = java.util.Collections.unmodifiableList(items_);
         }
         this.unknownFields = unknownFields.build();
@@ -32681,12 +33953,14 @@ public final class View {
     /**
      * <code>repeated .Comment items = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<sjtu.opennet.textilepb.View.Comment> getItemsList() {
       return items_;
     }
     /**
      * <code>repeated .Comment items = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends sjtu.opennet.textilepb.View.CommentOrBuilder> 
         getItemsOrBuilderList() {
       return items_;
@@ -32694,18 +33968,21 @@ public final class View {
     /**
      * <code>repeated .Comment items = 1;</code>
      */
+    @java.lang.Override
     public int getItemsCount() {
       return items_.size();
     }
     /**
      * <code>repeated .Comment items = 1;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.View.Comment getItems(int index) {
       return items_.get(index);
     }
     /**
      * <code>repeated .Comment items = 1;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.View.CommentOrBuilder getItemsOrBuilder(
         int index) {
       return items_.get(index);
@@ -32756,11 +34033,10 @@ public final class View {
       }
       sjtu.opennet.textilepb.View.CommentList other = (sjtu.opennet.textilepb.View.CommentList) obj;
 
-      boolean result = true;
-      result = result && getItemsList()
-          .equals(other.getItemsList());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getItemsList()
+          .equals(other.getItemsList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -32942,7 +34218,7 @@ public final class View {
         sjtu.opennet.textilepb.View.CommentList result = new sjtu.opennet.textilepb.View.CommentList(this);
         int from_bitField0_ = bitField0_;
         if (itemsBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) == 0x00000001)) {
+          if (((bitField0_ & 0x00000001) != 0)) {
             items_ = java.util.Collections.unmodifiableList(items_);
             bitField0_ = (bitField0_ & ~0x00000001);
           }
@@ -32956,35 +34232,35 @@ public final class View {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -33057,7 +34333,7 @@ public final class View {
       private java.util.List<sjtu.opennet.textilepb.View.Comment> items_ =
         java.util.Collections.emptyList();
       private void ensureItemsIsMutable() {
-        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+        if (!((bitField0_ & 0x00000001) != 0)) {
           items_ = new java.util.ArrayList<sjtu.opennet.textilepb.View.Comment>(items_);
           bitField0_ |= 0x00000001;
          }
@@ -33286,7 +34562,7 @@ public final class View {
           itemsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
               sjtu.opennet.textilepb.View.Comment, sjtu.opennet.textilepb.View.Comment.Builder, sjtu.opennet.textilepb.View.CommentOrBuilder>(
                   items_,
-                  ((bitField0_ & 0x00000001) == 0x00000001),
+                  ((bitField0_ & 0x00000001) != 0),
                   getParentForChildren(),
                   isClean());
           items_ = null;
@@ -33296,7 +34572,7 @@ public final class View {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -33352,20 +34628,24 @@ public final class View {
 
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
     java.lang.String getId();
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
     com.google.protobuf.ByteString
         getIdBytes();
 
     /**
      * <code>.google.protobuf.Timestamp date = 2;</code>
+     * @return Whether the date field is set.
      */
     boolean hasDate();
     /**
      * <code>.google.protobuf.Timestamp date = 2;</code>
+     * @return The date.
      */
     com.google.protobuf.Timestamp getDate();
     /**
@@ -33375,10 +34655,12 @@ public final class View {
 
     /**
      * <code>.User user = 3;</code>
+     * @return Whether the user field is set.
      */
     boolean hasUser();
     /**
      * <code>.User user = 3;</code>
+     * @return The user.
      */
     sjtu.opennet.textilepb.Model.User getUser();
     /**
@@ -33388,10 +34670,12 @@ public final class View {
 
     /**
      * <code>.FeedItem target = 4;</code>
+     * @return Whether the target field is set.
      */
     boolean hasTarget();
     /**
      * <code>.FeedItem target = 4;</code>
+     * @return The target.
      */
     sjtu.opennet.textilepb.View.FeedItem getTarget();
     /**
@@ -33402,7 +34686,7 @@ public final class View {
   /**
    * Protobuf type {@code Like}
    */
-  public  static final class Like extends
+  public static final class Like extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:Like)
       LikeOrBuilder {
@@ -33413,6 +34697,13 @@ public final class View {
     }
     private Like() {
       id_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new Like();
     }
 
     @java.lang.Override
@@ -33428,7 +34719,6 @@ public final class View {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -33485,7 +34775,7 @@ public final class View {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -33520,7 +34810,9 @@ public final class View {
     private volatile java.lang.Object id_;
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
+    @java.lang.Override
     public java.lang.String getId() {
       java.lang.Object ref = id_;
       if (ref instanceof java.lang.String) {
@@ -33535,7 +34827,9 @@ public final class View {
     }
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getIdBytes() {
       java.lang.Object ref = id_;
@@ -33554,19 +34848,24 @@ public final class View {
     private com.google.protobuf.Timestamp date_;
     /**
      * <code>.google.protobuf.Timestamp date = 2;</code>
+     * @return Whether the date field is set.
      */
+    @java.lang.Override
     public boolean hasDate() {
       return date_ != null;
     }
     /**
      * <code>.google.protobuf.Timestamp date = 2;</code>
+     * @return The date.
      */
+    @java.lang.Override
     public com.google.protobuf.Timestamp getDate() {
       return date_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : date_;
     }
     /**
      * <code>.google.protobuf.Timestamp date = 2;</code>
      */
+    @java.lang.Override
     public com.google.protobuf.TimestampOrBuilder getDateOrBuilder() {
       return getDate();
     }
@@ -33575,19 +34874,24 @@ public final class View {
     private sjtu.opennet.textilepb.Model.User user_;
     /**
      * <code>.User user = 3;</code>
+     * @return Whether the user field is set.
      */
+    @java.lang.Override
     public boolean hasUser() {
       return user_ != null;
     }
     /**
      * <code>.User user = 3;</code>
+     * @return The user.
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.User getUser() {
       return user_ == null ? sjtu.opennet.textilepb.Model.User.getDefaultInstance() : user_;
     }
     /**
      * <code>.User user = 3;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.UserOrBuilder getUserOrBuilder() {
       return getUser();
     }
@@ -33596,19 +34900,24 @@ public final class View {
     private sjtu.opennet.textilepb.View.FeedItem target_;
     /**
      * <code>.FeedItem target = 4;</code>
+     * @return Whether the target field is set.
      */
+    @java.lang.Override
     public boolean hasTarget() {
       return target_ != null;
     }
     /**
      * <code>.FeedItem target = 4;</code>
+     * @return The target.
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.View.FeedItem getTarget() {
       return target_ == null ? sjtu.opennet.textilepb.View.FeedItem.getDefaultInstance() : target_;
     }
     /**
      * <code>.FeedItem target = 4;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.View.FeedItemOrBuilder getTargetOrBuilder() {
       return getTarget();
     }
@@ -33678,26 +34987,25 @@ public final class View {
       }
       sjtu.opennet.textilepb.View.Like other = (sjtu.opennet.textilepb.View.Like) obj;
 
-      boolean result = true;
-      result = result && getId()
-          .equals(other.getId());
-      result = result && (hasDate() == other.hasDate());
+      if (!getId()
+          .equals(other.getId())) return false;
+      if (hasDate() != other.hasDate()) return false;
       if (hasDate()) {
-        result = result && getDate()
-            .equals(other.getDate());
+        if (!getDate()
+            .equals(other.getDate())) return false;
       }
-      result = result && (hasUser() == other.hasUser());
+      if (hasUser() != other.hasUser()) return false;
       if (hasUser()) {
-        result = result && getUser()
-            .equals(other.getUser());
+        if (!getUser()
+            .equals(other.getUser())) return false;
       }
-      result = result && (hasTarget() == other.hasTarget());
+      if (hasTarget() != other.hasTarget()) return false;
       if (hasTarget()) {
-        result = result && getTarget()
-            .equals(other.getTarget());
+        if (!getTarget()
+            .equals(other.getTarget())) return false;
       }
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -33922,35 +35230,35 @@ public final class View {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -34009,6 +35317,7 @@ public final class View {
       private java.lang.Object id_ = "";
       /**
        * <code>string id = 1;</code>
+       * @return The id.
        */
       public java.lang.String getId() {
         java.lang.Object ref = id_;
@@ -34024,6 +35333,7 @@ public final class View {
       }
       /**
        * <code>string id = 1;</code>
+       * @return The bytes for id.
        */
       public com.google.protobuf.ByteString
           getIdBytes() {
@@ -34040,6 +35350,8 @@ public final class View {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The id to set.
+       * @return This builder for chaining.
        */
       public Builder setId(
           java.lang.String value) {
@@ -34053,6 +35365,7 @@ public final class View {
       }
       /**
        * <code>string id = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearId() {
         
@@ -34062,6 +35375,8 @@ public final class View {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The bytes for id to set.
+       * @return This builder for chaining.
        */
       public Builder setIdBytes(
           com.google.protobuf.ByteString value) {
@@ -34075,17 +35390,19 @@ public final class View {
         return this;
       }
 
-      private com.google.protobuf.Timestamp date_ = null;
+      private com.google.protobuf.Timestamp date_;
       private com.google.protobuf.SingleFieldBuilderV3<
           com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> dateBuilder_;
       /**
        * <code>.google.protobuf.Timestamp date = 2;</code>
+       * @return Whether the date field is set.
        */
       public boolean hasDate() {
         return dateBuilder_ != null || date_ != null;
       }
       /**
        * <code>.google.protobuf.Timestamp date = 2;</code>
+       * @return The date.
        */
       public com.google.protobuf.Timestamp getDate() {
         if (dateBuilder_ == null) {
@@ -34192,17 +35509,19 @@ public final class View {
         return dateBuilder_;
       }
 
-      private sjtu.opennet.textilepb.Model.User user_ = null;
+      private sjtu.opennet.textilepb.Model.User user_;
       private com.google.protobuf.SingleFieldBuilderV3<
           sjtu.opennet.textilepb.Model.User, sjtu.opennet.textilepb.Model.User.Builder, sjtu.opennet.textilepb.Model.UserOrBuilder> userBuilder_;
       /**
        * <code>.User user = 3;</code>
+       * @return Whether the user field is set.
        */
       public boolean hasUser() {
         return userBuilder_ != null || user_ != null;
       }
       /**
        * <code>.User user = 3;</code>
+       * @return The user.
        */
       public sjtu.opennet.textilepb.Model.User getUser() {
         if (userBuilder_ == null) {
@@ -34309,17 +35628,19 @@ public final class View {
         return userBuilder_;
       }
 
-      private sjtu.opennet.textilepb.View.FeedItem target_ = null;
+      private sjtu.opennet.textilepb.View.FeedItem target_;
       private com.google.protobuf.SingleFieldBuilderV3<
           sjtu.opennet.textilepb.View.FeedItem, sjtu.opennet.textilepb.View.FeedItem.Builder, sjtu.opennet.textilepb.View.FeedItemOrBuilder> targetBuilder_;
       /**
        * <code>.FeedItem target = 4;</code>
+       * @return Whether the target field is set.
        */
       public boolean hasTarget() {
         return targetBuilder_ != null || target_ != null;
       }
       /**
        * <code>.FeedItem target = 4;</code>
+       * @return The target.
        */
       public sjtu.opennet.textilepb.View.FeedItem getTarget() {
         if (targetBuilder_ == null) {
@@ -34428,7 +35749,7 @@ public final class View {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -34509,7 +35830,7 @@ public final class View {
   /**
    * Protobuf type {@code LikeList}
    */
-  public  static final class LikeList extends
+  public static final class LikeList extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:LikeList)
       LikeListOrBuilder {
@@ -34520,6 +35841,13 @@ public final class View {
     }
     private LikeList() {
       items_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new LikeList();
     }
 
     @java.lang.Override
@@ -34547,7 +35875,7 @@ public final class View {
               done = true;
               break;
             case 10: {
-              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
                 items_ = new java.util.ArrayList<sjtu.opennet.textilepb.View.Like>();
                 mutable_bitField0_ |= 0x00000001;
               }
@@ -34556,7 +35884,7 @@ public final class View {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -34570,7 +35898,7 @@ public final class View {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
           items_ = java.util.Collections.unmodifiableList(items_);
         }
         this.unknownFields = unknownFields.build();
@@ -34595,12 +35923,14 @@ public final class View {
     /**
      * <code>repeated .Like items = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<sjtu.opennet.textilepb.View.Like> getItemsList() {
       return items_;
     }
     /**
      * <code>repeated .Like items = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends sjtu.opennet.textilepb.View.LikeOrBuilder> 
         getItemsOrBuilderList() {
       return items_;
@@ -34608,18 +35938,21 @@ public final class View {
     /**
      * <code>repeated .Like items = 1;</code>
      */
+    @java.lang.Override
     public int getItemsCount() {
       return items_.size();
     }
     /**
      * <code>repeated .Like items = 1;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.View.Like getItems(int index) {
       return items_.get(index);
     }
     /**
      * <code>repeated .Like items = 1;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.View.LikeOrBuilder getItemsOrBuilder(
         int index) {
       return items_.get(index);
@@ -34670,11 +36003,10 @@ public final class View {
       }
       sjtu.opennet.textilepb.View.LikeList other = (sjtu.opennet.textilepb.View.LikeList) obj;
 
-      boolean result = true;
-      result = result && getItemsList()
-          .equals(other.getItemsList());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getItemsList()
+          .equals(other.getItemsList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -34856,7 +36188,7 @@ public final class View {
         sjtu.opennet.textilepb.View.LikeList result = new sjtu.opennet.textilepb.View.LikeList(this);
         int from_bitField0_ = bitField0_;
         if (itemsBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) == 0x00000001)) {
+          if (((bitField0_ & 0x00000001) != 0)) {
             items_ = java.util.Collections.unmodifiableList(items_);
             bitField0_ = (bitField0_ & ~0x00000001);
           }
@@ -34870,35 +36202,35 @@ public final class View {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -34971,7 +36303,7 @@ public final class View {
       private java.util.List<sjtu.opennet.textilepb.View.Like> items_ =
         java.util.Collections.emptyList();
       private void ensureItemsIsMutable() {
-        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+        if (!((bitField0_ & 0x00000001) != 0)) {
           items_ = new java.util.ArrayList<sjtu.opennet.textilepb.View.Like>(items_);
           bitField0_ |= 0x00000001;
          }
@@ -35200,7 +36532,7 @@ public final class View {
           itemsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
               sjtu.opennet.textilepb.View.Like, sjtu.opennet.textilepb.View.Like.Builder, sjtu.opennet.textilepb.View.LikeOrBuilder>(
                   items_,
-                  ((bitField0_ & 0x00000001) == 0x00000001),
+                  ((bitField0_ & 0x00000001) != 0),
                   getParentForChildren(),
                   isClean());
           items_ = null;
@@ -35210,7 +36542,7 @@ public final class View {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -35266,37 +36598,43 @@ public final class View {
 
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
     java.lang.String getId();
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
     com.google.protobuf.ByteString
         getIdBytes();
 
     /**
      * <code>string key = 2 [deprecated = true];</code>
+     * @return The key.
      */
     @java.lang.Deprecated java.lang.String getKey();
     /**
      * <code>string key = 2 [deprecated = true];</code>
+     * @return The bytes for key.
      */
     @java.lang.Deprecated com.google.protobuf.ByteString
         getKeyBytes();
 
     /**
      * <code>.AccountUpdate.Type type = 3;</code>
+     * @return The enum numeric value on the wire for type.
      */
     int getTypeValue();
     /**
      * <code>.AccountUpdate.Type type = 3;</code>
+     * @return The type.
      */
     sjtu.opennet.textilepb.View.AccountUpdate.Type getType();
   }
   /**
    * Protobuf type {@code AccountUpdate}
    */
-  public  static final class AccountUpdate extends
+  public static final class AccountUpdate extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:AccountUpdate)
       AccountUpdateOrBuilder {
@@ -35312,6 +36650,13 @@ public final class View {
     }
 
     @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new AccountUpdate();
+    }
+
+    @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
       return this.unknownFields;
@@ -35324,7 +36669,6 @@ public final class View {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -35354,7 +36698,7 @@ public final class View {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -35436,6 +36780,8 @@ public final class View {
       }
 
       /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
        * @deprecated Use {@link #forNumber(int)} instead.
        */
       @java.lang.Deprecated
@@ -35443,6 +36789,10 @@ public final class View {
         return forNumber(value);
       }
 
+      /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
+       */
       public static Type forNumber(int value) {
         switch (value) {
           case 0: return THREAD_ADDED;
@@ -35467,6 +36817,10 @@ public final class View {
 
       public final com.google.protobuf.Descriptors.EnumValueDescriptor
           getValueDescriptor() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalStateException(
+              "Can't get the descriptor of an unrecognized enum value.");
+        }
         return getDescriptor().getValues().get(ordinal());
       }
       public final com.google.protobuf.Descriptors.EnumDescriptor
@@ -35505,7 +36859,9 @@ public final class View {
     private volatile java.lang.Object id_;
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
+    @java.lang.Override
     public java.lang.String getId() {
       java.lang.Object ref = id_;
       if (ref instanceof java.lang.String) {
@@ -35520,7 +36876,9 @@ public final class View {
     }
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getIdBytes() {
       java.lang.Object ref = id_;
@@ -35539,7 +36897,9 @@ public final class View {
     private volatile java.lang.Object key_;
     /**
      * <code>string key = 2 [deprecated = true];</code>
+     * @return The key.
      */
+    @java.lang.Override
     @java.lang.Deprecated public java.lang.String getKey() {
       java.lang.Object ref = key_;
       if (ref instanceof java.lang.String) {
@@ -35554,7 +36914,9 @@ public final class View {
     }
     /**
      * <code>string key = 2 [deprecated = true];</code>
+     * @return The bytes for key.
      */
+    @java.lang.Override
     @java.lang.Deprecated public com.google.protobuf.ByteString
         getKeyBytes() {
       java.lang.Object ref = key_;
@@ -35573,14 +36935,16 @@ public final class View {
     private int type_;
     /**
      * <code>.AccountUpdate.Type type = 3;</code>
+     * @return The enum numeric value on the wire for type.
      */
-    public int getTypeValue() {
+    @java.lang.Override public int getTypeValue() {
       return type_;
     }
     /**
      * <code>.AccountUpdate.Type type = 3;</code>
+     * @return The type.
      */
-    public sjtu.opennet.textilepb.View.AccountUpdate.Type getType() {
+    @java.lang.Override public sjtu.opennet.textilepb.View.AccountUpdate.Type getType() {
       @SuppressWarnings("deprecation")
       sjtu.opennet.textilepb.View.AccountUpdate.Type result = sjtu.opennet.textilepb.View.AccountUpdate.Type.valueOf(type_);
       return result == null ? sjtu.opennet.textilepb.View.AccountUpdate.Type.UNRECOGNIZED : result;
@@ -35643,14 +37007,13 @@ public final class View {
       }
       sjtu.opennet.textilepb.View.AccountUpdate other = (sjtu.opennet.textilepb.View.AccountUpdate) obj;
 
-      boolean result = true;
-      result = result && getId()
-          .equals(other.getId());
-      result = result && getKey()
-          .equals(other.getKey());
-      result = result && type_ == other.type_;
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getId()
+          .equals(other.getId())) return false;
+      if (!getKey()
+          .equals(other.getKey())) return false;
+      if (type_ != other.type_) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -35840,35 +37203,35 @@ public final class View {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -35925,6 +37288,7 @@ public final class View {
       private java.lang.Object id_ = "";
       /**
        * <code>string id = 1;</code>
+       * @return The id.
        */
       public java.lang.String getId() {
         java.lang.Object ref = id_;
@@ -35940,6 +37304,7 @@ public final class View {
       }
       /**
        * <code>string id = 1;</code>
+       * @return The bytes for id.
        */
       public com.google.protobuf.ByteString
           getIdBytes() {
@@ -35956,6 +37321,8 @@ public final class View {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The id to set.
+       * @return This builder for chaining.
        */
       public Builder setId(
           java.lang.String value) {
@@ -35969,6 +37336,7 @@ public final class View {
       }
       /**
        * <code>string id = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearId() {
         
@@ -35978,6 +37346,8 @@ public final class View {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The bytes for id to set.
+       * @return This builder for chaining.
        */
       public Builder setIdBytes(
           com.google.protobuf.ByteString value) {
@@ -35994,6 +37364,7 @@ public final class View {
       private java.lang.Object key_ = "";
       /**
        * <code>string key = 2 [deprecated = true];</code>
+       * @return The key.
        */
       @java.lang.Deprecated public java.lang.String getKey() {
         java.lang.Object ref = key_;
@@ -36009,6 +37380,7 @@ public final class View {
       }
       /**
        * <code>string key = 2 [deprecated = true];</code>
+       * @return The bytes for key.
        */
       @java.lang.Deprecated public com.google.protobuf.ByteString
           getKeyBytes() {
@@ -36025,6 +37397,8 @@ public final class View {
       }
       /**
        * <code>string key = 2 [deprecated = true];</code>
+       * @param value The key to set.
+       * @return This builder for chaining.
        */
       @java.lang.Deprecated public Builder setKey(
           java.lang.String value) {
@@ -36038,6 +37412,7 @@ public final class View {
       }
       /**
        * <code>string key = 2 [deprecated = true];</code>
+       * @return This builder for chaining.
        */
       @java.lang.Deprecated public Builder clearKey() {
         
@@ -36047,6 +37422,8 @@ public final class View {
       }
       /**
        * <code>string key = 2 [deprecated = true];</code>
+       * @param value The bytes for key to set.
+       * @return This builder for chaining.
        */
       @java.lang.Deprecated public Builder setKeyBytes(
           com.google.protobuf.ByteString value) {
@@ -36063,21 +37440,27 @@ public final class View {
       private int type_ = 0;
       /**
        * <code>.AccountUpdate.Type type = 3;</code>
+       * @return The enum numeric value on the wire for type.
        */
-      public int getTypeValue() {
+      @java.lang.Override public int getTypeValue() {
         return type_;
       }
       /**
        * <code>.AccountUpdate.Type type = 3;</code>
+       * @param value The enum numeric value on the wire for type to set.
+       * @return This builder for chaining.
        */
       public Builder setTypeValue(int value) {
+        
         type_ = value;
         onChanged();
         return this;
       }
       /**
        * <code>.AccountUpdate.Type type = 3;</code>
+       * @return The type.
        */
+      @java.lang.Override
       public sjtu.opennet.textilepb.View.AccountUpdate.Type getType() {
         @SuppressWarnings("deprecation")
         sjtu.opennet.textilepb.View.AccountUpdate.Type result = sjtu.opennet.textilepb.View.AccountUpdate.Type.valueOf(type_);
@@ -36085,6 +37468,8 @@ public final class View {
       }
       /**
        * <code>.AccountUpdate.Type type = 3;</code>
+       * @param value The type to set.
+       * @return This builder for chaining.
        */
       public Builder setType(sjtu.opennet.textilepb.View.AccountUpdate.Type value) {
         if (value == null) {
@@ -36097,6 +37482,7 @@ public final class View {
       }
       /**
        * <code>.AccountUpdate.Type type = 3;</code>
+       * @return This builder for chaining.
        */
       public Builder clearType() {
         
@@ -36107,7 +37493,7 @@ public final class View {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -36163,48 +37549,56 @@ public final class View {
 
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
     java.lang.String getId();
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
     com.google.protobuf.ByteString
         getIdBytes();
 
     /**
      * <code>string address = 2;</code>
+     * @return The address.
      */
     java.lang.String getAddress();
     /**
      * <code>string address = 2;</code>
+     * @return The bytes for address.
      */
     com.google.protobuf.ByteString
         getAddressBytes();
 
     /**
      * <code>int32 account_peer_count = 3;</code>
+     * @return The accountPeerCount.
      */
     int getAccountPeerCount();
 
     /**
      * <code>int32 thread_count = 4;</code>
+     * @return The threadCount.
      */
     int getThreadCount();
 
     /**
      * <code>int32 files_count = 5;</code>
+     * @return The filesCount.
      */
     int getFilesCount();
 
     /**
      * <code>int32 contact_count = 6;</code>
+     * @return The contactCount.
      */
     int getContactCount();
   }
   /**
    * Protobuf type {@code Summary}
    */
-  public  static final class Summary extends
+  public static final class Summary extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:Summary)
       SummaryOrBuilder {
@@ -36216,10 +37610,13 @@ public final class View {
     private Summary() {
       id_ = "";
       address_ = "";
-      accountPeerCount_ = 0;
-      threadCount_ = 0;
-      filesCount_ = 0;
-      contactCount_ = 0;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new Summary();
     }
 
     @java.lang.Override
@@ -36235,7 +37632,6 @@ public final class View {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -36279,7 +37675,7 @@ public final class View {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -36314,7 +37710,9 @@ public final class View {
     private volatile java.lang.Object id_;
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
+    @java.lang.Override
     public java.lang.String getId() {
       java.lang.Object ref = id_;
       if (ref instanceof java.lang.String) {
@@ -36329,7 +37727,9 @@ public final class View {
     }
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getIdBytes() {
       java.lang.Object ref = id_;
@@ -36348,7 +37748,9 @@ public final class View {
     private volatile java.lang.Object address_;
     /**
      * <code>string address = 2;</code>
+     * @return The address.
      */
+    @java.lang.Override
     public java.lang.String getAddress() {
       java.lang.Object ref = address_;
       if (ref instanceof java.lang.String) {
@@ -36363,7 +37765,9 @@ public final class View {
     }
     /**
      * <code>string address = 2;</code>
+     * @return The bytes for address.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAddressBytes() {
       java.lang.Object ref = address_;
@@ -36382,7 +37786,9 @@ public final class View {
     private int accountPeerCount_;
     /**
      * <code>int32 account_peer_count = 3;</code>
+     * @return The accountPeerCount.
      */
+    @java.lang.Override
     public int getAccountPeerCount() {
       return accountPeerCount_;
     }
@@ -36391,7 +37797,9 @@ public final class View {
     private int threadCount_;
     /**
      * <code>int32 thread_count = 4;</code>
+     * @return The threadCount.
      */
+    @java.lang.Override
     public int getThreadCount() {
       return threadCount_;
     }
@@ -36400,7 +37808,9 @@ public final class View {
     private int filesCount_;
     /**
      * <code>int32 files_count = 5;</code>
+     * @return The filesCount.
      */
+    @java.lang.Override
     public int getFilesCount() {
       return filesCount_;
     }
@@ -36409,7 +37819,9 @@ public final class View {
     private int contactCount_;
     /**
      * <code>int32 contact_count = 6;</code>
+     * @return The contactCount.
      */
+    @java.lang.Override
     public int getContactCount() {
       return contactCount_;
     }
@@ -36492,21 +37904,20 @@ public final class View {
       }
       sjtu.opennet.textilepb.View.Summary other = (sjtu.opennet.textilepb.View.Summary) obj;
 
-      boolean result = true;
-      result = result && getId()
-          .equals(other.getId());
-      result = result && getAddress()
-          .equals(other.getAddress());
-      result = result && (getAccountPeerCount()
-          == other.getAccountPeerCount());
-      result = result && (getThreadCount()
-          == other.getThreadCount());
-      result = result && (getFilesCount()
-          == other.getFilesCount());
-      result = result && (getContactCount()
-          == other.getContactCount());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getId()
+          .equals(other.getId())) return false;
+      if (!getAddress()
+          .equals(other.getAddress())) return false;
+      if (getAccountPeerCount()
+          != other.getAccountPeerCount()) return false;
+      if (getThreadCount()
+          != other.getThreadCount()) return false;
+      if (getFilesCount()
+          != other.getFilesCount()) return false;
+      if (getContactCount()
+          != other.getContactCount()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -36711,35 +38122,35 @@ public final class View {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -36805,6 +38216,7 @@ public final class View {
       private java.lang.Object id_ = "";
       /**
        * <code>string id = 1;</code>
+       * @return The id.
        */
       public java.lang.String getId() {
         java.lang.Object ref = id_;
@@ -36820,6 +38232,7 @@ public final class View {
       }
       /**
        * <code>string id = 1;</code>
+       * @return The bytes for id.
        */
       public com.google.protobuf.ByteString
           getIdBytes() {
@@ -36836,6 +38249,8 @@ public final class View {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The id to set.
+       * @return This builder for chaining.
        */
       public Builder setId(
           java.lang.String value) {
@@ -36849,6 +38264,7 @@ public final class View {
       }
       /**
        * <code>string id = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearId() {
         
@@ -36858,6 +38274,8 @@ public final class View {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The bytes for id to set.
+       * @return This builder for chaining.
        */
       public Builder setIdBytes(
           com.google.protobuf.ByteString value) {
@@ -36874,6 +38292,7 @@ public final class View {
       private java.lang.Object address_ = "";
       /**
        * <code>string address = 2;</code>
+       * @return The address.
        */
       public java.lang.String getAddress() {
         java.lang.Object ref = address_;
@@ -36889,6 +38308,7 @@ public final class View {
       }
       /**
        * <code>string address = 2;</code>
+       * @return The bytes for address.
        */
       public com.google.protobuf.ByteString
           getAddressBytes() {
@@ -36905,6 +38325,8 @@ public final class View {
       }
       /**
        * <code>string address = 2;</code>
+       * @param value The address to set.
+       * @return This builder for chaining.
        */
       public Builder setAddress(
           java.lang.String value) {
@@ -36918,6 +38340,7 @@ public final class View {
       }
       /**
        * <code>string address = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearAddress() {
         
@@ -36927,6 +38350,8 @@ public final class View {
       }
       /**
        * <code>string address = 2;</code>
+       * @param value The bytes for address to set.
+       * @return This builder for chaining.
        */
       public Builder setAddressBytes(
           com.google.protobuf.ByteString value) {
@@ -36943,12 +38368,16 @@ public final class View {
       private int accountPeerCount_ ;
       /**
        * <code>int32 account_peer_count = 3;</code>
+       * @return The accountPeerCount.
        */
+      @java.lang.Override
       public int getAccountPeerCount() {
         return accountPeerCount_;
       }
       /**
        * <code>int32 account_peer_count = 3;</code>
+       * @param value The accountPeerCount to set.
+       * @return This builder for chaining.
        */
       public Builder setAccountPeerCount(int value) {
         
@@ -36958,6 +38387,7 @@ public final class View {
       }
       /**
        * <code>int32 account_peer_count = 3;</code>
+       * @return This builder for chaining.
        */
       public Builder clearAccountPeerCount() {
         
@@ -36969,12 +38399,16 @@ public final class View {
       private int threadCount_ ;
       /**
        * <code>int32 thread_count = 4;</code>
+       * @return The threadCount.
        */
+      @java.lang.Override
       public int getThreadCount() {
         return threadCount_;
       }
       /**
        * <code>int32 thread_count = 4;</code>
+       * @param value The threadCount to set.
+       * @return This builder for chaining.
        */
       public Builder setThreadCount(int value) {
         
@@ -36984,6 +38418,7 @@ public final class View {
       }
       /**
        * <code>int32 thread_count = 4;</code>
+       * @return This builder for chaining.
        */
       public Builder clearThreadCount() {
         
@@ -36995,12 +38430,16 @@ public final class View {
       private int filesCount_ ;
       /**
        * <code>int32 files_count = 5;</code>
+       * @return The filesCount.
        */
+      @java.lang.Override
       public int getFilesCount() {
         return filesCount_;
       }
       /**
        * <code>int32 files_count = 5;</code>
+       * @param value The filesCount to set.
+       * @return This builder for chaining.
        */
       public Builder setFilesCount(int value) {
         
@@ -37010,6 +38449,7 @@ public final class View {
       }
       /**
        * <code>int32 files_count = 5;</code>
+       * @return This builder for chaining.
        */
       public Builder clearFilesCount() {
         
@@ -37021,12 +38461,16 @@ public final class View {
       private int contactCount_ ;
       /**
        * <code>int32 contact_count = 6;</code>
+       * @return The contactCount.
        */
+      @java.lang.Override
       public int getContactCount() {
         return contactCount_;
       }
       /**
        * <code>int32 contact_count = 6;</code>
+       * @param value The contactCount to set.
+       * @return This builder for chaining.
        */
       public Builder setContactCount(int value) {
         
@@ -37036,6 +38480,7 @@ public final class View {
       }
       /**
        * <code>int32 contact_count = 6;</code>
+       * @return This builder for chaining.
        */
       public Builder clearContactCount() {
         
@@ -37046,7 +38491,7 @@ public final class View {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -37159,7 +38604,7 @@ public final class View {
   /**
    * Protobuf type {@code LogLevel}
    */
-  public  static final class LogLevel extends
+  public static final class LogLevel extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:LogLevel)
       LogLevelOrBuilder {
@@ -37169,6 +38614,13 @@ public final class View {
       super(builder);
     }
     private LogLevel() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new LogLevel();
     }
 
     @java.lang.Override
@@ -37196,7 +38648,7 @@ public final class View {
               done = true;
               break;
             case 10: {
-              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
                 systems_ = com.google.protobuf.MapField.newMapField(
                     SystemsDefaultEntryHolder.defaultEntry);
                 mutable_bitField0_ |= 0x00000001;
@@ -37209,7 +38661,7 @@ public final class View {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -37319,6 +38771,8 @@ public final class View {
       }
 
       /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
        * @deprecated Use {@link #forNumber(int)} instead.
        */
       @java.lang.Deprecated
@@ -37326,6 +38780,10 @@ public final class View {
         return forNumber(value);
       }
 
+      /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
+       */
       public static Level forNumber(int value) {
         switch (value) {
           case 0: return CRITICAL;
@@ -37352,6 +38810,10 @@ public final class View {
 
       public final com.google.protobuf.Descriptors.EnumValueDescriptor
           getValueDescriptor() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalStateException(
+              "Can't get the descriptor of an unrecognized enum value.");
+        }
         return getDescriptor().getValues().get(ordinal());
       }
       public final com.google.protobuf.Descriptors.EnumDescriptor
@@ -37429,6 +38891,7 @@ public final class View {
      * <code>map&lt;string, .LogLevel.Level&gt; systems = 1;</code>
      */
 
+    @java.lang.Override
     public boolean containsSystems(
         java.lang.String key) {
       if (key == null) { throw new java.lang.NullPointerException(); }
@@ -37437,6 +38900,7 @@ public final class View {
     /**
      * Use {@link #getSystemsMap()} instead.
      */
+    @java.lang.Override
     @java.lang.Deprecated
     public java.util.Map<java.lang.String, sjtu.opennet.textilepb.View.LogLevel.Level>
     getSystems() {
@@ -37445,6 +38909,7 @@ public final class View {
     /**
      * <code>map&lt;string, .LogLevel.Level&gt; systems = 1;</code>
      */
+    @java.lang.Override
 
     public java.util.Map<java.lang.String, sjtu.opennet.textilepb.View.LogLevel.Level>
     getSystemsMap() {
@@ -37453,6 +38918,7 @@ public final class View {
     /**
      * <code>map&lt;string, .LogLevel.Level&gt; systems = 1;</code>
      */
+    @java.lang.Override
 
     public sjtu.opennet.textilepb.View.LogLevel.Level getSystemsOrDefault(
         java.lang.String key,
@@ -37467,6 +38933,7 @@ public final class View {
     /**
      * <code>map&lt;string, .LogLevel.Level&gt; systems = 1;</code>
      */
+    @java.lang.Override
 
     public sjtu.opennet.textilepb.View.LogLevel.Level getSystemsOrThrow(
         java.lang.String key) {
@@ -37481,6 +38948,7 @@ public final class View {
     /**
      * Use {@link #getSystemsValueMap()} instead.
      */
+    @java.lang.Override
     @java.lang.Deprecated
     public java.util.Map<java.lang.String, java.lang.Integer>
     getSystemsValue() {
@@ -37489,6 +38957,7 @@ public final class View {
     /**
      * <code>map&lt;string, .LogLevel.Level&gt; systems = 1;</code>
      */
+    @java.lang.Override
 
     public java.util.Map<java.lang.String, java.lang.Integer>
     getSystemsValueMap() {
@@ -37497,6 +38966,7 @@ public final class View {
     /**
      * <code>map&lt;string, .LogLevel.Level&gt; systems = 1;</code>
      */
+    @java.lang.Override
 
     public int getSystemsValueOrDefault(
         java.lang.String key,
@@ -37509,6 +38979,7 @@ public final class View {
     /**
      * <code>map&lt;string, .LogLevel.Level&gt; systems = 1;</code>
      */
+    @java.lang.Override
 
     public int getSystemsValueOrThrow(
         java.lang.String key) {
@@ -37575,11 +39046,10 @@ public final class View {
       }
       sjtu.opennet.textilepb.View.LogLevel other = (sjtu.opennet.textilepb.View.LogLevel) obj;
 
-      boolean result = true;
-      result = result && internalGetSystems().equals(
-          other.internalGetSystems());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!internalGetSystems().equals(
+          other.internalGetSystems())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -37784,35 +39254,35 @@ public final class View {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -37888,6 +39358,7 @@ public final class View {
        * <code>map&lt;string, .LogLevel.Level&gt; systems = 1;</code>
        */
 
+      @java.lang.Override
       public boolean containsSystems(
           java.lang.String key) {
         if (key == null) { throw new java.lang.NullPointerException(); }
@@ -37896,6 +39367,7 @@ public final class View {
       /**
        * Use {@link #getSystemsMap()} instead.
        */
+      @java.lang.Override
       @java.lang.Deprecated
       public java.util.Map<java.lang.String, sjtu.opennet.textilepb.View.LogLevel.Level>
       getSystems() {
@@ -37904,6 +39376,7 @@ public final class View {
       /**
        * <code>map&lt;string, .LogLevel.Level&gt; systems = 1;</code>
        */
+      @java.lang.Override
 
       public java.util.Map<java.lang.String, sjtu.opennet.textilepb.View.LogLevel.Level>
       getSystemsMap() {
@@ -37912,6 +39385,7 @@ public final class View {
       /**
        * <code>map&lt;string, .LogLevel.Level&gt; systems = 1;</code>
        */
+      @java.lang.Override
 
       public sjtu.opennet.textilepb.View.LogLevel.Level getSystemsOrDefault(
           java.lang.String key,
@@ -37926,6 +39400,7 @@ public final class View {
       /**
        * <code>map&lt;string, .LogLevel.Level&gt; systems = 1;</code>
        */
+      @java.lang.Override
 
       public sjtu.opennet.textilepb.View.LogLevel.Level getSystemsOrThrow(
           java.lang.String key) {
@@ -37940,6 +39415,7 @@ public final class View {
       /**
        * Use {@link #getSystemsValueMap()} instead.
        */
+      @java.lang.Override
       @java.lang.Deprecated
       public java.util.Map<java.lang.String, java.lang.Integer>
       getSystemsValue() {
@@ -37948,6 +39424,7 @@ public final class View {
       /**
        * <code>map&lt;string, .LogLevel.Level&gt; systems = 1;</code>
        */
+      @java.lang.Override
 
       public java.util.Map<java.lang.String, java.lang.Integer>
       getSystemsValueMap() {
@@ -37956,6 +39433,7 @@ public final class View {
       /**
        * <code>map&lt;string, .LogLevel.Level&gt; systems = 1;</code>
        */
+      @java.lang.Override
 
       public int getSystemsValueOrDefault(
           java.lang.String key,
@@ -37968,6 +39446,7 @@ public final class View {
       /**
        * <code>map&lt;string, .LogLevel.Level&gt; systems = 1;</code>
        */
+      @java.lang.Override
 
       public int getSystemsValueOrThrow(
           java.lang.String key) {
@@ -38058,7 +39537,7 @@ public final class View {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -38114,19 +39593,25 @@ public final class View {
 
     /**
      * <code>repeated string values = 1;</code>
+     * @return A list containing the values.
      */
     java.util.List<java.lang.String>
         getValuesList();
     /**
      * <code>repeated string values = 1;</code>
+     * @return The count of values.
      */
     int getValuesCount();
     /**
      * <code>repeated string values = 1;</code>
+     * @param index The index of the element to return.
+     * @return The values at the given index.
      */
     java.lang.String getValues(int index);
     /**
      * <code>repeated string values = 1;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the values at the given index.
      */
     com.google.protobuf.ByteString
         getValuesBytes(int index);
@@ -38134,7 +39619,7 @@ public final class View {
   /**
    * Protobuf type {@code Strings}
    */
-  public  static final class Strings extends
+  public static final class Strings extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:Strings)
       StringsOrBuilder {
@@ -38145,6 +39630,13 @@ public final class View {
     }
     private Strings() {
       values_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new Strings();
     }
 
     @java.lang.Override
@@ -38173,7 +39665,7 @@ public final class View {
               break;
             case 10: {
               java.lang.String s = input.readStringRequireUtf8();
-              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
                 values_ = new com.google.protobuf.LazyStringArrayList();
                 mutable_bitField0_ |= 0x00000001;
               }
@@ -38181,7 +39673,7 @@ public final class View {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -38195,7 +39687,7 @@ public final class View {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
           values_ = values_.getUnmodifiableView();
         }
         this.unknownFields = unknownFields.build();
@@ -38219,6 +39711,7 @@ public final class View {
     private com.google.protobuf.LazyStringList values_;
     /**
      * <code>repeated string values = 1;</code>
+     * @return A list containing the values.
      */
     public com.google.protobuf.ProtocolStringList
         getValuesList() {
@@ -38226,18 +39719,23 @@ public final class View {
     }
     /**
      * <code>repeated string values = 1;</code>
+     * @return The count of values.
      */
     public int getValuesCount() {
       return values_.size();
     }
     /**
      * <code>repeated string values = 1;</code>
+     * @param index The index of the element to return.
+     * @return The values at the given index.
      */
     public java.lang.String getValues(int index) {
       return values_.get(index);
     }
     /**
      * <code>repeated string values = 1;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the values at the given index.
      */
     public com.google.protobuf.ByteString
         getValuesBytes(int index) {
@@ -38293,11 +39791,10 @@ public final class View {
       }
       sjtu.opennet.textilepb.View.Strings other = (sjtu.opennet.textilepb.View.Strings) obj;
 
-      boolean result = true;
-      result = result && getValuesList()
-          .equals(other.getValuesList());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getValuesList()
+          .equals(other.getValuesList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -38473,7 +39970,7 @@ public final class View {
       public sjtu.opennet.textilepb.View.Strings buildPartial() {
         sjtu.opennet.textilepb.View.Strings result = new sjtu.opennet.textilepb.View.Strings(this);
         int from_bitField0_ = bitField0_;
-        if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((bitField0_ & 0x00000001) != 0)) {
           values_ = values_.getUnmodifiableView();
           bitField0_ = (bitField0_ & ~0x00000001);
         }
@@ -38484,35 +39981,35 @@ public final class View {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -38568,13 +40065,14 @@ public final class View {
 
       private com.google.protobuf.LazyStringList values_ = com.google.protobuf.LazyStringArrayList.EMPTY;
       private void ensureValuesIsMutable() {
-        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+        if (!((bitField0_ & 0x00000001) != 0)) {
           values_ = new com.google.protobuf.LazyStringArrayList(values_);
           bitField0_ |= 0x00000001;
          }
       }
       /**
        * <code>repeated string values = 1;</code>
+       * @return A list containing the values.
        */
       public com.google.protobuf.ProtocolStringList
           getValuesList() {
@@ -38582,18 +40080,23 @@ public final class View {
       }
       /**
        * <code>repeated string values = 1;</code>
+       * @return The count of values.
        */
       public int getValuesCount() {
         return values_.size();
       }
       /**
        * <code>repeated string values = 1;</code>
+       * @param index The index of the element to return.
+       * @return The values at the given index.
        */
       public java.lang.String getValues(int index) {
         return values_.get(index);
       }
       /**
        * <code>repeated string values = 1;</code>
+       * @param index The index of the value to return.
+       * @return The bytes of the values at the given index.
        */
       public com.google.protobuf.ByteString
           getValuesBytes(int index) {
@@ -38601,6 +40104,9 @@ public final class View {
       }
       /**
        * <code>repeated string values = 1;</code>
+       * @param index The index to set the value at.
+       * @param value The values to set.
+       * @return This builder for chaining.
        */
       public Builder setValues(
           int index, java.lang.String value) {
@@ -38614,6 +40120,8 @@ public final class View {
       }
       /**
        * <code>repeated string values = 1;</code>
+       * @param value The values to add.
+       * @return This builder for chaining.
        */
       public Builder addValues(
           java.lang.String value) {
@@ -38627,6 +40135,8 @@ public final class View {
       }
       /**
        * <code>repeated string values = 1;</code>
+       * @param values The values to add.
+       * @return This builder for chaining.
        */
       public Builder addAllValues(
           java.lang.Iterable<java.lang.String> values) {
@@ -38638,6 +40148,7 @@ public final class View {
       }
       /**
        * <code>repeated string values = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearValues() {
         values_ = com.google.protobuf.LazyStringArrayList.EMPTY;
@@ -38647,6 +40158,8 @@ public final class View {
       }
       /**
        * <code>repeated string values = 1;</code>
+       * @param value The bytes of the values to add.
+       * @return This builder for chaining.
        */
       public Builder addValuesBytes(
           com.google.protobuf.ByteString value) {
@@ -38662,7 +40175,7 @@ public final class View {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -38718,33 +40231,38 @@ public final class View {
 
     /**
      * <code>string chunk = 1;</code>
+     * @return The chunk.
      */
     java.lang.String getChunk();
     /**
      * <code>string chunk = 1;</code>
+     * @return The bytes for chunk.
      */
     com.google.protobuf.ByteString
         getChunkBytes();
 
     /**
      * <code>int64 startTime = 2;</code>
+     * @return The startTime.
      */
     long getStartTime();
 
     /**
      * <code>int64 endTime = 3;</code>
+     * @return The endTime.
      */
     long getEndTime();
 
     /**
      * <code>int64 index = 4;</code>
+     * @return The index.
      */
     long getIndex();
   }
   /**
    * Protobuf type {@code VideoDescription}
    */
-  public  static final class VideoDescription extends
+  public static final class VideoDescription extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:VideoDescription)
       VideoDescriptionOrBuilder {
@@ -38755,9 +40273,13 @@ public final class View {
     }
     private VideoDescription() {
       chunk_ = "";
-      startTime_ = 0L;
-      endTime_ = 0L;
-      index_ = 0L;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new VideoDescription();
     }
 
     @java.lang.Override
@@ -38773,7 +40295,6 @@ public final class View {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -38806,7 +40327,7 @@ public final class View {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -38841,7 +40362,9 @@ public final class View {
     private volatile java.lang.Object chunk_;
     /**
      * <code>string chunk = 1;</code>
+     * @return The chunk.
      */
+    @java.lang.Override
     public java.lang.String getChunk() {
       java.lang.Object ref = chunk_;
       if (ref instanceof java.lang.String) {
@@ -38856,7 +40379,9 @@ public final class View {
     }
     /**
      * <code>string chunk = 1;</code>
+     * @return The bytes for chunk.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getChunkBytes() {
       java.lang.Object ref = chunk_;
@@ -38875,7 +40400,9 @@ public final class View {
     private long startTime_;
     /**
      * <code>int64 startTime = 2;</code>
+     * @return The startTime.
      */
+    @java.lang.Override
     public long getStartTime() {
       return startTime_;
     }
@@ -38884,7 +40411,9 @@ public final class View {
     private long endTime_;
     /**
      * <code>int64 endTime = 3;</code>
+     * @return The endTime.
      */
+    @java.lang.Override
     public long getEndTime() {
       return endTime_;
     }
@@ -38893,7 +40422,9 @@ public final class View {
     private long index_;
     /**
      * <code>int64 index = 4;</code>
+     * @return The index.
      */
+    @java.lang.Override
     public long getIndex() {
       return index_;
     }
@@ -38963,17 +40494,16 @@ public final class View {
       }
       sjtu.opennet.textilepb.View.VideoDescription other = (sjtu.opennet.textilepb.View.VideoDescription) obj;
 
-      boolean result = true;
-      result = result && getChunk()
-          .equals(other.getChunk());
-      result = result && (getStartTime()
-          == other.getStartTime());
-      result = result && (getEndTime()
-          == other.getEndTime());
-      result = result && (getIndex()
-          == other.getIndex());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getChunk()
+          .equals(other.getChunk())) return false;
+      if (getStartTime()
+          != other.getStartTime()) return false;
+      if (getEndTime()
+          != other.getEndTime()) return false;
+      if (getIndex()
+          != other.getIndex()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -39171,35 +40701,35 @@ public final class View {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -39258,6 +40788,7 @@ public final class View {
       private java.lang.Object chunk_ = "";
       /**
        * <code>string chunk = 1;</code>
+       * @return The chunk.
        */
       public java.lang.String getChunk() {
         java.lang.Object ref = chunk_;
@@ -39273,6 +40804,7 @@ public final class View {
       }
       /**
        * <code>string chunk = 1;</code>
+       * @return The bytes for chunk.
        */
       public com.google.protobuf.ByteString
           getChunkBytes() {
@@ -39289,6 +40821,8 @@ public final class View {
       }
       /**
        * <code>string chunk = 1;</code>
+       * @param value The chunk to set.
+       * @return This builder for chaining.
        */
       public Builder setChunk(
           java.lang.String value) {
@@ -39302,6 +40836,7 @@ public final class View {
       }
       /**
        * <code>string chunk = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearChunk() {
         
@@ -39311,6 +40846,8 @@ public final class View {
       }
       /**
        * <code>string chunk = 1;</code>
+       * @param value The bytes for chunk to set.
+       * @return This builder for chaining.
        */
       public Builder setChunkBytes(
           com.google.protobuf.ByteString value) {
@@ -39327,12 +40864,16 @@ public final class View {
       private long startTime_ ;
       /**
        * <code>int64 startTime = 2;</code>
+       * @return The startTime.
        */
+      @java.lang.Override
       public long getStartTime() {
         return startTime_;
       }
       /**
        * <code>int64 startTime = 2;</code>
+       * @param value The startTime to set.
+       * @return This builder for chaining.
        */
       public Builder setStartTime(long value) {
         
@@ -39342,6 +40883,7 @@ public final class View {
       }
       /**
        * <code>int64 startTime = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearStartTime() {
         
@@ -39353,12 +40895,16 @@ public final class View {
       private long endTime_ ;
       /**
        * <code>int64 endTime = 3;</code>
+       * @return The endTime.
        */
+      @java.lang.Override
       public long getEndTime() {
         return endTime_;
       }
       /**
        * <code>int64 endTime = 3;</code>
+       * @param value The endTime to set.
+       * @return This builder for chaining.
        */
       public Builder setEndTime(long value) {
         
@@ -39368,6 +40914,7 @@ public final class View {
       }
       /**
        * <code>int64 endTime = 3;</code>
+       * @return This builder for chaining.
        */
       public Builder clearEndTime() {
         
@@ -39379,12 +40926,16 @@ public final class View {
       private long index_ ;
       /**
        * <code>int64 index = 4;</code>
+       * @return The index.
        */
+      @java.lang.Override
       public long getIndex() {
         return index_;
       }
       /**
        * <code>int64 index = 4;</code>
+       * @param value The index to set.
+       * @return This builder for chaining.
        */
       public Builder setIndex(long value) {
         
@@ -39394,6 +40945,7 @@ public final class View {
       }
       /**
        * <code>int64 index = 4;</code>
+       * @return This builder for chaining.
        */
       public Builder clearIndex() {
         
@@ -39404,7 +40956,7 @@ public final class View {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -39777,21 +41329,13 @@ public final class View {
       "\030\004 \001(\003B\034\n\026sjtu.opennet.textilepbZ\002pbb\006pr" +
       "oto3"
     };
-    com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
-        new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
-          public com.google.protobuf.ExtensionRegistry assignDescriptors(
-              com.google.protobuf.Descriptors.FileDescriptor root) {
-            descriptor = root;
-            return null;
-          }
-        };
-    com.google.protobuf.Descriptors.FileDescriptor
+    descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           com.google.protobuf.AnyProto.getDescriptor(),
           com.google.protobuf.TimestampProto.getDescriptor(),
           sjtu.opennet.textilepb.Model.getDescriptor(),
-        }, assigner);
+        });
     internal_static_AddThreadConfig_descriptor =
       getDescriptor().getMessageTypes().get(0);
     internal_static_AddThreadConfig_fieldAccessorTable = new

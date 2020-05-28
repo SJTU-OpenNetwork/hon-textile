@@ -24,6 +24,7 @@ public final class QueryOuterClass {
      * </pre>
      *
      * <code>bool localOnly = 1;</code>
+     * @return The localOnly.
      */
     boolean getLocalOnly();
 
@@ -33,43 +34,54 @@ public final class QueryOuterClass {
      * </pre>
      *
      * <code>bool remoteOnly = 6;</code>
+     * @return The remoteOnly.
      */
     boolean getRemoteOnly();
 
     /**
      * <code>int32 limit = 2;</code>
+     * @return The limit.
      */
     int getLimit();
 
     /**
      * <code>int32 wait = 3;</code>
+     * @return The wait.
      */
     int getWait();
 
     /**
      * <code>.QueryOptions.FilterType filter = 4;</code>
+     * @return The enum numeric value on the wire for filter.
      */
     int getFilterValue();
     /**
      * <code>.QueryOptions.FilterType filter = 4;</code>
+     * @return The filter.
      */
     sjtu.opennet.textilepb.QueryOuterClass.QueryOptions.FilterType getFilter();
 
     /**
      * <code>repeated string exclude = 5;</code>
+     * @return A list containing the exclude.
      */
     java.util.List<java.lang.String>
         getExcludeList();
     /**
      * <code>repeated string exclude = 5;</code>
+     * @return The count of exclude.
      */
     int getExcludeCount();
     /**
      * <code>repeated string exclude = 5;</code>
+     * @param index The index of the element to return.
+     * @return The exclude at the given index.
      */
     java.lang.String getExclude(int index);
     /**
      * <code>repeated string exclude = 5;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the exclude at the given index.
      */
     com.google.protobuf.ByteString
         getExcludeBytes(int index);
@@ -77,7 +89,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code QueryOptions}
    */
-  public  static final class QueryOptions extends
+  public static final class QueryOptions extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:QueryOptions)
       QueryOptionsOrBuilder {
@@ -87,12 +99,15 @@ public final class QueryOuterClass {
       super(builder);
     }
     private QueryOptions() {
-      localOnly_ = false;
-      remoteOnly_ = false;
-      limit_ = 0;
-      wait_ = 0;
       filter_ = 0;
       exclude_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new QueryOptions();
     }
 
     @java.lang.Override
@@ -142,9 +157,9 @@ public final class QueryOuterClass {
             }
             case 42: {
               java.lang.String s = input.readStringRequireUtf8();
-              if (!((mutable_bitField0_ & 0x00000020) == 0x00000020)) {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
                 exclude_ = new com.google.protobuf.LazyStringArrayList();
-                mutable_bitField0_ |= 0x00000020;
+                mutable_bitField0_ |= 0x00000001;
               }
               exclude_.add(s);
               break;
@@ -155,7 +170,7 @@ public final class QueryOuterClass {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -169,7 +184,7 @@ public final class QueryOuterClass {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000020) == 0x00000020)) {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
           exclude_ = exclude_.getUnmodifiableView();
         }
         this.unknownFields = unknownFields.build();
@@ -240,6 +255,8 @@ public final class QueryOuterClass {
       }
 
       /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
        * @deprecated Use {@link #forNumber(int)} instead.
        */
       @java.lang.Deprecated
@@ -247,6 +264,10 @@ public final class QueryOuterClass {
         return forNumber(value);
       }
 
+      /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
+       */
       public static FilterType forNumber(int value) {
         switch (value) {
           case 0: return NO_FILTER;
@@ -269,6 +290,10 @@ public final class QueryOuterClass {
 
       public final com.google.protobuf.Descriptors.EnumValueDescriptor
           getValueDescriptor() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalStateException(
+              "Can't get the descriptor of an unrecognized enum value.");
+        }
         return getDescriptor().getValues().get(ordinal());
       }
       public final com.google.protobuf.Descriptors.EnumDescriptor
@@ -303,7 +328,6 @@ public final class QueryOuterClass {
       // @@protoc_insertion_point(enum_scope:QueryOptions.FilterType)
     }
 
-    private int bitField0_;
     public static final int LOCALONLY_FIELD_NUMBER = 1;
     private boolean localOnly_;
     /**
@@ -312,7 +336,9 @@ public final class QueryOuterClass {
      * </pre>
      *
      * <code>bool localOnly = 1;</code>
+     * @return The localOnly.
      */
+    @java.lang.Override
     public boolean getLocalOnly() {
       return localOnly_;
     }
@@ -325,7 +351,9 @@ public final class QueryOuterClass {
      * </pre>
      *
      * <code>bool remoteOnly = 6;</code>
+     * @return The remoteOnly.
      */
+    @java.lang.Override
     public boolean getRemoteOnly() {
       return remoteOnly_;
     }
@@ -334,7 +362,9 @@ public final class QueryOuterClass {
     private int limit_;
     /**
      * <code>int32 limit = 2;</code>
+     * @return The limit.
      */
+    @java.lang.Override
     public int getLimit() {
       return limit_;
     }
@@ -343,7 +373,9 @@ public final class QueryOuterClass {
     private int wait_;
     /**
      * <code>int32 wait = 3;</code>
+     * @return The wait.
      */
+    @java.lang.Override
     public int getWait() {
       return wait_;
     }
@@ -352,14 +384,16 @@ public final class QueryOuterClass {
     private int filter_;
     /**
      * <code>.QueryOptions.FilterType filter = 4;</code>
+     * @return The enum numeric value on the wire for filter.
      */
-    public int getFilterValue() {
+    @java.lang.Override public int getFilterValue() {
       return filter_;
     }
     /**
      * <code>.QueryOptions.FilterType filter = 4;</code>
+     * @return The filter.
      */
-    public sjtu.opennet.textilepb.QueryOuterClass.QueryOptions.FilterType getFilter() {
+    @java.lang.Override public sjtu.opennet.textilepb.QueryOuterClass.QueryOptions.FilterType getFilter() {
       @SuppressWarnings("deprecation")
       sjtu.opennet.textilepb.QueryOuterClass.QueryOptions.FilterType result = sjtu.opennet.textilepb.QueryOuterClass.QueryOptions.FilterType.valueOf(filter_);
       return result == null ? sjtu.opennet.textilepb.QueryOuterClass.QueryOptions.FilterType.UNRECOGNIZED : result;
@@ -369,6 +403,7 @@ public final class QueryOuterClass {
     private com.google.protobuf.LazyStringList exclude_;
     /**
      * <code>repeated string exclude = 5;</code>
+     * @return A list containing the exclude.
      */
     public com.google.protobuf.ProtocolStringList
         getExcludeList() {
@@ -376,18 +411,23 @@ public final class QueryOuterClass {
     }
     /**
      * <code>repeated string exclude = 5;</code>
+     * @return The count of exclude.
      */
     public int getExcludeCount() {
       return exclude_.size();
     }
     /**
      * <code>repeated string exclude = 5;</code>
+     * @param index The index of the element to return.
+     * @return The exclude at the given index.
      */
     public java.lang.String getExclude(int index) {
       return exclude_.get(index);
     }
     /**
      * <code>repeated string exclude = 5;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the exclude at the given index.
      */
     public com.google.protobuf.ByteString
         getExcludeBytes(int index) {
@@ -478,20 +518,19 @@ public final class QueryOuterClass {
       }
       sjtu.opennet.textilepb.QueryOuterClass.QueryOptions other = (sjtu.opennet.textilepb.QueryOuterClass.QueryOptions) obj;
 
-      boolean result = true;
-      result = result && (getLocalOnly()
-          == other.getLocalOnly());
-      result = result && (getRemoteOnly()
-          == other.getRemoteOnly());
-      result = result && (getLimit()
-          == other.getLimit());
-      result = result && (getWait()
-          == other.getWait());
-      result = result && filter_ == other.filter_;
-      result = result && getExcludeList()
-          .equals(other.getExcludeList());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (getLocalOnly()
+          != other.getLocalOnly()) return false;
+      if (getRemoteOnly()
+          != other.getRemoteOnly()) return false;
+      if (getLimit()
+          != other.getLimit()) return false;
+      if (getWait()
+          != other.getWait()) return false;
+      if (filter_ != other.filter_) return false;
+      if (!getExcludeList()
+          .equals(other.getExcludeList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -661,7 +700,7 @@ public final class QueryOuterClass {
         filter_ = 0;
 
         exclude_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-        bitField0_ = (bitField0_ & ~0x00000020);
+        bitField0_ = (bitField0_ & ~0x00000001);
         return this;
       }
 
@@ -689,53 +728,51 @@ public final class QueryOuterClass {
       public sjtu.opennet.textilepb.QueryOuterClass.QueryOptions buildPartial() {
         sjtu.opennet.textilepb.QueryOuterClass.QueryOptions result = new sjtu.opennet.textilepb.QueryOuterClass.QueryOptions(this);
         int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
         result.localOnly_ = localOnly_;
         result.remoteOnly_ = remoteOnly_;
         result.limit_ = limit_;
         result.wait_ = wait_;
         result.filter_ = filter_;
-        if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        if (((bitField0_ & 0x00000001) != 0)) {
           exclude_ = exclude_.getUnmodifiableView();
-          bitField0_ = (bitField0_ & ~0x00000020);
+          bitField0_ = (bitField0_ & ~0x00000001);
         }
         result.exclude_ = exclude_;
-        result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -767,7 +804,7 @@ public final class QueryOuterClass {
         if (!other.exclude_.isEmpty()) {
           if (exclude_.isEmpty()) {
             exclude_ = other.exclude_;
-            bitField0_ = (bitField0_ & ~0x00000020);
+            bitField0_ = (bitField0_ & ~0x00000001);
           } else {
             ensureExcludeIsMutable();
             exclude_.addAll(other.exclude_);
@@ -811,7 +848,9 @@ public final class QueryOuterClass {
        * </pre>
        *
        * <code>bool localOnly = 1;</code>
+       * @return The localOnly.
        */
+      @java.lang.Override
       public boolean getLocalOnly() {
         return localOnly_;
       }
@@ -821,6 +860,8 @@ public final class QueryOuterClass {
        * </pre>
        *
        * <code>bool localOnly = 1;</code>
+       * @param value The localOnly to set.
+       * @return This builder for chaining.
        */
       public Builder setLocalOnly(boolean value) {
         
@@ -834,6 +875,7 @@ public final class QueryOuterClass {
        * </pre>
        *
        * <code>bool localOnly = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearLocalOnly() {
         
@@ -849,7 +891,9 @@ public final class QueryOuterClass {
        * </pre>
        *
        * <code>bool remoteOnly = 6;</code>
+       * @return The remoteOnly.
        */
+      @java.lang.Override
       public boolean getRemoteOnly() {
         return remoteOnly_;
       }
@@ -859,6 +903,8 @@ public final class QueryOuterClass {
        * </pre>
        *
        * <code>bool remoteOnly = 6;</code>
+       * @param value The remoteOnly to set.
+       * @return This builder for chaining.
        */
       public Builder setRemoteOnly(boolean value) {
         
@@ -872,6 +918,7 @@ public final class QueryOuterClass {
        * </pre>
        *
        * <code>bool remoteOnly = 6;</code>
+       * @return This builder for chaining.
        */
       public Builder clearRemoteOnly() {
         
@@ -883,12 +930,16 @@ public final class QueryOuterClass {
       private int limit_ ;
       /**
        * <code>int32 limit = 2;</code>
+       * @return The limit.
        */
+      @java.lang.Override
       public int getLimit() {
         return limit_;
       }
       /**
        * <code>int32 limit = 2;</code>
+       * @param value The limit to set.
+       * @return This builder for chaining.
        */
       public Builder setLimit(int value) {
         
@@ -898,6 +949,7 @@ public final class QueryOuterClass {
       }
       /**
        * <code>int32 limit = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearLimit() {
         
@@ -909,12 +961,16 @@ public final class QueryOuterClass {
       private int wait_ ;
       /**
        * <code>int32 wait = 3;</code>
+       * @return The wait.
        */
+      @java.lang.Override
       public int getWait() {
         return wait_;
       }
       /**
        * <code>int32 wait = 3;</code>
+       * @param value The wait to set.
+       * @return This builder for chaining.
        */
       public Builder setWait(int value) {
         
@@ -924,6 +980,7 @@ public final class QueryOuterClass {
       }
       /**
        * <code>int32 wait = 3;</code>
+       * @return This builder for chaining.
        */
       public Builder clearWait() {
         
@@ -935,21 +992,27 @@ public final class QueryOuterClass {
       private int filter_ = 0;
       /**
        * <code>.QueryOptions.FilterType filter = 4;</code>
+       * @return The enum numeric value on the wire for filter.
        */
-      public int getFilterValue() {
+      @java.lang.Override public int getFilterValue() {
         return filter_;
       }
       /**
        * <code>.QueryOptions.FilterType filter = 4;</code>
+       * @param value The enum numeric value on the wire for filter to set.
+       * @return This builder for chaining.
        */
       public Builder setFilterValue(int value) {
+        
         filter_ = value;
         onChanged();
         return this;
       }
       /**
        * <code>.QueryOptions.FilterType filter = 4;</code>
+       * @return The filter.
        */
+      @java.lang.Override
       public sjtu.opennet.textilepb.QueryOuterClass.QueryOptions.FilterType getFilter() {
         @SuppressWarnings("deprecation")
         sjtu.opennet.textilepb.QueryOuterClass.QueryOptions.FilterType result = sjtu.opennet.textilepb.QueryOuterClass.QueryOptions.FilterType.valueOf(filter_);
@@ -957,6 +1020,8 @@ public final class QueryOuterClass {
       }
       /**
        * <code>.QueryOptions.FilterType filter = 4;</code>
+       * @param value The filter to set.
+       * @return This builder for chaining.
        */
       public Builder setFilter(sjtu.opennet.textilepb.QueryOuterClass.QueryOptions.FilterType value) {
         if (value == null) {
@@ -969,6 +1034,7 @@ public final class QueryOuterClass {
       }
       /**
        * <code>.QueryOptions.FilterType filter = 4;</code>
+       * @return This builder for chaining.
        */
       public Builder clearFilter() {
         
@@ -979,13 +1045,14 @@ public final class QueryOuterClass {
 
       private com.google.protobuf.LazyStringList exclude_ = com.google.protobuf.LazyStringArrayList.EMPTY;
       private void ensureExcludeIsMutable() {
-        if (!((bitField0_ & 0x00000020) == 0x00000020)) {
+        if (!((bitField0_ & 0x00000001) != 0)) {
           exclude_ = new com.google.protobuf.LazyStringArrayList(exclude_);
-          bitField0_ |= 0x00000020;
+          bitField0_ |= 0x00000001;
          }
       }
       /**
        * <code>repeated string exclude = 5;</code>
+       * @return A list containing the exclude.
        */
       public com.google.protobuf.ProtocolStringList
           getExcludeList() {
@@ -993,18 +1060,23 @@ public final class QueryOuterClass {
       }
       /**
        * <code>repeated string exclude = 5;</code>
+       * @return The count of exclude.
        */
       public int getExcludeCount() {
         return exclude_.size();
       }
       /**
        * <code>repeated string exclude = 5;</code>
+       * @param index The index of the element to return.
+       * @return The exclude at the given index.
        */
       public java.lang.String getExclude(int index) {
         return exclude_.get(index);
       }
       /**
        * <code>repeated string exclude = 5;</code>
+       * @param index The index of the value to return.
+       * @return The bytes of the exclude at the given index.
        */
       public com.google.protobuf.ByteString
           getExcludeBytes(int index) {
@@ -1012,6 +1084,9 @@ public final class QueryOuterClass {
       }
       /**
        * <code>repeated string exclude = 5;</code>
+       * @param index The index to set the value at.
+       * @param value The exclude to set.
+       * @return This builder for chaining.
        */
       public Builder setExclude(
           int index, java.lang.String value) {
@@ -1025,6 +1100,8 @@ public final class QueryOuterClass {
       }
       /**
        * <code>repeated string exclude = 5;</code>
+       * @param value The exclude to add.
+       * @return This builder for chaining.
        */
       public Builder addExclude(
           java.lang.String value) {
@@ -1038,6 +1115,8 @@ public final class QueryOuterClass {
       }
       /**
        * <code>repeated string exclude = 5;</code>
+       * @param values The exclude to add.
+       * @return This builder for chaining.
        */
       public Builder addAllExclude(
           java.lang.Iterable<java.lang.String> values) {
@@ -1049,15 +1128,18 @@ public final class QueryOuterClass {
       }
       /**
        * <code>repeated string exclude = 5;</code>
+       * @return This builder for chaining.
        */
       public Builder clearExclude() {
         exclude_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-        bitField0_ = (bitField0_ & ~0x00000020);
+        bitField0_ = (bitField0_ & ~0x00000001);
         onChanged();
         return this;
       }
       /**
        * <code>repeated string exclude = 5;</code>
+       * @param value The bytes of the exclude to add.
+       * @return This builder for chaining.
        */
       public Builder addExcludeBytes(
           com.google.protobuf.ByteString value) {
@@ -1073,7 +1155,7 @@ public final class QueryOuterClass {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -1129,39 +1211,47 @@ public final class QueryOuterClass {
 
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
     java.lang.String getId();
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
     com.google.protobuf.ByteString
         getIdBytes();
 
     /**
      * <code>string token = 2;</code>
+     * @return The token.
      */
     java.lang.String getToken();
     /**
      * <code>string token = 2;</code>
+     * @return The bytes for token.
      */
     com.google.protobuf.ByteString
         getTokenBytes();
 
     /**
      * <code>.Query.Type type = 3;</code>
+     * @return The enum numeric value on the wire for type.
      */
     int getTypeValue();
     /**
      * <code>.Query.Type type = 3;</code>
+     * @return The type.
      */
     sjtu.opennet.textilepb.QueryOuterClass.Query.Type getType();
 
     /**
      * <code>.QueryOptions options = 4;</code>
+     * @return Whether the options field is set.
      */
     boolean hasOptions();
     /**
      * <code>.QueryOptions options = 4;</code>
+     * @return The options.
      */
     sjtu.opennet.textilepb.QueryOuterClass.QueryOptions getOptions();
     /**
@@ -1171,10 +1261,12 @@ public final class QueryOuterClass {
 
     /**
      * <code>.google.protobuf.Any payload = 5;</code>
+     * @return Whether the payload field is set.
      */
     boolean hasPayload();
     /**
      * <code>.google.protobuf.Any payload = 5;</code>
+     * @return The payload.
      */
     com.google.protobuf.Any getPayload();
     /**
@@ -1185,7 +1277,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code Query}
    */
-  public  static final class Query extends
+  public static final class Query extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:Query)
       QueryOrBuilder {
@@ -1201,6 +1293,13 @@ public final class QueryOuterClass {
     }
 
     @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new Query();
+    }
+
+    @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
       return this.unknownFields;
@@ -1213,7 +1312,6 @@ public final class QueryOuterClass {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -1269,7 +1367,7 @@ public final class QueryOuterClass {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -1367,6 +1465,8 @@ public final class QueryOuterClass {
       }
 
       /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
        * @deprecated Use {@link #forNumber(int)} instead.
        */
       @java.lang.Deprecated
@@ -1374,6 +1474,10 @@ public final class QueryOuterClass {
         return forNumber(value);
       }
 
+      /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
+       */
       public static Type forNumber(int value) {
         switch (value) {
           case 0: return THREAD_SNAPSHOTS;
@@ -1400,6 +1504,10 @@ public final class QueryOuterClass {
 
       public final com.google.protobuf.Descriptors.EnumValueDescriptor
           getValueDescriptor() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalStateException(
+              "Can't get the descriptor of an unrecognized enum value.");
+        }
         return getDescriptor().getValues().get(ordinal());
       }
       public final com.google.protobuf.Descriptors.EnumDescriptor
@@ -1438,7 +1546,9 @@ public final class QueryOuterClass {
     private volatile java.lang.Object id_;
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
+    @java.lang.Override
     public java.lang.String getId() {
       java.lang.Object ref = id_;
       if (ref instanceof java.lang.String) {
@@ -1453,7 +1563,9 @@ public final class QueryOuterClass {
     }
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getIdBytes() {
       java.lang.Object ref = id_;
@@ -1472,7 +1584,9 @@ public final class QueryOuterClass {
     private volatile java.lang.Object token_;
     /**
      * <code>string token = 2;</code>
+     * @return The token.
      */
+    @java.lang.Override
     public java.lang.String getToken() {
       java.lang.Object ref = token_;
       if (ref instanceof java.lang.String) {
@@ -1487,7 +1601,9 @@ public final class QueryOuterClass {
     }
     /**
      * <code>string token = 2;</code>
+     * @return The bytes for token.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getTokenBytes() {
       java.lang.Object ref = token_;
@@ -1506,14 +1622,16 @@ public final class QueryOuterClass {
     private int type_;
     /**
      * <code>.Query.Type type = 3;</code>
+     * @return The enum numeric value on the wire for type.
      */
-    public int getTypeValue() {
+    @java.lang.Override public int getTypeValue() {
       return type_;
     }
     /**
      * <code>.Query.Type type = 3;</code>
+     * @return The type.
      */
-    public sjtu.opennet.textilepb.QueryOuterClass.Query.Type getType() {
+    @java.lang.Override public sjtu.opennet.textilepb.QueryOuterClass.Query.Type getType() {
       @SuppressWarnings("deprecation")
       sjtu.opennet.textilepb.QueryOuterClass.Query.Type result = sjtu.opennet.textilepb.QueryOuterClass.Query.Type.valueOf(type_);
       return result == null ? sjtu.opennet.textilepb.QueryOuterClass.Query.Type.UNRECOGNIZED : result;
@@ -1523,19 +1641,24 @@ public final class QueryOuterClass {
     private sjtu.opennet.textilepb.QueryOuterClass.QueryOptions options_;
     /**
      * <code>.QueryOptions options = 4;</code>
+     * @return Whether the options field is set.
      */
+    @java.lang.Override
     public boolean hasOptions() {
       return options_ != null;
     }
     /**
      * <code>.QueryOptions options = 4;</code>
+     * @return The options.
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.QueryOuterClass.QueryOptions getOptions() {
       return options_ == null ? sjtu.opennet.textilepb.QueryOuterClass.QueryOptions.getDefaultInstance() : options_;
     }
     /**
      * <code>.QueryOptions options = 4;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.QueryOuterClass.QueryOptionsOrBuilder getOptionsOrBuilder() {
       return getOptions();
     }
@@ -1544,19 +1667,24 @@ public final class QueryOuterClass {
     private com.google.protobuf.Any payload_;
     /**
      * <code>.google.protobuf.Any payload = 5;</code>
+     * @return Whether the payload field is set.
      */
+    @java.lang.Override
     public boolean hasPayload() {
       return payload_ != null;
     }
     /**
      * <code>.google.protobuf.Any payload = 5;</code>
+     * @return The payload.
      */
+    @java.lang.Override
     public com.google.protobuf.Any getPayload() {
       return payload_ == null ? com.google.protobuf.Any.getDefaultInstance() : payload_;
     }
     /**
      * <code>.google.protobuf.Any payload = 5;</code>
      */
+    @java.lang.Override
     public com.google.protobuf.AnyOrBuilder getPayloadOrBuilder() {
       return getPayload();
     }
@@ -1632,24 +1760,23 @@ public final class QueryOuterClass {
       }
       sjtu.opennet.textilepb.QueryOuterClass.Query other = (sjtu.opennet.textilepb.QueryOuterClass.Query) obj;
 
-      boolean result = true;
-      result = result && getId()
-          .equals(other.getId());
-      result = result && getToken()
-          .equals(other.getToken());
-      result = result && type_ == other.type_;
-      result = result && (hasOptions() == other.hasOptions());
+      if (!getId()
+          .equals(other.getId())) return false;
+      if (!getToken()
+          .equals(other.getToken())) return false;
+      if (type_ != other.type_) return false;
+      if (hasOptions() != other.hasOptions()) return false;
       if (hasOptions()) {
-        result = result && getOptions()
-            .equals(other.getOptions());
+        if (!getOptions()
+            .equals(other.getOptions())) return false;
       }
-      result = result && (hasPayload() == other.hasPayload());
+      if (hasPayload() != other.hasPayload()) return false;
       if (hasPayload()) {
-        result = result && getPayload()
-            .equals(other.getPayload());
+        if (!getPayload()
+            .equals(other.getPayload())) return false;
       }
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -1869,35 +1996,35 @@ public final class QueryOuterClass {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -1960,6 +2087,7 @@ public final class QueryOuterClass {
       private java.lang.Object id_ = "";
       /**
        * <code>string id = 1;</code>
+       * @return The id.
        */
       public java.lang.String getId() {
         java.lang.Object ref = id_;
@@ -1975,6 +2103,7 @@ public final class QueryOuterClass {
       }
       /**
        * <code>string id = 1;</code>
+       * @return The bytes for id.
        */
       public com.google.protobuf.ByteString
           getIdBytes() {
@@ -1991,6 +2120,8 @@ public final class QueryOuterClass {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The id to set.
+       * @return This builder for chaining.
        */
       public Builder setId(
           java.lang.String value) {
@@ -2004,6 +2135,7 @@ public final class QueryOuterClass {
       }
       /**
        * <code>string id = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearId() {
         
@@ -2013,6 +2145,8 @@ public final class QueryOuterClass {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The bytes for id to set.
+       * @return This builder for chaining.
        */
       public Builder setIdBytes(
           com.google.protobuf.ByteString value) {
@@ -2029,6 +2163,7 @@ public final class QueryOuterClass {
       private java.lang.Object token_ = "";
       /**
        * <code>string token = 2;</code>
+       * @return The token.
        */
       public java.lang.String getToken() {
         java.lang.Object ref = token_;
@@ -2044,6 +2179,7 @@ public final class QueryOuterClass {
       }
       /**
        * <code>string token = 2;</code>
+       * @return The bytes for token.
        */
       public com.google.protobuf.ByteString
           getTokenBytes() {
@@ -2060,6 +2196,8 @@ public final class QueryOuterClass {
       }
       /**
        * <code>string token = 2;</code>
+       * @param value The token to set.
+       * @return This builder for chaining.
        */
       public Builder setToken(
           java.lang.String value) {
@@ -2073,6 +2211,7 @@ public final class QueryOuterClass {
       }
       /**
        * <code>string token = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearToken() {
         
@@ -2082,6 +2221,8 @@ public final class QueryOuterClass {
       }
       /**
        * <code>string token = 2;</code>
+       * @param value The bytes for token to set.
+       * @return This builder for chaining.
        */
       public Builder setTokenBytes(
           com.google.protobuf.ByteString value) {
@@ -2098,21 +2239,27 @@ public final class QueryOuterClass {
       private int type_ = 0;
       /**
        * <code>.Query.Type type = 3;</code>
+       * @return The enum numeric value on the wire for type.
        */
-      public int getTypeValue() {
+      @java.lang.Override public int getTypeValue() {
         return type_;
       }
       /**
        * <code>.Query.Type type = 3;</code>
+       * @param value The enum numeric value on the wire for type to set.
+       * @return This builder for chaining.
        */
       public Builder setTypeValue(int value) {
+        
         type_ = value;
         onChanged();
         return this;
       }
       /**
        * <code>.Query.Type type = 3;</code>
+       * @return The type.
        */
+      @java.lang.Override
       public sjtu.opennet.textilepb.QueryOuterClass.Query.Type getType() {
         @SuppressWarnings("deprecation")
         sjtu.opennet.textilepb.QueryOuterClass.Query.Type result = sjtu.opennet.textilepb.QueryOuterClass.Query.Type.valueOf(type_);
@@ -2120,6 +2267,8 @@ public final class QueryOuterClass {
       }
       /**
        * <code>.Query.Type type = 3;</code>
+       * @param value The type to set.
+       * @return This builder for chaining.
        */
       public Builder setType(sjtu.opennet.textilepb.QueryOuterClass.Query.Type value) {
         if (value == null) {
@@ -2132,6 +2281,7 @@ public final class QueryOuterClass {
       }
       /**
        * <code>.Query.Type type = 3;</code>
+       * @return This builder for chaining.
        */
       public Builder clearType() {
         
@@ -2140,17 +2290,19 @@ public final class QueryOuterClass {
         return this;
       }
 
-      private sjtu.opennet.textilepb.QueryOuterClass.QueryOptions options_ = null;
+      private sjtu.opennet.textilepb.QueryOuterClass.QueryOptions options_;
       private com.google.protobuf.SingleFieldBuilderV3<
           sjtu.opennet.textilepb.QueryOuterClass.QueryOptions, sjtu.opennet.textilepb.QueryOuterClass.QueryOptions.Builder, sjtu.opennet.textilepb.QueryOuterClass.QueryOptionsOrBuilder> optionsBuilder_;
       /**
        * <code>.QueryOptions options = 4;</code>
+       * @return Whether the options field is set.
        */
       public boolean hasOptions() {
         return optionsBuilder_ != null || options_ != null;
       }
       /**
        * <code>.QueryOptions options = 4;</code>
+       * @return The options.
        */
       public sjtu.opennet.textilepb.QueryOuterClass.QueryOptions getOptions() {
         if (optionsBuilder_ == null) {
@@ -2257,17 +2409,19 @@ public final class QueryOuterClass {
         return optionsBuilder_;
       }
 
-      private com.google.protobuf.Any payload_ = null;
+      private com.google.protobuf.Any payload_;
       private com.google.protobuf.SingleFieldBuilderV3<
           com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> payloadBuilder_;
       /**
        * <code>.google.protobuf.Any payload = 5;</code>
+       * @return Whether the payload field is set.
        */
       public boolean hasPayload() {
         return payloadBuilder_ != null || payload_ != null;
       }
       /**
        * <code>.google.protobuf.Any payload = 5;</code>
+       * @return The payload.
        */
       public com.google.protobuf.Any getPayload() {
         if (payloadBuilder_ == null) {
@@ -2376,7 +2530,7 @@ public final class QueryOuterClass {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -2432,29 +2586,35 @@ public final class QueryOuterClass {
 
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
     java.lang.String getId();
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
     com.google.protobuf.ByteString
         getIdBytes();
 
     /**
      * <code>.Query.Type type = 2;</code>
+     * @return The enum numeric value on the wire for type.
      */
     int getTypeValue();
     /**
      * <code>.Query.Type type = 2;</code>
+     * @return The type.
      */
     sjtu.opennet.textilepb.QueryOuterClass.Query.Type getType();
 
     /**
      * <code>.google.protobuf.Any payload = 3;</code>
+     * @return Whether the payload field is set.
      */
     boolean hasPayload();
     /**
      * <code>.google.protobuf.Any payload = 3;</code>
+     * @return The payload.
      */
     com.google.protobuf.Any getPayload();
     /**
@@ -2464,38 +2624,48 @@ public final class QueryOuterClass {
 
     /**
      * <code>.PubSubQuery.ResponseType responseType = 4;</code>
+     * @return The enum numeric value on the wire for responseType.
      */
     int getResponseTypeValue();
     /**
      * <code>.PubSubQuery.ResponseType responseType = 4;</code>
+     * @return The responseType.
      */
     sjtu.opennet.textilepb.QueryOuterClass.PubSubQuery.ResponseType getResponseType();
 
     /**
      * <code>repeated string exclude = 5;</code>
+     * @return A list containing the exclude.
      */
     java.util.List<java.lang.String>
         getExcludeList();
     /**
      * <code>repeated string exclude = 5;</code>
+     * @return The count of exclude.
      */
     int getExcludeCount();
     /**
      * <code>repeated string exclude = 5;</code>
+     * @param index The index of the element to return.
+     * @return The exclude at the given index.
      */
     java.lang.String getExclude(int index);
     /**
      * <code>repeated string exclude = 5;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the exclude at the given index.
      */
     com.google.protobuf.ByteString
         getExcludeBytes(int index);
 
     /**
      * <code>string topic = 6;</code>
+     * @return The topic.
      */
     java.lang.String getTopic();
     /**
      * <code>string topic = 6;</code>
+     * @return The bytes for topic.
      */
     com.google.protobuf.ByteString
         getTopicBytes();
@@ -2506,13 +2676,14 @@ public final class QueryOuterClass {
      * </pre>
      *
      * <code>int32 timeout = 7;</code>
+     * @return The timeout.
      */
     int getTimeout();
   }
   /**
    * Protobuf type {@code PubSubQuery}
    */
-  public  static final class PubSubQuery extends
+  public static final class PubSubQuery extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:PubSubQuery)
       PubSubQueryOrBuilder {
@@ -2527,7 +2698,13 @@ public final class QueryOuterClass {
       responseType_ = 0;
       exclude_ = com.google.protobuf.LazyStringArrayList.EMPTY;
       topic_ = "";
-      timeout_ = 0;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new PubSubQuery();
     }
 
     @java.lang.Override
@@ -2587,9 +2764,9 @@ public final class QueryOuterClass {
             }
             case 42: {
               java.lang.String s = input.readStringRequireUtf8();
-              if (!((mutable_bitField0_ & 0x00000010) == 0x00000010)) {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
                 exclude_ = new com.google.protobuf.LazyStringArrayList();
-                mutable_bitField0_ |= 0x00000010;
+                mutable_bitField0_ |= 0x00000001;
               }
               exclude_.add(s);
               break;
@@ -2606,7 +2783,7 @@ public final class QueryOuterClass {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -2620,7 +2797,7 @@ public final class QueryOuterClass {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000010) == 0x00000010)) {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
           exclude_ = exclude_.getUnmodifiableView();
         }
         this.unknownFields = unknownFields.build();
@@ -2675,6 +2852,8 @@ public final class QueryOuterClass {
       }
 
       /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
        * @deprecated Use {@link #forNumber(int)} instead.
        */
       @java.lang.Deprecated
@@ -2682,6 +2861,10 @@ public final class QueryOuterClass {
         return forNumber(value);
       }
 
+      /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
+       */
       public static ResponseType forNumber(int value) {
         switch (value) {
           case 0: return P2P;
@@ -2704,6 +2887,10 @@ public final class QueryOuterClass {
 
       public final com.google.protobuf.Descriptors.EnumValueDescriptor
           getValueDescriptor() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalStateException(
+              "Can't get the descriptor of an unrecognized enum value.");
+        }
         return getDescriptor().getValues().get(ordinal());
       }
       public final com.google.protobuf.Descriptors.EnumDescriptor
@@ -2738,12 +2925,13 @@ public final class QueryOuterClass {
       // @@protoc_insertion_point(enum_scope:PubSubQuery.ResponseType)
     }
 
-    private int bitField0_;
     public static final int ID_FIELD_NUMBER = 1;
     private volatile java.lang.Object id_;
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
+    @java.lang.Override
     public java.lang.String getId() {
       java.lang.Object ref = id_;
       if (ref instanceof java.lang.String) {
@@ -2758,7 +2946,9 @@ public final class QueryOuterClass {
     }
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getIdBytes() {
       java.lang.Object ref = id_;
@@ -2777,14 +2967,16 @@ public final class QueryOuterClass {
     private int type_;
     /**
      * <code>.Query.Type type = 2;</code>
+     * @return The enum numeric value on the wire for type.
      */
-    public int getTypeValue() {
+    @java.lang.Override public int getTypeValue() {
       return type_;
     }
     /**
      * <code>.Query.Type type = 2;</code>
+     * @return The type.
      */
-    public sjtu.opennet.textilepb.QueryOuterClass.Query.Type getType() {
+    @java.lang.Override public sjtu.opennet.textilepb.QueryOuterClass.Query.Type getType() {
       @SuppressWarnings("deprecation")
       sjtu.opennet.textilepb.QueryOuterClass.Query.Type result = sjtu.opennet.textilepb.QueryOuterClass.Query.Type.valueOf(type_);
       return result == null ? sjtu.opennet.textilepb.QueryOuterClass.Query.Type.UNRECOGNIZED : result;
@@ -2794,19 +2986,24 @@ public final class QueryOuterClass {
     private com.google.protobuf.Any payload_;
     /**
      * <code>.google.protobuf.Any payload = 3;</code>
+     * @return Whether the payload field is set.
      */
+    @java.lang.Override
     public boolean hasPayload() {
       return payload_ != null;
     }
     /**
      * <code>.google.protobuf.Any payload = 3;</code>
+     * @return The payload.
      */
+    @java.lang.Override
     public com.google.protobuf.Any getPayload() {
       return payload_ == null ? com.google.protobuf.Any.getDefaultInstance() : payload_;
     }
     /**
      * <code>.google.protobuf.Any payload = 3;</code>
      */
+    @java.lang.Override
     public com.google.protobuf.AnyOrBuilder getPayloadOrBuilder() {
       return getPayload();
     }
@@ -2815,14 +3012,16 @@ public final class QueryOuterClass {
     private int responseType_;
     /**
      * <code>.PubSubQuery.ResponseType responseType = 4;</code>
+     * @return The enum numeric value on the wire for responseType.
      */
-    public int getResponseTypeValue() {
+    @java.lang.Override public int getResponseTypeValue() {
       return responseType_;
     }
     /**
      * <code>.PubSubQuery.ResponseType responseType = 4;</code>
+     * @return The responseType.
      */
-    public sjtu.opennet.textilepb.QueryOuterClass.PubSubQuery.ResponseType getResponseType() {
+    @java.lang.Override public sjtu.opennet.textilepb.QueryOuterClass.PubSubQuery.ResponseType getResponseType() {
       @SuppressWarnings("deprecation")
       sjtu.opennet.textilepb.QueryOuterClass.PubSubQuery.ResponseType result = sjtu.opennet.textilepb.QueryOuterClass.PubSubQuery.ResponseType.valueOf(responseType_);
       return result == null ? sjtu.opennet.textilepb.QueryOuterClass.PubSubQuery.ResponseType.UNRECOGNIZED : result;
@@ -2832,6 +3031,7 @@ public final class QueryOuterClass {
     private com.google.protobuf.LazyStringList exclude_;
     /**
      * <code>repeated string exclude = 5;</code>
+     * @return A list containing the exclude.
      */
     public com.google.protobuf.ProtocolStringList
         getExcludeList() {
@@ -2839,18 +3039,23 @@ public final class QueryOuterClass {
     }
     /**
      * <code>repeated string exclude = 5;</code>
+     * @return The count of exclude.
      */
     public int getExcludeCount() {
       return exclude_.size();
     }
     /**
      * <code>repeated string exclude = 5;</code>
+     * @param index The index of the element to return.
+     * @return The exclude at the given index.
      */
     public java.lang.String getExclude(int index) {
       return exclude_.get(index);
     }
     /**
      * <code>repeated string exclude = 5;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the exclude at the given index.
      */
     public com.google.protobuf.ByteString
         getExcludeBytes(int index) {
@@ -2861,7 +3066,9 @@ public final class QueryOuterClass {
     private volatile java.lang.Object topic_;
     /**
      * <code>string topic = 6;</code>
+     * @return The topic.
      */
+    @java.lang.Override
     public java.lang.String getTopic() {
       java.lang.Object ref = topic_;
       if (ref instanceof java.lang.String) {
@@ -2876,7 +3083,9 @@ public final class QueryOuterClass {
     }
     /**
      * <code>string topic = 6;</code>
+     * @return The bytes for topic.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getTopicBytes() {
       java.lang.Object ref = topic_;
@@ -2899,7 +3108,9 @@ public final class QueryOuterClass {
      * </pre>
      *
      * <code>int32 timeout = 7;</code>
+     * @return The timeout.
      */
+    @java.lang.Override
     public int getTimeout() {
       return timeout_;
     }
@@ -2993,24 +3204,23 @@ public final class QueryOuterClass {
       }
       sjtu.opennet.textilepb.QueryOuterClass.PubSubQuery other = (sjtu.opennet.textilepb.QueryOuterClass.PubSubQuery) obj;
 
-      boolean result = true;
-      result = result && getId()
-          .equals(other.getId());
-      result = result && type_ == other.type_;
-      result = result && (hasPayload() == other.hasPayload());
+      if (!getId()
+          .equals(other.getId())) return false;
+      if (type_ != other.type_) return false;
+      if (hasPayload() != other.hasPayload()) return false;
       if (hasPayload()) {
-        result = result && getPayload()
-            .equals(other.getPayload());
+        if (!getPayload()
+            .equals(other.getPayload())) return false;
       }
-      result = result && responseType_ == other.responseType_;
-      result = result && getExcludeList()
-          .equals(other.getExcludeList());
-      result = result && getTopic()
-          .equals(other.getTopic());
-      result = result && (getTimeout()
-          == other.getTimeout());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (responseType_ != other.responseType_) return false;
+      if (!getExcludeList()
+          .equals(other.getExcludeList())) return false;
+      if (!getTopic()
+          .equals(other.getTopic())) return false;
+      if (getTimeout()
+          != other.getTimeout()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -3184,7 +3394,7 @@ public final class QueryOuterClass {
         responseType_ = 0;
 
         exclude_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-        bitField0_ = (bitField0_ & ~0x00000010);
+        bitField0_ = (bitField0_ & ~0x00000001);
         topic_ = "";
 
         timeout_ = 0;
@@ -3216,7 +3426,6 @@ public final class QueryOuterClass {
       public sjtu.opennet.textilepb.QueryOuterClass.PubSubQuery buildPartial() {
         sjtu.opennet.textilepb.QueryOuterClass.PubSubQuery result = new sjtu.opennet.textilepb.QueryOuterClass.PubSubQuery(this);
         int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
         result.id_ = id_;
         result.type_ = type_;
         if (payloadBuilder_ == null) {
@@ -3225,49 +3434,48 @@ public final class QueryOuterClass {
           result.payload_ = payloadBuilder_.build();
         }
         result.responseType_ = responseType_;
-        if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        if (((bitField0_ & 0x00000001) != 0)) {
           exclude_ = exclude_.getUnmodifiableView();
-          bitField0_ = (bitField0_ & ~0x00000010);
+          bitField0_ = (bitField0_ & ~0x00000001);
         }
         result.exclude_ = exclude_;
         result.topic_ = topic_;
         result.timeout_ = timeout_;
-        result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -3297,7 +3505,7 @@ public final class QueryOuterClass {
         if (!other.exclude_.isEmpty()) {
           if (exclude_.isEmpty()) {
             exclude_ = other.exclude_;
-            bitField0_ = (bitField0_ & ~0x00000010);
+            bitField0_ = (bitField0_ & ~0x00000001);
           } else {
             ensureExcludeIsMutable();
             exclude_.addAll(other.exclude_);
@@ -3344,6 +3552,7 @@ public final class QueryOuterClass {
       private java.lang.Object id_ = "";
       /**
        * <code>string id = 1;</code>
+       * @return The id.
        */
       public java.lang.String getId() {
         java.lang.Object ref = id_;
@@ -3359,6 +3568,7 @@ public final class QueryOuterClass {
       }
       /**
        * <code>string id = 1;</code>
+       * @return The bytes for id.
        */
       public com.google.protobuf.ByteString
           getIdBytes() {
@@ -3375,6 +3585,8 @@ public final class QueryOuterClass {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The id to set.
+       * @return This builder for chaining.
        */
       public Builder setId(
           java.lang.String value) {
@@ -3388,6 +3600,7 @@ public final class QueryOuterClass {
       }
       /**
        * <code>string id = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearId() {
         
@@ -3397,6 +3610,8 @@ public final class QueryOuterClass {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The bytes for id to set.
+       * @return This builder for chaining.
        */
       public Builder setIdBytes(
           com.google.protobuf.ByteString value) {
@@ -3413,21 +3628,27 @@ public final class QueryOuterClass {
       private int type_ = 0;
       /**
        * <code>.Query.Type type = 2;</code>
+       * @return The enum numeric value on the wire for type.
        */
-      public int getTypeValue() {
+      @java.lang.Override public int getTypeValue() {
         return type_;
       }
       /**
        * <code>.Query.Type type = 2;</code>
+       * @param value The enum numeric value on the wire for type to set.
+       * @return This builder for chaining.
        */
       public Builder setTypeValue(int value) {
+        
         type_ = value;
         onChanged();
         return this;
       }
       /**
        * <code>.Query.Type type = 2;</code>
+       * @return The type.
        */
+      @java.lang.Override
       public sjtu.opennet.textilepb.QueryOuterClass.Query.Type getType() {
         @SuppressWarnings("deprecation")
         sjtu.opennet.textilepb.QueryOuterClass.Query.Type result = sjtu.opennet.textilepb.QueryOuterClass.Query.Type.valueOf(type_);
@@ -3435,6 +3656,8 @@ public final class QueryOuterClass {
       }
       /**
        * <code>.Query.Type type = 2;</code>
+       * @param value The type to set.
+       * @return This builder for chaining.
        */
       public Builder setType(sjtu.opennet.textilepb.QueryOuterClass.Query.Type value) {
         if (value == null) {
@@ -3447,6 +3670,7 @@ public final class QueryOuterClass {
       }
       /**
        * <code>.Query.Type type = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearType() {
         
@@ -3455,17 +3679,19 @@ public final class QueryOuterClass {
         return this;
       }
 
-      private com.google.protobuf.Any payload_ = null;
+      private com.google.protobuf.Any payload_;
       private com.google.protobuf.SingleFieldBuilderV3<
           com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> payloadBuilder_;
       /**
        * <code>.google.protobuf.Any payload = 3;</code>
+       * @return Whether the payload field is set.
        */
       public boolean hasPayload() {
         return payloadBuilder_ != null || payload_ != null;
       }
       /**
        * <code>.google.protobuf.Any payload = 3;</code>
+       * @return The payload.
        */
       public com.google.protobuf.Any getPayload() {
         if (payloadBuilder_ == null) {
@@ -3575,21 +3801,27 @@ public final class QueryOuterClass {
       private int responseType_ = 0;
       /**
        * <code>.PubSubQuery.ResponseType responseType = 4;</code>
+       * @return The enum numeric value on the wire for responseType.
        */
-      public int getResponseTypeValue() {
+      @java.lang.Override public int getResponseTypeValue() {
         return responseType_;
       }
       /**
        * <code>.PubSubQuery.ResponseType responseType = 4;</code>
+       * @param value The enum numeric value on the wire for responseType to set.
+       * @return This builder for chaining.
        */
       public Builder setResponseTypeValue(int value) {
+        
         responseType_ = value;
         onChanged();
         return this;
       }
       /**
        * <code>.PubSubQuery.ResponseType responseType = 4;</code>
+       * @return The responseType.
        */
+      @java.lang.Override
       public sjtu.opennet.textilepb.QueryOuterClass.PubSubQuery.ResponseType getResponseType() {
         @SuppressWarnings("deprecation")
         sjtu.opennet.textilepb.QueryOuterClass.PubSubQuery.ResponseType result = sjtu.opennet.textilepb.QueryOuterClass.PubSubQuery.ResponseType.valueOf(responseType_);
@@ -3597,6 +3829,8 @@ public final class QueryOuterClass {
       }
       /**
        * <code>.PubSubQuery.ResponseType responseType = 4;</code>
+       * @param value The responseType to set.
+       * @return This builder for chaining.
        */
       public Builder setResponseType(sjtu.opennet.textilepb.QueryOuterClass.PubSubQuery.ResponseType value) {
         if (value == null) {
@@ -3609,6 +3843,7 @@ public final class QueryOuterClass {
       }
       /**
        * <code>.PubSubQuery.ResponseType responseType = 4;</code>
+       * @return This builder for chaining.
        */
       public Builder clearResponseType() {
         
@@ -3619,13 +3854,14 @@ public final class QueryOuterClass {
 
       private com.google.protobuf.LazyStringList exclude_ = com.google.protobuf.LazyStringArrayList.EMPTY;
       private void ensureExcludeIsMutable() {
-        if (!((bitField0_ & 0x00000010) == 0x00000010)) {
+        if (!((bitField0_ & 0x00000001) != 0)) {
           exclude_ = new com.google.protobuf.LazyStringArrayList(exclude_);
-          bitField0_ |= 0x00000010;
+          bitField0_ |= 0x00000001;
          }
       }
       /**
        * <code>repeated string exclude = 5;</code>
+       * @return A list containing the exclude.
        */
       public com.google.protobuf.ProtocolStringList
           getExcludeList() {
@@ -3633,18 +3869,23 @@ public final class QueryOuterClass {
       }
       /**
        * <code>repeated string exclude = 5;</code>
+       * @return The count of exclude.
        */
       public int getExcludeCount() {
         return exclude_.size();
       }
       /**
        * <code>repeated string exclude = 5;</code>
+       * @param index The index of the element to return.
+       * @return The exclude at the given index.
        */
       public java.lang.String getExclude(int index) {
         return exclude_.get(index);
       }
       /**
        * <code>repeated string exclude = 5;</code>
+       * @param index The index of the value to return.
+       * @return The bytes of the exclude at the given index.
        */
       public com.google.protobuf.ByteString
           getExcludeBytes(int index) {
@@ -3652,6 +3893,9 @@ public final class QueryOuterClass {
       }
       /**
        * <code>repeated string exclude = 5;</code>
+       * @param index The index to set the value at.
+       * @param value The exclude to set.
+       * @return This builder for chaining.
        */
       public Builder setExclude(
           int index, java.lang.String value) {
@@ -3665,6 +3909,8 @@ public final class QueryOuterClass {
       }
       /**
        * <code>repeated string exclude = 5;</code>
+       * @param value The exclude to add.
+       * @return This builder for chaining.
        */
       public Builder addExclude(
           java.lang.String value) {
@@ -3678,6 +3924,8 @@ public final class QueryOuterClass {
       }
       /**
        * <code>repeated string exclude = 5;</code>
+       * @param values The exclude to add.
+       * @return This builder for chaining.
        */
       public Builder addAllExclude(
           java.lang.Iterable<java.lang.String> values) {
@@ -3689,15 +3937,18 @@ public final class QueryOuterClass {
       }
       /**
        * <code>repeated string exclude = 5;</code>
+       * @return This builder for chaining.
        */
       public Builder clearExclude() {
         exclude_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-        bitField0_ = (bitField0_ & ~0x00000010);
+        bitField0_ = (bitField0_ & ~0x00000001);
         onChanged();
         return this;
       }
       /**
        * <code>repeated string exclude = 5;</code>
+       * @param value The bytes of the exclude to add.
+       * @return This builder for chaining.
        */
       public Builder addExcludeBytes(
           com.google.protobuf.ByteString value) {
@@ -3714,6 +3965,7 @@ public final class QueryOuterClass {
       private java.lang.Object topic_ = "";
       /**
        * <code>string topic = 6;</code>
+       * @return The topic.
        */
       public java.lang.String getTopic() {
         java.lang.Object ref = topic_;
@@ -3729,6 +3981,7 @@ public final class QueryOuterClass {
       }
       /**
        * <code>string topic = 6;</code>
+       * @return The bytes for topic.
        */
       public com.google.protobuf.ByteString
           getTopicBytes() {
@@ -3745,6 +3998,8 @@ public final class QueryOuterClass {
       }
       /**
        * <code>string topic = 6;</code>
+       * @param value The topic to set.
+       * @return This builder for chaining.
        */
       public Builder setTopic(
           java.lang.String value) {
@@ -3758,6 +4013,7 @@ public final class QueryOuterClass {
       }
       /**
        * <code>string topic = 6;</code>
+       * @return This builder for chaining.
        */
       public Builder clearTopic() {
         
@@ -3767,6 +4023,8 @@ public final class QueryOuterClass {
       }
       /**
        * <code>string topic = 6;</code>
+       * @param value The bytes for topic to set.
+       * @return This builder for chaining.
        */
       public Builder setTopicBytes(
           com.google.protobuf.ByteString value) {
@@ -3787,7 +4045,9 @@ public final class QueryOuterClass {
        * </pre>
        *
        * <code>int32 timeout = 7;</code>
+       * @return The timeout.
        */
+      @java.lang.Override
       public int getTimeout() {
         return timeout_;
       }
@@ -3797,6 +4057,8 @@ public final class QueryOuterClass {
        * </pre>
        *
        * <code>int32 timeout = 7;</code>
+       * @param value The timeout to set.
+       * @return This builder for chaining.
        */
       public Builder setTimeout(int value) {
         
@@ -3810,6 +4072,7 @@ public final class QueryOuterClass {
        * </pre>
        *
        * <code>int32 timeout = 7;</code>
+       * @return This builder for chaining.
        */
       public Builder clearTimeout() {
         
@@ -3820,7 +4083,7 @@ public final class QueryOuterClass {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -3876,20 +4139,24 @@ public final class QueryOuterClass {
 
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
     java.lang.String getId();
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
     com.google.protobuf.ByteString
         getIdBytes();
 
     /**
      * <code>.google.protobuf.Timestamp date = 2;</code>
+     * @return Whether the date field is set.
      */
     boolean hasDate();
     /**
      * <code>.google.protobuf.Timestamp date = 2;</code>
+     * @return The date.
      */
     com.google.protobuf.Timestamp getDate();
     /**
@@ -3899,15 +4166,18 @@ public final class QueryOuterClass {
 
     /**
      * <code>bool local = 3;</code>
+     * @return The local.
      */
     boolean getLocal();
 
     /**
      * <code>.google.protobuf.Any value = 4;</code>
+     * @return Whether the value field is set.
      */
     boolean hasValue();
     /**
      * <code>.google.protobuf.Any value = 4;</code>
+     * @return The value.
      */
     com.google.protobuf.Any getValue();
     /**
@@ -3918,7 +4188,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code QueryResult}
    */
-  public  static final class QueryResult extends
+  public static final class QueryResult extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:QueryResult)
       QueryResultOrBuilder {
@@ -3929,7 +4199,13 @@ public final class QueryOuterClass {
     }
     private QueryResult() {
       id_ = "";
-      local_ = false;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new QueryResult();
     }
 
     @java.lang.Override
@@ -3945,7 +4221,6 @@ public final class QueryOuterClass {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -3994,7 +4269,7 @@ public final class QueryOuterClass {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -4029,7 +4304,9 @@ public final class QueryOuterClass {
     private volatile java.lang.Object id_;
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
+    @java.lang.Override
     public java.lang.String getId() {
       java.lang.Object ref = id_;
       if (ref instanceof java.lang.String) {
@@ -4044,7 +4321,9 @@ public final class QueryOuterClass {
     }
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getIdBytes() {
       java.lang.Object ref = id_;
@@ -4063,19 +4342,24 @@ public final class QueryOuterClass {
     private com.google.protobuf.Timestamp date_;
     /**
      * <code>.google.protobuf.Timestamp date = 2;</code>
+     * @return Whether the date field is set.
      */
+    @java.lang.Override
     public boolean hasDate() {
       return date_ != null;
     }
     /**
      * <code>.google.protobuf.Timestamp date = 2;</code>
+     * @return The date.
      */
+    @java.lang.Override
     public com.google.protobuf.Timestamp getDate() {
       return date_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : date_;
     }
     /**
      * <code>.google.protobuf.Timestamp date = 2;</code>
      */
+    @java.lang.Override
     public com.google.protobuf.TimestampOrBuilder getDateOrBuilder() {
       return getDate();
     }
@@ -4084,7 +4368,9 @@ public final class QueryOuterClass {
     private boolean local_;
     /**
      * <code>bool local = 3;</code>
+     * @return The local.
      */
+    @java.lang.Override
     public boolean getLocal() {
       return local_;
     }
@@ -4093,19 +4379,24 @@ public final class QueryOuterClass {
     private com.google.protobuf.Any value_;
     /**
      * <code>.google.protobuf.Any value = 4;</code>
+     * @return Whether the value field is set.
      */
+    @java.lang.Override
     public boolean hasValue() {
       return value_ != null;
     }
     /**
      * <code>.google.protobuf.Any value = 4;</code>
+     * @return The value.
      */
+    @java.lang.Override
     public com.google.protobuf.Any getValue() {
       return value_ == null ? com.google.protobuf.Any.getDefaultInstance() : value_;
     }
     /**
      * <code>.google.protobuf.Any value = 4;</code>
      */
+    @java.lang.Override
     public com.google.protobuf.AnyOrBuilder getValueOrBuilder() {
       return getValue();
     }
@@ -4175,23 +4466,22 @@ public final class QueryOuterClass {
       }
       sjtu.opennet.textilepb.QueryOuterClass.QueryResult other = (sjtu.opennet.textilepb.QueryOuterClass.QueryResult) obj;
 
-      boolean result = true;
-      result = result && getId()
-          .equals(other.getId());
-      result = result && (hasDate() == other.hasDate());
+      if (!getId()
+          .equals(other.getId())) return false;
+      if (hasDate() != other.hasDate()) return false;
       if (hasDate()) {
-        result = result && getDate()
-            .equals(other.getDate());
+        if (!getDate()
+            .equals(other.getDate())) return false;
       }
-      result = result && (getLocal()
-          == other.getLocal());
-      result = result && (hasValue() == other.hasValue());
+      if (getLocal()
+          != other.getLocal()) return false;
+      if (hasValue() != other.hasValue()) return false;
       if (hasValue()) {
-        result = result && getValue()
-            .equals(other.getValue());
+        if (!getValue()
+            .equals(other.getValue())) return false;
       }
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -4407,35 +4697,35 @@ public final class QueryOuterClass {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -4494,6 +4784,7 @@ public final class QueryOuterClass {
       private java.lang.Object id_ = "";
       /**
        * <code>string id = 1;</code>
+       * @return The id.
        */
       public java.lang.String getId() {
         java.lang.Object ref = id_;
@@ -4509,6 +4800,7 @@ public final class QueryOuterClass {
       }
       /**
        * <code>string id = 1;</code>
+       * @return The bytes for id.
        */
       public com.google.protobuf.ByteString
           getIdBytes() {
@@ -4525,6 +4817,8 @@ public final class QueryOuterClass {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The id to set.
+       * @return This builder for chaining.
        */
       public Builder setId(
           java.lang.String value) {
@@ -4538,6 +4832,7 @@ public final class QueryOuterClass {
       }
       /**
        * <code>string id = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearId() {
         
@@ -4547,6 +4842,8 @@ public final class QueryOuterClass {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The bytes for id to set.
+       * @return This builder for chaining.
        */
       public Builder setIdBytes(
           com.google.protobuf.ByteString value) {
@@ -4560,17 +4857,19 @@ public final class QueryOuterClass {
         return this;
       }
 
-      private com.google.protobuf.Timestamp date_ = null;
+      private com.google.protobuf.Timestamp date_;
       private com.google.protobuf.SingleFieldBuilderV3<
           com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> dateBuilder_;
       /**
        * <code>.google.protobuf.Timestamp date = 2;</code>
+       * @return Whether the date field is set.
        */
       public boolean hasDate() {
         return dateBuilder_ != null || date_ != null;
       }
       /**
        * <code>.google.protobuf.Timestamp date = 2;</code>
+       * @return The date.
        */
       public com.google.protobuf.Timestamp getDate() {
         if (dateBuilder_ == null) {
@@ -4680,12 +4979,16 @@ public final class QueryOuterClass {
       private boolean local_ ;
       /**
        * <code>bool local = 3;</code>
+       * @return The local.
        */
+      @java.lang.Override
       public boolean getLocal() {
         return local_;
       }
       /**
        * <code>bool local = 3;</code>
+       * @param value The local to set.
+       * @return This builder for chaining.
        */
       public Builder setLocal(boolean value) {
         
@@ -4695,6 +4998,7 @@ public final class QueryOuterClass {
       }
       /**
        * <code>bool local = 3;</code>
+       * @return This builder for chaining.
        */
       public Builder clearLocal() {
         
@@ -4703,17 +5007,19 @@ public final class QueryOuterClass {
         return this;
       }
 
-      private com.google.protobuf.Any value_ = null;
+      private com.google.protobuf.Any value_;
       private com.google.protobuf.SingleFieldBuilderV3<
           com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> valueBuilder_;
       /**
        * <code>.google.protobuf.Any value = 4;</code>
+       * @return Whether the value field is set.
        */
       public boolean hasValue() {
         return valueBuilder_ != null || value_ != null;
       }
       /**
        * <code>.google.protobuf.Any value = 4;</code>
+       * @return The value.
        */
       public com.google.protobuf.Any getValue() {
         if (valueBuilder_ == null) {
@@ -4822,7 +5128,7 @@ public final class QueryOuterClass {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -4878,10 +5184,12 @@ public final class QueryOuterClass {
 
     /**
      * <code>.Query.Type type = 1;</code>
+     * @return The enum numeric value on the wire for type.
      */
     int getTypeValue();
     /**
      * <code>.Query.Type type = 1;</code>
+     * @return The type.
      */
     sjtu.opennet.textilepb.QueryOuterClass.Query.Type getType();
 
@@ -4912,7 +5220,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code QueryResults}
    */
-  public  static final class QueryResults extends
+  public static final class QueryResults extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:QueryResults)
       QueryResultsOrBuilder {
@@ -4924,6 +5232,13 @@ public final class QueryOuterClass {
     private QueryResults() {
       type_ = 0;
       items_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new QueryResults();
     }
 
     @java.lang.Override
@@ -4957,16 +5272,16 @@ public final class QueryOuterClass {
               break;
             }
             case 18: {
-              if (!((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
                 items_ = new java.util.ArrayList<sjtu.opennet.textilepb.QueryOuterClass.QueryResult>();
-                mutable_bitField0_ |= 0x00000002;
+                mutable_bitField0_ |= 0x00000001;
               }
               items_.add(
                   input.readMessage(sjtu.opennet.textilepb.QueryOuterClass.QueryResult.parser(), extensionRegistry));
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -4980,7 +5295,7 @@ public final class QueryOuterClass {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
           items_ = java.util.Collections.unmodifiableList(items_);
         }
         this.unknownFields = unknownFields.build();
@@ -5000,19 +5315,20 @@ public final class QueryOuterClass {
               sjtu.opennet.textilepb.QueryOuterClass.QueryResults.class, sjtu.opennet.textilepb.QueryOuterClass.QueryResults.Builder.class);
     }
 
-    private int bitField0_;
     public static final int TYPE_FIELD_NUMBER = 1;
     private int type_;
     /**
      * <code>.Query.Type type = 1;</code>
+     * @return The enum numeric value on the wire for type.
      */
-    public int getTypeValue() {
+    @java.lang.Override public int getTypeValue() {
       return type_;
     }
     /**
      * <code>.Query.Type type = 1;</code>
+     * @return The type.
      */
-    public sjtu.opennet.textilepb.QueryOuterClass.Query.Type getType() {
+    @java.lang.Override public sjtu.opennet.textilepb.QueryOuterClass.Query.Type getType() {
       @SuppressWarnings("deprecation")
       sjtu.opennet.textilepb.QueryOuterClass.Query.Type result = sjtu.opennet.textilepb.QueryOuterClass.Query.Type.valueOf(type_);
       return result == null ? sjtu.opennet.textilepb.QueryOuterClass.Query.Type.UNRECOGNIZED : result;
@@ -5023,12 +5339,14 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .QueryResult items = 2;</code>
      */
+    @java.lang.Override
     public java.util.List<sjtu.opennet.textilepb.QueryOuterClass.QueryResult> getItemsList() {
       return items_;
     }
     /**
      * <code>repeated .QueryResult items = 2;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends sjtu.opennet.textilepb.QueryOuterClass.QueryResultOrBuilder> 
         getItemsOrBuilderList() {
       return items_;
@@ -5036,18 +5354,21 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .QueryResult items = 2;</code>
      */
+    @java.lang.Override
     public int getItemsCount() {
       return items_.size();
     }
     /**
      * <code>repeated .QueryResult items = 2;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.QueryOuterClass.QueryResult getItems(int index) {
       return items_.get(index);
     }
     /**
      * <code>repeated .QueryResult items = 2;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.QueryOuterClass.QueryResultOrBuilder getItemsOrBuilder(
         int index) {
       return items_.get(index);
@@ -5105,12 +5426,11 @@ public final class QueryOuterClass {
       }
       sjtu.opennet.textilepb.QueryOuterClass.QueryResults other = (sjtu.opennet.textilepb.QueryOuterClass.QueryResults) obj;
 
-      boolean result = true;
-      result = result && type_ == other.type_;
-      result = result && getItemsList()
-          .equals(other.getItemsList());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (type_ != other.type_) return false;
+      if (!getItemsList()
+          .equals(other.getItemsList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -5264,7 +5584,7 @@ public final class QueryOuterClass {
 
         if (itemsBuilder_ == null) {
           items_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000002);
+          bitField0_ = (bitField0_ & ~0x00000001);
         } else {
           itemsBuilder_.clear();
         }
@@ -5295,53 +5615,51 @@ public final class QueryOuterClass {
       public sjtu.opennet.textilepb.QueryOuterClass.QueryResults buildPartial() {
         sjtu.opennet.textilepb.QueryOuterClass.QueryResults result = new sjtu.opennet.textilepb.QueryOuterClass.QueryResults(this);
         int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
         result.type_ = type_;
         if (itemsBuilder_ == null) {
-          if (((bitField0_ & 0x00000002) == 0x00000002)) {
+          if (((bitField0_ & 0x00000001) != 0)) {
             items_ = java.util.Collections.unmodifiableList(items_);
-            bitField0_ = (bitField0_ & ~0x00000002);
+            bitField0_ = (bitField0_ & ~0x00000001);
           }
           result.items_ = items_;
         } else {
           result.items_ = itemsBuilder_.build();
         }
-        result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -5362,7 +5680,7 @@ public final class QueryOuterClass {
           if (!other.items_.isEmpty()) {
             if (items_.isEmpty()) {
               items_ = other.items_;
-              bitField0_ = (bitField0_ & ~0x00000002);
+              bitField0_ = (bitField0_ & ~0x00000001);
             } else {
               ensureItemsIsMutable();
               items_.addAll(other.items_);
@@ -5375,7 +5693,7 @@ public final class QueryOuterClass {
               itemsBuilder_.dispose();
               itemsBuilder_ = null;
               items_ = other.items_;
-              bitField0_ = (bitField0_ & ~0x00000002);
+              bitField0_ = (bitField0_ & ~0x00000001);
               itemsBuilder_ = 
                 com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
                    getItemsFieldBuilder() : null;
@@ -5417,21 +5735,27 @@ public final class QueryOuterClass {
       private int type_ = 0;
       /**
        * <code>.Query.Type type = 1;</code>
+       * @return The enum numeric value on the wire for type.
        */
-      public int getTypeValue() {
+      @java.lang.Override public int getTypeValue() {
         return type_;
       }
       /**
        * <code>.Query.Type type = 1;</code>
+       * @param value The enum numeric value on the wire for type to set.
+       * @return This builder for chaining.
        */
       public Builder setTypeValue(int value) {
+        
         type_ = value;
         onChanged();
         return this;
       }
       /**
        * <code>.Query.Type type = 1;</code>
+       * @return The type.
        */
+      @java.lang.Override
       public sjtu.opennet.textilepb.QueryOuterClass.Query.Type getType() {
         @SuppressWarnings("deprecation")
         sjtu.opennet.textilepb.QueryOuterClass.Query.Type result = sjtu.opennet.textilepb.QueryOuterClass.Query.Type.valueOf(type_);
@@ -5439,6 +5763,8 @@ public final class QueryOuterClass {
       }
       /**
        * <code>.Query.Type type = 1;</code>
+       * @param value The type to set.
+       * @return This builder for chaining.
        */
       public Builder setType(sjtu.opennet.textilepb.QueryOuterClass.Query.Type value) {
         if (value == null) {
@@ -5451,6 +5777,7 @@ public final class QueryOuterClass {
       }
       /**
        * <code>.Query.Type type = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearType() {
         
@@ -5462,9 +5789,9 @@ public final class QueryOuterClass {
       private java.util.List<sjtu.opennet.textilepb.QueryOuterClass.QueryResult> items_ =
         java.util.Collections.emptyList();
       private void ensureItemsIsMutable() {
-        if (!((bitField0_ & 0x00000002) == 0x00000002)) {
+        if (!((bitField0_ & 0x00000001) != 0)) {
           items_ = new java.util.ArrayList<sjtu.opennet.textilepb.QueryOuterClass.QueryResult>(items_);
-          bitField0_ |= 0x00000002;
+          bitField0_ |= 0x00000001;
          }
       }
 
@@ -5614,7 +5941,7 @@ public final class QueryOuterClass {
       public Builder clearItems() {
         if (itemsBuilder_ == null) {
           items_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000002);
+          bitField0_ = (bitField0_ & ~0x00000001);
           onChanged();
         } else {
           itemsBuilder_.clear();
@@ -5691,7 +6018,7 @@ public final class QueryOuterClass {
           itemsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
               sjtu.opennet.textilepb.QueryOuterClass.QueryResult, sjtu.opennet.textilepb.QueryOuterClass.QueryResult.Builder, sjtu.opennet.textilepb.QueryOuterClass.QueryResultOrBuilder>(
                   items_,
-                  ((bitField0_ & 0x00000002) == 0x00000002),
+                  ((bitField0_ & 0x00000001) != 0),
                   getParentForChildren(),
                   isClean());
           items_ = null;
@@ -5701,7 +6028,7 @@ public final class QueryOuterClass {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -5757,20 +6084,24 @@ public final class QueryOuterClass {
 
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
     java.lang.String getId();
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
     com.google.protobuf.ByteString
         getIdBytes();
 
     /**
      * <code>.QueryResults results = 2;</code>
+     * @return Whether the results field is set.
      */
     boolean hasResults();
     /**
      * <code>.QueryResults results = 2;</code>
+     * @return The results.
      */
     sjtu.opennet.textilepb.QueryOuterClass.QueryResults getResults();
     /**
@@ -5781,7 +6112,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code PubSubQueryResults}
    */
-  public  static final class PubSubQueryResults extends
+  public static final class PubSubQueryResults extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:PubSubQueryResults)
       PubSubQueryResultsOrBuilder {
@@ -5792,6 +6123,13 @@ public final class QueryOuterClass {
     }
     private PubSubQueryResults() {
       id_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new PubSubQueryResults();
     }
 
     @java.lang.Override
@@ -5807,7 +6145,6 @@ public final class QueryOuterClass {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -5838,7 +6175,7 @@ public final class QueryOuterClass {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -5873,7 +6210,9 @@ public final class QueryOuterClass {
     private volatile java.lang.Object id_;
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
+    @java.lang.Override
     public java.lang.String getId() {
       java.lang.Object ref = id_;
       if (ref instanceof java.lang.String) {
@@ -5888,7 +6227,9 @@ public final class QueryOuterClass {
     }
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getIdBytes() {
       java.lang.Object ref = id_;
@@ -5907,19 +6248,24 @@ public final class QueryOuterClass {
     private sjtu.opennet.textilepb.QueryOuterClass.QueryResults results_;
     /**
      * <code>.QueryResults results = 2;</code>
+     * @return Whether the results field is set.
      */
+    @java.lang.Override
     public boolean hasResults() {
       return results_ != null;
     }
     /**
      * <code>.QueryResults results = 2;</code>
+     * @return The results.
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.QueryOuterClass.QueryResults getResults() {
       return results_ == null ? sjtu.opennet.textilepb.QueryOuterClass.QueryResults.getDefaultInstance() : results_;
     }
     /**
      * <code>.QueryResults results = 2;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.QueryOuterClass.QueryResultsOrBuilder getResultsOrBuilder() {
       return getResults();
     }
@@ -5975,16 +6321,15 @@ public final class QueryOuterClass {
       }
       sjtu.opennet.textilepb.QueryOuterClass.PubSubQueryResults other = (sjtu.opennet.textilepb.QueryOuterClass.PubSubQueryResults) obj;
 
-      boolean result = true;
-      result = result && getId()
-          .equals(other.getId());
-      result = result && (hasResults() == other.hasResults());
+      if (!getId()
+          .equals(other.getId())) return false;
+      if (hasResults() != other.hasResults()) return false;
       if (hasResults()) {
-        result = result && getResults()
-            .equals(other.getResults());
+        if (!getResults()
+            .equals(other.getResults())) return false;
       }
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -6179,35 +6524,35 @@ public final class QueryOuterClass {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -6260,6 +6605,7 @@ public final class QueryOuterClass {
       private java.lang.Object id_ = "";
       /**
        * <code>string id = 1;</code>
+       * @return The id.
        */
       public java.lang.String getId() {
         java.lang.Object ref = id_;
@@ -6275,6 +6621,7 @@ public final class QueryOuterClass {
       }
       /**
        * <code>string id = 1;</code>
+       * @return The bytes for id.
        */
       public com.google.protobuf.ByteString
           getIdBytes() {
@@ -6291,6 +6638,8 @@ public final class QueryOuterClass {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The id to set.
+       * @return This builder for chaining.
        */
       public Builder setId(
           java.lang.String value) {
@@ -6304,6 +6653,7 @@ public final class QueryOuterClass {
       }
       /**
        * <code>string id = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearId() {
         
@@ -6313,6 +6663,8 @@ public final class QueryOuterClass {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The bytes for id to set.
+       * @return This builder for chaining.
        */
       public Builder setIdBytes(
           com.google.protobuf.ByteString value) {
@@ -6326,17 +6678,19 @@ public final class QueryOuterClass {
         return this;
       }
 
-      private sjtu.opennet.textilepb.QueryOuterClass.QueryResults results_ = null;
+      private sjtu.opennet.textilepb.QueryOuterClass.QueryResults results_;
       private com.google.protobuf.SingleFieldBuilderV3<
           sjtu.opennet.textilepb.QueryOuterClass.QueryResults, sjtu.opennet.textilepb.QueryOuterClass.QueryResults.Builder, sjtu.opennet.textilepb.QueryOuterClass.QueryResultsOrBuilder> resultsBuilder_;
       /**
        * <code>.QueryResults results = 2;</code>
+       * @return Whether the results field is set.
        */
       public boolean hasResults() {
         return resultsBuilder_ != null || results_ != null;
       }
       /**
        * <code>.QueryResults results = 2;</code>
+       * @return The results.
        */
       public sjtu.opennet.textilepb.QueryOuterClass.QueryResults getResults() {
         if (resultsBuilder_ == null) {
@@ -6445,7 +6799,7 @@ public final class QueryOuterClass {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -6501,20 +6855,24 @@ public final class QueryOuterClass {
 
     /**
      * <code>string address = 1;</code>
+     * @return The address.
      */
     java.lang.String getAddress();
     /**
      * <code>string address = 1;</code>
+     * @return The bytes for address.
      */
     com.google.protobuf.ByteString
         getAddressBytes();
 
     /**
      * <code>string name = 2;</code>
+     * @return The name.
      */
     java.lang.String getName();
     /**
      * <code>string name = 2;</code>
+     * @return The bytes for name.
      */
     com.google.protobuf.ByteString
         getNameBytes();
@@ -6522,7 +6880,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code ContactQuery}
    */
-  public  static final class ContactQuery extends
+  public static final class ContactQuery extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ContactQuery)
       ContactQueryOrBuilder {
@@ -6534,6 +6892,13 @@ public final class QueryOuterClass {
     private ContactQuery() {
       address_ = "";
       name_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new ContactQuery();
     }
 
     @java.lang.Override
@@ -6549,7 +6914,6 @@ public final class QueryOuterClass {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -6573,7 +6937,7 @@ public final class QueryOuterClass {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -6608,7 +6972,9 @@ public final class QueryOuterClass {
     private volatile java.lang.Object address_;
     /**
      * <code>string address = 1;</code>
+     * @return The address.
      */
+    @java.lang.Override
     public java.lang.String getAddress() {
       java.lang.Object ref = address_;
       if (ref instanceof java.lang.String) {
@@ -6623,7 +6989,9 @@ public final class QueryOuterClass {
     }
     /**
      * <code>string address = 1;</code>
+     * @return The bytes for address.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAddressBytes() {
       java.lang.Object ref = address_;
@@ -6642,7 +7010,9 @@ public final class QueryOuterClass {
     private volatile java.lang.Object name_;
     /**
      * <code>string name = 2;</code>
+     * @return The name.
      */
+    @java.lang.Override
     public java.lang.String getName() {
       java.lang.Object ref = name_;
       if (ref instanceof java.lang.String) {
@@ -6657,7 +7027,9 @@ public final class QueryOuterClass {
     }
     /**
      * <code>string name = 2;</code>
+     * @return The bytes for name.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getNameBytes() {
       java.lang.Object ref = name_;
@@ -6722,13 +7094,12 @@ public final class QueryOuterClass {
       }
       sjtu.opennet.textilepb.QueryOuterClass.ContactQuery other = (sjtu.opennet.textilepb.QueryOuterClass.ContactQuery) obj;
 
-      boolean result = true;
-      result = result && getAddress()
-          .equals(other.getAddress());
-      result = result && getName()
-          .equals(other.getName());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getAddress()
+          .equals(other.getAddress())) return false;
+      if (!getName()
+          .equals(other.getName())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -6913,35 +7284,35 @@ public final class QueryOuterClass {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -6995,6 +7366,7 @@ public final class QueryOuterClass {
       private java.lang.Object address_ = "";
       /**
        * <code>string address = 1;</code>
+       * @return The address.
        */
       public java.lang.String getAddress() {
         java.lang.Object ref = address_;
@@ -7010,6 +7382,7 @@ public final class QueryOuterClass {
       }
       /**
        * <code>string address = 1;</code>
+       * @return The bytes for address.
        */
       public com.google.protobuf.ByteString
           getAddressBytes() {
@@ -7026,6 +7399,8 @@ public final class QueryOuterClass {
       }
       /**
        * <code>string address = 1;</code>
+       * @param value The address to set.
+       * @return This builder for chaining.
        */
       public Builder setAddress(
           java.lang.String value) {
@@ -7039,6 +7414,7 @@ public final class QueryOuterClass {
       }
       /**
        * <code>string address = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearAddress() {
         
@@ -7048,6 +7424,8 @@ public final class QueryOuterClass {
       }
       /**
        * <code>string address = 1;</code>
+       * @param value The bytes for address to set.
+       * @return This builder for chaining.
        */
       public Builder setAddressBytes(
           com.google.protobuf.ByteString value) {
@@ -7064,6 +7442,7 @@ public final class QueryOuterClass {
       private java.lang.Object name_ = "";
       /**
        * <code>string name = 2;</code>
+       * @return The name.
        */
       public java.lang.String getName() {
         java.lang.Object ref = name_;
@@ -7079,6 +7458,7 @@ public final class QueryOuterClass {
       }
       /**
        * <code>string name = 2;</code>
+       * @return The bytes for name.
        */
       public com.google.protobuf.ByteString
           getNameBytes() {
@@ -7095,6 +7475,8 @@ public final class QueryOuterClass {
       }
       /**
        * <code>string name = 2;</code>
+       * @param value The name to set.
+       * @return This builder for chaining.
        */
       public Builder setName(
           java.lang.String value) {
@@ -7108,6 +7490,7 @@ public final class QueryOuterClass {
       }
       /**
        * <code>string name = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearName() {
         
@@ -7117,6 +7500,8 @@ public final class QueryOuterClass {
       }
       /**
        * <code>string name = 2;</code>
+       * @param value The bytes for name to set.
+       * @return This builder for chaining.
        */
       public Builder setNameBytes(
           com.google.protobuf.ByteString value) {
@@ -7132,7 +7517,7 @@ public final class QueryOuterClass {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -7188,10 +7573,12 @@ public final class QueryOuterClass {
 
     /**
      * <code>string address = 1;</code>
+     * @return The address.
      */
     java.lang.String getAddress();
     /**
      * <code>string address = 1;</code>
+     * @return The bytes for address.
      */
     com.google.protobuf.ByteString
         getAddressBytes();
@@ -7199,7 +7586,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code ThreadSnapshotQuery}
    */
-  public  static final class ThreadSnapshotQuery extends
+  public static final class ThreadSnapshotQuery extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ThreadSnapshotQuery)
       ThreadSnapshotQueryOrBuilder {
@@ -7210,6 +7597,13 @@ public final class QueryOuterClass {
     }
     private ThreadSnapshotQuery() {
       address_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new ThreadSnapshotQuery();
     }
 
     @java.lang.Override
@@ -7225,7 +7619,6 @@ public final class QueryOuterClass {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -7243,7 +7636,7 @@ public final class QueryOuterClass {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -7278,7 +7671,9 @@ public final class QueryOuterClass {
     private volatile java.lang.Object address_;
     /**
      * <code>string address = 1;</code>
+     * @return The address.
      */
+    @java.lang.Override
     public java.lang.String getAddress() {
       java.lang.Object ref = address_;
       if (ref instanceof java.lang.String) {
@@ -7293,7 +7688,9 @@ public final class QueryOuterClass {
     }
     /**
      * <code>string address = 1;</code>
+     * @return The bytes for address.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAddressBytes() {
       java.lang.Object ref = address_;
@@ -7352,11 +7749,10 @@ public final class QueryOuterClass {
       }
       sjtu.opennet.textilepb.QueryOuterClass.ThreadSnapshotQuery other = (sjtu.opennet.textilepb.QueryOuterClass.ThreadSnapshotQuery) obj;
 
-      boolean result = true;
-      result = result && getAddress()
-          .equals(other.getAddress());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getAddress()
+          .equals(other.getAddress())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -7536,35 +7932,35 @@ public final class QueryOuterClass {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -7614,6 +8010,7 @@ public final class QueryOuterClass {
       private java.lang.Object address_ = "";
       /**
        * <code>string address = 1;</code>
+       * @return The address.
        */
       public java.lang.String getAddress() {
         java.lang.Object ref = address_;
@@ -7629,6 +8026,7 @@ public final class QueryOuterClass {
       }
       /**
        * <code>string address = 1;</code>
+       * @return The bytes for address.
        */
       public com.google.protobuf.ByteString
           getAddressBytes() {
@@ -7645,6 +8043,8 @@ public final class QueryOuterClass {
       }
       /**
        * <code>string address = 1;</code>
+       * @param value The address to set.
+       * @return This builder for chaining.
        */
       public Builder setAddress(
           java.lang.String value) {
@@ -7658,6 +8058,7 @@ public final class QueryOuterClass {
       }
       /**
        * <code>string address = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearAddress() {
         
@@ -7667,6 +8068,8 @@ public final class QueryOuterClass {
       }
       /**
        * <code>string address = 1;</code>
+       * @param value The bytes for address to set.
+       * @return This builder for chaining.
        */
       public Builder setAddressBytes(
           com.google.protobuf.ByteString value) {
@@ -7682,7 +8085,7 @@ public final class QueryOuterClass {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -7738,43 +8141,50 @@ public final class QueryOuterClass {
 
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
     java.lang.String getId();
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
     com.google.protobuf.ByteString
         getIdBytes();
 
     /**
      * <code>string chunk = 2;</code>
+     * @return The chunk.
      */
     java.lang.String getChunk();
     /**
      * <code>string chunk = 2;</code>
+     * @return The bytes for chunk.
      */
     com.google.protobuf.ByteString
         getChunkBytes();
 
     /**
      * <code>int64 startTime = 3;</code>
+     * @return The startTime.
      */
     long getStartTime();
 
     /**
      * <code>int64 endTime = 4;</code>
+     * @return The endTime.
      */
     long getEndTime();
 
     /**
      * <code>int64 index = 5;</code>
+     * @return The index.
      */
     long getIndex();
   }
   /**
    * Protobuf type {@code VideoChunkQuery}
    */
-  public  static final class VideoChunkQuery extends
+  public static final class VideoChunkQuery extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:VideoChunkQuery)
       VideoChunkQueryOrBuilder {
@@ -7786,9 +8196,13 @@ public final class QueryOuterClass {
     private VideoChunkQuery() {
       id_ = "";
       chunk_ = "";
-      startTime_ = 0L;
-      endTime_ = 0L;
-      index_ = 0L;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new VideoChunkQuery();
     }
 
     @java.lang.Override
@@ -7804,7 +8218,6 @@ public final class QueryOuterClass {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -7843,7 +8256,7 @@ public final class QueryOuterClass {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -7878,7 +8291,9 @@ public final class QueryOuterClass {
     private volatile java.lang.Object id_;
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
+    @java.lang.Override
     public java.lang.String getId() {
       java.lang.Object ref = id_;
       if (ref instanceof java.lang.String) {
@@ -7893,7 +8308,9 @@ public final class QueryOuterClass {
     }
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getIdBytes() {
       java.lang.Object ref = id_;
@@ -7912,7 +8329,9 @@ public final class QueryOuterClass {
     private volatile java.lang.Object chunk_;
     /**
      * <code>string chunk = 2;</code>
+     * @return The chunk.
      */
+    @java.lang.Override
     public java.lang.String getChunk() {
       java.lang.Object ref = chunk_;
       if (ref instanceof java.lang.String) {
@@ -7927,7 +8346,9 @@ public final class QueryOuterClass {
     }
     /**
      * <code>string chunk = 2;</code>
+     * @return The bytes for chunk.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getChunkBytes() {
       java.lang.Object ref = chunk_;
@@ -7946,7 +8367,9 @@ public final class QueryOuterClass {
     private long startTime_;
     /**
      * <code>int64 startTime = 3;</code>
+     * @return The startTime.
      */
+    @java.lang.Override
     public long getStartTime() {
       return startTime_;
     }
@@ -7955,7 +8378,9 @@ public final class QueryOuterClass {
     private long endTime_;
     /**
      * <code>int64 endTime = 4;</code>
+     * @return The endTime.
      */
+    @java.lang.Override
     public long getEndTime() {
       return endTime_;
     }
@@ -7964,7 +8389,9 @@ public final class QueryOuterClass {
     private long index_;
     /**
      * <code>int64 index = 5;</code>
+     * @return The index.
      */
+    @java.lang.Override
     public long getIndex() {
       return index_;
     }
@@ -8040,19 +8467,18 @@ public final class QueryOuterClass {
       }
       sjtu.opennet.textilepb.QueryOuterClass.VideoChunkQuery other = (sjtu.opennet.textilepb.QueryOuterClass.VideoChunkQuery) obj;
 
-      boolean result = true;
-      result = result && getId()
-          .equals(other.getId());
-      result = result && getChunk()
-          .equals(other.getChunk());
-      result = result && (getStartTime()
-          == other.getStartTime());
-      result = result && (getEndTime()
-          == other.getEndTime());
-      result = result && (getIndex()
-          == other.getIndex());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getId()
+          .equals(other.getId())) return false;
+      if (!getChunk()
+          .equals(other.getChunk())) return false;
+      if (getStartTime()
+          != other.getStartTime()) return false;
+      if (getEndTime()
+          != other.getEndTime()) return false;
+      if (getIndex()
+          != other.getIndex()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -8255,35 +8681,35 @@ public final class QueryOuterClass {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -8346,6 +8772,7 @@ public final class QueryOuterClass {
       private java.lang.Object id_ = "";
       /**
        * <code>string id = 1;</code>
+       * @return The id.
        */
       public java.lang.String getId() {
         java.lang.Object ref = id_;
@@ -8361,6 +8788,7 @@ public final class QueryOuterClass {
       }
       /**
        * <code>string id = 1;</code>
+       * @return The bytes for id.
        */
       public com.google.protobuf.ByteString
           getIdBytes() {
@@ -8377,6 +8805,8 @@ public final class QueryOuterClass {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The id to set.
+       * @return This builder for chaining.
        */
       public Builder setId(
           java.lang.String value) {
@@ -8390,6 +8820,7 @@ public final class QueryOuterClass {
       }
       /**
        * <code>string id = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearId() {
         
@@ -8399,6 +8830,8 @@ public final class QueryOuterClass {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The bytes for id to set.
+       * @return This builder for chaining.
        */
       public Builder setIdBytes(
           com.google.protobuf.ByteString value) {
@@ -8415,6 +8848,7 @@ public final class QueryOuterClass {
       private java.lang.Object chunk_ = "";
       /**
        * <code>string chunk = 2;</code>
+       * @return The chunk.
        */
       public java.lang.String getChunk() {
         java.lang.Object ref = chunk_;
@@ -8430,6 +8864,7 @@ public final class QueryOuterClass {
       }
       /**
        * <code>string chunk = 2;</code>
+       * @return The bytes for chunk.
        */
       public com.google.protobuf.ByteString
           getChunkBytes() {
@@ -8446,6 +8881,8 @@ public final class QueryOuterClass {
       }
       /**
        * <code>string chunk = 2;</code>
+       * @param value The chunk to set.
+       * @return This builder for chaining.
        */
       public Builder setChunk(
           java.lang.String value) {
@@ -8459,6 +8896,7 @@ public final class QueryOuterClass {
       }
       /**
        * <code>string chunk = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearChunk() {
         
@@ -8468,6 +8906,8 @@ public final class QueryOuterClass {
       }
       /**
        * <code>string chunk = 2;</code>
+       * @param value The bytes for chunk to set.
+       * @return This builder for chaining.
        */
       public Builder setChunkBytes(
           com.google.protobuf.ByteString value) {
@@ -8484,12 +8924,16 @@ public final class QueryOuterClass {
       private long startTime_ ;
       /**
        * <code>int64 startTime = 3;</code>
+       * @return The startTime.
        */
+      @java.lang.Override
       public long getStartTime() {
         return startTime_;
       }
       /**
        * <code>int64 startTime = 3;</code>
+       * @param value The startTime to set.
+       * @return This builder for chaining.
        */
       public Builder setStartTime(long value) {
         
@@ -8499,6 +8943,7 @@ public final class QueryOuterClass {
       }
       /**
        * <code>int64 startTime = 3;</code>
+       * @return This builder for chaining.
        */
       public Builder clearStartTime() {
         
@@ -8510,12 +8955,16 @@ public final class QueryOuterClass {
       private long endTime_ ;
       /**
        * <code>int64 endTime = 4;</code>
+       * @return The endTime.
        */
+      @java.lang.Override
       public long getEndTime() {
         return endTime_;
       }
       /**
        * <code>int64 endTime = 4;</code>
+       * @param value The endTime to set.
+       * @return This builder for chaining.
        */
       public Builder setEndTime(long value) {
         
@@ -8525,6 +8974,7 @@ public final class QueryOuterClass {
       }
       /**
        * <code>int64 endTime = 4;</code>
+       * @return This builder for chaining.
        */
       public Builder clearEndTime() {
         
@@ -8536,12 +8986,16 @@ public final class QueryOuterClass {
       private long index_ ;
       /**
        * <code>int64 index = 5;</code>
+       * @return The index.
        */
+      @java.lang.Override
       public long getIndex() {
         return index_;
       }
       /**
        * <code>int64 index = 5;</code>
+       * @param value The index to set.
+       * @return This builder for chaining.
        */
       public Builder setIndex(long value) {
         
@@ -8551,6 +9005,7 @@ public final class QueryOuterClass {
       }
       /**
        * <code>int64 index = 5;</code>
+       * @return This builder for chaining.
        */
       public Builder clearIndex() {
         
@@ -8561,7 +9016,7 @@ public final class QueryOuterClass {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -8617,10 +9072,12 @@ public final class QueryOuterClass {
 
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
     java.lang.String getId();
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
     com.google.protobuf.ByteString
         getIdBytes();
@@ -8628,7 +9085,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code VideoQuery}
    */
-  public  static final class VideoQuery extends
+  public static final class VideoQuery extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:VideoQuery)
       VideoQueryOrBuilder {
@@ -8639,6 +9096,13 @@ public final class QueryOuterClass {
     }
     private VideoQuery() {
       id_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new VideoQuery();
     }
 
     @java.lang.Override
@@ -8654,7 +9118,6 @@ public final class QueryOuterClass {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -8672,7 +9135,7 @@ public final class QueryOuterClass {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -8707,7 +9170,9 @@ public final class QueryOuterClass {
     private volatile java.lang.Object id_;
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
+    @java.lang.Override
     public java.lang.String getId() {
       java.lang.Object ref = id_;
       if (ref instanceof java.lang.String) {
@@ -8722,7 +9187,9 @@ public final class QueryOuterClass {
     }
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getIdBytes() {
       java.lang.Object ref = id_;
@@ -8781,11 +9248,10 @@ public final class QueryOuterClass {
       }
       sjtu.opennet.textilepb.QueryOuterClass.VideoQuery other = (sjtu.opennet.textilepb.QueryOuterClass.VideoQuery) obj;
 
-      boolean result = true;
-      result = result && getId()
-          .equals(other.getId());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getId()
+          .equals(other.getId())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -8965,35 +9431,35 @@ public final class QueryOuterClass {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -9043,6 +9509,7 @@ public final class QueryOuterClass {
       private java.lang.Object id_ = "";
       /**
        * <code>string id = 1;</code>
+       * @return The id.
        */
       public java.lang.String getId() {
         java.lang.Object ref = id_;
@@ -9058,6 +9525,7 @@ public final class QueryOuterClass {
       }
       /**
        * <code>string id = 1;</code>
+       * @return The bytes for id.
        */
       public com.google.protobuf.ByteString
           getIdBytes() {
@@ -9074,6 +9542,8 @@ public final class QueryOuterClass {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The id to set.
+       * @return This builder for chaining.
        */
       public Builder setId(
           java.lang.String value) {
@@ -9087,6 +9557,7 @@ public final class QueryOuterClass {
       }
       /**
        * <code>string id = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearId() {
         
@@ -9096,6 +9567,8 @@ public final class QueryOuterClass {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The bytes for id to set.
+       * @return This builder for chaining.
        */
       public Builder setIdBytes(
           com.google.protobuf.ByteString value) {
@@ -9111,7 +9584,7 @@ public final class QueryOuterClass {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -9167,23 +9640,26 @@ public final class QueryOuterClass {
 
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
     java.lang.String getId();
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
     com.google.protobuf.ByteString
         getIdBytes();
 
     /**
      * <code>int64 startindex = 2;</code>
+     * @return The startindex.
      */
     long getStartindex();
   }
   /**
    * Protobuf type {@code StreamQuery}
    */
-  public  static final class StreamQuery extends
+  public static final class StreamQuery extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:StreamQuery)
       StreamQueryOrBuilder {
@@ -9194,7 +9670,13 @@ public final class QueryOuterClass {
     }
     private StreamQuery() {
       id_ = "";
-      startindex_ = 0L;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new StreamQuery();
     }
 
     @java.lang.Override
@@ -9210,7 +9692,6 @@ public final class QueryOuterClass {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -9233,7 +9714,7 @@ public final class QueryOuterClass {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -9268,7 +9749,9 @@ public final class QueryOuterClass {
     private volatile java.lang.Object id_;
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
+    @java.lang.Override
     public java.lang.String getId() {
       java.lang.Object ref = id_;
       if (ref instanceof java.lang.String) {
@@ -9283,7 +9766,9 @@ public final class QueryOuterClass {
     }
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getIdBytes() {
       java.lang.Object ref = id_;
@@ -9302,7 +9787,9 @@ public final class QueryOuterClass {
     private long startindex_;
     /**
      * <code>int64 startindex = 2;</code>
+     * @return The startindex.
      */
+    @java.lang.Override
     public long getStartindex() {
       return startindex_;
     }
@@ -9358,13 +9845,12 @@ public final class QueryOuterClass {
       }
       sjtu.opennet.textilepb.QueryOuterClass.StreamQuery other = (sjtu.opennet.textilepb.QueryOuterClass.StreamQuery) obj;
 
-      boolean result = true;
-      result = result && getId()
-          .equals(other.getId());
-      result = result && (getStartindex()
-          == other.getStartindex());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getId()
+          .equals(other.getId())) return false;
+      if (getStartindex()
+          != other.getStartindex()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -9550,35 +10036,35 @@ public final class QueryOuterClass {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -9631,6 +10117,7 @@ public final class QueryOuterClass {
       private java.lang.Object id_ = "";
       /**
        * <code>string id = 1;</code>
+       * @return The id.
        */
       public java.lang.String getId() {
         java.lang.Object ref = id_;
@@ -9646,6 +10133,7 @@ public final class QueryOuterClass {
       }
       /**
        * <code>string id = 1;</code>
+       * @return The bytes for id.
        */
       public com.google.protobuf.ByteString
           getIdBytes() {
@@ -9662,6 +10150,8 @@ public final class QueryOuterClass {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The id to set.
+       * @return This builder for chaining.
        */
       public Builder setId(
           java.lang.String value) {
@@ -9675,6 +10165,7 @@ public final class QueryOuterClass {
       }
       /**
        * <code>string id = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearId() {
         
@@ -9684,6 +10175,8 @@ public final class QueryOuterClass {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The bytes for id to set.
+       * @return This builder for chaining.
        */
       public Builder setIdBytes(
           com.google.protobuf.ByteString value) {
@@ -9700,12 +10193,16 @@ public final class QueryOuterClass {
       private long startindex_ ;
       /**
        * <code>int64 startindex = 2;</code>
+       * @return The startindex.
        */
+      @java.lang.Override
       public long getStartindex() {
         return startindex_;
       }
       /**
        * <code>int64 startindex = 2;</code>
+       * @param value The startindex to set.
+       * @return This builder for chaining.
        */
       public Builder setStartindex(long value) {
         
@@ -9715,6 +10212,7 @@ public final class QueryOuterClass {
       }
       /**
        * <code>int64 startindex = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearStartindex() {
         
@@ -9725,7 +10223,7 @@ public final class QueryOuterClass {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -9781,23 +10279,26 @@ public final class QueryOuterClass {
 
     /**
      * <code>string pid = 1;</code>
+     * @return The pid.
      */
     java.lang.String getPid();
     /**
      * <code>string pid = 1;</code>
+     * @return The bytes for pid.
      */
     com.google.protobuf.ByteString
         getPidBytes();
 
     /**
      * <code>int32 hopcnt = 2;</code>
+     * @return The hopcnt.
      */
     int getHopcnt();
   }
   /**
    * Protobuf type {@code StreamQueryResultItem}
    */
-  public  static final class StreamQueryResultItem extends
+  public static final class StreamQueryResultItem extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:StreamQueryResultItem)
       StreamQueryResultItemOrBuilder {
@@ -9808,7 +10309,13 @@ public final class QueryOuterClass {
     }
     private StreamQueryResultItem() {
       pid_ = "";
-      hopcnt_ = 0;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new StreamQueryResultItem();
     }
 
     @java.lang.Override
@@ -9824,7 +10331,6 @@ public final class QueryOuterClass {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -9847,7 +10353,7 @@ public final class QueryOuterClass {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -9882,7 +10388,9 @@ public final class QueryOuterClass {
     private volatile java.lang.Object pid_;
     /**
      * <code>string pid = 1;</code>
+     * @return The pid.
      */
+    @java.lang.Override
     public java.lang.String getPid() {
       java.lang.Object ref = pid_;
       if (ref instanceof java.lang.String) {
@@ -9897,7 +10405,9 @@ public final class QueryOuterClass {
     }
     /**
      * <code>string pid = 1;</code>
+     * @return The bytes for pid.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getPidBytes() {
       java.lang.Object ref = pid_;
@@ -9916,7 +10426,9 @@ public final class QueryOuterClass {
     private int hopcnt_;
     /**
      * <code>int32 hopcnt = 2;</code>
+     * @return The hopcnt.
      */
+    @java.lang.Override
     public int getHopcnt() {
       return hopcnt_;
     }
@@ -9972,13 +10484,12 @@ public final class QueryOuterClass {
       }
       sjtu.opennet.textilepb.QueryOuterClass.StreamQueryResultItem other = (sjtu.opennet.textilepb.QueryOuterClass.StreamQueryResultItem) obj;
 
-      boolean result = true;
-      result = result && getPid()
-          .equals(other.getPid());
-      result = result && (getHopcnt()
-          == other.getHopcnt());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getPid()
+          .equals(other.getPid())) return false;
+      if (getHopcnt()
+          != other.getHopcnt()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -10163,35 +10674,35 @@ public final class QueryOuterClass {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -10244,6 +10755,7 @@ public final class QueryOuterClass {
       private java.lang.Object pid_ = "";
       /**
        * <code>string pid = 1;</code>
+       * @return The pid.
        */
       public java.lang.String getPid() {
         java.lang.Object ref = pid_;
@@ -10259,6 +10771,7 @@ public final class QueryOuterClass {
       }
       /**
        * <code>string pid = 1;</code>
+       * @return The bytes for pid.
        */
       public com.google.protobuf.ByteString
           getPidBytes() {
@@ -10275,6 +10788,8 @@ public final class QueryOuterClass {
       }
       /**
        * <code>string pid = 1;</code>
+       * @param value The pid to set.
+       * @return This builder for chaining.
        */
       public Builder setPid(
           java.lang.String value) {
@@ -10288,6 +10803,7 @@ public final class QueryOuterClass {
       }
       /**
        * <code>string pid = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearPid() {
         
@@ -10297,6 +10813,8 @@ public final class QueryOuterClass {
       }
       /**
        * <code>string pid = 1;</code>
+       * @param value The bytes for pid to set.
+       * @return This builder for chaining.
        */
       public Builder setPidBytes(
           com.google.protobuf.ByteString value) {
@@ -10313,12 +10831,16 @@ public final class QueryOuterClass {
       private int hopcnt_ ;
       /**
        * <code>int32 hopcnt = 2;</code>
+       * @return The hopcnt.
        */
+      @java.lang.Override
       public int getHopcnt() {
         return hopcnt_;
       }
       /**
        * <code>int32 hopcnt = 2;</code>
+       * @param value The hopcnt to set.
+       * @return This builder for chaining.
        */
       public Builder setHopcnt(int value) {
         
@@ -10328,6 +10850,7 @@ public final class QueryOuterClass {
       }
       /**
        * <code>int32 hopcnt = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearHopcnt() {
         
@@ -10338,7 +10861,7 @@ public final class QueryOuterClass {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -10394,27 +10917,31 @@ public final class QueryOuterClass {
 
     /**
      * <code>string address = 1;</code>
+     * @return The address.
      */
     java.lang.String getAddress();
     /**
      * <code>string address = 1;</code>
+     * @return The bytes for address.
      */
     com.google.protobuf.ByteString
         getAddressBytes();
 
     /**
      * <code>.SyncFile.Type type = 2;</code>
+     * @return The enum numeric value on the wire for type.
      */
     int getTypeValue();
     /**
      * <code>.SyncFile.Type type = 2;</code>
+     * @return The type.
      */
     sjtu.opennet.textilepb.Model.SyncFile.Type getType();
   }
   /**
    * Protobuf type {@code SyncFileQuery}
    */
-  public  static final class SyncFileQuery extends
+  public static final class SyncFileQuery extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:SyncFileQuery)
       SyncFileQueryOrBuilder {
@@ -10426,6 +10953,13 @@ public final class QueryOuterClass {
     private SyncFileQuery() {
       address_ = "";
       type_ = 0;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new SyncFileQuery();
     }
 
     @java.lang.Override
@@ -10441,7 +10975,6 @@ public final class QueryOuterClass {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -10465,7 +10998,7 @@ public final class QueryOuterClass {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -10500,7 +11033,9 @@ public final class QueryOuterClass {
     private volatile java.lang.Object address_;
     /**
      * <code>string address = 1;</code>
+     * @return The address.
      */
+    @java.lang.Override
     public java.lang.String getAddress() {
       java.lang.Object ref = address_;
       if (ref instanceof java.lang.String) {
@@ -10515,7 +11050,9 @@ public final class QueryOuterClass {
     }
     /**
      * <code>string address = 1;</code>
+     * @return The bytes for address.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAddressBytes() {
       java.lang.Object ref = address_;
@@ -10534,14 +11071,16 @@ public final class QueryOuterClass {
     private int type_;
     /**
      * <code>.SyncFile.Type type = 2;</code>
+     * @return The enum numeric value on the wire for type.
      */
-    public int getTypeValue() {
+    @java.lang.Override public int getTypeValue() {
       return type_;
     }
     /**
      * <code>.SyncFile.Type type = 2;</code>
+     * @return The type.
      */
-    public sjtu.opennet.textilepb.Model.SyncFile.Type getType() {
+    @java.lang.Override public sjtu.opennet.textilepb.Model.SyncFile.Type getType() {
       @SuppressWarnings("deprecation")
       sjtu.opennet.textilepb.Model.SyncFile.Type result = sjtu.opennet.textilepb.Model.SyncFile.Type.valueOf(type_);
       return result == null ? sjtu.opennet.textilepb.Model.SyncFile.Type.UNRECOGNIZED : result;
@@ -10598,12 +11137,11 @@ public final class QueryOuterClass {
       }
       sjtu.opennet.textilepb.QueryOuterClass.SyncFileQuery other = (sjtu.opennet.textilepb.QueryOuterClass.SyncFileQuery) obj;
 
-      boolean result = true;
-      result = result && getAddress()
-          .equals(other.getAddress());
-      result = result && type_ == other.type_;
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getAddress()
+          .equals(other.getAddress())) return false;
+      if (type_ != other.type_) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -10788,35 +11326,35 @@ public final class QueryOuterClass {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -10869,6 +11407,7 @@ public final class QueryOuterClass {
       private java.lang.Object address_ = "";
       /**
        * <code>string address = 1;</code>
+       * @return The address.
        */
       public java.lang.String getAddress() {
         java.lang.Object ref = address_;
@@ -10884,6 +11423,7 @@ public final class QueryOuterClass {
       }
       /**
        * <code>string address = 1;</code>
+       * @return The bytes for address.
        */
       public com.google.protobuf.ByteString
           getAddressBytes() {
@@ -10900,6 +11440,8 @@ public final class QueryOuterClass {
       }
       /**
        * <code>string address = 1;</code>
+       * @param value The address to set.
+       * @return This builder for chaining.
        */
       public Builder setAddress(
           java.lang.String value) {
@@ -10913,6 +11455,7 @@ public final class QueryOuterClass {
       }
       /**
        * <code>string address = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearAddress() {
         
@@ -10922,6 +11465,8 @@ public final class QueryOuterClass {
       }
       /**
        * <code>string address = 1;</code>
+       * @param value The bytes for address to set.
+       * @return This builder for chaining.
        */
       public Builder setAddressBytes(
           com.google.protobuf.ByteString value) {
@@ -10938,21 +11483,27 @@ public final class QueryOuterClass {
       private int type_ = 0;
       /**
        * <code>.SyncFile.Type type = 2;</code>
+       * @return The enum numeric value on the wire for type.
        */
-      public int getTypeValue() {
+      @java.lang.Override public int getTypeValue() {
         return type_;
       }
       /**
        * <code>.SyncFile.Type type = 2;</code>
+       * @param value The enum numeric value on the wire for type to set.
+       * @return This builder for chaining.
        */
       public Builder setTypeValue(int value) {
+        
         type_ = value;
         onChanged();
         return this;
       }
       /**
        * <code>.SyncFile.Type type = 2;</code>
+       * @return The type.
        */
+      @java.lang.Override
       public sjtu.opennet.textilepb.Model.SyncFile.Type getType() {
         @SuppressWarnings("deprecation")
         sjtu.opennet.textilepb.Model.SyncFile.Type result = sjtu.opennet.textilepb.Model.SyncFile.Type.valueOf(type_);
@@ -10960,6 +11511,8 @@ public final class QueryOuterClass {
       }
       /**
        * <code>.SyncFile.Type type = 2;</code>
+       * @param value The type to set.
+       * @return This builder for chaining.
        */
       public Builder setType(sjtu.opennet.textilepb.Model.SyncFile.Type value) {
         if (value == null) {
@@ -10972,6 +11525,7 @@ public final class QueryOuterClass {
       }
       /**
        * <code>.SyncFile.Type type = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearType() {
         
@@ -10982,7 +11536,7 @@ public final class QueryOuterClass {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -11038,19 +11592,25 @@ public final class QueryOuterClass {
 
     /**
      * <code>repeated string items = 1;</code>
+     * @return A list containing the items.
      */
     java.util.List<java.lang.String>
         getItemsList();
     /**
      * <code>repeated string items = 1;</code>
+     * @return The count of items.
      */
     int getItemsCount();
     /**
      * <code>repeated string items = 1;</code>
+     * @param index The index of the element to return.
+     * @return The items at the given index.
      */
     java.lang.String getItems(int index);
     /**
      * <code>repeated string items = 1;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the items at the given index.
      */
     com.google.protobuf.ByteString
         getItemsBytes(int index);
@@ -11058,7 +11618,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code IpfsQuery}
    */
-  public  static final class IpfsQuery extends
+  public static final class IpfsQuery extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:IpfsQuery)
       IpfsQueryOrBuilder {
@@ -11069,6 +11629,13 @@ public final class QueryOuterClass {
     }
     private IpfsQuery() {
       items_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new IpfsQuery();
     }
 
     @java.lang.Override
@@ -11097,7 +11664,7 @@ public final class QueryOuterClass {
               break;
             case 10: {
               java.lang.String s = input.readStringRequireUtf8();
-              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
                 items_ = new com.google.protobuf.LazyStringArrayList();
                 mutable_bitField0_ |= 0x00000001;
               }
@@ -11105,7 +11672,7 @@ public final class QueryOuterClass {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -11119,7 +11686,7 @@ public final class QueryOuterClass {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
           items_ = items_.getUnmodifiableView();
         }
         this.unknownFields = unknownFields.build();
@@ -11143,6 +11710,7 @@ public final class QueryOuterClass {
     private com.google.protobuf.LazyStringList items_;
     /**
      * <code>repeated string items = 1;</code>
+     * @return A list containing the items.
      */
     public com.google.protobuf.ProtocolStringList
         getItemsList() {
@@ -11150,18 +11718,23 @@ public final class QueryOuterClass {
     }
     /**
      * <code>repeated string items = 1;</code>
+     * @return The count of items.
      */
     public int getItemsCount() {
       return items_.size();
     }
     /**
      * <code>repeated string items = 1;</code>
+     * @param index The index of the element to return.
+     * @return The items at the given index.
      */
     public java.lang.String getItems(int index) {
       return items_.get(index);
     }
     /**
      * <code>repeated string items = 1;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the items at the given index.
      */
     public com.google.protobuf.ByteString
         getItemsBytes(int index) {
@@ -11217,11 +11790,10 @@ public final class QueryOuterClass {
       }
       sjtu.opennet.textilepb.QueryOuterClass.IpfsQuery other = (sjtu.opennet.textilepb.QueryOuterClass.IpfsQuery) obj;
 
-      boolean result = true;
-      result = result && getItemsList()
-          .equals(other.getItemsList());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getItemsList()
+          .equals(other.getItemsList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -11397,7 +11969,7 @@ public final class QueryOuterClass {
       public sjtu.opennet.textilepb.QueryOuterClass.IpfsQuery buildPartial() {
         sjtu.opennet.textilepb.QueryOuterClass.IpfsQuery result = new sjtu.opennet.textilepb.QueryOuterClass.IpfsQuery(this);
         int from_bitField0_ = bitField0_;
-        if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((bitField0_ & 0x00000001) != 0)) {
           items_ = items_.getUnmodifiableView();
           bitField0_ = (bitField0_ & ~0x00000001);
         }
@@ -11408,35 +11980,35 @@ public final class QueryOuterClass {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -11492,13 +12064,14 @@ public final class QueryOuterClass {
 
       private com.google.protobuf.LazyStringList items_ = com.google.protobuf.LazyStringArrayList.EMPTY;
       private void ensureItemsIsMutable() {
-        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+        if (!((bitField0_ & 0x00000001) != 0)) {
           items_ = new com.google.protobuf.LazyStringArrayList(items_);
           bitField0_ |= 0x00000001;
          }
       }
       /**
        * <code>repeated string items = 1;</code>
+       * @return A list containing the items.
        */
       public com.google.protobuf.ProtocolStringList
           getItemsList() {
@@ -11506,18 +12079,23 @@ public final class QueryOuterClass {
       }
       /**
        * <code>repeated string items = 1;</code>
+       * @return The count of items.
        */
       public int getItemsCount() {
         return items_.size();
       }
       /**
        * <code>repeated string items = 1;</code>
+       * @param index The index of the element to return.
+       * @return The items at the given index.
        */
       public java.lang.String getItems(int index) {
         return items_.get(index);
       }
       /**
        * <code>repeated string items = 1;</code>
+       * @param index The index of the value to return.
+       * @return The bytes of the items at the given index.
        */
       public com.google.protobuf.ByteString
           getItemsBytes(int index) {
@@ -11525,6 +12103,9 @@ public final class QueryOuterClass {
       }
       /**
        * <code>repeated string items = 1;</code>
+       * @param index The index to set the value at.
+       * @param value The items to set.
+       * @return This builder for chaining.
        */
       public Builder setItems(
           int index, java.lang.String value) {
@@ -11538,6 +12119,8 @@ public final class QueryOuterClass {
       }
       /**
        * <code>repeated string items = 1;</code>
+       * @param value The items to add.
+       * @return This builder for chaining.
        */
       public Builder addItems(
           java.lang.String value) {
@@ -11551,6 +12134,8 @@ public final class QueryOuterClass {
       }
       /**
        * <code>repeated string items = 1;</code>
+       * @param values The items to add.
+       * @return This builder for chaining.
        */
       public Builder addAllItems(
           java.lang.Iterable<java.lang.String> values) {
@@ -11562,6 +12147,7 @@ public final class QueryOuterClass {
       }
       /**
        * <code>repeated string items = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearItems() {
         items_ = com.google.protobuf.LazyStringArrayList.EMPTY;
@@ -11571,6 +12157,8 @@ public final class QueryOuterClass {
       }
       /**
        * <code>repeated string items = 1;</code>
+       * @param value The bytes of the items to add.
+       * @return This builder for chaining.
        */
       public Builder addItemsBytes(
           com.google.protobuf.ByteString value) {
@@ -11586,7 +12174,7 @@ public final class QueryOuterClass {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -11642,19 +12230,25 @@ public final class QueryOuterClass {
 
     /**
      * <code>repeated string items = 1;</code>
+     * @return A list containing the items.
      */
     java.util.List<java.lang.String>
         getItemsList();
     /**
      * <code>repeated string items = 1;</code>
+     * @return The count of items.
      */
     int getItemsCount();
     /**
      * <code>repeated string items = 1;</code>
+     * @param index The index of the element to return.
+     * @return The items at the given index.
      */
     java.lang.String getItems(int index);
     /**
      * <code>repeated string items = 1;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the items at the given index.
      */
     com.google.protobuf.ByteString
         getItemsBytes(int index);
@@ -11662,7 +12256,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code IpfsQueryResult}
    */
-  public  static final class IpfsQueryResult extends
+  public static final class IpfsQueryResult extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:IpfsQueryResult)
       IpfsQueryResultOrBuilder {
@@ -11673,6 +12267,13 @@ public final class QueryOuterClass {
     }
     private IpfsQueryResult() {
       items_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new IpfsQueryResult();
     }
 
     @java.lang.Override
@@ -11701,7 +12302,7 @@ public final class QueryOuterClass {
               break;
             case 10: {
               java.lang.String s = input.readStringRequireUtf8();
-              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
                 items_ = new com.google.protobuf.LazyStringArrayList();
                 mutable_bitField0_ |= 0x00000001;
               }
@@ -11709,7 +12310,7 @@ public final class QueryOuterClass {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -11723,7 +12324,7 @@ public final class QueryOuterClass {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
           items_ = items_.getUnmodifiableView();
         }
         this.unknownFields = unknownFields.build();
@@ -11747,6 +12348,7 @@ public final class QueryOuterClass {
     private com.google.protobuf.LazyStringList items_;
     /**
      * <code>repeated string items = 1;</code>
+     * @return A list containing the items.
      */
     public com.google.protobuf.ProtocolStringList
         getItemsList() {
@@ -11754,18 +12356,23 @@ public final class QueryOuterClass {
     }
     /**
      * <code>repeated string items = 1;</code>
+     * @return The count of items.
      */
     public int getItemsCount() {
       return items_.size();
     }
     /**
      * <code>repeated string items = 1;</code>
+     * @param index The index of the element to return.
+     * @return The items at the given index.
      */
     public java.lang.String getItems(int index) {
       return items_.get(index);
     }
     /**
      * <code>repeated string items = 1;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the items at the given index.
      */
     public com.google.protobuf.ByteString
         getItemsBytes(int index) {
@@ -11821,11 +12428,10 @@ public final class QueryOuterClass {
       }
       sjtu.opennet.textilepb.QueryOuterClass.IpfsQueryResult other = (sjtu.opennet.textilepb.QueryOuterClass.IpfsQueryResult) obj;
 
-      boolean result = true;
-      result = result && getItemsList()
-          .equals(other.getItemsList());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getItemsList()
+          .equals(other.getItemsList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -12001,7 +12607,7 @@ public final class QueryOuterClass {
       public sjtu.opennet.textilepb.QueryOuterClass.IpfsQueryResult buildPartial() {
         sjtu.opennet.textilepb.QueryOuterClass.IpfsQueryResult result = new sjtu.opennet.textilepb.QueryOuterClass.IpfsQueryResult(this);
         int from_bitField0_ = bitField0_;
-        if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((bitField0_ & 0x00000001) != 0)) {
           items_ = items_.getUnmodifiableView();
           bitField0_ = (bitField0_ & ~0x00000001);
         }
@@ -12012,35 +12618,35 @@ public final class QueryOuterClass {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -12096,13 +12702,14 @@ public final class QueryOuterClass {
 
       private com.google.protobuf.LazyStringList items_ = com.google.protobuf.LazyStringArrayList.EMPTY;
       private void ensureItemsIsMutable() {
-        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+        if (!((bitField0_ & 0x00000001) != 0)) {
           items_ = new com.google.protobuf.LazyStringArrayList(items_);
           bitField0_ |= 0x00000001;
          }
       }
       /**
        * <code>repeated string items = 1;</code>
+       * @return A list containing the items.
        */
       public com.google.protobuf.ProtocolStringList
           getItemsList() {
@@ -12110,18 +12717,23 @@ public final class QueryOuterClass {
       }
       /**
        * <code>repeated string items = 1;</code>
+       * @return The count of items.
        */
       public int getItemsCount() {
         return items_.size();
       }
       /**
        * <code>repeated string items = 1;</code>
+       * @param index The index of the element to return.
+       * @return The items at the given index.
        */
       public java.lang.String getItems(int index) {
         return items_.get(index);
       }
       /**
        * <code>repeated string items = 1;</code>
+       * @param index The index of the value to return.
+       * @return The bytes of the items at the given index.
        */
       public com.google.protobuf.ByteString
           getItemsBytes(int index) {
@@ -12129,6 +12741,9 @@ public final class QueryOuterClass {
       }
       /**
        * <code>repeated string items = 1;</code>
+       * @param index The index to set the value at.
+       * @param value The items to set.
+       * @return This builder for chaining.
        */
       public Builder setItems(
           int index, java.lang.String value) {
@@ -12142,6 +12757,8 @@ public final class QueryOuterClass {
       }
       /**
        * <code>repeated string items = 1;</code>
+       * @param value The items to add.
+       * @return This builder for chaining.
        */
       public Builder addItems(
           java.lang.String value) {
@@ -12155,6 +12772,8 @@ public final class QueryOuterClass {
       }
       /**
        * <code>repeated string items = 1;</code>
+       * @param values The items to add.
+       * @return This builder for chaining.
        */
       public Builder addAllItems(
           java.lang.Iterable<java.lang.String> values) {
@@ -12166,6 +12785,7 @@ public final class QueryOuterClass {
       }
       /**
        * <code>repeated string items = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearItems() {
         items_ = com.google.protobuf.LazyStringArrayList.EMPTY;
@@ -12175,6 +12795,8 @@ public final class QueryOuterClass {
       }
       /**
        * <code>repeated string items = 1;</code>
+       * @param value The bytes of the items to add.
+       * @return This builder for chaining.
        */
       public Builder addItemsBytes(
           com.google.protobuf.ByteString value) {
@@ -12190,7 +12812,7 @@ public final class QueryOuterClass {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -12362,21 +12984,13 @@ public final class QueryOuterClass {
       "\t\" \n\017IpfsQueryResult\022\r\n\005items\030\001 \003(\tB\034\n\026s" +
       "jtu.opennet.textilepbZ\002pbb\006proto3"
     };
-    com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
-        new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
-          public com.google.protobuf.ExtensionRegistry assignDescriptors(
-              com.google.protobuf.Descriptors.FileDescriptor root) {
-            descriptor = root;
-            return null;
-          }
-        };
-    com.google.protobuf.Descriptors.FileDescriptor
+    descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           com.google.protobuf.AnyProto.getDescriptor(),
           com.google.protobuf.TimestampProto.getDescriptor(),
           sjtu.opennet.textilepb.Model.getDescriptor(),
-        }, assigner);
+        });
     internal_static_QueryOptions_descriptor =
       getDescriptor().getMessageTypes().get(0);
     internal_static_QueryOptions_fieldAccessorTable = new
