@@ -8,18 +8,18 @@ import (
 	"strings"
 	"time"
 
-	icid "github.com/ipfs/go-cid"
-	files "github.com/ipfs/go-ipfs-files"
 	"github.com/SJTU-OpenNetwork/go-ipfs/core"
 	"github.com/SJTU-OpenNetwork/go-ipfs/core/coreapi"
 	"github.com/SJTU-OpenNetwork/go-ipfs/pin"
+	iface "github.com/SJTU-OpenNetwork/interface-go-ipfs-core"
+	"github.com/SJTU-OpenNetwork/interface-go-ipfs-core/options"
+	"github.com/SJTU-OpenNetwork/interface-go-ipfs-core/path"
+	icid "github.com/ipfs/go-cid"
+	files "github.com/ipfs/go-ipfs-files"
 	ipld "github.com/ipfs/go-ipld-format"
 	logging "github.com/ipfs/go-log"
 	dag "github.com/ipfs/go-merkledag"
 	uio "github.com/ipfs/go-unixfs/io"
-	iface "github.com/SJTU-OpenNetwork/interface-go-ipfs-core"
-	"github.com/SJTU-OpenNetwork/interface-go-ipfs-core/options"
-	"github.com/SJTU-OpenNetwork/interface-go-ipfs-core/path"
 )
 
 var log = logging.Logger("tex-ipfs")
@@ -419,4 +419,43 @@ func ResolveLinkByNames(nd ipld.Node, names []string) (*ipld.Link, error) {
 		}
 	}
 	return nil, nil
+}
+
+// traverse node according to cid and return all the cids belonging to it.
+func ListCids(node *core.IpfsNode, cid string) ([]string, error) {
+	// Fetch the node first
+	nd, err := NodeAtPath(node, cid, CatTimeout) //One minute at most to fetch the node.
+	if err != nil {
+		log.Error(err)
+		return nil, err
+	}
+
+	err = PinNode(node, nd, true)	// Pin node recursively
+	if err != nil {
+		log.Error(err)
+		return nil, err
+	}
+
+	// Traverse node
+	return traverseAndList(node, cid)
+}
+
+func traverseAndList(node *core.IpfsNode, cid string) ([]string, error) {
+	res := []string{cid}
+	links, err := LinksAtPath(node, cid)
+	if err != nil{
+		return nil, err
+	}
+	if len(links) == 0 {
+		return res, nil
+	} else {
+		for _,l := range links {
+			list, err := traverseAndList(node, l.Cid.String())
+			if err != nil {
+				return nil, err
+			}
+			res = append(res, list...)
+		}
+	}
+	return res, nil
 }

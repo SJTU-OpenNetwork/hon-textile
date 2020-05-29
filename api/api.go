@@ -320,6 +320,7 @@ func (a *Api) Run() {
 			ipfs.GET("/id", a.ipfsId)
 			ipfs.GET("/cat/*path", a.ipfsCat)
 			ipfs.POST("/pin", a.ipfsPinCid)
+			ipfs.GET("/listcids", a.ipfsListCids)
 			swarm := ipfs.Group("/swarm")
 			{
 				swarm.POST("/connect", a.ipfsSwarmConnect)

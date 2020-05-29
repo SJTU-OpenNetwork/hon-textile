@@ -2,6 +2,7 @@ package api
 
 import (
 	"net/http"
+	"os"
 
 	"github.com/gin-gonic/gin"
 	"github.com/mr-tron/base58/base58"
@@ -163,4 +164,44 @@ func (a *Api) ipfsPinCid(g *gin.Context) {
 	}
 	log.Debugf("Node at %s pinned recursively.", path)
 	g.Status(http.StatusOK)
+}
+
+func (a *Api) ipfsListCids(g *gin.Context){
+	opts, err := a.readOpts(g)
+	if err != nil {
+		a.abort500(g, err)
+		return
+	}
+	cid := opts["cid"]
+	outPath := opts["out"]
+	list, err := ipfs.ListCids(a.Node.Ipfs(), cid)
+	if err != nil {
+		a.abort500(g, err)
+		return
+	}
+	if outPath != "" {
+		log.Debugf("Output cid list to %s", outPath)
+		_, err = os.Stat(outPath)
+		if os.IsNotExist(err) {
+			// Write list to file
+			f, err := os.Create(outPath)
+			if err != nil {
+				log.Error()
+			} else {
+				for _, l := range list {
+					_, err = f.WriteString(l + "\n")
+					if err != nil {
+						log.Error(err)
+					}
+				}
+				err = f.Close()
+				if err != nil {
+					log.Error(err)
+				}
+			}
+		} else if err != nil {
+			log.Error(err)
+		}
+	}
+	g.JSON(http.StatusOK, list)
 }

@@ -57,3 +57,16 @@ func IpfsPinCid(path string) error {
 	output(res)
 	return nil
 }
+
+func IpfsListCids(cid string, outPath string) error {
+	res, err := executeStringCmd(http.MethodGet, "ipfs/listcids", params{
+		//cid := opts["cid"]
+		//outPath := opts["out"]
+		opts: map[string]string{"cid":cid, "out": outPath},
+	})
+	if err != nil {
+		return err
+	}
+	output(res)
+	return nil
+}

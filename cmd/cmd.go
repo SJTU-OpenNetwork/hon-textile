@@ -610,6 +610,14 @@ There are two types of invites, direct account-to-account and external:
 		return IpfsPinCid(*ipfsPinPath)
 	}
 
+	// ipfs cidlist
+	ipfsCidListCmd := ipfsCmd.Command("listCids", "List all cids under a cid.")
+	ipfsCidListCid := ipfsCidListCmd.Arg("cid", "Cid").Required().String()
+	ipfsCidListOut := ipfsCidListCmd.Arg("out", "Output file path").String()
+	cmds[ipfsCidListCmd.FullCommand()] = func() error {
+		return IpfsListCids(*ipfsCidListCid, *ipfsCidListOut)
+	}
+
 	// ================================
 
 	// like
