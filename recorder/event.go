@@ -9,3 +9,8 @@ const (
 	Event_DoneTextileProcess = "textileProcess"
 	Event_DoneIPFSGet = "ipfsDone"			// used in core/thread_files.go/Thread.handleFileBlock()
 )
+
+const (
+	Event_Bitswap_TckRecv = "tckRecv"
+	Event_Bitswap_BlkRecv = "blkRecv"
+)

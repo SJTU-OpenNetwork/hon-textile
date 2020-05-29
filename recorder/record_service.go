@@ -49,6 +49,7 @@ import (
 const recordServiceProtocol = protocol.ID("/textile/record/1.0.0")
 var log = logging.Logger("record")
 var RecordCh = make(chan *pb.Notification, 10)
+var Online = false
 
 type RecordService struct {
 	service          *service.Service
@@ -57,6 +58,8 @@ type RecordService struct {
 
 	recordStore 	 *recordStore
 	reportStore		 *reportStore
+
+	bitSwapRecordStore *BitswapRecordStore
 	peerId 			 string // self peer id.
 	// Context for main routine
 	ctx context.Context
@@ -76,6 +79,7 @@ func NewRecordService(
 		recordStore : newRecordStore(),
 		reportStore: newReportStore(),
 		sendNotification:sendNotification,
+		bitSwapRecordStore: newBitswapRecordStore(1000),
 		//peerId:node().Identity.Pretty(),	//Should call it after the ipfs node start
 	}
 	handler.service = service.NewService(account, handler, node)
@@ -94,6 +98,8 @@ func (h *RecordService) Start() {
 	h.peerId = h.service.Node().Identity.Pretty()
 	//h.service.Node().Identity.ShortString()
 	go h.ListenRecordCh()
+	go h.bitSwapRecordStore.listenCh()
+	Online = true
 }
 
 // Ping pings another peer
