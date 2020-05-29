@@ -20,10 +20,12 @@ public final class ThreadsService {
 
     /**
      * <code>string thread = 1;</code>
+     * @return The thread.
      */
     java.lang.String getThread();
     /**
      * <code>string thread = 1;</code>
+     * @return The bytes for thread.
      */
     com.google.protobuf.ByteString
         getThreadBytes();
@@ -34,6 +36,7 @@ public final class ThreadsService {
      * </pre>
      *
      * <code>string hash = 2 [deprecated = true];</code>
+     * @return The hash.
      */
     @java.lang.Deprecated java.lang.String getHash();
     /**
@@ -42,6 +45,7 @@ public final class ThreadsService {
      * </pre>
      *
      * <code>string hash = 2 [deprecated = true];</code>
+     * @return The bytes for hash.
      */
     @java.lang.Deprecated com.google.protobuf.ByteString
         getHashBytes();
@@ -52,6 +56,7 @@ public final class ThreadsService {
      * </pre>
      *
      * <code>bytes ciphertext = 3 [deprecated = true];</code>
+     * @return The ciphertext.
      */
     @java.lang.Deprecated com.google.protobuf.ByteString getCiphertext();
 
@@ -61,6 +66,7 @@ public final class ThreadsService {
      * </pre>
      *
      * <code>bytes sig = 4;</code>
+     * @return The sig.
      */
     com.google.protobuf.ByteString getSig();
 
@@ -70,6 +76,7 @@ public final class ThreadsService {
      * </pre>
      *
      * <code>bytes node = 5;</code>
+     * @return The node.
      */
     com.google.protobuf.ByteString getNode();
 
@@ -79,6 +86,7 @@ public final class ThreadsService {
      * </pre>
      *
      * <code>bytes block = 6;</code>
+     * @return The block.
      */
     com.google.protobuf.ByteString getBlock();
   }
@@ -89,7 +97,7 @@ public final class ThreadsService {
    *
    * Protobuf type {@code ThreadEnvelope}
    */
-  public  static final class ThreadEnvelope extends
+  public static final class ThreadEnvelope extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ThreadEnvelope)
       ThreadEnvelopeOrBuilder {
@@ -108,6 +116,13 @@ public final class ThreadsService {
     }
 
     @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new ThreadEnvelope();
+    }
+
+    @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
       return this.unknownFields;
@@ -120,7 +135,6 @@ public final class ThreadsService {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -164,7 +178,7 @@ public final class ThreadsService {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -199,7 +213,9 @@ public final class ThreadsService {
     private volatile java.lang.Object thread_;
     /**
      * <code>string thread = 1;</code>
+     * @return The thread.
      */
+    @java.lang.Override
     public java.lang.String getThread() {
       java.lang.Object ref = thread_;
       if (ref instanceof java.lang.String) {
@@ -214,7 +230,9 @@ public final class ThreadsService {
     }
     /**
      * <code>string thread = 1;</code>
+     * @return The bytes for thread.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getThreadBytes() {
       java.lang.Object ref = thread_;
@@ -237,7 +255,9 @@ public final class ThreadsService {
      * </pre>
      *
      * <code>string hash = 2 [deprecated = true];</code>
+     * @return The hash.
      */
+    @java.lang.Override
     @java.lang.Deprecated public java.lang.String getHash() {
       java.lang.Object ref = hash_;
       if (ref instanceof java.lang.String) {
@@ -256,7 +276,9 @@ public final class ThreadsService {
      * </pre>
      *
      * <code>string hash = 2 [deprecated = true];</code>
+     * @return The bytes for hash.
      */
+    @java.lang.Override
     @java.lang.Deprecated public com.google.protobuf.ByteString
         getHashBytes() {
       java.lang.Object ref = hash_;
@@ -279,7 +301,9 @@ public final class ThreadsService {
      * </pre>
      *
      * <code>bytes ciphertext = 3 [deprecated = true];</code>
+     * @return The ciphertext.
      */
+    @java.lang.Override
     @java.lang.Deprecated public com.google.protobuf.ByteString getCiphertext() {
       return ciphertext_;
     }
@@ -292,7 +316,9 @@ public final class ThreadsService {
      * </pre>
      *
      * <code>bytes sig = 4;</code>
+     * @return The sig.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getSig() {
       return sig_;
     }
@@ -305,7 +331,9 @@ public final class ThreadsService {
      * </pre>
      *
      * <code>bytes node = 5;</code>
+     * @return The node.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getNode() {
       return node_;
     }
@@ -318,7 +346,9 @@ public final class ThreadsService {
      * </pre>
      *
      * <code>bytes block = 6;</code>
+     * @return The block.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getBlock() {
       return block_;
     }
@@ -401,21 +431,20 @@ public final class ThreadsService {
       }
       sjtu.opennet.textilepb.ThreadsService.ThreadEnvelope other = (sjtu.opennet.textilepb.ThreadsService.ThreadEnvelope) obj;
 
-      boolean result = true;
-      result = result && getThread()
-          .equals(other.getThread());
-      result = result && getHash()
-          .equals(other.getHash());
-      result = result && getCiphertext()
-          .equals(other.getCiphertext());
-      result = result && getSig()
-          .equals(other.getSig());
-      result = result && getNode()
-          .equals(other.getNode());
-      result = result && getBlock()
-          .equals(other.getBlock());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getThread()
+          .equals(other.getThread())) return false;
+      if (!getHash()
+          .equals(other.getHash())) return false;
+      if (!getCiphertext()
+          .equals(other.getCiphertext())) return false;
+      if (!getSig()
+          .equals(other.getSig())) return false;
+      if (!getNode()
+          .equals(other.getNode())) return false;
+      if (!getBlock()
+          .equals(other.getBlock())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -624,35 +653,35 @@ public final class ThreadsService {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -718,6 +747,7 @@ public final class ThreadsService {
       private java.lang.Object thread_ = "";
       /**
        * <code>string thread = 1;</code>
+       * @return The thread.
        */
       public java.lang.String getThread() {
         java.lang.Object ref = thread_;
@@ -733,6 +763,7 @@ public final class ThreadsService {
       }
       /**
        * <code>string thread = 1;</code>
+       * @return The bytes for thread.
        */
       public com.google.protobuf.ByteString
           getThreadBytes() {
@@ -749,6 +780,8 @@ public final class ThreadsService {
       }
       /**
        * <code>string thread = 1;</code>
+       * @param value The thread to set.
+       * @return This builder for chaining.
        */
       public Builder setThread(
           java.lang.String value) {
@@ -762,6 +795,7 @@ public final class ThreadsService {
       }
       /**
        * <code>string thread = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearThread() {
         
@@ -771,6 +805,8 @@ public final class ThreadsService {
       }
       /**
        * <code>string thread = 1;</code>
+       * @param value The bytes for thread to set.
+       * @return This builder for chaining.
        */
       public Builder setThreadBytes(
           com.google.protobuf.ByteString value) {
@@ -791,6 +827,7 @@ public final class ThreadsService {
        * </pre>
        *
        * <code>string hash = 2 [deprecated = true];</code>
+       * @return The hash.
        */
       @java.lang.Deprecated public java.lang.String getHash() {
         java.lang.Object ref = hash_;
@@ -810,6 +847,7 @@ public final class ThreadsService {
        * </pre>
        *
        * <code>string hash = 2 [deprecated = true];</code>
+       * @return The bytes for hash.
        */
       @java.lang.Deprecated public com.google.protobuf.ByteString
           getHashBytes() {
@@ -830,6 +868,8 @@ public final class ThreadsService {
        * </pre>
        *
        * <code>string hash = 2 [deprecated = true];</code>
+       * @param value The hash to set.
+       * @return This builder for chaining.
        */
       @java.lang.Deprecated public Builder setHash(
           java.lang.String value) {
@@ -847,6 +887,7 @@ public final class ThreadsService {
        * </pre>
        *
        * <code>string hash = 2 [deprecated = true];</code>
+       * @return This builder for chaining.
        */
       @java.lang.Deprecated public Builder clearHash() {
         
@@ -860,6 +901,8 @@ public final class ThreadsService {
        * </pre>
        *
        * <code>string hash = 2 [deprecated = true];</code>
+       * @param value The bytes for hash to set.
+       * @return This builder for chaining.
        */
       @java.lang.Deprecated public Builder setHashBytes(
           com.google.protobuf.ByteString value) {
@@ -880,7 +923,9 @@ public final class ThreadsService {
        * </pre>
        *
        * <code>bytes ciphertext = 3 [deprecated = true];</code>
+       * @return The ciphertext.
        */
+      @java.lang.Override
       @java.lang.Deprecated public com.google.protobuf.ByteString getCiphertext() {
         return ciphertext_;
       }
@@ -890,6 +935,8 @@ public final class ThreadsService {
        * </pre>
        *
        * <code>bytes ciphertext = 3 [deprecated = true];</code>
+       * @param value The ciphertext to set.
+       * @return This builder for chaining.
        */
       @java.lang.Deprecated public Builder setCiphertext(com.google.protobuf.ByteString value) {
         if (value == null) {
@@ -906,6 +953,7 @@ public final class ThreadsService {
        * </pre>
        *
        * <code>bytes ciphertext = 3 [deprecated = true];</code>
+       * @return This builder for chaining.
        */
       @java.lang.Deprecated public Builder clearCiphertext() {
         
@@ -921,7 +969,9 @@ public final class ThreadsService {
        * </pre>
        *
        * <code>bytes sig = 4;</code>
+       * @return The sig.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getSig() {
         return sig_;
       }
@@ -931,6 +981,8 @@ public final class ThreadsService {
        * </pre>
        *
        * <code>bytes sig = 4;</code>
+       * @param value The sig to set.
+       * @return This builder for chaining.
        */
       public Builder setSig(com.google.protobuf.ByteString value) {
         if (value == null) {
@@ -947,6 +999,7 @@ public final class ThreadsService {
        * </pre>
        *
        * <code>bytes sig = 4;</code>
+       * @return This builder for chaining.
        */
       public Builder clearSig() {
         
@@ -962,7 +1015,9 @@ public final class ThreadsService {
        * </pre>
        *
        * <code>bytes node = 5;</code>
+       * @return The node.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getNode() {
         return node_;
       }
@@ -972,6 +1027,8 @@ public final class ThreadsService {
        * </pre>
        *
        * <code>bytes node = 5;</code>
+       * @param value The node to set.
+       * @return This builder for chaining.
        */
       public Builder setNode(com.google.protobuf.ByteString value) {
         if (value == null) {
@@ -988,6 +1045,7 @@ public final class ThreadsService {
        * </pre>
        *
        * <code>bytes node = 5;</code>
+       * @return This builder for chaining.
        */
       public Builder clearNode() {
         
@@ -1003,7 +1061,9 @@ public final class ThreadsService {
        * </pre>
        *
        * <code>bytes block = 6;</code>
+       * @return The block.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getBlock() {
         return block_;
       }
@@ -1013,6 +1073,8 @@ public final class ThreadsService {
        * </pre>
        *
        * <code>bytes block = 6;</code>
+       * @param value The block to set.
+       * @return This builder for chaining.
        */
       public Builder setBlock(com.google.protobuf.ByteString value) {
         if (value == null) {
@@ -1029,6 +1091,7 @@ public final class ThreadsService {
        * </pre>
        *
        * <code>bytes block = 6;</code>
+       * @return This builder for chaining.
        */
       public Builder clearBlock() {
         
@@ -1039,7 +1102,7 @@ public final class ThreadsService {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -1095,10 +1158,12 @@ public final class ThreadsService {
 
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
     java.lang.String getId();
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
     com.google.protobuf.ByteString
         getIdBytes();
@@ -1106,7 +1171,7 @@ public final class ThreadsService {
   /**
    * Protobuf type {@code ThreadEnvelopeAck}
    */
-  public  static final class ThreadEnvelopeAck extends
+  public static final class ThreadEnvelopeAck extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ThreadEnvelopeAck)
       ThreadEnvelopeAckOrBuilder {
@@ -1117,6 +1182,13 @@ public final class ThreadsService {
     }
     private ThreadEnvelopeAck() {
       id_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new ThreadEnvelopeAck();
     }
 
     @java.lang.Override
@@ -1132,7 +1204,6 @@ public final class ThreadsService {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -1150,7 +1221,7 @@ public final class ThreadsService {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -1185,7 +1256,9 @@ public final class ThreadsService {
     private volatile java.lang.Object id_;
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
+    @java.lang.Override
     public java.lang.String getId() {
       java.lang.Object ref = id_;
       if (ref instanceof java.lang.String) {
@@ -1200,7 +1273,9 @@ public final class ThreadsService {
     }
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getIdBytes() {
       java.lang.Object ref = id_;
@@ -1259,11 +1334,10 @@ public final class ThreadsService {
       }
       sjtu.opennet.textilepb.ThreadsService.ThreadEnvelopeAck other = (sjtu.opennet.textilepb.ThreadsService.ThreadEnvelopeAck) obj;
 
-      boolean result = true;
-      result = result && getId()
-          .equals(other.getId());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getId()
+          .equals(other.getId())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -1443,35 +1517,35 @@ public final class ThreadsService {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -1521,6 +1595,7 @@ public final class ThreadsService {
       private java.lang.Object id_ = "";
       /**
        * <code>string id = 1;</code>
+       * @return The id.
        */
       public java.lang.String getId() {
         java.lang.Object ref = id_;
@@ -1536,6 +1611,7 @@ public final class ThreadsService {
       }
       /**
        * <code>string id = 1;</code>
+       * @return The bytes for id.
        */
       public com.google.protobuf.ByteString
           getIdBytes() {
@@ -1552,6 +1628,8 @@ public final class ThreadsService {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The id to set.
+       * @return This builder for chaining.
        */
       public Builder setId(
           java.lang.String value) {
@@ -1565,6 +1643,7 @@ public final class ThreadsService {
       }
       /**
        * <code>string id = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearId() {
         
@@ -1574,6 +1653,8 @@ public final class ThreadsService {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The bytes for id to set.
+       * @return This builder for chaining.
        */
       public Builder setIdBytes(
           com.google.protobuf.ByteString value) {
@@ -1589,7 +1670,7 @@ public final class ThreadsService {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -1645,10 +1726,12 @@ public final class ThreadsService {
 
     /**
      * <code>.ThreadBlockHeader header = 1;</code>
+     * @return Whether the header field is set.
      */
     boolean hasHeader();
     /**
      * <code>.ThreadBlockHeader header = 1;</code>
+     * @return The header.
      */
     sjtu.opennet.textilepb.ThreadsService.ThreadBlockHeader getHeader();
     /**
@@ -1658,10 +1741,12 @@ public final class ThreadsService {
 
     /**
      * <code>.Block.BlockType type = 2;</code>
+     * @return The enum numeric value on the wire for type.
      */
     int getTypeValue();
     /**
      * <code>.Block.BlockType type = 2;</code>
+     * @return The type.
      */
     sjtu.opennet.textilepb.Model.Block.BlockType getType();
 
@@ -1671,6 +1756,7 @@ public final class ThreadsService {
      * </pre>
      *
      * <code>.google.protobuf.Any payload = 3;</code>
+     * @return Whether the payload field is set.
      */
     boolean hasPayload();
     /**
@@ -1679,6 +1765,7 @@ public final class ThreadsService {
      * </pre>
      *
      * <code>.google.protobuf.Any payload = 3;</code>
+     * @return The payload.
      */
     com.google.protobuf.Any getPayload();
     /**
@@ -1693,7 +1780,7 @@ public final class ThreadsService {
   /**
    * Protobuf type {@code ThreadBlock}
    */
-  public  static final class ThreadBlock extends
+  public static final class ThreadBlock extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ThreadBlock)
       ThreadBlockOrBuilder {
@@ -1704,6 +1791,13 @@ public final class ThreadsService {
     }
     private ThreadBlock() {
       type_ = 0;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new ThreadBlock();
     }
 
     @java.lang.Override
@@ -1719,7 +1813,6 @@ public final class ThreadsService {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -1763,7 +1856,7 @@ public final class ThreadsService {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -1798,19 +1891,24 @@ public final class ThreadsService {
     private sjtu.opennet.textilepb.ThreadsService.ThreadBlockHeader header_;
     /**
      * <code>.ThreadBlockHeader header = 1;</code>
+     * @return Whether the header field is set.
      */
+    @java.lang.Override
     public boolean hasHeader() {
       return header_ != null;
     }
     /**
      * <code>.ThreadBlockHeader header = 1;</code>
+     * @return The header.
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.ThreadsService.ThreadBlockHeader getHeader() {
       return header_ == null ? sjtu.opennet.textilepb.ThreadsService.ThreadBlockHeader.getDefaultInstance() : header_;
     }
     /**
      * <code>.ThreadBlockHeader header = 1;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.ThreadsService.ThreadBlockHeaderOrBuilder getHeaderOrBuilder() {
       return getHeader();
     }
@@ -1819,14 +1917,16 @@ public final class ThreadsService {
     private int type_;
     /**
      * <code>.Block.BlockType type = 2;</code>
+     * @return The enum numeric value on the wire for type.
      */
-    public int getTypeValue() {
+    @java.lang.Override public int getTypeValue() {
       return type_;
     }
     /**
      * <code>.Block.BlockType type = 2;</code>
+     * @return The type.
      */
-    public sjtu.opennet.textilepb.Model.Block.BlockType getType() {
+    @java.lang.Override public sjtu.opennet.textilepb.Model.Block.BlockType getType() {
       @SuppressWarnings("deprecation")
       sjtu.opennet.textilepb.Model.Block.BlockType result = sjtu.opennet.textilepb.Model.Block.BlockType.valueOf(type_);
       return result == null ? sjtu.opennet.textilepb.Model.Block.BlockType.UNRECOGNIZED : result;
@@ -1840,7 +1940,9 @@ public final class ThreadsService {
      * </pre>
      *
      * <code>.google.protobuf.Any payload = 3;</code>
+     * @return Whether the payload field is set.
      */
+    @java.lang.Override
     public boolean hasPayload() {
       return payload_ != null;
     }
@@ -1850,7 +1952,9 @@ public final class ThreadsService {
      * </pre>
      *
      * <code>.google.protobuf.Any payload = 3;</code>
+     * @return The payload.
      */
+    @java.lang.Override
     public com.google.protobuf.Any getPayload() {
       return payload_ == null ? com.google.protobuf.Any.getDefaultInstance() : payload_;
     }
@@ -1861,6 +1965,7 @@ public final class ThreadsService {
      *
      * <code>.google.protobuf.Any payload = 3;</code>
      */
+    @java.lang.Override
     public com.google.protobuf.AnyOrBuilder getPayloadOrBuilder() {
       return getPayload();
     }
@@ -1924,20 +2029,19 @@ public final class ThreadsService {
       }
       sjtu.opennet.textilepb.ThreadsService.ThreadBlock other = (sjtu.opennet.textilepb.ThreadsService.ThreadBlock) obj;
 
-      boolean result = true;
-      result = result && (hasHeader() == other.hasHeader());
+      if (hasHeader() != other.hasHeader()) return false;
       if (hasHeader()) {
-        result = result && getHeader()
-            .equals(other.getHeader());
+        if (!getHeader()
+            .equals(other.getHeader())) return false;
       }
-      result = result && type_ == other.type_;
-      result = result && (hasPayload() == other.hasPayload());
+      if (type_ != other.type_) return false;
+      if (hasPayload() != other.hasPayload()) return false;
       if (hasPayload()) {
-        result = result && getPayload()
-            .equals(other.getPayload());
+        if (!getPayload()
+            .equals(other.getPayload())) return false;
       }
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -2147,35 +2251,35 @@ public final class ThreadsService {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -2227,17 +2331,19 @@ public final class ThreadsService {
         return this;
       }
 
-      private sjtu.opennet.textilepb.ThreadsService.ThreadBlockHeader header_ = null;
+      private sjtu.opennet.textilepb.ThreadsService.ThreadBlockHeader header_;
       private com.google.protobuf.SingleFieldBuilderV3<
           sjtu.opennet.textilepb.ThreadsService.ThreadBlockHeader, sjtu.opennet.textilepb.ThreadsService.ThreadBlockHeader.Builder, sjtu.opennet.textilepb.ThreadsService.ThreadBlockHeaderOrBuilder> headerBuilder_;
       /**
        * <code>.ThreadBlockHeader header = 1;</code>
+       * @return Whether the header field is set.
        */
       public boolean hasHeader() {
         return headerBuilder_ != null || header_ != null;
       }
       /**
        * <code>.ThreadBlockHeader header = 1;</code>
+       * @return The header.
        */
       public sjtu.opennet.textilepb.ThreadsService.ThreadBlockHeader getHeader() {
         if (headerBuilder_ == null) {
@@ -2347,21 +2453,27 @@ public final class ThreadsService {
       private int type_ = 0;
       /**
        * <code>.Block.BlockType type = 2;</code>
+       * @return The enum numeric value on the wire for type.
        */
-      public int getTypeValue() {
+      @java.lang.Override public int getTypeValue() {
         return type_;
       }
       /**
        * <code>.Block.BlockType type = 2;</code>
+       * @param value The enum numeric value on the wire for type to set.
+       * @return This builder for chaining.
        */
       public Builder setTypeValue(int value) {
+        
         type_ = value;
         onChanged();
         return this;
       }
       /**
        * <code>.Block.BlockType type = 2;</code>
+       * @return The type.
        */
+      @java.lang.Override
       public sjtu.opennet.textilepb.Model.Block.BlockType getType() {
         @SuppressWarnings("deprecation")
         sjtu.opennet.textilepb.Model.Block.BlockType result = sjtu.opennet.textilepb.Model.Block.BlockType.valueOf(type_);
@@ -2369,6 +2481,8 @@ public final class ThreadsService {
       }
       /**
        * <code>.Block.BlockType type = 2;</code>
+       * @param value The type to set.
+       * @return This builder for chaining.
        */
       public Builder setType(sjtu.opennet.textilepb.Model.Block.BlockType value) {
         if (value == null) {
@@ -2381,6 +2495,7 @@ public final class ThreadsService {
       }
       /**
        * <code>.Block.BlockType type = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearType() {
         
@@ -2389,7 +2504,7 @@ public final class ThreadsService {
         return this;
       }
 
-      private com.google.protobuf.Any payload_ = null;
+      private com.google.protobuf.Any payload_;
       private com.google.protobuf.SingleFieldBuilderV3<
           com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> payloadBuilder_;
       /**
@@ -2398,6 +2513,7 @@ public final class ThreadsService {
        * </pre>
        *
        * <code>.google.protobuf.Any payload = 3;</code>
+       * @return Whether the payload field is set.
        */
       public boolean hasPayload() {
         return payloadBuilder_ != null || payload_ != null;
@@ -2408,6 +2524,7 @@ public final class ThreadsService {
        * </pre>
        *
        * <code>.google.protobuf.Any payload = 3;</code>
+       * @return The payload.
        */
       public com.google.protobuf.Any getPayload() {
         if (payloadBuilder_ == null) {
@@ -2544,7 +2661,7 @@ public final class ThreadsService {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -2600,10 +2717,12 @@ public final class ThreadsService {
 
     /**
      * <code>.google.protobuf.Timestamp date = 1;</code>
+     * @return Whether the date field is set.
      */
     boolean hasDate();
     /**
      * <code>.google.protobuf.Timestamp date = 1;</code>
+     * @return The date.
      */
     com.google.protobuf.Timestamp getDate();
     /**
@@ -2613,39 +2732,49 @@ public final class ThreadsService {
 
     /**
      * <code>repeated string parents = 2 [deprecated = true];</code>
+     * @return A list containing the parents.
      */
     @java.lang.Deprecated java.util.List<java.lang.String>
         getParentsList();
     /**
      * <code>repeated string parents = 2 [deprecated = true];</code>
+     * @return The count of parents.
      */
     @java.lang.Deprecated int getParentsCount();
     /**
      * <code>repeated string parents = 2 [deprecated = true];</code>
+     * @param index The index of the element to return.
+     * @return The parents at the given index.
      */
     @java.lang.Deprecated java.lang.String getParents(int index);
     /**
      * <code>repeated string parents = 2 [deprecated = true];</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the parents at the given index.
      */
     @java.lang.Deprecated com.google.protobuf.ByteString
         getParentsBytes(int index);
 
     /**
      * <code>string author = 3;</code>
+     * @return The author.
      */
     java.lang.String getAuthor();
     /**
      * <code>string author = 3;</code>
+     * @return The bytes for author.
      */
     com.google.protobuf.ByteString
         getAuthorBytes();
 
     /**
      * <code>string address = 4;</code>
+     * @return The address.
      */
     java.lang.String getAddress();
     /**
      * <code>string address = 4;</code>
+     * @return The bytes for address.
      */
     com.google.protobuf.ByteString
         getAddressBytes();
@@ -2653,7 +2782,7 @@ public final class ThreadsService {
   /**
    * Protobuf type {@code ThreadBlockHeader}
    */
-  public  static final class ThreadBlockHeader extends
+  public static final class ThreadBlockHeader extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ThreadBlockHeader)
       ThreadBlockHeaderOrBuilder {
@@ -2666,6 +2795,13 @@ public final class ThreadsService {
       parents_ = com.google.protobuf.LazyStringArrayList.EMPTY;
       author_ = "";
       address_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new ThreadBlockHeader();
     }
 
     @java.lang.Override
@@ -2707,9 +2843,9 @@ public final class ThreadsService {
             }
             case 18: {
               java.lang.String s = input.readStringRequireUtf8();
-              if (!((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
                 parents_ = new com.google.protobuf.LazyStringArrayList();
-                mutable_bitField0_ |= 0x00000002;
+                mutable_bitField0_ |= 0x00000001;
               }
               parents_.add(s);
               break;
@@ -2727,7 +2863,7 @@ public final class ThreadsService {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -2741,7 +2877,7 @@ public final class ThreadsService {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
           parents_ = parents_.getUnmodifiableView();
         }
         this.unknownFields = unknownFields.build();
@@ -2761,24 +2897,28 @@ public final class ThreadsService {
               sjtu.opennet.textilepb.ThreadsService.ThreadBlockHeader.class, sjtu.opennet.textilepb.ThreadsService.ThreadBlockHeader.Builder.class);
     }
 
-    private int bitField0_;
     public static final int DATE_FIELD_NUMBER = 1;
     private com.google.protobuf.Timestamp date_;
     /**
      * <code>.google.protobuf.Timestamp date = 1;</code>
+     * @return Whether the date field is set.
      */
+    @java.lang.Override
     public boolean hasDate() {
       return date_ != null;
     }
     /**
      * <code>.google.protobuf.Timestamp date = 1;</code>
+     * @return The date.
      */
+    @java.lang.Override
     public com.google.protobuf.Timestamp getDate() {
       return date_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : date_;
     }
     /**
      * <code>.google.protobuf.Timestamp date = 1;</code>
      */
+    @java.lang.Override
     public com.google.protobuf.TimestampOrBuilder getDateOrBuilder() {
       return getDate();
     }
@@ -2787,6 +2927,7 @@ public final class ThreadsService {
     private com.google.protobuf.LazyStringList parents_;
     /**
      * <code>repeated string parents = 2 [deprecated = true];</code>
+     * @return A list containing the parents.
      */
     @java.lang.Deprecated public com.google.protobuf.ProtocolStringList
         getParentsList() {
@@ -2794,18 +2935,23 @@ public final class ThreadsService {
     }
     /**
      * <code>repeated string parents = 2 [deprecated = true];</code>
+     * @return The count of parents.
      */
     @java.lang.Deprecated public int getParentsCount() {
       return parents_.size();
     }
     /**
      * <code>repeated string parents = 2 [deprecated = true];</code>
+     * @param index The index of the element to return.
+     * @return The parents at the given index.
      */
     @java.lang.Deprecated public java.lang.String getParents(int index) {
       return parents_.get(index);
     }
     /**
      * <code>repeated string parents = 2 [deprecated = true];</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the parents at the given index.
      */
     @java.lang.Deprecated public com.google.protobuf.ByteString
         getParentsBytes(int index) {
@@ -2816,7 +2962,9 @@ public final class ThreadsService {
     private volatile java.lang.Object author_;
     /**
      * <code>string author = 3;</code>
+     * @return The author.
      */
+    @java.lang.Override
     public java.lang.String getAuthor() {
       java.lang.Object ref = author_;
       if (ref instanceof java.lang.String) {
@@ -2831,7 +2979,9 @@ public final class ThreadsService {
     }
     /**
      * <code>string author = 3;</code>
+     * @return The bytes for author.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAuthorBytes() {
       java.lang.Object ref = author_;
@@ -2850,7 +3000,9 @@ public final class ThreadsService {
     private volatile java.lang.Object address_;
     /**
      * <code>string address = 4;</code>
+     * @return The address.
      */
+    @java.lang.Override
     public java.lang.String getAddress() {
       java.lang.Object ref = address_;
       if (ref instanceof java.lang.String) {
@@ -2865,7 +3017,9 @@ public final class ThreadsService {
     }
     /**
      * <code>string address = 4;</code>
+     * @return The bytes for address.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAddressBytes() {
       java.lang.Object ref = address_;
@@ -2948,20 +3102,19 @@ public final class ThreadsService {
       }
       sjtu.opennet.textilepb.ThreadsService.ThreadBlockHeader other = (sjtu.opennet.textilepb.ThreadsService.ThreadBlockHeader) obj;
 
-      boolean result = true;
-      result = result && (hasDate() == other.hasDate());
+      if (hasDate() != other.hasDate()) return false;
       if (hasDate()) {
-        result = result && getDate()
-            .equals(other.getDate());
+        if (!getDate()
+            .equals(other.getDate())) return false;
       }
-      result = result && getParentsList()
-          .equals(other.getParentsList());
-      result = result && getAuthor()
-          .equals(other.getAuthor());
-      result = result && getAddress()
-          .equals(other.getAddress());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getParentsList()
+          .equals(other.getParentsList())) return false;
+      if (!getAuthor()
+          .equals(other.getAuthor())) return false;
+      if (!getAddress()
+          .equals(other.getAddress())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -3123,7 +3276,7 @@ public final class ThreadsService {
           dateBuilder_ = null;
         }
         parents_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-        bitField0_ = (bitField0_ & ~0x00000002);
+        bitField0_ = (bitField0_ & ~0x00000001);
         author_ = "";
 
         address_ = "";
@@ -3155,55 +3308,53 @@ public final class ThreadsService {
       public sjtu.opennet.textilepb.ThreadsService.ThreadBlockHeader buildPartial() {
         sjtu.opennet.textilepb.ThreadsService.ThreadBlockHeader result = new sjtu.opennet.textilepb.ThreadsService.ThreadBlockHeader(this);
         int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
         if (dateBuilder_ == null) {
           result.date_ = date_;
         } else {
           result.date_ = dateBuilder_.build();
         }
-        if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        if (((bitField0_ & 0x00000001) != 0)) {
           parents_ = parents_.getUnmodifiableView();
-          bitField0_ = (bitField0_ & ~0x00000002);
+          bitField0_ = (bitField0_ & ~0x00000001);
         }
         result.parents_ = parents_;
         result.author_ = author_;
         result.address_ = address_;
-        result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -3223,7 +3374,7 @@ public final class ThreadsService {
         if (!other.parents_.isEmpty()) {
           if (parents_.isEmpty()) {
             parents_ = other.parents_;
-            bitField0_ = (bitField0_ & ~0x00000002);
+            bitField0_ = (bitField0_ & ~0x00000001);
           } else {
             ensureParentsIsMutable();
             parents_.addAll(other.parents_);
@@ -3268,17 +3419,19 @@ public final class ThreadsService {
       }
       private int bitField0_;
 
-      private com.google.protobuf.Timestamp date_ = null;
+      private com.google.protobuf.Timestamp date_;
       private com.google.protobuf.SingleFieldBuilderV3<
           com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> dateBuilder_;
       /**
        * <code>.google.protobuf.Timestamp date = 1;</code>
+       * @return Whether the date field is set.
        */
       public boolean hasDate() {
         return dateBuilder_ != null || date_ != null;
       }
       /**
        * <code>.google.protobuf.Timestamp date = 1;</code>
+       * @return The date.
        */
       public com.google.protobuf.Timestamp getDate() {
         if (dateBuilder_ == null) {
@@ -3387,13 +3540,14 @@ public final class ThreadsService {
 
       private com.google.protobuf.LazyStringList parents_ = com.google.protobuf.LazyStringArrayList.EMPTY;
       private void ensureParentsIsMutable() {
-        if (!((bitField0_ & 0x00000002) == 0x00000002)) {
+        if (!((bitField0_ & 0x00000001) != 0)) {
           parents_ = new com.google.protobuf.LazyStringArrayList(parents_);
-          bitField0_ |= 0x00000002;
+          bitField0_ |= 0x00000001;
          }
       }
       /**
        * <code>repeated string parents = 2 [deprecated = true];</code>
+       * @return A list containing the parents.
        */
       @java.lang.Deprecated public com.google.protobuf.ProtocolStringList
           getParentsList() {
@@ -3401,18 +3555,23 @@ public final class ThreadsService {
       }
       /**
        * <code>repeated string parents = 2 [deprecated = true];</code>
+       * @return The count of parents.
        */
       @java.lang.Deprecated public int getParentsCount() {
         return parents_.size();
       }
       /**
        * <code>repeated string parents = 2 [deprecated = true];</code>
+       * @param index The index of the element to return.
+       * @return The parents at the given index.
        */
       @java.lang.Deprecated public java.lang.String getParents(int index) {
         return parents_.get(index);
       }
       /**
        * <code>repeated string parents = 2 [deprecated = true];</code>
+       * @param index The index of the value to return.
+       * @return The bytes of the parents at the given index.
        */
       @java.lang.Deprecated public com.google.protobuf.ByteString
           getParentsBytes(int index) {
@@ -3420,6 +3579,9 @@ public final class ThreadsService {
       }
       /**
        * <code>repeated string parents = 2 [deprecated = true];</code>
+       * @param index The index to set the value at.
+       * @param value The parents to set.
+       * @return This builder for chaining.
        */
       @java.lang.Deprecated public Builder setParents(
           int index, java.lang.String value) {
@@ -3433,6 +3595,8 @@ public final class ThreadsService {
       }
       /**
        * <code>repeated string parents = 2 [deprecated = true];</code>
+       * @param value The parents to add.
+       * @return This builder for chaining.
        */
       @java.lang.Deprecated public Builder addParents(
           java.lang.String value) {
@@ -3446,6 +3610,8 @@ public final class ThreadsService {
       }
       /**
        * <code>repeated string parents = 2 [deprecated = true];</code>
+       * @param values The parents to add.
+       * @return This builder for chaining.
        */
       @java.lang.Deprecated public Builder addAllParents(
           java.lang.Iterable<java.lang.String> values) {
@@ -3457,15 +3623,18 @@ public final class ThreadsService {
       }
       /**
        * <code>repeated string parents = 2 [deprecated = true];</code>
+       * @return This builder for chaining.
        */
       @java.lang.Deprecated public Builder clearParents() {
         parents_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-        bitField0_ = (bitField0_ & ~0x00000002);
+        bitField0_ = (bitField0_ & ~0x00000001);
         onChanged();
         return this;
       }
       /**
        * <code>repeated string parents = 2 [deprecated = true];</code>
+       * @param value The bytes of the parents to add.
+       * @return This builder for chaining.
        */
       @java.lang.Deprecated public Builder addParentsBytes(
           com.google.protobuf.ByteString value) {
@@ -3482,6 +3651,7 @@ public final class ThreadsService {
       private java.lang.Object author_ = "";
       /**
        * <code>string author = 3;</code>
+       * @return The author.
        */
       public java.lang.String getAuthor() {
         java.lang.Object ref = author_;
@@ -3497,6 +3667,7 @@ public final class ThreadsService {
       }
       /**
        * <code>string author = 3;</code>
+       * @return The bytes for author.
        */
       public com.google.protobuf.ByteString
           getAuthorBytes() {
@@ -3513,6 +3684,8 @@ public final class ThreadsService {
       }
       /**
        * <code>string author = 3;</code>
+       * @param value The author to set.
+       * @return This builder for chaining.
        */
       public Builder setAuthor(
           java.lang.String value) {
@@ -3526,6 +3699,7 @@ public final class ThreadsService {
       }
       /**
        * <code>string author = 3;</code>
+       * @return This builder for chaining.
        */
       public Builder clearAuthor() {
         
@@ -3535,6 +3709,8 @@ public final class ThreadsService {
       }
       /**
        * <code>string author = 3;</code>
+       * @param value The bytes for author to set.
+       * @return This builder for chaining.
        */
       public Builder setAuthorBytes(
           com.google.protobuf.ByteString value) {
@@ -3551,6 +3727,7 @@ public final class ThreadsService {
       private java.lang.Object address_ = "";
       /**
        * <code>string address = 4;</code>
+       * @return The address.
        */
       public java.lang.String getAddress() {
         java.lang.Object ref = address_;
@@ -3566,6 +3743,7 @@ public final class ThreadsService {
       }
       /**
        * <code>string address = 4;</code>
+       * @return The bytes for address.
        */
       public com.google.protobuf.ByteString
           getAddressBytes() {
@@ -3582,6 +3760,8 @@ public final class ThreadsService {
       }
       /**
        * <code>string address = 4;</code>
+       * @param value The address to set.
+       * @return This builder for chaining.
        */
       public Builder setAddress(
           java.lang.String value) {
@@ -3595,6 +3775,7 @@ public final class ThreadsService {
       }
       /**
        * <code>string address = 4;</code>
+       * @return This builder for chaining.
        */
       public Builder clearAddress() {
         
@@ -3604,6 +3785,8 @@ public final class ThreadsService {
       }
       /**
        * <code>string address = 4;</code>
+       * @param value The bytes for address to set.
+       * @return This builder for chaining.
        */
       public Builder setAddressBytes(
           com.google.protobuf.ByteString value) {
@@ -3619,7 +3802,7 @@ public final class ThreadsService {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -3675,10 +3858,12 @@ public final class ThreadsService {
 
     /**
      * <code>.Peer inviter = 1;</code>
+     * @return Whether the inviter field is set.
      */
     boolean hasInviter();
     /**
      * <code>.Peer inviter = 1;</code>
+     * @return The inviter.
      */
     sjtu.opennet.textilepb.Model.Peer getInviter();
     /**
@@ -3688,10 +3873,12 @@ public final class ThreadsService {
 
     /**
      * <code>.Thread thread = 2;</code>
+     * @return Whether the thread field is set.
      */
     boolean hasThread();
     /**
      * <code>.Thread thread = 2;</code>
+     * @return The thread.
      */
     sjtu.opennet.textilepb.Model.Thread getThread();
     /**
@@ -3701,10 +3888,12 @@ public final class ThreadsService {
 
     /**
      * <code>string invitee = 3;</code>
+     * @return The invitee.
      */
     java.lang.String getInvitee();
     /**
      * <code>string invitee = 3;</code>
+     * @return The bytes for invitee.
      */
     com.google.protobuf.ByteString
         getInviteeBytes();
@@ -3716,7 +3905,7 @@ public final class ThreadsService {
    *
    * Protobuf type {@code ThreadAdd}
    */
-  public  static final class ThreadAdd extends
+  public static final class ThreadAdd extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ThreadAdd)
       ThreadAddOrBuilder {
@@ -3727,6 +3916,13 @@ public final class ThreadsService {
     }
     private ThreadAdd() {
       invitee_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new ThreadAdd();
     }
 
     @java.lang.Override
@@ -3742,7 +3938,6 @@ public final class ThreadsService {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -3786,7 +3981,7 @@ public final class ThreadsService {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -3821,19 +4016,24 @@ public final class ThreadsService {
     private sjtu.opennet.textilepb.Model.Peer inviter_;
     /**
      * <code>.Peer inviter = 1;</code>
+     * @return Whether the inviter field is set.
      */
+    @java.lang.Override
     public boolean hasInviter() {
       return inviter_ != null;
     }
     /**
      * <code>.Peer inviter = 1;</code>
+     * @return The inviter.
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.Peer getInviter() {
       return inviter_ == null ? sjtu.opennet.textilepb.Model.Peer.getDefaultInstance() : inviter_;
     }
     /**
      * <code>.Peer inviter = 1;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.PeerOrBuilder getInviterOrBuilder() {
       return getInviter();
     }
@@ -3842,19 +4042,24 @@ public final class ThreadsService {
     private sjtu.opennet.textilepb.Model.Thread thread_;
     /**
      * <code>.Thread thread = 2;</code>
+     * @return Whether the thread field is set.
      */
+    @java.lang.Override
     public boolean hasThread() {
       return thread_ != null;
     }
     /**
      * <code>.Thread thread = 2;</code>
+     * @return The thread.
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.Thread getThread() {
       return thread_ == null ? sjtu.opennet.textilepb.Model.Thread.getDefaultInstance() : thread_;
     }
     /**
      * <code>.Thread thread = 2;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.ThreadOrBuilder getThreadOrBuilder() {
       return getThread();
     }
@@ -3863,7 +4068,9 @@ public final class ThreadsService {
     private volatile java.lang.Object invitee_;
     /**
      * <code>string invitee = 3;</code>
+     * @return The invitee.
      */
+    @java.lang.Override
     public java.lang.String getInvitee() {
       java.lang.Object ref = invitee_;
       if (ref instanceof java.lang.String) {
@@ -3878,7 +4085,9 @@ public final class ThreadsService {
     }
     /**
      * <code>string invitee = 3;</code>
+     * @return The bytes for invitee.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getInviteeBytes() {
       java.lang.Object ref = invitee_;
@@ -3951,21 +4160,20 @@ public final class ThreadsService {
       }
       sjtu.opennet.textilepb.ThreadsService.ThreadAdd other = (sjtu.opennet.textilepb.ThreadsService.ThreadAdd) obj;
 
-      boolean result = true;
-      result = result && (hasInviter() == other.hasInviter());
+      if (hasInviter() != other.hasInviter()) return false;
       if (hasInviter()) {
-        result = result && getInviter()
-            .equals(other.getInviter());
+        if (!getInviter()
+            .equals(other.getInviter())) return false;
       }
-      result = result && (hasThread() == other.hasThread());
+      if (hasThread() != other.hasThread()) return false;
       if (hasThread()) {
-        result = result && getThread()
-            .equals(other.getThread());
+        if (!getThread()
+            .equals(other.getThread())) return false;
       }
-      result = result && getInvitee()
-          .equals(other.getInvitee());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getInvitee()
+          .equals(other.getInvitee())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -4179,35 +4387,35 @@ public final class ThreadsService {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -4260,17 +4468,19 @@ public final class ThreadsService {
         return this;
       }
 
-      private sjtu.opennet.textilepb.Model.Peer inviter_ = null;
+      private sjtu.opennet.textilepb.Model.Peer inviter_;
       private com.google.protobuf.SingleFieldBuilderV3<
           sjtu.opennet.textilepb.Model.Peer, sjtu.opennet.textilepb.Model.Peer.Builder, sjtu.opennet.textilepb.Model.PeerOrBuilder> inviterBuilder_;
       /**
        * <code>.Peer inviter = 1;</code>
+       * @return Whether the inviter field is set.
        */
       public boolean hasInviter() {
         return inviterBuilder_ != null || inviter_ != null;
       }
       /**
        * <code>.Peer inviter = 1;</code>
+       * @return The inviter.
        */
       public sjtu.opennet.textilepb.Model.Peer getInviter() {
         if (inviterBuilder_ == null) {
@@ -4377,17 +4587,19 @@ public final class ThreadsService {
         return inviterBuilder_;
       }
 
-      private sjtu.opennet.textilepb.Model.Thread thread_ = null;
+      private sjtu.opennet.textilepb.Model.Thread thread_;
       private com.google.protobuf.SingleFieldBuilderV3<
           sjtu.opennet.textilepb.Model.Thread, sjtu.opennet.textilepb.Model.Thread.Builder, sjtu.opennet.textilepb.Model.ThreadOrBuilder> threadBuilder_;
       /**
        * <code>.Thread thread = 2;</code>
+       * @return Whether the thread field is set.
        */
       public boolean hasThread() {
         return threadBuilder_ != null || thread_ != null;
       }
       /**
        * <code>.Thread thread = 2;</code>
+       * @return The thread.
        */
       public sjtu.opennet.textilepb.Model.Thread getThread() {
         if (threadBuilder_ == null) {
@@ -4497,6 +4709,7 @@ public final class ThreadsService {
       private java.lang.Object invitee_ = "";
       /**
        * <code>string invitee = 3;</code>
+       * @return The invitee.
        */
       public java.lang.String getInvitee() {
         java.lang.Object ref = invitee_;
@@ -4512,6 +4725,7 @@ public final class ThreadsService {
       }
       /**
        * <code>string invitee = 3;</code>
+       * @return The bytes for invitee.
        */
       public com.google.protobuf.ByteString
           getInviteeBytes() {
@@ -4528,6 +4742,8 @@ public final class ThreadsService {
       }
       /**
        * <code>string invitee = 3;</code>
+       * @param value The invitee to set.
+       * @return This builder for chaining.
        */
       public Builder setInvitee(
           java.lang.String value) {
@@ -4541,6 +4757,7 @@ public final class ThreadsService {
       }
       /**
        * <code>string invitee = 3;</code>
+       * @return This builder for chaining.
        */
       public Builder clearInvitee() {
         
@@ -4550,6 +4767,8 @@ public final class ThreadsService {
       }
       /**
        * <code>string invitee = 3;</code>
+       * @param value The bytes for invitee to set.
+       * @return This builder for chaining.
        */
       public Builder setInviteeBytes(
           com.google.protobuf.ByteString value) {
@@ -4565,7 +4784,7 @@ public final class ThreadsService {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -4621,10 +4840,12 @@ public final class ThreadsService {
 
     /**
      * <code>string target = 1;</code>
+     * @return The target.
      */
     java.lang.String getTarget();
     /**
      * <code>string target = 1;</code>
+     * @return The bytes for target.
      */
     com.google.protobuf.ByteString
         getTargetBytes();
@@ -4632,7 +4853,7 @@ public final class ThreadsService {
   /**
    * Protobuf type {@code ThreadIgnore}
    */
-  @java.lang.Deprecated public  static final class ThreadIgnore extends
+  @java.lang.Deprecated public static final class ThreadIgnore extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ThreadIgnore)
       ThreadIgnoreOrBuilder {
@@ -4643,6 +4864,13 @@ public final class ThreadsService {
     }
     private ThreadIgnore() {
       target_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new ThreadIgnore();
     }
 
     @java.lang.Override
@@ -4658,7 +4886,6 @@ public final class ThreadsService {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -4676,7 +4903,7 @@ public final class ThreadsService {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -4711,7 +4938,9 @@ public final class ThreadsService {
     private volatile java.lang.Object target_;
     /**
      * <code>string target = 1;</code>
+     * @return The target.
      */
+    @java.lang.Override
     public java.lang.String getTarget() {
       java.lang.Object ref = target_;
       if (ref instanceof java.lang.String) {
@@ -4726,7 +4955,9 @@ public final class ThreadsService {
     }
     /**
      * <code>string target = 1;</code>
+     * @return The bytes for target.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getTargetBytes() {
       java.lang.Object ref = target_;
@@ -4785,11 +5016,10 @@ public final class ThreadsService {
       }
       sjtu.opennet.textilepb.ThreadsService.ThreadIgnore other = (sjtu.opennet.textilepb.ThreadsService.ThreadIgnore) obj;
 
-      boolean result = true;
-      result = result && getTarget()
-          .equals(other.getTarget());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getTarget()
+          .equals(other.getTarget())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -4969,35 +5199,35 @@ public final class ThreadsService {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -5047,6 +5277,7 @@ public final class ThreadsService {
       private java.lang.Object target_ = "";
       /**
        * <code>string target = 1;</code>
+       * @return The target.
        */
       public java.lang.String getTarget() {
         java.lang.Object ref = target_;
@@ -5062,6 +5293,7 @@ public final class ThreadsService {
       }
       /**
        * <code>string target = 1;</code>
+       * @return The bytes for target.
        */
       public com.google.protobuf.ByteString
           getTargetBytes() {
@@ -5078,6 +5310,8 @@ public final class ThreadsService {
       }
       /**
        * <code>string target = 1;</code>
+       * @param value The target to set.
+       * @return This builder for chaining.
        */
       public Builder setTarget(
           java.lang.String value) {
@@ -5091,6 +5325,7 @@ public final class ThreadsService {
       }
       /**
        * <code>string target = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearTarget() {
         
@@ -5100,6 +5335,8 @@ public final class ThreadsService {
       }
       /**
        * <code>string target = 1;</code>
+       * @param value The bytes for target to set.
+       * @return This builder for chaining.
        */
       public Builder setTargetBytes(
           com.google.protobuf.ByteString value) {
@@ -5115,7 +5352,7 @@ public final class ThreadsService {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -5171,10 +5408,12 @@ public final class ThreadsService {
 
     /**
      * <code>string target = 1;</code>
+     * @return The target.
      */
     java.lang.String getTarget();
     /**
      * <code>string target = 1;</code>
+     * @return The bytes for target.
      */
     com.google.protobuf.ByteString
         getTargetBytes();
@@ -5182,7 +5421,7 @@ public final class ThreadsService {
   /**
    * Protobuf type {@code ThreadFlag}
    */
-  @java.lang.Deprecated public  static final class ThreadFlag extends
+  @java.lang.Deprecated public static final class ThreadFlag extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ThreadFlag)
       ThreadFlagOrBuilder {
@@ -5193,6 +5432,13 @@ public final class ThreadsService {
     }
     private ThreadFlag() {
       target_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new ThreadFlag();
     }
 
     @java.lang.Override
@@ -5208,7 +5454,6 @@ public final class ThreadsService {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -5226,7 +5471,7 @@ public final class ThreadsService {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -5261,7 +5506,9 @@ public final class ThreadsService {
     private volatile java.lang.Object target_;
     /**
      * <code>string target = 1;</code>
+     * @return The target.
      */
+    @java.lang.Override
     public java.lang.String getTarget() {
       java.lang.Object ref = target_;
       if (ref instanceof java.lang.String) {
@@ -5276,7 +5523,9 @@ public final class ThreadsService {
     }
     /**
      * <code>string target = 1;</code>
+     * @return The bytes for target.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getTargetBytes() {
       java.lang.Object ref = target_;
@@ -5335,11 +5584,10 @@ public final class ThreadsService {
       }
       sjtu.opennet.textilepb.ThreadsService.ThreadFlag other = (sjtu.opennet.textilepb.ThreadsService.ThreadFlag) obj;
 
-      boolean result = true;
-      result = result && getTarget()
-          .equals(other.getTarget());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getTarget()
+          .equals(other.getTarget())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -5519,35 +5767,35 @@ public final class ThreadsService {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -5597,6 +5845,7 @@ public final class ThreadsService {
       private java.lang.Object target_ = "";
       /**
        * <code>string target = 1;</code>
+       * @return The target.
        */
       public java.lang.String getTarget() {
         java.lang.Object ref = target_;
@@ -5612,6 +5861,7 @@ public final class ThreadsService {
       }
       /**
        * <code>string target = 1;</code>
+       * @return The bytes for target.
        */
       public com.google.protobuf.ByteString
           getTargetBytes() {
@@ -5628,6 +5878,8 @@ public final class ThreadsService {
       }
       /**
        * <code>string target = 1;</code>
+       * @param value The target to set.
+       * @return This builder for chaining.
        */
       public Builder setTarget(
           java.lang.String value) {
@@ -5641,6 +5893,7 @@ public final class ThreadsService {
       }
       /**
        * <code>string target = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearTarget() {
         
@@ -5650,6 +5903,8 @@ public final class ThreadsService {
       }
       /**
        * <code>string target = 1;</code>
+       * @param value The bytes for target to set.
+       * @return This builder for chaining.
        */
       public Builder setTargetBytes(
           com.google.protobuf.ByteString value) {
@@ -5665,7 +5920,7 @@ public final class ThreadsService {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -5721,20 +5976,24 @@ public final class ThreadsService {
 
     /**
      * <code>string inviter = 1;</code>
+     * @return The inviter.
      */
     java.lang.String getInviter();
     /**
      * <code>string inviter = 1;</code>
+     * @return The bytes for inviter.
      */
     com.google.protobuf.ByteString
         getInviterBytes();
 
     /**
      * <code>.Peer peer = 2;</code>
+     * @return Whether the peer field is set.
      */
     boolean hasPeer();
     /**
      * <code>.Peer peer = 2;</code>
+     * @return The peer.
      */
     sjtu.opennet.textilepb.Model.Peer getPeer();
     /**
@@ -5745,7 +6004,7 @@ public final class ThreadsService {
   /**
    * Protobuf type {@code ThreadJoin}
    */
-  public  static final class ThreadJoin extends
+  public static final class ThreadJoin extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ThreadJoin)
       ThreadJoinOrBuilder {
@@ -5756,6 +6015,13 @@ public final class ThreadsService {
     }
     private ThreadJoin() {
       inviter_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new ThreadJoin();
     }
 
     @java.lang.Override
@@ -5771,7 +6037,6 @@ public final class ThreadsService {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -5802,7 +6067,7 @@ public final class ThreadsService {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -5837,7 +6102,9 @@ public final class ThreadsService {
     private volatile java.lang.Object inviter_;
     /**
      * <code>string inviter = 1;</code>
+     * @return The inviter.
      */
+    @java.lang.Override
     public java.lang.String getInviter() {
       java.lang.Object ref = inviter_;
       if (ref instanceof java.lang.String) {
@@ -5852,7 +6119,9 @@ public final class ThreadsService {
     }
     /**
      * <code>string inviter = 1;</code>
+     * @return The bytes for inviter.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getInviterBytes() {
       java.lang.Object ref = inviter_;
@@ -5871,19 +6140,24 @@ public final class ThreadsService {
     private sjtu.opennet.textilepb.Model.Peer peer_;
     /**
      * <code>.Peer peer = 2;</code>
+     * @return Whether the peer field is set.
      */
+    @java.lang.Override
     public boolean hasPeer() {
       return peer_ != null;
     }
     /**
      * <code>.Peer peer = 2;</code>
+     * @return The peer.
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.Peer getPeer() {
       return peer_ == null ? sjtu.opennet.textilepb.Model.Peer.getDefaultInstance() : peer_;
     }
     /**
      * <code>.Peer peer = 2;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.PeerOrBuilder getPeerOrBuilder() {
       return getPeer();
     }
@@ -5939,16 +6213,15 @@ public final class ThreadsService {
       }
       sjtu.opennet.textilepb.ThreadsService.ThreadJoin other = (sjtu.opennet.textilepb.ThreadsService.ThreadJoin) obj;
 
-      boolean result = true;
-      result = result && getInviter()
-          .equals(other.getInviter());
-      result = result && (hasPeer() == other.hasPeer());
+      if (!getInviter()
+          .equals(other.getInviter())) return false;
+      if (hasPeer() != other.hasPeer()) return false;
       if (hasPeer()) {
-        result = result && getPeer()
-            .equals(other.getPeer());
+        if (!getPeer()
+            .equals(other.getPeer())) return false;
       }
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -6143,35 +6416,35 @@ public final class ThreadsService {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -6224,6 +6497,7 @@ public final class ThreadsService {
       private java.lang.Object inviter_ = "";
       /**
        * <code>string inviter = 1;</code>
+       * @return The inviter.
        */
       public java.lang.String getInviter() {
         java.lang.Object ref = inviter_;
@@ -6239,6 +6513,7 @@ public final class ThreadsService {
       }
       /**
        * <code>string inviter = 1;</code>
+       * @return The bytes for inviter.
        */
       public com.google.protobuf.ByteString
           getInviterBytes() {
@@ -6255,6 +6530,8 @@ public final class ThreadsService {
       }
       /**
        * <code>string inviter = 1;</code>
+       * @param value The inviter to set.
+       * @return This builder for chaining.
        */
       public Builder setInviter(
           java.lang.String value) {
@@ -6268,6 +6545,7 @@ public final class ThreadsService {
       }
       /**
        * <code>string inviter = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearInviter() {
         
@@ -6277,6 +6555,8 @@ public final class ThreadsService {
       }
       /**
        * <code>string inviter = 1;</code>
+       * @param value The bytes for inviter to set.
+       * @return This builder for chaining.
        */
       public Builder setInviterBytes(
           com.google.protobuf.ByteString value) {
@@ -6290,17 +6570,19 @@ public final class ThreadsService {
         return this;
       }
 
-      private sjtu.opennet.textilepb.Model.Peer peer_ = null;
+      private sjtu.opennet.textilepb.Model.Peer peer_;
       private com.google.protobuf.SingleFieldBuilderV3<
           sjtu.opennet.textilepb.Model.Peer, sjtu.opennet.textilepb.Model.Peer.Builder, sjtu.opennet.textilepb.Model.PeerOrBuilder> peerBuilder_;
       /**
        * <code>.Peer peer = 2;</code>
+       * @return Whether the peer field is set.
        */
       public boolean hasPeer() {
         return peerBuilder_ != null || peer_ != null;
       }
       /**
        * <code>.Peer peer = 2;</code>
+       * @return The peer.
        */
       public sjtu.opennet.textilepb.Model.Peer getPeer() {
         if (peerBuilder_ == null) {
@@ -6409,7 +6691,7 @@ public final class ThreadsService {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -6465,10 +6747,12 @@ public final class ThreadsService {
 
     /**
      * <code>.Peer peer = 1;</code>
+     * @return Whether the peer field is set.
      */
     boolean hasPeer();
     /**
      * <code>.Peer peer = 1;</code>
+     * @return The peer.
      */
     sjtu.opennet.textilepb.Model.Peer getPeer();
     /**
@@ -6482,6 +6766,7 @@ public final class ThreadsService {
      * </pre>
      *
      * <code>string name = 2;</code>
+     * @return The name.
      */
     java.lang.String getName();
     /**
@@ -6490,6 +6775,7 @@ public final class ThreadsService {
      * </pre>
      *
      * <code>string name = 2;</code>
+     * @return The bytes for name.
      */
     com.google.protobuf.ByteString
         getNameBytes();
@@ -6497,7 +6783,7 @@ public final class ThreadsService {
   /**
    * Protobuf type {@code ThreadAnnounce}
    */
-  public  static final class ThreadAnnounce extends
+  public static final class ThreadAnnounce extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ThreadAnnounce)
       ThreadAnnounceOrBuilder {
@@ -6508,6 +6794,13 @@ public final class ThreadsService {
     }
     private ThreadAnnounce() {
       name_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new ThreadAnnounce();
     }
 
     @java.lang.Override
@@ -6523,7 +6816,6 @@ public final class ThreadsService {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -6554,7 +6846,7 @@ public final class ThreadsService {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -6589,19 +6881,24 @@ public final class ThreadsService {
     private sjtu.opennet.textilepb.Model.Peer peer_;
     /**
      * <code>.Peer peer = 1;</code>
+     * @return Whether the peer field is set.
      */
+    @java.lang.Override
     public boolean hasPeer() {
       return peer_ != null;
     }
     /**
      * <code>.Peer peer = 1;</code>
+     * @return The peer.
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.Peer getPeer() {
       return peer_ == null ? sjtu.opennet.textilepb.Model.Peer.getDefaultInstance() : peer_;
     }
     /**
      * <code>.Peer peer = 1;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.PeerOrBuilder getPeerOrBuilder() {
       return getPeer();
     }
@@ -6614,7 +6911,9 @@ public final class ThreadsService {
      * </pre>
      *
      * <code>string name = 2;</code>
+     * @return The name.
      */
+    @java.lang.Override
     public java.lang.String getName() {
       java.lang.Object ref = name_;
       if (ref instanceof java.lang.String) {
@@ -6633,7 +6932,9 @@ public final class ThreadsService {
      * </pre>
      *
      * <code>string name = 2;</code>
+     * @return The bytes for name.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getNameBytes() {
       java.lang.Object ref = name_;
@@ -6699,16 +7000,15 @@ public final class ThreadsService {
       }
       sjtu.opennet.textilepb.ThreadsService.ThreadAnnounce other = (sjtu.opennet.textilepb.ThreadsService.ThreadAnnounce) obj;
 
-      boolean result = true;
-      result = result && (hasPeer() == other.hasPeer());
+      if (hasPeer() != other.hasPeer()) return false;
       if (hasPeer()) {
-        result = result && getPeer()
-            .equals(other.getPeer());
+        if (!getPeer()
+            .equals(other.getPeer())) return false;
       }
-      result = result && getName()
-          .equals(other.getName());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getName()
+          .equals(other.getName())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -6903,35 +7203,35 @@ public final class ThreadsService {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -6981,17 +7281,19 @@ public final class ThreadsService {
         return this;
       }
 
-      private sjtu.opennet.textilepb.Model.Peer peer_ = null;
+      private sjtu.opennet.textilepb.Model.Peer peer_;
       private com.google.protobuf.SingleFieldBuilderV3<
           sjtu.opennet.textilepb.Model.Peer, sjtu.opennet.textilepb.Model.Peer.Builder, sjtu.opennet.textilepb.Model.PeerOrBuilder> peerBuilder_;
       /**
        * <code>.Peer peer = 1;</code>
+       * @return Whether the peer field is set.
        */
       public boolean hasPeer() {
         return peerBuilder_ != null || peer_ != null;
       }
       /**
        * <code>.Peer peer = 1;</code>
+       * @return The peer.
        */
       public sjtu.opennet.textilepb.Model.Peer getPeer() {
         if (peerBuilder_ == null) {
@@ -7105,6 +7407,7 @@ public final class ThreadsService {
        * </pre>
        *
        * <code>string name = 2;</code>
+       * @return The name.
        */
       public java.lang.String getName() {
         java.lang.Object ref = name_;
@@ -7124,6 +7427,7 @@ public final class ThreadsService {
        * </pre>
        *
        * <code>string name = 2;</code>
+       * @return The bytes for name.
        */
       public com.google.protobuf.ByteString
           getNameBytes() {
@@ -7144,6 +7448,8 @@ public final class ThreadsService {
        * </pre>
        *
        * <code>string name = 2;</code>
+       * @param value The name to set.
+       * @return This builder for chaining.
        */
       public Builder setName(
           java.lang.String value) {
@@ -7161,6 +7467,7 @@ public final class ThreadsService {
        * </pre>
        *
        * <code>string name = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearName() {
         
@@ -7174,6 +7481,8 @@ public final class ThreadsService {
        * </pre>
        *
        * <code>string name = 2;</code>
+       * @param value The bytes for name to set.
+       * @return This builder for chaining.
        */
       public Builder setNameBytes(
           com.google.protobuf.ByteString value) {
@@ -7189,7 +7498,7 @@ public final class ThreadsService {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -7245,10 +7554,12 @@ public final class ThreadsService {
 
     /**
      * <code>string body = 1;</code>
+     * @return The body.
      */
     java.lang.String getBody();
     /**
      * <code>string body = 1;</code>
+     * @return The bytes for body.
      */
     com.google.protobuf.ByteString
         getBodyBytes();
@@ -7256,7 +7567,7 @@ public final class ThreadsService {
   /**
    * Protobuf type {@code ThreadMessage}
    */
-  public  static final class ThreadMessage extends
+  public static final class ThreadMessage extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ThreadMessage)
       ThreadMessageOrBuilder {
@@ -7267,6 +7578,13 @@ public final class ThreadsService {
     }
     private ThreadMessage() {
       body_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new ThreadMessage();
     }
 
     @java.lang.Override
@@ -7282,7 +7600,6 @@ public final class ThreadsService {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -7300,7 +7617,7 @@ public final class ThreadsService {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -7335,7 +7652,9 @@ public final class ThreadsService {
     private volatile java.lang.Object body_;
     /**
      * <code>string body = 1;</code>
+     * @return The body.
      */
+    @java.lang.Override
     public java.lang.String getBody() {
       java.lang.Object ref = body_;
       if (ref instanceof java.lang.String) {
@@ -7350,7 +7669,9 @@ public final class ThreadsService {
     }
     /**
      * <code>string body = 1;</code>
+     * @return The bytes for body.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getBodyBytes() {
       java.lang.Object ref = body_;
@@ -7409,11 +7730,10 @@ public final class ThreadsService {
       }
       sjtu.opennet.textilepb.ThreadsService.ThreadMessage other = (sjtu.opennet.textilepb.ThreadsService.ThreadMessage) obj;
 
-      boolean result = true;
-      result = result && getBody()
-          .equals(other.getBody());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getBody()
+          .equals(other.getBody())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -7593,35 +7913,35 @@ public final class ThreadsService {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -7671,6 +7991,7 @@ public final class ThreadsService {
       private java.lang.Object body_ = "";
       /**
        * <code>string body = 1;</code>
+       * @return The body.
        */
       public java.lang.String getBody() {
         java.lang.Object ref = body_;
@@ -7686,6 +8007,7 @@ public final class ThreadsService {
       }
       /**
        * <code>string body = 1;</code>
+       * @return The bytes for body.
        */
       public com.google.protobuf.ByteString
           getBodyBytes() {
@@ -7702,6 +8024,8 @@ public final class ThreadsService {
       }
       /**
        * <code>string body = 1;</code>
+       * @param value The body to set.
+       * @return This builder for chaining.
        */
       public Builder setBody(
           java.lang.String value) {
@@ -7715,6 +8039,7 @@ public final class ThreadsService {
       }
       /**
        * <code>string body = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearBody() {
         
@@ -7724,6 +8049,8 @@ public final class ThreadsService {
       }
       /**
        * <code>string body = 1;</code>
+       * @param value The bytes for body to set.
+       * @return This builder for chaining.
        */
       public Builder setBodyBytes(
           com.google.protobuf.ByteString value) {
@@ -7739,7 +8066,7 @@ public final class ThreadsService {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -7799,6 +8126,7 @@ public final class ThreadsService {
      * </pre>
      *
      * <code>string target = 1 [deprecated = true];</code>
+     * @return The target.
      */
     @java.lang.Deprecated java.lang.String getTarget();
     /**
@@ -7807,16 +8135,19 @@ public final class ThreadsService {
      * </pre>
      *
      * <code>string target = 1 [deprecated = true];</code>
+     * @return The bytes for target.
      */
     @java.lang.Deprecated com.google.protobuf.ByteString
         getTargetBytes();
 
     /**
      * <code>string body = 2;</code>
+     * @return The body.
      */
     java.lang.String getBody();
     /**
      * <code>string body = 2;</code>
+     * @return The bytes for body.
      */
     com.google.protobuf.ByteString
         getBodyBytes();
@@ -7878,7 +8209,7 @@ public final class ThreadsService {
   /**
    * Protobuf type {@code ThreadFiles}
    */
-  public  static final class ThreadFiles extends
+  public static final class ThreadFiles extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ThreadFiles)
       ThreadFilesOrBuilder {
@@ -7890,6 +8221,13 @@ public final class ThreadsService {
     private ThreadFiles() {
       target_ = "";
       body_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new ThreadFiles();
     }
 
     @java.lang.Override
@@ -7929,10 +8267,10 @@ public final class ThreadsService {
               break;
             }
             case 26: {
-              if (!((mutable_bitField0_ & 0x00000004) == 0x00000004)) {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
                 keys_ = com.google.protobuf.MapField.newMapField(
                     KeysDefaultEntryHolder.defaultEntry);
-                mutable_bitField0_ |= 0x00000004;
+                mutable_bitField0_ |= 0x00000001;
               }
               com.google.protobuf.MapEntry<java.lang.String, java.lang.String>
               keys__ = input.readMessage(
@@ -7942,7 +8280,7 @@ public final class ThreadsService {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -7985,7 +8323,6 @@ public final class ThreadsService {
               sjtu.opennet.textilepb.ThreadsService.ThreadFiles.class, sjtu.opennet.textilepb.ThreadsService.ThreadFiles.Builder.class);
     }
 
-    private int bitField0_;
     public static final int TARGET_FIELD_NUMBER = 1;
     private volatile java.lang.Object target_;
     /**
@@ -7994,7 +8331,9 @@ public final class ThreadsService {
      * </pre>
      *
      * <code>string target = 1 [deprecated = true];</code>
+     * @return The target.
      */
+    @java.lang.Override
     @java.lang.Deprecated public java.lang.String getTarget() {
       java.lang.Object ref = target_;
       if (ref instanceof java.lang.String) {
@@ -8013,7 +8352,9 @@ public final class ThreadsService {
      * </pre>
      *
      * <code>string target = 1 [deprecated = true];</code>
+     * @return The bytes for target.
      */
+    @java.lang.Override
     @java.lang.Deprecated public com.google.protobuf.ByteString
         getTargetBytes() {
       java.lang.Object ref = target_;
@@ -8032,7 +8373,9 @@ public final class ThreadsService {
     private volatile java.lang.Object body_;
     /**
      * <code>string body = 2;</code>
+     * @return The body.
      */
+    @java.lang.Override
     public java.lang.String getBody() {
       java.lang.Object ref = body_;
       if (ref instanceof java.lang.String) {
@@ -8047,7 +8390,9 @@ public final class ThreadsService {
     }
     /**
      * <code>string body = 2;</code>
+     * @return The bytes for body.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getBodyBytes() {
       java.lang.Object ref = body_;
@@ -8096,6 +8441,7 @@ public final class ThreadsService {
      * <code>map&lt;string, string&gt; keys = 3;</code>
      */
 
+    @java.lang.Override
     public boolean containsKeys(
         java.lang.String key) {
       if (key == null) { throw new java.lang.NullPointerException(); }
@@ -8104,6 +8450,7 @@ public final class ThreadsService {
     /**
      * Use {@link #getKeysMap()} instead.
      */
+    @java.lang.Override
     @java.lang.Deprecated
     public java.util.Map<java.lang.String, java.lang.String> getKeys() {
       return getKeysMap();
@@ -8115,6 +8462,7 @@ public final class ThreadsService {
      *
      * <code>map&lt;string, string&gt; keys = 3;</code>
      */
+    @java.lang.Override
 
     public java.util.Map<java.lang.String, java.lang.String> getKeysMap() {
       return internalGetKeys().getMap();
@@ -8126,6 +8474,7 @@ public final class ThreadsService {
      *
      * <code>map&lt;string, string&gt; keys = 3;</code>
      */
+    @java.lang.Override
 
     public java.lang.String getKeysOrDefault(
         java.lang.String key,
@@ -8142,6 +8491,7 @@ public final class ThreadsService {
      *
      * <code>map&lt;string, string&gt; keys = 3;</code>
      */
+    @java.lang.Override
 
     public java.lang.String getKeysOrThrow(
         java.lang.String key) {
@@ -8220,15 +8570,14 @@ public final class ThreadsService {
       }
       sjtu.opennet.textilepb.ThreadsService.ThreadFiles other = (sjtu.opennet.textilepb.ThreadsService.ThreadFiles) obj;
 
-      boolean result = true;
-      result = result && getTarget()
-          .equals(other.getTarget());
-      result = result && getBody()
-          .equals(other.getBody());
-      result = result && internalGetKeys().equals(
-          other.internalGetKeys());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getTarget()
+          .equals(other.getTarget())) return false;
+      if (!getBody()
+          .equals(other.getBody())) return false;
+      if (!internalGetKeys().equals(
+          other.internalGetKeys())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -8433,47 +8782,45 @@ public final class ThreadsService {
       public sjtu.opennet.textilepb.ThreadsService.ThreadFiles buildPartial() {
         sjtu.opennet.textilepb.ThreadsService.ThreadFiles result = new sjtu.opennet.textilepb.ThreadsService.ThreadFiles(this);
         int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
         result.target_ = target_;
         result.body_ = body_;
         result.keys_ = internalGetKeys();
         result.keys_.makeImmutable();
-        result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -8534,6 +8881,7 @@ public final class ThreadsService {
        * </pre>
        *
        * <code>string target = 1 [deprecated = true];</code>
+       * @return The target.
        */
       @java.lang.Deprecated public java.lang.String getTarget() {
         java.lang.Object ref = target_;
@@ -8553,6 +8901,7 @@ public final class ThreadsService {
        * </pre>
        *
        * <code>string target = 1 [deprecated = true];</code>
+       * @return The bytes for target.
        */
       @java.lang.Deprecated public com.google.protobuf.ByteString
           getTargetBytes() {
@@ -8573,6 +8922,8 @@ public final class ThreadsService {
        * </pre>
        *
        * <code>string target = 1 [deprecated = true];</code>
+       * @param value The target to set.
+       * @return This builder for chaining.
        */
       @java.lang.Deprecated public Builder setTarget(
           java.lang.String value) {
@@ -8590,6 +8941,7 @@ public final class ThreadsService {
        * </pre>
        *
        * <code>string target = 1 [deprecated = true];</code>
+       * @return This builder for chaining.
        */
       @java.lang.Deprecated public Builder clearTarget() {
         
@@ -8603,6 +8955,8 @@ public final class ThreadsService {
        * </pre>
        *
        * <code>string target = 1 [deprecated = true];</code>
+       * @param value The bytes for target to set.
+       * @return This builder for chaining.
        */
       @java.lang.Deprecated public Builder setTargetBytes(
           com.google.protobuf.ByteString value) {
@@ -8619,6 +8973,7 @@ public final class ThreadsService {
       private java.lang.Object body_ = "";
       /**
        * <code>string body = 2;</code>
+       * @return The body.
        */
       public java.lang.String getBody() {
         java.lang.Object ref = body_;
@@ -8634,6 +8989,7 @@ public final class ThreadsService {
       }
       /**
        * <code>string body = 2;</code>
+       * @return The bytes for body.
        */
       public com.google.protobuf.ByteString
           getBodyBytes() {
@@ -8650,6 +9006,8 @@ public final class ThreadsService {
       }
       /**
        * <code>string body = 2;</code>
+       * @param value The body to set.
+       * @return This builder for chaining.
        */
       public Builder setBody(
           java.lang.String value) {
@@ -8663,6 +9021,7 @@ public final class ThreadsService {
       }
       /**
        * <code>string body = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearBody() {
         
@@ -8672,6 +9031,8 @@ public final class ThreadsService {
       }
       /**
        * <code>string body = 2;</code>
+       * @param value The bytes for body to set.
+       * @return This builder for chaining.
        */
       public Builder setBodyBytes(
           com.google.protobuf.ByteString value) {
@@ -8719,6 +9080,7 @@ public final class ThreadsService {
        * <code>map&lt;string, string&gt; keys = 3;</code>
        */
 
+      @java.lang.Override
       public boolean containsKeys(
           java.lang.String key) {
         if (key == null) { throw new java.lang.NullPointerException(); }
@@ -8727,6 +9089,7 @@ public final class ThreadsService {
       /**
        * Use {@link #getKeysMap()} instead.
        */
+      @java.lang.Override
       @java.lang.Deprecated
       public java.util.Map<java.lang.String, java.lang.String> getKeys() {
         return getKeysMap();
@@ -8738,6 +9101,7 @@ public final class ThreadsService {
        *
        * <code>map&lt;string, string&gt; keys = 3;</code>
        */
+      @java.lang.Override
 
       public java.util.Map<java.lang.String, java.lang.String> getKeysMap() {
         return internalGetKeys().getMap();
@@ -8749,6 +9113,7 @@ public final class ThreadsService {
        *
        * <code>map&lt;string, string&gt; keys = 3;</code>
        */
+      @java.lang.Override
 
       public java.lang.String getKeysOrDefault(
           java.lang.String key,
@@ -8765,6 +9130,7 @@ public final class ThreadsService {
        *
        * <code>map&lt;string, string&gt; keys = 3;</code>
        */
+      @java.lang.Override
 
       public java.lang.String getKeysOrThrow(
           java.lang.String key) {
@@ -8838,7 +9204,7 @@ public final class ThreadsService {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -8894,20 +9260,24 @@ public final class ThreadsService {
 
     /**
      * <code>string target = 1;</code>
+     * @return The target.
      */
     java.lang.String getTarget();
     /**
      * <code>string target = 1;</code>
+     * @return The bytes for target.
      */
     com.google.protobuf.ByteString
         getTargetBytes();
 
     /**
      * <code>string body = 2;</code>
+     * @return The body.
      */
     java.lang.String getBody();
     /**
      * <code>string body = 2;</code>
+     * @return The bytes for body.
      */
     com.google.protobuf.ByteString
         getBodyBytes();
@@ -8915,7 +9285,7 @@ public final class ThreadsService {
   /**
    * Protobuf type {@code ThreadComment}
    */
-  @java.lang.Deprecated public  static final class ThreadComment extends
+  @java.lang.Deprecated public static final class ThreadComment extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ThreadComment)
       ThreadCommentOrBuilder {
@@ -8927,6 +9297,13 @@ public final class ThreadsService {
     private ThreadComment() {
       target_ = "";
       body_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new ThreadComment();
     }
 
     @java.lang.Override
@@ -8942,7 +9319,6 @@ public final class ThreadsService {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -8966,7 +9342,7 @@ public final class ThreadsService {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -9001,7 +9377,9 @@ public final class ThreadsService {
     private volatile java.lang.Object target_;
     /**
      * <code>string target = 1;</code>
+     * @return The target.
      */
+    @java.lang.Override
     public java.lang.String getTarget() {
       java.lang.Object ref = target_;
       if (ref instanceof java.lang.String) {
@@ -9016,7 +9394,9 @@ public final class ThreadsService {
     }
     /**
      * <code>string target = 1;</code>
+     * @return The bytes for target.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getTargetBytes() {
       java.lang.Object ref = target_;
@@ -9035,7 +9415,9 @@ public final class ThreadsService {
     private volatile java.lang.Object body_;
     /**
      * <code>string body = 2;</code>
+     * @return The body.
      */
+    @java.lang.Override
     public java.lang.String getBody() {
       java.lang.Object ref = body_;
       if (ref instanceof java.lang.String) {
@@ -9050,7 +9432,9 @@ public final class ThreadsService {
     }
     /**
      * <code>string body = 2;</code>
+     * @return The bytes for body.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getBodyBytes() {
       java.lang.Object ref = body_;
@@ -9115,13 +9499,12 @@ public final class ThreadsService {
       }
       sjtu.opennet.textilepb.ThreadsService.ThreadComment other = (sjtu.opennet.textilepb.ThreadsService.ThreadComment) obj;
 
-      boolean result = true;
-      result = result && getTarget()
-          .equals(other.getTarget());
-      result = result && getBody()
-          .equals(other.getBody());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getTarget()
+          .equals(other.getTarget())) return false;
+      if (!getBody()
+          .equals(other.getBody())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -9306,35 +9689,35 @@ public final class ThreadsService {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -9388,6 +9771,7 @@ public final class ThreadsService {
       private java.lang.Object target_ = "";
       /**
        * <code>string target = 1;</code>
+       * @return The target.
        */
       public java.lang.String getTarget() {
         java.lang.Object ref = target_;
@@ -9403,6 +9787,7 @@ public final class ThreadsService {
       }
       /**
        * <code>string target = 1;</code>
+       * @return The bytes for target.
        */
       public com.google.protobuf.ByteString
           getTargetBytes() {
@@ -9419,6 +9804,8 @@ public final class ThreadsService {
       }
       /**
        * <code>string target = 1;</code>
+       * @param value The target to set.
+       * @return This builder for chaining.
        */
       public Builder setTarget(
           java.lang.String value) {
@@ -9432,6 +9819,7 @@ public final class ThreadsService {
       }
       /**
        * <code>string target = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearTarget() {
         
@@ -9441,6 +9829,8 @@ public final class ThreadsService {
       }
       /**
        * <code>string target = 1;</code>
+       * @param value The bytes for target to set.
+       * @return This builder for chaining.
        */
       public Builder setTargetBytes(
           com.google.protobuf.ByteString value) {
@@ -9457,6 +9847,7 @@ public final class ThreadsService {
       private java.lang.Object body_ = "";
       /**
        * <code>string body = 2;</code>
+       * @return The body.
        */
       public java.lang.String getBody() {
         java.lang.Object ref = body_;
@@ -9472,6 +9863,7 @@ public final class ThreadsService {
       }
       /**
        * <code>string body = 2;</code>
+       * @return The bytes for body.
        */
       public com.google.protobuf.ByteString
           getBodyBytes() {
@@ -9488,6 +9880,8 @@ public final class ThreadsService {
       }
       /**
        * <code>string body = 2;</code>
+       * @param value The body to set.
+       * @return This builder for chaining.
        */
       public Builder setBody(
           java.lang.String value) {
@@ -9501,6 +9895,7 @@ public final class ThreadsService {
       }
       /**
        * <code>string body = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearBody() {
         
@@ -9510,6 +9905,8 @@ public final class ThreadsService {
       }
       /**
        * <code>string body = 2;</code>
+       * @param value The bytes for body to set.
+       * @return This builder for chaining.
        */
       public Builder setBodyBytes(
           com.google.protobuf.ByteString value) {
@@ -9525,7 +9922,7 @@ public final class ThreadsService {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -9581,10 +9978,12 @@ public final class ThreadsService {
 
     /**
      * <code>string target = 1;</code>
+     * @return The target.
      */
     java.lang.String getTarget();
     /**
      * <code>string target = 1;</code>
+     * @return The bytes for target.
      */
     com.google.protobuf.ByteString
         getTargetBytes();
@@ -9592,7 +9991,7 @@ public final class ThreadsService {
   /**
    * Protobuf type {@code ThreadLike}
    */
-  @java.lang.Deprecated public  static final class ThreadLike extends
+  @java.lang.Deprecated public static final class ThreadLike extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ThreadLike)
       ThreadLikeOrBuilder {
@@ -9603,6 +10002,13 @@ public final class ThreadsService {
     }
     private ThreadLike() {
       target_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new ThreadLike();
     }
 
     @java.lang.Override
@@ -9618,7 +10024,6 @@ public final class ThreadsService {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -9636,7 +10041,7 @@ public final class ThreadsService {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -9671,7 +10076,9 @@ public final class ThreadsService {
     private volatile java.lang.Object target_;
     /**
      * <code>string target = 1;</code>
+     * @return The target.
      */
+    @java.lang.Override
     public java.lang.String getTarget() {
       java.lang.Object ref = target_;
       if (ref instanceof java.lang.String) {
@@ -9686,7 +10093,9 @@ public final class ThreadsService {
     }
     /**
      * <code>string target = 1;</code>
+     * @return The bytes for target.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getTargetBytes() {
       java.lang.Object ref = target_;
@@ -9745,11 +10154,10 @@ public final class ThreadsService {
       }
       sjtu.opennet.textilepb.ThreadsService.ThreadLike other = (sjtu.opennet.textilepb.ThreadsService.ThreadLike) obj;
 
-      boolean result = true;
-      result = result && getTarget()
-          .equals(other.getTarget());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getTarget()
+          .equals(other.getTarget())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -9929,35 +10337,35 @@ public final class ThreadsService {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -10007,6 +10415,7 @@ public final class ThreadsService {
       private java.lang.Object target_ = "";
       /**
        * <code>string target = 1;</code>
+       * @return The target.
        */
       public java.lang.String getTarget() {
         java.lang.Object ref = target_;
@@ -10022,6 +10431,7 @@ public final class ThreadsService {
       }
       /**
        * <code>string target = 1;</code>
+       * @return The bytes for target.
        */
       public com.google.protobuf.ByteString
           getTargetBytes() {
@@ -10038,6 +10448,8 @@ public final class ThreadsService {
       }
       /**
        * <code>string target = 1;</code>
+       * @param value The target to set.
+       * @return This builder for chaining.
        */
       public Builder setTarget(
           java.lang.String value) {
@@ -10051,6 +10463,7 @@ public final class ThreadsService {
       }
       /**
        * <code>string target = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearTarget() {
         
@@ -10060,6 +10473,8 @@ public final class ThreadsService {
       }
       /**
        * <code>string target = 1;</code>
+       * @param value The bytes for target to set.
+       * @return This builder for chaining.
        */
       public Builder setTargetBytes(
           com.google.protobuf.ByteString value) {
@@ -10075,7 +10490,7 @@ public final class ThreadsService {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -10131,10 +10546,12 @@ public final class ThreadsService {
 
     /**
      * <code>string target = 1;</code>
+     * @return The target.
      */
     java.lang.String getTarget();
     /**
      * <code>string target = 1;</code>
+     * @return The bytes for target.
      */
     com.google.protobuf.ByteString
         getTargetBytes();
@@ -10142,7 +10559,7 @@ public final class ThreadsService {
   /**
    * Protobuf type {@code ThreadAddAdmin}
    */
-  public  static final class ThreadAddAdmin extends
+  public static final class ThreadAddAdmin extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ThreadAddAdmin)
       ThreadAddAdminOrBuilder {
@@ -10153,6 +10570,13 @@ public final class ThreadsService {
     }
     private ThreadAddAdmin() {
       target_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new ThreadAddAdmin();
     }
 
     @java.lang.Override
@@ -10168,7 +10592,6 @@ public final class ThreadsService {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -10186,7 +10609,7 @@ public final class ThreadsService {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -10221,7 +10644,9 @@ public final class ThreadsService {
     private volatile java.lang.Object target_;
     /**
      * <code>string target = 1;</code>
+     * @return The target.
      */
+    @java.lang.Override
     public java.lang.String getTarget() {
       java.lang.Object ref = target_;
       if (ref instanceof java.lang.String) {
@@ -10236,7 +10661,9 @@ public final class ThreadsService {
     }
     /**
      * <code>string target = 1;</code>
+     * @return The bytes for target.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getTargetBytes() {
       java.lang.Object ref = target_;
@@ -10295,11 +10722,10 @@ public final class ThreadsService {
       }
       sjtu.opennet.textilepb.ThreadsService.ThreadAddAdmin other = (sjtu.opennet.textilepb.ThreadsService.ThreadAddAdmin) obj;
 
-      boolean result = true;
-      result = result && getTarget()
-          .equals(other.getTarget());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getTarget()
+          .equals(other.getTarget())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -10479,35 +10905,35 @@ public final class ThreadsService {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -10557,6 +10983,7 @@ public final class ThreadsService {
       private java.lang.Object target_ = "";
       /**
        * <code>string target = 1;</code>
+       * @return The target.
        */
       public java.lang.String getTarget() {
         java.lang.Object ref = target_;
@@ -10572,6 +10999,7 @@ public final class ThreadsService {
       }
       /**
        * <code>string target = 1;</code>
+       * @return The bytes for target.
        */
       public com.google.protobuf.ByteString
           getTargetBytes() {
@@ -10588,6 +11016,8 @@ public final class ThreadsService {
       }
       /**
        * <code>string target = 1;</code>
+       * @param value The target to set.
+       * @return This builder for chaining.
        */
       public Builder setTarget(
           java.lang.String value) {
@@ -10601,6 +11031,7 @@ public final class ThreadsService {
       }
       /**
        * <code>string target = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearTarget() {
         
@@ -10610,6 +11041,8 @@ public final class ThreadsService {
       }
       /**
        * <code>string target = 1;</code>
+       * @param value The bytes for target to set.
+       * @return This builder for chaining.
        */
       public Builder setTargetBytes(
           com.google.protobuf.ByteString value) {
@@ -10625,7 +11058,7 @@ public final class ThreadsService {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -10681,10 +11114,12 @@ public final class ThreadsService {
 
     /**
      * <code>string target = 1;</code>
+     * @return The target.
      */
     java.lang.String getTarget();
     /**
      * <code>string target = 1;</code>
+     * @return The bytes for target.
      */
     com.google.protobuf.ByteString
         getTargetBytes();
@@ -10692,7 +11127,7 @@ public final class ThreadsService {
   /**
    * Protobuf type {@code ThreadRemovePeer}
    */
-  public  static final class ThreadRemovePeer extends
+  public static final class ThreadRemovePeer extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ThreadRemovePeer)
       ThreadRemovePeerOrBuilder {
@@ -10703,6 +11138,13 @@ public final class ThreadsService {
     }
     private ThreadRemovePeer() {
       target_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new ThreadRemovePeer();
     }
 
     @java.lang.Override
@@ -10718,7 +11160,6 @@ public final class ThreadsService {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -10736,7 +11177,7 @@ public final class ThreadsService {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -10771,7 +11212,9 @@ public final class ThreadsService {
     private volatile java.lang.Object target_;
     /**
      * <code>string target = 1;</code>
+     * @return The target.
      */
+    @java.lang.Override
     public java.lang.String getTarget() {
       java.lang.Object ref = target_;
       if (ref instanceof java.lang.String) {
@@ -10786,7 +11229,9 @@ public final class ThreadsService {
     }
     /**
      * <code>string target = 1;</code>
+     * @return The bytes for target.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getTargetBytes() {
       java.lang.Object ref = target_;
@@ -10845,11 +11290,10 @@ public final class ThreadsService {
       }
       sjtu.opennet.textilepb.ThreadsService.ThreadRemovePeer other = (sjtu.opennet.textilepb.ThreadsService.ThreadRemovePeer) obj;
 
-      boolean result = true;
-      result = result && getTarget()
-          .equals(other.getTarget());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getTarget()
+          .equals(other.getTarget())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -11029,35 +11473,35 @@ public final class ThreadsService {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -11107,6 +11551,7 @@ public final class ThreadsService {
       private java.lang.Object target_ = "";
       /**
        * <code>string target = 1;</code>
+       * @return The target.
        */
       public java.lang.String getTarget() {
         java.lang.Object ref = target_;
@@ -11122,6 +11567,7 @@ public final class ThreadsService {
       }
       /**
        * <code>string target = 1;</code>
+       * @return The bytes for target.
        */
       public com.google.protobuf.ByteString
           getTargetBytes() {
@@ -11138,6 +11584,8 @@ public final class ThreadsService {
       }
       /**
        * <code>string target = 1;</code>
+       * @param value The target to set.
+       * @return This builder for chaining.
        */
       public Builder setTarget(
           java.lang.String value) {
@@ -11151,6 +11599,7 @@ public final class ThreadsService {
       }
       /**
        * <code>string target = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearTarget() {
         
@@ -11160,6 +11609,8 @@ public final class ThreadsService {
       }
       /**
        * <code>string target = 1;</code>
+       * @param value The bytes for target to set.
+       * @return This builder for chaining.
        */
       public Builder setTargetBytes(
           com.google.protobuf.ByteString value) {
@@ -11175,7 +11626,7 @@ public final class ThreadsService {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -11343,21 +11794,13 @@ public final class ThreadsService {
       "eer\022\016\n\006target\030\001 \001(\tB\034\n\026sjtu.opennet.text" +
       "ilepbZ\002pbb\006proto3"
     };
-    com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
-        new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
-          public com.google.protobuf.ExtensionRegistry assignDescriptors(
-              com.google.protobuf.Descriptors.FileDescriptor root) {
-            descriptor = root;
-            return null;
-          }
-        };
-    com.google.protobuf.Descriptors.FileDescriptor
+    descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           com.google.protobuf.AnyProto.getDescriptor(),
           com.google.protobuf.TimestampProto.getDescriptor(),
           sjtu.opennet.textilepb.Model.getDescriptor(),
-        }, assigner);
+        });
     internal_static_ThreadEnvelope_descriptor =
       getDescriptor().getMessageTypes().get(0);
     internal_static_ThreadEnvelope_fieldAccessorTable = new

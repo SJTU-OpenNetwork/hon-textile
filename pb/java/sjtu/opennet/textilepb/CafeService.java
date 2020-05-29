@@ -20,10 +20,12 @@ public final class CafeService {
 
     /**
      * <code>string address = 1;</code>
+     * @return The address.
      */
     java.lang.String getAddress();
     /**
      * <code>string address = 1;</code>
+     * @return The bytes for address.
      */
     com.google.protobuf.ByteString
         getAddressBytes();
@@ -31,7 +33,7 @@ public final class CafeService {
   /**
    * Protobuf type {@code CafeChallenge}
    */
-  public  static final class CafeChallenge extends
+  public static final class CafeChallenge extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:CafeChallenge)
       CafeChallengeOrBuilder {
@@ -42,6 +44,13 @@ public final class CafeService {
     }
     private CafeChallenge() {
       address_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new CafeChallenge();
     }
 
     @java.lang.Override
@@ -57,7 +66,6 @@ public final class CafeService {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -75,7 +83,7 @@ public final class CafeService {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -110,7 +118,9 @@ public final class CafeService {
     private volatile java.lang.Object address_;
     /**
      * <code>string address = 1;</code>
+     * @return The address.
      */
+    @java.lang.Override
     public java.lang.String getAddress() {
       java.lang.Object ref = address_;
       if (ref instanceof java.lang.String) {
@@ -125,7 +135,9 @@ public final class CafeService {
     }
     /**
      * <code>string address = 1;</code>
+     * @return The bytes for address.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAddressBytes() {
       java.lang.Object ref = address_;
@@ -184,11 +196,10 @@ public final class CafeService {
       }
       sjtu.opennet.textilepb.CafeService.CafeChallenge other = (sjtu.opennet.textilepb.CafeService.CafeChallenge) obj;
 
-      boolean result = true;
-      result = result && getAddress()
-          .equals(other.getAddress());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getAddress()
+          .equals(other.getAddress())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -368,35 +379,35 @@ public final class CafeService {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -446,6 +457,7 @@ public final class CafeService {
       private java.lang.Object address_ = "";
       /**
        * <code>string address = 1;</code>
+       * @return The address.
        */
       public java.lang.String getAddress() {
         java.lang.Object ref = address_;
@@ -461,6 +473,7 @@ public final class CafeService {
       }
       /**
        * <code>string address = 1;</code>
+       * @return The bytes for address.
        */
       public com.google.protobuf.ByteString
           getAddressBytes() {
@@ -477,6 +490,8 @@ public final class CafeService {
       }
       /**
        * <code>string address = 1;</code>
+       * @param value The address to set.
+       * @return This builder for chaining.
        */
       public Builder setAddress(
           java.lang.String value) {
@@ -490,6 +505,7 @@ public final class CafeService {
       }
       /**
        * <code>string address = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearAddress() {
         
@@ -499,6 +515,8 @@ public final class CafeService {
       }
       /**
        * <code>string address = 1;</code>
+       * @param value The bytes for address to set.
+       * @return This builder for chaining.
        */
       public Builder setAddressBytes(
           com.google.protobuf.ByteString value) {
@@ -514,7 +532,7 @@ public final class CafeService {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -570,10 +588,12 @@ public final class CafeService {
 
     /**
      * <code>string value = 1;</code>
+     * @return The value.
      */
     java.lang.String getValue();
     /**
      * <code>string value = 1;</code>
+     * @return The bytes for value.
      */
     com.google.protobuf.ByteString
         getValueBytes();
@@ -581,7 +601,7 @@ public final class CafeService {
   /**
    * Protobuf type {@code CafeNonce}
    */
-  public  static final class CafeNonce extends
+  public static final class CafeNonce extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:CafeNonce)
       CafeNonceOrBuilder {
@@ -592,6 +612,13 @@ public final class CafeService {
     }
     private CafeNonce() {
       value_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new CafeNonce();
     }
 
     @java.lang.Override
@@ -607,7 +634,6 @@ public final class CafeService {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -625,7 +651,7 @@ public final class CafeService {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -660,7 +686,9 @@ public final class CafeService {
     private volatile java.lang.Object value_;
     /**
      * <code>string value = 1;</code>
+     * @return The value.
      */
+    @java.lang.Override
     public java.lang.String getValue() {
       java.lang.Object ref = value_;
       if (ref instanceof java.lang.String) {
@@ -675,7 +703,9 @@ public final class CafeService {
     }
     /**
      * <code>string value = 1;</code>
+     * @return The bytes for value.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getValueBytes() {
       java.lang.Object ref = value_;
@@ -734,11 +764,10 @@ public final class CafeService {
       }
       sjtu.opennet.textilepb.CafeService.CafeNonce other = (sjtu.opennet.textilepb.CafeService.CafeNonce) obj;
 
-      boolean result = true;
-      result = result && getValue()
-          .equals(other.getValue());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getValue()
+          .equals(other.getValue())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -918,35 +947,35 @@ public final class CafeService {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -996,6 +1025,7 @@ public final class CafeService {
       private java.lang.Object value_ = "";
       /**
        * <code>string value = 1;</code>
+       * @return The value.
        */
       public java.lang.String getValue() {
         java.lang.Object ref = value_;
@@ -1011,6 +1041,7 @@ public final class CafeService {
       }
       /**
        * <code>string value = 1;</code>
+       * @return The bytes for value.
        */
       public com.google.protobuf.ByteString
           getValueBytes() {
@@ -1027,6 +1058,8 @@ public final class CafeService {
       }
       /**
        * <code>string value = 1;</code>
+       * @param value The value to set.
+       * @return This builder for chaining.
        */
       public Builder setValue(
           java.lang.String value) {
@@ -1040,6 +1073,7 @@ public final class CafeService {
       }
       /**
        * <code>string value = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearValue() {
         
@@ -1049,6 +1083,8 @@ public final class CafeService {
       }
       /**
        * <code>string value = 1;</code>
+       * @param value The bytes for value to set.
+       * @return This builder for chaining.
        */
       public Builder setValueBytes(
           com.google.protobuf.ByteString value) {
@@ -1064,7 +1100,7 @@ public final class CafeService {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -1120,45 +1156,54 @@ public final class CafeService {
 
     /**
      * <code>string address = 1;</code>
+     * @return The address.
      */
     java.lang.String getAddress();
     /**
      * <code>string address = 1;</code>
+     * @return The bytes for address.
      */
     com.google.protobuf.ByteString
         getAddressBytes();
 
     /**
      * <code>string value = 2;</code>
+     * @return The value.
      */
     java.lang.String getValue();
     /**
      * <code>string value = 2;</code>
+     * @return The bytes for value.
      */
     com.google.protobuf.ByteString
         getValueBytes();
 
     /**
      * <code>string nonce = 3;</code>
+     * @return The nonce.
      */
     java.lang.String getNonce();
     /**
      * <code>string nonce = 3;</code>
+     * @return The bytes for nonce.
      */
     com.google.protobuf.ByteString
         getNonceBytes();
 
     /**
      * <code>bytes sig = 4;</code>
+     * @return The sig.
      */
     com.google.protobuf.ByteString getSig();
 
     /**
      * <code>string token = 5;</code>
+     * @return The token.
      */
     java.lang.String getToken();
     /**
      * <code>string token = 5;</code>
+     * @return The bytes for token.
      */
     com.google.protobuf.ByteString
         getTokenBytes();
@@ -1166,7 +1211,7 @@ public final class CafeService {
   /**
    * Protobuf type {@code CafeRegistration}
    */
-  public  static final class CafeRegistration extends
+  public static final class CafeRegistration extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:CafeRegistration)
       CafeRegistrationOrBuilder {
@@ -1184,6 +1229,13 @@ public final class CafeService {
     }
 
     @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new CafeRegistration();
+    }
+
+    @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
       return this.unknownFields;
@@ -1196,7 +1248,6 @@ public final class CafeService {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -1237,7 +1288,7 @@ public final class CafeService {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -1272,7 +1323,9 @@ public final class CafeService {
     private volatile java.lang.Object address_;
     /**
      * <code>string address = 1;</code>
+     * @return The address.
      */
+    @java.lang.Override
     public java.lang.String getAddress() {
       java.lang.Object ref = address_;
       if (ref instanceof java.lang.String) {
@@ -1287,7 +1340,9 @@ public final class CafeService {
     }
     /**
      * <code>string address = 1;</code>
+     * @return The bytes for address.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAddressBytes() {
       java.lang.Object ref = address_;
@@ -1306,7 +1361,9 @@ public final class CafeService {
     private volatile java.lang.Object value_;
     /**
      * <code>string value = 2;</code>
+     * @return The value.
      */
+    @java.lang.Override
     public java.lang.String getValue() {
       java.lang.Object ref = value_;
       if (ref instanceof java.lang.String) {
@@ -1321,7 +1378,9 @@ public final class CafeService {
     }
     /**
      * <code>string value = 2;</code>
+     * @return The bytes for value.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getValueBytes() {
       java.lang.Object ref = value_;
@@ -1340,7 +1399,9 @@ public final class CafeService {
     private volatile java.lang.Object nonce_;
     /**
      * <code>string nonce = 3;</code>
+     * @return The nonce.
      */
+    @java.lang.Override
     public java.lang.String getNonce() {
       java.lang.Object ref = nonce_;
       if (ref instanceof java.lang.String) {
@@ -1355,7 +1416,9 @@ public final class CafeService {
     }
     /**
      * <code>string nonce = 3;</code>
+     * @return The bytes for nonce.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getNonceBytes() {
       java.lang.Object ref = nonce_;
@@ -1374,7 +1437,9 @@ public final class CafeService {
     private com.google.protobuf.ByteString sig_;
     /**
      * <code>bytes sig = 4;</code>
+     * @return The sig.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getSig() {
       return sig_;
     }
@@ -1383,7 +1448,9 @@ public final class CafeService {
     private volatile java.lang.Object token_;
     /**
      * <code>string token = 5;</code>
+     * @return The token.
      */
+    @java.lang.Override
     public java.lang.String getToken() {
       java.lang.Object ref = token_;
       if (ref instanceof java.lang.String) {
@@ -1398,7 +1465,9 @@ public final class CafeService {
     }
     /**
      * <code>string token = 5;</code>
+     * @return The bytes for token.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getTokenBytes() {
       java.lang.Object ref = token_;
@@ -1482,19 +1551,18 @@ public final class CafeService {
       }
       sjtu.opennet.textilepb.CafeService.CafeRegistration other = (sjtu.opennet.textilepb.CafeService.CafeRegistration) obj;
 
-      boolean result = true;
-      result = result && getAddress()
-          .equals(other.getAddress());
-      result = result && getValue()
-          .equals(other.getValue());
-      result = result && getNonce()
-          .equals(other.getNonce());
-      result = result && getSig()
-          .equals(other.getSig());
-      result = result && getToken()
-          .equals(other.getToken());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getAddress()
+          .equals(other.getAddress())) return false;
+      if (!getValue()
+          .equals(other.getValue())) return false;
+      if (!getNonce()
+          .equals(other.getNonce())) return false;
+      if (!getSig()
+          .equals(other.getSig())) return false;
+      if (!getToken()
+          .equals(other.getToken())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -1694,35 +1762,35 @@ public final class CafeService {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -1787,6 +1855,7 @@ public final class CafeService {
       private java.lang.Object address_ = "";
       /**
        * <code>string address = 1;</code>
+       * @return The address.
        */
       public java.lang.String getAddress() {
         java.lang.Object ref = address_;
@@ -1802,6 +1871,7 @@ public final class CafeService {
       }
       /**
        * <code>string address = 1;</code>
+       * @return The bytes for address.
        */
       public com.google.protobuf.ByteString
           getAddressBytes() {
@@ -1818,6 +1888,8 @@ public final class CafeService {
       }
       /**
        * <code>string address = 1;</code>
+       * @param value The address to set.
+       * @return This builder for chaining.
        */
       public Builder setAddress(
           java.lang.String value) {
@@ -1831,6 +1903,7 @@ public final class CafeService {
       }
       /**
        * <code>string address = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearAddress() {
         
@@ -1840,6 +1913,8 @@ public final class CafeService {
       }
       /**
        * <code>string address = 1;</code>
+       * @param value The bytes for address to set.
+       * @return This builder for chaining.
        */
       public Builder setAddressBytes(
           com.google.protobuf.ByteString value) {
@@ -1856,6 +1931,7 @@ public final class CafeService {
       private java.lang.Object value_ = "";
       /**
        * <code>string value = 2;</code>
+       * @return The value.
        */
       public java.lang.String getValue() {
         java.lang.Object ref = value_;
@@ -1871,6 +1947,7 @@ public final class CafeService {
       }
       /**
        * <code>string value = 2;</code>
+       * @return The bytes for value.
        */
       public com.google.protobuf.ByteString
           getValueBytes() {
@@ -1887,6 +1964,8 @@ public final class CafeService {
       }
       /**
        * <code>string value = 2;</code>
+       * @param value The value to set.
+       * @return This builder for chaining.
        */
       public Builder setValue(
           java.lang.String value) {
@@ -1900,6 +1979,7 @@ public final class CafeService {
       }
       /**
        * <code>string value = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearValue() {
         
@@ -1909,6 +1989,8 @@ public final class CafeService {
       }
       /**
        * <code>string value = 2;</code>
+       * @param value The bytes for value to set.
+       * @return This builder for chaining.
        */
       public Builder setValueBytes(
           com.google.protobuf.ByteString value) {
@@ -1925,6 +2007,7 @@ public final class CafeService {
       private java.lang.Object nonce_ = "";
       /**
        * <code>string nonce = 3;</code>
+       * @return The nonce.
        */
       public java.lang.String getNonce() {
         java.lang.Object ref = nonce_;
@@ -1940,6 +2023,7 @@ public final class CafeService {
       }
       /**
        * <code>string nonce = 3;</code>
+       * @return The bytes for nonce.
        */
       public com.google.protobuf.ByteString
           getNonceBytes() {
@@ -1956,6 +2040,8 @@ public final class CafeService {
       }
       /**
        * <code>string nonce = 3;</code>
+       * @param value The nonce to set.
+       * @return This builder for chaining.
        */
       public Builder setNonce(
           java.lang.String value) {
@@ -1969,6 +2055,7 @@ public final class CafeService {
       }
       /**
        * <code>string nonce = 3;</code>
+       * @return This builder for chaining.
        */
       public Builder clearNonce() {
         
@@ -1978,6 +2065,8 @@ public final class CafeService {
       }
       /**
        * <code>string nonce = 3;</code>
+       * @param value The bytes for nonce to set.
+       * @return This builder for chaining.
        */
       public Builder setNonceBytes(
           com.google.protobuf.ByteString value) {
@@ -1994,12 +2083,16 @@ public final class CafeService {
       private com.google.protobuf.ByteString sig_ = com.google.protobuf.ByteString.EMPTY;
       /**
        * <code>bytes sig = 4;</code>
+       * @return The sig.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getSig() {
         return sig_;
       }
       /**
        * <code>bytes sig = 4;</code>
+       * @param value The sig to set.
+       * @return This builder for chaining.
        */
       public Builder setSig(com.google.protobuf.ByteString value) {
         if (value == null) {
@@ -2012,6 +2105,7 @@ public final class CafeService {
       }
       /**
        * <code>bytes sig = 4;</code>
+       * @return This builder for chaining.
        */
       public Builder clearSig() {
         
@@ -2023,6 +2117,7 @@ public final class CafeService {
       private java.lang.Object token_ = "";
       /**
        * <code>string token = 5;</code>
+       * @return The token.
        */
       public java.lang.String getToken() {
         java.lang.Object ref = token_;
@@ -2038,6 +2133,7 @@ public final class CafeService {
       }
       /**
        * <code>string token = 5;</code>
+       * @return The bytes for token.
        */
       public com.google.protobuf.ByteString
           getTokenBytes() {
@@ -2054,6 +2150,8 @@ public final class CafeService {
       }
       /**
        * <code>string token = 5;</code>
+       * @param value The token to set.
+       * @return This builder for chaining.
        */
       public Builder setToken(
           java.lang.String value) {
@@ -2067,6 +2165,7 @@ public final class CafeService {
       }
       /**
        * <code>string token = 5;</code>
+       * @return This builder for chaining.
        */
       public Builder clearToken() {
         
@@ -2076,6 +2175,8 @@ public final class CafeService {
       }
       /**
        * <code>string token = 5;</code>
+       * @param value The bytes for token to set.
+       * @return This builder for chaining.
        */
       public Builder setTokenBytes(
           com.google.protobuf.ByteString value) {
@@ -2091,7 +2192,7 @@ public final class CafeService {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -2147,10 +2248,12 @@ public final class CafeService {
 
     /**
      * <code>string token = 1;</code>
+     * @return The token.
      */
     java.lang.String getToken();
     /**
      * <code>string token = 1;</code>
+     * @return The bytes for token.
      */
     com.google.protobuf.ByteString
         getTokenBytes();
@@ -2158,7 +2261,7 @@ public final class CafeService {
   /**
    * Protobuf type {@code CafeDeregistration}
    */
-  public  static final class CafeDeregistration extends
+  public static final class CafeDeregistration extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:CafeDeregistration)
       CafeDeregistrationOrBuilder {
@@ -2169,6 +2272,13 @@ public final class CafeService {
     }
     private CafeDeregistration() {
       token_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new CafeDeregistration();
     }
 
     @java.lang.Override
@@ -2184,7 +2294,6 @@ public final class CafeService {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -2202,7 +2311,7 @@ public final class CafeService {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -2237,7 +2346,9 @@ public final class CafeService {
     private volatile java.lang.Object token_;
     /**
      * <code>string token = 1;</code>
+     * @return The token.
      */
+    @java.lang.Override
     public java.lang.String getToken() {
       java.lang.Object ref = token_;
       if (ref instanceof java.lang.String) {
@@ -2252,7 +2363,9 @@ public final class CafeService {
     }
     /**
      * <code>string token = 1;</code>
+     * @return The bytes for token.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getTokenBytes() {
       java.lang.Object ref = token_;
@@ -2311,11 +2424,10 @@ public final class CafeService {
       }
       sjtu.opennet.textilepb.CafeService.CafeDeregistration other = (sjtu.opennet.textilepb.CafeService.CafeDeregistration) obj;
 
-      boolean result = true;
-      result = result && getToken()
-          .equals(other.getToken());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getToken()
+          .equals(other.getToken())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -2495,35 +2607,35 @@ public final class CafeService {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -2573,6 +2685,7 @@ public final class CafeService {
       private java.lang.Object token_ = "";
       /**
        * <code>string token = 1;</code>
+       * @return The token.
        */
       public java.lang.String getToken() {
         java.lang.Object ref = token_;
@@ -2588,6 +2701,7 @@ public final class CafeService {
       }
       /**
        * <code>string token = 1;</code>
+       * @return The bytes for token.
        */
       public com.google.protobuf.ByteString
           getTokenBytes() {
@@ -2604,6 +2718,8 @@ public final class CafeService {
       }
       /**
        * <code>string token = 1;</code>
+       * @param value The token to set.
+       * @return This builder for chaining.
        */
       public Builder setToken(
           java.lang.String value) {
@@ -2617,6 +2733,7 @@ public final class CafeService {
       }
       /**
        * <code>string token = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearToken() {
         
@@ -2626,6 +2743,8 @@ public final class CafeService {
       }
       /**
        * <code>string token = 1;</code>
+       * @param value The bytes for token to set.
+       * @return This builder for chaining.
        */
       public Builder setTokenBytes(
           com.google.protobuf.ByteString value) {
@@ -2641,7 +2760,7 @@ public final class CafeService {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -2697,10 +2816,12 @@ public final class CafeService {
 
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
     java.lang.String getId();
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
     com.google.protobuf.ByteString
         getIdBytes();
@@ -2708,7 +2829,7 @@ public final class CafeService {
   /**
    * Protobuf type {@code CafeDeregistrationAck}
    */
-  public  static final class CafeDeregistrationAck extends
+  public static final class CafeDeregistrationAck extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:CafeDeregistrationAck)
       CafeDeregistrationAckOrBuilder {
@@ -2719,6 +2840,13 @@ public final class CafeService {
     }
     private CafeDeregistrationAck() {
       id_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new CafeDeregistrationAck();
     }
 
     @java.lang.Override
@@ -2734,7 +2862,6 @@ public final class CafeService {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -2752,7 +2879,7 @@ public final class CafeService {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -2787,7 +2914,9 @@ public final class CafeService {
     private volatile java.lang.Object id_;
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
+    @java.lang.Override
     public java.lang.String getId() {
       java.lang.Object ref = id_;
       if (ref instanceof java.lang.String) {
@@ -2802,7 +2931,9 @@ public final class CafeService {
     }
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getIdBytes() {
       java.lang.Object ref = id_;
@@ -2861,11 +2992,10 @@ public final class CafeService {
       }
       sjtu.opennet.textilepb.CafeService.CafeDeregistrationAck other = (sjtu.opennet.textilepb.CafeService.CafeDeregistrationAck) obj;
 
-      boolean result = true;
-      result = result && getId()
-          .equals(other.getId());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getId()
+          .equals(other.getId())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -3045,35 +3175,35 @@ public final class CafeService {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -3123,6 +3253,7 @@ public final class CafeService {
       private java.lang.Object id_ = "";
       /**
        * <code>string id = 1;</code>
+       * @return The id.
        */
       public java.lang.String getId() {
         java.lang.Object ref = id_;
@@ -3138,6 +3269,7 @@ public final class CafeService {
       }
       /**
        * <code>string id = 1;</code>
+       * @return The bytes for id.
        */
       public com.google.protobuf.ByteString
           getIdBytes() {
@@ -3154,6 +3286,8 @@ public final class CafeService {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The id to set.
+       * @return This builder for chaining.
        */
       public Builder setId(
           java.lang.String value) {
@@ -3167,6 +3301,7 @@ public final class CafeService {
       }
       /**
        * <code>string id = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearId() {
         
@@ -3176,6 +3311,8 @@ public final class CafeService {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The bytes for id to set.
+       * @return This builder for chaining.
        */
       public Builder setIdBytes(
           com.google.protobuf.ByteString value) {
@@ -3191,7 +3328,7 @@ public final class CafeService {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -3247,20 +3384,24 @@ public final class CafeService {
 
     /**
      * <code>string access = 1;</code>
+     * @return The access.
      */
     java.lang.String getAccess();
     /**
      * <code>string access = 1;</code>
+     * @return The bytes for access.
      */
     com.google.protobuf.ByteString
         getAccessBytes();
 
     /**
      * <code>string refresh = 2;</code>
+     * @return The refresh.
      */
     java.lang.String getRefresh();
     /**
      * <code>string refresh = 2;</code>
+     * @return The bytes for refresh.
      */
     com.google.protobuf.ByteString
         getRefreshBytes();
@@ -3268,7 +3409,7 @@ public final class CafeService {
   /**
    * Protobuf type {@code CafeRefreshSession}
    */
-  public  static final class CafeRefreshSession extends
+  public static final class CafeRefreshSession extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:CafeRefreshSession)
       CafeRefreshSessionOrBuilder {
@@ -3280,6 +3421,13 @@ public final class CafeService {
     private CafeRefreshSession() {
       access_ = "";
       refresh_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new CafeRefreshSession();
     }
 
     @java.lang.Override
@@ -3295,7 +3443,6 @@ public final class CafeService {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -3319,7 +3466,7 @@ public final class CafeService {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -3354,7 +3501,9 @@ public final class CafeService {
     private volatile java.lang.Object access_;
     /**
      * <code>string access = 1;</code>
+     * @return The access.
      */
+    @java.lang.Override
     public java.lang.String getAccess() {
       java.lang.Object ref = access_;
       if (ref instanceof java.lang.String) {
@@ -3369,7 +3518,9 @@ public final class CafeService {
     }
     /**
      * <code>string access = 1;</code>
+     * @return The bytes for access.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAccessBytes() {
       java.lang.Object ref = access_;
@@ -3388,7 +3539,9 @@ public final class CafeService {
     private volatile java.lang.Object refresh_;
     /**
      * <code>string refresh = 2;</code>
+     * @return The refresh.
      */
+    @java.lang.Override
     public java.lang.String getRefresh() {
       java.lang.Object ref = refresh_;
       if (ref instanceof java.lang.String) {
@@ -3403,7 +3556,9 @@ public final class CafeService {
     }
     /**
      * <code>string refresh = 2;</code>
+     * @return The bytes for refresh.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getRefreshBytes() {
       java.lang.Object ref = refresh_;
@@ -3468,13 +3623,12 @@ public final class CafeService {
       }
       sjtu.opennet.textilepb.CafeService.CafeRefreshSession other = (sjtu.opennet.textilepb.CafeService.CafeRefreshSession) obj;
 
-      boolean result = true;
-      result = result && getAccess()
-          .equals(other.getAccess());
-      result = result && getRefresh()
-          .equals(other.getRefresh());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getAccess()
+          .equals(other.getAccess())) return false;
+      if (!getRefresh()
+          .equals(other.getRefresh())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -3659,35 +3813,35 @@ public final class CafeService {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -3741,6 +3895,7 @@ public final class CafeService {
       private java.lang.Object access_ = "";
       /**
        * <code>string access = 1;</code>
+       * @return The access.
        */
       public java.lang.String getAccess() {
         java.lang.Object ref = access_;
@@ -3756,6 +3911,7 @@ public final class CafeService {
       }
       /**
        * <code>string access = 1;</code>
+       * @return The bytes for access.
        */
       public com.google.protobuf.ByteString
           getAccessBytes() {
@@ -3772,6 +3928,8 @@ public final class CafeService {
       }
       /**
        * <code>string access = 1;</code>
+       * @param value The access to set.
+       * @return This builder for chaining.
        */
       public Builder setAccess(
           java.lang.String value) {
@@ -3785,6 +3943,7 @@ public final class CafeService {
       }
       /**
        * <code>string access = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearAccess() {
         
@@ -3794,6 +3953,8 @@ public final class CafeService {
       }
       /**
        * <code>string access = 1;</code>
+       * @param value The bytes for access to set.
+       * @return This builder for chaining.
        */
       public Builder setAccessBytes(
           com.google.protobuf.ByteString value) {
@@ -3810,6 +3971,7 @@ public final class CafeService {
       private java.lang.Object refresh_ = "";
       /**
        * <code>string refresh = 2;</code>
+       * @return The refresh.
        */
       public java.lang.String getRefresh() {
         java.lang.Object ref = refresh_;
@@ -3825,6 +3987,7 @@ public final class CafeService {
       }
       /**
        * <code>string refresh = 2;</code>
+       * @return The bytes for refresh.
        */
       public com.google.protobuf.ByteString
           getRefreshBytes() {
@@ -3841,6 +4004,8 @@ public final class CafeService {
       }
       /**
        * <code>string refresh = 2;</code>
+       * @param value The refresh to set.
+       * @return This builder for chaining.
        */
       public Builder setRefresh(
           java.lang.String value) {
@@ -3854,6 +4019,7 @@ public final class CafeService {
       }
       /**
        * <code>string refresh = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearRefresh() {
         
@@ -3863,6 +4029,8 @@ public final class CafeService {
       }
       /**
        * <code>string refresh = 2;</code>
+       * @param value The bytes for refresh to set.
+       * @return This builder for chaining.
        */
       public Builder setRefreshBytes(
           com.google.protobuf.ByteString value) {
@@ -3878,7 +4046,7 @@ public final class CafeService {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -3934,20 +4102,24 @@ public final class CafeService {
 
     /**
      * <code>string token = 1;</code>
+     * @return The token.
      */
     java.lang.String getToken();
     /**
      * <code>string token = 1;</code>
+     * @return The bytes for token.
      */
     com.google.protobuf.ByteString
         getTokenBytes();
 
     /**
      * <code>.Peer peer = 2;</code>
+     * @return Whether the peer field is set.
      */
     boolean hasPeer();
     /**
      * <code>.Peer peer = 2;</code>
+     * @return The peer.
      */
     sjtu.opennet.textilepb.Model.Peer getPeer();
     /**
@@ -3958,7 +4130,7 @@ public final class CafeService {
   /**
    * Protobuf type {@code CafePublishPeer}
    */
-  public  static final class CafePublishPeer extends
+  public static final class CafePublishPeer extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:CafePublishPeer)
       CafePublishPeerOrBuilder {
@@ -3969,6 +4141,13 @@ public final class CafeService {
     }
     private CafePublishPeer() {
       token_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new CafePublishPeer();
     }
 
     @java.lang.Override
@@ -3984,7 +4163,6 @@ public final class CafeService {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -4015,7 +4193,7 @@ public final class CafeService {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -4050,7 +4228,9 @@ public final class CafeService {
     private volatile java.lang.Object token_;
     /**
      * <code>string token = 1;</code>
+     * @return The token.
      */
+    @java.lang.Override
     public java.lang.String getToken() {
       java.lang.Object ref = token_;
       if (ref instanceof java.lang.String) {
@@ -4065,7 +4245,9 @@ public final class CafeService {
     }
     /**
      * <code>string token = 1;</code>
+     * @return The bytes for token.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getTokenBytes() {
       java.lang.Object ref = token_;
@@ -4084,19 +4266,24 @@ public final class CafeService {
     private sjtu.opennet.textilepb.Model.Peer peer_;
     /**
      * <code>.Peer peer = 2;</code>
+     * @return Whether the peer field is set.
      */
+    @java.lang.Override
     public boolean hasPeer() {
       return peer_ != null;
     }
     /**
      * <code>.Peer peer = 2;</code>
+     * @return The peer.
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.Peer getPeer() {
       return peer_ == null ? sjtu.opennet.textilepb.Model.Peer.getDefaultInstance() : peer_;
     }
     /**
      * <code>.Peer peer = 2;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.PeerOrBuilder getPeerOrBuilder() {
       return getPeer();
     }
@@ -4152,16 +4339,15 @@ public final class CafeService {
       }
       sjtu.opennet.textilepb.CafeService.CafePublishPeer other = (sjtu.opennet.textilepb.CafeService.CafePublishPeer) obj;
 
-      boolean result = true;
-      result = result && getToken()
-          .equals(other.getToken());
-      result = result && (hasPeer() == other.hasPeer());
+      if (!getToken()
+          .equals(other.getToken())) return false;
+      if (hasPeer() != other.hasPeer()) return false;
       if (hasPeer()) {
-        result = result && getPeer()
-            .equals(other.getPeer());
+        if (!getPeer()
+            .equals(other.getPeer())) return false;
       }
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -4356,35 +4542,35 @@ public final class CafeService {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -4437,6 +4623,7 @@ public final class CafeService {
       private java.lang.Object token_ = "";
       /**
        * <code>string token = 1;</code>
+       * @return The token.
        */
       public java.lang.String getToken() {
         java.lang.Object ref = token_;
@@ -4452,6 +4639,7 @@ public final class CafeService {
       }
       /**
        * <code>string token = 1;</code>
+       * @return The bytes for token.
        */
       public com.google.protobuf.ByteString
           getTokenBytes() {
@@ -4468,6 +4656,8 @@ public final class CafeService {
       }
       /**
        * <code>string token = 1;</code>
+       * @param value The token to set.
+       * @return This builder for chaining.
        */
       public Builder setToken(
           java.lang.String value) {
@@ -4481,6 +4671,7 @@ public final class CafeService {
       }
       /**
        * <code>string token = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearToken() {
         
@@ -4490,6 +4681,8 @@ public final class CafeService {
       }
       /**
        * <code>string token = 1;</code>
+       * @param value The bytes for token to set.
+       * @return This builder for chaining.
        */
       public Builder setTokenBytes(
           com.google.protobuf.ByteString value) {
@@ -4503,17 +4696,19 @@ public final class CafeService {
         return this;
       }
 
-      private sjtu.opennet.textilepb.Model.Peer peer_ = null;
+      private sjtu.opennet.textilepb.Model.Peer peer_;
       private com.google.protobuf.SingleFieldBuilderV3<
           sjtu.opennet.textilepb.Model.Peer, sjtu.opennet.textilepb.Model.Peer.Builder, sjtu.opennet.textilepb.Model.PeerOrBuilder> peerBuilder_;
       /**
        * <code>.Peer peer = 2;</code>
+       * @return Whether the peer field is set.
        */
       public boolean hasPeer() {
         return peerBuilder_ != null || peer_ != null;
       }
       /**
        * <code>.Peer peer = 2;</code>
+       * @return The peer.
        */
       public sjtu.opennet.textilepb.Model.Peer getPeer() {
         if (peerBuilder_ == null) {
@@ -4622,7 +4817,7 @@ public final class CafeService {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -4678,10 +4873,12 @@ public final class CafeService {
 
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
     java.lang.String getId();
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
     com.google.protobuf.ByteString
         getIdBytes();
@@ -4689,7 +4886,7 @@ public final class CafeService {
   /**
    * Protobuf type {@code CafePublishPeerAck}
    */
-  public  static final class CafePublishPeerAck extends
+  public static final class CafePublishPeerAck extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:CafePublishPeerAck)
       CafePublishPeerAckOrBuilder {
@@ -4700,6 +4897,13 @@ public final class CafeService {
     }
     private CafePublishPeerAck() {
       id_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new CafePublishPeerAck();
     }
 
     @java.lang.Override
@@ -4715,7 +4919,6 @@ public final class CafeService {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -4733,7 +4936,7 @@ public final class CafeService {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -4768,7 +4971,9 @@ public final class CafeService {
     private volatile java.lang.Object id_;
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
+    @java.lang.Override
     public java.lang.String getId() {
       java.lang.Object ref = id_;
       if (ref instanceof java.lang.String) {
@@ -4783,7 +4988,9 @@ public final class CafeService {
     }
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getIdBytes() {
       java.lang.Object ref = id_;
@@ -4842,11 +5049,10 @@ public final class CafeService {
       }
       sjtu.opennet.textilepb.CafeService.CafePublishPeerAck other = (sjtu.opennet.textilepb.CafeService.CafePublishPeerAck) obj;
 
-      boolean result = true;
-      result = result && getId()
-          .equals(other.getId());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getId()
+          .equals(other.getId())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -5026,35 +5232,35 @@ public final class CafeService {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -5104,6 +5310,7 @@ public final class CafeService {
       private java.lang.Object id_ = "";
       /**
        * <code>string id = 1;</code>
+       * @return The id.
        */
       public java.lang.String getId() {
         java.lang.Object ref = id_;
@@ -5119,6 +5326,7 @@ public final class CafeService {
       }
       /**
        * <code>string id = 1;</code>
+       * @return The bytes for id.
        */
       public com.google.protobuf.ByteString
           getIdBytes() {
@@ -5135,6 +5343,8 @@ public final class CafeService {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The id to set.
+       * @return This builder for chaining.
        */
       public Builder setId(
           java.lang.String value) {
@@ -5148,6 +5358,7 @@ public final class CafeService {
       }
       /**
        * <code>string id = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearId() {
         
@@ -5157,6 +5368,8 @@ public final class CafeService {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The bytes for id to set.
+       * @return This builder for chaining.
        */
       public Builder setIdBytes(
           com.google.protobuf.ByteString value) {
@@ -5172,7 +5385,7 @@ public final class CafeService {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -5228,29 +5441,37 @@ public final class CafeService {
 
     /**
      * <code>string token = 1;</code>
+     * @return The token.
      */
     java.lang.String getToken();
     /**
      * <code>string token = 1;</code>
+     * @return The bytes for token.
      */
     com.google.protobuf.ByteString
         getTokenBytes();
 
     /**
      * <code>repeated string cids = 2;</code>
+     * @return A list containing the cids.
      */
     java.util.List<java.lang.String>
         getCidsList();
     /**
      * <code>repeated string cids = 2;</code>
+     * @return The count of cids.
      */
     int getCidsCount();
     /**
      * <code>repeated string cids = 2;</code>
+     * @param index The index of the element to return.
+     * @return The cids at the given index.
      */
     java.lang.String getCids(int index);
     /**
      * <code>repeated string cids = 2;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the cids at the given index.
      */
     com.google.protobuf.ByteString
         getCidsBytes(int index);
@@ -5258,7 +5479,7 @@ public final class CafeService {
   /**
    * Protobuf type {@code CafeStore}
    */
-  public  static final class CafeStore extends
+  public static final class CafeStore extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:CafeStore)
       CafeStoreOrBuilder {
@@ -5270,6 +5491,13 @@ public final class CafeService {
     private CafeStore() {
       token_ = "";
       cids_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new CafeStore();
     }
 
     @java.lang.Override
@@ -5304,15 +5532,15 @@ public final class CafeService {
             }
             case 18: {
               java.lang.String s = input.readStringRequireUtf8();
-              if (!((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
                 cids_ = new com.google.protobuf.LazyStringArrayList();
-                mutable_bitField0_ |= 0x00000002;
+                mutable_bitField0_ |= 0x00000001;
               }
               cids_.add(s);
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -5326,7 +5554,7 @@ public final class CafeService {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
           cids_ = cids_.getUnmodifiableView();
         }
         this.unknownFields = unknownFields.build();
@@ -5346,12 +5574,13 @@ public final class CafeService {
               sjtu.opennet.textilepb.CafeService.CafeStore.class, sjtu.opennet.textilepb.CafeService.CafeStore.Builder.class);
     }
 
-    private int bitField0_;
     public static final int TOKEN_FIELD_NUMBER = 1;
     private volatile java.lang.Object token_;
     /**
      * <code>string token = 1;</code>
+     * @return The token.
      */
+    @java.lang.Override
     public java.lang.String getToken() {
       java.lang.Object ref = token_;
       if (ref instanceof java.lang.String) {
@@ -5366,7 +5595,9 @@ public final class CafeService {
     }
     /**
      * <code>string token = 1;</code>
+     * @return The bytes for token.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getTokenBytes() {
       java.lang.Object ref = token_;
@@ -5385,6 +5616,7 @@ public final class CafeService {
     private com.google.protobuf.LazyStringList cids_;
     /**
      * <code>repeated string cids = 2;</code>
+     * @return A list containing the cids.
      */
     public com.google.protobuf.ProtocolStringList
         getCidsList() {
@@ -5392,18 +5624,23 @@ public final class CafeService {
     }
     /**
      * <code>repeated string cids = 2;</code>
+     * @return The count of cids.
      */
     public int getCidsCount() {
       return cids_.size();
     }
     /**
      * <code>repeated string cids = 2;</code>
+     * @param index The index of the element to return.
+     * @return The cids at the given index.
      */
     public java.lang.String getCids(int index) {
       return cids_.get(index);
     }
     /**
      * <code>repeated string cids = 2;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the cids at the given index.
      */
     public com.google.protobuf.ByteString
         getCidsBytes(int index) {
@@ -5465,13 +5702,12 @@ public final class CafeService {
       }
       sjtu.opennet.textilepb.CafeService.CafeStore other = (sjtu.opennet.textilepb.CafeService.CafeStore) obj;
 
-      boolean result = true;
-      result = result && getToken()
-          .equals(other.getToken());
-      result = result && getCidsList()
-          .equals(other.getCidsList());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getToken()
+          .equals(other.getToken())) return false;
+      if (!getCidsList()
+          .equals(other.getCidsList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -5623,7 +5859,7 @@ public final class CafeService {
         token_ = "";
 
         cids_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-        bitField0_ = (bitField0_ & ~0x00000002);
+        bitField0_ = (bitField0_ & ~0x00000001);
         return this;
       }
 
@@ -5651,49 +5887,47 @@ public final class CafeService {
       public sjtu.opennet.textilepb.CafeService.CafeStore buildPartial() {
         sjtu.opennet.textilepb.CafeService.CafeStore result = new sjtu.opennet.textilepb.CafeService.CafeStore(this);
         int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
         result.token_ = token_;
-        if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        if (((bitField0_ & 0x00000001) != 0)) {
           cids_ = cids_.getUnmodifiableView();
-          bitField0_ = (bitField0_ & ~0x00000002);
+          bitField0_ = (bitField0_ & ~0x00000001);
         }
         result.cids_ = cids_;
-        result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -5714,7 +5948,7 @@ public final class CafeService {
         if (!other.cids_.isEmpty()) {
           if (cids_.isEmpty()) {
             cids_ = other.cids_;
-            bitField0_ = (bitField0_ & ~0x00000002);
+            bitField0_ = (bitField0_ & ~0x00000001);
           } else {
             ensureCidsIsMutable();
             cids_.addAll(other.cids_);
@@ -5754,6 +5988,7 @@ public final class CafeService {
       private java.lang.Object token_ = "";
       /**
        * <code>string token = 1;</code>
+       * @return The token.
        */
       public java.lang.String getToken() {
         java.lang.Object ref = token_;
@@ -5769,6 +6004,7 @@ public final class CafeService {
       }
       /**
        * <code>string token = 1;</code>
+       * @return The bytes for token.
        */
       public com.google.protobuf.ByteString
           getTokenBytes() {
@@ -5785,6 +6021,8 @@ public final class CafeService {
       }
       /**
        * <code>string token = 1;</code>
+       * @param value The token to set.
+       * @return This builder for chaining.
        */
       public Builder setToken(
           java.lang.String value) {
@@ -5798,6 +6036,7 @@ public final class CafeService {
       }
       /**
        * <code>string token = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearToken() {
         
@@ -5807,6 +6046,8 @@ public final class CafeService {
       }
       /**
        * <code>string token = 1;</code>
+       * @param value The bytes for token to set.
+       * @return This builder for chaining.
        */
       public Builder setTokenBytes(
           com.google.protobuf.ByteString value) {
@@ -5822,13 +6063,14 @@ public final class CafeService {
 
       private com.google.protobuf.LazyStringList cids_ = com.google.protobuf.LazyStringArrayList.EMPTY;
       private void ensureCidsIsMutable() {
-        if (!((bitField0_ & 0x00000002) == 0x00000002)) {
+        if (!((bitField0_ & 0x00000001) != 0)) {
           cids_ = new com.google.protobuf.LazyStringArrayList(cids_);
-          bitField0_ |= 0x00000002;
+          bitField0_ |= 0x00000001;
          }
       }
       /**
        * <code>repeated string cids = 2;</code>
+       * @return A list containing the cids.
        */
       public com.google.protobuf.ProtocolStringList
           getCidsList() {
@@ -5836,18 +6078,23 @@ public final class CafeService {
       }
       /**
        * <code>repeated string cids = 2;</code>
+       * @return The count of cids.
        */
       public int getCidsCount() {
         return cids_.size();
       }
       /**
        * <code>repeated string cids = 2;</code>
+       * @param index The index of the element to return.
+       * @return The cids at the given index.
        */
       public java.lang.String getCids(int index) {
         return cids_.get(index);
       }
       /**
        * <code>repeated string cids = 2;</code>
+       * @param index The index of the value to return.
+       * @return The bytes of the cids at the given index.
        */
       public com.google.protobuf.ByteString
           getCidsBytes(int index) {
@@ -5855,6 +6102,9 @@ public final class CafeService {
       }
       /**
        * <code>repeated string cids = 2;</code>
+       * @param index The index to set the value at.
+       * @param value The cids to set.
+       * @return This builder for chaining.
        */
       public Builder setCids(
           int index, java.lang.String value) {
@@ -5868,6 +6118,8 @@ public final class CafeService {
       }
       /**
        * <code>repeated string cids = 2;</code>
+       * @param value The cids to add.
+       * @return This builder for chaining.
        */
       public Builder addCids(
           java.lang.String value) {
@@ -5881,6 +6133,8 @@ public final class CafeService {
       }
       /**
        * <code>repeated string cids = 2;</code>
+       * @param values The cids to add.
+       * @return This builder for chaining.
        */
       public Builder addAllCids(
           java.lang.Iterable<java.lang.String> values) {
@@ -5892,15 +6146,18 @@ public final class CafeService {
       }
       /**
        * <code>repeated string cids = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearCids() {
         cids_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-        bitField0_ = (bitField0_ & ~0x00000002);
+        bitField0_ = (bitField0_ & ~0x00000001);
         onChanged();
         return this;
       }
       /**
        * <code>repeated string cids = 2;</code>
+       * @param value The bytes of the cids to add.
+       * @return This builder for chaining.
        */
       public Builder addCidsBytes(
           com.google.protobuf.ByteString value) {
@@ -5916,7 +6173,7 @@ public final class CafeService {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -5972,10 +6229,12 @@ public final class CafeService {
 
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
     java.lang.String getId();
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
     com.google.protobuf.ByteString
         getIdBytes();
@@ -5983,7 +6242,7 @@ public final class CafeService {
   /**
    * Protobuf type {@code CafeStoreAck}
    */
-  public  static final class CafeStoreAck extends
+  public static final class CafeStoreAck extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:CafeStoreAck)
       CafeStoreAckOrBuilder {
@@ -5994,6 +6253,13 @@ public final class CafeService {
     }
     private CafeStoreAck() {
       id_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new CafeStoreAck();
     }
 
     @java.lang.Override
@@ -6009,7 +6275,6 @@ public final class CafeService {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -6027,7 +6292,7 @@ public final class CafeService {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -6062,7 +6327,9 @@ public final class CafeService {
     private volatile java.lang.Object id_;
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
+    @java.lang.Override
     public java.lang.String getId() {
       java.lang.Object ref = id_;
       if (ref instanceof java.lang.String) {
@@ -6077,7 +6344,9 @@ public final class CafeService {
     }
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getIdBytes() {
       java.lang.Object ref = id_;
@@ -6136,11 +6405,10 @@ public final class CafeService {
       }
       sjtu.opennet.textilepb.CafeService.CafeStoreAck other = (sjtu.opennet.textilepb.CafeService.CafeStoreAck) obj;
 
-      boolean result = true;
-      result = result && getId()
-          .equals(other.getId());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getId()
+          .equals(other.getId())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -6320,35 +6588,35 @@ public final class CafeService {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -6398,6 +6666,7 @@ public final class CafeService {
       private java.lang.Object id_ = "";
       /**
        * <code>string id = 1;</code>
+       * @return The id.
        */
       public java.lang.String getId() {
         java.lang.Object ref = id_;
@@ -6413,6 +6682,7 @@ public final class CafeService {
       }
       /**
        * <code>string id = 1;</code>
+       * @return The bytes for id.
        */
       public com.google.protobuf.ByteString
           getIdBytes() {
@@ -6429,6 +6699,8 @@ public final class CafeService {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The id to set.
+       * @return This builder for chaining.
        */
       public Builder setId(
           java.lang.String value) {
@@ -6442,6 +6714,7 @@ public final class CafeService {
       }
       /**
        * <code>string id = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearId() {
         
@@ -6451,6 +6724,8 @@ public final class CafeService {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The bytes for id to set.
+       * @return This builder for chaining.
        */
       public Builder setIdBytes(
           com.google.protobuf.ByteString value) {
@@ -6466,7 +6741,7 @@ public final class CafeService {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -6522,29 +6797,37 @@ public final class CafeService {
 
     /**
      * <code>string token = 1;</code>
+     * @return The token.
      */
     java.lang.String getToken();
     /**
      * <code>string token = 1;</code>
+     * @return The bytes for token.
      */
     com.google.protobuf.ByteString
         getTokenBytes();
 
     /**
      * <code>repeated string cids = 2;</code>
+     * @return A list containing the cids.
      */
     java.util.List<java.lang.String>
         getCidsList();
     /**
      * <code>repeated string cids = 2;</code>
+     * @return The count of cids.
      */
     int getCidsCount();
     /**
      * <code>repeated string cids = 2;</code>
+     * @param index The index of the element to return.
+     * @return The cids at the given index.
      */
     java.lang.String getCids(int index);
     /**
      * <code>repeated string cids = 2;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the cids at the given index.
      */
     com.google.protobuf.ByteString
         getCidsBytes(int index);
@@ -6552,7 +6835,7 @@ public final class CafeService {
   /**
    * Protobuf type {@code CafeUnstore}
    */
-  public  static final class CafeUnstore extends
+  public static final class CafeUnstore extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:CafeUnstore)
       CafeUnstoreOrBuilder {
@@ -6564,6 +6847,13 @@ public final class CafeService {
     private CafeUnstore() {
       token_ = "";
       cids_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new CafeUnstore();
     }
 
     @java.lang.Override
@@ -6598,15 +6888,15 @@ public final class CafeService {
             }
             case 18: {
               java.lang.String s = input.readStringRequireUtf8();
-              if (!((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
                 cids_ = new com.google.protobuf.LazyStringArrayList();
-                mutable_bitField0_ |= 0x00000002;
+                mutable_bitField0_ |= 0x00000001;
               }
               cids_.add(s);
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -6620,7 +6910,7 @@ public final class CafeService {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
           cids_ = cids_.getUnmodifiableView();
         }
         this.unknownFields = unknownFields.build();
@@ -6640,12 +6930,13 @@ public final class CafeService {
               sjtu.opennet.textilepb.CafeService.CafeUnstore.class, sjtu.opennet.textilepb.CafeService.CafeUnstore.Builder.class);
     }
 
-    private int bitField0_;
     public static final int TOKEN_FIELD_NUMBER = 1;
     private volatile java.lang.Object token_;
     /**
      * <code>string token = 1;</code>
+     * @return The token.
      */
+    @java.lang.Override
     public java.lang.String getToken() {
       java.lang.Object ref = token_;
       if (ref instanceof java.lang.String) {
@@ -6660,7 +6951,9 @@ public final class CafeService {
     }
     /**
      * <code>string token = 1;</code>
+     * @return The bytes for token.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getTokenBytes() {
       java.lang.Object ref = token_;
@@ -6679,6 +6972,7 @@ public final class CafeService {
     private com.google.protobuf.LazyStringList cids_;
     /**
      * <code>repeated string cids = 2;</code>
+     * @return A list containing the cids.
      */
     public com.google.protobuf.ProtocolStringList
         getCidsList() {
@@ -6686,18 +6980,23 @@ public final class CafeService {
     }
     /**
      * <code>repeated string cids = 2;</code>
+     * @return The count of cids.
      */
     public int getCidsCount() {
       return cids_.size();
     }
     /**
      * <code>repeated string cids = 2;</code>
+     * @param index The index of the element to return.
+     * @return The cids at the given index.
      */
     public java.lang.String getCids(int index) {
       return cids_.get(index);
     }
     /**
      * <code>repeated string cids = 2;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the cids at the given index.
      */
     public com.google.protobuf.ByteString
         getCidsBytes(int index) {
@@ -6759,13 +7058,12 @@ public final class CafeService {
       }
       sjtu.opennet.textilepb.CafeService.CafeUnstore other = (sjtu.opennet.textilepb.CafeService.CafeUnstore) obj;
 
-      boolean result = true;
-      result = result && getToken()
-          .equals(other.getToken());
-      result = result && getCidsList()
-          .equals(other.getCidsList());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getToken()
+          .equals(other.getToken())) return false;
+      if (!getCidsList()
+          .equals(other.getCidsList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -6917,7 +7215,7 @@ public final class CafeService {
         token_ = "";
 
         cids_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-        bitField0_ = (bitField0_ & ~0x00000002);
+        bitField0_ = (bitField0_ & ~0x00000001);
         return this;
       }
 
@@ -6945,49 +7243,47 @@ public final class CafeService {
       public sjtu.opennet.textilepb.CafeService.CafeUnstore buildPartial() {
         sjtu.opennet.textilepb.CafeService.CafeUnstore result = new sjtu.opennet.textilepb.CafeService.CafeUnstore(this);
         int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
         result.token_ = token_;
-        if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        if (((bitField0_ & 0x00000001) != 0)) {
           cids_ = cids_.getUnmodifiableView();
-          bitField0_ = (bitField0_ & ~0x00000002);
+          bitField0_ = (bitField0_ & ~0x00000001);
         }
         result.cids_ = cids_;
-        result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -7008,7 +7304,7 @@ public final class CafeService {
         if (!other.cids_.isEmpty()) {
           if (cids_.isEmpty()) {
             cids_ = other.cids_;
-            bitField0_ = (bitField0_ & ~0x00000002);
+            bitField0_ = (bitField0_ & ~0x00000001);
           } else {
             ensureCidsIsMutable();
             cids_.addAll(other.cids_);
@@ -7048,6 +7344,7 @@ public final class CafeService {
       private java.lang.Object token_ = "";
       /**
        * <code>string token = 1;</code>
+       * @return The token.
        */
       public java.lang.String getToken() {
         java.lang.Object ref = token_;
@@ -7063,6 +7360,7 @@ public final class CafeService {
       }
       /**
        * <code>string token = 1;</code>
+       * @return The bytes for token.
        */
       public com.google.protobuf.ByteString
           getTokenBytes() {
@@ -7079,6 +7377,8 @@ public final class CafeService {
       }
       /**
        * <code>string token = 1;</code>
+       * @param value The token to set.
+       * @return This builder for chaining.
        */
       public Builder setToken(
           java.lang.String value) {
@@ -7092,6 +7392,7 @@ public final class CafeService {
       }
       /**
        * <code>string token = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearToken() {
         
@@ -7101,6 +7402,8 @@ public final class CafeService {
       }
       /**
        * <code>string token = 1;</code>
+       * @param value The bytes for token to set.
+       * @return This builder for chaining.
        */
       public Builder setTokenBytes(
           com.google.protobuf.ByteString value) {
@@ -7116,13 +7419,14 @@ public final class CafeService {
 
       private com.google.protobuf.LazyStringList cids_ = com.google.protobuf.LazyStringArrayList.EMPTY;
       private void ensureCidsIsMutable() {
-        if (!((bitField0_ & 0x00000002) == 0x00000002)) {
+        if (!((bitField0_ & 0x00000001) != 0)) {
           cids_ = new com.google.protobuf.LazyStringArrayList(cids_);
-          bitField0_ |= 0x00000002;
+          bitField0_ |= 0x00000001;
          }
       }
       /**
        * <code>repeated string cids = 2;</code>
+       * @return A list containing the cids.
        */
       public com.google.protobuf.ProtocolStringList
           getCidsList() {
@@ -7130,18 +7434,23 @@ public final class CafeService {
       }
       /**
        * <code>repeated string cids = 2;</code>
+       * @return The count of cids.
        */
       public int getCidsCount() {
         return cids_.size();
       }
       /**
        * <code>repeated string cids = 2;</code>
+       * @param index The index of the element to return.
+       * @return The cids at the given index.
        */
       public java.lang.String getCids(int index) {
         return cids_.get(index);
       }
       /**
        * <code>repeated string cids = 2;</code>
+       * @param index The index of the value to return.
+       * @return The bytes of the cids at the given index.
        */
       public com.google.protobuf.ByteString
           getCidsBytes(int index) {
@@ -7149,6 +7458,9 @@ public final class CafeService {
       }
       /**
        * <code>repeated string cids = 2;</code>
+       * @param index The index to set the value at.
+       * @param value The cids to set.
+       * @return This builder for chaining.
        */
       public Builder setCids(
           int index, java.lang.String value) {
@@ -7162,6 +7474,8 @@ public final class CafeService {
       }
       /**
        * <code>repeated string cids = 2;</code>
+       * @param value The cids to add.
+       * @return This builder for chaining.
        */
       public Builder addCids(
           java.lang.String value) {
@@ -7175,6 +7489,8 @@ public final class CafeService {
       }
       /**
        * <code>repeated string cids = 2;</code>
+       * @param values The cids to add.
+       * @return This builder for chaining.
        */
       public Builder addAllCids(
           java.lang.Iterable<java.lang.String> values) {
@@ -7186,15 +7502,18 @@ public final class CafeService {
       }
       /**
        * <code>repeated string cids = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearCids() {
         cids_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-        bitField0_ = (bitField0_ & ~0x00000002);
+        bitField0_ = (bitField0_ & ~0x00000001);
         onChanged();
         return this;
       }
       /**
        * <code>repeated string cids = 2;</code>
+       * @param value The bytes of the cids to add.
+       * @return This builder for chaining.
        */
       public Builder addCidsBytes(
           com.google.protobuf.ByteString value) {
@@ -7210,7 +7529,7 @@ public final class CafeService {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -7266,19 +7585,25 @@ public final class CafeService {
 
     /**
      * <code>repeated string cids = 1;</code>
+     * @return A list containing the cids.
      */
     java.util.List<java.lang.String>
         getCidsList();
     /**
      * <code>repeated string cids = 1;</code>
+     * @return The count of cids.
      */
     int getCidsCount();
     /**
      * <code>repeated string cids = 1;</code>
+     * @param index The index of the element to return.
+     * @return The cids at the given index.
      */
     java.lang.String getCids(int index);
     /**
      * <code>repeated string cids = 1;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the cids at the given index.
      */
     com.google.protobuf.ByteString
         getCidsBytes(int index);
@@ -7286,7 +7611,7 @@ public final class CafeService {
   /**
    * Protobuf type {@code CafeUnstoreAck}
    */
-  public  static final class CafeUnstoreAck extends
+  public static final class CafeUnstoreAck extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:CafeUnstoreAck)
       CafeUnstoreAckOrBuilder {
@@ -7297,6 +7622,13 @@ public final class CafeService {
     }
     private CafeUnstoreAck() {
       cids_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new CafeUnstoreAck();
     }
 
     @java.lang.Override
@@ -7325,7 +7657,7 @@ public final class CafeService {
               break;
             case 10: {
               java.lang.String s = input.readStringRequireUtf8();
-              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
                 cids_ = new com.google.protobuf.LazyStringArrayList();
                 mutable_bitField0_ |= 0x00000001;
               }
@@ -7333,7 +7665,7 @@ public final class CafeService {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -7347,7 +7679,7 @@ public final class CafeService {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
           cids_ = cids_.getUnmodifiableView();
         }
         this.unknownFields = unknownFields.build();
@@ -7371,6 +7703,7 @@ public final class CafeService {
     private com.google.protobuf.LazyStringList cids_;
     /**
      * <code>repeated string cids = 1;</code>
+     * @return A list containing the cids.
      */
     public com.google.protobuf.ProtocolStringList
         getCidsList() {
@@ -7378,18 +7711,23 @@ public final class CafeService {
     }
     /**
      * <code>repeated string cids = 1;</code>
+     * @return The count of cids.
      */
     public int getCidsCount() {
       return cids_.size();
     }
     /**
      * <code>repeated string cids = 1;</code>
+     * @param index The index of the element to return.
+     * @return The cids at the given index.
      */
     public java.lang.String getCids(int index) {
       return cids_.get(index);
     }
     /**
      * <code>repeated string cids = 1;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the cids at the given index.
      */
     public com.google.protobuf.ByteString
         getCidsBytes(int index) {
@@ -7445,11 +7783,10 @@ public final class CafeService {
       }
       sjtu.opennet.textilepb.CafeService.CafeUnstoreAck other = (sjtu.opennet.textilepb.CafeService.CafeUnstoreAck) obj;
 
-      boolean result = true;
-      result = result && getCidsList()
-          .equals(other.getCidsList());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getCidsList()
+          .equals(other.getCidsList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -7625,7 +7962,7 @@ public final class CafeService {
       public sjtu.opennet.textilepb.CafeService.CafeUnstoreAck buildPartial() {
         sjtu.opennet.textilepb.CafeService.CafeUnstoreAck result = new sjtu.opennet.textilepb.CafeService.CafeUnstoreAck(this);
         int from_bitField0_ = bitField0_;
-        if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((bitField0_ & 0x00000001) != 0)) {
           cids_ = cids_.getUnmodifiableView();
           bitField0_ = (bitField0_ & ~0x00000001);
         }
@@ -7636,35 +7973,35 @@ public final class CafeService {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -7720,13 +8057,14 @@ public final class CafeService {
 
       private com.google.protobuf.LazyStringList cids_ = com.google.protobuf.LazyStringArrayList.EMPTY;
       private void ensureCidsIsMutable() {
-        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+        if (!((bitField0_ & 0x00000001) != 0)) {
           cids_ = new com.google.protobuf.LazyStringArrayList(cids_);
           bitField0_ |= 0x00000001;
          }
       }
       /**
        * <code>repeated string cids = 1;</code>
+       * @return A list containing the cids.
        */
       public com.google.protobuf.ProtocolStringList
           getCidsList() {
@@ -7734,18 +8072,23 @@ public final class CafeService {
       }
       /**
        * <code>repeated string cids = 1;</code>
+       * @return The count of cids.
        */
       public int getCidsCount() {
         return cids_.size();
       }
       /**
        * <code>repeated string cids = 1;</code>
+       * @param index The index of the element to return.
+       * @return The cids at the given index.
        */
       public java.lang.String getCids(int index) {
         return cids_.get(index);
       }
       /**
        * <code>repeated string cids = 1;</code>
+       * @param index The index of the value to return.
+       * @return The bytes of the cids at the given index.
        */
       public com.google.protobuf.ByteString
           getCidsBytes(int index) {
@@ -7753,6 +8096,9 @@ public final class CafeService {
       }
       /**
        * <code>repeated string cids = 1;</code>
+       * @param index The index to set the value at.
+       * @param value The cids to set.
+       * @return This builder for chaining.
        */
       public Builder setCids(
           int index, java.lang.String value) {
@@ -7766,6 +8112,8 @@ public final class CafeService {
       }
       /**
        * <code>repeated string cids = 1;</code>
+       * @param value The cids to add.
+       * @return This builder for chaining.
        */
       public Builder addCids(
           java.lang.String value) {
@@ -7779,6 +8127,8 @@ public final class CafeService {
       }
       /**
        * <code>repeated string cids = 1;</code>
+       * @param values The cids to add.
+       * @return This builder for chaining.
        */
       public Builder addAllCids(
           java.lang.Iterable<java.lang.String> values) {
@@ -7790,6 +8140,7 @@ public final class CafeService {
       }
       /**
        * <code>repeated string cids = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearCids() {
         cids_ = com.google.protobuf.LazyStringArrayList.EMPTY;
@@ -7799,6 +8150,8 @@ public final class CafeService {
       }
       /**
        * <code>repeated string cids = 1;</code>
+       * @param value The bytes of the cids to add.
+       * @return This builder for chaining.
        */
       public Builder addCidsBytes(
           com.google.protobuf.ByteString value) {
@@ -7814,7 +8167,7 @@ public final class CafeService {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -7870,19 +8223,25 @@ public final class CafeService {
 
     /**
      * <code>repeated string cids = 1;</code>
+     * @return A list containing the cids.
      */
     java.util.List<java.lang.String>
         getCidsList();
     /**
      * <code>repeated string cids = 1;</code>
+     * @return The count of cids.
      */
     int getCidsCount();
     /**
      * <code>repeated string cids = 1;</code>
+     * @param index The index of the element to return.
+     * @return The cids at the given index.
      */
     java.lang.String getCids(int index);
     /**
      * <code>repeated string cids = 1;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the cids at the given index.
      */
     com.google.protobuf.ByteString
         getCidsBytes(int index);
@@ -7890,7 +8249,7 @@ public final class CafeService {
   /**
    * Protobuf type {@code CafeObjectList}
    */
-  public  static final class CafeObjectList extends
+  public static final class CafeObjectList extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:CafeObjectList)
       CafeObjectListOrBuilder {
@@ -7901,6 +8260,13 @@ public final class CafeService {
     }
     private CafeObjectList() {
       cids_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new CafeObjectList();
     }
 
     @java.lang.Override
@@ -7929,7 +8295,7 @@ public final class CafeService {
               break;
             case 10: {
               java.lang.String s = input.readStringRequireUtf8();
-              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
                 cids_ = new com.google.protobuf.LazyStringArrayList();
                 mutable_bitField0_ |= 0x00000001;
               }
@@ -7937,7 +8303,7 @@ public final class CafeService {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -7951,7 +8317,7 @@ public final class CafeService {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
           cids_ = cids_.getUnmodifiableView();
         }
         this.unknownFields = unknownFields.build();
@@ -7975,6 +8341,7 @@ public final class CafeService {
     private com.google.protobuf.LazyStringList cids_;
     /**
      * <code>repeated string cids = 1;</code>
+     * @return A list containing the cids.
      */
     public com.google.protobuf.ProtocolStringList
         getCidsList() {
@@ -7982,18 +8349,23 @@ public final class CafeService {
     }
     /**
      * <code>repeated string cids = 1;</code>
+     * @return The count of cids.
      */
     public int getCidsCount() {
       return cids_.size();
     }
     /**
      * <code>repeated string cids = 1;</code>
+     * @param index The index of the element to return.
+     * @return The cids at the given index.
      */
     public java.lang.String getCids(int index) {
       return cids_.get(index);
     }
     /**
      * <code>repeated string cids = 1;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the cids at the given index.
      */
     public com.google.protobuf.ByteString
         getCidsBytes(int index) {
@@ -8049,11 +8421,10 @@ public final class CafeService {
       }
       sjtu.opennet.textilepb.CafeService.CafeObjectList other = (sjtu.opennet.textilepb.CafeService.CafeObjectList) obj;
 
-      boolean result = true;
-      result = result && getCidsList()
-          .equals(other.getCidsList());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getCidsList()
+          .equals(other.getCidsList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -8229,7 +8600,7 @@ public final class CafeService {
       public sjtu.opennet.textilepb.CafeService.CafeObjectList buildPartial() {
         sjtu.opennet.textilepb.CafeService.CafeObjectList result = new sjtu.opennet.textilepb.CafeService.CafeObjectList(this);
         int from_bitField0_ = bitField0_;
-        if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((bitField0_ & 0x00000001) != 0)) {
           cids_ = cids_.getUnmodifiableView();
           bitField0_ = (bitField0_ & ~0x00000001);
         }
@@ -8240,35 +8611,35 @@ public final class CafeService {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -8324,13 +8695,14 @@ public final class CafeService {
 
       private com.google.protobuf.LazyStringList cids_ = com.google.protobuf.LazyStringArrayList.EMPTY;
       private void ensureCidsIsMutable() {
-        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+        if (!((bitField0_ & 0x00000001) != 0)) {
           cids_ = new com.google.protobuf.LazyStringArrayList(cids_);
           bitField0_ |= 0x00000001;
          }
       }
       /**
        * <code>repeated string cids = 1;</code>
+       * @return A list containing the cids.
        */
       public com.google.protobuf.ProtocolStringList
           getCidsList() {
@@ -8338,18 +8710,23 @@ public final class CafeService {
       }
       /**
        * <code>repeated string cids = 1;</code>
+       * @return The count of cids.
        */
       public int getCidsCount() {
         return cids_.size();
       }
       /**
        * <code>repeated string cids = 1;</code>
+       * @param index The index of the element to return.
+       * @return The cids at the given index.
        */
       public java.lang.String getCids(int index) {
         return cids_.get(index);
       }
       /**
        * <code>repeated string cids = 1;</code>
+       * @param index The index of the value to return.
+       * @return The bytes of the cids at the given index.
        */
       public com.google.protobuf.ByteString
           getCidsBytes(int index) {
@@ -8357,6 +8734,9 @@ public final class CafeService {
       }
       /**
        * <code>repeated string cids = 1;</code>
+       * @param index The index to set the value at.
+       * @param value The cids to set.
+       * @return This builder for chaining.
        */
       public Builder setCids(
           int index, java.lang.String value) {
@@ -8370,6 +8750,8 @@ public final class CafeService {
       }
       /**
        * <code>repeated string cids = 1;</code>
+       * @param value The cids to add.
+       * @return This builder for chaining.
        */
       public Builder addCids(
           java.lang.String value) {
@@ -8383,6 +8765,8 @@ public final class CafeService {
       }
       /**
        * <code>repeated string cids = 1;</code>
+       * @param values The cids to add.
+       * @return This builder for chaining.
        */
       public Builder addAllCids(
           java.lang.Iterable<java.lang.String> values) {
@@ -8394,6 +8778,7 @@ public final class CafeService {
       }
       /**
        * <code>repeated string cids = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearCids() {
         cids_ = com.google.protobuf.LazyStringArrayList.EMPTY;
@@ -8403,6 +8788,8 @@ public final class CafeService {
       }
       /**
        * <code>repeated string cids = 1;</code>
+       * @param value The bytes of the cids to add.
+       * @return This builder for chaining.
        */
       public Builder addCidsBytes(
           com.google.protobuf.ByteString value) {
@@ -8418,7 +8805,7 @@ public final class CafeService {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -8474,38 +8861,44 @@ public final class CafeService {
 
     /**
      * <code>string token = 1;</code>
+     * @return The token.
      */
     java.lang.String getToken();
     /**
      * <code>string token = 1;</code>
+     * @return The bytes for token.
      */
     com.google.protobuf.ByteString
         getTokenBytes();
 
     /**
      * <code>string cid = 2;</code>
+     * @return The cid.
      */
     java.lang.String getCid();
     /**
      * <code>string cid = 2;</code>
+     * @return The bytes for cid.
      */
     com.google.protobuf.ByteString
         getCidBytes();
 
     /**
      * <code>bytes data = 3;</code>
+     * @return The data.
      */
     com.google.protobuf.ByteString getData();
 
     /**
      * <code>bytes node = 4;</code>
+     * @return The node.
      */
     com.google.protobuf.ByteString getNode();
   }
   /**
    * Protobuf type {@code CafeObject}
    */
-  public  static final class CafeObject extends
+  public static final class CafeObject extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:CafeObject)
       CafeObjectOrBuilder {
@@ -8522,6 +8915,13 @@ public final class CafeService {
     }
 
     @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new CafeObject();
+    }
+
+    @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
       return this.unknownFields;
@@ -8534,7 +8934,6 @@ public final class CafeService {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -8568,7 +8967,7 @@ public final class CafeService {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -8603,7 +9002,9 @@ public final class CafeService {
     private volatile java.lang.Object token_;
     /**
      * <code>string token = 1;</code>
+     * @return The token.
      */
+    @java.lang.Override
     public java.lang.String getToken() {
       java.lang.Object ref = token_;
       if (ref instanceof java.lang.String) {
@@ -8618,7 +9019,9 @@ public final class CafeService {
     }
     /**
      * <code>string token = 1;</code>
+     * @return The bytes for token.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getTokenBytes() {
       java.lang.Object ref = token_;
@@ -8637,7 +9040,9 @@ public final class CafeService {
     private volatile java.lang.Object cid_;
     /**
      * <code>string cid = 2;</code>
+     * @return The cid.
      */
+    @java.lang.Override
     public java.lang.String getCid() {
       java.lang.Object ref = cid_;
       if (ref instanceof java.lang.String) {
@@ -8652,7 +9057,9 @@ public final class CafeService {
     }
     /**
      * <code>string cid = 2;</code>
+     * @return The bytes for cid.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getCidBytes() {
       java.lang.Object ref = cid_;
@@ -8671,7 +9078,9 @@ public final class CafeService {
     private com.google.protobuf.ByteString data_;
     /**
      * <code>bytes data = 3;</code>
+     * @return The data.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getData() {
       return data_;
     }
@@ -8680,7 +9089,9 @@ public final class CafeService {
     private com.google.protobuf.ByteString node_;
     /**
      * <code>bytes node = 4;</code>
+     * @return The node.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getNode() {
       return node_;
     }
@@ -8749,17 +9160,16 @@ public final class CafeService {
       }
       sjtu.opennet.textilepb.CafeService.CafeObject other = (sjtu.opennet.textilepb.CafeService.CafeObject) obj;
 
-      boolean result = true;
-      result = result && getToken()
-          .equals(other.getToken());
-      result = result && getCid()
-          .equals(other.getCid());
-      result = result && getData()
-          .equals(other.getData());
-      result = result && getNode()
-          .equals(other.getNode());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getToken()
+          .equals(other.getToken())) return false;
+      if (!getCid()
+          .equals(other.getCid())) return false;
+      if (!getData()
+          .equals(other.getData())) return false;
+      if (!getNode()
+          .equals(other.getNode())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -8954,35 +9364,35 @@ public final class CafeService {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -9042,6 +9452,7 @@ public final class CafeService {
       private java.lang.Object token_ = "";
       /**
        * <code>string token = 1;</code>
+       * @return The token.
        */
       public java.lang.String getToken() {
         java.lang.Object ref = token_;
@@ -9057,6 +9468,7 @@ public final class CafeService {
       }
       /**
        * <code>string token = 1;</code>
+       * @return The bytes for token.
        */
       public com.google.protobuf.ByteString
           getTokenBytes() {
@@ -9073,6 +9485,8 @@ public final class CafeService {
       }
       /**
        * <code>string token = 1;</code>
+       * @param value The token to set.
+       * @return This builder for chaining.
        */
       public Builder setToken(
           java.lang.String value) {
@@ -9086,6 +9500,7 @@ public final class CafeService {
       }
       /**
        * <code>string token = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearToken() {
         
@@ -9095,6 +9510,8 @@ public final class CafeService {
       }
       /**
        * <code>string token = 1;</code>
+       * @param value The bytes for token to set.
+       * @return This builder for chaining.
        */
       public Builder setTokenBytes(
           com.google.protobuf.ByteString value) {
@@ -9111,6 +9528,7 @@ public final class CafeService {
       private java.lang.Object cid_ = "";
       /**
        * <code>string cid = 2;</code>
+       * @return The cid.
        */
       public java.lang.String getCid() {
         java.lang.Object ref = cid_;
@@ -9126,6 +9544,7 @@ public final class CafeService {
       }
       /**
        * <code>string cid = 2;</code>
+       * @return The bytes for cid.
        */
       public com.google.protobuf.ByteString
           getCidBytes() {
@@ -9142,6 +9561,8 @@ public final class CafeService {
       }
       /**
        * <code>string cid = 2;</code>
+       * @param value The cid to set.
+       * @return This builder for chaining.
        */
       public Builder setCid(
           java.lang.String value) {
@@ -9155,6 +9576,7 @@ public final class CafeService {
       }
       /**
        * <code>string cid = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearCid() {
         
@@ -9164,6 +9586,8 @@ public final class CafeService {
       }
       /**
        * <code>string cid = 2;</code>
+       * @param value The bytes for cid to set.
+       * @return This builder for chaining.
        */
       public Builder setCidBytes(
           com.google.protobuf.ByteString value) {
@@ -9180,12 +9604,16 @@ public final class CafeService {
       private com.google.protobuf.ByteString data_ = com.google.protobuf.ByteString.EMPTY;
       /**
        * <code>bytes data = 3;</code>
+       * @return The data.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getData() {
         return data_;
       }
       /**
        * <code>bytes data = 3;</code>
+       * @param value The data to set.
+       * @return This builder for chaining.
        */
       public Builder setData(com.google.protobuf.ByteString value) {
         if (value == null) {
@@ -9198,6 +9626,7 @@ public final class CafeService {
       }
       /**
        * <code>bytes data = 3;</code>
+       * @return This builder for chaining.
        */
       public Builder clearData() {
         
@@ -9209,12 +9638,16 @@ public final class CafeService {
       private com.google.protobuf.ByteString node_ = com.google.protobuf.ByteString.EMPTY;
       /**
        * <code>bytes node = 4;</code>
+       * @return The node.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getNode() {
         return node_;
       }
       /**
        * <code>bytes node = 4;</code>
+       * @param value The node to set.
+       * @return This builder for chaining.
        */
       public Builder setNode(com.google.protobuf.ByteString value) {
         if (value == null) {
@@ -9227,6 +9660,7 @@ public final class CafeService {
       }
       /**
        * <code>bytes node = 4;</code>
+       * @return This builder for chaining.
        */
       public Builder clearNode() {
         
@@ -9237,7 +9671,7 @@ public final class CafeService {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -9293,20 +9727,24 @@ public final class CafeService {
 
     /**
      * <code>string token = 1;</code>
+     * @return The token.
      */
     java.lang.String getToken();
     /**
      * <code>string token = 1;</code>
+     * @return The bytes for token.
      */
     com.google.protobuf.ByteString
         getTokenBytes();
 
     /**
      * <code>string id = 2;</code>
+     * @return The id.
      */
     java.lang.String getId();
     /**
      * <code>string id = 2;</code>
+     * @return The bytes for id.
      */
     com.google.protobuf.ByteString
         getIdBytes();
@@ -9317,13 +9755,14 @@ public final class CafeService {
      * </pre>
      *
      * <code>bytes ciphertext = 3;</code>
+     * @return The ciphertext.
      */
     com.google.protobuf.ByteString getCiphertext();
   }
   /**
    * Protobuf type {@code CafeStoreThread}
    */
-  public  static final class CafeStoreThread extends
+  public static final class CafeStoreThread extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:CafeStoreThread)
       CafeStoreThreadOrBuilder {
@@ -9339,6 +9778,13 @@ public final class CafeService {
     }
 
     @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new CafeStoreThread();
+    }
+
+    @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
       return this.unknownFields;
@@ -9351,7 +9797,6 @@ public final class CafeService {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -9380,7 +9825,7 @@ public final class CafeService {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -9415,7 +9860,9 @@ public final class CafeService {
     private volatile java.lang.Object token_;
     /**
      * <code>string token = 1;</code>
+     * @return The token.
      */
+    @java.lang.Override
     public java.lang.String getToken() {
       java.lang.Object ref = token_;
       if (ref instanceof java.lang.String) {
@@ -9430,7 +9877,9 @@ public final class CafeService {
     }
     /**
      * <code>string token = 1;</code>
+     * @return The bytes for token.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getTokenBytes() {
       java.lang.Object ref = token_;
@@ -9449,7 +9898,9 @@ public final class CafeService {
     private volatile java.lang.Object id_;
     /**
      * <code>string id = 2;</code>
+     * @return The id.
      */
+    @java.lang.Override
     public java.lang.String getId() {
       java.lang.Object ref = id_;
       if (ref instanceof java.lang.String) {
@@ -9464,7 +9915,9 @@ public final class CafeService {
     }
     /**
      * <code>string id = 2;</code>
+     * @return The bytes for id.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getIdBytes() {
       java.lang.Object ref = id_;
@@ -9487,7 +9940,9 @@ public final class CafeService {
      * </pre>
      *
      * <code>bytes ciphertext = 3;</code>
+     * @return The ciphertext.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getCiphertext() {
       return ciphertext_;
     }
@@ -9549,15 +10004,14 @@ public final class CafeService {
       }
       sjtu.opennet.textilepb.CafeService.CafeStoreThread other = (sjtu.opennet.textilepb.CafeService.CafeStoreThread) obj;
 
-      boolean result = true;
-      result = result && getToken()
-          .equals(other.getToken());
-      result = result && getId()
-          .equals(other.getId());
-      result = result && getCiphertext()
-          .equals(other.getCiphertext());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getToken()
+          .equals(other.getToken())) return false;
+      if (!getId()
+          .equals(other.getId())) return false;
+      if (!getCiphertext()
+          .equals(other.getCiphertext())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -9747,35 +10201,35 @@ public final class CafeService {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -9832,6 +10286,7 @@ public final class CafeService {
       private java.lang.Object token_ = "";
       /**
        * <code>string token = 1;</code>
+       * @return The token.
        */
       public java.lang.String getToken() {
         java.lang.Object ref = token_;
@@ -9847,6 +10302,7 @@ public final class CafeService {
       }
       /**
        * <code>string token = 1;</code>
+       * @return The bytes for token.
        */
       public com.google.protobuf.ByteString
           getTokenBytes() {
@@ -9863,6 +10319,8 @@ public final class CafeService {
       }
       /**
        * <code>string token = 1;</code>
+       * @param value The token to set.
+       * @return This builder for chaining.
        */
       public Builder setToken(
           java.lang.String value) {
@@ -9876,6 +10334,7 @@ public final class CafeService {
       }
       /**
        * <code>string token = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearToken() {
         
@@ -9885,6 +10344,8 @@ public final class CafeService {
       }
       /**
        * <code>string token = 1;</code>
+       * @param value The bytes for token to set.
+       * @return This builder for chaining.
        */
       public Builder setTokenBytes(
           com.google.protobuf.ByteString value) {
@@ -9901,6 +10362,7 @@ public final class CafeService {
       private java.lang.Object id_ = "";
       /**
        * <code>string id = 2;</code>
+       * @return The id.
        */
       public java.lang.String getId() {
         java.lang.Object ref = id_;
@@ -9916,6 +10378,7 @@ public final class CafeService {
       }
       /**
        * <code>string id = 2;</code>
+       * @return The bytes for id.
        */
       public com.google.protobuf.ByteString
           getIdBytes() {
@@ -9932,6 +10395,8 @@ public final class CafeService {
       }
       /**
        * <code>string id = 2;</code>
+       * @param value The id to set.
+       * @return This builder for chaining.
        */
       public Builder setId(
           java.lang.String value) {
@@ -9945,6 +10410,7 @@ public final class CafeService {
       }
       /**
        * <code>string id = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearId() {
         
@@ -9954,6 +10420,8 @@ public final class CafeService {
       }
       /**
        * <code>string id = 2;</code>
+       * @param value The bytes for id to set.
+       * @return This builder for chaining.
        */
       public Builder setIdBytes(
           com.google.protobuf.ByteString value) {
@@ -9974,7 +10442,9 @@ public final class CafeService {
        * </pre>
        *
        * <code>bytes ciphertext = 3;</code>
+       * @return The ciphertext.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getCiphertext() {
         return ciphertext_;
       }
@@ -9984,6 +10454,8 @@ public final class CafeService {
        * </pre>
        *
        * <code>bytes ciphertext = 3;</code>
+       * @param value The ciphertext to set.
+       * @return This builder for chaining.
        */
       public Builder setCiphertext(com.google.protobuf.ByteString value) {
         if (value == null) {
@@ -10000,6 +10472,7 @@ public final class CafeService {
        * </pre>
        *
        * <code>bytes ciphertext = 3;</code>
+       * @return This builder for chaining.
        */
       public Builder clearCiphertext() {
         
@@ -10010,7 +10483,7 @@ public final class CafeService {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -10066,10 +10539,12 @@ public final class CafeService {
 
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
     java.lang.String getId();
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
     com.google.protobuf.ByteString
         getIdBytes();
@@ -10077,7 +10552,7 @@ public final class CafeService {
   /**
    * Protobuf type {@code CafeStoreThreadAck}
    */
-  public  static final class CafeStoreThreadAck extends
+  public static final class CafeStoreThreadAck extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:CafeStoreThreadAck)
       CafeStoreThreadAckOrBuilder {
@@ -10088,6 +10563,13 @@ public final class CafeService {
     }
     private CafeStoreThreadAck() {
       id_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new CafeStoreThreadAck();
     }
 
     @java.lang.Override
@@ -10103,7 +10585,6 @@ public final class CafeService {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -10121,7 +10602,7 @@ public final class CafeService {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -10156,7 +10637,9 @@ public final class CafeService {
     private volatile java.lang.Object id_;
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
+    @java.lang.Override
     public java.lang.String getId() {
       java.lang.Object ref = id_;
       if (ref instanceof java.lang.String) {
@@ -10171,7 +10654,9 @@ public final class CafeService {
     }
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getIdBytes() {
       java.lang.Object ref = id_;
@@ -10230,11 +10715,10 @@ public final class CafeService {
       }
       sjtu.opennet.textilepb.CafeService.CafeStoreThreadAck other = (sjtu.opennet.textilepb.CafeService.CafeStoreThreadAck) obj;
 
-      boolean result = true;
-      result = result && getId()
-          .equals(other.getId());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getId()
+          .equals(other.getId())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -10414,35 +10898,35 @@ public final class CafeService {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -10492,6 +10976,7 @@ public final class CafeService {
       private java.lang.Object id_ = "";
       /**
        * <code>string id = 1;</code>
+       * @return The id.
        */
       public java.lang.String getId() {
         java.lang.Object ref = id_;
@@ -10507,6 +10992,7 @@ public final class CafeService {
       }
       /**
        * <code>string id = 1;</code>
+       * @return The bytes for id.
        */
       public com.google.protobuf.ByteString
           getIdBytes() {
@@ -10523,6 +11009,8 @@ public final class CafeService {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The id to set.
+       * @return This builder for chaining.
        */
       public Builder setId(
           java.lang.String value) {
@@ -10536,6 +11024,7 @@ public final class CafeService {
       }
       /**
        * <code>string id = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearId() {
         
@@ -10545,6 +11034,8 @@ public final class CafeService {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The bytes for id to set.
+       * @return This builder for chaining.
        */
       public Builder setIdBytes(
           com.google.protobuf.ByteString value) {
@@ -10560,7 +11051,7 @@ public final class CafeService {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -10616,20 +11107,24 @@ public final class CafeService {
 
     /**
      * <code>string token = 1;</code>
+     * @return The token.
      */
     java.lang.String getToken();
     /**
      * <code>string token = 1;</code>
+     * @return The bytes for token.
      */
     com.google.protobuf.ByteString
         getTokenBytes();
 
     /**
      * <code>string id = 2;</code>
+     * @return The id.
      */
     java.lang.String getId();
     /**
      * <code>string id = 2;</code>
+     * @return The bytes for id.
      */
     com.google.protobuf.ByteString
         getIdBytes();
@@ -10637,7 +11132,7 @@ public final class CafeService {
   /**
    * Protobuf type {@code CafeUnstoreThread}
    */
-  public  static final class CafeUnstoreThread extends
+  public static final class CafeUnstoreThread extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:CafeUnstoreThread)
       CafeUnstoreThreadOrBuilder {
@@ -10649,6 +11144,13 @@ public final class CafeService {
     private CafeUnstoreThread() {
       token_ = "";
       id_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new CafeUnstoreThread();
     }
 
     @java.lang.Override
@@ -10664,7 +11166,6 @@ public final class CafeService {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -10688,7 +11189,7 @@ public final class CafeService {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -10723,7 +11224,9 @@ public final class CafeService {
     private volatile java.lang.Object token_;
     /**
      * <code>string token = 1;</code>
+     * @return The token.
      */
+    @java.lang.Override
     public java.lang.String getToken() {
       java.lang.Object ref = token_;
       if (ref instanceof java.lang.String) {
@@ -10738,7 +11241,9 @@ public final class CafeService {
     }
     /**
      * <code>string token = 1;</code>
+     * @return The bytes for token.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getTokenBytes() {
       java.lang.Object ref = token_;
@@ -10757,7 +11262,9 @@ public final class CafeService {
     private volatile java.lang.Object id_;
     /**
      * <code>string id = 2;</code>
+     * @return The id.
      */
+    @java.lang.Override
     public java.lang.String getId() {
       java.lang.Object ref = id_;
       if (ref instanceof java.lang.String) {
@@ -10772,7 +11279,9 @@ public final class CafeService {
     }
     /**
      * <code>string id = 2;</code>
+     * @return The bytes for id.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getIdBytes() {
       java.lang.Object ref = id_;
@@ -10837,13 +11346,12 @@ public final class CafeService {
       }
       sjtu.opennet.textilepb.CafeService.CafeUnstoreThread other = (sjtu.opennet.textilepb.CafeService.CafeUnstoreThread) obj;
 
-      boolean result = true;
-      result = result && getToken()
-          .equals(other.getToken());
-      result = result && getId()
-          .equals(other.getId());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getToken()
+          .equals(other.getToken())) return false;
+      if (!getId()
+          .equals(other.getId())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -11028,35 +11536,35 @@ public final class CafeService {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -11110,6 +11618,7 @@ public final class CafeService {
       private java.lang.Object token_ = "";
       /**
        * <code>string token = 1;</code>
+       * @return The token.
        */
       public java.lang.String getToken() {
         java.lang.Object ref = token_;
@@ -11125,6 +11634,7 @@ public final class CafeService {
       }
       /**
        * <code>string token = 1;</code>
+       * @return The bytes for token.
        */
       public com.google.protobuf.ByteString
           getTokenBytes() {
@@ -11141,6 +11651,8 @@ public final class CafeService {
       }
       /**
        * <code>string token = 1;</code>
+       * @param value The token to set.
+       * @return This builder for chaining.
        */
       public Builder setToken(
           java.lang.String value) {
@@ -11154,6 +11666,7 @@ public final class CafeService {
       }
       /**
        * <code>string token = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearToken() {
         
@@ -11163,6 +11676,8 @@ public final class CafeService {
       }
       /**
        * <code>string token = 1;</code>
+       * @param value The bytes for token to set.
+       * @return This builder for chaining.
        */
       public Builder setTokenBytes(
           com.google.protobuf.ByteString value) {
@@ -11179,6 +11694,7 @@ public final class CafeService {
       private java.lang.Object id_ = "";
       /**
        * <code>string id = 2;</code>
+       * @return The id.
        */
       public java.lang.String getId() {
         java.lang.Object ref = id_;
@@ -11194,6 +11710,7 @@ public final class CafeService {
       }
       /**
        * <code>string id = 2;</code>
+       * @return The bytes for id.
        */
       public com.google.protobuf.ByteString
           getIdBytes() {
@@ -11210,6 +11727,8 @@ public final class CafeService {
       }
       /**
        * <code>string id = 2;</code>
+       * @param value The id to set.
+       * @return This builder for chaining.
        */
       public Builder setId(
           java.lang.String value) {
@@ -11223,6 +11742,7 @@ public final class CafeService {
       }
       /**
        * <code>string id = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearId() {
         
@@ -11232,6 +11752,8 @@ public final class CafeService {
       }
       /**
        * <code>string id = 2;</code>
+       * @param value The bytes for id to set.
+       * @return This builder for chaining.
        */
       public Builder setIdBytes(
           com.google.protobuf.ByteString value) {
@@ -11247,7 +11769,7 @@ public final class CafeService {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -11303,10 +11825,12 @@ public final class CafeService {
 
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
     java.lang.String getId();
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
     com.google.protobuf.ByteString
         getIdBytes();
@@ -11314,7 +11838,7 @@ public final class CafeService {
   /**
    * Protobuf type {@code CafeUnstoreThreadAck}
    */
-  public  static final class CafeUnstoreThreadAck extends
+  public static final class CafeUnstoreThreadAck extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:CafeUnstoreThreadAck)
       CafeUnstoreThreadAckOrBuilder {
@@ -11325,6 +11849,13 @@ public final class CafeService {
     }
     private CafeUnstoreThreadAck() {
       id_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new CafeUnstoreThreadAck();
     }
 
     @java.lang.Override
@@ -11340,7 +11871,6 @@ public final class CafeService {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -11358,7 +11888,7 @@ public final class CafeService {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -11393,7 +11923,9 @@ public final class CafeService {
     private volatile java.lang.Object id_;
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
+    @java.lang.Override
     public java.lang.String getId() {
       java.lang.Object ref = id_;
       if (ref instanceof java.lang.String) {
@@ -11408,7 +11940,9 @@ public final class CafeService {
     }
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getIdBytes() {
       java.lang.Object ref = id_;
@@ -11467,11 +12001,10 @@ public final class CafeService {
       }
       sjtu.opennet.textilepb.CafeService.CafeUnstoreThreadAck other = (sjtu.opennet.textilepb.CafeService.CafeUnstoreThreadAck) obj;
 
-      boolean result = true;
-      result = result && getId()
-          .equals(other.getId());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getId()
+          .equals(other.getId())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -11651,35 +12184,35 @@ public final class CafeService {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -11729,6 +12262,7 @@ public final class CafeService {
       private java.lang.Object id_ = "";
       /**
        * <code>string id = 1;</code>
+       * @return The id.
        */
       public java.lang.String getId() {
         java.lang.Object ref = id_;
@@ -11744,6 +12278,7 @@ public final class CafeService {
       }
       /**
        * <code>string id = 1;</code>
+       * @return The bytes for id.
        */
       public com.google.protobuf.ByteString
           getIdBytes() {
@@ -11760,6 +12295,8 @@ public final class CafeService {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The id to set.
+       * @return This builder for chaining.
        */
       public Builder setId(
           java.lang.String value) {
@@ -11773,6 +12310,7 @@ public final class CafeService {
       }
       /**
        * <code>string id = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearId() {
         
@@ -11782,6 +12320,8 @@ public final class CafeService {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The bytes for id to set.
+       * @return This builder for chaining.
        */
       public Builder setIdBytes(
           com.google.protobuf.ByteString value) {
@@ -11797,7 +12337,7 @@ public final class CafeService {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -11853,20 +12393,24 @@ public final class CafeService {
 
     /**
      * <code>string token = 1;</code>
+     * @return The token.
      */
     java.lang.String getToken();
     /**
      * <code>string token = 1;</code>
+     * @return The bytes for token.
      */
     com.google.protobuf.ByteString
         getTokenBytes();
 
     /**
      * <code>.Video video = 2;</code>
+     * @return Whether the video field is set.
      */
     boolean hasVideo();
     /**
      * <code>.Video video = 2;</code>
+     * @return The video.
      */
     sjtu.opennet.textilepb.Model.Video getVideo();
     /**
@@ -11876,13 +12420,14 @@ public final class CafeService {
 
     /**
      * <code>bool store = 3;</code>
+     * @return The store.
      */
     boolean getStore();
   }
   /**
    * Protobuf type {@code CafePublishVideo}
    */
-  public  static final class CafePublishVideo extends
+  public static final class CafePublishVideo extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:CafePublishVideo)
       CafePublishVideoOrBuilder {
@@ -11893,7 +12438,13 @@ public final class CafeService {
     }
     private CafePublishVideo() {
       token_ = "";
-      store_ = false;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new CafePublishVideo();
     }
 
     @java.lang.Override
@@ -11909,7 +12460,6 @@ public final class CafeService {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -11945,7 +12495,7 @@ public final class CafeService {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -11980,7 +12530,9 @@ public final class CafeService {
     private volatile java.lang.Object token_;
     /**
      * <code>string token = 1;</code>
+     * @return The token.
      */
+    @java.lang.Override
     public java.lang.String getToken() {
       java.lang.Object ref = token_;
       if (ref instanceof java.lang.String) {
@@ -11995,7 +12547,9 @@ public final class CafeService {
     }
     /**
      * <code>string token = 1;</code>
+     * @return The bytes for token.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getTokenBytes() {
       java.lang.Object ref = token_;
@@ -12014,19 +12568,24 @@ public final class CafeService {
     private sjtu.opennet.textilepb.Model.Video video_;
     /**
      * <code>.Video video = 2;</code>
+     * @return Whether the video field is set.
      */
+    @java.lang.Override
     public boolean hasVideo() {
       return video_ != null;
     }
     /**
      * <code>.Video video = 2;</code>
+     * @return The video.
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.Video getVideo() {
       return video_ == null ? sjtu.opennet.textilepb.Model.Video.getDefaultInstance() : video_;
     }
     /**
      * <code>.Video video = 2;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.VideoOrBuilder getVideoOrBuilder() {
       return getVideo();
     }
@@ -12035,7 +12594,9 @@ public final class CafeService {
     private boolean store_;
     /**
      * <code>bool store = 3;</code>
+     * @return The store.
      */
+    @java.lang.Override
     public boolean getStore() {
       return store_;
     }
@@ -12098,18 +12659,17 @@ public final class CafeService {
       }
       sjtu.opennet.textilepb.CafeService.CafePublishVideo other = (sjtu.opennet.textilepb.CafeService.CafePublishVideo) obj;
 
-      boolean result = true;
-      result = result && getToken()
-          .equals(other.getToken());
-      result = result && (hasVideo() == other.hasVideo());
+      if (!getToken()
+          .equals(other.getToken())) return false;
+      if (hasVideo() != other.hasVideo()) return false;
       if (hasVideo()) {
-        result = result && getVideo()
-            .equals(other.getVideo());
+        if (!getVideo()
+            .equals(other.getVideo())) return false;
       }
-      result = result && (getStore()
-          == other.getStore());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (getStore()
+          != other.getStore()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -12310,35 +12870,35 @@ public final class CafeService {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -12394,6 +12954,7 @@ public final class CafeService {
       private java.lang.Object token_ = "";
       /**
        * <code>string token = 1;</code>
+       * @return The token.
        */
       public java.lang.String getToken() {
         java.lang.Object ref = token_;
@@ -12409,6 +12970,7 @@ public final class CafeService {
       }
       /**
        * <code>string token = 1;</code>
+       * @return The bytes for token.
        */
       public com.google.protobuf.ByteString
           getTokenBytes() {
@@ -12425,6 +12987,8 @@ public final class CafeService {
       }
       /**
        * <code>string token = 1;</code>
+       * @param value The token to set.
+       * @return This builder for chaining.
        */
       public Builder setToken(
           java.lang.String value) {
@@ -12438,6 +13002,7 @@ public final class CafeService {
       }
       /**
        * <code>string token = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearToken() {
         
@@ -12447,6 +13012,8 @@ public final class CafeService {
       }
       /**
        * <code>string token = 1;</code>
+       * @param value The bytes for token to set.
+       * @return This builder for chaining.
        */
       public Builder setTokenBytes(
           com.google.protobuf.ByteString value) {
@@ -12460,17 +13027,19 @@ public final class CafeService {
         return this;
       }
 
-      private sjtu.opennet.textilepb.Model.Video video_ = null;
+      private sjtu.opennet.textilepb.Model.Video video_;
       private com.google.protobuf.SingleFieldBuilderV3<
           sjtu.opennet.textilepb.Model.Video, sjtu.opennet.textilepb.Model.Video.Builder, sjtu.opennet.textilepb.Model.VideoOrBuilder> videoBuilder_;
       /**
        * <code>.Video video = 2;</code>
+       * @return Whether the video field is set.
        */
       public boolean hasVideo() {
         return videoBuilder_ != null || video_ != null;
       }
       /**
        * <code>.Video video = 2;</code>
+       * @return The video.
        */
       public sjtu.opennet.textilepb.Model.Video getVideo() {
         if (videoBuilder_ == null) {
@@ -12580,12 +13149,16 @@ public final class CafeService {
       private boolean store_ ;
       /**
        * <code>bool store = 3;</code>
+       * @return The store.
        */
+      @java.lang.Override
       public boolean getStore() {
         return store_;
       }
       /**
        * <code>bool store = 3;</code>
+       * @param value The store to set.
+       * @return This builder for chaining.
        */
       public Builder setStore(boolean value) {
         
@@ -12595,6 +13168,7 @@ public final class CafeService {
       }
       /**
        * <code>bool store = 3;</code>
+       * @return This builder for chaining.
        */
       public Builder clearStore() {
         
@@ -12605,7 +13179,7 @@ public final class CafeService {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -12661,10 +13235,12 @@ public final class CafeService {
 
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
     java.lang.String getId();
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
     com.google.protobuf.ByteString
         getIdBytes();
@@ -12672,7 +13248,7 @@ public final class CafeService {
   /**
    * Protobuf type {@code CafePublishVideoAck}
    */
-  public  static final class CafePublishVideoAck extends
+  public static final class CafePublishVideoAck extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:CafePublishVideoAck)
       CafePublishVideoAckOrBuilder {
@@ -12683,6 +13259,13 @@ public final class CafeService {
     }
     private CafePublishVideoAck() {
       id_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new CafePublishVideoAck();
     }
 
     @java.lang.Override
@@ -12698,7 +13281,6 @@ public final class CafeService {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -12716,7 +13298,7 @@ public final class CafeService {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -12751,7 +13333,9 @@ public final class CafeService {
     private volatile java.lang.Object id_;
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
+    @java.lang.Override
     public java.lang.String getId() {
       java.lang.Object ref = id_;
       if (ref instanceof java.lang.String) {
@@ -12766,7 +13350,9 @@ public final class CafeService {
     }
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getIdBytes() {
       java.lang.Object ref = id_;
@@ -12825,11 +13411,10 @@ public final class CafeService {
       }
       sjtu.opennet.textilepb.CafeService.CafePublishVideoAck other = (sjtu.opennet.textilepb.CafeService.CafePublishVideoAck) obj;
 
-      boolean result = true;
-      result = result && getId()
-          .equals(other.getId());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getId()
+          .equals(other.getId())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -13009,35 +13594,35 @@ public final class CafeService {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -13087,6 +13672,7 @@ public final class CafeService {
       private java.lang.Object id_ = "";
       /**
        * <code>string id = 1;</code>
+       * @return The id.
        */
       public java.lang.String getId() {
         java.lang.Object ref = id_;
@@ -13102,6 +13688,7 @@ public final class CafeService {
       }
       /**
        * <code>string id = 1;</code>
+       * @return The bytes for id.
        */
       public com.google.protobuf.ByteString
           getIdBytes() {
@@ -13118,6 +13705,8 @@ public final class CafeService {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The id to set.
+       * @return This builder for chaining.
        */
       public Builder setId(
           java.lang.String value) {
@@ -13131,6 +13720,7 @@ public final class CafeService {
       }
       /**
        * <code>string id = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearId() {
         
@@ -13140,6 +13730,8 @@ public final class CafeService {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The bytes for id to set.
+       * @return This builder for chaining.
        */
       public Builder setIdBytes(
           com.google.protobuf.ByteString value) {
@@ -13155,7 +13747,7 @@ public final class CafeService {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -13211,28 +13803,32 @@ public final class CafeService {
 
     /**
      * <code>string name = 1;</code>
+     * @return The name.
      */
     java.lang.String getName();
     /**
      * <code>string name = 1;</code>
+     * @return The bytes for name.
      */
     com.google.protobuf.ByteString
         getNameBytes();
 
     /**
      * <code>int32 size = 2;</code>
+     * @return The size.
      */
     int getSize();
 
     /**
      * <code>bytes data = 3;</code>
+     * @return The data.
      */
     com.google.protobuf.ByteString getData();
   }
   /**
    * Protobuf type {@code CafeSendFile}
    */
-  public  static final class CafeSendFile extends
+  public static final class CafeSendFile extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:CafeSendFile)
       CafeSendFileOrBuilder {
@@ -13243,8 +13839,14 @@ public final class CafeService {
     }
     private CafeSendFile() {
       name_ = "";
-      size_ = 0;
       data_ = com.google.protobuf.ByteString.EMPTY;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new CafeSendFile();
     }
 
     @java.lang.Override
@@ -13260,7 +13862,6 @@ public final class CafeService {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -13288,7 +13889,7 @@ public final class CafeService {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -13323,7 +13924,9 @@ public final class CafeService {
     private volatile java.lang.Object name_;
     /**
      * <code>string name = 1;</code>
+     * @return The name.
      */
+    @java.lang.Override
     public java.lang.String getName() {
       java.lang.Object ref = name_;
       if (ref instanceof java.lang.String) {
@@ -13338,7 +13941,9 @@ public final class CafeService {
     }
     /**
      * <code>string name = 1;</code>
+     * @return The bytes for name.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getNameBytes() {
       java.lang.Object ref = name_;
@@ -13357,7 +13962,9 @@ public final class CafeService {
     private int size_;
     /**
      * <code>int32 size = 2;</code>
+     * @return The size.
      */
+    @java.lang.Override
     public int getSize() {
       return size_;
     }
@@ -13366,7 +13973,9 @@ public final class CafeService {
     private com.google.protobuf.ByteString data_;
     /**
      * <code>bytes data = 3;</code>
+     * @return The data.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getData() {
       return data_;
     }
@@ -13429,15 +14038,14 @@ public final class CafeService {
       }
       sjtu.opennet.textilepb.CafeService.CafeSendFile other = (sjtu.opennet.textilepb.CafeService.CafeSendFile) obj;
 
-      boolean result = true;
-      result = result && getName()
-          .equals(other.getName());
-      result = result && (getSize()
-          == other.getSize());
-      result = result && getData()
-          .equals(other.getData());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getName()
+          .equals(other.getName())) return false;
+      if (getSize()
+          != other.getSize()) return false;
+      if (!getData()
+          .equals(other.getData())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -13627,35 +14235,35 @@ public final class CafeService {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -13711,6 +14319,7 @@ public final class CafeService {
       private java.lang.Object name_ = "";
       /**
        * <code>string name = 1;</code>
+       * @return The name.
        */
       public java.lang.String getName() {
         java.lang.Object ref = name_;
@@ -13726,6 +14335,7 @@ public final class CafeService {
       }
       /**
        * <code>string name = 1;</code>
+       * @return The bytes for name.
        */
       public com.google.protobuf.ByteString
           getNameBytes() {
@@ -13742,6 +14352,8 @@ public final class CafeService {
       }
       /**
        * <code>string name = 1;</code>
+       * @param value The name to set.
+       * @return This builder for chaining.
        */
       public Builder setName(
           java.lang.String value) {
@@ -13755,6 +14367,7 @@ public final class CafeService {
       }
       /**
        * <code>string name = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearName() {
         
@@ -13764,6 +14377,8 @@ public final class CafeService {
       }
       /**
        * <code>string name = 1;</code>
+       * @param value The bytes for name to set.
+       * @return This builder for chaining.
        */
       public Builder setNameBytes(
           com.google.protobuf.ByteString value) {
@@ -13780,12 +14395,16 @@ public final class CafeService {
       private int size_ ;
       /**
        * <code>int32 size = 2;</code>
+       * @return The size.
        */
+      @java.lang.Override
       public int getSize() {
         return size_;
       }
       /**
        * <code>int32 size = 2;</code>
+       * @param value The size to set.
+       * @return This builder for chaining.
        */
       public Builder setSize(int value) {
         
@@ -13795,6 +14414,7 @@ public final class CafeService {
       }
       /**
        * <code>int32 size = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearSize() {
         
@@ -13806,12 +14426,16 @@ public final class CafeService {
       private com.google.protobuf.ByteString data_ = com.google.protobuf.ByteString.EMPTY;
       /**
        * <code>bytes data = 3;</code>
+       * @return The data.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getData() {
         return data_;
       }
       /**
        * <code>bytes data = 3;</code>
+       * @param value The data to set.
+       * @return This builder for chaining.
        */
       public Builder setData(com.google.protobuf.ByteString value) {
         if (value == null) {
@@ -13824,6 +14448,7 @@ public final class CafeService {
       }
       /**
        * <code>bytes data = 3;</code>
+       * @return This builder for chaining.
        */
       public Builder clearData() {
         
@@ -13834,7 +14459,7 @@ public final class CafeService {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -13890,20 +14515,24 @@ public final class CafeService {
 
     /**
      * <code>string token = 1;</code>
+     * @return The token.
      */
     java.lang.String getToken();
     /**
      * <code>string token = 1;</code>
+     * @return The bytes for token.
      */
     com.google.protobuf.ByteString
         getTokenBytes();
 
     /**
      * <code>.VideoChunk chunk = 2;</code>
+     * @return Whether the chunk field is set.
      */
     boolean hasChunk();
     /**
      * <code>.VideoChunk chunk = 2;</code>
+     * @return The chunk.
      */
     sjtu.opennet.textilepb.Model.VideoChunk getChunk();
     /**
@@ -13913,10 +14542,12 @@ public final class CafeService {
 
     /**
      * <code>.CafeSendFile file = 3;</code>
+     * @return Whether the file field is set.
      */
     boolean hasFile();
     /**
      * <code>.CafeSendFile file = 3;</code>
+     * @return The file.
      */
     sjtu.opennet.textilepb.CafeService.CafeSendFile getFile();
     /**
@@ -13927,7 +14558,7 @@ public final class CafeService {
   /**
    * Protobuf type {@code CafePublishVideoChunk}
    */
-  public  static final class CafePublishVideoChunk extends
+  public static final class CafePublishVideoChunk extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:CafePublishVideoChunk)
       CafePublishVideoChunkOrBuilder {
@@ -13938,6 +14569,13 @@ public final class CafeService {
     }
     private CafePublishVideoChunk() {
       token_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new CafePublishVideoChunk();
     }
 
     @java.lang.Override
@@ -13953,7 +14591,6 @@ public final class CafeService {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -13997,7 +14634,7 @@ public final class CafeService {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -14032,7 +14669,9 @@ public final class CafeService {
     private volatile java.lang.Object token_;
     /**
      * <code>string token = 1;</code>
+     * @return The token.
      */
+    @java.lang.Override
     public java.lang.String getToken() {
       java.lang.Object ref = token_;
       if (ref instanceof java.lang.String) {
@@ -14047,7 +14686,9 @@ public final class CafeService {
     }
     /**
      * <code>string token = 1;</code>
+     * @return The bytes for token.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getTokenBytes() {
       java.lang.Object ref = token_;
@@ -14066,19 +14707,24 @@ public final class CafeService {
     private sjtu.opennet.textilepb.Model.VideoChunk chunk_;
     /**
      * <code>.VideoChunk chunk = 2;</code>
+     * @return Whether the chunk field is set.
      */
+    @java.lang.Override
     public boolean hasChunk() {
       return chunk_ != null;
     }
     /**
      * <code>.VideoChunk chunk = 2;</code>
+     * @return The chunk.
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.VideoChunk getChunk() {
       return chunk_ == null ? sjtu.opennet.textilepb.Model.VideoChunk.getDefaultInstance() : chunk_;
     }
     /**
      * <code>.VideoChunk chunk = 2;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.VideoChunkOrBuilder getChunkOrBuilder() {
       return getChunk();
     }
@@ -14087,19 +14733,24 @@ public final class CafeService {
     private sjtu.opennet.textilepb.CafeService.CafeSendFile file_;
     /**
      * <code>.CafeSendFile file = 3;</code>
+     * @return Whether the file field is set.
      */
+    @java.lang.Override
     public boolean hasFile() {
       return file_ != null;
     }
     /**
      * <code>.CafeSendFile file = 3;</code>
+     * @return The file.
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.CafeService.CafeSendFile getFile() {
       return file_ == null ? sjtu.opennet.textilepb.CafeService.CafeSendFile.getDefaultInstance() : file_;
     }
     /**
      * <code>.CafeSendFile file = 3;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.CafeService.CafeSendFileOrBuilder getFileOrBuilder() {
       return getFile();
     }
@@ -14162,21 +14813,20 @@ public final class CafeService {
       }
       sjtu.opennet.textilepb.CafeService.CafePublishVideoChunk other = (sjtu.opennet.textilepb.CafeService.CafePublishVideoChunk) obj;
 
-      boolean result = true;
-      result = result && getToken()
-          .equals(other.getToken());
-      result = result && (hasChunk() == other.hasChunk());
+      if (!getToken()
+          .equals(other.getToken())) return false;
+      if (hasChunk() != other.hasChunk()) return false;
       if (hasChunk()) {
-        result = result && getChunk()
-            .equals(other.getChunk());
+        if (!getChunk()
+            .equals(other.getChunk())) return false;
       }
-      result = result && (hasFile() == other.hasFile());
+      if (hasFile() != other.hasFile()) return false;
       if (hasFile()) {
-        result = result && getFile()
-            .equals(other.getFile());
+        if (!getFile()
+            .equals(other.getFile())) return false;
       }
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -14386,35 +15036,35 @@ public final class CafeService {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -14470,6 +15120,7 @@ public final class CafeService {
       private java.lang.Object token_ = "";
       /**
        * <code>string token = 1;</code>
+       * @return The token.
        */
       public java.lang.String getToken() {
         java.lang.Object ref = token_;
@@ -14485,6 +15136,7 @@ public final class CafeService {
       }
       /**
        * <code>string token = 1;</code>
+       * @return The bytes for token.
        */
       public com.google.protobuf.ByteString
           getTokenBytes() {
@@ -14501,6 +15153,8 @@ public final class CafeService {
       }
       /**
        * <code>string token = 1;</code>
+       * @param value The token to set.
+       * @return This builder for chaining.
        */
       public Builder setToken(
           java.lang.String value) {
@@ -14514,6 +15168,7 @@ public final class CafeService {
       }
       /**
        * <code>string token = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearToken() {
         
@@ -14523,6 +15178,8 @@ public final class CafeService {
       }
       /**
        * <code>string token = 1;</code>
+       * @param value The bytes for token to set.
+       * @return This builder for chaining.
        */
       public Builder setTokenBytes(
           com.google.protobuf.ByteString value) {
@@ -14536,17 +15193,19 @@ public final class CafeService {
         return this;
       }
 
-      private sjtu.opennet.textilepb.Model.VideoChunk chunk_ = null;
+      private sjtu.opennet.textilepb.Model.VideoChunk chunk_;
       private com.google.protobuf.SingleFieldBuilderV3<
           sjtu.opennet.textilepb.Model.VideoChunk, sjtu.opennet.textilepb.Model.VideoChunk.Builder, sjtu.opennet.textilepb.Model.VideoChunkOrBuilder> chunkBuilder_;
       /**
        * <code>.VideoChunk chunk = 2;</code>
+       * @return Whether the chunk field is set.
        */
       public boolean hasChunk() {
         return chunkBuilder_ != null || chunk_ != null;
       }
       /**
        * <code>.VideoChunk chunk = 2;</code>
+       * @return The chunk.
        */
       public sjtu.opennet.textilepb.Model.VideoChunk getChunk() {
         if (chunkBuilder_ == null) {
@@ -14653,17 +15312,19 @@ public final class CafeService {
         return chunkBuilder_;
       }
 
-      private sjtu.opennet.textilepb.CafeService.CafeSendFile file_ = null;
+      private sjtu.opennet.textilepb.CafeService.CafeSendFile file_;
       private com.google.protobuf.SingleFieldBuilderV3<
           sjtu.opennet.textilepb.CafeService.CafeSendFile, sjtu.opennet.textilepb.CafeService.CafeSendFile.Builder, sjtu.opennet.textilepb.CafeService.CafeSendFileOrBuilder> fileBuilder_;
       /**
        * <code>.CafeSendFile file = 3;</code>
+       * @return Whether the file field is set.
        */
       public boolean hasFile() {
         return fileBuilder_ != null || file_ != null;
       }
       /**
        * <code>.CafeSendFile file = 3;</code>
+       * @return The file.
        */
       public sjtu.opennet.textilepb.CafeService.CafeSendFile getFile() {
         if (fileBuilder_ == null) {
@@ -14772,7 +15433,7 @@ public final class CafeService {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -14828,20 +15489,24 @@ public final class CafeService {
 
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
     java.lang.String getId();
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
     com.google.protobuf.ByteString
         getIdBytes();
 
     /**
      * <code>string chunk = 2;</code>
+     * @return The chunk.
      */
     java.lang.String getChunk();
     /**
      * <code>string chunk = 2;</code>
+     * @return The bytes for chunk.
      */
     com.google.protobuf.ByteString
         getChunkBytes();
@@ -14849,7 +15514,7 @@ public final class CafeService {
   /**
    * Protobuf type {@code CafePublishVideoChunkAck}
    */
-  public  static final class CafePublishVideoChunkAck extends
+  public static final class CafePublishVideoChunkAck extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:CafePublishVideoChunkAck)
       CafePublishVideoChunkAckOrBuilder {
@@ -14861,6 +15526,13 @@ public final class CafeService {
     private CafePublishVideoChunkAck() {
       id_ = "";
       chunk_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new CafePublishVideoChunkAck();
     }
 
     @java.lang.Override
@@ -14876,7 +15548,6 @@ public final class CafeService {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -14900,7 +15571,7 @@ public final class CafeService {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -14935,7 +15606,9 @@ public final class CafeService {
     private volatile java.lang.Object id_;
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
+    @java.lang.Override
     public java.lang.String getId() {
       java.lang.Object ref = id_;
       if (ref instanceof java.lang.String) {
@@ -14950,7 +15623,9 @@ public final class CafeService {
     }
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getIdBytes() {
       java.lang.Object ref = id_;
@@ -14969,7 +15644,9 @@ public final class CafeService {
     private volatile java.lang.Object chunk_;
     /**
      * <code>string chunk = 2;</code>
+     * @return The chunk.
      */
+    @java.lang.Override
     public java.lang.String getChunk() {
       java.lang.Object ref = chunk_;
       if (ref instanceof java.lang.String) {
@@ -14984,7 +15661,9 @@ public final class CafeService {
     }
     /**
      * <code>string chunk = 2;</code>
+     * @return The bytes for chunk.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getChunkBytes() {
       java.lang.Object ref = chunk_;
@@ -15049,13 +15728,12 @@ public final class CafeService {
       }
       sjtu.opennet.textilepb.CafeService.CafePublishVideoChunkAck other = (sjtu.opennet.textilepb.CafeService.CafePublishVideoChunkAck) obj;
 
-      boolean result = true;
-      result = result && getId()
-          .equals(other.getId());
-      result = result && getChunk()
-          .equals(other.getChunk());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getId()
+          .equals(other.getId())) return false;
+      if (!getChunk()
+          .equals(other.getChunk())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -15240,35 +15918,35 @@ public final class CafeService {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -15322,6 +16000,7 @@ public final class CafeService {
       private java.lang.Object id_ = "";
       /**
        * <code>string id = 1;</code>
+       * @return The id.
        */
       public java.lang.String getId() {
         java.lang.Object ref = id_;
@@ -15337,6 +16016,7 @@ public final class CafeService {
       }
       /**
        * <code>string id = 1;</code>
+       * @return The bytes for id.
        */
       public com.google.protobuf.ByteString
           getIdBytes() {
@@ -15353,6 +16033,8 @@ public final class CafeService {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The id to set.
+       * @return This builder for chaining.
        */
       public Builder setId(
           java.lang.String value) {
@@ -15366,6 +16048,7 @@ public final class CafeService {
       }
       /**
        * <code>string id = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearId() {
         
@@ -15375,6 +16058,8 @@ public final class CafeService {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The bytes for id to set.
+       * @return This builder for chaining.
        */
       public Builder setIdBytes(
           com.google.protobuf.ByteString value) {
@@ -15391,6 +16076,7 @@ public final class CafeService {
       private java.lang.Object chunk_ = "";
       /**
        * <code>string chunk = 2;</code>
+       * @return The chunk.
        */
       public java.lang.String getChunk() {
         java.lang.Object ref = chunk_;
@@ -15406,6 +16092,7 @@ public final class CafeService {
       }
       /**
        * <code>string chunk = 2;</code>
+       * @return The bytes for chunk.
        */
       public com.google.protobuf.ByteString
           getChunkBytes() {
@@ -15422,6 +16109,8 @@ public final class CafeService {
       }
       /**
        * <code>string chunk = 2;</code>
+       * @param value The chunk to set.
+       * @return This builder for chaining.
        */
       public Builder setChunk(
           java.lang.String value) {
@@ -15435,6 +16124,7 @@ public final class CafeService {
       }
       /**
        * <code>string chunk = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearChunk() {
         
@@ -15444,6 +16134,8 @@ public final class CafeService {
       }
       /**
        * <code>string chunk = 2;</code>
+       * @param value The bytes for chunk to set.
+       * @return This builder for chaining.
        */
       public Builder setChunkBytes(
           com.google.protobuf.ByteString value) {
@@ -15459,7 +16151,7 @@ public final class CafeService {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -15515,20 +16207,24 @@ public final class CafeService {
 
     /**
      * <code>string token = 1;</code>
+     * @return The token.
      */
     java.lang.String getToken();
     /**
      * <code>string token = 1;</code>
+     * @return The bytes for token.
      */
     com.google.protobuf.ByteString
         getTokenBytes();
 
     /**
      * <code>.SyncFile file = 2;</code>
+     * @return Whether the file field is set.
      */
     boolean hasFile();
     /**
      * <code>.SyncFile file = 2;</code>
+     * @return The file.
      */
     sjtu.opennet.textilepb.Model.SyncFile getFile();
     /**
@@ -15539,7 +16235,7 @@ public final class CafeService {
   /**
    * Protobuf type {@code CafeSyncFile}
    */
-  public  static final class CafeSyncFile extends
+  public static final class CafeSyncFile extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:CafeSyncFile)
       CafeSyncFileOrBuilder {
@@ -15550,6 +16246,13 @@ public final class CafeService {
     }
     private CafeSyncFile() {
       token_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new CafeSyncFile();
     }
 
     @java.lang.Override
@@ -15565,7 +16268,6 @@ public final class CafeService {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -15596,7 +16298,7 @@ public final class CafeService {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -15631,7 +16333,9 @@ public final class CafeService {
     private volatile java.lang.Object token_;
     /**
      * <code>string token = 1;</code>
+     * @return The token.
      */
+    @java.lang.Override
     public java.lang.String getToken() {
       java.lang.Object ref = token_;
       if (ref instanceof java.lang.String) {
@@ -15646,7 +16350,9 @@ public final class CafeService {
     }
     /**
      * <code>string token = 1;</code>
+     * @return The bytes for token.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getTokenBytes() {
       java.lang.Object ref = token_;
@@ -15665,19 +16371,24 @@ public final class CafeService {
     private sjtu.opennet.textilepb.Model.SyncFile file_;
     /**
      * <code>.SyncFile file = 2;</code>
+     * @return Whether the file field is set.
      */
+    @java.lang.Override
     public boolean hasFile() {
       return file_ != null;
     }
     /**
      * <code>.SyncFile file = 2;</code>
+     * @return The file.
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.SyncFile getFile() {
       return file_ == null ? sjtu.opennet.textilepb.Model.SyncFile.getDefaultInstance() : file_;
     }
     /**
      * <code>.SyncFile file = 2;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.SyncFileOrBuilder getFileOrBuilder() {
       return getFile();
     }
@@ -15733,16 +16444,15 @@ public final class CafeService {
       }
       sjtu.opennet.textilepb.CafeService.CafeSyncFile other = (sjtu.opennet.textilepb.CafeService.CafeSyncFile) obj;
 
-      boolean result = true;
-      result = result && getToken()
-          .equals(other.getToken());
-      result = result && (hasFile() == other.hasFile());
+      if (!getToken()
+          .equals(other.getToken())) return false;
+      if (hasFile() != other.hasFile()) return false;
       if (hasFile()) {
-        result = result && getFile()
-            .equals(other.getFile());
+        if (!getFile()
+            .equals(other.getFile())) return false;
       }
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -15937,35 +16647,35 @@ public final class CafeService {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -16018,6 +16728,7 @@ public final class CafeService {
       private java.lang.Object token_ = "";
       /**
        * <code>string token = 1;</code>
+       * @return The token.
        */
       public java.lang.String getToken() {
         java.lang.Object ref = token_;
@@ -16033,6 +16744,7 @@ public final class CafeService {
       }
       /**
        * <code>string token = 1;</code>
+       * @return The bytes for token.
        */
       public com.google.protobuf.ByteString
           getTokenBytes() {
@@ -16049,6 +16761,8 @@ public final class CafeService {
       }
       /**
        * <code>string token = 1;</code>
+       * @param value The token to set.
+       * @return This builder for chaining.
        */
       public Builder setToken(
           java.lang.String value) {
@@ -16062,6 +16776,7 @@ public final class CafeService {
       }
       /**
        * <code>string token = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearToken() {
         
@@ -16071,6 +16786,8 @@ public final class CafeService {
       }
       /**
        * <code>string token = 1;</code>
+       * @param value The bytes for token to set.
+       * @return This builder for chaining.
        */
       public Builder setTokenBytes(
           com.google.protobuf.ByteString value) {
@@ -16084,17 +16801,19 @@ public final class CafeService {
         return this;
       }
 
-      private sjtu.opennet.textilepb.Model.SyncFile file_ = null;
+      private sjtu.opennet.textilepb.Model.SyncFile file_;
       private com.google.protobuf.SingleFieldBuilderV3<
           sjtu.opennet.textilepb.Model.SyncFile, sjtu.opennet.textilepb.Model.SyncFile.Builder, sjtu.opennet.textilepb.Model.SyncFileOrBuilder> fileBuilder_;
       /**
        * <code>.SyncFile file = 2;</code>
+       * @return Whether the file field is set.
        */
       public boolean hasFile() {
         return fileBuilder_ != null || file_ != null;
       }
       /**
        * <code>.SyncFile file = 2;</code>
+       * @return The file.
        */
       public sjtu.opennet.textilepb.Model.SyncFile getFile() {
         if (fileBuilder_ == null) {
@@ -16203,7 +16922,7 @@ public final class CafeService {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -16259,20 +16978,24 @@ public final class CafeService {
 
     /**
      * <code>string peerAddress = 1;</code>
+     * @return The peerAddress.
      */
     java.lang.String getPeerAddress();
     /**
      * <code>string peerAddress = 1;</code>
+     * @return The bytes for peerAddress.
      */
     com.google.protobuf.ByteString
         getPeerAddressBytes();
 
     /**
      * <code>string file = 2;</code>
+     * @return The file.
      */
     java.lang.String getFile();
     /**
      * <code>string file = 2;</code>
+     * @return The bytes for file.
      */
     com.google.protobuf.ByteString
         getFileBytes();
@@ -16280,7 +17003,7 @@ public final class CafeService {
   /**
    * Protobuf type {@code CafeSyncFileAck}
    */
-  public  static final class CafeSyncFileAck extends
+  public static final class CafeSyncFileAck extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:CafeSyncFileAck)
       CafeSyncFileAckOrBuilder {
@@ -16292,6 +17015,13 @@ public final class CafeService {
     private CafeSyncFileAck() {
       peerAddress_ = "";
       file_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new CafeSyncFileAck();
     }
 
     @java.lang.Override
@@ -16307,7 +17037,6 @@ public final class CafeService {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -16331,7 +17060,7 @@ public final class CafeService {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -16366,7 +17095,9 @@ public final class CafeService {
     private volatile java.lang.Object peerAddress_;
     /**
      * <code>string peerAddress = 1;</code>
+     * @return The peerAddress.
      */
+    @java.lang.Override
     public java.lang.String getPeerAddress() {
       java.lang.Object ref = peerAddress_;
       if (ref instanceof java.lang.String) {
@@ -16381,7 +17112,9 @@ public final class CafeService {
     }
     /**
      * <code>string peerAddress = 1;</code>
+     * @return The bytes for peerAddress.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getPeerAddressBytes() {
       java.lang.Object ref = peerAddress_;
@@ -16400,7 +17133,9 @@ public final class CafeService {
     private volatile java.lang.Object file_;
     /**
      * <code>string file = 2;</code>
+     * @return The file.
      */
+    @java.lang.Override
     public java.lang.String getFile() {
       java.lang.Object ref = file_;
       if (ref instanceof java.lang.String) {
@@ -16415,7 +17150,9 @@ public final class CafeService {
     }
     /**
      * <code>string file = 2;</code>
+     * @return The bytes for file.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getFileBytes() {
       java.lang.Object ref = file_;
@@ -16480,13 +17217,12 @@ public final class CafeService {
       }
       sjtu.opennet.textilepb.CafeService.CafeSyncFileAck other = (sjtu.opennet.textilepb.CafeService.CafeSyncFileAck) obj;
 
-      boolean result = true;
-      result = result && getPeerAddress()
-          .equals(other.getPeerAddress());
-      result = result && getFile()
-          .equals(other.getFile());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getPeerAddress()
+          .equals(other.getPeerAddress())) return false;
+      if (!getFile()
+          .equals(other.getFile())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -16671,35 +17407,35 @@ public final class CafeService {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -16753,6 +17489,7 @@ public final class CafeService {
       private java.lang.Object peerAddress_ = "";
       /**
        * <code>string peerAddress = 1;</code>
+       * @return The peerAddress.
        */
       public java.lang.String getPeerAddress() {
         java.lang.Object ref = peerAddress_;
@@ -16768,6 +17505,7 @@ public final class CafeService {
       }
       /**
        * <code>string peerAddress = 1;</code>
+       * @return The bytes for peerAddress.
        */
       public com.google.protobuf.ByteString
           getPeerAddressBytes() {
@@ -16784,6 +17522,8 @@ public final class CafeService {
       }
       /**
        * <code>string peerAddress = 1;</code>
+       * @param value The peerAddress to set.
+       * @return This builder for chaining.
        */
       public Builder setPeerAddress(
           java.lang.String value) {
@@ -16797,6 +17537,7 @@ public final class CafeService {
       }
       /**
        * <code>string peerAddress = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearPeerAddress() {
         
@@ -16806,6 +17547,8 @@ public final class CafeService {
       }
       /**
        * <code>string peerAddress = 1;</code>
+       * @param value The bytes for peerAddress to set.
+       * @return This builder for chaining.
        */
       public Builder setPeerAddressBytes(
           com.google.protobuf.ByteString value) {
@@ -16822,6 +17565,7 @@ public final class CafeService {
       private java.lang.Object file_ = "";
       /**
        * <code>string file = 2;</code>
+       * @return The file.
        */
       public java.lang.String getFile() {
         java.lang.Object ref = file_;
@@ -16837,6 +17581,7 @@ public final class CafeService {
       }
       /**
        * <code>string file = 2;</code>
+       * @return The bytes for file.
        */
       public com.google.protobuf.ByteString
           getFileBytes() {
@@ -16853,6 +17598,8 @@ public final class CafeService {
       }
       /**
        * <code>string file = 2;</code>
+       * @param value The file to set.
+       * @return This builder for chaining.
        */
       public Builder setFile(
           java.lang.String value) {
@@ -16866,6 +17613,7 @@ public final class CafeService {
       }
       /**
        * <code>string file = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearFile() {
         
@@ -16875,6 +17623,8 @@ public final class CafeService {
       }
       /**
        * <code>string file = 2;</code>
+       * @param value The bytes for file to set.
+       * @return This builder for chaining.
        */
       public Builder setFileBytes(
           com.google.protobuf.ByteString value) {
@@ -16890,7 +17640,7 @@ public final class CafeService {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -16946,20 +17696,24 @@ public final class CafeService {
 
     /**
      * <code>string token = 1;</code>
+     * @return The token.
      */
     java.lang.String getToken();
     /**
      * <code>string token = 1;</code>
+     * @return The bytes for token.
      */
     com.google.protobuf.ByteString
         getTokenBytes();
 
     /**
      * <code>.IpfsQuery query = 2;</code>
+     * @return Whether the query field is set.
      */
     boolean hasQuery();
     /**
      * <code>.IpfsQuery query = 2;</code>
+     * @return The query.
      */
     sjtu.opennet.textilepb.QueryOuterClass.IpfsQuery getQuery();
     /**
@@ -16970,7 +17724,7 @@ public final class CafeService {
   /**
    * Protobuf type {@code CafeFindIpfsAddr}
    */
-  public  static final class CafeFindIpfsAddr extends
+  public static final class CafeFindIpfsAddr extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:CafeFindIpfsAddr)
       CafeFindIpfsAddrOrBuilder {
@@ -16981,6 +17735,13 @@ public final class CafeService {
     }
     private CafeFindIpfsAddr() {
       token_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new CafeFindIpfsAddr();
     }
 
     @java.lang.Override
@@ -16996,7 +17757,6 @@ public final class CafeService {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -17027,7 +17787,7 @@ public final class CafeService {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -17062,7 +17822,9 @@ public final class CafeService {
     private volatile java.lang.Object token_;
     /**
      * <code>string token = 1;</code>
+     * @return The token.
      */
+    @java.lang.Override
     public java.lang.String getToken() {
       java.lang.Object ref = token_;
       if (ref instanceof java.lang.String) {
@@ -17077,7 +17839,9 @@ public final class CafeService {
     }
     /**
      * <code>string token = 1;</code>
+     * @return The bytes for token.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getTokenBytes() {
       java.lang.Object ref = token_;
@@ -17096,19 +17860,24 @@ public final class CafeService {
     private sjtu.opennet.textilepb.QueryOuterClass.IpfsQuery query_;
     /**
      * <code>.IpfsQuery query = 2;</code>
+     * @return Whether the query field is set.
      */
+    @java.lang.Override
     public boolean hasQuery() {
       return query_ != null;
     }
     /**
      * <code>.IpfsQuery query = 2;</code>
+     * @return The query.
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.QueryOuterClass.IpfsQuery getQuery() {
       return query_ == null ? sjtu.opennet.textilepb.QueryOuterClass.IpfsQuery.getDefaultInstance() : query_;
     }
     /**
      * <code>.IpfsQuery query = 2;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.QueryOuterClass.IpfsQueryOrBuilder getQueryOrBuilder() {
       return getQuery();
     }
@@ -17164,16 +17933,15 @@ public final class CafeService {
       }
       sjtu.opennet.textilepb.CafeService.CafeFindIpfsAddr other = (sjtu.opennet.textilepb.CafeService.CafeFindIpfsAddr) obj;
 
-      boolean result = true;
-      result = result && getToken()
-          .equals(other.getToken());
-      result = result && (hasQuery() == other.hasQuery());
+      if (!getToken()
+          .equals(other.getToken())) return false;
+      if (hasQuery() != other.hasQuery()) return false;
       if (hasQuery()) {
-        result = result && getQuery()
-            .equals(other.getQuery());
+        if (!getQuery()
+            .equals(other.getQuery())) return false;
       }
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -17368,35 +18136,35 @@ public final class CafeService {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -17449,6 +18217,7 @@ public final class CafeService {
       private java.lang.Object token_ = "";
       /**
        * <code>string token = 1;</code>
+       * @return The token.
        */
       public java.lang.String getToken() {
         java.lang.Object ref = token_;
@@ -17464,6 +18233,7 @@ public final class CafeService {
       }
       /**
        * <code>string token = 1;</code>
+       * @return The bytes for token.
        */
       public com.google.protobuf.ByteString
           getTokenBytes() {
@@ -17480,6 +18250,8 @@ public final class CafeService {
       }
       /**
        * <code>string token = 1;</code>
+       * @param value The token to set.
+       * @return This builder for chaining.
        */
       public Builder setToken(
           java.lang.String value) {
@@ -17493,6 +18265,7 @@ public final class CafeService {
       }
       /**
        * <code>string token = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearToken() {
         
@@ -17502,6 +18275,8 @@ public final class CafeService {
       }
       /**
        * <code>string token = 1;</code>
+       * @param value The bytes for token to set.
+       * @return This builder for chaining.
        */
       public Builder setTokenBytes(
           com.google.protobuf.ByteString value) {
@@ -17515,17 +18290,19 @@ public final class CafeService {
         return this;
       }
 
-      private sjtu.opennet.textilepb.QueryOuterClass.IpfsQuery query_ = null;
+      private sjtu.opennet.textilepb.QueryOuterClass.IpfsQuery query_;
       private com.google.protobuf.SingleFieldBuilderV3<
           sjtu.opennet.textilepb.QueryOuterClass.IpfsQuery, sjtu.opennet.textilepb.QueryOuterClass.IpfsQuery.Builder, sjtu.opennet.textilepb.QueryOuterClass.IpfsQueryOrBuilder> queryBuilder_;
       /**
        * <code>.IpfsQuery query = 2;</code>
+       * @return Whether the query field is set.
        */
       public boolean hasQuery() {
         return queryBuilder_ != null || query_ != null;
       }
       /**
        * <code>.IpfsQuery query = 2;</code>
+       * @return The query.
        */
       public sjtu.opennet.textilepb.QueryOuterClass.IpfsQuery getQuery() {
         if (queryBuilder_ == null) {
@@ -17634,7 +18411,7 @@ public final class CafeService {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -17690,10 +18467,12 @@ public final class CafeService {
 
     /**
      * <code>.IpfsQueryResult result = 1;</code>
+     * @return Whether the result field is set.
      */
     boolean hasResult();
     /**
      * <code>.IpfsQueryResult result = 1;</code>
+     * @return The result.
      */
     sjtu.opennet.textilepb.QueryOuterClass.IpfsQueryResult getResult();
     /**
@@ -17704,7 +18483,7 @@ public final class CafeService {
   /**
    * Protobuf type {@code CafeFindIpfsAddrAck}
    */
-  public  static final class CafeFindIpfsAddrAck extends
+  public static final class CafeFindIpfsAddrAck extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:CafeFindIpfsAddrAck)
       CafeFindIpfsAddrAckOrBuilder {
@@ -17714,6 +18493,13 @@ public final class CafeService {
       super(builder);
     }
     private CafeFindIpfsAddrAck() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new CafeFindIpfsAddrAck();
     }
 
     @java.lang.Override
@@ -17729,7 +18515,6 @@ public final class CafeService {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -17754,7 +18539,7 @@ public final class CafeService {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -17789,19 +18574,24 @@ public final class CafeService {
     private sjtu.opennet.textilepb.QueryOuterClass.IpfsQueryResult result_;
     /**
      * <code>.IpfsQueryResult result = 1;</code>
+     * @return Whether the result field is set.
      */
+    @java.lang.Override
     public boolean hasResult() {
       return result_ != null;
     }
     /**
      * <code>.IpfsQueryResult result = 1;</code>
+     * @return The result.
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.QueryOuterClass.IpfsQueryResult getResult() {
       return result_ == null ? sjtu.opennet.textilepb.QueryOuterClass.IpfsQueryResult.getDefaultInstance() : result_;
     }
     /**
      * <code>.IpfsQueryResult result = 1;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.QueryOuterClass.IpfsQueryResultOrBuilder getResultOrBuilder() {
       return getResult();
     }
@@ -17851,14 +18641,13 @@ public final class CafeService {
       }
       sjtu.opennet.textilepb.CafeService.CafeFindIpfsAddrAck other = (sjtu.opennet.textilepb.CafeService.CafeFindIpfsAddrAck) obj;
 
-      boolean result = true;
-      result = result && (hasResult() == other.hasResult());
+      if (hasResult() != other.hasResult()) return false;
       if (hasResult()) {
-        result = result && getResult()
-            .equals(other.getResult());
+        if (!getResult()
+            .equals(other.getResult())) return false;
       }
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -18048,35 +18837,35 @@ public final class CafeService {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -18122,17 +18911,19 @@ public final class CafeService {
         return this;
       }
 
-      private sjtu.opennet.textilepb.QueryOuterClass.IpfsQueryResult result_ = null;
+      private sjtu.opennet.textilepb.QueryOuterClass.IpfsQueryResult result_;
       private com.google.protobuf.SingleFieldBuilderV3<
           sjtu.opennet.textilepb.QueryOuterClass.IpfsQueryResult, sjtu.opennet.textilepb.QueryOuterClass.IpfsQueryResult.Builder, sjtu.opennet.textilepb.QueryOuterClass.IpfsQueryResultOrBuilder> resultBuilder_;
       /**
        * <code>.IpfsQueryResult result = 1;</code>
+       * @return Whether the result field is set.
        */
       public boolean hasResult() {
         return resultBuilder_ != null || result_ != null;
       }
       /**
        * <code>.IpfsQueryResult result = 1;</code>
+       * @return The result.
        */
       public sjtu.opennet.textilepb.QueryOuterClass.IpfsQueryResult getResult() {
         if (resultBuilder_ == null) {
@@ -18241,7 +19032,7 @@ public final class CafeService {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -18297,33 +19088,38 @@ public final class CafeService {
 
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
     java.lang.String getId();
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
     com.google.protobuf.ByteString
         getIdBytes();
 
     /**
      * <code>string client = 2;</code>
+     * @return The client.
      */
     java.lang.String getClient();
     /**
      * <code>string client = 2;</code>
+     * @return The bytes for client.
      */
     com.google.protobuf.ByteString
         getClientBytes();
 
     /**
      * <code>bytes env = 3;</code>
+     * @return The env.
      */
     com.google.protobuf.ByteString getEnv();
   }
   /**
    * Protobuf type {@code CafeDeliverMessage}
    */
-  public  static final class CafeDeliverMessage extends
+  public static final class CafeDeliverMessage extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:CafeDeliverMessage)
       CafeDeliverMessageOrBuilder {
@@ -18339,6 +19135,13 @@ public final class CafeService {
     }
 
     @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new CafeDeliverMessage();
+    }
+
+    @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
       return this.unknownFields;
@@ -18351,7 +19154,6 @@ public final class CafeService {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -18380,7 +19182,7 @@ public final class CafeService {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -18415,7 +19217,9 @@ public final class CafeService {
     private volatile java.lang.Object id_;
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
+    @java.lang.Override
     public java.lang.String getId() {
       java.lang.Object ref = id_;
       if (ref instanceof java.lang.String) {
@@ -18430,7 +19234,9 @@ public final class CafeService {
     }
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getIdBytes() {
       java.lang.Object ref = id_;
@@ -18449,7 +19255,9 @@ public final class CafeService {
     private volatile java.lang.Object client_;
     /**
      * <code>string client = 2;</code>
+     * @return The client.
      */
+    @java.lang.Override
     public java.lang.String getClient() {
       java.lang.Object ref = client_;
       if (ref instanceof java.lang.String) {
@@ -18464,7 +19272,9 @@ public final class CafeService {
     }
     /**
      * <code>string client = 2;</code>
+     * @return The bytes for client.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getClientBytes() {
       java.lang.Object ref = client_;
@@ -18483,7 +19293,9 @@ public final class CafeService {
     private com.google.protobuf.ByteString env_;
     /**
      * <code>bytes env = 3;</code>
+     * @return The env.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getEnv() {
       return env_;
     }
@@ -18545,15 +19357,14 @@ public final class CafeService {
       }
       sjtu.opennet.textilepb.CafeService.CafeDeliverMessage other = (sjtu.opennet.textilepb.CafeService.CafeDeliverMessage) obj;
 
-      boolean result = true;
-      result = result && getId()
-          .equals(other.getId());
-      result = result && getClient()
-          .equals(other.getClient());
-      result = result && getEnv()
-          .equals(other.getEnv());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getId()
+          .equals(other.getId())) return false;
+      if (!getClient()
+          .equals(other.getClient())) return false;
+      if (!getEnv()
+          .equals(other.getEnv())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -18743,35 +19554,35 @@ public final class CafeService {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -18828,6 +19639,7 @@ public final class CafeService {
       private java.lang.Object id_ = "";
       /**
        * <code>string id = 1;</code>
+       * @return The id.
        */
       public java.lang.String getId() {
         java.lang.Object ref = id_;
@@ -18843,6 +19655,7 @@ public final class CafeService {
       }
       /**
        * <code>string id = 1;</code>
+       * @return The bytes for id.
        */
       public com.google.protobuf.ByteString
           getIdBytes() {
@@ -18859,6 +19672,8 @@ public final class CafeService {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The id to set.
+       * @return This builder for chaining.
        */
       public Builder setId(
           java.lang.String value) {
@@ -18872,6 +19687,7 @@ public final class CafeService {
       }
       /**
        * <code>string id = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearId() {
         
@@ -18881,6 +19697,8 @@ public final class CafeService {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The bytes for id to set.
+       * @return This builder for chaining.
        */
       public Builder setIdBytes(
           com.google.protobuf.ByteString value) {
@@ -18897,6 +19715,7 @@ public final class CafeService {
       private java.lang.Object client_ = "";
       /**
        * <code>string client = 2;</code>
+       * @return The client.
        */
       public java.lang.String getClient() {
         java.lang.Object ref = client_;
@@ -18912,6 +19731,7 @@ public final class CafeService {
       }
       /**
        * <code>string client = 2;</code>
+       * @return The bytes for client.
        */
       public com.google.protobuf.ByteString
           getClientBytes() {
@@ -18928,6 +19748,8 @@ public final class CafeService {
       }
       /**
        * <code>string client = 2;</code>
+       * @param value The client to set.
+       * @return This builder for chaining.
        */
       public Builder setClient(
           java.lang.String value) {
@@ -18941,6 +19763,7 @@ public final class CafeService {
       }
       /**
        * <code>string client = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearClient() {
         
@@ -18950,6 +19773,8 @@ public final class CafeService {
       }
       /**
        * <code>string client = 2;</code>
+       * @param value The bytes for client to set.
+       * @return This builder for chaining.
        */
       public Builder setClientBytes(
           com.google.protobuf.ByteString value) {
@@ -18966,12 +19791,16 @@ public final class CafeService {
       private com.google.protobuf.ByteString env_ = com.google.protobuf.ByteString.EMPTY;
       /**
        * <code>bytes env = 3;</code>
+       * @return The env.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getEnv() {
         return env_;
       }
       /**
        * <code>bytes env = 3;</code>
+       * @param value The env to set.
+       * @return This builder for chaining.
        */
       public Builder setEnv(com.google.protobuf.ByteString value) {
         if (value == null) {
@@ -18984,6 +19813,7 @@ public final class CafeService {
       }
       /**
        * <code>bytes env = 3;</code>
+       * @return This builder for chaining.
        */
       public Builder clearEnv() {
         
@@ -18994,7 +19824,7 @@ public final class CafeService {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -19050,10 +19880,12 @@ public final class CafeService {
 
     /**
      * <code>string token = 1;</code>
+     * @return The token.
      */
     java.lang.String getToken();
     /**
      * <code>string token = 1;</code>
+     * @return The bytes for token.
      */
     com.google.protobuf.ByteString
         getTokenBytes();
@@ -19061,7 +19893,7 @@ public final class CafeService {
   /**
    * Protobuf type {@code CafeCheckMessages}
    */
-  public  static final class CafeCheckMessages extends
+  public static final class CafeCheckMessages extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:CafeCheckMessages)
       CafeCheckMessagesOrBuilder {
@@ -19072,6 +19904,13 @@ public final class CafeService {
     }
     private CafeCheckMessages() {
       token_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new CafeCheckMessages();
     }
 
     @java.lang.Override
@@ -19087,7 +19926,6 @@ public final class CafeService {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -19105,7 +19943,7 @@ public final class CafeService {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -19140,7 +19978,9 @@ public final class CafeService {
     private volatile java.lang.Object token_;
     /**
      * <code>string token = 1;</code>
+     * @return The token.
      */
+    @java.lang.Override
     public java.lang.String getToken() {
       java.lang.Object ref = token_;
       if (ref instanceof java.lang.String) {
@@ -19155,7 +19995,9 @@ public final class CafeService {
     }
     /**
      * <code>string token = 1;</code>
+     * @return The bytes for token.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getTokenBytes() {
       java.lang.Object ref = token_;
@@ -19214,11 +20056,10 @@ public final class CafeService {
       }
       sjtu.opennet.textilepb.CafeService.CafeCheckMessages other = (sjtu.opennet.textilepb.CafeService.CafeCheckMessages) obj;
 
-      boolean result = true;
-      result = result && getToken()
-          .equals(other.getToken());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getToken()
+          .equals(other.getToken())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -19398,35 +20239,35 @@ public final class CafeService {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -19476,6 +20317,7 @@ public final class CafeService {
       private java.lang.Object token_ = "";
       /**
        * <code>string token = 1;</code>
+       * @return The token.
        */
       public java.lang.String getToken() {
         java.lang.Object ref = token_;
@@ -19491,6 +20333,7 @@ public final class CafeService {
       }
       /**
        * <code>string token = 1;</code>
+       * @return The bytes for token.
        */
       public com.google.protobuf.ByteString
           getTokenBytes() {
@@ -19507,6 +20350,8 @@ public final class CafeService {
       }
       /**
        * <code>string token = 1;</code>
+       * @param value The token to set.
+       * @return This builder for chaining.
        */
       public Builder setToken(
           java.lang.String value) {
@@ -19520,6 +20365,7 @@ public final class CafeService {
       }
       /**
        * <code>string token = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearToken() {
         
@@ -19529,6 +20375,8 @@ public final class CafeService {
       }
       /**
        * <code>string token = 1;</code>
+       * @param value The bytes for token to set.
+       * @return This builder for chaining.
        */
       public Builder setTokenBytes(
           com.google.protobuf.ByteString value) {
@@ -19544,7 +20392,7 @@ public final class CafeService {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -19625,7 +20473,7 @@ public final class CafeService {
   /**
    * Protobuf type {@code CafeMessages}
    */
-  public  static final class CafeMessages extends
+  public static final class CafeMessages extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:CafeMessages)
       CafeMessagesOrBuilder {
@@ -19636,6 +20484,13 @@ public final class CafeService {
     }
     private CafeMessages() {
       messages_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new CafeMessages();
     }
 
     @java.lang.Override
@@ -19663,7 +20518,7 @@ public final class CafeService {
               done = true;
               break;
             case 10: {
-              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
                 messages_ = new java.util.ArrayList<sjtu.opennet.textilepb.Model.CafeMessage>();
                 mutable_bitField0_ |= 0x00000001;
               }
@@ -19672,7 +20527,7 @@ public final class CafeService {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -19686,7 +20541,7 @@ public final class CafeService {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
           messages_ = java.util.Collections.unmodifiableList(messages_);
         }
         this.unknownFields = unknownFields.build();
@@ -19711,12 +20566,14 @@ public final class CafeService {
     /**
      * <code>repeated .CafeMessage messages = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<sjtu.opennet.textilepb.Model.CafeMessage> getMessagesList() {
       return messages_;
     }
     /**
      * <code>repeated .CafeMessage messages = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends sjtu.opennet.textilepb.Model.CafeMessageOrBuilder> 
         getMessagesOrBuilderList() {
       return messages_;
@@ -19724,18 +20581,21 @@ public final class CafeService {
     /**
      * <code>repeated .CafeMessage messages = 1;</code>
      */
+    @java.lang.Override
     public int getMessagesCount() {
       return messages_.size();
     }
     /**
      * <code>repeated .CafeMessage messages = 1;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.CafeMessage getMessages(int index) {
       return messages_.get(index);
     }
     /**
      * <code>repeated .CafeMessage messages = 1;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Model.CafeMessageOrBuilder getMessagesOrBuilder(
         int index) {
       return messages_.get(index);
@@ -19786,11 +20646,10 @@ public final class CafeService {
       }
       sjtu.opennet.textilepb.CafeService.CafeMessages other = (sjtu.opennet.textilepb.CafeService.CafeMessages) obj;
 
-      boolean result = true;
-      result = result && getMessagesList()
-          .equals(other.getMessagesList());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getMessagesList()
+          .equals(other.getMessagesList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -19972,7 +20831,7 @@ public final class CafeService {
         sjtu.opennet.textilepb.CafeService.CafeMessages result = new sjtu.opennet.textilepb.CafeService.CafeMessages(this);
         int from_bitField0_ = bitField0_;
         if (messagesBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) == 0x00000001)) {
+          if (((bitField0_ & 0x00000001) != 0)) {
             messages_ = java.util.Collections.unmodifiableList(messages_);
             bitField0_ = (bitField0_ & ~0x00000001);
           }
@@ -19986,35 +20845,35 @@ public final class CafeService {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -20087,7 +20946,7 @@ public final class CafeService {
       private java.util.List<sjtu.opennet.textilepb.Model.CafeMessage> messages_ =
         java.util.Collections.emptyList();
       private void ensureMessagesIsMutable() {
-        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+        if (!((bitField0_ & 0x00000001) != 0)) {
           messages_ = new java.util.ArrayList<sjtu.opennet.textilepb.Model.CafeMessage>(messages_);
           bitField0_ |= 0x00000001;
          }
@@ -20316,7 +21175,7 @@ public final class CafeService {
           messagesBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
               sjtu.opennet.textilepb.Model.CafeMessage, sjtu.opennet.textilepb.Model.CafeMessage.Builder, sjtu.opennet.textilepb.Model.CafeMessageOrBuilder>(
                   messages_,
-                  ((bitField0_ & 0x00000001) == 0x00000001),
+                  ((bitField0_ & 0x00000001) != 0),
                   getParentForChildren(),
                   isClean());
           messages_ = null;
@@ -20326,7 +21185,7 @@ public final class CafeService {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -20382,10 +21241,12 @@ public final class CafeService {
 
     /**
      * <code>string token = 1;</code>
+     * @return The token.
      */
     java.lang.String getToken();
     /**
      * <code>string token = 1;</code>
+     * @return The bytes for token.
      */
     com.google.protobuf.ByteString
         getTokenBytes();
@@ -20393,7 +21254,7 @@ public final class CafeService {
   /**
    * Protobuf type {@code CafeDeleteMessages}
    */
-  public  static final class CafeDeleteMessages extends
+  public static final class CafeDeleteMessages extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:CafeDeleteMessages)
       CafeDeleteMessagesOrBuilder {
@@ -20404,6 +21265,13 @@ public final class CafeService {
     }
     private CafeDeleteMessages() {
       token_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new CafeDeleteMessages();
     }
 
     @java.lang.Override
@@ -20419,7 +21287,6 @@ public final class CafeService {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -20437,7 +21304,7 @@ public final class CafeService {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -20472,7 +21339,9 @@ public final class CafeService {
     private volatile java.lang.Object token_;
     /**
      * <code>string token = 1;</code>
+     * @return The token.
      */
+    @java.lang.Override
     public java.lang.String getToken() {
       java.lang.Object ref = token_;
       if (ref instanceof java.lang.String) {
@@ -20487,7 +21356,9 @@ public final class CafeService {
     }
     /**
      * <code>string token = 1;</code>
+     * @return The bytes for token.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getTokenBytes() {
       java.lang.Object ref = token_;
@@ -20546,11 +21417,10 @@ public final class CafeService {
       }
       sjtu.opennet.textilepb.CafeService.CafeDeleteMessages other = (sjtu.opennet.textilepb.CafeService.CafeDeleteMessages) obj;
 
-      boolean result = true;
-      result = result && getToken()
-          .equals(other.getToken());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getToken()
+          .equals(other.getToken())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -20730,35 +21600,35 @@ public final class CafeService {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -20808,6 +21678,7 @@ public final class CafeService {
       private java.lang.Object token_ = "";
       /**
        * <code>string token = 1;</code>
+       * @return The token.
        */
       public java.lang.String getToken() {
         java.lang.Object ref = token_;
@@ -20823,6 +21694,7 @@ public final class CafeService {
       }
       /**
        * <code>string token = 1;</code>
+       * @return The bytes for token.
        */
       public com.google.protobuf.ByteString
           getTokenBytes() {
@@ -20839,6 +21711,8 @@ public final class CafeService {
       }
       /**
        * <code>string token = 1;</code>
+       * @param value The token to set.
+       * @return This builder for chaining.
        */
       public Builder setToken(
           java.lang.String value) {
@@ -20852,6 +21726,7 @@ public final class CafeService {
       }
       /**
        * <code>string token = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearToken() {
         
@@ -20861,6 +21736,8 @@ public final class CafeService {
       }
       /**
        * <code>string token = 1;</code>
+       * @param value The bytes for token to set.
+       * @return This builder for chaining.
        */
       public Builder setTokenBytes(
           com.google.protobuf.ByteString value) {
@@ -20876,7 +21753,7 @@ public final class CafeService {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -20932,13 +21809,14 @@ public final class CafeService {
 
     /**
      * <code>bool more = 1;</code>
+     * @return The more.
      */
     boolean getMore();
   }
   /**
    * Protobuf type {@code CafeDeleteMessagesAck}
    */
-  public  static final class CafeDeleteMessagesAck extends
+  public static final class CafeDeleteMessagesAck extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:CafeDeleteMessagesAck)
       CafeDeleteMessagesAckOrBuilder {
@@ -20948,7 +21826,13 @@ public final class CafeService {
       super(builder);
     }
     private CafeDeleteMessagesAck() {
-      more_ = false;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new CafeDeleteMessagesAck();
     }
 
     @java.lang.Override
@@ -20964,7 +21848,6 @@ public final class CafeService {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -20981,7 +21864,7 @@ public final class CafeService {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -21016,7 +21899,9 @@ public final class CafeService {
     private boolean more_;
     /**
      * <code>bool more = 1;</code>
+     * @return The more.
      */
+    @java.lang.Override
     public boolean getMore() {
       return more_;
     }
@@ -21066,11 +21951,10 @@ public final class CafeService {
       }
       sjtu.opennet.textilepb.CafeService.CafeDeleteMessagesAck other = (sjtu.opennet.textilepb.CafeService.CafeDeleteMessagesAck) obj;
 
-      boolean result = true;
-      result = result && (getMore()
-          == other.getMore());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (getMore()
+          != other.getMore()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -21251,35 +22135,35 @@ public final class CafeService {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -21328,12 +22212,16 @@ public final class CafeService {
       private boolean more_ ;
       /**
        * <code>bool more = 1;</code>
+       * @return The more.
        */
+      @java.lang.Override
       public boolean getMore() {
         return more_;
       }
       /**
        * <code>bool more = 1;</code>
+       * @param value The more to set.
+       * @return This builder for chaining.
        */
       public Builder setMore(boolean value) {
         
@@ -21343,6 +22231,7 @@ public final class CafeService {
       }
       /**
        * <code>bool more = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearMore() {
         
@@ -21353,7 +22242,7 @@ public final class CafeService {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -21615,20 +22504,12 @@ public final class CafeService {
       "ssagesAck\022\014\n\004more\030\001 \001(\010B\034\n\026sjtu.opennet." +
       "textilepbZ\002pbb\006proto3"
     };
-    com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
-        new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
-          public com.google.protobuf.ExtensionRegistry assignDescriptors(
-              com.google.protobuf.Descriptors.FileDescriptor root) {
-            descriptor = root;
-            return null;
-          }
-        };
-    com.google.protobuf.Descriptors.FileDescriptor
+    descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           sjtu.opennet.textilepb.Model.getDescriptor(),
           sjtu.opennet.textilepb.QueryOuterClass.getDescriptor(),
-        }, assigner);
+        });
     internal_static_CafeChallenge_descriptor =
       getDescriptor().getMessageTypes().get(0);
     internal_static_CafeChallenge_fieldAccessorTable = new

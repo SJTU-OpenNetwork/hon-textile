@@ -20,38 +20,44 @@ public final class StreamService {
 
     /**
      * <code>string streamID = 1;</code>
+     * @return The streamID.
      */
     java.lang.String getStreamID();
     /**
      * <code>string streamID = 1;</code>
+     * @return The bytes for streamID.
      */
     com.google.protobuf.ByteString
         getStreamIDBytes();
 
     /**
      * <code>uint64 index = 2;</code>
+     * @return The index.
      */
     long getIndex();
 
     /**
      * <code>bytes data = 3;</code>
+     * @return The data.
      */
     com.google.protobuf.ByteString getData();
 
     /**
      * <code>bool isRoot = 4;</code>
+     * @return The isRoot.
      */
     boolean getIsRoot();
 
     /**
      * <code>bytes description = 5;</code>
+     * @return The description.
      */
     com.google.protobuf.ByteString getDescription();
   }
   /**
    * Protobuf type {@code StreamBlockContent}
    */
-  public  static final class StreamBlockContent extends
+  public static final class StreamBlockContent extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:StreamBlockContent)
       StreamBlockContentOrBuilder {
@@ -62,10 +68,15 @@ public final class StreamService {
     }
     private StreamBlockContent() {
       streamID_ = "";
-      index_ = 0L;
       data_ = com.google.protobuf.ByteString.EMPTY;
-      isRoot_ = false;
       description_ = com.google.protobuf.ByteString.EMPTY;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new StreamBlockContent();
     }
 
     @java.lang.Override
@@ -81,7 +92,6 @@ public final class StreamService {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -119,7 +129,7 @@ public final class StreamService {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -154,7 +164,9 @@ public final class StreamService {
     private volatile java.lang.Object streamID_;
     /**
      * <code>string streamID = 1;</code>
+     * @return The streamID.
      */
+    @java.lang.Override
     public java.lang.String getStreamID() {
       java.lang.Object ref = streamID_;
       if (ref instanceof java.lang.String) {
@@ -169,7 +181,9 @@ public final class StreamService {
     }
     /**
      * <code>string streamID = 1;</code>
+     * @return The bytes for streamID.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getStreamIDBytes() {
       java.lang.Object ref = streamID_;
@@ -188,7 +202,9 @@ public final class StreamService {
     private long index_;
     /**
      * <code>uint64 index = 2;</code>
+     * @return The index.
      */
+    @java.lang.Override
     public long getIndex() {
       return index_;
     }
@@ -197,7 +213,9 @@ public final class StreamService {
     private com.google.protobuf.ByteString data_;
     /**
      * <code>bytes data = 3;</code>
+     * @return The data.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getData() {
       return data_;
     }
@@ -206,7 +224,9 @@ public final class StreamService {
     private boolean isRoot_;
     /**
      * <code>bool isRoot = 4;</code>
+     * @return The isRoot.
      */
+    @java.lang.Override
     public boolean getIsRoot() {
       return isRoot_;
     }
@@ -215,7 +235,9 @@ public final class StreamService {
     private com.google.protobuf.ByteString description_;
     /**
      * <code>bytes description = 5;</code>
+     * @return The description.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getDescription() {
       return description_;
     }
@@ -292,19 +314,18 @@ public final class StreamService {
       }
       sjtu.opennet.textilepb.StreamService.StreamBlockContent other = (sjtu.opennet.textilepb.StreamService.StreamBlockContent) obj;
 
-      boolean result = true;
-      result = result && getStreamID()
-          .equals(other.getStreamID());
-      result = result && (getIndex()
-          == other.getIndex());
-      result = result && getData()
-          .equals(other.getData());
-      result = result && (getIsRoot()
-          == other.getIsRoot());
-      result = result && getDescription()
-          .equals(other.getDescription());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getStreamID()
+          .equals(other.getStreamID())) return false;
+      if (getIndex()
+          != other.getIndex()) return false;
+      if (!getData()
+          .equals(other.getData())) return false;
+      if (getIsRoot()
+          != other.getIsRoot()) return false;
+      if (!getDescription()
+          .equals(other.getDescription())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -506,35 +527,35 @@ public final class StreamService {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -596,6 +617,7 @@ public final class StreamService {
       private java.lang.Object streamID_ = "";
       /**
        * <code>string streamID = 1;</code>
+       * @return The streamID.
        */
       public java.lang.String getStreamID() {
         java.lang.Object ref = streamID_;
@@ -611,6 +633,7 @@ public final class StreamService {
       }
       /**
        * <code>string streamID = 1;</code>
+       * @return The bytes for streamID.
        */
       public com.google.protobuf.ByteString
           getStreamIDBytes() {
@@ -627,6 +650,8 @@ public final class StreamService {
       }
       /**
        * <code>string streamID = 1;</code>
+       * @param value The streamID to set.
+       * @return This builder for chaining.
        */
       public Builder setStreamID(
           java.lang.String value) {
@@ -640,6 +665,7 @@ public final class StreamService {
       }
       /**
        * <code>string streamID = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearStreamID() {
         
@@ -649,6 +675,8 @@ public final class StreamService {
       }
       /**
        * <code>string streamID = 1;</code>
+       * @param value The bytes for streamID to set.
+       * @return This builder for chaining.
        */
       public Builder setStreamIDBytes(
           com.google.protobuf.ByteString value) {
@@ -665,12 +693,16 @@ public final class StreamService {
       private long index_ ;
       /**
        * <code>uint64 index = 2;</code>
+       * @return The index.
        */
+      @java.lang.Override
       public long getIndex() {
         return index_;
       }
       /**
        * <code>uint64 index = 2;</code>
+       * @param value The index to set.
+       * @return This builder for chaining.
        */
       public Builder setIndex(long value) {
         
@@ -680,6 +712,7 @@ public final class StreamService {
       }
       /**
        * <code>uint64 index = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearIndex() {
         
@@ -691,12 +724,16 @@ public final class StreamService {
       private com.google.protobuf.ByteString data_ = com.google.protobuf.ByteString.EMPTY;
       /**
        * <code>bytes data = 3;</code>
+       * @return The data.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getData() {
         return data_;
       }
       /**
        * <code>bytes data = 3;</code>
+       * @param value The data to set.
+       * @return This builder for chaining.
        */
       public Builder setData(com.google.protobuf.ByteString value) {
         if (value == null) {
@@ -709,6 +746,7 @@ public final class StreamService {
       }
       /**
        * <code>bytes data = 3;</code>
+       * @return This builder for chaining.
        */
       public Builder clearData() {
         
@@ -720,12 +758,16 @@ public final class StreamService {
       private boolean isRoot_ ;
       /**
        * <code>bool isRoot = 4;</code>
+       * @return The isRoot.
        */
+      @java.lang.Override
       public boolean getIsRoot() {
         return isRoot_;
       }
       /**
        * <code>bool isRoot = 4;</code>
+       * @param value The isRoot to set.
+       * @return This builder for chaining.
        */
       public Builder setIsRoot(boolean value) {
         
@@ -735,6 +777,7 @@ public final class StreamService {
       }
       /**
        * <code>bool isRoot = 4;</code>
+       * @return This builder for chaining.
        */
       public Builder clearIsRoot() {
         
@@ -746,12 +789,16 @@ public final class StreamService {
       private com.google.protobuf.ByteString description_ = com.google.protobuf.ByteString.EMPTY;
       /**
        * <code>bytes description = 5;</code>
+       * @return The description.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getDescription() {
         return description_;
       }
       /**
        * <code>bytes description = 5;</code>
+       * @param value The description to set.
+       * @return This builder for chaining.
        */
       public Builder setDescription(com.google.protobuf.ByteString value) {
         if (value == null) {
@@ -764,6 +811,7 @@ public final class StreamService {
       }
       /**
        * <code>bytes description = 5;</code>
+       * @return This builder for chaining.
        */
       public Builder clearDescription() {
         
@@ -774,7 +822,7 @@ public final class StreamService {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -855,7 +903,7 @@ public final class StreamService {
   /**
    * Protobuf type {@code StreamBlockContentList}
    */
-  public  static final class StreamBlockContentList extends
+  public static final class StreamBlockContentList extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:StreamBlockContentList)
       StreamBlockContentListOrBuilder {
@@ -866,6 +914,13 @@ public final class StreamService {
     }
     private StreamBlockContentList() {
       blocks_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new StreamBlockContentList();
     }
 
     @java.lang.Override
@@ -893,7 +948,7 @@ public final class StreamService {
               done = true;
               break;
             case 10: {
-              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
                 blocks_ = new java.util.ArrayList<sjtu.opennet.textilepb.StreamService.StreamBlockContent>();
                 mutable_bitField0_ |= 0x00000001;
               }
@@ -902,7 +957,7 @@ public final class StreamService {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -916,7 +971,7 @@ public final class StreamService {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
           blocks_ = java.util.Collections.unmodifiableList(blocks_);
         }
         this.unknownFields = unknownFields.build();
@@ -941,12 +996,14 @@ public final class StreamService {
     /**
      * <code>repeated .StreamBlockContent blocks = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<sjtu.opennet.textilepb.StreamService.StreamBlockContent> getBlocksList() {
       return blocks_;
     }
     /**
      * <code>repeated .StreamBlockContent blocks = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends sjtu.opennet.textilepb.StreamService.StreamBlockContentOrBuilder> 
         getBlocksOrBuilderList() {
       return blocks_;
@@ -954,18 +1011,21 @@ public final class StreamService {
     /**
      * <code>repeated .StreamBlockContent blocks = 1;</code>
      */
+    @java.lang.Override
     public int getBlocksCount() {
       return blocks_.size();
     }
     /**
      * <code>repeated .StreamBlockContent blocks = 1;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.StreamService.StreamBlockContent getBlocks(int index) {
       return blocks_.get(index);
     }
     /**
      * <code>repeated .StreamBlockContent blocks = 1;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.StreamService.StreamBlockContentOrBuilder getBlocksOrBuilder(
         int index) {
       return blocks_.get(index);
@@ -1016,11 +1076,10 @@ public final class StreamService {
       }
       sjtu.opennet.textilepb.StreamService.StreamBlockContentList other = (sjtu.opennet.textilepb.StreamService.StreamBlockContentList) obj;
 
-      boolean result = true;
-      result = result && getBlocksList()
-          .equals(other.getBlocksList());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getBlocksList()
+          .equals(other.getBlocksList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -1202,7 +1261,7 @@ public final class StreamService {
         sjtu.opennet.textilepb.StreamService.StreamBlockContentList result = new sjtu.opennet.textilepb.StreamService.StreamBlockContentList(this);
         int from_bitField0_ = bitField0_;
         if (blocksBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) == 0x00000001)) {
+          if (((bitField0_ & 0x00000001) != 0)) {
             blocks_ = java.util.Collections.unmodifiableList(blocks_);
             bitField0_ = (bitField0_ & ~0x00000001);
           }
@@ -1216,35 +1275,35 @@ public final class StreamService {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -1317,7 +1376,7 @@ public final class StreamService {
       private java.util.List<sjtu.opennet.textilepb.StreamService.StreamBlockContent> blocks_ =
         java.util.Collections.emptyList();
       private void ensureBlocksIsMutable() {
-        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+        if (!((bitField0_ & 0x00000001) != 0)) {
           blocks_ = new java.util.ArrayList<sjtu.opennet.textilepb.StreamService.StreamBlockContent>(blocks_);
           bitField0_ |= 0x00000001;
          }
@@ -1546,7 +1605,7 @@ public final class StreamService {
           blocksBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
               sjtu.opennet.textilepb.StreamService.StreamBlockContent, sjtu.opennet.textilepb.StreamService.StreamBlockContent.Builder, sjtu.opennet.textilepb.StreamService.StreamBlockContentOrBuilder>(
                   blocks_,
-                  ((bitField0_ & 0x00000001) == 0x00000001),
+                  ((bitField0_ & 0x00000001) != 0),
                   getParentForChildren(),
                   isClean());
           blocks_ = null;
@@ -1556,7 +1615,7 @@ public final class StreamService {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -1612,28 +1671,32 @@ public final class StreamService {
 
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
     java.lang.String getId();
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
     com.google.protobuf.ByteString
         getIdBytes();
 
     /**
      * <code>uint64 streamMap = 2;</code>
+     * @return The streamMap.
      */
     long getStreamMap();
 
     /**
      * <code>uint64 startIndex = 3;</code>
+     * @return The startIndex.
      */
     long getStartIndex();
   }
   /**
    * Protobuf type {@code StreamRequest}
    */
-  public  static final class StreamRequest extends
+  public static final class StreamRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:StreamRequest)
       StreamRequestOrBuilder {
@@ -1644,8 +1707,13 @@ public final class StreamService {
     }
     private StreamRequest() {
       id_ = "";
-      streamMap_ = 0L;
-      startIndex_ = 0L;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new StreamRequest();
     }
 
     @java.lang.Override
@@ -1661,7 +1729,6 @@ public final class StreamService {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -1689,7 +1756,7 @@ public final class StreamService {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -1724,7 +1791,9 @@ public final class StreamService {
     private volatile java.lang.Object id_;
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
+    @java.lang.Override
     public java.lang.String getId() {
       java.lang.Object ref = id_;
       if (ref instanceof java.lang.String) {
@@ -1739,7 +1808,9 @@ public final class StreamService {
     }
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getIdBytes() {
       java.lang.Object ref = id_;
@@ -1758,7 +1829,9 @@ public final class StreamService {
     private long streamMap_;
     /**
      * <code>uint64 streamMap = 2;</code>
+     * @return The streamMap.
      */
+    @java.lang.Override
     public long getStreamMap() {
       return streamMap_;
     }
@@ -1767,7 +1840,9 @@ public final class StreamService {
     private long startIndex_;
     /**
      * <code>uint64 startIndex = 3;</code>
+     * @return The startIndex.
      */
+    @java.lang.Override
     public long getStartIndex() {
       return startIndex_;
     }
@@ -1830,15 +1905,14 @@ public final class StreamService {
       }
       sjtu.opennet.textilepb.StreamService.StreamRequest other = (sjtu.opennet.textilepb.StreamService.StreamRequest) obj;
 
-      boolean result = true;
-      result = result && getId()
-          .equals(other.getId());
-      result = result && (getStreamMap()
-          == other.getStreamMap());
-      result = result && (getStartIndex()
-          == other.getStartIndex());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getId()
+          .equals(other.getId())) return false;
+      if (getStreamMap()
+          != other.getStreamMap()) return false;
+      if (getStartIndex()
+          != other.getStartIndex()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -2030,35 +2104,35 @@ public final class StreamService {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -2114,6 +2188,7 @@ public final class StreamService {
       private java.lang.Object id_ = "";
       /**
        * <code>string id = 1;</code>
+       * @return The id.
        */
       public java.lang.String getId() {
         java.lang.Object ref = id_;
@@ -2129,6 +2204,7 @@ public final class StreamService {
       }
       /**
        * <code>string id = 1;</code>
+       * @return The bytes for id.
        */
       public com.google.protobuf.ByteString
           getIdBytes() {
@@ -2145,6 +2221,8 @@ public final class StreamService {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The id to set.
+       * @return This builder for chaining.
        */
       public Builder setId(
           java.lang.String value) {
@@ -2158,6 +2236,7 @@ public final class StreamService {
       }
       /**
        * <code>string id = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearId() {
         
@@ -2167,6 +2246,8 @@ public final class StreamService {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The bytes for id to set.
+       * @return This builder for chaining.
        */
       public Builder setIdBytes(
           com.google.protobuf.ByteString value) {
@@ -2183,12 +2264,16 @@ public final class StreamService {
       private long streamMap_ ;
       /**
        * <code>uint64 streamMap = 2;</code>
+       * @return The streamMap.
        */
+      @java.lang.Override
       public long getStreamMap() {
         return streamMap_;
       }
       /**
        * <code>uint64 streamMap = 2;</code>
+       * @param value The streamMap to set.
+       * @return This builder for chaining.
        */
       public Builder setStreamMap(long value) {
         
@@ -2198,6 +2283,7 @@ public final class StreamService {
       }
       /**
        * <code>uint64 streamMap = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearStreamMap() {
         
@@ -2209,12 +2295,16 @@ public final class StreamService {
       private long startIndex_ ;
       /**
        * <code>uint64 startIndex = 3;</code>
+       * @return The startIndex.
        */
+      @java.lang.Override
       public long getStartIndex() {
         return startIndex_;
       }
       /**
        * <code>uint64 startIndex = 3;</code>
+       * @param value The startIndex to set.
+       * @return This builder for chaining.
        */
       public Builder setStartIndex(long value) {
         
@@ -2224,6 +2314,7 @@ public final class StreamService {
       }
       /**
        * <code>uint64 startIndex = 3;</code>
+       * @return This builder for chaining.
        */
       public Builder clearStartIndex() {
         
@@ -2234,7 +2325,7 @@ public final class StreamService {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -2290,13 +2381,14 @@ public final class StreamService {
 
     /**
      * <code>uint64 value = 1;</code>
+     * @return The value.
      */
     long getValue();
   }
   /**
    * Protobuf type {@code StreamRequestHandle}
    */
-  public  static final class StreamRequestHandle extends
+  public static final class StreamRequestHandle extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:StreamRequestHandle)
       StreamRequestHandleOrBuilder {
@@ -2306,7 +2398,13 @@ public final class StreamService {
       super(builder);
     }
     private StreamRequestHandle() {
-      value_ = 0L;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new StreamRequestHandle();
     }
 
     @java.lang.Override
@@ -2322,7 +2420,6 @@ public final class StreamService {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -2339,7 +2436,7 @@ public final class StreamService {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -2374,7 +2471,9 @@ public final class StreamService {
     private long value_;
     /**
      * <code>uint64 value = 1;</code>
+     * @return The value.
      */
+    @java.lang.Override
     public long getValue() {
       return value_;
     }
@@ -2424,11 +2523,10 @@ public final class StreamService {
       }
       sjtu.opennet.textilepb.StreamService.StreamRequestHandle other = (sjtu.opennet.textilepb.StreamService.StreamRequestHandle) obj;
 
-      boolean result = true;
-      result = result && (getValue()
-          == other.getValue());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (getValue()
+          != other.getValue()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -2609,35 +2707,35 @@ public final class StreamService {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -2686,12 +2784,16 @@ public final class StreamService {
       private long value_ ;
       /**
        * <code>uint64 value = 1;</code>
+       * @return The value.
        */
+      @java.lang.Override
       public long getValue() {
         return value_;
       }
       /**
        * <code>uint64 value = 1;</code>
+       * @param value The value to set.
+       * @return This builder for chaining.
        */
       public Builder setValue(long value) {
         
@@ -2701,6 +2803,7 @@ public final class StreamService {
       }
       /**
        * <code>uint64 value = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearValue() {
         
@@ -2711,7 +2814,7 @@ public final class StreamService {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -2767,10 +2870,12 @@ public final class StreamService {
 
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
     java.lang.String getId();
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
     com.google.protobuf.ByteString
         getIdBytes();
@@ -2778,7 +2883,7 @@ public final class StreamService {
   /**
    * Protobuf type {@code StreamUnsubscribe}
    */
-  public  static final class StreamUnsubscribe extends
+  public static final class StreamUnsubscribe extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:StreamUnsubscribe)
       StreamUnsubscribeOrBuilder {
@@ -2789,6 +2894,13 @@ public final class StreamService {
     }
     private StreamUnsubscribe() {
       id_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new StreamUnsubscribe();
     }
 
     @java.lang.Override
@@ -2804,7 +2916,6 @@ public final class StreamService {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -2822,7 +2933,7 @@ public final class StreamService {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -2857,7 +2968,9 @@ public final class StreamService {
     private volatile java.lang.Object id_;
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
+    @java.lang.Override
     public java.lang.String getId() {
       java.lang.Object ref = id_;
       if (ref instanceof java.lang.String) {
@@ -2872,7 +2985,9 @@ public final class StreamService {
     }
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getIdBytes() {
       java.lang.Object ref = id_;
@@ -2931,11 +3046,10 @@ public final class StreamService {
       }
       sjtu.opennet.textilepb.StreamService.StreamUnsubscribe other = (sjtu.opennet.textilepb.StreamService.StreamUnsubscribe) obj;
 
-      boolean result = true;
-      result = result && getId()
-          .equals(other.getId());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getId()
+          .equals(other.getId())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -3115,35 +3229,35 @@ public final class StreamService {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -3193,6 +3307,7 @@ public final class StreamService {
       private java.lang.Object id_ = "";
       /**
        * <code>string id = 1;</code>
+       * @return The id.
        */
       public java.lang.String getId() {
         java.lang.Object ref = id_;
@@ -3208,6 +3323,7 @@ public final class StreamService {
       }
       /**
        * <code>string id = 1;</code>
+       * @return The bytes for id.
        */
       public com.google.protobuf.ByteString
           getIdBytes() {
@@ -3224,6 +3340,8 @@ public final class StreamService {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The id to set.
+       * @return This builder for chaining.
        */
       public Builder setId(
           java.lang.String value) {
@@ -3237,6 +3355,7 @@ public final class StreamService {
       }
       /**
        * <code>string id = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearId() {
         
@@ -3246,6 +3365,8 @@ public final class StreamService {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The bytes for id to set.
+       * @return This builder for chaining.
        */
       public Builder setIdBytes(
           com.google.protobuf.ByteString value) {
@@ -3261,7 +3382,7 @@ public final class StreamService {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -3317,10 +3438,12 @@ public final class StreamService {
 
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
     java.lang.String getId();
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
     com.google.protobuf.ByteString
         getIdBytes();
@@ -3328,7 +3451,7 @@ public final class StreamService {
   /**
    * Protobuf type {@code StreamUnsubscribeAck}
    */
-  public  static final class StreamUnsubscribeAck extends
+  public static final class StreamUnsubscribeAck extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:StreamUnsubscribeAck)
       StreamUnsubscribeAckOrBuilder {
@@ -3339,6 +3462,13 @@ public final class StreamService {
     }
     private StreamUnsubscribeAck() {
       id_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new StreamUnsubscribeAck();
     }
 
     @java.lang.Override
@@ -3354,7 +3484,6 @@ public final class StreamService {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -3372,7 +3501,7 @@ public final class StreamService {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -3407,7 +3536,9 @@ public final class StreamService {
     private volatile java.lang.Object id_;
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
+    @java.lang.Override
     public java.lang.String getId() {
       java.lang.Object ref = id_;
       if (ref instanceof java.lang.String) {
@@ -3422,7 +3553,9 @@ public final class StreamService {
     }
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getIdBytes() {
       java.lang.Object ref = id_;
@@ -3481,11 +3614,10 @@ public final class StreamService {
       }
       sjtu.opennet.textilepb.StreamService.StreamUnsubscribeAck other = (sjtu.opennet.textilepb.StreamService.StreamUnsubscribeAck) obj;
 
-      boolean result = true;
-      result = result && getId()
-          .equals(other.getId());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getId()
+          .equals(other.getId())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -3665,35 +3797,35 @@ public final class StreamService {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -3743,6 +3875,7 @@ public final class StreamService {
       private java.lang.Object id_ = "";
       /**
        * <code>string id = 1;</code>
+       * @return The id.
        */
       public java.lang.String getId() {
         java.lang.Object ref = id_;
@@ -3758,6 +3891,7 @@ public final class StreamService {
       }
       /**
        * <code>string id = 1;</code>
+       * @return The bytes for id.
        */
       public com.google.protobuf.ByteString
           getIdBytes() {
@@ -3774,6 +3908,8 @@ public final class StreamService {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The id to set.
+       * @return This builder for chaining.
        */
       public Builder setId(
           java.lang.String value) {
@@ -3787,6 +3923,7 @@ public final class StreamService {
       }
       /**
        * <code>string id = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearId() {
         
@@ -3796,6 +3933,8 @@ public final class StreamService {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The bytes for id to set.
+       * @return This builder for chaining.
        */
       public Builder setIdBytes(
           com.google.protobuf.ByteString value) {
@@ -3811,7 +3950,7 @@ public final class StreamService {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -3867,16 +4006,19 @@ public final class StreamService {
 
     /**
      * <code>string streamId = 1;</code>
+     * @return The streamId.
      */
     java.lang.String getStreamId();
     /**
      * <code>string streamId = 1;</code>
+     * @return The bytes for streamId.
      */
     com.google.protobuf.ByteString
         getStreamIdBytes();
 
     /**
      * <code>uint64 maxIndex = 2;</code>
+     * @return The maxIndex.
      */
     long getMaxIndex();
   }
@@ -3890,7 +4032,7 @@ public final class StreamService {
    *
    * Protobuf type {@code StreamClose}
    */
-  public  static final class StreamClose extends
+  public static final class StreamClose extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:StreamClose)
       StreamCloseOrBuilder {
@@ -3901,7 +4043,13 @@ public final class StreamService {
     }
     private StreamClose() {
       streamId_ = "";
-      maxIndex_ = 0L;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new StreamClose();
     }
 
     @java.lang.Override
@@ -3917,7 +4065,6 @@ public final class StreamService {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -3940,7 +4087,7 @@ public final class StreamService {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -3975,7 +4122,9 @@ public final class StreamService {
     private volatile java.lang.Object streamId_;
     /**
      * <code>string streamId = 1;</code>
+     * @return The streamId.
      */
+    @java.lang.Override
     public java.lang.String getStreamId() {
       java.lang.Object ref = streamId_;
       if (ref instanceof java.lang.String) {
@@ -3990,7 +4139,9 @@ public final class StreamService {
     }
     /**
      * <code>string streamId = 1;</code>
+     * @return The bytes for streamId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getStreamIdBytes() {
       java.lang.Object ref = streamId_;
@@ -4009,7 +4160,9 @@ public final class StreamService {
     private long maxIndex_;
     /**
      * <code>uint64 maxIndex = 2;</code>
+     * @return The maxIndex.
      */
+    @java.lang.Override
     public long getMaxIndex() {
       return maxIndex_;
     }
@@ -4065,13 +4218,12 @@ public final class StreamService {
       }
       sjtu.opennet.textilepb.StreamService.StreamClose other = (sjtu.opennet.textilepb.StreamService.StreamClose) obj;
 
-      boolean result = true;
-      result = result && getStreamId()
-          .equals(other.getStreamId());
-      result = result && (getMaxIndex()
-          == other.getMaxIndex());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getStreamId()
+          .equals(other.getStreamId())) return false;
+      if (getMaxIndex()
+          != other.getMaxIndex()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -4264,35 +4416,35 @@ public final class StreamService {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -4345,6 +4497,7 @@ public final class StreamService {
       private java.lang.Object streamId_ = "";
       /**
        * <code>string streamId = 1;</code>
+       * @return The streamId.
        */
       public java.lang.String getStreamId() {
         java.lang.Object ref = streamId_;
@@ -4360,6 +4513,7 @@ public final class StreamService {
       }
       /**
        * <code>string streamId = 1;</code>
+       * @return The bytes for streamId.
        */
       public com.google.protobuf.ByteString
           getStreamIdBytes() {
@@ -4376,6 +4530,8 @@ public final class StreamService {
       }
       /**
        * <code>string streamId = 1;</code>
+       * @param value The streamId to set.
+       * @return This builder for chaining.
        */
       public Builder setStreamId(
           java.lang.String value) {
@@ -4389,6 +4545,7 @@ public final class StreamService {
       }
       /**
        * <code>string streamId = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearStreamId() {
         
@@ -4398,6 +4555,8 @@ public final class StreamService {
       }
       /**
        * <code>string streamId = 1;</code>
+       * @param value The bytes for streamId to set.
+       * @return This builder for chaining.
        */
       public Builder setStreamIdBytes(
           com.google.protobuf.ByteString value) {
@@ -4414,12 +4573,16 @@ public final class StreamService {
       private long maxIndex_ ;
       /**
        * <code>uint64 maxIndex = 2;</code>
+       * @return The maxIndex.
        */
+      @java.lang.Override
       public long getMaxIndex() {
         return maxIndex_;
       }
       /**
        * <code>uint64 maxIndex = 2;</code>
+       * @param value The maxIndex to set.
+       * @return This builder for chaining.
        */
       public Builder setMaxIndex(long value) {
         
@@ -4429,6 +4592,7 @@ public final class StreamService {
       }
       /**
        * <code>uint64 maxIndex = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearMaxIndex() {
         
@@ -4439,7 +4603,7 @@ public final class StreamService {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -4546,18 +4710,10 @@ public final class StreamService {
       "\020\n\010maxIndex\030\002 \001(\004B\034\n\026sjtu.opennet.textil" +
       "epbZ\002pbb\006proto3"
     };
-    com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
-        new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
-          public com.google.protobuf.ExtensionRegistry assignDescriptors(
-              com.google.protobuf.Descriptors.FileDescriptor root) {
-            descriptor = root;
-            return null;
-          }
-        };
-    com.google.protobuf.Descriptors.FileDescriptor
+    descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-        }, assigner);
+        });
     internal_static_StreamBlockContent_descriptor =
       getDescriptor().getMessageTypes().get(0);
     internal_static_StreamBlockContent_fieldAccessorTable = new

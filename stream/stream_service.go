@@ -241,6 +241,18 @@ func (h *StreamService) handleStreamBlockList(env *pb.Envelope, pid peer.ID) (*p
 //		- Send Notification to application
 //		- Update number of blocks in streammeta datastore
 func (h *StreamService) handleRootBlk(pid peer.ID, blk *pb.StreamBlock) error {
+	var body string
+	if blk.Id != "" {
+		meta := h.datastore.StreamMetas().Get(blk.Streamid)
+		switch meta.Type {
+		case pb.StreamMeta_FILE:
+			body = "stream file"
+		case pb.StreamMeta_PICTURE:
+			body = "stream picture"
+		case pb.StreamMeta_VIDEO:
+			body = "stream video"
+		}
+	}
     pdate, _ := ptypes.TimestampProto(time.Now())
 	note := &pb.Notification{
 		Id:          ksuid.New().String(),
@@ -251,7 +263,7 @@ func (h *StreamService) handleRootBlk(pid peer.ID, blk *pb.StreamBlock) error {
 		Block:       blk.Id,
 		Target:      "",
         Type:        pb.Notification_STREAM_FILE,
-		Body:        "stream file",
+		Body:        body,
 	}
     err := h.sendNotification(note)
 	if err != nil {

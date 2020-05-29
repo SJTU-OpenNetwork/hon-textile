@@ -464,6 +464,12 @@ message StreamMeta {
     string caption = 4;
     uint64 nblocks = 5;
     string posterid = 6;
+    Type type = 7;
+    enum Type {
+        FILE = 0;
+        PICTURE =1;
+        VIDEO = 2;
+    }
 }
 
 message StreamMetaList{
