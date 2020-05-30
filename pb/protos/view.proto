@@ -143,6 +143,7 @@ message FeedStreamMeta {
     google.protobuf.Timestamp date = 2;
     User user                      = 3;
     StreamMeta streammeta          = 4;
+    string peerId                  = 5;
 }
 
 message FeedVideo {

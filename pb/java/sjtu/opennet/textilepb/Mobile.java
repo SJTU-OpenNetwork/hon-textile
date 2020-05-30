@@ -113,8 +113,6 @@ public final class Mobile {
     }
 
     /**
-     * @param value The numeric wire value of the corresponding enum entry.
-     * @return The enum associated with the given numeric wire value.
      * @deprecated Use {@link #forNumber(int)} instead.
      */
     @java.lang.Deprecated
@@ -122,10 +120,6 @@ public final class Mobile {
       return forNumber(value);
     }
 
-    /**
-     * @param value The numeric wire value of the corresponding enum entry.
-     * @return The enum associated with the given numeric wire value.
-     */
     public static MobileEventType forNumber(int value) {
       switch (value) {
         case 0: return NODE_START;
@@ -156,10 +150,6 @@ public final class Mobile {
 
     public final com.google.protobuf.Descriptors.EnumValueDescriptor
         getValueDescriptor() {
-      if (this == UNRECOGNIZED) {
-        throw new java.lang.IllegalStateException(
-            "Can't get the descriptor of an unrecognized enum value.");
-      }
       return getDescriptor().getValues().get(ordinal());
     }
     public final com.google.protobuf.Descriptors.EnumDescriptor
@@ -200,24 +190,20 @@ public final class Mobile {
 
     /**
      * <code>string seed = 1;</code>
-     * @return The seed.
      */
     java.lang.String getSeed();
     /**
      * <code>string seed = 1;</code>
-     * @return The bytes for seed.
      */
     com.google.protobuf.ByteString
         getSeedBytes();
 
     /**
      * <code>string address = 2;</code>
-     * @return The address.
      */
     java.lang.String getAddress();
     /**
      * <code>string address = 2;</code>
-     * @return The bytes for address.
      */
     com.google.protobuf.ByteString
         getAddressBytes();
@@ -225,7 +211,7 @@ public final class Mobile {
   /**
    * Protobuf type {@code MobileWalletAccount}
    */
-  public static final class MobileWalletAccount extends
+  public  static final class MobileWalletAccount extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:MobileWalletAccount)
       MobileWalletAccountOrBuilder {
@@ -237,13 +223,6 @@ public final class Mobile {
     private MobileWalletAccount() {
       seed_ = "";
       address_ = "";
-    }
-
-    @java.lang.Override
-    @SuppressWarnings({"unused"})
-    protected java.lang.Object newInstance(
-        UnusedPrivateParameter unused) {
-      return new MobileWalletAccount();
     }
 
     @java.lang.Override
@@ -259,6 +238,7 @@ public final class Mobile {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
+      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -282,7 +262,7 @@ public final class Mobile {
               break;
             }
             default: {
-              if (!parseUnknownField(
+              if (!parseUnknownFieldProto3(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -317,9 +297,7 @@ public final class Mobile {
     private volatile java.lang.Object seed_;
     /**
      * <code>string seed = 1;</code>
-     * @return The seed.
      */
-    @java.lang.Override
     public java.lang.String getSeed() {
       java.lang.Object ref = seed_;
       if (ref instanceof java.lang.String) {
@@ -334,9 +312,7 @@ public final class Mobile {
     }
     /**
      * <code>string seed = 1;</code>
-     * @return The bytes for seed.
      */
-    @java.lang.Override
     public com.google.protobuf.ByteString
         getSeedBytes() {
       java.lang.Object ref = seed_;
@@ -355,9 +331,7 @@ public final class Mobile {
     private volatile java.lang.Object address_;
     /**
      * <code>string address = 2;</code>
-     * @return The address.
      */
-    @java.lang.Override
     public java.lang.String getAddress() {
       java.lang.Object ref = address_;
       if (ref instanceof java.lang.String) {
@@ -372,9 +346,7 @@ public final class Mobile {
     }
     /**
      * <code>string address = 2;</code>
-     * @return The bytes for address.
      */
-    @java.lang.Override
     public com.google.protobuf.ByteString
         getAddressBytes() {
       java.lang.Object ref = address_;
@@ -439,12 +411,13 @@ public final class Mobile {
       }
       sjtu.opennet.textilepb.Mobile.MobileWalletAccount other = (sjtu.opennet.textilepb.Mobile.MobileWalletAccount) obj;
 
-      if (!getSeed()
-          .equals(other.getSeed())) return false;
-      if (!getAddress()
-          .equals(other.getAddress())) return false;
-      if (!unknownFields.equals(other.unknownFields)) return false;
-      return true;
+      boolean result = true;
+      result = result && getSeed()
+          .equals(other.getSeed());
+      result = result && getAddress()
+          .equals(other.getAddress());
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
     }
 
     @java.lang.Override
@@ -629,35 +602,35 @@ public final class Mobile {
 
       @java.lang.Override
       public Builder clone() {
-        return super.clone();
+        return (Builder) super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return super.setField(field, value);
+        return (Builder) super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return super.clearField(field);
+        return (Builder) super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return super.clearOneof(oneof);
+        return (Builder) super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return super.setRepeatedField(field, index, value);
+        return (Builder) super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return super.addRepeatedField(field, value);
+        return (Builder) super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -711,7 +684,6 @@ public final class Mobile {
       private java.lang.Object seed_ = "";
       /**
        * <code>string seed = 1;</code>
-       * @return The seed.
        */
       public java.lang.String getSeed() {
         java.lang.Object ref = seed_;
@@ -727,7 +699,6 @@ public final class Mobile {
       }
       /**
        * <code>string seed = 1;</code>
-       * @return The bytes for seed.
        */
       public com.google.protobuf.ByteString
           getSeedBytes() {
@@ -744,8 +715,6 @@ public final class Mobile {
       }
       /**
        * <code>string seed = 1;</code>
-       * @param value The seed to set.
-       * @return This builder for chaining.
        */
       public Builder setSeed(
           java.lang.String value) {
@@ -759,7 +728,6 @@ public final class Mobile {
       }
       /**
        * <code>string seed = 1;</code>
-       * @return This builder for chaining.
        */
       public Builder clearSeed() {
         
@@ -769,8 +737,6 @@ public final class Mobile {
       }
       /**
        * <code>string seed = 1;</code>
-       * @param value The bytes for seed to set.
-       * @return This builder for chaining.
        */
       public Builder setSeedBytes(
           com.google.protobuf.ByteString value) {
@@ -787,7 +753,6 @@ public final class Mobile {
       private java.lang.Object address_ = "";
       /**
        * <code>string address = 2;</code>
-       * @return The address.
        */
       public java.lang.String getAddress() {
         java.lang.Object ref = address_;
@@ -803,7 +768,6 @@ public final class Mobile {
       }
       /**
        * <code>string address = 2;</code>
-       * @return The bytes for address.
        */
       public com.google.protobuf.ByteString
           getAddressBytes() {
@@ -820,8 +784,6 @@ public final class Mobile {
       }
       /**
        * <code>string address = 2;</code>
-       * @param value The address to set.
-       * @return This builder for chaining.
        */
       public Builder setAddress(
           java.lang.String value) {
@@ -835,7 +797,6 @@ public final class Mobile {
       }
       /**
        * <code>string address = 2;</code>
-       * @return This builder for chaining.
        */
       public Builder clearAddress() {
         
@@ -845,8 +806,6 @@ public final class Mobile {
       }
       /**
        * <code>string address = 2;</code>
-       * @param value The bytes for address to set.
-       * @return This builder for chaining.
        */
       public Builder setAddressBytes(
           com.google.protobuf.ByteString value) {
@@ -862,7 +821,7 @@ public final class Mobile {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFields(unknownFields);
+        return super.setUnknownFieldsProto3(unknownFields);
       }
 
       @java.lang.Override
@@ -918,35 +877,29 @@ public final class Mobile {
 
     /**
      * <code>string id = 1;</code>
-     * @return The id.
      */
     java.lang.String getId();
     /**
      * <code>string id = 1;</code>
-     * @return The bytes for id.
      */
     com.google.protobuf.ByteString
         getIdBytes();
 
     /**
      * <code>.MobileQueryEvent.Type type = 2;</code>
-     * @return The enum numeric value on the wire for type.
      */
     int getTypeValue();
     /**
      * <code>.MobileQueryEvent.Type type = 2;</code>
-     * @return The type.
      */
     sjtu.opennet.textilepb.Mobile.MobileQueryEvent.Type getType();
 
     /**
      * <code>.QueryResult data = 3;</code>
-     * @return Whether the data field is set.
      */
     boolean hasData();
     /**
      * <code>.QueryResult data = 3;</code>
-     * @return The data.
      */
     sjtu.opennet.textilepb.QueryOuterClass.QueryResult getData();
     /**
@@ -956,12 +909,10 @@ public final class Mobile {
 
     /**
      * <code>.Error error = 4;</code>
-     * @return Whether the error field is set.
      */
     boolean hasError();
     /**
      * <code>.Error error = 4;</code>
-     * @return The error.
      */
     sjtu.opennet.textilepb.MessageOuterClass.Error getError();
     /**
@@ -972,7 +923,7 @@ public final class Mobile {
   /**
    * Protobuf type {@code MobileQueryEvent}
    */
-  public static final class MobileQueryEvent extends
+  public  static final class MobileQueryEvent extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:MobileQueryEvent)
       MobileQueryEventOrBuilder {
@@ -984,13 +935,6 @@ public final class Mobile {
     private MobileQueryEvent() {
       id_ = "";
       type_ = 0;
-    }
-
-    @java.lang.Override
-    @SuppressWarnings({"unused"})
-    protected java.lang.Object newInstance(
-        UnusedPrivateParameter unused) {
-      return new MobileQueryEvent();
     }
 
     @java.lang.Override
@@ -1006,6 +950,7 @@ public final class Mobile {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
+      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -1055,7 +1000,7 @@ public final class Mobile {
               break;
             }
             default: {
-              if (!parseUnknownField(
+              if (!parseUnknownFieldProto3(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -1129,8 +1074,6 @@ public final class Mobile {
       }
 
       /**
-       * @param value The numeric wire value of the corresponding enum entry.
-       * @return The enum associated with the given numeric wire value.
        * @deprecated Use {@link #forNumber(int)} instead.
        */
       @java.lang.Deprecated
@@ -1138,10 +1081,6 @@ public final class Mobile {
         return forNumber(value);
       }
 
-      /**
-       * @param value The numeric wire value of the corresponding enum entry.
-       * @return The enum associated with the given numeric wire value.
-       */
       public static Type forNumber(int value) {
         switch (value) {
           case 0: return DATA;
@@ -1165,10 +1104,6 @@ public final class Mobile {
 
       public final com.google.protobuf.Descriptors.EnumValueDescriptor
           getValueDescriptor() {
-        if (this == UNRECOGNIZED) {
-          throw new java.lang.IllegalStateException(
-              "Can't get the descriptor of an unrecognized enum value.");
-        }
         return getDescriptor().getValues().get(ordinal());
       }
       public final com.google.protobuf.Descriptors.EnumDescriptor
@@ -1207,9 +1142,7 @@ public final class Mobile {
     private volatile java.lang.Object id_;
     /**
      * <code>string id = 1;</code>
-     * @return The id.
      */
-    @java.lang.Override
     public java.lang.String getId() {
       java.lang.Object ref = id_;
       if (ref instanceof java.lang.String) {
@@ -1224,9 +1157,7 @@ public final class Mobile {
     }
     /**
      * <code>string id = 1;</code>
-     * @return The bytes for id.
      */
-    @java.lang.Override
     public com.google.protobuf.ByteString
         getIdBytes() {
       java.lang.Object ref = id_;
@@ -1245,16 +1176,14 @@ public final class Mobile {
     private int type_;
     /**
      * <code>.MobileQueryEvent.Type type = 2;</code>
-     * @return The enum numeric value on the wire for type.
      */
-    @java.lang.Override public int getTypeValue() {
+    public int getTypeValue() {
       return type_;
     }
     /**
      * <code>.MobileQueryEvent.Type type = 2;</code>
-     * @return The type.
      */
-    @java.lang.Override public sjtu.opennet.textilepb.Mobile.MobileQueryEvent.Type getType() {
+    public sjtu.opennet.textilepb.Mobile.MobileQueryEvent.Type getType() {
       @SuppressWarnings("deprecation")
       sjtu.opennet.textilepb.Mobile.MobileQueryEvent.Type result = sjtu.opennet.textilepb.Mobile.MobileQueryEvent.Type.valueOf(type_);
       return result == null ? sjtu.opennet.textilepb.Mobile.MobileQueryEvent.Type.UNRECOGNIZED : result;
@@ -1264,24 +1193,19 @@ public final class Mobile {
     private sjtu.opennet.textilepb.QueryOuterClass.QueryResult data_;
     /**
      * <code>.QueryResult data = 3;</code>
-     * @return Whether the data field is set.
      */
-    @java.lang.Override
     public boolean hasData() {
       return data_ != null;
     }
     /**
      * <code>.QueryResult data = 3;</code>
-     * @return The data.
      */
-    @java.lang.Override
     public sjtu.opennet.textilepb.QueryOuterClass.QueryResult getData() {
       return data_ == null ? sjtu.opennet.textilepb.QueryOuterClass.QueryResult.getDefaultInstance() : data_;
     }
     /**
      * <code>.QueryResult data = 3;</code>
      */
-    @java.lang.Override
     public sjtu.opennet.textilepb.QueryOuterClass.QueryResultOrBuilder getDataOrBuilder() {
       return getData();
     }
@@ -1290,24 +1214,19 @@ public final class Mobile {
     private sjtu.opennet.textilepb.MessageOuterClass.Error error_;
     /**
      * <code>.Error error = 4;</code>
-     * @return Whether the error field is set.
      */
-    @java.lang.Override
     public boolean hasError() {
       return error_ != null;
     }
     /**
      * <code>.Error error = 4;</code>
-     * @return The error.
      */
-    @java.lang.Override
     public sjtu.opennet.textilepb.MessageOuterClass.Error getError() {
       return error_ == null ? sjtu.opennet.textilepb.MessageOuterClass.Error.getDefaultInstance() : error_;
     }
     /**
      * <code>.Error error = 4;</code>
      */
-    @java.lang.Override
     public sjtu.opennet.textilepb.MessageOuterClass.ErrorOrBuilder getErrorOrBuilder() {
       return getError();
     }
@@ -1377,21 +1296,22 @@ public final class Mobile {
       }
       sjtu.opennet.textilepb.Mobile.MobileQueryEvent other = (sjtu.opennet.textilepb.Mobile.MobileQueryEvent) obj;
 
-      if (!getId()
-          .equals(other.getId())) return false;
-      if (type_ != other.type_) return false;
-      if (hasData() != other.hasData()) return false;
+      boolean result = true;
+      result = result && getId()
+          .equals(other.getId());
+      result = result && type_ == other.type_;
+      result = result && (hasData() == other.hasData());
       if (hasData()) {
-        if (!getData()
-            .equals(other.getData())) return false;
+        result = result && getData()
+            .equals(other.getData());
       }
-      if (hasError() != other.hasError()) return false;
+      result = result && (hasError() == other.hasError());
       if (hasError()) {
-        if (!getError()
-            .equals(other.getError())) return false;
+        result = result && getError()
+            .equals(other.getError());
       }
-      if (!unknownFields.equals(other.unknownFields)) return false;
-      return true;
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
     }
 
     @java.lang.Override
@@ -1606,35 +1526,35 @@ public final class Mobile {
 
       @java.lang.Override
       public Builder clone() {
-        return super.clone();
+        return (Builder) super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return super.setField(field, value);
+        return (Builder) super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return super.clearField(field);
+        return (Builder) super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return super.clearOneof(oneof);
+        return (Builder) super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return super.setRepeatedField(field, index, value);
+        return (Builder) super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return super.addRepeatedField(field, value);
+        return (Builder) super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -1693,7 +1613,6 @@ public final class Mobile {
       private java.lang.Object id_ = "";
       /**
        * <code>string id = 1;</code>
-       * @return The id.
        */
       public java.lang.String getId() {
         java.lang.Object ref = id_;
@@ -1709,7 +1628,6 @@ public final class Mobile {
       }
       /**
        * <code>string id = 1;</code>
-       * @return The bytes for id.
        */
       public com.google.protobuf.ByteString
           getIdBytes() {
@@ -1726,8 +1644,6 @@ public final class Mobile {
       }
       /**
        * <code>string id = 1;</code>
-       * @param value The id to set.
-       * @return This builder for chaining.
        */
       public Builder setId(
           java.lang.String value) {
@@ -1741,7 +1657,6 @@ public final class Mobile {
       }
       /**
        * <code>string id = 1;</code>
-       * @return This builder for chaining.
        */
       public Builder clearId() {
         
@@ -1751,8 +1666,6 @@ public final class Mobile {
       }
       /**
        * <code>string id = 1;</code>
-       * @param value The bytes for id to set.
-       * @return This builder for chaining.
        */
       public Builder setIdBytes(
           com.google.protobuf.ByteString value) {
@@ -1769,27 +1682,21 @@ public final class Mobile {
       private int type_ = 0;
       /**
        * <code>.MobileQueryEvent.Type type = 2;</code>
-       * @return The enum numeric value on the wire for type.
        */
-      @java.lang.Override public int getTypeValue() {
+      public int getTypeValue() {
         return type_;
       }
       /**
        * <code>.MobileQueryEvent.Type type = 2;</code>
-       * @param value The enum numeric value on the wire for type to set.
-       * @return This builder for chaining.
        */
       public Builder setTypeValue(int value) {
-        
         type_ = value;
         onChanged();
         return this;
       }
       /**
        * <code>.MobileQueryEvent.Type type = 2;</code>
-       * @return The type.
        */
-      @java.lang.Override
       public sjtu.opennet.textilepb.Mobile.MobileQueryEvent.Type getType() {
         @SuppressWarnings("deprecation")
         sjtu.opennet.textilepb.Mobile.MobileQueryEvent.Type result = sjtu.opennet.textilepb.Mobile.MobileQueryEvent.Type.valueOf(type_);
@@ -1797,8 +1704,6 @@ public final class Mobile {
       }
       /**
        * <code>.MobileQueryEvent.Type type = 2;</code>
-       * @param value The type to set.
-       * @return This builder for chaining.
        */
       public Builder setType(sjtu.opennet.textilepb.Mobile.MobileQueryEvent.Type value) {
         if (value == null) {
@@ -1811,7 +1716,6 @@ public final class Mobile {
       }
       /**
        * <code>.MobileQueryEvent.Type type = 2;</code>
-       * @return This builder for chaining.
        */
       public Builder clearType() {
         
@@ -1820,19 +1724,17 @@ public final class Mobile {
         return this;
       }
 
-      private sjtu.opennet.textilepb.QueryOuterClass.QueryResult data_;
+      private sjtu.opennet.textilepb.QueryOuterClass.QueryResult data_ = null;
       private com.google.protobuf.SingleFieldBuilderV3<
           sjtu.opennet.textilepb.QueryOuterClass.QueryResult, sjtu.opennet.textilepb.QueryOuterClass.QueryResult.Builder, sjtu.opennet.textilepb.QueryOuterClass.QueryResultOrBuilder> dataBuilder_;
       /**
        * <code>.QueryResult data = 3;</code>
-       * @return Whether the data field is set.
        */
       public boolean hasData() {
         return dataBuilder_ != null || data_ != null;
       }
       /**
        * <code>.QueryResult data = 3;</code>
-       * @return The data.
        */
       public sjtu.opennet.textilepb.QueryOuterClass.QueryResult getData() {
         if (dataBuilder_ == null) {
@@ -1939,19 +1841,17 @@ public final class Mobile {
         return dataBuilder_;
       }
 
-      private sjtu.opennet.textilepb.MessageOuterClass.Error error_;
+      private sjtu.opennet.textilepb.MessageOuterClass.Error error_ = null;
       private com.google.protobuf.SingleFieldBuilderV3<
           sjtu.opennet.textilepb.MessageOuterClass.Error, sjtu.opennet.textilepb.MessageOuterClass.Error.Builder, sjtu.opennet.textilepb.MessageOuterClass.ErrorOrBuilder> errorBuilder_;
       /**
        * <code>.Error error = 4;</code>
-       * @return Whether the error field is set.
        */
       public boolean hasError() {
         return errorBuilder_ != null || error_ != null;
       }
       /**
        * <code>.Error error = 4;</code>
-       * @return The error.
        */
       public sjtu.opennet.textilepb.MessageOuterClass.Error getError() {
         if (errorBuilder_ == null) {
@@ -2060,7 +1960,7 @@ public final class Mobile {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFields(unknownFields);
+        return super.setUnknownFieldsProto3(unknownFields);
       }
 
       @java.lang.Override
@@ -2144,12 +2044,20 @@ public final class Mobile {
       "FAILED\020 B\034\n\026sjtu.opennet.textilepbZ\002pbb\006" +
       "proto3"
     };
-    descriptor = com.google.protobuf.Descriptors.FileDescriptor
+    com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
+        new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
+          public com.google.protobuf.ExtensionRegistry assignDescriptors(
+              com.google.protobuf.Descriptors.FileDescriptor root) {
+            descriptor = root;
+            return null;
+          }
+        };
+    com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           sjtu.opennet.textilepb.QueryOuterClass.getDescriptor(),
           sjtu.opennet.textilepb.MessageOuterClass.getDescriptor(),
-        });
+        }, assigner);
     internal_static_MobileWalletAccount_descriptor =
       getDescriptor().getMessageTypes().get(0);
     internal_static_MobileWalletAccount_fieldAccessorTable = new

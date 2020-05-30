@@ -133,6 +133,34 @@ func (m *Mobile) DataAtFeedSimpleFile(feed []byte, cb DataCallback) {
 	}()
 }
 
+func (m *Mobile) DataAtStreamFile(feed []byte, cid []byte, cb DataCallback) {
+	feedpb := &pb.FeedStreamMeta{}
+	err := proto.Unmarshal(feed, feedpb)
+	if err != nil {
+		cb.Call(nil, "", err)
+	}
+	m.node.WaitAdd(1, "Mobile.DataAtStreamFile")
+	go func() {
+		defer m.node.WaitDone("Mobile.DataAtFeedStreamFile")
+        log.Debug(cid)
+		data, media, err := m.dataAtPath(string(cid))
+		if err == nil {
+			record2 := &pb.Notification{
+				Block: feedpb.Streammeta.Id,
+				Date:  ptypes.TimestampNow(),
+				//Actor:                t.node().Identity.Pretty(),	// Whether this is id of this peer ?
+				Subject: recorder.Event_DoneIPFSGet,
+				Target:  feedpb.PeerId,
+				Read:    false, // Do not send to notification channel directly
+			}
+			recorder.RecordCh <- record2
+		} else {
+            log.Error(err)
+        }
+		cb.Call(data, media, err)
+	}()
+}
+
 // IpfsAddData is the async version of ipfsAddData
 func (m *Mobile) IpfsAddData(data []byte, pin bool, hashOnly bool, cb IpfsAddDataCallback) {
 	m.node.WaitAdd(1, "Mobile.IpfsAddData")

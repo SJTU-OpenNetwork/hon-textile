@@ -20,6 +20,7 @@ type streamWorker struct {
 	req *pb.StreamRequest 	// Contains core information such as substream and index
 	pid peer.ID				// Contains information about destination
 	currentIndex uint64		// The index of block sending now
+    end bool
 	workSignal chan interface{}
 	cancelSignal chan interface{}
 	blockFetcher func(streamId string, startIndex uint64, maxNum int) ([] *pb.StreamBlock, error)
@@ -43,6 +44,7 @@ func newStreamWorker(
 			cancelSignal: make(chan interface{}, 1),
 			blockFetcher: blockFetcher,
 			blockSender: blockSender,
+            end: false,
 		}
 }
 
@@ -95,10 +97,14 @@ func (sw *streamWorker) start() error {
 						if len(blks) >= maxBlockFetchNum {
 							sw.notice()
 						}
+                        if fblks[len(fblks)-1].Id == "" {
+                            sw.cancel()
+                        }
 					}
 
 				case <- sw.cancelSignal:
 					// Note that break will break select only.
+                    sw.end = true
 					return
 			}
 		}
@@ -127,7 +133,7 @@ func (sw *streamWorker) isSame(pid peer.ID, req *pb.StreamRequest) bool {
 }
 
 // Convert basic info of worker to loggable map
-//func (sw *streamWorker) Loggable() map[string]interface{} {
+//func (sw *streamWorker) Loggab<F11>le() map[string]interface{} {
 //
 //}
 

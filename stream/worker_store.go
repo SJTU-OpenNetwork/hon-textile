@@ -48,7 +48,6 @@ func (ws *workerStore) add(worker *streamWorker) error {
 
 	// Note: In golang, we can append data in a nil slice directly.
 	ws.workerList[worker.req.Id] = append(ws.workerList[worker.req.Id], worker)
-    ws.load ++
 	return nil
 }
 
@@ -69,7 +68,19 @@ func (ws *workerStore) newFileAdd(streamId string) error {
 }
 
 func (ws *workerStore) Workload() int {
-    return ws.load
+	ws.lock.Lock()
+	defer ws.lock.Unlock()
+
+    load := 0
+    for _, tmplist := range(ws.workerList){
+        for _, w := range tmplist {
+            if !w.end {
+                load ++
+            }
+        }
+    
+    }
+    return load
 }
 
 // end workers of specific streamId
@@ -96,9 +107,10 @@ func (ws *workerStore) endWorker(streamId string, peerId string) {
 		for _, w := range tmpList {
 			if w.pid.Pretty() == peerId {
 				w.cancel()
-				ws.load--
 				log.Debugf("[%s] Stream %s, Peer %s", TAG_WORKERSTORE_REMOVE, streamId, w.pid)
-			} else {
+			} else if w.end {
+                continue
+            }else {
 				// add the remaining workers to newList
 				newList = append(newList, w)
 			}
@@ -121,7 +133,6 @@ func (ws *workerStore) endPeer(pid string) {
 		for _, worker := range(tmpList) {
 			if worker.pid.Pretty() == pid {
 				worker.cancel()
-				ws.load--
 				log.Debugf("[%s] Stream %s, Peer %s", TAG_WORKERSTORE_REMOVE, streamId, worker.pid)
 			} else {
 				// add the remaining workers to newList

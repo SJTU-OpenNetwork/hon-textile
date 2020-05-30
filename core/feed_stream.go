@@ -21,6 +21,7 @@ func (t *Textile) feedStream(block *pb.Block, opts feedItemOpts) (*pb.FeedStream
 		Date:    block.Date,
 		User:    t.PeerUser(block.Author),
 		Streammeta:   msg,
+		PeerId: block.Author,
 	}
 
 	return item, nil

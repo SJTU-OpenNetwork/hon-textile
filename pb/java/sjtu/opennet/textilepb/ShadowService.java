@@ -20,12 +20,10 @@ public final class ShadowService {
 
     /**
      * <code>string publicKey = 1;</code>
-     * @return The publicKey.
      */
     java.lang.String getPublicKey();
     /**
      * <code>string publicKey = 1;</code>
-     * @return The bytes for publicKey.
      */
     com.google.protobuf.ByteString
         getPublicKeyBytes();
@@ -33,7 +31,7 @@ public final class ShadowService {
   /**
    * Protobuf type {@code ShadowInform}
    */
-  public static final class ShadowInform extends
+  public  static final class ShadowInform extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ShadowInform)
       ShadowInformOrBuilder {
@@ -44,13 +42,6 @@ public final class ShadowService {
     }
     private ShadowInform() {
       publicKey_ = "";
-    }
-
-    @java.lang.Override
-    @SuppressWarnings({"unused"})
-    protected java.lang.Object newInstance(
-        UnusedPrivateParameter unused) {
-      return new ShadowInform();
     }
 
     @java.lang.Override
@@ -66,6 +57,7 @@ public final class ShadowService {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
+      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -83,7 +75,7 @@ public final class ShadowService {
               break;
             }
             default: {
-              if (!parseUnknownField(
+              if (!parseUnknownFieldProto3(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -118,9 +110,7 @@ public final class ShadowService {
     private volatile java.lang.Object publicKey_;
     /**
      * <code>string publicKey = 1;</code>
-     * @return The publicKey.
      */
-    @java.lang.Override
     public java.lang.String getPublicKey() {
       java.lang.Object ref = publicKey_;
       if (ref instanceof java.lang.String) {
@@ -135,9 +125,7 @@ public final class ShadowService {
     }
     /**
      * <code>string publicKey = 1;</code>
-     * @return The bytes for publicKey.
      */
-    @java.lang.Override
     public com.google.protobuf.ByteString
         getPublicKeyBytes() {
       java.lang.Object ref = publicKey_;
@@ -196,10 +184,11 @@ public final class ShadowService {
       }
       sjtu.opennet.textilepb.ShadowService.ShadowInform other = (sjtu.opennet.textilepb.ShadowService.ShadowInform) obj;
 
-      if (!getPublicKey()
-          .equals(other.getPublicKey())) return false;
-      if (!unknownFields.equals(other.unknownFields)) return false;
-      return true;
+      boolean result = true;
+      result = result && getPublicKey()
+          .equals(other.getPublicKey());
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
     }
 
     @java.lang.Override
@@ -379,35 +368,35 @@ public final class ShadowService {
 
       @java.lang.Override
       public Builder clone() {
-        return super.clone();
+        return (Builder) super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return super.setField(field, value);
+        return (Builder) super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return super.clearField(field);
+        return (Builder) super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return super.clearOneof(oneof);
+        return (Builder) super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return super.setRepeatedField(field, index, value);
+        return (Builder) super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return super.addRepeatedField(field, value);
+        return (Builder) super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -457,7 +446,6 @@ public final class ShadowService {
       private java.lang.Object publicKey_ = "";
       /**
        * <code>string publicKey = 1;</code>
-       * @return The publicKey.
        */
       public java.lang.String getPublicKey() {
         java.lang.Object ref = publicKey_;
@@ -473,7 +461,6 @@ public final class ShadowService {
       }
       /**
        * <code>string publicKey = 1;</code>
-       * @return The bytes for publicKey.
        */
       public com.google.protobuf.ByteString
           getPublicKeyBytes() {
@@ -490,8 +477,6 @@ public final class ShadowService {
       }
       /**
        * <code>string publicKey = 1;</code>
-       * @param value The publicKey to set.
-       * @return This builder for chaining.
        */
       public Builder setPublicKey(
           java.lang.String value) {
@@ -505,7 +490,6 @@ public final class ShadowService {
       }
       /**
        * <code>string publicKey = 1;</code>
-       * @return This builder for chaining.
        */
       public Builder clearPublicKey() {
         
@@ -515,8 +499,6 @@ public final class ShadowService {
       }
       /**
        * <code>string publicKey = 1;</code>
-       * @param value The bytes for publicKey to set.
-       * @return This builder for chaining.
        */
       public Builder setPublicKeyBytes(
           com.google.protobuf.ByteString value) {
@@ -532,7 +514,7 @@ public final class ShadowService {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFields(unknownFields);
+        return super.setUnknownFieldsProto3(unknownFields);
       }
 
       @java.lang.Override
@@ -588,14 +570,13 @@ public final class ShadowService {
 
     /**
      * <code>bool accept = 1;</code>
-     * @return The accept.
      */
     boolean getAccept();
   }
   /**
    * Protobuf type {@code ShadowInformResponse}
    */
-  public static final class ShadowInformResponse extends
+  public  static final class ShadowInformResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ShadowInformResponse)
       ShadowInformResponseOrBuilder {
@@ -605,13 +586,7 @@ public final class ShadowService {
       super(builder);
     }
     private ShadowInformResponse() {
-    }
-
-    @java.lang.Override
-    @SuppressWarnings({"unused"})
-    protected java.lang.Object newInstance(
-        UnusedPrivateParameter unused) {
-      return new ShadowInformResponse();
+      accept_ = false;
     }
 
     @java.lang.Override
@@ -627,6 +602,7 @@ public final class ShadowService {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
+      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -643,7 +619,7 @@ public final class ShadowService {
               break;
             }
             default: {
-              if (!parseUnknownField(
+              if (!parseUnknownFieldProto3(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -678,9 +654,7 @@ public final class ShadowService {
     private boolean accept_;
     /**
      * <code>bool accept = 1;</code>
-     * @return The accept.
      */
-    @java.lang.Override
     public boolean getAccept() {
       return accept_;
     }
@@ -730,10 +704,11 @@ public final class ShadowService {
       }
       sjtu.opennet.textilepb.ShadowService.ShadowInformResponse other = (sjtu.opennet.textilepb.ShadowService.ShadowInformResponse) obj;
 
-      if (getAccept()
-          != other.getAccept()) return false;
-      if (!unknownFields.equals(other.unknownFields)) return false;
-      return true;
+      boolean result = true;
+      result = result && (getAccept()
+          == other.getAccept());
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
     }
 
     @java.lang.Override
@@ -914,35 +889,35 @@ public final class ShadowService {
 
       @java.lang.Override
       public Builder clone() {
-        return super.clone();
+        return (Builder) super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return super.setField(field, value);
+        return (Builder) super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return super.clearField(field);
+        return (Builder) super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return super.clearOneof(oneof);
+        return (Builder) super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return super.setRepeatedField(field, index, value);
+        return (Builder) super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return super.addRepeatedField(field, value);
+        return (Builder) super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -991,16 +966,12 @@ public final class ShadowService {
       private boolean accept_ ;
       /**
        * <code>bool accept = 1;</code>
-       * @return The accept.
        */
-      @java.lang.Override
       public boolean getAccept() {
         return accept_;
       }
       /**
        * <code>bool accept = 1;</code>
-       * @param value The accept to set.
-       * @return This builder for chaining.
        */
       public Builder setAccept(boolean value) {
         
@@ -1010,7 +981,6 @@ public final class ShadowService {
       }
       /**
        * <code>bool accept = 1;</code>
-       * @return This builder for chaining.
        */
       public Builder clearAccept() {
         
@@ -1021,7 +991,7 @@ public final class ShadowService {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFields(unknownFields);
+        return super.setUnknownFieldsProto3(unknownFields);
       }
 
       @java.lang.Override
@@ -1077,49 +1047,39 @@ public final class ShadowService {
 
     /**
      * <code>string role = 1;</code>
-     * @return The role.
      */
     java.lang.String getRole();
     /**
      * <code>string role = 1;</code>
-     * @return The bytes for role.
      */
     com.google.protobuf.ByteString
         getRoleBytes();
 
     /**
      * <code>string shadow = 2;</code>
-     * @return The shadow.
      */
     java.lang.String getShadow();
     /**
      * <code>string shadow = 2;</code>
-     * @return The bytes for shadow.
      */
     com.google.protobuf.ByteString
         getShadowBytes();
 
     /**
      * <code>repeated string users = 3;</code>
-     * @return A list containing the users.
      */
     java.util.List<java.lang.String>
         getUsersList();
     /**
      * <code>repeated string users = 3;</code>
-     * @return The count of users.
      */
     int getUsersCount();
     /**
      * <code>repeated string users = 3;</code>
-     * @param index The index of the element to return.
-     * @return The users at the given index.
      */
     java.lang.String getUsers(int index);
     /**
      * <code>repeated string users = 3;</code>
-     * @param index The index of the value to return.
-     * @return The bytes of the users at the given index.
      */
     com.google.protobuf.ByteString
         getUsersBytes(int index);
@@ -1127,7 +1087,7 @@ public final class ShadowService {
   /**
    * Protobuf type {@code ShadowStat}
    */
-  public static final class ShadowStat extends
+  public  static final class ShadowStat extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ShadowStat)
       ShadowStatOrBuilder {
@@ -1140,13 +1100,6 @@ public final class ShadowService {
       role_ = "";
       shadow_ = "";
       users_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-    }
-
-    @java.lang.Override
-    @SuppressWarnings({"unused"})
-    protected java.lang.Object newInstance(
-        UnusedPrivateParameter unused) {
-      return new ShadowStat();
     }
 
     @java.lang.Override
@@ -1187,15 +1140,15 @@ public final class ShadowService {
             }
             case 26: {
               java.lang.String s = input.readStringRequireUtf8();
-              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+              if (!((mutable_bitField0_ & 0x00000004) == 0x00000004)) {
                 users_ = new com.google.protobuf.LazyStringArrayList();
-                mutable_bitField0_ |= 0x00000001;
+                mutable_bitField0_ |= 0x00000004;
               }
               users_.add(s);
               break;
             }
             default: {
-              if (!parseUnknownField(
+              if (!parseUnknownFieldProto3(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -1209,7 +1162,7 @@ public final class ShadowService {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+        if (((mutable_bitField0_ & 0x00000004) == 0x00000004)) {
           users_ = users_.getUnmodifiableView();
         }
         this.unknownFields = unknownFields.build();
@@ -1229,13 +1182,12 @@ public final class ShadowService {
               sjtu.opennet.textilepb.ShadowService.ShadowStat.class, sjtu.opennet.textilepb.ShadowService.ShadowStat.Builder.class);
     }
 
+    private int bitField0_;
     public static final int ROLE_FIELD_NUMBER = 1;
     private volatile java.lang.Object role_;
     /**
      * <code>string role = 1;</code>
-     * @return The role.
      */
-    @java.lang.Override
     public java.lang.String getRole() {
       java.lang.Object ref = role_;
       if (ref instanceof java.lang.String) {
@@ -1250,9 +1202,7 @@ public final class ShadowService {
     }
     /**
      * <code>string role = 1;</code>
-     * @return The bytes for role.
      */
-    @java.lang.Override
     public com.google.protobuf.ByteString
         getRoleBytes() {
       java.lang.Object ref = role_;
@@ -1271,9 +1221,7 @@ public final class ShadowService {
     private volatile java.lang.Object shadow_;
     /**
      * <code>string shadow = 2;</code>
-     * @return The shadow.
      */
-    @java.lang.Override
     public java.lang.String getShadow() {
       java.lang.Object ref = shadow_;
       if (ref instanceof java.lang.String) {
@@ -1288,9 +1236,7 @@ public final class ShadowService {
     }
     /**
      * <code>string shadow = 2;</code>
-     * @return The bytes for shadow.
      */
-    @java.lang.Override
     public com.google.protobuf.ByteString
         getShadowBytes() {
       java.lang.Object ref = shadow_;
@@ -1309,7 +1255,6 @@ public final class ShadowService {
     private com.google.protobuf.LazyStringList users_;
     /**
      * <code>repeated string users = 3;</code>
-     * @return A list containing the users.
      */
     public com.google.protobuf.ProtocolStringList
         getUsersList() {
@@ -1317,23 +1262,18 @@ public final class ShadowService {
     }
     /**
      * <code>repeated string users = 3;</code>
-     * @return The count of users.
      */
     public int getUsersCount() {
       return users_.size();
     }
     /**
      * <code>repeated string users = 3;</code>
-     * @param index The index of the element to return.
-     * @return The users at the given index.
      */
     public java.lang.String getUsers(int index) {
       return users_.get(index);
     }
     /**
      * <code>repeated string users = 3;</code>
-     * @param index The index of the value to return.
-     * @return The bytes of the users at the given index.
      */
     public com.google.protobuf.ByteString
         getUsersBytes(int index) {
@@ -1401,14 +1341,15 @@ public final class ShadowService {
       }
       sjtu.opennet.textilepb.ShadowService.ShadowStat other = (sjtu.opennet.textilepb.ShadowService.ShadowStat) obj;
 
-      if (!getRole()
-          .equals(other.getRole())) return false;
-      if (!getShadow()
-          .equals(other.getShadow())) return false;
-      if (!getUsersList()
-          .equals(other.getUsersList())) return false;
-      if (!unknownFields.equals(other.unknownFields)) return false;
-      return true;
+      boolean result = true;
+      result = result && getRole()
+          .equals(other.getRole());
+      result = result && getShadow()
+          .equals(other.getShadow());
+      result = result && getUsersList()
+          .equals(other.getUsersList());
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
     }
 
     @java.lang.Override
@@ -1564,7 +1505,7 @@ public final class ShadowService {
         shadow_ = "";
 
         users_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-        bitField0_ = (bitField0_ & ~0x00000001);
+        bitField0_ = (bitField0_ & ~0x00000004);
         return this;
       }
 
@@ -1592,48 +1533,50 @@ public final class ShadowService {
       public sjtu.opennet.textilepb.ShadowService.ShadowStat buildPartial() {
         sjtu.opennet.textilepb.ShadowService.ShadowStat result = new sjtu.opennet.textilepb.ShadowService.ShadowStat(this);
         int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
         result.role_ = role_;
         result.shadow_ = shadow_;
-        if (((bitField0_ & 0x00000001) != 0)) {
+        if (((bitField0_ & 0x00000004) == 0x00000004)) {
           users_ = users_.getUnmodifiableView();
-          bitField0_ = (bitField0_ & ~0x00000001);
+          bitField0_ = (bitField0_ & ~0x00000004);
         }
         result.users_ = users_;
+        result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
 
       @java.lang.Override
       public Builder clone() {
-        return super.clone();
+        return (Builder) super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return super.setField(field, value);
+        return (Builder) super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return super.clearField(field);
+        return (Builder) super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return super.clearOneof(oneof);
+        return (Builder) super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return super.setRepeatedField(field, index, value);
+        return (Builder) super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return super.addRepeatedField(field, value);
+        return (Builder) super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -1658,7 +1601,7 @@ public final class ShadowService {
         if (!other.users_.isEmpty()) {
           if (users_.isEmpty()) {
             users_ = other.users_;
-            bitField0_ = (bitField0_ & ~0x00000001);
+            bitField0_ = (bitField0_ & ~0x00000004);
           } else {
             ensureUsersIsMutable();
             users_.addAll(other.users_);
@@ -1698,7 +1641,6 @@ public final class ShadowService {
       private java.lang.Object role_ = "";
       /**
        * <code>string role = 1;</code>
-       * @return The role.
        */
       public java.lang.String getRole() {
         java.lang.Object ref = role_;
@@ -1714,7 +1656,6 @@ public final class ShadowService {
       }
       /**
        * <code>string role = 1;</code>
-       * @return The bytes for role.
        */
       public com.google.protobuf.ByteString
           getRoleBytes() {
@@ -1731,8 +1672,6 @@ public final class ShadowService {
       }
       /**
        * <code>string role = 1;</code>
-       * @param value The role to set.
-       * @return This builder for chaining.
        */
       public Builder setRole(
           java.lang.String value) {
@@ -1746,7 +1685,6 @@ public final class ShadowService {
       }
       /**
        * <code>string role = 1;</code>
-       * @return This builder for chaining.
        */
       public Builder clearRole() {
         
@@ -1756,8 +1694,6 @@ public final class ShadowService {
       }
       /**
        * <code>string role = 1;</code>
-       * @param value The bytes for role to set.
-       * @return This builder for chaining.
        */
       public Builder setRoleBytes(
           com.google.protobuf.ByteString value) {
@@ -1774,7 +1710,6 @@ public final class ShadowService {
       private java.lang.Object shadow_ = "";
       /**
        * <code>string shadow = 2;</code>
-       * @return The shadow.
        */
       public java.lang.String getShadow() {
         java.lang.Object ref = shadow_;
@@ -1790,7 +1725,6 @@ public final class ShadowService {
       }
       /**
        * <code>string shadow = 2;</code>
-       * @return The bytes for shadow.
        */
       public com.google.protobuf.ByteString
           getShadowBytes() {
@@ -1807,8 +1741,6 @@ public final class ShadowService {
       }
       /**
        * <code>string shadow = 2;</code>
-       * @param value The shadow to set.
-       * @return This builder for chaining.
        */
       public Builder setShadow(
           java.lang.String value) {
@@ -1822,7 +1754,6 @@ public final class ShadowService {
       }
       /**
        * <code>string shadow = 2;</code>
-       * @return This builder for chaining.
        */
       public Builder clearShadow() {
         
@@ -1832,8 +1763,6 @@ public final class ShadowService {
       }
       /**
        * <code>string shadow = 2;</code>
-       * @param value The bytes for shadow to set.
-       * @return This builder for chaining.
        */
       public Builder setShadowBytes(
           com.google.protobuf.ByteString value) {
@@ -1849,14 +1778,13 @@ public final class ShadowService {
 
       private com.google.protobuf.LazyStringList users_ = com.google.protobuf.LazyStringArrayList.EMPTY;
       private void ensureUsersIsMutable() {
-        if (!((bitField0_ & 0x00000001) != 0)) {
+        if (!((bitField0_ & 0x00000004) == 0x00000004)) {
           users_ = new com.google.protobuf.LazyStringArrayList(users_);
-          bitField0_ |= 0x00000001;
+          bitField0_ |= 0x00000004;
          }
       }
       /**
        * <code>repeated string users = 3;</code>
-       * @return A list containing the users.
        */
       public com.google.protobuf.ProtocolStringList
           getUsersList() {
@@ -1864,23 +1792,18 @@ public final class ShadowService {
       }
       /**
        * <code>repeated string users = 3;</code>
-       * @return The count of users.
        */
       public int getUsersCount() {
         return users_.size();
       }
       /**
        * <code>repeated string users = 3;</code>
-       * @param index The index of the element to return.
-       * @return The users at the given index.
        */
       public java.lang.String getUsers(int index) {
         return users_.get(index);
       }
       /**
        * <code>repeated string users = 3;</code>
-       * @param index The index of the value to return.
-       * @return The bytes of the users at the given index.
        */
       public com.google.protobuf.ByteString
           getUsersBytes(int index) {
@@ -1888,9 +1811,6 @@ public final class ShadowService {
       }
       /**
        * <code>repeated string users = 3;</code>
-       * @param index The index to set the value at.
-       * @param value The users to set.
-       * @return This builder for chaining.
        */
       public Builder setUsers(
           int index, java.lang.String value) {
@@ -1904,8 +1824,6 @@ public final class ShadowService {
       }
       /**
        * <code>repeated string users = 3;</code>
-       * @param value The users to add.
-       * @return This builder for chaining.
        */
       public Builder addUsers(
           java.lang.String value) {
@@ -1919,8 +1837,6 @@ public final class ShadowService {
       }
       /**
        * <code>repeated string users = 3;</code>
-       * @param values The users to add.
-       * @return This builder for chaining.
        */
       public Builder addAllUsers(
           java.lang.Iterable<java.lang.String> values) {
@@ -1932,18 +1848,15 @@ public final class ShadowService {
       }
       /**
        * <code>repeated string users = 3;</code>
-       * @return This builder for chaining.
        */
       public Builder clearUsers() {
         users_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-        bitField0_ = (bitField0_ & ~0x00000001);
+        bitField0_ = (bitField0_ & ~0x00000004);
         onChanged();
         return this;
       }
       /**
        * <code>repeated string users = 3;</code>
-       * @param value The bytes of the users to add.
-       * @return This builder for chaining.
        */
       public Builder addUsersBytes(
           com.google.protobuf.ByteString value) {
@@ -1959,7 +1872,7 @@ public final class ShadowService {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFields(unknownFields);
+        return super.setUnknownFieldsProto3(unknownFields);
       }
 
       @java.lang.Override
@@ -2039,10 +1952,18 @@ public final class ShadowService {
       "\001 \001(\t\022\016\n\006shadow\030\002 \001(\t\022\r\n\005users\030\003 \003(\tB\034\n\026" +
       "sjtu.opennet.textilepbZ\002pbb\006proto3"
     };
-    descriptor = com.google.protobuf.Descriptors.FileDescriptor
+    com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
+        new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
+          public com.google.protobuf.ExtensionRegistry assignDescriptors(
+              com.google.protobuf.Descriptors.FileDescriptor root) {
+            descriptor = root;
+            return null;
+          }
+        };
+    com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-        });
+        }, assigner);
     internal_static_ShadowInform_descriptor =
       getDescriptor().getMessageTypes().get(0);
     internal_static_ShadowInform_fieldAccessorTable = new
