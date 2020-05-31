@@ -148,11 +148,13 @@ func (t *Textile) handleProviderSearchResult(resultCh <-chan *pb.QueryResult, er
 			case <-doneCh:
 				log.Debugf("result channel done")
                 t.SubscribeNotify(config.Id, false)
+                go t.ReSubscribeStream(sid)
                 close(doneCh)
 				return
 			case err := <-errCh:
                 log.Error(err)
                 t.SubscribeNotify(config.Id, false)
+                go t.ReSubscribeStream(sid)
 				return
 
 			case res, ok := <-resultCh:
@@ -256,7 +258,7 @@ func (t* Textile) SubscribeStream(id string) error {
         t.shadow.PushStreamMeta(meta, false)
 	}
     
-    if last == meta.Nblocks {
+    if last == meta.Nblocks && last != 0 {
         return nil
     }
 	// call search stream
