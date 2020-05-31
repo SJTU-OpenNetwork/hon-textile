@@ -312,7 +312,9 @@ func (h *StreamService) handleStreamRequest(env *pb.Envelope, pid peer.ID) (*pb.
 	//},nil, true)
     
     // TODO: calculate capacity according to video rate
-    if h.Workload() < 4 {
+	numWorkers := h.Workload()
+    if numWorkers < 4 {
+    	log.Debugf("[%s], Stream %s, To %s, Workers %d", TAG_STREAMREQUESTACCEPT, pid.Pretty(), numWorkers)
         err = h.responseRequest(pid, req)
         if err != nil {
             return nil, err
@@ -321,6 +323,7 @@ func (h *StreamService) handleStreamRequest(env *pb.Envelope, pid peer.ID) (*pb.
     	    Value:1,
         },nil, true)
     } else {
+		log.Debugf("[%s], Stream %s, To %s, Workers %d", TAG_STREAMREQUESTREJECT, pid.Pretty(), numWorkers)
         return h.service.NewEnvelope(pb.Message_STREAM_REQUEST_HANDLE, &pb.StreamRequestHandle{
     	    Value:0,
         },nil, true)
