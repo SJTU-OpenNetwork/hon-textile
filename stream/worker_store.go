@@ -62,8 +62,6 @@ func (ws *workerStore) newFileAdd(streamId string) error {
 			w.notice()
 		}
 	}
-	// TODO
-	//		Raise an error if there is no worker with streamId
 	return nil
 }
 
@@ -79,7 +77,6 @@ func (ws *workerStore) Workload() int {
                 load ++
             }
         }
-    
     }
     return load
 }

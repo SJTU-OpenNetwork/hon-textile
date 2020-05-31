@@ -134,6 +134,8 @@ type activeStream struct {
 }
 
 func (as *activeStream) start() {
+	defer log.Debugf("[%s] Stream %s", TAG_STREAMEND, as.meta.Id)
+	log.Debugf("[%s] Stream %s", TAG_STREAMSTART, as.meta.Id)
 Loop:
 	for{
 		select {
@@ -220,8 +222,6 @@ func (as *activeStream) saveBlock(cid *cid.Cid, isRoot bool, payload []byte) err
 		return err
 	}
 	index := as.currentIndex
-	//index := h.streamBlockIndex[sid]
-	//fmt.Printf("Saving block, cid: %s, index: %d, size: %d, isroot: %d", cid.String(), cur, stat.CumulativeSize, isRoot)
 	
     desc := make(map[string] string)
     if isRoot {

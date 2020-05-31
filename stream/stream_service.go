@@ -232,7 +232,10 @@ func (h *StreamService) handleStreamBlockList(env *pb.Envelope, pid peer.ID) (*p
         streams[blk.StreamID] = 1
     }
     for id := range streams {
-	    h.activeWorkers.newFileAdd(id)
+	    err := h.activeWorkers.newFileAdd(id)
+	    if err != nil {
+	    	log.Error(err)
+		}
     }
     return nil, nil
 }

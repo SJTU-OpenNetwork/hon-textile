@@ -93,8 +93,8 @@ func (sw *streamWorker) start() error {
                             break
 						}
 						sw.currentIndex = sw.currentIndex + uint64(len(blks))
-						// Notice the worker again if there maybe more blocks can be fetched.
 						if len(blks) >= maxBlockFetchNum {
+							// Notice the worker again if there maybe more blocks can be fetched.
 							sw.notice()
 						}
                         if fblks[len(fblks)-1].Id == "" {
