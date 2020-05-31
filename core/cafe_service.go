@@ -784,9 +784,12 @@ func (h *CafeService) searchLocal(qtype pb.Query_Type, options *pb.QueryOptions,
         }
 
 		blocks := h.datastore.StreamBlocks().ListByStream(q.Id, int(q.Startindex),3)
-        if q.Startindex != 0 && len(blocks) == 0 {
-            break
-        }
+		if int64(len(blocks)) <= q.Startindex {
+			break
+		}
+        //if q.Startindex != 0 && len(blocks) == 0 {
+        //    break
+        //}
 
         hopcnt := 1000 //arbitrary value, needed to be fixed
         //var hopcnt int

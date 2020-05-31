@@ -148,13 +148,23 @@ func (t *Textile) handleProviderSearchResult(resultCh <-chan *pb.QueryResult, er
 			case <-doneCh:
 				log.Debugf("result channel done")
                 t.SubscribeNotify(config.Id, false)
-                go t.ReSubscribeStream(sid)
+                go func() {
+                	err := t.ReSubscribeStream(sid)
+                	if err != nil {
+                		log.Error(err)
+					}
+                }()
                 close(doneCh)
 				return
 			case err := <-errCh:
                 log.Error(err)
                 t.SubscribeNotify(config.Id, false)
-                go t.ReSubscribeStream(sid)
+				go func() {
+					err := t.ReSubscribeStream(sid)
+					if err != nil {
+						log.Error(err)
+					}
+				}()
 				return
 
 			case res, ok := <-resultCh:
