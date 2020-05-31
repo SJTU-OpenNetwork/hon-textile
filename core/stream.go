@@ -17,6 +17,10 @@ import (
 )
 var ErrStreamNotFound = fmt.Errorf("stream not found")
 var ErrStreamAlreadyInUse = fmt.Errorf("stream already in use")
+var ErrSubscribeFail = fmt.Errorf("subscribe failed")
+var num_retry_map = make(map[string] int)
+const MAX_RETRY = 10
+
 type ErrStreamAlreadyExist struct {
 	meta *pb.StreamMeta
 }
@@ -122,9 +126,9 @@ func (t *Textile) StreamAddFile(id string, sf *pb.StreamFile) error {
 
 // handleProviderSearchResult handle the result of SearchStream, try to connect the stream provider
 // and request the stream.
-func (t *Textile) handleProviderSearchResult(resultCh <-chan *pb.QueryResult, errCh <-chan error, cancel *broadcast.Broadcaster, config *pb.StreamRequest) (error) {
+func (t *Textile) handleProviderSearchResult(resultCh <-chan *pb.QueryResult, errCh <-chan error, cancel *broadcast.Broadcaster, config *pb.StreamRequest, sid string) (error) {
 	log.Debugf("in handleProviderSearchResult")
-    timer := time.NewTimer(time.Second * 2) //Wait for 2s
+    timer := time.NewTimer(time.Second * 1) //Wait for 1s
     doneCh := make(chan struct{}, 1)
 	done := func() {
 		// Use select to avoid block when there is already done signal in channel.
@@ -217,6 +221,20 @@ func (t *Textile) SubscribeNotify(id string, res bool) {
     }
 }
 
+
+func (t* Textile) ReSubscribeStream(id string) error {
+    retry, ok := num_retry_map[id]
+    if !ok {
+        retry = 0
+    }
+    if retry > MAX_RETRY {
+        return ErrSubscribeFail 
+    } else {
+	    num_retry_map[id] = retry + 1
+        return t.SubscribeStream(id)
+    }
+}
+
 // SubscribeStream calls SearchStream and handleProviderSearchResult to
 // subscribe a stream, and shadow node will also subscribe the same stream.
 func (t* Textile) SubscribeStream(id string) error {
@@ -237,7 +255,10 @@ func (t* Textile) SubscribeStream(id string) error {
 	if meta != nil && !t.config.IsShadow {
         t.shadow.PushStreamMeta(meta, false)
 	}
-
+    
+    if last == meta.Nblocks {
+        return nil
+    }
 	// call search stream
     query := & pb.StreamQuery { 
         Id: id,
@@ -250,7 +271,7 @@ func (t* Textile) SubscribeStream(id string) error {
     if err != nil {
         return err
     }
-    t.handleProviderSearchResult(resCh, errCh, cancel, config)
+    t.handleProviderSearchResult(resCh, errCh, cancel, config, id)
 	return nil
 }
 

@@ -104,6 +104,7 @@ func (sw *streamWorker) start() error {
 
 				case <- sw.cancelSignal:
 					// Note that break will break select only.
+                    log.Debug("worker task complete, call cancel")
                     sw.end = true
 					return
 			}

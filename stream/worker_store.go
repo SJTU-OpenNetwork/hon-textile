@@ -75,6 +75,7 @@ func (ws *workerStore) Workload() int {
     for _, tmplist := range(ws.workerList){
         for _, w := range tmplist {
             if !w.end {
+                log.Debug("Existing worker, stream: %s, peerid: %s", w.stream.Id, w.pid)
                 load ++
             }
         }
