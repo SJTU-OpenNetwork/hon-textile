@@ -137,7 +137,7 @@ func (h *StreamService) Started(sid string) bool{
 }
 
 func (h *StreamService) StreamAddFile(id string, sf *pb.StreamFile) error{
-	err := h.activeStreams.streamAddFile(id, sf); if err != nil {return err}
+	err := h.activeStreams.streamAddFile(id, sf); if err != nil {log.Error(err);return err}
     return nil
 }
 

@@ -4,6 +4,8 @@ package stream
 // It was used by SJTU-OpenNetwotk/go-logparser
 
 const (
+	TAG_STREAMSTART = "STREAMSTART"
+	TAG_STREAMEND = ""
 	TAG_WORKERSTART = "WORKERSTART"
 	TAG_WORKEREND = "WORKEREND"
 	TAG_BLOCKSEND = "BLOCKSEND"

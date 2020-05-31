@@ -30,7 +30,7 @@ func (e *ErrStreamNotActive) Error() string {
 
 
 /**
- * activeStreams serves as a mediumm between datastore and working environment.
+ * activeStreams serves as a medium between datastore and working environment.
  * The main routine of stream_service is moved to here.
  * activeStreams do following works
  *	- Record which stream is active now.
@@ -157,6 +157,7 @@ Loop:
 func (as *activeStream) handleNewFile(f *pb.StreamFile) error {
     if f == nil {
         // handle the end mark
+    	//log.De
         err := as.datastore.StreamMetas().UpdateNblocks(as.meta.Id,as.currentIndex+1)
         if err != nil {
             log.Error(err)
@@ -174,6 +175,7 @@ func (as *activeStream) handleNewFile(f *pb.StreamFile) error {
             log.Error(err)
             return err
         }
+		err = as.notify(as.meta.Id); if err != nil {return err}	// notify the workers to send the ENDMARK
 		as.cancel()
     } else {
 	    r := bytes.NewReader(f.Data)
