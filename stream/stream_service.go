@@ -34,6 +34,7 @@ import (
 
 // streamServiceProtocol is the current protocol tag
 const streamServiceProtocol = protocol.ID("/textile/stream/1.0.0")
+const maxWorkers = 3
 var log = logging.Logger("stream")
 var ErrRedundantReq = fmt.Errorf("Request is redundant")
 var ErrUnknowkStream = fmt.Errorf("Unknown stream")
@@ -298,6 +299,11 @@ func (h *StreamService) SendMessage(ctx context.Context, peerId string, env *pb.
 	return h.service.SendMessage(ctx, peerId, env)
 }
 
+func (h *StreamService) IsBusy() bool {
+	numWorkers := h.Workload()
+	return numWorkers >= maxWorkers
+}
+
 // HandleRequest
 func (h *StreamService) handleStreamRequest(env *pb.Envelope, pid peer.ID) (*pb.Envelope, error) {
 	fmt.Printf("core/stream_service.go handleStreamRequest from %s\n", pid.Pretty())
@@ -313,7 +319,7 @@ func (h *StreamService) handleStreamRequest(env *pb.Envelope, pid peer.ID) (*pb.
     
     // TODO: calculate capacity according to video rate
 	numWorkers := h.Workload()
-    if numWorkers < 4 {
+    if numWorkers < maxWorkers {
     	log.Debugf("[%s], Stream %s, To %s, Workers %d", TAG_STREAMREQUESTACCEPT, req.Id, pid.Pretty(), numWorkers)
         err = h.responseRequest(pid, req)
         if err != nil {

@@ -791,6 +791,12 @@ func (h *CafeService) searchLocal(qtype pb.Query_Type, options *pb.QueryOptions,
         //    break
         //}
 
+        // Check whether all workers are busy
+		if h.stream.IsBusy() {
+			log.Debugf("[%s] Stream %s, From %s", stream.TAG_SEARCH_BUSY, q.Id, pid.Pretty())
+			break
+		}
+
         hopcnt := 1000 //arbitrary value, needed to be fixed
         //var hopcnt int
         started := h.stream.Started(q.Id)

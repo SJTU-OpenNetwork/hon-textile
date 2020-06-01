@@ -2,6 +2,7 @@ package core
 
 import (
 	"fmt"
+	"github.com/SJTU-OpenNetwork/hon-textile/stream"
 	"time"
 	//	"github.com/SJTU-OpenNetwork/hon-textile/stream"
 	"github.com/ipfs/go-cid"
@@ -128,6 +129,9 @@ func (t *Textile) StreamAddFile(id string, sf *pb.StreamFile) error {
 // and request the stream.
 func (t *Textile) handleProviderSearchResult(resultCh <-chan *pb.QueryResult, errCh <-chan error, cancel *broadcast.Broadcaster, config *pb.StreamRequest, sid string) (error) {
 	log.Debugf("in handleProviderSearchResult")
+	defer cancel.Close()	// This will stop the existing pubsub queries.
+							// However, only the searcher will stop listen it.
+							// The responder may still response this pubsub query.
     timer := time.NewTimer(time.Second * 1) //Wait for 1s
     doneCh := make(chan struct{}, 1)
 	done := func() {
@@ -139,19 +143,21 @@ func (t *Textile) handleProviderSearchResult(resultCh <-chan *pb.QueryResult, er
     }
     go func() {
 		<-timer.C
-        log.Debug("Search time out")
+        //log.Debug("Search time out")
+        log.Debugf("[%s] Stream %s", stream.TAG_STREAM_SEARCHTIMEOUT, config.Id)
 		done()
 	}()
 	go func() {
 		for {
 			select {
 			case <-doneCh:
-				log.Debugf("result channel done")
+				//log.Debugf("result channel done")
                 t.SubscribeNotify(config.Id, false)
+
                 go func() {
                 	err := t.ReSubscribeStream(sid)
                 	if err != nil {
-                		log.Error(err)
+                		log.Errorf("Stream %s %v", config.Id, err)
 					}
                 }()
                 close(doneCh)
@@ -162,13 +168,13 @@ func (t *Textile) handleProviderSearchResult(resultCh <-chan *pb.QueryResult, er
 				go func() {
 					err := t.ReSubscribeStream(sid)
 					if err != nil {
-						log.Error(err)
+						log.Errorf("Stream %s %v", config.Id, err)
 					}
 				}()
 				return
 
 			case res, ok := <-resultCh:
-                log.Debug("get result!")
+                //log.Debug("get result!")
 				if !ok {
                     log.Debug("Error occur")
 					return
@@ -179,14 +185,14 @@ func (t *Textile) handleProviderSearchResult(resultCh <-chan *pb.QueryResult, er
                 //if already have provider
                 //just break
                 if t.stream.GetProvider(config.Id) != peer.ID("") {
-                    log.Debug("provider alread exists")
+                    log.Debugf("Stream %s provider alread exists", config.Id)
                     done()
                     timer.Stop()
                     break
                 }
 
                 // if the provider is connected, request the stream directly
-                log.Debug("PID: "+item.Pid)
+                //log.Debug("PID: "+item.Pid)
                 connected, err := ipfs.SwarmConnected(t.node, item.Pid) 
 	            if err != nil{
                     log.Error(err)
@@ -194,7 +200,7 @@ func (t *Textile) handleProviderSearchResult(resultCh <-chan *pb.QueryResult, er
                 }
                 
                 if connected {
-                    log.Debug("Try request stream")
+                    //log.Debug("Try request stream")
                     env, err := t.RequestStream(item.Pid, config)
 	                if err != nil{
                         log.Error(err)
@@ -207,7 +213,7 @@ func (t *Textile) handleProviderSearchResult(resultCh <-chan *pb.QueryResult, er
 	    	            break
 	                }
                     if response.Value != 1 {
-                        log.Errorf("request %s failed", item.Pid)
+                        //log.Errorf("request %s failed", item.Pid)
 	    	            break
                     } else {
                         t.SubscribeNotify(config.Id, true)
@@ -235,11 +241,13 @@ func (t *Textile) SubscribeNotify(id string, res bool) {
 
 
 func (t* Textile) ReSubscribeStream(id string) error {
+	log.Debugf("[%s] Stream %s", stream.TAG_RETRY_SUBSCRIBE, id)
     retry, ok := num_retry_map[id]
     if !ok {
         retry = 0
     }
     if retry > MAX_RETRY {
+    	//log.Errorf("Stream %s %s", )
         return ErrSubscribeFail 
     } else {
 	    num_retry_map[id] = retry + 1
@@ -265,10 +273,15 @@ func (t* Textile) SubscribeStream(id string) error {
     // shadow node should subscribe the same stream
     meta := t.GetStreamMeta(id)
 	if meta != nil && !t.config.IsShadow {
-        t.shadow.PushStreamMeta(meta, false)
+        err := t.shadow.PushStreamMeta(meta, false)
+        if err != nil {
+        	log.Error(err)
+		}
 	}
-    
-    if last == meta.Nblocks && last != 0 {
+
+	// if we already have all the blocks for this stream
+	// TODO: Check what meta.Nblocks would be if this is a newly created stream
+    if meta!= nil && last == meta.Nblocks && last != 0 {
         return nil
     }
 	// call search stream
@@ -283,7 +296,11 @@ func (t* Textile) SubscribeStream(id string) error {
     if err != nil {
         return err
     }
-    t.handleProviderSearchResult(resCh, errCh, cancel, config, id)
+    err = t.handleProviderSearchResult(resCh, errCh, cancel, config, id)
+    if err != nil {
+    	log.Error(err)
+    	return err
+	}
 	return nil
 }
 

@@ -103,3 +103,10 @@ func Mkdirp(dir string) error {
 	}
 	return nil
 }
+
+// RandomWait return a timer between [from to] millseconds
+/*
+func RandomWait(from int, to int) *time.Timer {
+
+}
+ */
