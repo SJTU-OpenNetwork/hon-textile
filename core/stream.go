@@ -129,10 +129,8 @@ func (t *Textile) StreamAddFile(id string, sf *pb.StreamFile) error {
 // and request the stream.
 func (t *Textile) handleProviderSearchResult(resultCh <-chan *pb.QueryResult, errCh <-chan error, cancel *broadcast.Broadcaster, config *pb.StreamRequest, sid string) (error) {
 	log.Debugf("in handleProviderSearchResult")
-	defer cancel.Close()	// This will stop the existing pubsub queries.
-							// However, only the searcher will stop listen it.
-							// The responder may still response this pubsub query.
-    timer := time.NewTimer(time.Second * 1) //Wait for 1s
+
+    timer := time.NewTimer(time.Millisecond * 500) //Wait for 1s
     doneCh := make(chan struct{}, 1)
 	done := func() {
 		// Use select to avoid block when there is already done signal in channel.
@@ -148,6 +146,9 @@ func (t *Textile) handleProviderSearchResult(resultCh <-chan *pb.QueryResult, er
 		done()
 	}()
 	go func() {
+		//defer cancel.Close()	// This will stop the existing pubsub queries.
+								// However, only the searcher will stop listen it.
+								// The responder may still response this pubsub query.
 		for {
 			select {
 			case <-doneCh:
