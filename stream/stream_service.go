@@ -34,7 +34,7 @@ import (
 
 // streamServiceProtocol is the current protocol tag
 const streamServiceProtocol = protocol.ID("/textile/stream/1.0.0")
-const maxWorkers = 3
+const maxWorkers = 2
 var log = logging.Logger("stream")
 var ErrRedundantReq = fmt.Errorf("Request is redundant")
 var ErrUnknowkStream = fmt.Errorf("Unknown stream")
