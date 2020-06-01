@@ -127,6 +127,10 @@ func (h *StreamService) StartStream(config *pb.StreamMeta) {
 	if err != nil {
 		log.Error(err)
 	}
+	selfPeerId := h.service.Node().Identity.Pretty()
+	acceptedSubstream := newProvidedSubstream(config.Id, 1, 1, 0, selfPeerId, h.handleBlockLost)
+	provider := h.providers.getOrCreate(selfPeerId)
+	provider.add(acceptedSubstream)
 }
 
 /**

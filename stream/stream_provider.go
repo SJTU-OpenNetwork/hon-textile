@@ -120,5 +120,6 @@ func newProvider(pid string) *Provider {
 func (p *Provider) add (sub *providedSubstream) {
 	p.lock.Lock()
 	defer p.lock.Unlock()
+	log.Debugf("[%s] Stream %s, Peer %s", TAG_PROVIDER_ADD, sub.streamId, sub.providerId)
 	p.subStreams = append(p.subStreams, sub)
 }

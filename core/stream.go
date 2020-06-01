@@ -218,6 +218,7 @@ func (t *Textile) handleProviderSearchResult(resultCh <-chan *pb.QueryResult, er
 	    	            break
                     } else {
                         t.SubscribeNotify(config.Id, true)
+						t.StreamRequestAccepted(item.Pid, config)
                         // request is accepted, kill the handle process
                         return
                     }

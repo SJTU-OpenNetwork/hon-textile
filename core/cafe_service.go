@@ -779,19 +779,27 @@ func (h *CafeService) searchLocal(qtype pb.Query_Type, options *pb.QueryOptions,
 		}
 
         meta := h.datastore.StreamMetas().Get(q.Id)
-        if meta == nil{ 
+
+        if meta == nil{
+        	log.Debugf("[%s] Stream %s", stream.TAG_SEARCH_NOMETA, q.Id)
             break
         }
 
-		blocks := h.datastore.StreamBlocks().ListByStream(q.Id, int(q.Startindex),3)
-		if len(blocks) > 0 {
-			break
-		}
+		//blocks := h.datastore.StreamBlocks().ListByStream(q.Id, int(q.Startindex),3)
+		//if len(blocks) == 0 {
+		//	log.Debugf("[%s] Stream %s", stream.TAG_STREAM_NOBLOCK, q.Id)
+		//	break
+		//}
         //if q.Startindex != 0 && len(blocks) == 0 {
         //    break
         //}
-
-        // Check whether all workers are busy
+		provider := h.stream.GetProvider(q.Id)
+		if provider == peer.ID("") {
+			log.Debugf("[%s] Stream %s", stream.TAG_SEARCH_NOPROVIDER, q.Id)
+			break
+		}
+		log.Debugf("[%s] Stream %s, Provider %s", stream.TAG_SEARCH_GETPROVIDER, q.Id, provider.Pretty())
+		// Check whether all workers are busy
 		if h.stream.IsBusy() {
 			log.Debugf("[%s] Stream %s, From %s", stream.TAG_SEARCH_BUSY, q.Id, pid.Pretty())
 			break

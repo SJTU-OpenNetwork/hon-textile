@@ -1,8 +1,6 @@
 package stream
 
 import (
-	//"context"
-	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 	"github.com/libp2p/go-libp2p-core/peer"
 	"sync"
 )
@@ -69,11 +67,15 @@ func (ps *providerStore) add(pid string, substream *providedSubstream) error {
 
 // peerDisconnected is called by the upper manager
 // return a list of streams that need to resubscribe
-func (ps *providerStore) peerDisconnected(pid peer.ID) (map[string] *pb.StreamRequest, error) {
-	ps.lock.Lock()
-	defer ps.lock.Unlock()
-
-	return nil, nil
+func (ps *providerStore) peerDisconnected(pid peer.ID) ([]*providedSubstream, error) {
+	//ps.lock.Lock()
+	//defer ps.lock.Unlock()
+	p := ps.remove(pid.Pretty())
+	if p != nil {
+		return p.subStreams, nil
+	}else {
+		return nil, nil
+	}
 }
 
 // do not support substream currently
@@ -92,6 +94,7 @@ func (ps *providerStore) GetProvider(sid string) peer.ID {
 }
 
 // do not support substream currently
+// Note that one stream is provided by only one provider
 func (ps *providerStore) RemoveStream(sid string) peer.ID {
     ps.lock.Lock()
     defer ps.lock.Unlock()
