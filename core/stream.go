@@ -266,7 +266,7 @@ func (t* Textile) SubscribeStream(id string) error {
     if t.stream.GetProvider(id) != peer.ID("") {
         return fmt.Errorf("Resubscribe stream "+id)
     }
-
+	log.Debugf("[%s] Stream %s", stream.TAG_STREAMSUBSCRIBE, id)
     last := t.datastore.StreamBlocks().LastIndex(id)
 
     config := &pb.StreamRequest {
