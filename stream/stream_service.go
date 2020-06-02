@@ -381,6 +381,7 @@ func (h *StreamService) handleUnsubscribe(env *pb.Envelope, pid peer.ID) (*pb.En
 
 // RequestAccepted is called when a stream request is accepted by some peer.
 func (h *StreamService) RequestAccepted(peerId string, config *pb.StreamRequest) {
+	log.Debugf("[%s] Stream %s, By %s", TAG_STREAM_REQUEST_ACCEPTED, config.Id, peerId)
 	acceptedSubstream := newProvidedSubstream(config.Id, config.StreamMap, 1, config.StartIndex, peerId, h.handleBlockLost)
 	provider := h.providers.getOrCreate(peerId)
 	// TODO: De-duplicated

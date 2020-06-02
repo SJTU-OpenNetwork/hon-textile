@@ -145,7 +145,6 @@ func (t *Textile) handleProviderSearchResult(resultCh <-chan *pb.QueryResult, er
     go func() {
 		<-timer.C
         //log.Debug("Search time out")
-        log.Debugf("[%s] Stream %s", stream.TAG_STREAM_SEARCHTIMEOUT, config.Id)
 		done()
 	}()
 	go func() {
@@ -155,6 +154,7 @@ func (t *Textile) handleProviderSearchResult(resultCh <-chan *pb.QueryResult, er
 		for {
 			select {
 			case <-doneCh:
+				log.Debugf("[%s] Stream %s", stream.TAG_STREAM_SEARCHTIMEOUT, config.Id)
 				//log.Debugf("result channel done")
                 t.SubscribeNotify(config.Id, false)
 

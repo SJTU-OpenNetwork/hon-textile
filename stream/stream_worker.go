@@ -74,7 +74,6 @@ func (sw *streamWorker) start() error {
 	sw.notice() //notice once at begining
 	go func(){
 		//defer fmt.Printf("stream/streamWorker.go start(): worker for stream %s to %s end\n", sw.stream.Id, sw.pid.Pretty())
-		defer log.Debugf("[%s] Stream %s, To %s", TAG_WORKEREND, sw.stream.Id, sw.pid.Pretty())
 		for {
 			select {
 				case <-sw.workSignal:
@@ -104,6 +103,7 @@ func (sw *streamWorker) start() error {
 				case <- sw.cancelSignal:
 					// Note that break will break select only.
                     // log.Debug("worker task complete, call cancel")
+					log.Debugf("[%s] Stream %s, To %s", TAG_WORKEREND, sw.stream.Id, sw.pid.Pretty())
                     sw.end = true
 					return
 			}
