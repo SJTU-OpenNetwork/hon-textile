@@ -120,7 +120,10 @@ func (t *Textile) ListStreamMeta() *pb.StreamMetaList{
 
 // StreamAddFile add the new file to the corresponding channel.
 func (t *Textile) StreamAddFile(id string, sf *pb.StreamFile) error {
-    t.stream.StreamAddFile(id, sf)
+    err := t.stream.StreamAddFile(id, sf)
+    if err != nil {
+    	return err
+	}
     //t.stream.sm.StreamAddFile(id, sf)
 	return nil
 }
@@ -263,7 +266,7 @@ func (t* Textile) SubscribeStream(id string) error {
     if t.stream.GetProvider(id) != peer.ID("") {
         return fmt.Errorf("Resubscribe stream "+id)
     }
-   
+
     last := t.datastore.StreamBlocks().LastIndex(id)
 
     config := &pb.StreamRequest {
@@ -323,7 +326,8 @@ func (t* Textile) StreamRequestAccepted(pid string, config *pb.StreamRequest) {
 
 // SearchStream search a stream by pubsub in network.
 func (t *Textile) SearchStream(query *pb.StreamQuery, options *pb.QueryOptions) (<-chan *pb.QueryResult, <-chan error, *broadcast.Broadcaster, error) {
-	log.Debug("in SearchStream")
+	//log.Debug("in SearchStream")
+	log.Debugf("[%s] Stream %s", stream.TAG_STREAMSEARCH, query.Id)
 	payload, err := proto.Marshal(query)
 	if err != nil {
 		return nil, nil, nil, err

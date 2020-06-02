@@ -279,6 +279,7 @@ func (h *StreamService) handleRootBlk(pid peer.ID, blk *pb.StreamBlock) error {
 	}
 
     if blk.Id == "" {
+    	log.Debugf("[%s] Stream %s", TAG_STREAM_COMPLETE, blk.Streamid)
         meta := h.datastore.StreamMetas().Get(blk.Streamid)
 	    if meta == nil || meta.Nblocks > 0{
 		    return nil
@@ -358,7 +359,7 @@ func (h *StreamService) SendUnsubscribeRequest(peerId string, sid string) (*pb.E
 	if err != nil {
 		return nil,err
 	}
-	log.Debugf("[%s] Stream %s, To %s", TAG_STREAMREQUEST, sid, peerId)
+	//log.Debugf("[%s] Stream %s, To %s", TAG_STREAMREQUEST, sid, peerId)
 	return h.service.SendRequest(peerId, env)
 }
 

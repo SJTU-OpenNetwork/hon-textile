@@ -1,10 +1,9 @@
 package stream
 
 import (
-	"fmt"
-    "time"
-	"github.com/libp2p/go-libp2p-core/peer"
 	"github.com/SJTU-OpenNetwork/hon-textile/pb"
+	"github.com/libp2p/go-libp2p-core/peer"
+	"time"
 )
 
 const maxBlockFetchNum = 1
@@ -83,7 +82,7 @@ func (sw *streamWorker) start() error {
 					// Block if there is no signal
 					blks, _ := sw.blockFetcher(sw.req.Id, sw.currentIndex, maxBlockFetchNum)
 					if blks != nil && len(blks) > 0 {
-						fmt.Printf("stream/streamWorker.go start(): send %d blks for stream %s to %s start\n", len(blks), sw.stream.Id, sw.pid.Pretty())
+						//fmt.Printf("stream/streamWorker.go start(): send %d blks for stream %s to %s start\n", len(blks), sw.stream.Id, sw.pid.Pretty())
 						fblks := sw.filterBlocks(blks)
 
 						err := sw.blockSender(sw.pid, fblks)

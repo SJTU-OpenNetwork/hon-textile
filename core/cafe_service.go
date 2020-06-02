@@ -794,7 +794,7 @@ func (h *CafeService) searchLocal(qtype pb.Query_Type, options *pb.QueryOptions,
         //    break
         //}
 		provider := h.stream.GetProvider(q.Id)
-		if provider == peer.ID("") {
+		if meta.Nblocks == 0 && provider == peer.ID("") {
 			log.Debugf("[%s] Stream %s", stream.TAG_SEARCH_NOPROVIDER, q.Id)
 			break
 		}
