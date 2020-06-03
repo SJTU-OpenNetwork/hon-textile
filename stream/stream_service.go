@@ -155,10 +155,13 @@ func (h *StreamService) CloseStream(sid string) {
 // provider.
 func (h *StreamService) UnsubscribeStream(sid string) error{
     fmt.Printf("StreamService: Try to unsubscribe stream %s\n", sid)
-    pid := h.providers.RemoveStream(sid)
-    if pid != peer.ID("") {
-        h.SendUnsubscribeRequest(pid.Pretty(), sid)
-    }
+    pids := h.providers.RemoveStream(sid)
+    for _, p := range pids {
+    	_, err := h.SendUnsubscribeRequest(p.Pretty(), sid)
+    	if err != nil {
+    		return err
+		}
+	}
     return nil
 }
 
@@ -289,6 +292,8 @@ func (h *StreamService) handleRootBlk(pid peer.ID, blk *pb.StreamBlock) error {
             log.Error(err)
             return err
         }
+        // Remove provider here
+
     }
     return nil
 }

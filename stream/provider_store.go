@@ -67,6 +67,7 @@ func (ps *providerStore) add(pid string, substream *providedSubstream) error {
 
 // peerDisconnected is called by the upper manager
 // return a list of streams that need to resubscribe
+/*
 func (ps *providerStore) peerDisconnected(pid peer.ID) ([]*providedSubstream, error) {
 	//ps.lock.Lock()
 	//defer ps.lock.Unlock()
@@ -77,7 +78,7 @@ func (ps *providerStore) peerDisconnected(pid peer.ID) ([]*providedSubstream, er
 		return nil, nil
 	}
 }
-
+ */
 // do not support substream currently
 func (ps *providerStore) GetProvider(sid string) peer.ID {
     ps.lock.Lock()
@@ -95,22 +96,32 @@ func (ps *providerStore) GetProvider(sid string) peer.ID {
 
 // do not support substream currently
 // Note that one stream is provided by only one provider
-func (ps *providerStore) RemoveStream(sid string) peer.ID {
+func (ps *providerStore) RemoveStream(sid string) []peer.ID {
     ps.lock.Lock()
     defer ps.lock.Unlock()
-
+	res := make([]peer.ID, 0)
+	needDelete := make([]string, 0)
     for pid, item := range ps.providers {
-        id := -1
-        for index, stream := range item.subStreams {
-            if stream.streamId == sid {
-                id = index
-            }
+        haveStream := false
+    	newSubstreams := make([]*providedSubstream, 0, len(item.subStreams))
+        for _, stream := range item.subStreams {
+            if stream.streamId != sid {
+                newSubstreams = append(newSubstreams, stream)
+            } else {
+            	log.Debugf("[%s] Stream %s, Provider %s", TAG_PROVIDER_REMOVE, sid, pid)
+            	haveStream = true
+			}
         }
-        if id > -1 {
-            temp := append(item.subStreams[:id],item.subStreams[id+1:]...)
-            item.subStreams = temp
-            return peer.ID(pid)
-        }
+        item.subStreams = newSubstreams
+        if haveStream {
+        	res = append(res, peer.ID(pid))
+		}
+		if len(newSubstreams)==0 {
+			needDelete = append(needDelete, pid)
+		}
     }
-    return peer.ID("")
+    for _, pid := range needDelete {
+    	delete(ps.providers, pid)
+	}
+    return res
 }
