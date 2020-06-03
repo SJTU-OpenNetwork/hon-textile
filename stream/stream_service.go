@@ -149,6 +149,8 @@ func (h *StreamService) StreamAddFile(id string, sf *pb.StreamFile) error{
 func (h *StreamService) CloseStream(sid string) {
     fmt.Printf("StreamService: Try to close stream %s\n", sid)
     err := h.activeStreams.stopStream(sid); if err != nil {log.Error(err)}
+    // remove self provider
+    h.providers.RemoveStream(sid)
 }
 
 // UnsubscribeStream want to unsubscribe to a stream, and send a request to the
