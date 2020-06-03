@@ -90,6 +90,7 @@ func (sw *streamWorker) start() error {
 							//log.Errorf("[%s] Stream %s, Index %v, To %s", TAG_BLOCKSEND_FAILED, )
 							//log.Errorf("%s\nError occur when sending blocks.", err.Error())
                             time.Sleep(time.Duration(100)*time.Millisecond) //something wrong, maybe the connection breaks, if that happens, the worker will be canceled
+                            sw.notice()	// Resend block if the connection is still there
                             break
 						}
 						sw.currentIndex = sw.currentIndex + uint64(len(blks))
