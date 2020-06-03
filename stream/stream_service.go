@@ -467,6 +467,7 @@ func (h *StreamService) SendStreamBlocks(peerId peer.ID, blks []*pb.StreamBlock)
 		}
 		log.Debugf("[%s] Stream %s, Index %v - %v, To %s", TAG_BLOCKSEND_FAILED, streamId1, ind1, ind2, peerId.Pretty())
         log.Error(err)
+    	return err
     }
 	return nil
 }

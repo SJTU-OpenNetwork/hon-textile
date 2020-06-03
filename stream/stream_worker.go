@@ -86,7 +86,9 @@ func (sw *streamWorker) start() error {
 
 						err := sw.blockSender(sw.pid, fblks)
 						if err != nil {
-							log.Errorf("%s\nError occur when sending blocks.", err.Error())
+							log.Errorf("Stream %s %v", sw.stream.Id, err)
+							//log.Errorf("[%s] Stream %s, Index %v, To %s", TAG_BLOCKSEND_FAILED, )
+							//log.Errorf("%s\nError occur when sending blocks.", err.Error())
                             time.Sleep(time.Duration(100)*time.Millisecond) //something wrong, maybe the connection breaks, if that happens, the worker will be canceled
                             break
 						}
