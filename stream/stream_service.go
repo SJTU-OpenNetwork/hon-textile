@@ -293,7 +293,7 @@ func (h *StreamService) handleRootBlk(pid peer.ID, blk *pb.StreamBlock) error {
             return err
         }
         // Remove provider here
-
+		h.providers.RemoveStream(blk.Streamid)
     }
     return nil
 }
