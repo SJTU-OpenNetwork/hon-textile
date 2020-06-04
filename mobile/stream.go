@@ -73,3 +73,6 @@ func (m *Mobile) ThreadAddStream(threadId string, streamId string) error{
 	return m.node.ThreadAddStream(threadId,streamId)
 }
 
+func (m *Mobile) SetMaxWorkers(n int) {
+	m.node.SetMaxWorkers(n)
+}

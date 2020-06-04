@@ -34,7 +34,9 @@ import (
 
 // streamServiceProtocol is the current protocol tag
 const streamServiceProtocol = protocol.ID("/textile/stream/1.0.0")
-const maxWorkers = 2
+//const maxWorkers = 2
+const defaultMaxWorkers = 2
+var maxWorkers int
 var log = logging.Logger("stream")
 var ErrRedundantReq = fmt.Errorf("Request is redundant")
 var ErrUnknowkStream = fmt.Errorf("Unknown stream")
@@ -91,6 +93,7 @@ func (h *StreamService) Protocol() protocol.ID {
 
 // Start begins online services
 func (h *StreamService) Start() {
+	maxWorkers = defaultMaxWorkers
     h.online = true
 	h.service.Start()
     // TODO:
@@ -131,6 +134,11 @@ func (h *StreamService) StartStream(config *pb.StreamMeta) {
 	acceptedSubstream := newProvidedSubstream(config.Id, 1, 1, 0, selfPeerId, h.handleBlockLost)
 	provider := h.providers.getOrCreate(selfPeerId)
 	provider.add(acceptedSubstream)
+}
+
+func (h *StreamService) SetMaxWorkers(n int) {
+	log.Debugf("Change max workers to %d", n)
+	maxWorkers = n
 }
 
 /**

@@ -357,3 +357,7 @@ func (t *Textile) StreamWorkerStat() {
 	t.stream.WorkerStat()
 }
 
+func (t *Textile) SetMaxWorkers(n int) {
+	t.stream.SetMaxWorkers(n)
+}
+
