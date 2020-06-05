@@ -326,8 +326,10 @@ type handleResult struct {
 func (t *Thread) handle(bnode *blockNode, replace bool) (*pb.Block, error) {
 	block, err := t.unmarshalBlock(bnode.ciphertext)
 	if err != nil {
+		log.Errorf("Thread.handle Thread: %s, error when unmarshal block %v", t.Id, err)
 		return nil, err
 	}
+	log.Debugf("Thread.handle Thread: %s, block type: %s", t.Id, block.Type.String())
 	_, err = t.addBlock(bnode.ciphertext, false)
 	if err != nil {
 		return nil, err
