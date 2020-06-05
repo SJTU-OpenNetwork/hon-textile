@@ -82,6 +82,7 @@ func (q *BlockDownloads) batch(downloads []*pb.Block) {
 
 // handle handles a single message
 func (q *BlockDownloads) handle(dl *pb.Block) error {
+	log.Debugf("BlockDownloads.handle block: %s", dl.Id)
 	fail := func(reason string) error {
 		log.Warningf("download %s failed: %s", dl.Id, reason)
 		return q.datastore.Blocks().Delete(dl.Id)
@@ -96,7 +97,7 @@ func (q *BlockDownloads) handle(dl *pb.Block) error {
 	if thread == nil {
 		return fail("thread not found")
 	}
-
+	log.Debugf("BlockDownloads.handle block: %s Call Thread.handle", dl.Id)
 	_, err = thread.handle(&blockNode{hash: dl.Id,
 		ciphertext: ciphertext,
 		parents:    dl.Parents,
