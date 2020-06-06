@@ -110,6 +110,7 @@ func (q *BlockOutbox) batch(msgs []pb.BlockMessage) {
 
 // handle handles a single message
 func (q *BlockOutbox) handle(msg pb.BlockMessage) error {
+	log.Debugf("BlockOutbox.handle %s", msg.Id)
 	online := q.service().online
 	var connected bool
 	var err error

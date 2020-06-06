@@ -66,12 +66,19 @@ func (t *Textile) StartStream(threadId string, config *pb.StreamMeta) error {
 
 	//fmt.Printf("Add streamMeta to thread.\n")
     _, err := thread.AddStreamMeta(config)
-
+	if err != nil {
+		log.Error(err)
+		return err
+	}
     if !t.config.IsShadow {
-        t.shadow.PushStreamMeta(config, true)
+        err := t.shadow.PushStreamMeta(config, true)
+        if err != nil {
+        	log.Error(err)
+        	return err
+		}
     }
 
-	return err
+	return nil
 }
 
 // ThreadAddStream add a stream to a thread.
