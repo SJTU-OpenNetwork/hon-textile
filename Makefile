@@ -18,6 +18,10 @@ textile:
 	$(eval FLAGS := $$(shell govvv -flags | sed 's/main/github.com\/SJTU-OpenNetwork\/hon-textile\/common/g'))
 	go install -ldflags "-w $(FLAGS)" github.com/SJTU-OpenNetwork/hon-textile/cmd/textile
 
+textile-win:
+	$(eval FLAGS := $$(shell govvv -flags | sed 's/main/github.com\/SJTU-OpenNetwork\/hon-textile\/common/g'))
+	CGO_ENABLED=1 GOOS=windows GOARCH=amd64 CC=x86_64-w64-mingw32-gcc go build -ldflags "-linkmode external -extldflags -static -s -w $(FLAGS)" -o $(GOPATH)/bin/textile-win.exe github.com/SJTU-OpenNetwork/hon-textile/cmd/textile
+
 ios:
 	$(eval FLAGS := $$(shell govvv -flags | sed 's/main/github.com\/SJTU-OpenNetwork\/hon-textile\/common/g'))
 	env go111module=off gomobile bind -ldflags "-w $(FLAGS)" -v -target=ios github.com/SJTU-OpenNetwork/hon-textile/mobile github.com/SJTU-OpenNetwork/hon-textile/core
