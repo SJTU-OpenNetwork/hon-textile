@@ -330,6 +330,7 @@ func (h *StreamService) handleStreamRequest(env *pb.Envelope, pid peer.ID) (*pb.
 	req := new(pb.StreamRequest)
 	err := ptypes.UnmarshalAny(env.Message.Payload, req)
 	if err != nil {
+        //fmt.Printf(err)
 		return nil, err
 	}
 
