@@ -10,6 +10,9 @@ func (t *Thread) AddSimpleFile(file *pb.SimpleFile) (*pb.Block, error) {
 	t.lock.Lock()
 	defer t.lock.Unlock()
 	//log.Debugf("Thread.AddSimpleFile")
+	if !t.writable(t.config.Account.Address) {
+		return nil, ErrNotWritable
+	}
 	res, err := t.commitBlock(file, pb.Block_SIMPLE_FILE, true, nil)
 	if err != nil {
 		return nil, err
@@ -23,6 +26,7 @@ func (t *Thread) AddSimpleFile(file *pb.SimpleFile) (*pb.Block, error) {
 		Type:   pb.Block_SIMPLE_FILE,
 		Date:   res.header.Date,
 		Body:   body,
+		Target: "",
 		Status: pb.Block_QUEUED,
 	}
 	err = t.indexBlock(block, false)

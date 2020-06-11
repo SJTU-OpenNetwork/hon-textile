@@ -517,7 +517,7 @@ func (srv *Service) listen(tag string) {
 				handler = srv.handler.Handle
 			}
 
-			log.Debugf("received pubsub %s from %s", req.Message.Type.String(), mPeer.Pretty())
+			log.Debugf("topic %s received pubsub %s from %s", topic, req.Message.Type.String(), mPeer.Pretty())
 			rpmes, err := handler(req, mPeer)
 			if err != nil {
 				log.Warningf("error handling message %s: %s", req.Message.Type.String(), err)

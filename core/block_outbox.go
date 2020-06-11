@@ -63,7 +63,7 @@ func (q *BlockOutbox) Flush() {
 
 // batch flushes a batch of messages
 func (q *BlockOutbox) batch(msgs []pb.BlockMessage) {
-	log.Debugf("handling %d block messages", len(msgs))
+	//log.Debugf("handling %d block messages", len(msgs))
 	if len(msgs) == 0 {
 		return
 	}
@@ -103,14 +103,14 @@ func (q *BlockOutbox) batch(msgs []pb.BlockMessage) {
 		}
 		deleted = append(deleted, id)
 	}
-	log.Debugf("handled %d block messages", len(deleted))
+	//log.Debugf("handled %d block messages", len(deleted))
 
 	q.batch(next)
 }
 
 // handle handles a single message
 func (q *BlockOutbox) handle(msg pb.BlockMessage) error {
-	log.Debugf("BlockOutbox.handle %s", msg.Id)
+	//log.Debugf("BlockOutbox.handle %s", msg.Id)
 	online := q.service().online
 	var connected bool
 	var err error
@@ -130,9 +130,11 @@ func (q *BlockOutbox) handle(msg pb.BlockMessage) error {
 	if !connected || err != nil {
 		// 2) attempt to reach the peer via pubsub
         if online {
-			log.Debugf("publishing block message to %s", msg.Peer)
+			//log.Debugf("publishing block message to %s", msg.Peer)
 			err = q.service().SendPubSubMessage(msg)
-            log.Debugf("pubsub error: %s", err)
+			if err != nil {
+				log.Debugf("pubsub error: %s", err)
+			}
 		}
 
         // 3) add offline inbox requests

@@ -233,7 +233,7 @@ func (t *Thread) handleFilesBlock(bnode *blockNode, block *pb.ThreadBlock) (hand
 		}
 		// generate record for record_service
 		record := &pb.Notification{
-			Block:                   bnode.hash,
+			Block:                bnode.hash,
 			Date:                 ptypes.TimestampNow(),
 			//Actor:                t.node().Identity.Pretty(),	// Whether this is id of this peer ?
 			Subject:              recorder.Event_CallIPFSGet,

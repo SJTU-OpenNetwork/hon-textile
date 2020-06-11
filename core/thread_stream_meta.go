@@ -3,6 +3,7 @@ package core
 import (
     "fmt"
 	"github.com/SJTU-OpenNetwork/hon-textile/pb"
+	"github.com/SJTU-OpenNetwork/hon-textile/util"
 	"github.com/golang/protobuf/proto"
 	"github.com/golang/protobuf/ptypes"
 	mh "github.com/multiformats/go-multihash"
@@ -33,6 +34,39 @@ func (t *Thread) AddStreamMeta(stream *pb.StreamMeta) (mh.Multihash, error){
 	}
 
 	log.Debugf("added streammeta, streamID: &s", stream.Id)
+	return res.hash, nil
+}
+
+func (t *Thread) AddStreamMeta_Text(stream *pb.StreamMeta) (mh.Multihash, error){
+	t.lock.Lock()
+	defer t.lock.Unlock()
+	body := proto.MarshalTextString(stream)
+	body = fmt.Sprintf("![%s]%s", util.CMD_STREAM_META, body)
+
+	msg := &pb.ThreadMessage{
+		Body: body,
+	}
+
+	res, err := t.commitBlock(msg, pb.Block_TEXT, true, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	err = t.indexBlock(&pb.Block{
+		Id:     res.hash.B58String(),
+		Thread: t.Id,
+		Author: res.header.Author,
+		Type:   pb.Block_TEXT,
+		Date:   res.header.Date,
+		Target: "",
+		Body:   msg.Body,
+		Status: pb.Block_QUEUED,
+	}, false)
+	if err != nil {
+		return nil, err
+	}
+
+	log.Debugf("added stream through message to %s: %s", t.Id, res.hash.B58String())
 	return res.hash, nil
 }
 

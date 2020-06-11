@@ -26,6 +26,20 @@ func (m *Mobile) StartStream(thread string, stream []byte) error {
 	return nil
 }
 
+func (m *Mobile) StartStream_Text(thread string, stream []byte) error {
+	model := new(pb.StreamMeta)
+	if err := proto.Unmarshal(stream, model); err != nil {
+		return err
+	}
+	err := m.node.StartStream_Text(thread, model)
+	if err != nil {
+		return err
+	}
+
+	m.node.FlushCafes()
+	return nil
+}
+
 func (m *Mobile) SubscribeStream(config string) error {
 	if !m.node.Started() {
 		return core.ErrStopped
