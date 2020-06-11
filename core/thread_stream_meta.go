@@ -42,6 +42,7 @@ func (t *Thread) AddStreamMeta_Text(stream *pb.StreamMeta) (mh.Multihash, error)
 	defer t.lock.Unlock()
 	body := proto.MarshalTextString(stream)
 	body = fmt.Sprintf("![%s]%s", util.CMD_STREAM_META, body)
+	log.Debugf("Text command built: %s\n", body)
 
 	msg := &pb.ThreadMessage{
 		Body: body,
