@@ -173,7 +173,7 @@ func (t *Textile) feedItem(block *pb.Block, opts feedItemOpts) (*pb.FeedItem, er
 		payload, err = t.leave(block, opts)
 	case pb.Block_TEXT:
 		ok, cmd, contains := t.textBot.Extract(block.Body)
-		log.Debugf("Receive text command %s", cmd)
+		log.Debugf("Receive text command %s contains %s", cmd, contains)
 		if ok && cmd == util.CMD_STREAM_META{
 			item.Payload.TypeUrl =  "/" + strings.Title(strings.ToLower(pb.Block_STREAMMETA.String()))
 			msg := new(pb.StreamMeta)
