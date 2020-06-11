@@ -14,7 +14,8 @@ const (
 // Please note that there should also be a '/' if there is no parameter
 // ![cmd]/
 //var basicExpr = `!\[([\w]+)\]([/\w]+)`
-var basicExpr = `!\[([\w]+)\](.*)`
+//var basicExpr = `!\[([\w]+)\]([.\n]*)`
+var basicExpr = `!\[([\w]+)\]([\s\S]*)`		// NOTE!!!! \n is not included in .
 
 // Bot is used to handle special text message
 type TextBot struct {
