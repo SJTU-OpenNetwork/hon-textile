@@ -183,6 +183,12 @@ func (t *Textile) feedItem(block *pb.Block, opts feedItemOpts) (*pb.FeedItem, er
 				return nil, err
 			}
 
+			// TODO: This should be done at core/thread_messages.go/handleMessageBlock
+			err = t.datastore.StreamMetas().Add(msg)
+			if err != nil {
+				log.Warning(err)
+			}
+
 			payload = &pb.FeedStreamMeta{
 				Block:   block.Id,
 				Date:    block.Date,

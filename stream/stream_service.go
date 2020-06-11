@@ -8,25 +8,25 @@ import (
 	"github.com/SJTU-OpenNetwork/interface-go-ipfs-core/path"
 	"io/ioutil"
 
-    "bytes"
+	"bytes"
 	"context"
+	"github.com/segmentio/ksuid"
 	"time"
-    "github.com/segmentio/ksuid"
 
+	"github.com/SJTU-OpenNetwork/go-ipfs/core"
 	"github.com/golang/protobuf/ptypes"
 	ipld "github.com/ipfs/go-ipld-format"
-	"github.com/SJTU-OpenNetwork/go-ipfs/core"
 	peer "github.com/libp2p/go-libp2p-core/peer"
 	protocol "github.com/libp2p/go-libp2p-core/protocol"
-//	mh "github.com/multiformats/go-multihash"
-//	"github.com/segmentio/ksuid"
-//	"github.com/SJTU-OpenNetwork/hon-textile/broadcast"
-//	"github.com/SJTU-OpenNetwork/hon-textile/crypto"
+	//	mh "github.com/multiformats/go-multihash"
+	//	"github.com/segmentio/ksuid"
+	//	"github.com/SJTU-OpenNetwork/hon-textile/broadcast"
+	//	"github.com/SJTU-OpenNetwork/hon-textile/crypto"
 	"github.com/SJTU-OpenNetwork/hon-textile/ipfs"
 	"github.com/SJTU-OpenNetwork/hon-textile/keypair"
 	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 	"github.com/SJTU-OpenNetwork/hon-textile/repo"
-//	"github.com/SJTU-OpenNetwork/hon-textile/repo/db"
+	//	"github.com/SJTU-OpenNetwork/hon-textile/repo/db"
 	"github.com/SJTU-OpenNetwork/hon-textile/service"
 	logging "github.com/ipfs/go-log"
 )
@@ -265,13 +265,18 @@ func (h *StreamService) handleRootBlk(pid peer.ID, blk *pb.StreamBlock) error {
 	var body string
 	if blk.Id != "" {
 		meta := h.datastore.StreamMetas().Get(blk.Streamid)
-		switch meta.Type {
-		case pb.StreamMeta_FILE:
-			body = "stream file"
-		case pb.StreamMeta_PICTURE:
-			body = "stream picture"
-		case pb.StreamMeta_VIDEO:
-			body = "stream video"
+		if meta == nil {
+			log.Errorf("No stream meta for stream %s root block %s", blk.Streamid, blk.Id)
+			body = "unknown stream meta"
+		} else {
+			switch meta.Type {
+			case pb.StreamMeta_FILE:
+				body = "stream file"
+			case pb.StreamMeta_PICTURE:
+				body = "stream picture"
+			case pb.StreamMeta_VIDEO:
+				body = "stream video"
+			}
 		}
 	}
     pdate, _ := ptypes.TimestampProto(time.Now())
@@ -295,6 +300,7 @@ func (h *StreamService) handleRootBlk(pid peer.ID, blk *pb.StreamBlock) error {
     	log.Debugf("[%s] Stream %s", TAG_STREAM_COMPLETE, blk.Streamid)
         meta := h.datastore.StreamMetas().Get(blk.Streamid)
 	    if meta == nil || meta.Nblocks > 0{
+			log.Errorf("No stream meta for stream %s root block %s", blk.Streamid, blk.Id)
 		    return nil
 	    }
         err := h.datastore.StreamMetas().UpdateNblocks(blk.Streamid, blk.Index)
