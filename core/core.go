@@ -131,7 +131,7 @@ type Textile struct {
     variables         *Variables
     stream            *stream.StreamService
 	record			  *recorder.RecordService
-
+	textBot			  *util.TextBot
 }
 
 // common errors
@@ -410,6 +410,13 @@ func (t *Textile) Start() error {
 		t.Ipfs,
 		t.datastore,
 		t.cafeOutbox)
+
+	// create textBot
+	t.textBot = &util.TextBot{}
+	err = t.textBot.Init()
+	if err != nil {
+		return err
+	}
 
 	// create services
 	t.threads = NewThreadsService(

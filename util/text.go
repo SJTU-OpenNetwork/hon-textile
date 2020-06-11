@@ -65,3 +65,18 @@ func (b *TextBot) Execute(str string) (bool, error) {
 		return false, nil
 	}
 }
+
+// output: Whether is a string command, command, contains
+func (b *TextBot) Extract(str string) (bool, string, string) {
+	b.c_lock.Lock()
+	defer b.c_lock.Unlock()
+	params := b.basicReg.FindStringSubmatch(str)
+	if len(params) > 2 {
+		cmd := params[1]
+		contains := params[2]
+		return true, cmd, contains
+	} else {
+		// Not a command
+		return false, "", ""
+	}
+}

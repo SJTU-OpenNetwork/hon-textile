@@ -2,6 +2,7 @@ package core
 
 import (
 	"fmt"
+	"github.com/SJTU-OpenNetwork/hon-textile/util"
 	"strings"
 
 	"github.com/golang/protobuf/proto"
@@ -145,7 +146,7 @@ func (t *Textile) feedItem(block *pb.Block, opts feedItemOpts) (*pb.FeedItem, er
 	if block == nil {
 		return nil, nil
 	}
-
+	//block.Body
 	item := &pb.FeedItem{
 		Block:  block.Id,
 		Thread: block.Thread,
@@ -153,6 +154,7 @@ func (t *Textile) feedItem(block *pb.Block, opts feedItemOpts) (*pb.FeedItem, er
 			TypeUrl: "/" + strings.Title(strings.ToLower(block.Type.String())),
 		},
 	}
+
 
 	var payload proto.Message
 	var err error
@@ -170,7 +172,27 @@ func (t *Textile) feedItem(block *pb.Block, opts feedItemOpts) (*pb.FeedItem, er
 	case pb.Block_LEAVE:
 		payload, err = t.leave(block, opts)
 	case pb.Block_TEXT:
-		payload, err = t.message(block, opts)
+		ok, cmd, contains := t.textBot.Extract(block.Body)
+		log.Debugf("Receive text command %s", cmd)
+		if ok && cmd == util.CMD_STREAM_META{
+			item.Payload.TypeUrl =  "/" + strings.Title(strings.ToLower(pb.Block_STREAMMETA.String()))
+			msg := new(pb.StreamMeta)
+			err := proto.UnmarshalText(contains, msg)
+			if err != nil {
+				log.Errorf("Error occur when unmarshal stream meta from %s", contains)
+				return nil, err
+			}
+
+			payload = &pb.FeedStreamMeta{
+				Block:   block.Id,
+				Date:    block.Date,
+				User:    t.PeerUser(block.Author),
+				Streammeta:   msg,
+				PeerId: block.Author,
+			}
+		} else {
+			payload, err = t.message(block, opts)
+		}
 	case pb.Block_FILES:
 		payload, err = t.file(block, opts)
 	case pb.Block_PICTURE:
