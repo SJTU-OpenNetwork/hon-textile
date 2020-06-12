@@ -90,3 +90,7 @@ func (m *Mobile) ThreadAddStream(threadId string, streamId string) error{
 func (m *Mobile) SetMaxWorkers(n int) {
 	m.node.SetMaxWorkers(n)
 }
+
+func (m *Mobile) GetMaxWorkers() int {
+	return m.node.GetMaxWorkers()
+}

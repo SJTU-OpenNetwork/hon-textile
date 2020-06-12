@@ -409,3 +409,6 @@ func (t *Textile) SetMaxWorkers(n int) {
 	t.stream.SetMaxWorkers(n)
 }
 
+func (t *Textile) GetMaxWorkers() int {
+	return t.stream.GetMaxWorkers()
+}

@@ -141,6 +141,10 @@ func (h *StreamService) SetMaxWorkers(n int) {
 	maxWorkers = n
 }
 
+func (h *StreamService) GetMaxWorkers() int {
+	return maxWorkers
+}
+
 /**
  * Started return true if there stream with id "sid" is working.
  */
