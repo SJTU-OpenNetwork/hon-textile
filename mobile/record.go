@@ -1,6 +1,12 @@
 package mobile
 
 import "github.com/SJTU-OpenNetwork/hon-textile/pb"
+import "github.com/SJTU-OpenNetwork/hon-textile/recorder"
+
+func (m *Mobile) GetLog(handler HlogHandler) {
+	recorder.Hlog.OutputFunc(handler.HandleLog, handler.LogEnd)
+}
+
 
 func (m *Mobile) StartRecord(key string) error {
 	return m.node.StartRecord(key)

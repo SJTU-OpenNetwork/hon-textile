@@ -15,6 +15,12 @@ import (
 
 var log = logging.Logger("tex-mobile")
 
+// HlogHandler is implemented in application layer
+type HlogHandler interface {
+	HandleLog(str string)
+	LogEnd()
+}
+
 // Messenger is a push mechanism to the bridge
 type Messenger interface {
 	Notify(event *Event)

@@ -9,6 +9,7 @@ import (
 	//"github.com/SJTU-OpenNetwork/hon-textile/ipfs"
 	"github.com/SJTU-OpenNetwork/hon-textile/keypair"
 	"github.com/SJTU-OpenNetwork/hon-textile/pb"
+	"github.com/SJTU-OpenNetwork/hon-textile/hon-log"
 	"github.com/golang/protobuf/ptypes"
 	//"github.com/segmentio/ksuid"
 	logging "github.com/ipfs/go-log"
@@ -48,6 +49,7 @@ import (
 // streamServiceProtocol is the current protocol tag
 const recordServiceProtocol = protocol.ID("/textile/record/1.0.0")
 var log = logging.Logger("record")
+var Hlog = honlog.NewLogger()
 var RecordCh = make(chan *pb.Notification, 10)
 var Online = false
 
