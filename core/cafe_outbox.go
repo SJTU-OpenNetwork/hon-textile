@@ -7,7 +7,7 @@ import (
 
 	"github.com/golang/protobuf/proto"
 	"github.com/golang/protobuf/ptypes"
-	"github.com/SJTU-OpenNetwork/go-ipfs/core"
+	"github.com/ipfs/go-ipfs/core"
 	"github.com/segmentio/ksuid"
 	"github.com/SJTU-OpenNetwork/hon-textile/ipfs"
 	"github.com/SJTU-OpenNetwork/hon-textile/pb"

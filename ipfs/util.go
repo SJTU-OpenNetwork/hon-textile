@@ -8,7 +8,7 @@ import (
 
 	ipfsaddr "github.com/ipfs/go-ipfs-addr"
 	cmds "github.com/ipfs/go-ipfs-cmds"
-	"github.com/SJTU-OpenNetwork/go-ipfs/core"
+	"github.com/ipfs/go-ipfs/core"
 	"github.com/libp2p/go-libp2p-core/peer"
 	ma "github.com/multiformats/go-multiaddr"
 )

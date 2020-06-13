@@ -10,7 +10,7 @@ import (
 	"github.com/golang/protobuf/jsonpb"
 	"github.com/golang/protobuf/proto"
 	"github.com/golang/protobuf/ptypes"
-	"github.com/SJTU-OpenNetwork/go-ipfs/core"
+	"github.com/ipfs/go-ipfs/core"
 	ipld "github.com/ipfs/go-ipld-format"
 	uio "github.com/ipfs/go-unixfs/io"
 	libp2pc "github.com/libp2p/go-libp2p-core/crypto"

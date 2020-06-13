@@ -5,7 +5,7 @@ import (
 	"context"
 	"fmt"
     "encoding/json"
-	"github.com/SJTU-OpenNetwork/go-ipfs/core"
+	"github.com/ipfs/go-ipfs/core"
 	"github.com/SJTU-OpenNetwork/hon-textile/ipfs"
 	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 	"github.com/SJTU-OpenNetwork/hon-textile/repo"

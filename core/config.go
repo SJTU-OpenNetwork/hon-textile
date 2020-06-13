@@ -7,8 +7,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/SJTU-OpenNetwork/go-ipfs/repo"
-	"github.com/SJTU-OpenNetwork/go-ipfs/repo/fsrepo"
+	"github.com/ipfs/go-ipfs/repo"
+	"github.com/ipfs/go-ipfs/repo/fsrepo"
 	"github.com/rs/cors"
 	"github.com/SJTU-OpenNetwork/hon-textile/repo/config"
 )
@@ -202,12 +202,12 @@ func ensureProfile(profile profile, repoPath string) error {
 		conf.Swarm.DisableNatPortMap = true
 		conf.Swarm.EnableRelayHop = true
 		conf.Swarm.EnableAutoRelay = false
-		conf.Swarm.EnableAutoNATService = true
+		//conf.Swarm.EnableAutoNATService = true
 	} else {
 		conf.Swarm.DisableNatPortMap = false
 		conf.Swarm.EnableRelayHop = false
 		conf.Swarm.EnableAutoRelay = true
-		conf.Swarm.EnableAutoNATService = false
+		//conf.Swarm.EnableAutoNATService = false
 	}
 	conf.Swarm.DisableRelay = false
 

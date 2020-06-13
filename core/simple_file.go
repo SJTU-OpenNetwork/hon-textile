@@ -5,9 +5,9 @@ package core
 import (
 	"errors"
 	//"bufio"
-	"github.com/SJTU-OpenNetwork/go-ipfs/core/coreapi"
+	"github.com/ipfs/go-ipfs/core/coreapi"
 	"github.com/SJTU-OpenNetwork/hon-textile/pb"
-	"github.com/SJTU-OpenNetwork/interface-go-ipfs-core/options"
+	"github.com/ipfs/interface-go-ipfs-core/options"
 	files "github.com/ipfs/go-ipfs-files"
 	"os"
 )

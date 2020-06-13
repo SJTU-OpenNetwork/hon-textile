@@ -15,7 +15,7 @@ import (
 	logging "github.com/ipfs/go-log"
 	"github.com/libp2p/go-libp2p-core/protocol"
 	"github.com/SJTU-OpenNetwork/hon-textile/service"
-	"github.com/SJTU-OpenNetwork/go-ipfs/core"
+	"github.com/ipfs/go-ipfs/core"
 	peer "github.com/libp2p/go-libp2p-core/peer"
 	//"io/ioutil"
 	//"time"

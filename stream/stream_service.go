@@ -5,7 +5,7 @@ package stream
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/SJTU-OpenNetwork/interface-go-ipfs-core/path"
+	"github.com/ipfs/interface-go-ipfs-core/path"
 	"io/ioutil"
 
 	"bytes"
@@ -16,6 +16,7 @@ import (
 	"github.com/SJTU-OpenNetwork/go-ipfs/core"
 	"github.com/golang/protobuf/ptypes"
 	ipld "github.com/ipfs/go-ipld-format"
+	"github.com/ipfs/go-ipfs/core"
 	peer "github.com/libp2p/go-libp2p-core/peer"
 	protocol "github.com/libp2p/go-libp2p-core/protocol"
 	//	mh "github.com/multiformats/go-multihash"
