@@ -460,6 +460,7 @@ func (t *Textile) Start() error {
 
 	// start the ipfs node
 	log.Debug("creating an ipfs node...")
+    recorder.Hlog.Add("Creating ipfs node ...")
 	err = t.createNode()
 	if err != nil {
 		return err
@@ -468,6 +469,7 @@ func (t *Textile) Start() error {
 	go func() {
 		defer func() {
 			close(t.online)
+			recorder.Hlog.Add("Node start")
 			t.lock.Unlock()
 			t.runJobs()
 		}()
@@ -501,7 +503,7 @@ func (t *Textile) Start() error {
 			log.Errorf(err.Error())
 		}
 		log.Info("node is online")
-
+		recorder.Hlog.Add("Node is online")
 		// ensure the peer table is not empty by adding our bootstraps
 //  		boots, err := config.TextileBootstrapPeers()
 //  		if err != nil {
