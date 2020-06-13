@@ -16,10 +16,10 @@ import (
 
 func (srv *Service) updateFromMessage(ctx context.Context, p peer.ID) error {
 	// Make sure that this node is actually a DHT server, not just a client.
-	protos, err := srv.Node().Peerstore.SupportsProtocols(p, string(srv.handler.Protocol()))
-	if err == nil && len(protos) > 0 {
-		srv.Node().DHT.Update(ctx, p)
-	}
+//	protos, err := srv.Node().Peerstore.SupportsProtocols(p, string(srv.handler.Protocol()))
+//	if err == nil && len(protos) > 0 {
+//		srv.Node().DHT.Update(ctx, p)
+//	}
 	return nil
 }
 

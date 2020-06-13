@@ -8,18 +8,17 @@ import (
 	"strings"
 	"time"
 
-	"github.com/SJTU-OpenNetwork/go-ipfs/core"
-	"github.com/SJTU-OpenNetwork/go-ipfs/core/coreapi"
-	"github.com/SJTU-OpenNetwork/go-ipfs/pin"
-	iface "github.com/SJTU-OpenNetwork/interface-go-ipfs-core"
-	"github.com/SJTU-OpenNetwork/interface-go-ipfs-core/options"
-	"github.com/SJTU-OpenNetwork/interface-go-ipfs-core/path"
 	icid "github.com/ipfs/go-cid"
 	files "github.com/ipfs/go-ipfs-files"
+	"github.com/ipfs/go-ipfs/core"
+	"github.com/ipfs/go-ipfs/core/coreapi"
 	ipld "github.com/ipfs/go-ipld-format"
 	logging "github.com/ipfs/go-log"
 	dag "github.com/ipfs/go-merkledag"
 	uio "github.com/ipfs/go-unixfs/io"
+	iface "github.com/ipfs/interface-go-ipfs-core"
+	"github.com/ipfs/interface-go-ipfs-core/options"
+	"github.com/ipfs/interface-go-ipfs-core/path"
 )
 
 var log = logging.Logger("tex-ipfs")
@@ -332,7 +331,7 @@ func PinNode(node *core.IpfsNode, nd ipld.Node, recursive bool) error {
 		return err
 	}
 
-	return node.Pinning.Flush()
+	return node.Pinning.Flush(ctx)
 }
 
 // UnpinNode unpins an ipld node
@@ -346,16 +345,18 @@ func UnpinCid(node *core.IpfsNode, id icid.Cid, recursive bool) error {
 	defer cancel()
 
 	err := node.Pinning.Unpin(ctx, id, recursive)
-	if err != nil && err != pin.ErrNotPinned {
+	if err != nil {
 		return err
 	}
 
-	return node.Pinning.Flush()
+	return node.Pinning.Flush(ctx)
 }
 
 // Pinned returns the subset of given cids that are pinned
 func Pinned(node *core.IpfsNode, cids []string) ([]icid.Cid, error) {
 	var decoded []icid.Cid
+	ctx, cancel := context.WithTimeout(node.Context(), DefaultTimeout)
+	defer cancel()
 	for _, id := range cids {
 		dec, err := icid.Decode(id)
 		if err != nil {
@@ -363,14 +364,14 @@ func Pinned(node *core.IpfsNode, cids []string) ([]icid.Cid, error) {
 		}
 		decoded = append(decoded, dec)
 	}
-	list, err := node.Pinning.CheckIfPinned(decoded...)
+	list, err := node.Pinning.CheckIfPinned(ctx, decoded...)
 	if err != nil {
 		return nil, err
 	}
 
 	var pinned []icid.Cid
 	for _, p := range list {
-		if p.Mode != pin.NotPinned {
+		if !p.Pinned() {
 			pinned = append(pinned, p.Key)
 		}
 	}
@@ -380,6 +381,8 @@ func Pinned(node *core.IpfsNode, cids []string) ([]icid.Cid, error) {
 
 // NotPinned returns the subset of given cids that are not pinned
 func NotPinned(node *core.IpfsNode, cids []string) ([]icid.Cid, error) {
+	ctx, cancel := context.WithTimeout(node.Context(), DefaultTimeout)
+	defer cancel()
 	var decoded []icid.Cid
 	for _, id := range cids {
 		dec, err := icid.Decode(id)
@@ -388,14 +391,14 @@ func NotPinned(node *core.IpfsNode, cids []string) ([]icid.Cid, error) {
 		}
 		decoded = append(decoded, dec)
 	}
-	list, err := node.Pinning.CheckIfPinned(decoded...)
+	list, err := node.Pinning.CheckIfPinned(ctx,decoded...)
 	if err != nil {
 		return nil, err
 	}
 
 	var notPinned []icid.Cid
 	for _, p := range list {
-		if p.Mode == pin.NotPinned {
+		if !p.Pinned() {
 			notPinned = append(notPinned, p.Key)
 		}
 	}
