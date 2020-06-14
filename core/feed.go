@@ -359,6 +359,7 @@ func GetFeedItemPayload(item *pb.FeedItem) (FeedItemPayload, error) {
 	case pb.Block_VIDEO:
 		payload = new(pb.FeedVideo)
 	case pb.Block_STREAMMETA:
+		item.Payload.TypeUrl = "/FeedStreamMeta" //TODO: FFFFFFFFFFFFFFFFUCK. Rewrite this in future!!!!!!!!
 		payload = new(pb.FeedStreamMeta)
 	case pb.Block_SIMPLE_FILE:
 		payload = new(pb.FeedSimpleFile)
