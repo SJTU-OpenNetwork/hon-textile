@@ -546,6 +546,9 @@ func (t *Textile) Start() error {
 	log.Info("node is started")
 	log.Infof("peer id: %s", t.node.Identity.Pretty())
 	log.Infof("account address: %s", t.account.Address())
+	if t.config.IsAuto {
+		log.Info("This is an automatic node")
+	}
 
 	return t.addAccountThread()
 }
