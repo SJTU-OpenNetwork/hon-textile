@@ -13,7 +13,6 @@ import (
 	"github.com/segmentio/ksuid"
 	"time"
 
-	"github.com/SJTU-OpenNetwork/go-ipfs/core"
 	"github.com/golang/protobuf/ptypes"
 	ipld "github.com/ipfs/go-ipld-format"
 	"github.com/ipfs/go-ipfs/core"
