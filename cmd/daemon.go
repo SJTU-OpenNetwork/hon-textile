@@ -145,6 +145,7 @@ func startNode(serveDocs bool) error {
 						log.Error(err.Error())
 						continue
 					}
+					log.Debugf("Get feed item %s", btype.String())
 
 					payload, err := core.GetFeedItemPayload(update)
 					if err != nil {
