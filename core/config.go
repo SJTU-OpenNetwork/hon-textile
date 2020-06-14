@@ -69,6 +69,7 @@ func applyTextileConfigOptions(init InitConfig) error {
 	conf.IsServer = init.IsServer
 	conf.IsMobile = init.IsMobile
 	conf.IsShadow = init.IsShadow //add in 2020.04.05
+	conf.IsAuto = init.IsAuto // add in 2020.6.14
 
 	// cafe settings
 	conf.Cafe.Host.Open = init.CafeOpen

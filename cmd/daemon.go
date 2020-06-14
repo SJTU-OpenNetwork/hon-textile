@@ -154,6 +154,21 @@ func startNode(serveDocs bool) error {
 					user := payload.GetUser()
 					date := payload.GetDate()
 
+					// Subscribe automatically
+					if node.Config().IsAuto && btype == pb.Block_STREAMMETA && user.Address!=node.Profile().Address{
+						log.Debug("[AUTO] Get Stream Meta")
+						if meta,ok := payload.(*pb.FeedStreamMeta);ok {
+							//StreamSubscribe(meta.Streammeta.Id)
+							log.Debugf("[AUTO] Subscribe stream %s", meta.Streammeta.Id)
+							err := node.SubscribeStream(meta.Streammeta.Id)
+							if err != nil {
+								log.Errorf("[AUTO] %v", err)
+							}
+						} else {
+							log.Error("[AUTO] Can not convert FeedItemPayload to FeedStreamMeta")
+						}
+					}
+
 					var txt string
 					txt += time.Unix(0, util.ProtoNanos(date)).Format(time.RFC822)
 					txt += "  "
@@ -189,6 +204,19 @@ func startNode(serveDocs bool) error {
 					return
 				}
 
+				// Automatically accept invite
+				if note.Type == pb.Notification_INVITE_RECEIVED {
+					log.Debug("[AUTO] New invite get")
+					invites := node.Invites().Items
+					for _, inv := range invites {
+						hash, err := node.AcceptInvite(inv.Id)
+						if err != nil {
+							log.Errorf("[AUTO] Error when accept invite %v", err)
+						} else {
+							log.Debugf("[AUTO] Accept invite for %s", hash.String())
+						}
+					}
+				}
 				date := util.ProtoTime(note.Date).Format(time.RFC822)
 				var subject string
 				if len(note.Subject) >= 7 {

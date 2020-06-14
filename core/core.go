@@ -75,6 +75,7 @@ type InitConfig struct {
 	CafeNeighborURL string
 	IsPrivate       bool
     IsShadow        bool // whether the node works as a shadow node, default:0, added in 2020.04.05
+    IsAuto			bool // whether the node works as a automatic node. default:0, added in 2020.6.14
 }
 
 // MigrateConfig is used to define options during a major migration
