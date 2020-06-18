@@ -5,6 +5,7 @@ package stream
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/SJTU-OpenNetwork/hon-textile/recorder"
 	"github.com/ipfs/interface-go-ipfs-core/path"
 	"io/ioutil"
 
@@ -138,6 +139,7 @@ func (h *StreamService) StartStream(config *pb.StreamMeta) {
 
 func (h *StreamService) SetMaxWorkers(n int) {
 	log.Debugf("Change max workers to %d", n)
+	recorder.Hlog.Add(fmt.Sprintf("Change max workers to %d", n))
 	maxWorkers = n
 }
 
@@ -199,7 +201,7 @@ func (h *StreamService) handleStreamBlock(env *pb.Envelope, pid peer.ID) (*pb.En
         Streamid: blk.StreamID,
         Index: blk.Index,
     }
-
+	recorder.Hlog.Add(fmt.Sprintf("[%s] Block %s, Stream %s, From %s, Size %d", TAG_BLOCKRECEIVE, cid.String(), blk.StreamID, pid.Pretty(), stat.Size()))
 	log.Debugf("[%s] Block %s, Stream %s, From %s, Size %d", TAG_BLOCKRECEIVE, cid.String(), blk.StreamID, pid.Pretty(), stat.Size())
     err = h.datastore.StreamBlocks().Add(model)
     return nil, err
@@ -235,6 +237,7 @@ func (h *StreamService) handleStreamBlockList(env *pb.Envelope, pid peer.ID) (*p
             Description: string(blk.Description),
         }
         //fmt.Printf("StreamService: Received stream %s; index %d; cid %s\n", blk.StreamID, blk.Index, cid.String())
+        recorder.Hlog.Add(fmt.Sprintf("[%s] Block %s, Stream %s, Index %d, From %s, Size %d", TAG_BLOCKRECEIVE, cid_str, blk.StreamID, blk.Index, pid.Pretty(), size))
         log.Debugf("[%s] Block %s, Stream %s, Index %d, From %s, Size %d", TAG_BLOCKRECEIVE, cid_str, blk.StreamID, blk.Index, pid.Pretty(), size)
         err = h.datastore.StreamBlocks().Add(model)
         if err != nil {
@@ -302,6 +305,7 @@ func (h *StreamService) handleRootBlk(pid peer.ID, blk *pb.StreamBlock) error {
 
     if blk.Id == "" {
     	log.Debugf("[%s] Stream %s", TAG_STREAM_COMPLETE, blk.Streamid)
+    	recorder.Hlog.Add(fmt.Sprintf("[%s] Stream %s", TAG_STREAM_COMPLETE, blk.Streamid))
         meta := h.datastore.StreamMetas().Get(blk.Streamid)
 	    if meta == nil || meta.Nblocks > 0{
 			log.Errorf("No stream meta for stream %s root block %s", blk.Streamid, blk.Id)
@@ -352,6 +356,7 @@ func (h *StreamService) handleStreamRequest(env *pb.Envelope, pid peer.ID) (*pb.
 	numWorkers := h.Workload()
     if numWorkers < maxWorkers {
     	log.Debugf("[%s], Stream %s, To %s, Workers %d", TAG_STREAMREQUESTACCEPT, req.Id, pid.Pretty(), numWorkers)
+    	recorder.Hlog.Add(fmt.Sprintf("[%s], Stream %s, To %s, Workers %d", TAG_STREAMREQUESTACCEPT, req.Id, pid.Pretty(), numWorkers))
         err = h.responseRequest(pid, req)
         if err != nil {
             return nil, err
@@ -361,6 +366,7 @@ func (h *StreamService) handleStreamRequest(env *pb.Envelope, pid peer.ID) (*pb.
         },nil, true)
     } else {
 		log.Debugf("[%s], Stream %s, To %s, Workers %d", TAG_STREAMREQUESTREJECT, req.Id, pid.Pretty(), numWorkers)
+		recorder.Hlog.Add(fmt.Sprintf("[%s], Stream %s, To %s, Workers %d", TAG_STREAMREQUESTREJECT, req.Id, pid.Pretty(), numWorkers))
         return h.service.NewEnvelope(pb.Message_STREAM_REQUEST_HANDLE, &pb.StreamRequestHandle{
     	    Value:0,
         },nil, true)
@@ -374,6 +380,7 @@ func (h *StreamService) SendStreamRequest(peerId string, config *pb.StreamReques
 		return nil,err
 	}
 	log.Debugf("[%s] Stream %s, To %s", TAG_STREAMREQUEST, config.Id, peerId)
+	recorder.Hlog.Add(fmt.Sprintf("[%s] Stream %s, To %s", TAG_STREAMREQUEST, config.Id, peerId))
 	return h.service.SendRequest(peerId, env)
 }
 
@@ -408,6 +415,7 @@ func (h *StreamService) handleUnsubscribe(env *pb.Envelope, pid peer.ID) (*pb.En
 // RequestAccepted is called when a stream request is accepted by some peer.
 func (h *StreamService) RequestAccepted(peerId string, config *pb.StreamRequest) {
 	log.Debugf("[%s] Stream %s, By %s", TAG_STREAM_REQUEST_ACCEPTED, config.Id, peerId)
+	recorder.Hlog.Add(fmt.Sprintf("[%s] Stream %s, By %s", TAG_STREAM_REQUEST_ACCEPTED, config.Id, peerId))
 	acceptedSubstream := newProvidedSubstream(config.Id, config.StreamMap, 1, config.StartIndex, peerId, h.handleBlockLost)
 	provider := h.providers.getOrCreate(peerId)
 	// TODO: De-duplicated
@@ -424,6 +432,7 @@ func (h *StreamService) handleBlockLost(report *lostReport){
 		fmt.Printf("%s\n", err.Error())
 	} else {
 		fmt.Printf("%s\n", string(js))
+		recorder.Hlog.Add(fmt.Sprintf("BlockLost %s", string(js)))
 	}
 }
 
@@ -431,7 +440,7 @@ func (h *StreamService) handleBlockLost(report *lostReport){
 // Use "Response" to distinguish with "Handle".
 func (h *StreamService) responseRequest(pid peer.ID, req *pb.StreamRequest) error {
 	log.Debugf("[%s] Stream %s, From %s", TAG_STREAMRESPONSE, req.Id, pid.Pretty())
-
+	recorder.Hlog.Add(fmt.Sprintf("[%s] Stream %s, From %s", TAG_STREAMRESPONSE, req.Id, pid.Pretty()))
 	// Raise an error if obtain the same request (Same requestor with same streamid and substream requested by the same peer)
 	if h.activeWorkers.isRedundant(pid, req) {
 		return ErrRedundantReq
@@ -474,6 +483,7 @@ func (h *StreamService) SendStreamBlocks(peerId peer.ID, blks []*pb.StreamBlock)
             Description: []byte(blk.Description),
         }
         log.Debugf("[%s] Isroot %t, Block %s, Stream %s, Index %d, To %s, Size %d, description: %s", TAG_BLOCKSEND, blk.IsRoot, blk.Id, blk.Streamid, blk.Index, peerId.Pretty(), blk.Size, blk.Description)
+        recorder.Hlog.Add(fmt.Sprintf("[%s] Isroot %t, Block %s, Stream %s, Index %d, To %s, Size %d, description: %s", TAG_BLOCKSEND, blk.IsRoot, blk.Id, blk.Streamid, blk.Index, peerId.Pretty(), blk.Size, blk.Description))
         blist.Blocks = append(blist.Blocks, content)
     }
 	env, err := h.service.NewEnvelope(pb.Message_STREAM_BLOCK_LIST, blist, nil, false)
@@ -492,6 +502,7 @@ func (h *StreamService) SendStreamBlocks(peerId peer.ID, blks []*pb.StreamBlock)
     		streamId1 = blks[0].Streamid
 		}
 		log.Debugf("[%s] Stream %s, Index %v - %v, To %s", TAG_BLOCKSEND_FAILED, streamId1, ind1, ind2, peerId.Pretty())
+    	recorder.Hlog.Add(fmt.Sprintf("[%s] Stream %s, Index %v - %v, To %s", TAG_BLOCKSEND_FAILED, streamId1, ind1, ind2, peerId.Pretty()))
         log.Error(err)
     	return err
     }

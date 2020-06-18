@@ -5,6 +5,7 @@ import (
 	"context"
 	"encoding/hex"
 	"fmt"
+	"github.com/SJTU-OpenNetwork/hon-textile/recorder"
 	"math"
 	"strings"
 	"sync"
@@ -760,13 +761,14 @@ func (h *CafeService) searchLocal(qtype pb.Query_Type, options *pb.QueryOptions,
 		}
 	case pb.Query_STREAM:
 		fmt.Printf("cafe_service searchLocal: Search local stream\n")
-        
+
         // have shadow node, return nothing
         // the shaodw node will connect other peers through other methods
         // [deprecated] Normal will return the peerId of shadow peer instead of return nothing.
         
         if h.shadow.GetShadow() != peer.ID("") {
             log.Debug("Have shadow node, return nothing")
+            recorder.Hlog.Add("Have shadow node, return nothing")
             break
         }
          
@@ -782,6 +784,7 @@ func (h *CafeService) searchLocal(qtype pb.Query_Type, options *pb.QueryOptions,
 
         if meta == nil{
         	log.Debugf("[%s] Stream %s", stream.TAG_SEARCH_NOMETA, q.Id)
+        	recorder.Hlog.Add(fmt.Sprintf("[%s] Stream %s", stream.TAG_SEARCH_NOMETA, q.Id))
             break
         }
 
@@ -796,12 +799,15 @@ func (h *CafeService) searchLocal(qtype pb.Query_Type, options *pb.QueryOptions,
 		provider := h.stream.GetProvider(q.Id)
 		if meta.Nblocks == 0 && provider == peer.ID("") {
 			log.Debugf("[%s] Stream %s", stream.TAG_SEARCH_NOPROVIDER, q.Id)
+			recorder.Hlog.Add(fmt.Sprintf("[%s] Stream %s", stream.TAG_SEARCH_NOPROVIDER, q.Id))
 			break
 		}
 		log.Debugf("[%s] Stream %s, Provider %s", stream.TAG_SEARCH_GETPROVIDER, q.Id, provider.Pretty())
+		recorder.Hlog.Add(fmt.Sprintf("[%s] Stream %s, Provider %s", stream.TAG_SEARCH_GETPROVIDER, q.Id, provider.Pretty()))
 		// Check whether all workers are busy
 		if h.stream.IsBusy() {
 			log.Debugf("[%s] Stream %s, From %s", stream.TAG_SEARCH_BUSY, q.Id, pid.Pretty())
+			recorder.Hlog.Add(fmt.Sprintf("[%s] Stream %s, From %s", stream.TAG_SEARCH_BUSY, q.Id, pid.Pretty()))
 			break
 		}
 
