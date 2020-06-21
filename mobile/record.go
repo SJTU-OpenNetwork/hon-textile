@@ -39,3 +39,7 @@ func (m *Mobile) SendRecordReport(key string, peerId string) error {
 func (m *Mobile) SendRecordReportPb(report *pb.RecordReport, peerId string) error {
 	return m.node.SendRecordReportPb(report, peerId)
 }
+
+func (m *Mobile) WriteTreeCSV(streamId string, outPath string) error {
+	return m.node.WriteTreeCSV(streamId, outPath)
+}

@@ -3,20 +3,22 @@ package recorder
 import (
 	//"bytes"
 	"context"
+	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/segmentio/ksuid"
 
+	"github.com/SJTU-OpenNetwork/hon-textile/hon-log"
 	//"github.com/SJTU-OpenNetwork/hon-textile/ipfs"
 	"github.com/SJTU-OpenNetwork/hon-textile/keypair"
 	"github.com/SJTU-OpenNetwork/hon-textile/pb"
-	"github.com/SJTU-OpenNetwork/hon-textile/hon-log"
 	"github.com/golang/protobuf/ptypes"
-	//"github.com/segmentio/ksuid"
-	logging "github.com/ipfs/go-log"
-	"github.com/libp2p/go-libp2p-core/protocol"
 	"github.com/SJTU-OpenNetwork/hon-textile/service"
 	"github.com/ipfs/go-ipfs/core"
+	//"github.com/segmentio/ksuid"
+	logging "github.com/ipfs/go-log"
 	peer "github.com/libp2p/go-libp2p-core/peer"
+	"github.com/libp2p/go-libp2p-core/protocol"
 	//"io/ioutil"
 	//"time"
 )
@@ -63,6 +65,8 @@ type RecordService struct {
 
 	bitSwapRecordStore *BitswapRecordStore
 	peerId 			 string // self peer id.
+
+	trees			 *treeCache
 	// Context for main routine
 	ctx context.Context
 }
@@ -82,6 +86,7 @@ func NewRecordService(
 		reportStore: newReportStore(),
 		sendNotification:sendNotification,
 		bitSwapRecordStore: newBitswapRecordStore(1000),
+		//trees: NewTreeCache(10),			// Should init it after the ipfs node start
 		//peerId:node().Identity.Pretty(),	//Should call it after the ipfs node start
 	}
 	handler.service = service.NewService(account, handler, node)
@@ -98,6 +103,8 @@ func (h *RecordService) Start() {
 	h.online = true
 	h.service.Start()
 	h.peerId = h.service.Node().Identity.Pretty()
+
+	h.trees = NewTreeCache(10, h.peerId)
 	//h.service.Node().Identity.ShortString()
 	go h.ListenRecordCh()
 	go h.bitSwapRecordStore.listenCh()
@@ -142,16 +149,35 @@ func (h *RecordService) handleRecordNotification(env *pb.Envelope, pid peer.ID) 
 	if err != nil {
 		return nil, err
 	}
-	log.Debugf("Received record info:\n\tblock:\t%s\nsubject:\t%s\nactor:\t%s\ntarget:\t%s",
-		notification.Block, notification.Subject, notification.Actor, notification.Target)
+	//log.Debugf("Received record info:\n\tblock:\t%s\nsubject:\t%s\nactor:\t%s\ntarget:\t%s",
+	//	notification.Block, notification.Subject, notification.Actor, notification.Target)
 	// fill id field before send
 	notification.Id = ksuid.New().String()
+
 	err = h.sendNotification(notification)
 	if err != nil {
 		log.Error("Error occur when send received notification to notification channel.")
 		log.Error(err)
 		return nil, err
 	}
+
+	// ==== Write the tree here
+	if h.trees != nil {
+		block_map := make(map[string]string)
+		err = json.Unmarshal([]byte(notification.Block), block_map)
+		if err == nil {
+			log.Debug("Receive a notification with json")
+			streamId, ok1 := block_map["ID"]
+			parentId, ok2 := block_map["Parent"]
+			if ok1 && ok2 {
+				err = h.trees.Add(streamId, parentId, h.peerId)
+				if err != nil {
+					log.Error(err)
+				}
+			}
+		}
+	}
+	// ====
 	return nil, nil
 }
 
@@ -270,4 +296,17 @@ func (h *RecordService) handleRecordChannel(notification *pb.Notification) error
 		// Do nothing ??
 	}
 	return nil
+}
+
+func (h *RecordService) WriteTreeCSV(streamId string, outPath string) error {
+	if h.trees != nil {
+		tree := h.trees.Get(streamId)
+		if tree != nil {
+			return tree.WriteCSV(outPath)
+		} else {
+			errors.New("no such tree "+streamId)
+		}
+	} else {
+		return errors.New("no tree cache")
+	}
 }
