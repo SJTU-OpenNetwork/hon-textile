@@ -164,7 +164,7 @@ func (h *RecordService) handleRecordNotification(env *pb.Envelope, pid peer.ID) 
 	// ==== Write the tree here
 	if h.trees != nil {
 		block_map := make(map[string]string)
-		err = json.Unmarshal([]byte(notification.Block), block_map)
+		err = json.Unmarshal([]byte(notification.Block), &block_map)
 		if err == nil {
 			log.Debug("Receive a notification with json")
 			streamId, ok1 := block_map["ID"]
@@ -174,7 +174,10 @@ func (h *RecordService) handleRecordNotification(env *pb.Envelope, pid peer.ID) 
 				if err != nil {
 					log.Error(err)
 				}
+				log.Debugf("Add tree node %s: %s -> %s", streamId, parentId, h.peerId)
 			}
+		} else {
+			log.Debug("Receive a notification without json")
 		}
 	}
 	// ====
