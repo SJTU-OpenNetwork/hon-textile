@@ -37,3 +37,7 @@ func (t *Textile) SendRecordReport(key string, peerId string) error {
 func (t *Textile) SendRecordReportPb(report *pb.RecordReport, peerId string) error {
 	return t.record.SendReportPb(report, peerId)
 }
+
+func (t *Textile) WriteTreeCSV(streamId string, outPath string) error {
+	return t.record.WriteTreeCSV(streamId, outPath)
+}
