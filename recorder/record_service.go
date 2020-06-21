@@ -176,7 +176,7 @@ func (h *RecordService) handleRecordNotification(env *pb.Envelope, pid peer.ID) 
 				}
 				log.Debugf("Add tree node %s: %s -> %s", streamId, parentId, h.peerId)
 			} else {
-				//log.Errorf("Cannot parse tree info from %v", notification)
+				log.Errorf("Cannot parse tree info from %v", notification)
 			}
 		} else {
 			log.Debug("Receive a notification without json")
