@@ -150,6 +150,13 @@ func (h *StreamService) StartStream(config *pb.StreamMeta) {
 	provider.add(acceptedSubstream)
 }
 
+/*
+ * Start a new stream, where the stream id is exactly the file cid
+ */
+func (h *StreamService) FileAsStream(sf *pb.StreamFile) (*pb.StreamMeta, error){
+    return nil, nil
+}
+
 func (h *StreamService) SetMaxWorkers(n int) {
 	log.Debugf("Change max workers to %d", n)
 	recorder.Hlog.Add(fmt.Sprintf("Change max workers to %d", n))
@@ -231,9 +238,9 @@ func (h *StreamService) handleStreamBlockList(env *pb.Envelope, pid peer.ID) (*p
         return nil, err
     }
     for _, blk := range blks.Blocks {
-        size := 0
+        size := len(blk.Data)
         cid_str := ""
-        if len(blk.Data) != 0 {
+        if size != 0 {
             stat, err := ipfs.PutBlock(h.service.Node(), bytes.NewReader(blk.Data))
             if err != nil {
                 return nil, err
