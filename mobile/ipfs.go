@@ -2,6 +2,7 @@ package mobile
 
 import (
 	"bytes"
+    "encoding/json"
 	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 	"github.com/SJTU-OpenNetwork/hon-textile/recorder"
 	"github.com/golang/protobuf/ptypes"
@@ -145,8 +146,18 @@ func (m *Mobile) DataAtStreamFile(feed []byte, cid []byte, cb DataCallback) {
         log.Debug(cid)
 		data, media, err := m.dataAtPath(string(cid))
 		if err == nil {
+            sid := feedpb.Streammeta.Id
+            block_map := map[string] string {
+                "ID": sid,
+                "Parent": m.node.StreamGetParent(sid),
+            }
+            block_json, err := json.Marshal(block_map)
+            if err != nil {
+                log.Error(err)
+            }
+
 			record2 := &pb.Notification{
-				Block: feedpb.Streammeta.Id,
+				Block: string(block_json),
 				Date:  ptypes.TimestampNow(),
 				//Actor:                t.node().Identity.Pretty(),	// Whether this is id of this peer ?
 				Subject: recorder.Event_DoneIPFSGet,

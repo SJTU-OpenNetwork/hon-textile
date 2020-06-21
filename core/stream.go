@@ -412,3 +412,7 @@ func (t *Textile) SetMaxWorkers(n int) {
 func (t *Textile) GetMaxWorkers() int {
 	return t.stream.GetMaxWorkers()
 }
+
+func (t *Textile) StreamGetParent(sid string) string {
+    return t.stream.GetParent(sid)
+}

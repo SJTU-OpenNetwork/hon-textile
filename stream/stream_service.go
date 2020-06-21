@@ -42,6 +42,7 @@ var log = logging.Logger("stream")
 var ErrRedundantReq = fmt.Errorf("Request is redundant")
 var ErrUnknowkStream = fmt.Errorf("Unknown stream")
 
+
 type StreamService struct {
 	service          *service.Service
 	datastore        repo.Datastore
@@ -60,6 +61,9 @@ type StreamService struct {
 
 	// Context for main routine
 	ctx context.Context
+
+    // currently using a map to store stream tree parent
+    treeParent map[string] string
 }
 
 // NewStreamService returns a new stream service
@@ -82,9 +86,18 @@ func NewStreamService(
         
         // informations for started streams
 	}
+    handler.treeParent = make(map[string] string)
 	handler.activeStreams = newActiveStreamStore(ctx, datastore, node, handler.activeWorkers.newFileAdd)
 	handler.service = service.NewService(account, handler, node)
 	return handler
+}
+
+func (h *StreamService) GetParent(sid string) string {
+    pid, ok := h.treeParent[sid]
+    if ok {
+        return pid
+    }
+    return ""
 }
 
 // Protocol returns the handler protocol
@@ -311,7 +324,7 @@ func (h *StreamService) handleRootBlk(pid peer.ID, blk *pb.StreamBlock) error {
 			log.Errorf("No stream meta for stream %s root block %s", blk.Streamid, blk.Id)
 		    return nil
 	    }
-        err := h.datastore.StreamMetas().UpdateNblocks(blk.Streamid, blk.Index)
+        err := h.datastore.StreamMetas().UpdateNblocks(blk.Streamid, blk.Index + 1)
         if err != nil {
             log.Error(err)
             return err
@@ -418,6 +431,7 @@ func (h *StreamService) RequestAccepted(peerId string, config *pb.StreamRequest)
 	recorder.Hlog.Add(fmt.Sprintf("[%s] Stream %s, By %s", TAG_STREAM_REQUEST_ACCEPTED, config.Id, peerId))
 	acceptedSubstream := newProvidedSubstream(config.Id, config.StreamMap, 1, config.StartIndex, peerId, h.handleBlockLost)
 	provider := h.providers.getOrCreate(peerId)
+    h.treeParent[config.Id] = peerId
 	// TODO: De-duplicated
 	provider.add(acceptedSubstream)
 }
