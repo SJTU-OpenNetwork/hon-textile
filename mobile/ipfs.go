@@ -2,15 +2,14 @@ package mobile
 
 import (
 	"bytes"
-    "encoding/json"
 	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 	"github.com/SJTU-OpenNetwork/hon-textile/recorder"
 	"github.com/golang/protobuf/ptypes"
 
-	ipld "github.com/ipfs/go-ipld-format"
-	"github.com/golang/protobuf/proto"
 	"github.com/SJTU-OpenNetwork/hon-textile/core"
 	"github.com/SJTU-OpenNetwork/hon-textile/ipfs"
+	"github.com/golang/protobuf/proto"
+	ipld "github.com/ipfs/go-ipld-format"
 )
 
 func (m *Mobile) GetSwarmAddress(pid string) (string, error) {
@@ -142,7 +141,8 @@ func (m *Mobile) DataAtStreamFile(feed []byte, cid []byte, cb DataCallback) {
 	}
 	m.node.WaitAdd(1, "Mobile.DataAtStreamFile")
 	go func() {
-		defer m.node.WaitDone("Mobile.DataAtFeedStreamFile")
+		defer m.node.WaitDone("Mobile.DataAtStreamFile")
+		/*
         log.Debug(cid)
 		data, media, err := m.dataAtPath(string(cid))
 		if err == nil {
@@ -169,6 +169,8 @@ func (m *Mobile) DataAtStreamFile(feed []byte, cid []byte, cb DataCallback) {
             log.Error(err)
         }
 		cb.Call(data, media, err)
+		*/
+		cb.Call(m.node.DataAtStreamFile(feedpb, cid))
 	}()
 }
 
