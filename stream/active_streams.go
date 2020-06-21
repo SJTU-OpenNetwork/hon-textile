@@ -156,29 +156,16 @@ Loop:
 	}
 }
 
+
+/*
+ * handle adding a new file to a stream
+ * f.Data: the original content of the file
+ * f.Description: meta data of the file (json), such as the filename
+ */
 func (as *activeStream) handleNewFile(f *pb.StreamFile) error {
     if f == nil {
         // handle the end mark
-    	//log.De
-        err := as.datastore.StreamMetas().UpdateNblocks(as.meta.Id,as.currentIndex+1)
-        if err != nil {
-            log.Error(err)
-            return err
-        }
-	    err = as.datastore.StreamBlocks().Add(&pb.StreamBlock{
-	    	Id: "",
-	    	Streamid: as.meta.Id,
-	    	Index: as.currentIndex,
-	    	Size: 0,
-	    	IsRoot: true,
-	    	Description: "ENDMARK",
-	    })
-        if err != nil {
-            log.Error(err)
-            return err
-        }
-		err = as.notify(as.meta.Id); if err != nil {return err}	// notify the workers to send the ENDMARK
-		as.cancel()
+        return as.handleFileEndmark()
     } else {
 	    r := bytes.NewReader(f.Data)
 	    fileid, err := ipfs.AddData(as.node(), r, true, false)
@@ -190,6 +177,30 @@ func (as *activeStream) handleNewFile(f *pb.StreamFile) error {
     }
     return nil
 }
+
+func (as *activeStream) handleFileEndmark() error {
+    err := as.datastore.StreamMetas().UpdateNblocks(as.meta.Id,as.currentIndex+1)
+    if err != nil {
+        log.Error(err)
+        return err
+    }
+    err = as.datastore.StreamBlocks().Add(&pb.StreamBlock{
+    	Id: "",
+    	Streamid: as.meta.Id,
+    	Index: as.currentIndex,
+    	Size: 0,
+    	IsRoot: true,
+    	Description: "",
+    })
+    if err != nil {
+        log.Error(err)
+        return err
+    }
+	err = as.notify(as.meta.Id); if err != nil {return err}	// notify the workers to send the ENDMARK
+    as.cancel()
+    return nil
+}
+
 func (as *activeStream) traverseNode(cid *cid.Cid, isRoot bool, payload []byte) error {
 	links, err := ipfs.LinksAtPath(as.node(), cid.String())
 	if err != nil{
