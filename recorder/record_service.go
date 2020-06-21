@@ -304,7 +304,7 @@ func (h *RecordService) WriteTreeCSV(streamId string, outPath string) error {
 		if tree != nil {
 			return tree.WriteCSV(outPath)
 		} else {
-			errors.New("no such tree "+streamId)
+			return errors.New("no such tree "+streamId)
 		}
 	} else {
 		return errors.New("no tree cache")
