@@ -170,11 +170,11 @@ func (h *RecordService) handleRecordNotification(env *pb.Envelope, pid peer.ID) 
 			streamId, ok1 := block_map["ID"]
 			parentId, ok2 := block_map["Parent"]
 			if ok1 && ok2 {
-				err = h.trees.Add(streamId, parentId, h.peerId)
+				err = h.trees.Add(streamId, parentId, pid.Pretty())
 				if err != nil {
 					log.Error(err)
 				}
-				log.Debugf("Add tree node %s: %s -> %s", streamId, parentId, h.peerId)
+				log.Debugf("Add tree node %s: %s -> %s", streamId, parentId, pid.Pretty())
 			} else {
 				log.Errorf("Cannot parse tree info from %v", notification)
 			}
