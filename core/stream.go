@@ -121,9 +121,12 @@ func (t *Textile) FileAsStream_Text(threadId string, sf *pb.StreamFile, file_typ
 	fmt.Printf("textile.FileAsStream\n")
 
 	// Check whether this stream already exists in datastore.
-	meta := t.stream.FileAsStream(sf, file_type)
-	stream := t.GetStreamMeta(meta.Id)
-	if stream == nil {
+	meta, err := t.stream.FileAsStream(sf, file_type)
+	if err != nil {
+		return err
+	}
+	streamMeta := t.GetStreamMeta(meta.Id)
+	if streamMeta == nil {
 		err := t.datastore.StreamMetas().Add(meta);if err != nil {return err}
 	} else {
 		log.Warningf("start an old stream")
@@ -137,7 +140,7 @@ func (t *Textile) FileAsStream_Text(threadId string, sf *pb.StreamFile, file_typ
 	}
 
 	//fmt.Printf("Add streamMeta to thread.\n")
-	_, err := thread.AddStreamMeta_Text(meta)
+	_, err = thread.AddStreamMeta_Text(meta)
 	if err != nil {
 		log.Error(err)
 		return err
