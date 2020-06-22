@@ -153,8 +153,13 @@ func (h *StreamService) StartStream(config *pb.StreamMeta) {
 /*
  * Start a new stream, where the stream id is exactly the file cid
  */
-func (h *StreamService) FileAsStream(sf *pb.StreamFile) (*pb.StreamMeta, error){
-    return nil, nil
+func (h *StreamService) FileAsStream(sf *pb.StreamFile, file_type pb.StreamMeta_Type) (*pb.StreamMeta, error){
+	meta, err := h.activeStreams.fileAsStream(sf, file_type)
+	if err != nil {
+		log.Error(err)
+		return nil, err
+	}
+    return config, nil
 }
 
 func (h *StreamService) SetMaxWorkers(n int) {

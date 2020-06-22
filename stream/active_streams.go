@@ -59,6 +59,32 @@ func newActiveStreamStore(ctx context.Context, datastore repo.Datastore, node fu
 	}
 }
 
+func (store *activeStreamStore) fileAsStream(sf *pb.StreamFile, file_type pb.StreamMeta_Type) (*pb.StreamMeta, error) {
+	r := bytes.NewReader(f.Data)
+	fileid, err := ipfs.AddData(store.node(), r, true, false)
+	if err != nil {
+		log.Error(err)
+		return nil, err
+	}
+	config = &pb.StreamMeta {
+		Id: fileid,
+		Nsubstreams: 1,
+		Caption: sf.Description,
+		Type: file_type,
+	}
+
+	err = store.addStream(config)
+	if err != nil {
+		return nil, err
+	}
+
+	as := store.streamList[fileid]
+	err = as.traverseNode(fileid, true, f.Description); if err != nil {return nil, err}
+	err = as.handleFileEndmark(); if err != nil {return nil, err}
+	err = as.notify(as.meta.Id); if err != nil {return nil, err}
+	return config, nil
+}
+
 func (store *activeStreamStore) isActive(id string) bool {
 	store.lock.Lock()
 	defer store.lock.Unlock()

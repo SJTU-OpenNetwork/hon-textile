@@ -40,6 +40,20 @@ func (m *Mobile) StartStream_Text(thread string, stream []byte) error {
 	return nil
 }
 
+func (m *Mobile) FileAsStream_Text(thread string, sf []byte, file_type int) error {
+	model := new(pb.StreamFile)
+	if err := proto.Unmarshal(sf, model); err != nil {
+		return err
+	}
+	err := m.node.FileAsStream_Text(thread, model, pb.StreamMeta_Type(file_type))
+	if err != nil {
+		return err
+	}
+
+	m.node.FlushCafes()
+	return nil
+}
+
 func (m *Mobile) SubscribeStream(config string) error {
 	if !m.node.Started() {
 		return core.ErrStopped

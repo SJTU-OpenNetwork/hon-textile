@@ -77,7 +77,6 @@ func (t *Textile) StartStream(threadId string, config *pb.StreamMeta) error {
         	return err
 		}
     }
-
 	return nil
 }
 
@@ -89,10 +88,6 @@ func (t *Textile) StartStream_Text(threadId string, config *pb.StreamMeta) error
 	stream := t.GetStreamMeta(config.Id)
 	if stream == nil {
 		err := t.datastore.StreamMetas().Add(config);if err != nil {return err}
-		//stream := t.GetStreamMeta(config.Id)
-		//if stream == nil {
-		//	return ErrStreamNotFound
-		//}
 		t.stream.StartStream(config)
 	} else {
 		log.Warningf("start an old stream")
@@ -118,7 +113,42 @@ func (t *Textile) StartStream_Text(threadId string, config *pb.StreamMeta) error
 			return err
 		}
 	}
+	return nil
+}
 
+func (t *Textile) FileAsStream_Text(threadId string, sf *pb.StreamFile, file_type pb.StreamMeta_Type) error {
+	defer fmt.Printf("textile.FileAsStream end success\n")
+	fmt.Printf("textile.FileAsStream\n")
+
+	// Check whether this stream already exists in datastore.
+	meta := t.stream.FileAsStream(sf, file_type)
+	stream := t.GetStreamMeta(meta.Id)
+	if stream == nil {
+		err := t.datastore.StreamMetas().Add(meta);if err != nil {return err}
+	} else {
+		log.Warningf("start an old stream")
+	}
+
+	//publish the Stream to others
+	fmt.Printf("Find thread for stream.\n")
+	thread := t.Thread(threadId)
+	if thread == nil {
+		return ErrThreadNotFound
+	}
+
+	//fmt.Printf("Add streamMeta to thread.\n")
+	_, err := thread.AddStreamMeta_Text(meta)
+	if err != nil {
+		log.Error(err)
+		return err
+	}
+	if !t.config.IsShadow {
+		err := t.shadow.PushStreamMeta(meta, true)
+		if err != nil {
+			log.Error(err)
+			return err
+		}
+	}
 	return nil
 }
 
