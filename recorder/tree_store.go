@@ -21,7 +21,7 @@ type treeCache struct {
 
 func NewTreeCache(capacity int, selfId string) *treeCache {
 	return &treeCache{
-		cache: make([]*streamTree, 0, capacity),
+		cache: make([]*streamTree, capacity),
 		capacity: capacity,
 		quickindex: make(map[string]*streamTree),
 		writeHead: 0,
