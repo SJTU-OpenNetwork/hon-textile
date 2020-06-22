@@ -159,7 +159,7 @@ func (h *StreamService) FileAsStream(sf *pb.StreamFile, file_type pb.StreamMeta_
 		log.Error(err)
 		return nil, err
 	}
-    return config, nil
+    return meta, nil
 }
 
 func (h *StreamService) SetMaxWorkers(n int) {
