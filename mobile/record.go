@@ -7,6 +7,12 @@ func (m *Mobile) GetLog(handler HlogHandler) {
 	recorder.Hlog.OutputFunc(handler.HandleLog, handler.LogEnd)
 }
 
+/*
+ * Get size lines logs.
+ */
+func (m *Mobile) GetLogSize(handler HlogHandler, size int) {
+	recorder.Hlog.OutputFuncSize(handler.HandleLog, handler.LogEnd, size)
+}
 
 func (m *Mobile) StartRecord(key string) error {
 	return m.node.StartRecord(key)
