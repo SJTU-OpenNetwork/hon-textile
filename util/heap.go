@@ -1,12 +1,18 @@
 package util
 
-//import "container/heap"
+
+// Implementation of container/heap.Interface
+// Note:
+//	- Push() and Pop() must be function of a pointer instead of the slice itself.
+//		That is because the append function may change the address of slice.
+//	- Heap is not thread safe. So use some lock to protect it when using in a multi-threads case.
+//	- Please make sure that Heap is not empty when call Pop() and Top().
+//		Otherwise it would raise an out of index panic.
+//		That is caused by heap.Pop() defined in "container.heap".
 
 type HeapItem interface {
 	Less(HeapItem) bool
-	//String() string
 }
-
 
 type Heap []HeapItem
 
@@ -28,17 +34,22 @@ func (h *Heap) Push(x interface{}) {
 }
 
 func (h *Heap) Pop() interface{} {
-	n := len(*h)
-	//if n==0 {
-	//	return nil
-	//}
-	item := (*h)[n-1]
-	*h = (*h)[0:n-1]
+	old := *h
+	n := len(old)
+	item := old[n-1]
+	*h = old[0:n-1]
 	return item
 }
 
-func (h *Heap) Top() interface{} {
-	return (*h)[0]
+func (h Heap) Top() interface{} {
+	return h[0]
 }
 
-//func ()
+func (h Heap) Size() int {
+	return len(h)
+}
+
+func (h Heap) IsEmpty() bool {
+	return len(h)<=0
+}
+

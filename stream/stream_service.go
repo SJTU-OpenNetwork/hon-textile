@@ -3,20 +3,18 @@
 package stream
 
 import (
-	"encoding/json"
+	"bytes"
+	"context"
 	"fmt"
 	"github.com/SJTU-OpenNetwork/hon-textile/recorder"
 	"github.com/ipfs/interface-go-ipfs-core/path"
-	"io/ioutil"
-
-	"bytes"
-	"context"
 	"github.com/segmentio/ksuid"
+	"io/ioutil"
 	"time"
 
 	"github.com/golang/protobuf/ptypes"
-	ipld "github.com/ipfs/go-ipld-format"
 	"github.com/ipfs/go-ipfs/core"
+	ipld "github.com/ipfs/go-ipld-format"
 	peer "github.com/libp2p/go-libp2p-core/peer"
 	protocol "github.com/libp2p/go-libp2p-core/protocol"
 	//	mh "github.com/multiformats/go-multihash"
@@ -56,8 +54,7 @@ type StreamService struct {
 	ReceivedFile <- chan ipld.Node
     
     // for providers
-    providers *providerStore
-	lostIndex chan *lostReport
+    providedStreams *ProvidedStreams
 
 	// Context for main routine
 	ctx context.Context
@@ -80,11 +77,8 @@ func NewStreamService(
 		sendNotification: sendNotification,
         subscribe:        subscribe,
 		ctx:			  ctx,
-		//activeStreams:newActiveStreamStore(ctx, datastore, node, ),
 		activeWorkers: newWorkerStore(),
-        providers: newProviderStore(),
-        
-        // informations for started streams
+        providedStreams: &ProvidedStreams{},
 	}
     handler.treeParent = make(map[string] string)
 	handler.activeStreams = newActiveStreamStore(ctx, datastore, node, handler.activeWorkers.newFileAdd)
@@ -144,17 +138,17 @@ func (h *StreamService) StartStream(config *pb.StreamMeta) {
 	if err != nil {
 		log.Error(err)
 	}
-	selfPeerId := h.service.Node().Identity.Pretty()
-	acceptedSubstream := newProvidedSubstream(config.Id, 1, 1, 0, selfPeerId, h.handleBlockLost)
-	provider := h.providers.getOrCreate(selfPeerId)
-	provider.add(acceptedSubstream)
+	//selfPeerId := h.service.Node().Identity.Pretty()
+	//acceptedSubstream := newProvidedSubstream(config.Id, 1, 1, 0, selfPeerId, h.handleBlockLost)
+	//provider := h.providers.getOrCreate(selfPeerId)
+	//provider.add(acceptedSubstream)
 }
 
 /*
  * Start a new stream, where the stream id is exactly the file cid
  */
-func (h *StreamService) FileAsStream(sf *pb.StreamFile, file_type pb.StreamMeta_Type) (*pb.StreamMeta, error){
-	meta, err := h.activeStreams.fileAsStream(sf, file_type)
+func (h *StreamService) FileAsStream(sf *pb.StreamFile, fileType pb.StreamMeta_Type) (*pb.StreamMeta, error){
+	meta, err := h.activeStreams.fileAsStream(sf, fileType)
 	if err != nil {
 		log.Error(err)
 		return nil, err
@@ -188,27 +182,25 @@ func (h *StreamService) StreamAddFile(id string, sf *pb.StreamFile) error{
 func (h *StreamService) CloseStream(sid string) {
     fmt.Printf("StreamService: Try to close stream %s\n", sid)
     err := h.activeStreams.stopStream(sid); if err != nil {log.Error(err)}
-    // remove self provider
-    h.providers.RemoveStream(sid)
 }
 
 // UnsubscribeStream want to unsubscribe to a stream, and send a request to the
 // provider.
 func (h *StreamService) UnsubscribeStream(sid string) error{
     fmt.Printf("StreamService: Try to unsubscribe stream %s\n", sid)
-    pids := h.providers.RemoveStream(sid)
-    for _, p := range pids {
-    	_, err := h.SendUnsubscribeRequest(p.Pretty(), sid)
-    	if err != nil {
-    		return err
-		}
+    rStream := h.providedStreams.remove(sid)
+    if rStream != nil {
+    	_, err := h.SendUnsubscribeRequest(rStream.providerId, sid)
+    	return err
 	}
-    return nil
+	return nil
 }
 
 // ======================== FOR MESSAGE RECV/SEND ==================================
 // handleStreamBlock receives a STREAM_BLOCK message [deprecated]
 func (h *StreamService) handleStreamBlock(env *pb.Envelope, pid peer.ID) (*pb.Envelope, error) {
+	log.Error("Should not call handleStreamBlock")
+	recorder.Hlog.Add("Should not call handleStreamBlock")
 	fmt.Printf("StreamService: New stream blk receive from %s\n", pid.Pretty())
     blk := new(pb.StreamBlockContent)
     err := ptypes.UnmarshalAny(env.Message.Payload, blk)
@@ -242,19 +234,20 @@ func (h *StreamService) handleStreamBlockList(env *pb.Envelope, pid peer.ID) (*p
     if err != nil {
         return nil, err
     }
+
     for _, blk := range blks.Blocks {
         size := len(blk.Data)
-        cid_str := ""
+        cidStr := ""
         if size != 0 {
             stat, err := ipfs.PutBlock(h.service.Node(), bytes.NewReader(blk.Data))
             if err != nil {
                 return nil, err
             }
             cid := stat.Path().Cid()
-            cid_str = cid.String()
+            cidStr = cid.String()
         }
         model := &pb.StreamBlock {
-            Id: cid_str,
+            Id: cidStr,
             Streamid: blk.StreamID,
             Index: blk.Index,
             Size: int32(size),
@@ -262,23 +255,30 @@ func (h *StreamService) handleStreamBlockList(env *pb.Envelope, pid peer.ID) (*p
             Description: string(blk.Description),
         }
         //fmt.Printf("StreamService: Received stream %s; index %d; cid %s\n", blk.StreamID, blk.Index, cid.String())
-        recorder.Hlog.Add(fmt.Sprintf("[%s] Block %s, Stream %s, Index %d, From %s, Size %d", TAG_BLOCKRECEIVE, cid_str, blk.StreamID, blk.Index, pid.Pretty(), size))
-        log.Debugf("[%s] Block %s, Stream %s, Index %d, From %s, Size %d", TAG_BLOCKRECEIVE, cid_str, blk.StreamID, blk.Index, pid.Pretty(), size)
+        recorder.Hlog.Add(fmt.Sprintf("[%s] Block %s, Stream %s, Index %d, From %s, Size %d", TAG_BLOCKRECEIVE, cidStr, blk.StreamID, blk.Index, pid.Pretty(), size))
+        log.Debugf("[%s] Block %s, Stream %s, Index %d, From %s, Size %d", TAG_BLOCKRECEIVE, cidStr, blk.StreamID, blk.Index, pid.Pretty(), size)
         err = h.datastore.StreamBlocks().Add(model)
         if err != nil {
             return nil, err
         }
-        //fmt.Printf("It is successfully stored in our database!\n")
 
-        if blk.IsRoot {
-            // we found a file !
-            fmt.Print("It is a root node of a merkle-DAG!\n")
-            err = h.handleRootBlk(pid, model)
-            if err != nil {
-                fmt.Printf("Handle root file failed\n")
-                return nil, err
-            }
-        }
+        /*
+         * TODO:
+         *		There is still a bug when block is received before meta.
+         *		In that case, getOrCreate() would create a providedStream with startIndex 0.
+         *		It is ok if the startIndex IS EXACTLY 0.
+         *		Otherwise providedStream may think there is blocks unreceived before root block.
+         *		See implementation of providedStream.addBlock() for details.
+         */
+		pStream := h.providedStreams.getOrCreate(blk.StreamID, pid.Pretty(), 0)
+        rootBlocks := pStream.addBlock(model)
+        for _, b := range rootBlocks {
+        	err = h.handleRootBlk(pid, b)
+        	if err != nil {
+        		log.Errorf("Error when handle rootblock: %v", err)
+        		recorder.Hlog.Add(fmt.Sprintf("Error when handle rootblock: %v", err))
+			}
+		}
         streams[blk.StreamID] = 1
     }
     for id := range streams {
@@ -342,14 +342,15 @@ func (h *StreamService) handleRootBlk(pid peer.ID, blk *pb.StreamBlock) error {
             return err
         }
         // Remove provider here
-		h.providers.RemoveStream(blk.Streamid)
+		// h.providers.RemoveStream(blk.Streamid)
+		h.providedStreams.remove(blk.Streamid)
     }
     return nil
 }
 
 
 // HandleStream is called by the underlying service handler method
-func (h *StreamService) HandleStream(env *pb.Envelope, pid peer.ID) (chan *pb.Envelope, chan error, chan interface{}) {
+func (h *StreamService) HandleStream(_ *pb.Envelope, _ peer.ID) (chan *pb.Envelope, chan error, chan interface{}) {
 	return make(chan *pb.Envelope), make(chan error), make(chan interface{})
 }
 
@@ -441,26 +442,11 @@ func (h *StreamService) handleUnsubscribe(env *pb.Envelope, pid peer.ID) (*pb.En
 func (h *StreamService) RequestAccepted(peerId string, config *pb.StreamRequest) {
 	log.Debugf("[%s] Stream %s, By %s", TAG_STREAM_REQUEST_ACCEPTED, config.Id, peerId)
 	recorder.Hlog.Add(fmt.Sprintf("[%s] Stream %s, By %s", TAG_STREAM_REQUEST_ACCEPTED, config.Id, peerId))
-	acceptedSubstream := newProvidedSubstream(config.Id, config.StreamMap, 1, config.StartIndex, peerId, h.handleBlockLost)
-	provider := h.providers.getOrCreate(peerId)
+	//acceptedSubstream := newProvidedSubstream(config.Id, config.StreamMap, 1, config.StartIndex, peerId, h.handleBlockLost)
+	h.providedStreams.getOrCreate(config.Id, peerId, config.StartIndex)
     h.treeParent[config.Id] = peerId
-	// TODO: De-duplicated
-	provider.add(acceptedSubstream)
 }
 
-// Handle lost block
-// It would be called by providedSubstream.
-func (h *StreamService) handleBlockLost(report *lostReport){
-	fmt.Println("BlockLost")
-	infos :=  report.Loggable()
-	js, err := json.MarshalIndent(infos, "", "  ")
-	if err != nil {
-		fmt.Printf("%s\n", err.Error())
-	} else {
-		fmt.Printf("%s\n", string(js))
-		recorder.Hlog.Add(fmt.Sprintf("BlockLost %s", string(js)))
-	}
-}
 
 // Call it when you decide to send blocks to requestor.
 // Use "Response" to distinguish with "Handle".
@@ -545,9 +531,6 @@ func (h *StreamService) FetchBlocks(streamId string, startIndex uint64, maxNum i
     return blks, nil
 }
 
-func (h *StreamService) AddPotential(pid string, config *pb.StreamRequest, hopcnt int) {
-}
-
 
 // =============== FOR WORKDERS ==================
 func (h *StreamService) createWorker(pid peer.ID, req *pb.StreamRequest) (*streamWorker, error) {
@@ -574,26 +557,28 @@ func (h *StreamService) WorkerStat() {
 // ============== FOR PEER MANAGEMENT ===================
 func (h *StreamService)PeerDisconnected(pid peer.ID) {
 	// Stop all the workers
-	log.Debugf("Peer %s disconnected", pid)
+	log.Debugf("Stream service: Peer %s disconnected", pid)
 	h.activeWorkers.endPeer(pid.Pretty())
-    provider := h.providers.remove(pid.Pretty())
-    if provider != nil{
-        // re-subscribe streams
-        for _,stream := range(provider.subStreams) {
-            err := h.subscribe(stream.streamId)
-            if err != nil{
-                log.Error(err)
-            }
-        }
-    }
+    pStreams := h.providedStreams.providedBy(pid.Pretty())
+    for _, s := range pStreams {
+    	err := h.subscribe(s.streamId)
+    	if err != nil {
+    		log.Error(err)
+		}
+	}
 }
 
 func (h* StreamService) GetProvidedHopcnt(config *pb.StreamRequest) (int, bool){
 	return 0, false
 }
 
+// TODO:
+//		Use a different function to check activestreams
 func (h* StreamService) GetProvider(sid string) peer.ID{
-	return h.providers.GetProvider(sid)
+	if h.activeStreams.isActive(sid) {
+		return h.service.Node().Identity
+	}
+	return peer.ID(h.providedStreams.getProvider(sid))
 }
 // ===================== OTHERS =========================
 func (h *StreamService) Loggable() map[string]interface{}{

@@ -1,125 +1,113 @@
 package stream
 
 import (
+	"container/heap"
+	"github.com/SJTU-OpenNetwork/hon-textile/pb"
+	"github.com/SJTU-OpenNetwork/hon-textile/util"
 	"sync"
 
 	//"github.com/libp2p/go-libp2p-core/peer"
 )
 
-// lostIndex is used to detect the lost indexes.
-// 	- previous: used to record the last received index.
-//	- interval: interval between two adjacent index. equal to numSubstream.
-//	- lostFunc: function called when a lost index detected.
-// DO NOT USE LOSTINDEX ALONE. USE IT INSIDE PROVIDEDSUBSTREAM.
-type lostIndex struct {
-	previous uint64
-	interval uint64
-	lostFunc func(lostIndex uint64)
+type providedStream struct {
+	streamId string
+	providerId string
+	startIndex uint64
+	nextIndex uint64
+	//currentIndex uint64
+	blocks util.Heap
+	hLock sync.Mutex
 }
 
-func (l *lostIndex) add(streamInd uint64) {
-	if (streamInd - l.previous > l.interval){
-		currentInd := l.previous + l.interval
-		for {
-			//l.out <- currentInd
-			if (streamInd - currentInd < l.interval){
-				break
-			}
-			l.lostFunc(currentInd)
-			currentInd += l.interval
+// *streamBlock implements util.HeapItem
+type streamBlock struct {
+	block *pb.StreamBlock
+}
+func (b *streamBlock) Less(b2 util.HeapItem) bool {
+	return b.block.Index < b2.(*streamBlock).block.Index
+}
+
+// add a streamBlock to providedStream
+// return all the completed root block
+// Note:
+//	- Push the block to ipfs node before calling this function
+func (s *providedStream) addBlock(b *pb.StreamBlock) []*pb.StreamBlock {
+	s.hLock.Lock()
+	defer s.hLock.Unlock()
+	res := make([]*pb.StreamBlock, 0)
+	heap.Push(&s.blocks, &streamBlock{block: b})
+	for !s.blocks.IsEmpty() && s.blocks.Top().(*streamBlock).block.Index == s.nextIndex {
+		s.nextIndex = s.nextIndex + 1
+		tBlock := heap.Pop(&s.blocks).(*streamBlock).block
+		if tBlock.IsRoot {
+			res = append(res, tBlock)
 		}
 	}
-	l.previous = streamInd
-}
-
-// Core of Provider.
-type providedSubstream struct {
-	// Value assigned when initializing.
-	streamId string
-	streamMap uint64
-	providerId string
-	numSubstream uint64
-	startIndex uint64
-	//out chan *lostReport
-	handleLost func(*lostReport)
-
-	// Value Created.
-	lost *lostIndex
-	previous uint64
-	//ctx context.Context
-}
-
-// A report used to output the index lost event.
-type lostReport struct {
-	streamId string
-	streamMap uint64
-	index uint64
-	providerId string
-}
-
-func (report *lostReport) Loggable() map[string]interface{}{
-	return map[string]interface{}{
-		"providerId": report.providerId,
-		"streamId": report.streamId,
-		"streamMap": report.streamMap,
-		"index": report.index,
-	}
-}
-
-func (ps *providedSubstream) indexLost(lostIndex uint64){
-	report := &lostReport{
-		streamId: ps.streamId,
-		streamMap: ps.streamMap,
-		providerId: ps.providerId,
-		index: lostIndex,
-	}
-	//ps.out <- report
-	ps.handleLost(report)
-}
-
-// TODO: Find a better way to initialize provided substream.
-func newProvidedSubstream(streamId string, streamMap uint64, numSubstream uint64, startIndex uint64, providerId string, lostFunc func(report *lostReport)) *providedSubstream {
-	res := &providedSubstream{
-		streamId:   streamId,
-		streamMap:  streamMap,
-		numSubstream:numSubstream,
-		startIndex: startIndex,
-		providerId: providerId,
-		handleLost: lostFunc,
-		lost:  &lostIndex{
-			previous:   startIndex - numSubstream,
-			interval:   numSubstream,
-		},
-	}
-	res.lost.lostFunc = res.indexLost
 	return res
 }
 
 
-// One Provider represents one ipfs peer.
-// Function:
-//	- Record the information about all substreams provided by one peer.
-//	- Detect the lose of blocks.
-//	- Find out which substream should be re-request if a peer is disconnect.
-//		Further handle Provider disconnect
-// Note:
-// Provider can be used from outside stream package.
-type Provider struct {
-	pid string
-	subStreams []*providedSubstream
+// Access through ProvidedStreams only.
+type ProvidedStreams struct {
+	streams []*providedStream
 	lock sync.Mutex
 }
 
-func newProvider(pid string) *Provider {
-	return &Provider{
-		pid:     pid,
-		subStreams: make([]*providedSubstream,0),
-	}
-}
-
-func (p *Provider) add (sub *providedSubstream) {
+func (p *ProvidedStreams) getOrCreate(streamId string, providerId string, startIndex uint64) *providedStream {
 	p.lock.Lock()
 	defer p.lock.Unlock()
-	log.Debugf("[%s] Stream %s, Peer %s", TAG_PROVIDER_ADD, sub.streamId, sub.providerId)
-	p.subStreams = append(p.subStreams, sub)
+	for _, s := range p.streams {
+		if s.streamId == streamId {
+			return s
+		}
+	}
+	newStream := &providedStream{
+		streamId:   streamId,
+		providerId: providerId,
+		startIndex: startIndex,
+		nextIndex:  startIndex,
+		blocks:     make(util.Heap,0,10),
+	}
+	p.streams = append(p.streams, newStream)
+	return newStream
+}
+
+func (p *ProvidedStreams) remove(streamId string) *providedStream {
+	p.lock.Lock()
+	defer p.lock.Unlock()
+	newStreams := make([]*providedStream, 0, len(p.streams))
+	var result *providedStream
+	result = nil
+	for _, s := range p.streams {
+		if s.streamId != streamId {
+			newStreams = append(newStreams, s)
+		} else {
+			result = s
+		}
+	}
+	p.streams = newStreams
+	return result
+}
+
+// Get streams provided by providerId
+func (p *ProvidedStreams) providedBy(providerId string) []*providedStream {
+	p.lock.Lock()
+	defer p.lock.Unlock()
+	var res []*providedStream
+	res = nil
+	for _, s := range p.streams {
+		if s.providerId == providerId {
+			res = append(res, s)
+		}
+	}
+	return res
+}
+
+func (p *ProvidedStreams) getProvider(streamId string) string {
+	for _, s := range p.streams {
+		if s.streamId == streamId {
+			return s.providerId
+		}
+	}
+	return ""
 }
