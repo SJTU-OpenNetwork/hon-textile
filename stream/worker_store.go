@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/SJTU-OpenNetwork/hon-textile/pb"
+	"github.com/SJTU-OpenNetwork/hon-textile/util"
 	"github.com/libp2p/go-libp2p-core/peer"
 	"sync"
 )
@@ -15,6 +16,7 @@ type workerStore struct {
 	//		map[streamId] list of workers
 	//		We need to notice workers by streamId. So we use streamId as key.
 	workerList map[string] []*streamWorker
+	taskQueue *util.TaskQueue
 	lock sync.Mutex
     load int
 }
@@ -24,7 +26,6 @@ func newWorkerStore() *workerStore {
 		workerList: make(map[string][]*streamWorker),
         load: 0,
 	}
-
 }
 
 func (ws *workerStore) isRedundant(pid peer.ID, req *pb.StreamRequest) bool {
@@ -34,7 +35,6 @@ func (ws *workerStore) isRedundant(pid peer.ID, req *pb.StreamRequest) bool {
 	//		- overlapped substream
 	ws.lock.Lock()
 	defer ws.lock.Unlock()
-
 
 	return false
 }

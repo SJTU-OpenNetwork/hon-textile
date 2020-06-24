@@ -7,6 +7,7 @@ import (
 	"context"
 	"fmt"
 	"github.com/SJTU-OpenNetwork/hon-textile/recorder"
+	"github.com/SJTU-OpenNetwork/hon-textile/util"
 	"github.com/ipfs/interface-go-ipfs-core/path"
 	"github.com/segmentio/ksuid"
 	"io/ioutil"
@@ -35,7 +36,9 @@ import (
 const streamServiceProtocol = protocol.ID("/textile/stream/1.0.0")
 //const maxWorkers = 2
 const defaultMaxWorkers = 2
+const defaultMaxTaskWorkers = 8
 var maxWorkers int
+var maxTaskWorkers int
 var log = logging.Logger("stream")
 var ErrRedundantReq = fmt.Errorf("Request is redundant")
 var ErrUnknowkStream = fmt.Errorf("Unknown stream")
@@ -55,7 +58,8 @@ type StreamService struct {
     
     // for providers
     providedStreams *ProvidedStreams
-
+	// for taskQueue
+	taskQueue *util.TaskQueue
 	// Context for main routine
 	ctx context.Context
 
@@ -79,6 +83,7 @@ func NewStreamService(
 		ctx:			  ctx,
 		activeWorkers: newWorkerStore(),
         providedStreams: &ProvidedStreams{},
+        taskQueue: util.NewTaskQueue(ctx, defaultMaxTaskWorkers),
 	}
     handler.treeParent = make(map[string] string)
 	handler.activeStreams = newActiveStreamStore(ctx, datastore, node, handler.activeWorkers.newFileAdd)
@@ -539,7 +544,7 @@ func (h *StreamService) createWorker(pid peer.ID, req *pb.StreamRequest) (*strea
 	if stream == nil {
 		return nil, ErrUnknowkStream
 	}
-	return newStreamWorker(stream, pid, req, h.FetchBlocks, h.SendStreamBlocks), nil
+	return newStreamWorker(h.ctx, stream, pid, req, h.FetchBlocks, h.SendStreamBlocks, h.taskQueue), nil
 }
 
 func (h *StreamService) Workload() int {
