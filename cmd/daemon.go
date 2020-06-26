@@ -1,7 +1,10 @@
 package cmd
 
 import (
+	"encoding/json"
 	"fmt"
+	"github.com/SJTU-OpenNetwork/hon-textile/recorder"
+	"github.com/golang/protobuf/ptypes/timestamp"
 	"net/http"
 	"os"
 	"os/signal"
@@ -198,6 +201,7 @@ func startNode(serveDocs bool) error {
 
 	// subscribe to notifications
 	go func() {
+		recordCache := util.NewSyncMap()
 		for {
 			select {
 			case note, ok := <-node.NotificationCh():
@@ -218,6 +222,12 @@ func startNode(serveDocs bool) error {
 						}
 					}
 				}
+				//=================
+				// Show record
+				if note.Type == pb.Notification_RECORD_REPORT {
+					showRecords(recordCache, note)
+				}
+				//============
 				date := util.ProtoTime(note.Date).Format(time.RFC822)
 				var subject string
 				if len(note.Subject) >= 7 {
@@ -256,6 +266,31 @@ func startNode(serveDocs bool) error {
 
 	// Textile is now online, continue
 	return nil
+}
+
+func showRecords(store *util.SyncMap, n *pb.Notification){
+	var streamId string
+	var ok bool
+	block_map := make(map[string]string)
+	err := json.Unmarshal([]byte(n.Block), &block_map)
+	if err == nil {
+		streamId, ok = block_map["ID"]
+		if !ok {return}
+	} else {
+		streamId = n.Block
+	}
+	switch n.Subject{
+	case recorder.Event_ThreadAddFile:
+		store.Push(streamId, n.Date)
+	case recorder.Event_DoneIPFSGet:
+		date := store.Get(streamId).(*timestamp.Timestamp)
+		if date == nil {
+			fmt.Printf("收到其他人发送的stream的反馈：%s\n", streamId)
+		}
+		duration := (n.Date.GetNanos() - date.GetNanos())/1000000
+		fmt.Printf("发送用时统计：\n\tStream：\t%s\n\t接受者：\t%s\n\t总RTT：\t%dms\n",
+			streamId, n.Actor, duration)
+	}
 }
 
 // Stop the api, then the gateway, then the node, then if possible, the channels

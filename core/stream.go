@@ -2,6 +2,7 @@ package core
 
 import (
 	"fmt"
+	"github.com/SJTU-OpenNetwork/hon-textile/recorder"
 	"github.com/SJTU-OpenNetwork/hon-textile/stream"
 	"time"
 	//	"github.com/SJTU-OpenNetwork/hon-textile/stream"
@@ -70,6 +71,19 @@ func (t *Textile) StartStream(threadId string, config *pb.StreamMeta) error {
 		log.Error(err)
 		return err
 	}
+
+	//====== send notification to self
+	record := &pb.Notification{
+		Block:                config.Id,
+		Date:                 ptypes.TimestampNow(),
+		Actor:                "",	// self id. filled with "" if can not get.
+		Subject:              recorder.Event_ThreadAddFile,	// event type
+		Target:               "",	// self id. The peer that add the file would be collector
+		Read:                 true,	// send to notification channel. There is other notification fot thread add file.
+	}
+	recorder.RecordCh <- record
+	//======
+
     if !t.config.IsShadow {
         err := t.shadow.PushStreamMeta(config, true)
         if err != nil {
