@@ -43,6 +43,11 @@ var log = logging.Logger("stream")
 var ErrRedundantReq = fmt.Errorf("Request is redundant")
 var ErrUnknowkStream = fmt.Errorf("Unknown stream")
 
+type StreamMode int
+const (
+	StreamMode_PUSH	StreamMode = 0
+	StreamMode_PULL StreamMode = 1
+)
 
 type StreamService struct {
 	service          *service.Service
@@ -64,7 +69,10 @@ type StreamService struct {
 	ctx context.Context
 
     // currently using a map to store stream tree parent
-    treeParent map[string] string
+	treeParent map[string] string
+	
+	// config
+	mode StreamMode
 }
 
 // NewStreamService returns a new stream service
@@ -83,7 +91,8 @@ func NewStreamService(
 		ctx:			  ctx,
 		activeWorkers: newWorkerStore(),
         providedStreams: &ProvidedStreams{},
-        taskQueue: util.NewTaskQueue(ctx, defaultMaxTaskWorkers),
+		taskQueue: util.NewTaskQueue(ctx, defaultMaxTaskWorkers),
+		mode: StreamMode_PUSH,
 	}
     handler.treeParent = make(map[string] string)
 	handler.activeStreams = newActiveStreamStore(ctx, datastore, node, handler.activeWorkers.newFileAdd)
@@ -169,6 +178,16 @@ func (h *StreamService) SetMaxWorkers(n int) {
 
 func (h *StreamService) GetMaxWorkers() int {
 	return maxWorkers
+}
+
+func (h *StreamService) SetStreamMode(n int) {
+	log.Debugf("Change stream mode to %d", n)
+	recorder.Hlog.Add(fmt.Sprintf("Change stream mode to %d", n))
+	h.mode = StreamMode(n)
+}
+
+func (h *StreamService) GetStreamMode() int {
+	return h.mode
 }
 
 /**
