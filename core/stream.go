@@ -172,25 +172,27 @@ func (t *Textile) FileAsStream_Text(threadId string, sf *pb.StreamFile, file_typ
 	 * TODO: New mode for stream service
 	 * In this mode, peers do not need to search and subscribe stream data unless timeout
 	 */
-	if t.stream.GetStreamMode == stream.StreamMode_PUSH {
+	if t.stream.GetStreamMode() == stream.StreamMode_PUSH {
 		workerCnt := t.stream.GetMaxWorkers() 
 		streamTree, err := t.constructStreamTree(threadId, workerCnt)
 		if err != nil {
 			log.Error(err)
 			return err
 		}
-		toPeers := streamTree[t.node.Identity]
+		toPeers := streamTree[t.node.Identity.Pretty()]
 
 		for _, pid := range toPeers{
 			/* TODO: push stream data (maybe and the streamTree) to peers in toPeers */
+			log.Debug(pid)
+
 		}
 
 	}
 	return nil
 }
 
-func (t *Textile) constructStreamTree(threadId string, workerCnt int) map[string][]string, error {
-	tree := make map[string][]string
+func (t *Textile) constructStreamTree(threadId string, workerCnt int) (map[string][]string, error) {
+	tree := make (map[string] []string)
 	thread := t.Thread(threadId)
 	if thread == nil {
 		return tree, ErrThreadNotFound
@@ -205,7 +207,7 @@ func (t *Textile) constructStreamTree(threadId string, workerCnt int) map[string
 	sort.Strings(allPeerIDs)
 	myIndex := 0
 	for id, v := range allPeerIDs{
-		if v == t.node.Identity {
+		if v == t.node.Identity.Pretty() {
 			myIndex = id
 			break
 		}

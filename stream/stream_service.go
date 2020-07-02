@@ -92,7 +92,7 @@ func NewStreamService(
 		activeWorkers: newWorkerStore(),
         providedStreams: &ProvidedStreams{},
 		taskQueue: util.NewTaskQueue(ctx, defaultMaxTaskWorkers),
-		mode: StreamMode_PUSH,
+		mode: StreamMode_PULL,
 	}
     handler.treeParent = make(map[string] string)
 	handler.activeStreams = newActiveStreamStore(ctx, datastore, node, handler.activeWorkers.newFileAdd)
@@ -186,7 +186,7 @@ func (h *StreamService) SetStreamMode(n int) {
 	h.mode = StreamMode(n)
 }
 
-func (h *StreamService) GetStreamMode() int {
+func (h *StreamService) GetStreamMode() StreamMode {
 	return h.mode
 }
 
