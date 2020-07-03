@@ -78,6 +78,8 @@ message Message {
 
         RECORD_REPORT = 1010 [deprecated = true];
         RECORD_NOTIFICATION = 1011;
+
+        STREAM_PUSH_INFORM = 1012;
     }
 }
 

@@ -613,7 +613,7 @@ func (h *StreamService) Loggable() map[string]interface{}{
 
 // ====================== For Push ======================
 func (h *StreamService) InformPush(peerId peer.ID, streamId string, tree map[string][]string) error {
-	_, err := json.Marshal(tree)
+	treeData, err := json.Marshal(tree)
 	if err != nil {
 		log.Error("Fail to marshal tree to bytes.")
 		recorder.Hlog.Add("Error: Fail to marshal tree to bytes.")
