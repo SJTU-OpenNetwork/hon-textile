@@ -94,7 +94,7 @@ func NewStreamService(
 		activeWorkers: newWorkerStore(),
         providedStreams: &ProvidedStreams{},
 		taskQueue: util.NewTaskQueue(ctx, defaultMaxTaskWorkers),
-		mode: StreamMode_PULL,
+		mode: StreamMode_PUSH,
 	}
     handler.treeParent = make(map[string] string)
 	handler.activeStreams = newActiveStreamStore(ctx, datastore, node, handler.activeWorkers.newFileAdd)
@@ -142,6 +142,8 @@ func (h *StreamService) Handle(env *pb.Envelope, pid peer.ID) (*pb.Envelope, err
 		return h.handleStreamRequest(env, pid)
 	case pb.Message_STREAM_UNSUBSCRIBE:
 		return h.handleUnsubscribe(env, pid)
+	case pb.Message_STREAM_PUSH_INFORM:
+		return h.handleStreamPushInform(env, pid)
     default:
     	fmt.Printf("core/stream_service.go Handler: Unknown message type")
         return nil, nil
@@ -372,6 +374,44 @@ func (h *StreamService) handleRootBlk(pid peer.ID, blk *pb.StreamBlock) error {
 		h.providedStreams.remove(blk.Streamid)
     }
     return nil
+}
+
+func (h* StreamService) handleStreamPushInform(env *pb.Envelope, peer peer.ID) (*pb.Envelope, error) {
+	log.Debugf("Receive streamPushInform from ", peer.Pretty())
+	recorder.Hlog.Add("Receive streamPushInform from " + peer.Pretty())
+	inform := new(pb.StreamPushInform)
+	err := ptypes.UnmarshalAny(env.Message.Payload, inform)
+	if err != nil {
+		log.Error("Fail to unmarshal inform from envelop.")
+		return nil, err
+	}
+	request := &pb.StreamRequest{
+		Id:                   inform.StreamId,
+		StreamMap:            1,
+		StartIndex:           0,
+	}
+	responseEnv, err := h.SendStreamRequest(peer.Pretty(), request)
+	if err != nil {
+		log.Errorf("Error when send request %s to %s", inform.StreamId, peer.Pretty())
+		recorder.Hlog.Add("Error when send request "+inform.StreamId+" to "+peer.Pretty())
+		return nil, err
+	}
+	response := new(pb.StreamRequestHandle)
+	err = ptypes.UnmarshalAny(responseEnv.Message.Payload, response)
+	if err!=nil {
+		log.Error("Fail to unmarshal inform request response.", err)
+		return nil, err
+	}
+	if response.Value != 1 {
+		log.Errorf("Request %s denied by %s", inform.StreamId, peer.Pretty())
+		recorder.Hlog.Add("Request "+inform.StreamId +" denied by "+peer.Pretty())
+	} else {
+		log.Errorf("Request %s accepted by %s", inform.StreamId, peer.Pretty())
+		h.RequestAccepted(peer.Pretty(), request)
+		// =========== Forward Inform to Other Peer ===========
+
+	}
+	return nil, nil
 }
 
 
@@ -612,7 +652,7 @@ func (h *StreamService) Loggable() map[string]interface{}{
 }
 
 // ====================== For Push ======================
-func (h *StreamService) InformPush(peerId peer.ID, streamId string, tree map[string][]string) error {
+func (h *StreamService) InformPush(peerId string, streamId string, tree map[string][]string) error {
 	treeData, err := json.Marshal(tree)
 	if err != nil {
 		log.Error("Fail to marshal tree to bytes.")
@@ -631,7 +671,41 @@ func (h *StreamService) InformPush(peerId peer.ID, streamId string, tree map[str
 		return err
 	}
 	// Send envelope use StreamService.service.SendMessage
-	err = h.service.SendMessage(nil, peerId.Pretty(), env)
+	err = h.service.SendMessage(nil, peerId, env)
+	if err != nil {
+		log.Error("Failed to send stream inform to ", peerId)
+		recorder.Hlog.Add("Failed to send stream inform to " + peerId)
+		return err
+	}
+	return nil
+}
+
+// Forward the inform to other peers when receive an inform
+func (h *StreamService) informForward(inform *pb.StreamPushInform) error {
+	// unmarshal tree
+	tree := make(map[string][]string)
+	err := json.Unmarshal(inform.Tree, &tree)
+	if err != nil {
+		log.Error("Error when unmarshal tree from inform. ", err)
+		recorder.Hlog.Add("Error when unmarshal tree from inform. " + err.Error())
+		return err
+	}
+	toPeers := tree[h.service.Node().Identity.Pretty()]
+	for _, pid := range toPeers{
+		log.Debug(pid)
+		env, err := h.service.NewEnvelope(pb.Message_STREAM_PUSH_INFORM, inform, nil, false)
+		if err != nil {
+			log.Error(err)
+			return err
+		}
+		// Send envelope use StreamService.service.SendMessage
+		err = h.service.SendMessage(nil, pid, env)
+		if err != nil {
+			log.Error("Failed to send stream inform to ", pid)
+			recorder.Hlog.Add("Failed to send stream inform to " + pid)
+			return err
+		}
+	}
 	return nil
 }
 
