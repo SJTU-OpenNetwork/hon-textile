@@ -5,6 +5,8 @@ package stream
 import (
 	"bytes"
 	"context"
+	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/SJTU-OpenNetwork/hon-textile/recorder"
 	"github.com/SJTU-OpenNetwork/hon-textile/util"
@@ -607,5 +609,19 @@ func (h* StreamService) GetProvider(sid string) peer.ID{
 // ===================== OTHERS =========================
 func (h *StreamService) Loggable() map[string]interface{}{
 	return h.activeWorkers.Loggable()
+}
+
+// ====================== For Push ======================
+func (h *StreamService) InformPush(peerId peer.ID, streamId string, tree map[string][]string) error {
+	_, err := json.Marshal(tree)
+	if err != nil {
+		log.Error("Fail to marshal tree to bytes.")
+		recorder.Hlog.Add("Error: Fail to marshal tree to bytes.")
+		return errors.New("fail to marshal tree to bytes")
+	}
+
+	// build envelope
+
+	return nil
 }
 

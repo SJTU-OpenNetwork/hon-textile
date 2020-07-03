@@ -191,6 +191,7 @@ func (t *Textile) FileAsStream_Text(threadId string, sf *pb.StreamFile, file_typ
 	return nil
 }
 
+
 func (t *Textile) constructStreamTree(threadId string, workerCnt int) (map[string][]string, error) {
 	tree := make (map[string] []string)
 	thread := t.Thread(threadId)

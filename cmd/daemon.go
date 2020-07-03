@@ -227,7 +227,10 @@ func startNode(serveDocs bool) error {
 				if note.Type == pb.Notification_RECORD_REPORT {
 					showRecords(recordCache, note)
 				}
-				//============
+				//=================
+				// Download files
+
+				//=================
 				date := util.ProtoTime(note.Date).Format(time.RFC822)
 				var subject string
 				if len(note.Subject) >= 7 {

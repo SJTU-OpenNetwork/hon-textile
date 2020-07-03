@@ -31,6 +31,14 @@ message StreamUnsubscribe {
     string id = 1;
 }
 
+// StreamPushInform is used to inform another peer that
+// "I'm going to push that stream to you."
+message StreamPushInform {
+    string streamId = 1;
+    string creator = 2;
+    bytes tree = 3;
+}
+
 message StreamUnsubscribeAck {
     string id = 1;
 }
