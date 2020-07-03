@@ -3326,17 +3326,7 @@ public final class StreamService {
         getStreamIdBytes();
 
     /**
-     * <code>string creator = 2;</code>
-     */
-    java.lang.String getCreator();
-    /**
-     * <code>string creator = 2;</code>
-     */
-    com.google.protobuf.ByteString
-        getCreatorBytes();
-
-    /**
-     * <code>bytes tree = 3;</code>
+     * <code>bytes tree = 2;</code>
      */
     com.google.protobuf.ByteString getTree();
   }
@@ -3359,7 +3349,6 @@ public final class StreamService {
     }
     private StreamPushInform() {
       streamId_ = "";
-      creator_ = "";
       tree_ = com.google.protobuf.ByteString.EMPTY;
     }
 
@@ -3394,12 +3383,6 @@ public final class StreamService {
               break;
             }
             case 18: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              creator_ = s;
-              break;
-            }
-            case 26: {
 
               tree_ = input.readBytes();
               break;
@@ -3470,44 +3453,10 @@ public final class StreamService {
       }
     }
 
-    public static final int CREATOR_FIELD_NUMBER = 2;
-    private volatile java.lang.Object creator_;
-    /**
-     * <code>string creator = 2;</code>
-     */
-    public java.lang.String getCreator() {
-      java.lang.Object ref = creator_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        creator_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string creator = 2;</code>
-     */
-    public com.google.protobuf.ByteString
-        getCreatorBytes() {
-      java.lang.Object ref = creator_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        creator_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int TREE_FIELD_NUMBER = 3;
+    public static final int TREE_FIELD_NUMBER = 2;
     private com.google.protobuf.ByteString tree_;
     /**
-     * <code>bytes tree = 3;</code>
+     * <code>bytes tree = 2;</code>
      */
     public com.google.protobuf.ByteString getTree() {
       return tree_;
@@ -3530,11 +3479,8 @@ public final class StreamService {
       if (!getStreamIdBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, streamId_);
       }
-      if (!getCreatorBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, creator_);
-      }
       if (!tree_.isEmpty()) {
-        output.writeBytes(3, tree_);
+        output.writeBytes(2, tree_);
       }
       unknownFields.writeTo(output);
     }
@@ -3548,12 +3494,9 @@ public final class StreamService {
       if (!getStreamIdBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, streamId_);
       }
-      if (!getCreatorBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, creator_);
-      }
       if (!tree_.isEmpty()) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(3, tree_);
+          .computeBytesSize(2, tree_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -3573,8 +3516,6 @@ public final class StreamService {
       boolean result = true;
       result = result && getStreamId()
           .equals(other.getStreamId());
-      result = result && getCreator()
-          .equals(other.getCreator());
       result = result && getTree()
           .equals(other.getTree());
       result = result && unknownFields.equals(other.unknownFields);
@@ -3590,8 +3531,6 @@ public final class StreamService {
       hash = (19 * hash) + getDescriptor().hashCode();
       hash = (37 * hash) + STREAMID_FIELD_NUMBER;
       hash = (53 * hash) + getStreamId().hashCode();
-      hash = (37 * hash) + CREATOR_FIELD_NUMBER;
-      hash = (53 * hash) + getCreator().hashCode();
       hash = (37 * hash) + TREE_FIELD_NUMBER;
       hash = (53 * hash) + getTree().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
@@ -3734,8 +3673,6 @@ public final class StreamService {
         super.clear();
         streamId_ = "";
 
-        creator_ = "";
-
         tree_ = com.google.protobuf.ByteString.EMPTY;
 
         return this;
@@ -3765,7 +3702,6 @@ public final class StreamService {
       public sjtu.opennet.textilepb.StreamService.StreamPushInform buildPartial() {
         sjtu.opennet.textilepb.StreamService.StreamPushInform result = new sjtu.opennet.textilepb.StreamService.StreamPushInform(this);
         result.streamId_ = streamId_;
-        result.creator_ = creator_;
         result.tree_ = tree_;
         onBuilt();
         return result;
@@ -3817,10 +3753,6 @@ public final class StreamService {
         if (other == sjtu.opennet.textilepb.StreamService.StreamPushInform.getDefaultInstance()) return this;
         if (!other.getStreamId().isEmpty()) {
           streamId_ = other.streamId_;
-          onChanged();
-        }
-        if (!other.getCreator().isEmpty()) {
-          creator_ = other.creator_;
           onChanged();
         }
         if (other.getTree() != com.google.protobuf.ByteString.EMPTY) {
@@ -3924,84 +3856,15 @@ public final class StreamService {
         return this;
       }
 
-      private java.lang.Object creator_ = "";
-      /**
-       * <code>string creator = 2;</code>
-       */
-      public java.lang.String getCreator() {
-        java.lang.Object ref = creator_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          creator_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string creator = 2;</code>
-       */
-      public com.google.protobuf.ByteString
-          getCreatorBytes() {
-        java.lang.Object ref = creator_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          creator_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string creator = 2;</code>
-       */
-      public Builder setCreator(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        creator_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string creator = 2;</code>
-       */
-      public Builder clearCreator() {
-        
-        creator_ = getDefaultInstance().getCreator();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string creator = 2;</code>
-       */
-      public Builder setCreatorBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        creator_ = value;
-        onChanged();
-        return this;
-      }
-
       private com.google.protobuf.ByteString tree_ = com.google.protobuf.ByteString.EMPTY;
       /**
-       * <code>bytes tree = 3;</code>
+       * <code>bytes tree = 2;</code>
        */
       public com.google.protobuf.ByteString getTree() {
         return tree_;
       }
       /**
-       * <code>bytes tree = 3;</code>
+       * <code>bytes tree = 2;</code>
        */
       public Builder setTree(com.google.protobuf.ByteString value) {
         if (value == null) {
@@ -4013,7 +3876,7 @@ public final class StreamService {
         return this;
       }
       /**
-       * <code>bytes tree = 3;</code>
+       * <code>bytes tree = 2;</code>
        */
       public Builder clearTree() {
         
@@ -5309,12 +5172,11 @@ public final class StreamService {
       "mRequest\022\n\n\002id\030\001 \001(\t\022\021\n\tstreamMap\030\002 \001(\004\022" +
       "\022\n\nstartIndex\030\003 \001(\004\"$\n\023StreamRequestHand" +
       "le\022\r\n\005value\030\001 \001(\004\"\037\n\021StreamUnsubscribe\022\n" +
-      "\n\002id\030\001 \001(\t\"C\n\020StreamPushInform\022\020\n\010stream" +
-      "Id\030\001 \001(\t\022\017\n\007creator\030\002 \001(\t\022\014\n\004tree\030\003 \001(\014\"" +
-      "\"\n\024StreamUnsubscribeAck\022\n\n\002id\030\001 \001(\t\"1\n\013S" +
-      "treamClose\022\020\n\010streamId\030\001 \001(\t\022\020\n\010maxIndex" +
-      "\030\002 \001(\004B\034\n\026sjtu.opennet.textilepbZ\002pbb\006pr" +
-      "oto3"
+      "\n\002id\030\001 \001(\t\"2\n\020StreamPushInform\022\020\n\010stream" +
+      "Id\030\001 \001(\t\022\014\n\004tree\030\002 \001(\014\"\"\n\024StreamUnsubscr" +
+      "ibeAck\022\n\n\002id\030\001 \001(\t\"1\n\013StreamClose\022\020\n\010str" +
+      "eamId\030\001 \001(\t\022\020\n\010maxIndex\030\002 \001(\004B\034\n\026sjtu.op" +
+      "ennet.textilepbZ\002pbb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -5363,7 +5225,7 @@ public final class StreamService {
     internal_static_StreamPushInform_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_StreamPushInform_descriptor,
-        new java.lang.String[] { "StreamId", "Creator", "Tree", });
+        new java.lang.String[] { "StreamId", "Tree", });
     internal_static_StreamUnsubscribeAck_descriptor =
       getDescriptor().getMessageTypes().get(6);
     internal_static_StreamUnsubscribeAck_fieldAccessorTable = new
