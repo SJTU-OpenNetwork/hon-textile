@@ -621,7 +621,17 @@ func (h *StreamService) InformPush(peerId peer.ID, streamId string, tree map[str
 	}
 
 	// build envelope
-
+	inform := &pb.StreamPushInform{
+		StreamId:             streamId,
+		Tree:                 treeData,
+	}
+	env, err := h.service.NewEnvelope(pb.Message_STREAM_PUSH_INFORM, inform, nil, false)
+	if err != nil {
+		log.Error(err)
+		return err
+	}
+	// Send envelope use StreamService.service.SendMessage
+	err = h.service.SendMessage(nil, peerId.Pretty(), env)
 	return nil
 }
 

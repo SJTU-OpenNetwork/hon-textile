@@ -35,8 +35,7 @@ message StreamUnsubscribe {
 // "I'm going to push that stream to you."
 message StreamPushInform {
     string streamId = 1;
-    string creator = 2;
-    bytes tree = 3;
+    bytes tree = 2;
 }
 
 message StreamUnsubscribeAck {
