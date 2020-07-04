@@ -40,18 +40,22 @@ func (m *Mobile) StartStream_Text(thread string, stream []byte) error {
 	return nil
 }
 
-func (m *Mobile) FileAsStream_Text(thread string, sf []byte, file_type int) error {
+func (m *Mobile) FileAsStream_Text(thread string, sf []byte, file_type int) ([]byte, error) {
 	model := new(pb.StreamFile)
 	if err := proto.Unmarshal(sf, model); err != nil {
-		return err
+		return nil, err
 	}
-	err := m.node.FileAsStream_Text(thread, model, pb.StreamMeta_Type(file_type))
+	meta, err := m.node.FileAsStream_Text(thread, model, pb.StreamMeta_Type(file_type))
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	m.node.FlushCafes()
-	return nil
+	metaByte, err := proto.Marshal(meta)
+	if err != nil {
+		return nil, err
+	}
+	return metaByte, nil
 }
 
 func (m *Mobile) SubscribeStream(config string) error {

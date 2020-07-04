@@ -131,14 +131,14 @@ func (t *Textile) StartStream_Text(threadId string, config *pb.StreamMeta) error
 	return nil
 }
 
-func (t *Textile) FileAsStream_Text(threadId string, sf *pb.StreamFile, file_type pb.StreamMeta_Type) error {
+func (t *Textile) FileAsStream_Text(threadId string, sf *pb.StreamFile, file_type pb.StreamMeta_Type) (*pb.StreamMeta, error) {
 	defer fmt.Printf("textile.FileAsStream end success\n")
 	fmt.Printf("textile.FileAsStream\n")
 
 	// Check whether this stream already exists in datastore.
 	meta, err := t.stream.FileAsStream(sf, file_type)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	streamMeta := t.GetStreamMeta(meta.Id)
 	if streamMeta == nil {
@@ -151,20 +151,20 @@ func (t *Textile) FileAsStream_Text(threadId string, sf *pb.StreamFile, file_typ
 	fmt.Printf("Find thread for stream.\n")
 	thread := t.Thread(threadId)
 	if thread == nil {
-		return ErrThreadNotFound
+		return nil, ErrThreadNotFound
 	}
 
 	//fmt.Printf("Add streamMeta to thread.\n")
 	_, err = thread.AddStreamMeta_Text(meta)
 	if err != nil {
 		log.Error(err)
-		return err
+		return nil, err
 	}
 	if !t.config.IsShadow {
 		err := t.shadow.PushStreamMeta(meta, true)
 		if err != nil {
 			log.Error(err)
-			return err
+			return nil, err
 		}
 	}
 
@@ -177,7 +177,7 @@ func (t *Textile) FileAsStream_Text(threadId string, sf *pb.StreamFile, file_typ
 		streamTree, err := t.constructStreamTree(threadId, workerCnt)
 		if err != nil {
 			log.Error(err)
-			return err
+			return nil, err
 		}
 		toPeers := streamTree[t.node.Identity.Pretty()]
 
@@ -191,7 +191,7 @@ func (t *Textile) FileAsStream_Text(threadId string, sf *pb.StreamFile, file_typ
 			}
 		}
 	}
-	return nil
+	return meta, nil
 }
 
 
