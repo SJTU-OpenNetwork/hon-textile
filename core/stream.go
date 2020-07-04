@@ -142,7 +142,7 @@ func (t *Textile) FileAsStream_Text(threadId string, sf *pb.StreamFile, file_typ
 	}
 	streamMeta := t.GetStreamMeta(meta.Id)
 	if streamMeta == nil {
-		err := t.datastore.StreamMetas().Add(meta);if err != nil {return err}
+		err := t.datastore.StreamMetas().Add(meta);if err != nil {return nil, err}
 	} else {
 		log.Warningf("start an old stream")
 	}
