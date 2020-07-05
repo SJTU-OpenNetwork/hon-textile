@@ -339,22 +339,7 @@ func (h *StreamService) handleRootBlk(pid peer.ID, blk *pb.StreamBlock) error {
 			}
 		}
 	}
-    pdate, _ := ptypes.TimestampProto(time.Now())
-	note := &pb.Notification{
-		Id:          ksuid.New().String(),
-		Date:        pdate,
-		Actor:       pid.Pretty(),
-		Subject:     blk.Streamid,
-		SubjectDesc: blk.Description,
-		Block:       blk.Id,
-		Target:      "",
-        Type:        pb.Notification_STREAM_FILE,
-		Body:        body,
-	}
-    err := h.sendNotification(note)
-	if err != nil {
-		return err
-	}
+
 
     if blk.Id == "" {
     	log.Debugf("[%s] Stream %s", TAG_STREAM_COMPLETE, blk.Streamid)
@@ -373,6 +358,22 @@ func (h *StreamService) handleRootBlk(pid peer.ID, blk *pb.StreamBlock) error {
 		// h.providers.RemoveStream(blk.Streamid)
 		h.providedStreams.remove(blk.Streamid)
     }
+	pdate, _ := ptypes.TimestampProto(time.Now())
+	note := &pb.Notification{
+		Id:          ksuid.New().String(),
+		Date:        pdate,
+		Actor:       pid.Pretty(),
+		Subject:     blk.Streamid,
+		SubjectDesc: blk.Description,
+		Block:       blk.Id,
+		Target:      "",
+		Type:        pb.Notification_STREAM_FILE,
+		Body:        body,
+	}
+	err := h.sendNotification(note)
+	if err != nil {
+		return err
+	}
     return nil
 }
 

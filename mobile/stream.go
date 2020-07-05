@@ -112,3 +112,7 @@ func (m *Mobile) SetMaxWorkers(n int) {
 func (m *Mobile) GetMaxWorkers() int {
 	return m.node.GetMaxWorkers()
 }
+
+func (m *Mobile) IsStreamFinished() bool {
+	return m.node.IsStreamFinished()
+}

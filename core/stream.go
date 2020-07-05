@@ -526,3 +526,7 @@ func (t *Textile) GetMaxWorkers() int {
 func (t *Textile) StreamGetParent(sid string) string {
     return t.stream.GetParent(sid)
 }
+
+func (t *Textile) IsStreamFinished() bool {
+	return t.datastore.StreamBlocks()
+}
