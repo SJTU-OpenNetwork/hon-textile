@@ -38,7 +38,7 @@ import (
 const streamServiceProtocol = protocol.ID("/textile/stream/1.0.0")
 //const maxWorkers = 2
 const defaultMaxWorkers = 2
-const defaultMaxTaskWorkers = 8
+const defaultMaxTaskWorkers = 1
 var maxWorkers int
 var maxTaskWorkers int
 var log = logging.Logger("stream")
