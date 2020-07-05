@@ -283,8 +283,8 @@ func (h *StreamService) handleStreamBlockList(env *pb.Envelope, pid peer.ID) (*p
             Description: string(blk.Description),
         }
         //fmt.Printf("StreamService: Received stream %s; index %d; cid %s\n", blk.StreamID, blk.Index, cid.String())
-        recorder.Hlog.Add(fmt.Sprintf("[%s] Block %s, Stream %s, Index %d, From %s, Size %d", TAG_BLOCKRECEIVE, cidStr, blk.StreamID, blk.Index, pid.Pretty(), size))
-        log.Debugf("[%s] Block %s, Stream %s, Index %d, From %s, Size %d", TAG_BLOCKRECEIVE, cidStr, blk.StreamID, blk.Index, pid.Pretty(), size)
+        recorder.Hlog.Add(fmt.Sprintf("[%s] Block %s, Stream %s, Index %d, From %s, Size %d, IsRoot %v", TAG_BLOCKRECEIVE, cidStr, blk.StreamID, blk.Index, pid.Pretty(), size, model.IsRoot))
+        log.Debugf("[%s] Block %s, Stream %s, Index %d, From %s, Size %d, IsRoot %v", TAG_BLOCKRECEIVE, cidStr, blk.StreamID, blk.Index, pid.Pretty(), size, model.IsRoot)
         err = h.datastore.StreamBlocks().Add(model)
         if err != nil {
             return nil, err
@@ -322,6 +322,8 @@ func (h *StreamService) handleStreamBlockList(env *pb.Envelope, pid peer.ID) (*p
 //		- Send Notification to application
 //		- Update number of blocks in streammeta datastore
 func (h *StreamService) handleRootBlk(pid peer.ID, blk *pb.StreamBlock) error {
+	log.Debug("Handle root block ", blk.Id)
+	recorder.Hlog.Add("Handle root block"+blk.Id)
 	var body string
 	if blk.Id != "" {
 		meta := h.datastore.StreamMetas().Get(blk.Streamid)
@@ -406,10 +408,10 @@ func (h* StreamService) handleStreamPushInform(env *pb.Envelope, peer peer.ID) (
 		return nil, err
 	}
 	if response.Value != 1 {
-		log.Errorf("Request %s denied by %s", meta.Id, peer.Pretty())
+		log.Debugf("Request %s denied by %s", meta.Id, peer.Pretty())
 		recorder.Hlog.Add("Request "+ meta.Id +" denied by "+peer.Pretty())
 	} else {
-		log.Errorf("Request %s accepted by %s", meta.Id, peer.Pretty())
+		log.Debugf("Request %s accepted by %s", meta.Id, peer.Pretty())
 		h.RequestAccepted(peer.Pretty(), request)
 		// =========== Add Meta to DB ===============
 		err = h.datastore.StreamMetas().Add(meta)

@@ -35,6 +35,7 @@ func (s *providedStream) addBlock(b *pb.StreamBlock) []*pb.StreamBlock {
 	s.hLock.Lock()
 	defer s.hLock.Unlock()
 	res := make([]*pb.StreamBlock, 0)
+
 	heap.Push(&s.blocks, &streamBlock{block: b})
 	for !s.blocks.IsEmpty() && s.blocks.Top().(*streamBlock).block.Index == s.nextIndex {
 		s.nextIndex = s.nextIndex + 1
