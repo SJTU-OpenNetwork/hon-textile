@@ -418,6 +418,16 @@ func (t* Textile) ReSubscribeStream(id string) error {
     }
 }
 
+func (t* Textile) IsStreamFinished(id string) bool{
+    meta := t.GetStreamMeta(id)
+    bc := t.datastore.StreamBlocks().BlockCount(id)
+    if meta!= nil && bc == meta.Nblocks && bc != 0 {
+        return true
+    }
+    return false
+}
+
+
 // SubscribeStream calls SearchStream and handleProviderSearchResult to
 // subscribe a stream, and shadow node will also subscribe the same stream.
 func (t* Textile) SubscribeStream(id string) error {
