@@ -113,6 +113,6 @@ func (m *Mobile) GetMaxWorkers() int {
 	return m.node.GetMaxWorkers()
 }
 
-func (m *Mobile) IsStreamFinished() bool {
-	return m.node.IsStreamFinished()
+func (m *Mobile) IsStreamFinished(streamId string) bool {
+	return m.node.IsStreamFinished(streamId)
 }
