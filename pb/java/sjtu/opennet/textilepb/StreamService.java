@@ -3316,14 +3316,17 @@ public final class StreamService {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>string streamId = 1;</code>
+     * <code>.StreamMeta meta = 1;</code>
      */
-    java.lang.String getStreamId();
+    boolean hasMeta();
     /**
-     * <code>string streamId = 1;</code>
+     * <code>.StreamMeta meta = 1;</code>
      */
-    com.google.protobuf.ByteString
-        getStreamIdBytes();
+    sjtu.opennet.textilepb.Model.StreamMeta getMeta();
+    /**
+     * <code>.StreamMeta meta = 1;</code>
+     */
+    sjtu.opennet.textilepb.Model.StreamMetaOrBuilder getMetaOrBuilder();
 
     /**
      * <code>bytes tree = 2;</code>
@@ -3348,7 +3351,6 @@ public final class StreamService {
       super(builder);
     }
     private StreamPushInform() {
-      streamId_ = "";
       tree_ = com.google.protobuf.ByteString.EMPTY;
     }
 
@@ -3377,9 +3379,16 @@ public final class StreamService {
               done = true;
               break;
             case 10: {
-              java.lang.String s = input.readStringRequireUtf8();
+              sjtu.opennet.textilepb.Model.StreamMeta.Builder subBuilder = null;
+              if (meta_ != null) {
+                subBuilder = meta_.toBuilder();
+              }
+              meta_ = input.readMessage(sjtu.opennet.textilepb.Model.StreamMeta.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(meta_);
+                meta_ = subBuilder.buildPartial();
+              }
 
-              streamId_ = s;
               break;
             }
             case 18: {
@@ -3419,38 +3428,25 @@ public final class StreamService {
               sjtu.opennet.textilepb.StreamService.StreamPushInform.class, sjtu.opennet.textilepb.StreamService.StreamPushInform.Builder.class);
     }
 
-    public static final int STREAMID_FIELD_NUMBER = 1;
-    private volatile java.lang.Object streamId_;
+    public static final int META_FIELD_NUMBER = 1;
+    private sjtu.opennet.textilepb.Model.StreamMeta meta_;
     /**
-     * <code>string streamId = 1;</code>
+     * <code>.StreamMeta meta = 1;</code>
      */
-    public java.lang.String getStreamId() {
-      java.lang.Object ref = streamId_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        streamId_ = s;
-        return s;
-      }
+    public boolean hasMeta() {
+      return meta_ != null;
     }
     /**
-     * <code>string streamId = 1;</code>
+     * <code>.StreamMeta meta = 1;</code>
      */
-    public com.google.protobuf.ByteString
-        getStreamIdBytes() {
-      java.lang.Object ref = streamId_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        streamId_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
+    public sjtu.opennet.textilepb.Model.StreamMeta getMeta() {
+      return meta_ == null ? sjtu.opennet.textilepb.Model.StreamMeta.getDefaultInstance() : meta_;
+    }
+    /**
+     * <code>.StreamMeta meta = 1;</code>
+     */
+    public sjtu.opennet.textilepb.Model.StreamMetaOrBuilder getMetaOrBuilder() {
+      return getMeta();
     }
 
     public static final int TREE_FIELD_NUMBER = 2;
@@ -3476,8 +3472,8 @@ public final class StreamService {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (!getStreamIdBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, streamId_);
+      if (meta_ != null) {
+        output.writeMessage(1, getMeta());
       }
       if (!tree_.isEmpty()) {
         output.writeBytes(2, tree_);
@@ -3491,8 +3487,9 @@ public final class StreamService {
       if (size != -1) return size;
 
       size = 0;
-      if (!getStreamIdBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, streamId_);
+      if (meta_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, getMeta());
       }
       if (!tree_.isEmpty()) {
         size += com.google.protobuf.CodedOutputStream
@@ -3514,8 +3511,11 @@ public final class StreamService {
       sjtu.opennet.textilepb.StreamService.StreamPushInform other = (sjtu.opennet.textilepb.StreamService.StreamPushInform) obj;
 
       boolean result = true;
-      result = result && getStreamId()
-          .equals(other.getStreamId());
+      result = result && (hasMeta() == other.hasMeta());
+      if (hasMeta()) {
+        result = result && getMeta()
+            .equals(other.getMeta());
+      }
       result = result && getTree()
           .equals(other.getTree());
       result = result && unknownFields.equals(other.unknownFields);
@@ -3529,8 +3529,10 @@ public final class StreamService {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + STREAMID_FIELD_NUMBER;
-      hash = (53 * hash) + getStreamId().hashCode();
+      if (hasMeta()) {
+        hash = (37 * hash) + META_FIELD_NUMBER;
+        hash = (53 * hash) + getMeta().hashCode();
+      }
       hash = (37 * hash) + TREE_FIELD_NUMBER;
       hash = (53 * hash) + getTree().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
@@ -3671,8 +3673,12 @@ public final class StreamService {
       @java.lang.Override
       public Builder clear() {
         super.clear();
-        streamId_ = "";
-
+        if (metaBuilder_ == null) {
+          meta_ = null;
+        } else {
+          meta_ = null;
+          metaBuilder_ = null;
+        }
         tree_ = com.google.protobuf.ByteString.EMPTY;
 
         return this;
@@ -3701,7 +3707,11 @@ public final class StreamService {
       @java.lang.Override
       public sjtu.opennet.textilepb.StreamService.StreamPushInform buildPartial() {
         sjtu.opennet.textilepb.StreamService.StreamPushInform result = new sjtu.opennet.textilepb.StreamService.StreamPushInform(this);
-        result.streamId_ = streamId_;
+        if (metaBuilder_ == null) {
+          result.meta_ = meta_;
+        } else {
+          result.meta_ = metaBuilder_.build();
+        }
         result.tree_ = tree_;
         onBuilt();
         return result;
@@ -3751,9 +3761,8 @@ public final class StreamService {
 
       public Builder mergeFrom(sjtu.opennet.textilepb.StreamService.StreamPushInform other) {
         if (other == sjtu.opennet.textilepb.StreamService.StreamPushInform.getDefaultInstance()) return this;
-        if (!other.getStreamId().isEmpty()) {
-          streamId_ = other.streamId_;
-          onChanged();
+        if (other.hasMeta()) {
+          mergeMeta(other.getMeta());
         }
         if (other.getTree() != com.google.protobuf.ByteString.EMPTY) {
           setTree(other.getTree());
@@ -3787,73 +3796,121 @@ public final class StreamService {
         return this;
       }
 
-      private java.lang.Object streamId_ = "";
+      private sjtu.opennet.textilepb.Model.StreamMeta meta_ = null;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          sjtu.opennet.textilepb.Model.StreamMeta, sjtu.opennet.textilepb.Model.StreamMeta.Builder, sjtu.opennet.textilepb.Model.StreamMetaOrBuilder> metaBuilder_;
       /**
-       * <code>string streamId = 1;</code>
+       * <code>.StreamMeta meta = 1;</code>
        */
-      public java.lang.String getStreamId() {
-        java.lang.Object ref = streamId_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          streamId_ = s;
-          return s;
+      public boolean hasMeta() {
+        return metaBuilder_ != null || meta_ != null;
+      }
+      /**
+       * <code>.StreamMeta meta = 1;</code>
+       */
+      public sjtu.opennet.textilepb.Model.StreamMeta getMeta() {
+        if (metaBuilder_ == null) {
+          return meta_ == null ? sjtu.opennet.textilepb.Model.StreamMeta.getDefaultInstance() : meta_;
         } else {
-          return (java.lang.String) ref;
+          return metaBuilder_.getMessage();
         }
       }
       /**
-       * <code>string streamId = 1;</code>
+       * <code>.StreamMeta meta = 1;</code>
        */
-      public com.google.protobuf.ByteString
-          getStreamIdBytes() {
-        java.lang.Object ref = streamId_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          streamId_ = b;
-          return b;
+      public Builder setMeta(sjtu.opennet.textilepb.Model.StreamMeta value) {
+        if (metaBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          meta_ = value;
+          onChanged();
         } else {
-          return (com.google.protobuf.ByteString) ref;
+          metaBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.StreamMeta meta = 1;</code>
+       */
+      public Builder setMeta(
+          sjtu.opennet.textilepb.Model.StreamMeta.Builder builderForValue) {
+        if (metaBuilder_ == null) {
+          meta_ = builderForValue.build();
+          onChanged();
+        } else {
+          metaBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.StreamMeta meta = 1;</code>
+       */
+      public Builder mergeMeta(sjtu.opennet.textilepb.Model.StreamMeta value) {
+        if (metaBuilder_ == null) {
+          if (meta_ != null) {
+            meta_ =
+              sjtu.opennet.textilepb.Model.StreamMeta.newBuilder(meta_).mergeFrom(value).buildPartial();
+          } else {
+            meta_ = value;
+          }
+          onChanged();
+        } else {
+          metaBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.StreamMeta meta = 1;</code>
+       */
+      public Builder clearMeta() {
+        if (metaBuilder_ == null) {
+          meta_ = null;
+          onChanged();
+        } else {
+          meta_ = null;
+          metaBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.StreamMeta meta = 1;</code>
+       */
+      public sjtu.opennet.textilepb.Model.StreamMeta.Builder getMetaBuilder() {
+        
+        onChanged();
+        return getMetaFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.StreamMeta meta = 1;</code>
+       */
+      public sjtu.opennet.textilepb.Model.StreamMetaOrBuilder getMetaOrBuilder() {
+        if (metaBuilder_ != null) {
+          return metaBuilder_.getMessageOrBuilder();
+        } else {
+          return meta_ == null ?
+              sjtu.opennet.textilepb.Model.StreamMeta.getDefaultInstance() : meta_;
         }
       }
       /**
-       * <code>string streamId = 1;</code>
+       * <code>.StreamMeta meta = 1;</code>
        */
-      public Builder setStreamId(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        streamId_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string streamId = 1;</code>
-       */
-      public Builder clearStreamId() {
-        
-        streamId_ = getDefaultInstance().getStreamId();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string streamId = 1;</code>
-       */
-      public Builder setStreamIdBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        streamId_ = value;
-        onChanged();
-        return this;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          sjtu.opennet.textilepb.Model.StreamMeta, sjtu.opennet.textilepb.Model.StreamMeta.Builder, sjtu.opennet.textilepb.Model.StreamMetaOrBuilder> 
+          getMetaFieldBuilder() {
+        if (metaBuilder_ == null) {
+          metaBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              sjtu.opennet.textilepb.Model.StreamMeta, sjtu.opennet.textilepb.Model.StreamMeta.Builder, sjtu.opennet.textilepb.Model.StreamMetaOrBuilder>(
+                  getMeta(),
+                  getParentForChildren(),
+                  isClean());
+          meta_ = null;
+        }
+        return metaBuilder_;
       }
 
       private com.google.protobuf.ByteString tree_ = com.google.protobuf.ByteString.EMPTY;
@@ -5164,19 +5221,20 @@ public final class StreamService {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\024stream_service.proto\"h\n\022StreamBlockCon" +
-      "tent\022\020\n\010streamID\030\001 \001(\t\022\r\n\005index\030\002 \001(\004\022\014\n" +
-      "\004data\030\003 \001(\014\022\016\n\006isRoot\030\004 \001(\010\022\023\n\013descripti" +
-      "on\030\005 \001(\014\"=\n\026StreamBlockContentList\022#\n\006bl" +
-      "ocks\030\001 \003(\0132\023.StreamBlockContent\"B\n\rStrea" +
-      "mRequest\022\n\n\002id\030\001 \001(\t\022\021\n\tstreamMap\030\002 \001(\004\022" +
-      "\022\n\nstartIndex\030\003 \001(\004\"$\n\023StreamRequestHand" +
-      "le\022\r\n\005value\030\001 \001(\004\"\037\n\021StreamUnsubscribe\022\n" +
-      "\n\002id\030\001 \001(\t\"2\n\020StreamPushInform\022\020\n\010stream" +
-      "Id\030\001 \001(\t\022\014\n\004tree\030\002 \001(\014\"\"\n\024StreamUnsubscr" +
-      "ibeAck\022\n\n\002id\030\001 \001(\t\"1\n\013StreamClose\022\020\n\010str" +
-      "eamId\030\001 \001(\t\022\020\n\010maxIndex\030\002 \001(\004B\034\n\026sjtu.op" +
-      "ennet.textilepbZ\002pbb\006proto3"
+      "\n\024stream_service.proto\032\013model.proto\"h\n\022S" +
+      "treamBlockContent\022\020\n\010streamID\030\001 \001(\t\022\r\n\005i" +
+      "ndex\030\002 \001(\004\022\014\n\004data\030\003 \001(\014\022\016\n\006isRoot\030\004 \001(\010" +
+      "\022\023\n\013description\030\005 \001(\014\"=\n\026StreamBlockCont" +
+      "entList\022#\n\006blocks\030\001 \003(\0132\023.StreamBlockCon" +
+      "tent\"B\n\rStreamRequest\022\n\n\002id\030\001 \001(\t\022\021\n\tstr" +
+      "eamMap\030\002 \001(\004\022\022\n\nstartIndex\030\003 \001(\004\"$\n\023Stre" +
+      "amRequestHandle\022\r\n\005value\030\001 \001(\004\"\037\n\021Stream" +
+      "Unsubscribe\022\n\n\002id\030\001 \001(\t\";\n\020StreamPushInf" +
+      "orm\022\031\n\004meta\030\001 \001(\0132\013.StreamMeta\022\014\n\004tree\030\002" +
+      " \001(\014\"\"\n\024StreamUnsubscribeAck\022\n\n\002id\030\001 \001(\t" +
+      "\"1\n\013StreamClose\022\020\n\010streamId\030\001 \001(\t\022\020\n\010max" +
+      "Index\030\002 \001(\004B\034\n\026sjtu.opennet.textilepbZ\002p" +
+      "bb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -5189,6 +5247,7 @@ public final class StreamService {
     com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
+          sjtu.opennet.textilepb.Model.getDescriptor(),
         }, assigner);
     internal_static_StreamBlockContent_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -5225,7 +5284,7 @@ public final class StreamService {
     internal_static_StreamPushInform_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_StreamPushInform_descriptor,
-        new java.lang.String[] { "StreamId", "Tree", });
+        new java.lang.String[] { "Meta", "Tree", });
     internal_static_StreamUnsubscribeAck_descriptor =
       getDescriptor().getMessageTypes().get(6);
     internal_static_StreamUnsubscribeAck_fieldAccessorTable = new
@@ -5238,6 +5297,7 @@ public final class StreamService {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_StreamClose_descriptor,
         new java.lang.String[] { "StreamId", "MaxIndex", });
+    sjtu.opennet.textilepb.Model.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)
