@@ -386,15 +386,17 @@ func (h* StreamService) handleStreamPushInform(env *pb.Envelope, peer peer.ID) (
 		log.Error("Fail to unmarshal inform from envelop.")
 		return nil, err
 	}
+
+	meta := inform.Meta
 	request := &pb.StreamRequest{
-		Id:                   inform.StreamId,
+		Id:                   meta.Id,
 		StreamMap:            1,
 		StartIndex:           0,
 	}
 	responseEnv, err := h.SendStreamRequest(peer.Pretty(), request)
 	if err != nil {
-		log.Errorf("Error when send request %s to %s", inform.StreamId, peer.Pretty())
-		recorder.Hlog.Add("Error when send request "+inform.StreamId+" to "+peer.Pretty())
+		log.Errorf("Error when send request %s to %s", meta.Id, peer.Pretty())
+		recorder.Hlog.Add("Error when send request "+meta.Id+" to "+peer.Pretty())
 		return nil, err
 	}
 	response := new(pb.StreamRequestHandle)
@@ -404,13 +406,24 @@ func (h* StreamService) handleStreamPushInform(env *pb.Envelope, peer peer.ID) (
 		return nil, err
 	}
 	if response.Value != 1 {
-		log.Errorf("Request %s denied by %s", inform.StreamId, peer.Pretty())
-		recorder.Hlog.Add("Request "+inform.StreamId +" denied by "+peer.Pretty())
+		log.Errorf("Request %s denied by %s", meta.Id, peer.Pretty())
+		recorder.Hlog.Add("Request "+ meta.Id +" denied by "+peer.Pretty())
 	} else {
-		log.Errorf("Request %s accepted by %s", inform.StreamId, peer.Pretty())
+		log.Errorf("Request %s accepted by %s", meta.Id, peer.Pretty())
 		h.RequestAccepted(peer.Pretty(), request)
+		// =========== Add Meta to DB ===============
+		err = h.datastore.StreamMetas().Add(meta)
+		if err != nil {
+			log.Error("Error when add inform meta to db: ", err)
+			recorder.Hlog.Add("Error when add inform meta to db: "+err.Error())
+		}
 		// =========== Forward Inform to Other Peer ===========
-
+		err = h.informForward(inform)
+		if err != nil {
+			log.Error("Error when forward inform: ", err)
+			recorder.Hlog.Add("Error when forward inform: "+err.Error())
+			return nil, err
+		}
 	}
 	return nil, nil
 }
@@ -653,9 +666,9 @@ func (h *StreamService) Loggable() map[string]interface{}{
 }
 
 // ====================== For Push ======================
-func (h *StreamService) InformPush(peerId string, streamId string, tree map[string][]string) error {
-	log.Debug("Inform push ", streamId, " to ", peerId)
-	recorder.Hlog.Add("Inform push " + streamId + " to " + peerId)
+func (h *StreamService) InformPush(peerId string, streamMeta *pb.StreamMeta, tree map[string][]string) error {
+	log.Debug("Inform push ", streamMeta.Id, " to ", peerId)
+	recorder.Hlog.Add("Inform push " + streamMeta.Id + " to " + peerId)
 	treeData, err := json.Marshal(tree)
 	if err != nil {
 		log.Error("Fail to marshal tree to bytes.")
@@ -665,7 +678,7 @@ func (h *StreamService) InformPush(peerId string, streamId string, tree map[stri
 
 	// build envelope
 	inform := &pb.StreamPushInform{
-		StreamId:             streamId,
+		Meta: streamMeta,
 		Tree:                 treeData,
 	}
 	env, err := h.service.NewEnvelope(pb.Message_STREAM_PUSH_INFORM, inform, nil, false)

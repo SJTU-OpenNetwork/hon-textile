@@ -184,7 +184,7 @@ func (t *Textile) FileAsStream_Text(threadId string, sf *pb.StreamFile, file_typ
 		for _, pid := range toPeers{
 			/* TODO: push stream data (maybe and the streamTree) to peers in toPeers */
 			log.Debug(pid)
-			err = t.stream.InformPush(pid, meta.Id, streamTree)
+			err = t.stream.InformPush(pid, meta, streamTree)
 			if err != nil {
 				log.Error("Fail to push stream inform to ", pid)
 				recorder.Hlog.Add("Fail to push stream inform to " + pid)
