@@ -1,6 +1,9 @@
 package core
 
-import "github.com/SJTU-OpenNetwork/hon-textile/pb"
+import (
+	"github.com/SJTU-OpenNetwork/hon-textile/pb"
+)
+
 
 func (t *Textile) StartRecord(key string) error {
 	return t.record.StartRecord(key)
