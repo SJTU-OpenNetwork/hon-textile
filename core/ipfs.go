@@ -13,6 +13,7 @@ import (
 // Moved from mobile/ipfs.go
 // So that desktop daemon can send notification back too.
 func (t *Textile) DataAtStreamFile(feedpb *pb.FeedStreamMeta, cid []byte) ([]byte, string, error) {
+	recorder.Hlog.Add("Call Data At "+feedpb.Streammeta.Id)
 	if !t.started {
 		return nil, "", ErrStopped
 	}
@@ -49,6 +50,6 @@ func (t *Textile) DataAtStreamFile(feedpb *pb.FeedStreamMeta, cid []byte) ([]byt
 		Read:    false, // Do not send to notification channel directly
 	}
 	recorder.RecordCh <- record2
-
+	recorder.Hlog.Add("Done Data At "+feedpb.Streammeta.Id)
 	return data, media, nil
 }
