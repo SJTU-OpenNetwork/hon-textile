@@ -7,6 +7,7 @@ import (
 	"github.com/SJTU-OpenNetwork/hon-textile/recorder"
 	"github.com/SJTU-OpenNetwork/hon-textile/util"
 	"github.com/libp2p/go-libp2p-core/peer"
+	"time"
 )
 
 const maxBlockFetchNum = 1
@@ -110,6 +111,8 @@ func (sw *streamWorker) start() error {
 					if blks != nil && len(blks) > 0 {
 						//fmt.Printf("stream/streamWorker.go start(): send %d blks for stream %s to %s start\n", len(blks), sw.stream.Id, sw.pid.Pretty())
 						fblks := sw.filterBlocks(blks)
+
+						/*
 						sTask := &sendTask{
 							worker:    sw,
 							blocks:    fblks,
@@ -121,7 +124,8 @@ func (sw *streamWorker) start() error {
 							log.Error(err)
 							recorder.Hlog.Add(fmt.Sprintf("Error when add send task: %v", err))
 						}
-						/*
+						 */
+
 						err := sw.blockSender(sw.pid, fblks)
 						if err != nil {
 							log.Errorf("Stream %s %v", sw.stream.Id, err)
@@ -131,7 +135,7 @@ func (sw *streamWorker) start() error {
                             sw.notice()	// Resend block if the connection is still there
                             break
 						}
-						 */
+
 						sw.currentIndex = sw.currentIndex + uint64(len(blks))
 						if len(blks) >= maxBlockFetchNum {
 							// Notice the worker again if there maybe more blocks can be fetched.
