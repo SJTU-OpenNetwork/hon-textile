@@ -1,19 +1,20 @@
 package core
 
 import (
+	"encoding/json"
 	"fmt"
-	"sort"
 	"github.com/SJTU-OpenNetwork/hon-textile/recorder"
 	"github.com/SJTU-OpenNetwork/hon-textile/stream"
+	"sort"
 	"time"
 	//	"github.com/SJTU-OpenNetwork/hon-textile/stream"
 	"github.com/ipfs/go-cid"
 
 	"github.com/SJTU-OpenNetwork/hon-textile/broadcast"
-	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 	"github.com/SJTU-OpenNetwork/hon-textile/ipfs"
-	peer "github.com/libp2p/go-libp2p-core/peer"
+	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 	"github.com/golang/protobuf/proto"
+	"github.com/libp2p/go-libp2p-core/peer"
 	//stream "github.com/SJTU-OpenNetwork/go-stream"
 	"github.com/golang/protobuf/ptypes"
 	"github.com/golang/protobuf/ptypes/any"
@@ -179,6 +180,12 @@ func (t *Textile) FileAsStream_Text(threadId string, sf *pb.StreamFile, file_typ
 			log.Error(err)
 			return nil, err
 		}
+
+		// Output the tree to log and Hlog
+		treeBytes, err := json.MarshalIndent(streamTree, "\n", "  ")
+		log.Debug("Push tree: \n", treeBytes)
+		recorder.Hlog.Add("Push tree: \n" + string(treeBytes))
+
 		toPeers := streamTree[t.node.Identity.Pretty()]
 
 		for _, pid := range toPeers{
