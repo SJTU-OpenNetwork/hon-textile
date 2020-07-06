@@ -64,6 +64,7 @@ type sendTask struct {
 }
 
 func (t *sendTask) Execute() {
+	//log.Debugf("Execute send task for to ", t.worker.pid.Pretty())
 	err := t.worker.blockSender(t.worker.pid, t.blocks)
 	if err != nil {
 		recorder.Hlog.Add(fmt.Sprintf("Send error for %d blocks. %v", len(t.blocks), err))
@@ -103,6 +104,8 @@ func (sw *streamWorker) start() error {
 				case <-sw.workSignal:
 					// Do sending
 					// Block if there is no signal
+					log.Debug("Worker wake up.")
+					recorder.Hlog.Add("Worker wake up.")
 					blks, _ := sw.blockFetcher(sw.req.Id, sw.currentIndex, maxBlockFetchNum)
 					if blks != nil && len(blks) > 0 {
 						//fmt.Printf("stream/streamWorker.go start(): send %d blks for stream %s to %s start\n", len(blks), sw.stream.Id, sw.pid.Pretty())
@@ -138,6 +141,8 @@ func (sw *streamWorker) start() error {
                             sw.cancel()
                         }
 					}
+					log.Debug("Worker sleep.")
+					recorder.Hlog.Add("Worker sleep.")
 
 				case <- sw.ctx.Done():
 					// Note that break will break select only.

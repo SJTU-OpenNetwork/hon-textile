@@ -589,19 +589,21 @@ func (h *StreamService) SendStreamBlocks(peerId peer.ID, blks []*pb.StreamBlock)
 	}
 	// Send envelope use StreamService.service.SendMessage
     err = h.service.SendMessage(nil, peerId.Pretty(), env)
+	var ind1, ind2 uint64
+	var streamId1 string
+	if len(blks) > 0 {
+		ind1 = blks[0].Index
+		ind2 = blks[len(blks)-1].Index
+		streamId1 = blks[0].Streamid
+	}
     if err != nil {
-    	var ind1, ind2 uint64
-    	var streamId1 string
-    	if len(blks) > 0 {
-    		ind1 = blks[0].Index
-    		ind2 = blks[len(blks)-1].Index
-    		streamId1 = blks[0].Streamid
-		}
 		log.Debugf("[%s] Stream %s, Index %v - %v, To %s", TAG_BLOCKSEND_FAILED, streamId1, ind1, ind2, peerId.Pretty())
     	recorder.Hlog.Add(fmt.Sprintf("[%s] Stream %s, Index %v - %v, To %s", TAG_BLOCKSEND_FAILED, streamId1, ind1, ind2, peerId.Pretty()))
         log.Error(err)
     	return err
     }
+	log.Debugf("[%s] Stream %s, Index %v - %v, To %s", TAG_BLOCKSEND_COMPLETE, streamId1, ind1, ind2, peerId.Pretty())
+	recorder.Hlog.Add(fmt.Sprintf("[%s] Stream %s, Index %v - %v, To %s", TAG_BLOCKSEND_COMPLETE, streamId1, ind1, ind2, peerId.Pretty()))
 	return nil
 }
 
