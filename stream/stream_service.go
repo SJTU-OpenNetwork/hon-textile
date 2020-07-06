@@ -256,12 +256,25 @@ func (h *StreamService) handleStreamBlock(env *pb.Envelope, pid peer.ID) (*pb.En
 // handleStreamBlock receives a STREAM_BLOCK_LIST message
 func (h *StreamService) handleStreamBlockList(env *pb.Envelope, pid peer.ID) (*pb.Envelope, error) {
 	//fmt.Printf("StreamService: New stream blk list receive from %s\n", pid.Pretty())
+
     streams := make(map[string]int)
     blks := new(pb.StreamBlockContentList)
     err := ptypes.UnmarshalAny(env.Message.Payload, blks)
     if err != nil {
         return nil, err
     }
+
+    // ========== log
+    if len(blks.Blocks) > 0 {
+    	tblk := blks.Blocks[0]
+    	log.Debugf("Start Handle Receive: Index %d, Stream %s, From %s", tblk.Index, tblk.StreamID, pid.Pretty())
+    	recorder.Hlog.Add(fmt.Sprintf("Start Handle Receive: Index %d, Stream %s, From %s", tblk.Index, tblk.StreamID, pid.Pretty()))
+    	defer func() {
+			log.Debugf("End Handle Receive: Index %d, Stream %s, From %s", tblk.Index, tblk.StreamID, pid.Pretty())
+			recorder.Hlog.Add(fmt.Sprintf("End Handle Receive: Index %d, Stream %s, From %s", tblk.Index, tblk.StreamID, pid.Pretty()))
+		}()
+	}
+    // ==========
 
     for _, blk := range blks.Blocks {
         size := len(blk.Data)
@@ -360,6 +373,7 @@ func (h *StreamService) handleRootBlk(pid peer.ID, blk *pb.StreamBlock) error {
 		// h.providers.RemoveStream(blk.Streamid)
 		h.providedStreams.remove(blk.Streamid)
     }
+
 	pdate, _ := ptypes.TimestampProto(time.Now())
 	note := &pb.Notification{
 		Id:          ksuid.New().String(),
@@ -378,6 +392,7 @@ func (h *StreamService) handleRootBlk(pid peer.ID, blk *pb.StreamBlock) error {
 		recorder.Hlog.Add("Error when send notification to application: " + err.Error())
 		return err
 	}
+
     return nil
 }
 

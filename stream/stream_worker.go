@@ -91,7 +91,7 @@ func (sw *streamWorker) cancel(){
 }
 
 func (sw *streamWorker) start() error {
-	log.Debugf("[%s] Stream %s, To %s", TAG_WORKERSTART, sw.stream.Id, sw.pid.Pretty())
+	//log.Debugf("[%s] Stream %s, To %s", TAG_WORKERSTART, sw.stream.Id, sw.pid.Pretty())
 	//fmt.Printf("stream/streamWorker.go start(): Worker for stream %s to %s start\n", sw.stream.Id, sw.pid.Pretty())
 	// Start the block sending routine
 	sw.currentIndex = sw.req.StartIndex
@@ -105,8 +105,8 @@ func (sw *streamWorker) start() error {
 				case <-sw.workSignal:
 					// Do sending
 					// Block if there is no signal
-					log.Debug("Worker wake up.")
-					recorder.Hlog.Add("Worker wake up.")
+					//log.Debug("Worker wake up.")
+					//recorder.Hlog.Add("Worker wake up.")
 					blks, _ := sw.blockFetcher(sw.req.Id, sw.currentIndex, maxBlockFetchNum)
 					if blks != nil && len(blks) > 0 {
 						//fmt.Printf("stream/streamWorker.go start(): send %d blks for stream %s to %s start\n", len(blks), sw.stream.Id, sw.pid.Pretty())
@@ -145,13 +145,13 @@ func (sw *streamWorker) start() error {
                             sw.cancel()
                         }
 					}
-					log.Debug("Worker sleep.")
-					recorder.Hlog.Add("Worker sleep.")
+					//log.Debug("Worker sleep.")
+					//recorder.Hlog.Add("Worker sleep.")
 
 				case <- sw.ctx.Done():
 					// Note that break will break select only.
                     // log.Debug("worker task complete, call cancel")
-					log.Debugf("[%s] Stream %s, To %s", TAG_WORKEREND, sw.stream.Id, sw.pid.Pretty())
+					// log.Debugf("[%s] Stream %s, To %s", TAG_WORKEREND, sw.stream.Id, sw.pid.Pretty())
                     sw.end = true
 					return
 
