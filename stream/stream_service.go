@@ -374,6 +374,8 @@ func (h *StreamService) handleRootBlk(pid peer.ID, blk *pb.StreamBlock) error {
 	}
 	err := h.sendNotification(note)
 	if err != nil {
+		log.Error("Error when send notification to application: ", err)
+		recorder.Hlog.Add("Error when send notification to application: " + err.Error())
 		return err
 	}
     return nil

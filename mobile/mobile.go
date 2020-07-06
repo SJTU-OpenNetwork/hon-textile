@@ -2,6 +2,7 @@ package mobile
 
 import (
     "fmt"
+	"github.com/SJTU-OpenNetwork/hon-textile/recorder"
 	"github.com/golang/protobuf/proto"
 	logging "github.com/ipfs/go-log"
 	mh "github.com/multiformats/go-multihash"
@@ -278,8 +279,10 @@ func (m *Mobile) Start() error {
                         fmt.Print("NOT OK!")
 						return
 					}
-                    fmt.Print(note.Body)
-                    fmt.Print(note.Block)
+                    //fmt.Print(note.Body)
+                    //fmt.Print(note.Block)
+					recorder.Hlog.Add("Mobile: Notification " + note.Type.String())
+					log.Debug("Mobile: Notification ", note.Type.String())
 					m.notify(pb.MobileEventType_NOTIFICATION, note)
 				}
 			}
