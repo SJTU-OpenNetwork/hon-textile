@@ -8,7 +8,6 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	honlog "github.com/SJTU-OpenNetwork/hon-textile/hon-log"
 	"github.com/SJTU-OpenNetwork/hon-textile/recorder"
 	"github.com/SJTU-OpenNetwork/hon-textile/util"
 	"github.com/ipfs/interface-go-ipfs-core/path"
@@ -19,8 +18,8 @@ import (
 	"github.com/golang/protobuf/ptypes"
 	"github.com/ipfs/go-ipfs/core"
 	ipld "github.com/ipfs/go-ipld-format"
-	peer "github.com/libp2p/go-libp2p-core/peer"
-	protocol "github.com/libp2p/go-libp2p-core/protocol"
+	"github.com/libp2p/go-libp2p-core/peer"
+	"github.com/libp2p/go-libp2p-core/protocol"
 	//	mh "github.com/multiformats/go-multihash"
 	//	"github.com/segmentio/ksuid"
 	//	"github.com/SJTU-OpenNetwork/hon-textile/broadcast"
@@ -431,16 +430,16 @@ func (h* StreamService) handleStreamPushInform(env *pb.Envelope, peer peer.ID) (
 			recorder.Hlog.Add("Error when add inform meta to db: "+err.Error())
 		}
 		// =========== Forward Inform to Other Peer ===========
-		go func() {
-			honlog.Hlog.Add("[WAIT_TO_FORWARD_INFORM] "+inform.Meta.Id)
-			time.Sleep(10*time.Second)
-			honlog.Hlog.Add("[FORWARD_INFORM] "+inform.Meta.Id)
+		//go func() {
+		//	honlog.Hlog.Add("[WAIT_TO_FORWARD_INFORM] "+inform.Meta.Id)
+		//	time.Sleep(10*time.Second)
+		//	honlog.Hlog.Add("[FORWARD_INFORM] "+inform.Meta.Id)
 			err = h.informForward(inform)
 			if err != nil {
 				log.Error("Error when forward inform: ", err)
 				recorder.Hlog.Add("Error when forward inform: "+err.Error())
 			}
-		}()
+		//}()
 
 	}
 	return nil, nil
