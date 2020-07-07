@@ -8,6 +8,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	honlog "github.com/SJTU-OpenNetwork/hon-textile/hon-log"
 	"github.com/SJTU-OpenNetwork/hon-textile/recorder"
 	"github.com/SJTU-OpenNetwork/hon-textile/util"
 	"github.com/ipfs/interface-go-ipfs-core/path"
@@ -430,12 +431,17 @@ func (h* StreamService) handleStreamPushInform(env *pb.Envelope, peer peer.ID) (
 			recorder.Hlog.Add("Error when add inform meta to db: "+err.Error())
 		}
 		// =========== Forward Inform to Other Peer ===========
-		err = h.informForward(inform)
-		if err != nil {
-			log.Error("Error when forward inform: ", err)
-			recorder.Hlog.Add("Error when forward inform: "+err.Error())
-			return nil, err
-		}
+		go func() {
+			honlog.Hlog.Add("[WAIT_TO_FORWARD_INFORM] "+inform.Meta.Id)
+			time.Sleep(10*time.Second)
+			honlog.Hlog.Add("[FORWARD_INFORM] "+inform.Meta.Id)
+			err = h.informForward(inform)
+			if err != nil {
+				log.Error("Error when forward inform: ", err)
+				recorder.Hlog.Add("Error when forward inform: "+err.Error())
+			}
+		}()
+
 	}
 	return nil, nil
 }
