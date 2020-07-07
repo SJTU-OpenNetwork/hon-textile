@@ -7,9 +7,6 @@ import (
 	"encoding/binary"
 	"fmt"
 	honlog "github.com/SJTU-OpenNetwork/hon-textile/hon-log"
-	"github.com/SJTU-OpenNetwork/hon-textile/recorder"
-
-	//"github.com/SJTU-OpenNetwork/hon-textile/recorder"
 	"io"
 	"math/rand"
 	"net/http"
