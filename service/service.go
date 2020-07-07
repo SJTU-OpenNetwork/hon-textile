@@ -388,9 +388,9 @@ func (srv *Service) handleNewStream(s inet.Stream) {
 func (srv *Service) handleNewMessage(s inet.Stream) bool {
 	pro := string(s.Protocol())
 	log.Debug("[SERVICE_NEW_MESSAGE]", " ", pro)
-	honlog.Hlog.Add("[SERVICE_DONE_MESSAGE]" + " " + pro)
+	honlog.Hlog.Add("[SERVICE_NEW_MESSAGE]" + " " + pro)
 	defer func () {
-		log.Debug("[SERVICE_NEW_MESSAGE]", " ", pro)
+		log.Debug("[SERVICE_DONE_MESSAGE]", " ", pro)
 		honlog.Hlog.Add("[SERVICE_DONE_MESSAGE]" + " " + pro)
 	}()
 	ctx := srv.Node().Context()
