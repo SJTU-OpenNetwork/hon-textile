@@ -387,11 +387,12 @@ func (srv *Service) handleNewStream(s inet.Stream) {
 }
 
 func (srv *Service) handleNewMessage(s inet.Stream) bool {
-	log.Debug(stream.TAG_SERVICE_NEWMESSAGE, " ", s.Protocol())
-	recorder.Hlog.Add(stream.TAG_SERVICE_NEWMESSAGE + " " + string(s.Protocol()))
+	pro := protocol.ConvertToStrings([]protocol.ID{s.Protocol()})[0]
+	log.Debug(stream.TAG_SERVICE_NEWMESSAGE, " ", pro)
+	recorder.Hlog.Add(stream.TAG_SERVICE_NEWMESSAGE + " " + pro)
 	defer func () {
-		log.Debug(stream.TAG_SERVICE_DONEMESSAGE, " ", s.Protocol())
-		recorder.Hlog.Add(stream.TAG_SERVICE_DONEMESSAGE + " " + string(s.Protocol()))
+		log.Debug(stream.TAG_SERVICE_DONEMESSAGE, " ", pro)
+		recorder.Hlog.Add(stream.TAG_SERVICE_DONEMESSAGE + " " + pro)
 	}()
 	ctx := srv.Node().Context()
 
