@@ -7,13 +7,17 @@ import (
 	"encoding/binary"
 	"fmt"
 	"github.com/SJTU-OpenNetwork/hon-textile/recorder"
-	"github.com/SJTU-OpenNetwork/hon-textile/stream"
 	"io"
 	"math/rand"
 	"net/http"
 	"sync"
 	"time"
 
+	"github.com/SJTU-OpenNetwork/hon-textile/crypto"
+	"github.com/SJTU-OpenNetwork/hon-textile/ipfs"
+	"github.com/SJTU-OpenNetwork/hon-textile/keypair"
+	"github.com/SJTU-OpenNetwork/hon-textile/pb"
+	"github.com/SJTU-OpenNetwork/hon-textile/util"
 	ggio "github.com/gogo/protobuf/io"
 	"github.com/golang/protobuf/proto"
 	"github.com/golang/protobuf/ptypes"
@@ -22,14 +26,9 @@ import (
 	logging "github.com/ipfs/go-log"
 	iface "github.com/ipfs/interface-go-ipfs-core"
 	inet "github.com/libp2p/go-libp2p-core/network"
-	peer "github.com/libp2p/go-libp2p-core/peer"
-	protocol "github.com/libp2p/go-libp2p-core/protocol"
+	"github.com/libp2p/go-libp2p-core/peer"
+	"github.com/libp2p/go-libp2p-core/protocol"
 	"github.com/libp2p/go-msgio"
-	"github.com/SJTU-OpenNetwork/hon-textile/crypto"
-	"github.com/SJTU-OpenNetwork/hon-textile/ipfs"
-	"github.com/SJTU-OpenNetwork/hon-textile/keypair"
-	"github.com/SJTU-OpenNetwork/hon-textile/pb"
-	"github.com/SJTU-OpenNetwork/hon-textile/util"
 )
 
 var log = logging.Logger("tex-service")
@@ -387,12 +386,12 @@ func (srv *Service) handleNewStream(s inet.Stream) {
 }
 
 func (srv *Service) handleNewMessage(s inet.Stream) bool {
-	pro := protocol.ConvertToStrings([]protocol.ID{s.Protocol()})[0]
-	log.Debug(stream.TAG_SERVICE_NEWMESSAGE, " ", pro)
-	recorder.Hlog.Add(stream.TAG_SERVICE_NEWMESSAGE + " " + pro)
+	pro := string(s.Protocol())
+	log.Debug("[SERVICE_NEW_MESSAGE]", " ", pro)
+	recorder.Hlog.Add("[SERVICE_DONE_MESSAGE]" + " " + pro)
 	defer func () {
-		log.Debug(stream.TAG_SERVICE_DONEMESSAGE, " ", pro)
-		recorder.Hlog.Add(stream.TAG_SERVICE_DONEMESSAGE + " " + pro)
+		log.Debug("[SERVICE_NEW_MESSAGE]", " ", pro)
+		recorder.Hlog.Add("[SERVICE_DONE_MESSAGE]" + " " + pro)
 	}()
 	ctx := srv.Node().Context()
 
