@@ -132,7 +132,12 @@ func (h *StreamService) Ping(pid peer.ID) (service.PeerStatus, error) {
 
 // Handle is called by the underlying service handler method
 func (h *StreamService) Handle(env *pb.Envelope, pid peer.ID) (*pb.Envelope, error) {
-	fmt.Printf("core/stream_service.go Handler: New message receive from %s.\n", pid.Pretty())
+	log.Debug(TAG_STREAM_STARTHANDLE, " ", env.Message.Type.String())
+	recorder.Hlog.Add(TAG_STREAM_STARTHANDLE + " " + env.Message.Type.String())
+	defer func () {
+		log.Debug(TAG_STREAM_DONEHANDLE, " ", env.Message.Type.String())
+		recorder.Hlog.Add(TAG_STREAM_DONEHANDLE + " " + env.Message.Type.String())
+	}()
 	switch env.Message.Type {
 	case pb.Message_STREAM_BLOCK:
 		return h.handleStreamBlock(env, pid)
@@ -263,18 +268,6 @@ func (h *StreamService) handleStreamBlockList(env *pb.Envelope, pid peer.ID) (*p
     if err != nil {
         return nil, err
     }
-
-    // ========== log
-    if len(blks.Blocks) > 0 {
-    	tblk := blks.Blocks[0]
-    	log.Debugf("Start Handle Receive: Index %d, Stream %s, From %s", tblk.Index, tblk.StreamID, pid.Pretty())
-    	recorder.Hlog.Add(fmt.Sprintf("Start Handle Receive: Index %d, Stream %s, From %s", tblk.Index, tblk.StreamID, pid.Pretty()))
-    	defer func() {
-			log.Debugf("End Handle Receive: Index %d, Stream %s, From %s", tblk.Index, tblk.StreamID, pid.Pretty())
-			recorder.Hlog.Add(fmt.Sprintf("End Handle Receive: Index %d, Stream %s, From %s", tblk.Index, tblk.StreamID, pid.Pretty()))
-		}()
-	}
-    // ==========
 
     for _, blk := range blks.Blocks {
         size := len(blk.Data)

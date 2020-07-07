@@ -6,6 +6,8 @@ import (
 	"context"
 	"encoding/binary"
 	"fmt"
+	"github.com/SJTU-OpenNetwork/hon-textile/recorder"
+	"github.com/SJTU-OpenNetwork/hon-textile/stream"
 	"io"
 	"math/rand"
 	"net/http"
@@ -385,6 +387,12 @@ func (srv *Service) handleNewStream(s inet.Stream) {
 }
 
 func (srv *Service) handleNewMessage(s inet.Stream) bool {
+	log.Debug(stream.TAG_SERVICE_NEWMESSAGE, " ", s.Protocol())
+	recorder.Hlog.Add(stream.TAG_SERVICE_NEWMESSAGE + " " + string(s.Protocol()))
+	defer func () {
+		log.Debug(stream.TAG_SERVICE_DONEMESSAGE, " ", s.Protocol())
+		recorder.Hlog.Add(stream.TAG_SERVICE_DONEMESSAGE + " " + string(s.Protocol()))
+	}()
 	ctx := srv.Node().Context()
 
 	r := msgio.NewVarintReaderSize(s, inet.MessageSizeMax)
