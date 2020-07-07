@@ -51,7 +51,7 @@ import (
 // streamServiceProtocol is the current protocol tag
 const recordServiceProtocol = protocol.ID("/textile/record/1.0.0")
 var log = logging.Logger("record")
-var Hlog = honlog.NewLogger()
+var Hlog = honlog.Hlog
 var RecordCh = make(chan *pb.Notification, 10)
 var Online = false
 

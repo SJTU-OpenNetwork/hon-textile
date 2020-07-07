@@ -6,7 +6,10 @@ import (
 	"context"
 	"encoding/binary"
 	"fmt"
+	honlog "github.com/SJTU-OpenNetwork/hon-textile/hon-log"
 	"github.com/SJTU-OpenNetwork/hon-textile/recorder"
+
+	//"github.com/SJTU-OpenNetwork/hon-textile/recorder"
 	"io"
 	"math/rand"
 	"net/http"
@@ -388,10 +391,10 @@ func (srv *Service) handleNewStream(s inet.Stream) {
 func (srv *Service) handleNewMessage(s inet.Stream) bool {
 	pro := string(s.Protocol())
 	log.Debug("[SERVICE_NEW_MESSAGE]", " ", pro)
-	recorder.Hlog.Add("[SERVICE_DONE_MESSAGE]" + " " + pro)
+	honlog.Hlog.Add("[SERVICE_DONE_MESSAGE]" + " " + pro)
 	defer func () {
 		log.Debug("[SERVICE_NEW_MESSAGE]", " ", pro)
-		recorder.Hlog.Add("[SERVICE_DONE_MESSAGE]" + " " + pro)
+		honlog.Hlog.Add("[SERVICE_DONE_MESSAGE]" + " " + pro)
 	}()
 	ctx := srv.Node().Context()
 
