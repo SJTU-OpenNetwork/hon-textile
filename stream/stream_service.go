@@ -321,6 +321,12 @@ func (h *StreamService) handleStreamBlockList(env *pb.Envelope, pid peer.ID) (*p
 	    	log.Error(err)
 		}
     }
+
+    //============
+
+    time.Sleep(10*time.Second)
+
+    //============
     return nil, nil
 }
 
