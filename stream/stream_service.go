@@ -8,6 +8,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	honlog "github.com/SJTU-OpenNetwork/hon-textile/hon-log"
 	"github.com/SJTU-OpenNetwork/hon-textile/recorder"
 	"github.com/SJTU-OpenNetwork/hon-textile/util"
 	"github.com/ipfs/interface-go-ipfs-core/path"
@@ -72,7 +73,10 @@ type StreamService struct {
 
     // currently using a map to store stream tree parent
 	treeParent map[string] string
-	
+
+	//
+	recvBuf chan *recvTask
+
 	// config
 	mode StreamMode
 }
@@ -95,6 +99,7 @@ func NewStreamService(
         providedStreams: &ProvidedStreams{},
 		taskQueue: util.NewTaskQueue(ctx, defaultMaxTaskWorkers),
 		mode: StreamMode_PUSH,
+		recvBuf: make(chan *recvTask, 100),
 	}
     handler.treeParent = make(map[string] string)
 	handler.activeStreams = newActiveStreamStore(ctx, datastore, node, handler.activeWorkers.newFileAdd)
@@ -118,6 +123,7 @@ func (h *StreamService) Protocol() protocol.ID {
 // Start begins online services
 func (h *StreamService) Start() {
 	maxWorkers = defaultMaxWorkers
+	h.handleRecvTask()
     h.online = true
 	h.service.Start()
     // TODO:
@@ -256,77 +262,165 @@ func (h *StreamService) handleStreamBlock(env *pb.Envelope, pid peer.ID) (*pb.En
     err = h.datastore.StreamBlocks().Add(model)
     return nil, err
 }
+type recvTask struct {
+	env *pb.Envelope
+	pid peer.ID
+}
+
+func (h *StreamService) handleRecvTask(){
+	for {
+		select {
+			case task, ok := <-h.recvBuf:
+				if !ok {
+					log.Error("Read from recvBuf failed.")
+					honlog.Hlog.Add("Read from recvBuf failed.")
+					continue
+				}
+				env := task.env
+				pid := task.pid
+				streams := make(map[string]int)
+				blks := new(pb.StreamBlockContentList)
+				err := ptypes.UnmarshalAny(env.Message.Payload, blks)
+				if err != nil {
+					log.Error("Error when unmarshal payload from env: ", err)
+					honlog.Hlog.Add("Error when unmarshal payload from env: " + err.Error())
+					continue
+				}
+
+				for _, blk := range blks.Blocks {
+					size := len(blk.Data)
+					cidStr := ""
+					if size != 0 {
+						stat, err := ipfs.PutBlock(h.service.Node(), bytes.NewReader(blk.Data))
+						if err != nil {
+							//return nil, err
+							log.Error("Error when put block to ipfs: ", err)
+							honlog.Hlog.Add("Error when put block to ipfs: " + err.Error())
+							continue
+						}
+						cid := stat.Path().Cid()
+						cidStr = cid.String()
+					}
+					model := &pb.StreamBlock{
+						Id:          cidStr,
+						Streamid:    blk.StreamID,
+						Index:       blk.Index,
+						Size:        int32(size),
+						IsRoot:      blk.IsRoot,
+						Description: string(blk.Description),
+					}
+					//fmt.Printf("StreamService: Received stream %s; index %d; cid %s\n", blk.StreamID, blk.Index, cid.String())
+					recorder.Hlog.Add(fmt.Sprintf("[%s] Block %s, Stream %s, Index %d, From %s, Size %d, IsRoot %v", TAG_BLOCKRECEIVE, cidStr, blk.StreamID, blk.Index, pid.Pretty(), size, model.IsRoot))
+					log.Debugf("[%s] Block %s, Stream %s, Index %d, From %s, Size %d, IsRoot %v", TAG_BLOCKRECEIVE, cidStr, blk.StreamID, blk.Index, pid.Pretty(), size, model.IsRoot)
+					err = h.datastore.StreamBlocks().Add(model)
+					if err != nil {
+						log.Error("Error when store block to datastore: ", err)
+						honlog.Hlog.Add("Error when store block to datastore: " + err.Error())
+					}
+
+					/*
+					 * TODO:
+					 *		There is still a bug when block is received before meta.
+					 *		In that case, getOrCreate() would create a providedStream with startIndex 0.
+					 *		It is ok if the startIndex IS EXACTLY 0.
+					 *		Otherwise providedStream may think there is blocks unreceived before root block.
+					 *		See implementation of providedStream.addBlock() for details.
+					 */
+					pStream := h.providedStreams.getOrCreate(blk.StreamID, pid.Pretty(), 0)
+					rootBlocks := pStream.addBlock(model)
+					for _, b := range rootBlocks {
+						err = h.handleRootBlk(pid, b)
+						if err != nil {
+							log.Errorf("Error when handle rootblock: %v", err)
+							recorder.Hlog.Add(fmt.Sprintf("Error when handle rootblock: %v", err))
+						}
+					}
+					streams[blk.StreamID] = 1
+				}
+				for id := range streams {
+					err := h.activeWorkers.newFileAdd(id)
+					if err != nil {
+						log.Error(err)
+					}
+				}
+			case <-h.ctx.Done():
+				err := h.ctx.Err()
+				log.Error("Stream context end: ", err)
+				honlog.Hlog.Add("Stream context end: " + err.Error())
+				return
+		}
+
+	}
+}
 
 
 // handleStreamBlock receives a STREAM_BLOCK_LIST message
 func (h *StreamService) handleStreamBlockList(env *pb.Envelope, pid peer.ID) (*pb.Envelope, error) {
+	h.recvBuf <- &recvTask{
+		env: env,
+		pid: pid,
+	}
 	//fmt.Printf("StreamService: New stream blk list receive from %s\n", pid.Pretty())
+	/*
+	streams := make(map[string]int)
+	blks := new(pb.StreamBlockContentList)
+	err := ptypes.UnmarshalAny(env.Message.Payload, blks)
+	if err != nil {
+		return nil, err
+	}
 
-    streams := make(map[string]int)
-    blks := new(pb.StreamBlockContentList)
-    err := ptypes.UnmarshalAny(env.Message.Payload, blks)
-    if err != nil {
-        return nil, err
-    }
+	for _, blk := range blks.Blocks {
+		size := len(blk.Data)
+		cidStr := ""
+		if size != 0 {
+			stat, err := ipfs.PutBlock(h.service.Node(), bytes.NewReader(blk.Data))
+			if err != nil {
+				return nil, err
+			}
+			cid := stat.Path().Cid()
+			cidStr = cid.String()
+		}
+		model := &pb.StreamBlock{
+			Id:          cidStr,
+			Streamid:    blk.StreamID,
+			Index:       blk.Index,
+			Size:        int32(size),
+			IsRoot:      blk.IsRoot,
+			Description: string(blk.Description),
+		}
+		//fmt.Printf("StreamService: Received stream %s; index %d; cid %s\n", blk.StreamID, blk.Index, cid.String())
+		recorder.Hlog.Add(fmt.Sprintf("[%s] Block %s, Stream %s, Index %d, From %s, Size %d, IsRoot %v", TAG_BLOCKRECEIVE, cidStr, blk.StreamID, blk.Index, pid.Pretty(), size, model.IsRoot))
+		log.Debugf("[%s] Block %s, Stream %s, Index %d, From %s, Size %d, IsRoot %v", TAG_BLOCKRECEIVE, cidStr, blk.StreamID, blk.Index, pid.Pretty(), size, model.IsRoot)
+		err = h.datastore.StreamBlocks().Add(model)
+		if err != nil {
+			return nil, err
+		}
 
-    for _, blk := range blks.Blocks {
-        size := len(blk.Data)
-        cidStr := ""
-        if size != 0 {
-            stat, err := ipfs.PutBlock(h.service.Node(), bytes.NewReader(blk.Data))
-            if err != nil {
-                return nil, err
-            }
-            cid := stat.Path().Cid()
-            cidStr = cid.String()
-        }
-        model := &pb.StreamBlock {
-            Id: cidStr,
-            Streamid: blk.StreamID,
-            Index: blk.Index,
-            Size: int32(size),
-            IsRoot: blk.IsRoot,
-            Description: string(blk.Description),
-        }
-        //fmt.Printf("StreamService: Received stream %s; index %d; cid %s\n", blk.StreamID, blk.Index, cid.String())
-        recorder.Hlog.Add(fmt.Sprintf("[%s] Block %s, Stream %s, Index %d, From %s, Size %d, IsRoot %v", TAG_BLOCKRECEIVE, cidStr, blk.StreamID, blk.Index, pid.Pretty(), size, model.IsRoot))
-        log.Debugf("[%s] Block %s, Stream %s, Index %d, From %s, Size %d, IsRoot %v", TAG_BLOCKRECEIVE, cidStr, blk.StreamID, blk.Index, pid.Pretty(), size, model.IsRoot)
-        err = h.datastore.StreamBlocks().Add(model)
-        if err != nil {
-            return nil, err
-        }
 
-        /*
-         * TODO:
-         *		There is still a bug when block is received before meta.
-         *		In that case, getOrCreate() would create a providedStream with startIndex 0.
-         *		It is ok if the startIndex IS EXACTLY 0.
-         *		Otherwise providedStream may think there is blocks unreceived before root block.
-         *		See implementation of providedStream.addBlock() for details.
-         */
+		 * TODO:
+		 *		There is still a bug when block is received before meta.
+		 *		In that case, getOrCreate() would create a providedStream with startIndex 0.
+		 *		It is ok if the startIndex IS EXACTLY 0.
+		 *		Otherwise providedStream may think there is blocks unreceived before root block.
+		 *		See implementation of providedStream.addBlock() for details.
 		pStream := h.providedStreams.getOrCreate(blk.StreamID, pid.Pretty(), 0)
-        rootBlocks := pStream.addBlock(model)
-        for _, b := range rootBlocks {
-        	err = h.handleRootBlk(pid, b)
-        	if err != nil {
-        		log.Errorf("Error when handle rootblock: %v", err)
-        		recorder.Hlog.Add(fmt.Sprintf("Error when handle rootblock: %v", err))
+		rootBlocks := pStream.addBlock(model)
+		for _, b := range rootBlocks {
+			err = h.handleRootBlk(pid, b)
+			if err != nil {
+				log.Errorf("Error when handle rootblock: %v", err)
+				recorder.Hlog.Add(fmt.Sprintf("Error when handle rootblock: %v", err))
 			}
 		}
-        streams[blk.StreamID] = 1
-    }
-    for id := range streams {
-	    err := h.activeWorkers.newFileAdd(id)
-	    if err != nil {
-	    	log.Error(err)
+		streams[blk.StreamID] = 1
+	}
+	for id := range streams {
+		err := h.activeWorkers.newFileAdd(id)
+		if err != nil {
+			log.Error(err)
 		}
-    }
-
-    //============
-
-    time.Sleep(10*time.Second)
-
-    //============
+	}
+	*/
     return nil, nil
 }
 
