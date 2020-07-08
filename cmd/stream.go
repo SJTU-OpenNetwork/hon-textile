@@ -67,3 +67,16 @@ func ListStream() error {
 	output(res)
 	return nil
 }
+
+func StreamFromFile(size int, thread string) error {
+	cmdOpt := map[string] string{
+		"size": strconv.Itoa(size),
+		"thread":thread,
+	}
+	res, err := executeStringCmd(http.MethodPost, "stream/fromFile", params{opts:cmdOpt})
+	if err != nil {
+		return err
+	}
+	output(res)
+	return nil
+}

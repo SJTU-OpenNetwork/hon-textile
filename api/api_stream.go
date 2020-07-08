@@ -1,12 +1,15 @@
 package api
 
 import (
+	"encoding/json"
 	"fmt"
 	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 	"github.com/gin-gonic/gin"
 	"io/ioutil"
+	"math/rand"
 	"net/http"
 	"strconv"
+	"time"
 )
 
 
@@ -146,4 +149,55 @@ func (a *Api) streamClose(g *gin.Context) {
 		g.String(http.StatusBadRequest, err.Error())
 		return
 	}
+}
+
+func (a *Api) streamFromFile(g *gin.Context) {
+	opts, err := a.readOpts(g)
+	if err != nil {
+		a.abort500(g, err)
+		return
+	}
+	size, ok1 := opts["size"]
+	//path, ok2 := opts["path"]
+	thread, ok3 := opts["thread"]
+	if !(ok1 &&  ok3) {
+		g.String(http.StatusBadRequest, "missing parameter")
+		return
+	}
+	// build pb
+	sizeI, err := strconv.Atoi(size)
+	if err != nil {
+		log.Error("Error when unmarshal size: ", err)
+		g.String(http.StatusBadRequest, err.Error())
+		return
+	}
+	data := make([]byte, sizeI * 1024)
+	if sizeI > 0 {
+		log.Debugf("Generate test file with size %d KB", size)
+		rand.Seed(time.Now().UnixNano())
+		rand.Read(data)
+	} else {
+		log.Error("Size is less than 0.")
+		g.String(http.StatusBadRequest, "Size is less than 0.")
+		return
+	}
+	desc, err := json.Marshal(map[string]string {
+		"fileName": fmt.Sprintf("test_%d", sizeI),
+	})
+	if err != nil {
+		log.Error("Error when marshal fileName: ", err)
+		g.String(http.StatusBadRequest, err.Error())
+		return
+	}
+	sf := &pb.StreamFile{
+		Data:                 data,
+		Description:          desc,
+	}
+	meta, err := a.Node.FileAsStream_Text(thread, sf, pb.StreamMeta_Type(0))
+	if err != nil {
+		log.Error("Error when add stream: ", err)
+		g.String(http.StatusBadRequest, err.Error())
+		return
+	}
+	pbJSON(g, http.StatusOK, meta)
 }

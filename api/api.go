@@ -365,6 +365,7 @@ func (a *Api) Run() {
 			stream.GET("/workerstat", a.streamWorkerStat)
 			stream.POST("/close", a.streamClose)
 			stream.GET("/list", a.lsStream)
+			stream.POST("/fromFile", a.streamFromFile)
 			//profile.POST("/avatar", a.setAvatar)
 		}
 

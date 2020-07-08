@@ -1009,6 +1009,16 @@ The response contains a base58 encoded version of the random bytes token.`).Alia
 		return ListStream()
 	}
 
+	streamFromFileCmd := streamCmd.Command("fromFile", "Create a stream from file.")
+	streamFromFileSize := streamFromFileCmd.Arg("size", "Size of test file. If given, a test file with <size> would be created. " +
+		"And <path> would be ignored.").Required().Int()
+	//streamFromFilePath := streamFromFileCmd.Arg("path", "File path. It would be ignored if ").Required().String()
+	streamFromFileThread := streamFromFileCmd.Arg("thread", "Thread id. Fot now, the stream has to be added to some thread.").Required().String()
+	cmds[streamFromFileCmd.FullCommand()] = func () error {
+		return StreamFromFile(*streamFromFileSize, *streamFromFileThread)
+	}
+
+
 	// ================================
 	// For Shadow
 	shadowCmd :=  appCmd.Command("shadow", "Shadow corresponding command.")
