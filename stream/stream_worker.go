@@ -11,7 +11,7 @@ import (
 )
 
 const maxBlockFetchNum = 1
-const maxBlockSize = 1024 * 1024 * 2
+const maxBlockSize = 512 * 1024
 // StreamWorker is used do blocksending task.
 // Each streamrequest will create a independent worker.
 // Note:
