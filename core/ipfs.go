@@ -3,6 +3,7 @@ package core
 import (
 	"bytes"
 	"encoding/json"
+	honlog "github.com/SJTU-OpenNetwork/hon-textile/hon-log"
 	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 	"github.com/golang/protobuf/ptypes"
 	"strconv"
@@ -34,7 +35,11 @@ func (t *Textile) DataAtStreamFile(feedpb *pb.FeedStreamMeta, cid []byte) ([]byt
 	}
 
 	sid := feedpb.Streammeta.Id
-	duration, _ := t.stream.RemoveDuration(sid)
+	duration, ok := t.stream.RemoveDuration(sid)
+	if !ok {
+		log.Error("No duration info for ", sid)
+		honlog.Hlog.Add("No duration info for "+sid)
+	}
 	block_map := map[string] string {
 		"ID": sid,
 		"Parent": t.StreamGetParent(sid),

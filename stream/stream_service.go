@@ -470,10 +470,15 @@ func (h *StreamService) handleRootBlk(pid peer.ID, blk *pb.StreamBlock) error {
         // Remove provider here
 		// h.providers.RemoveStream(blk.Streamid)
 		endStream := h.providedStreams.remove(blk.Streamid)
-		recvDuration := time.Since(endStream.startTime)
-		h.streamDurationLock.Lock()
-		h.streamDuration[endStream.streamId] = recvDuration.Milliseconds()
-		h.streamDurationLock.Unlock()
+		if endStream == nil {
+			log.Error("No providedStream ", blk.Streamid)
+			honlog.Hlog.Add("No providedStream" + blk.Streamid)
+		} else {
+			recvDuration := time.Since(endStream.startTime)
+			h.streamDurationLock.Lock()
+			h.streamDuration[endStream.streamId] = recvDuration.Milliseconds()
+			h.streamDurationLock.Unlock()
+		}
     }
 
 	pdate, _ := ptypes.TimestampProto(time.Now())
