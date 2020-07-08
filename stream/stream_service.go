@@ -123,7 +123,7 @@ func (h *StreamService) Protocol() protocol.ID {
 // Start begins online services
 func (h *StreamService) Start() {
 	maxWorkers = defaultMaxWorkers
-	h.handleRecvTask()
+	go h.handleRecvTask()
     h.online = true
 	h.service.Start()
     // TODO:
