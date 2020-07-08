@@ -42,7 +42,10 @@ func (s StreamBlockDB) Add(streamblock *pb.StreamBlock) error {
 	return tx.Commit()
 }
 
-
+/**
+  * BUG EXIST!
+  * It cannot guarantee the returned blocks are continous and start from startindex
+  */
 func (s StreamBlockDB) ListByStream(streamid string, startindex int, maxnum int) []*pb.StreamBlock {
 	s.lock.Lock()
 	defer s.lock.Unlock()

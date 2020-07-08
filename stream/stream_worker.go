@@ -119,6 +119,7 @@ func (sw *streamWorker) start() error {
 							blks = append(blks, tblk)
 							currentSize += int(tblk.Size)
 						}
+                        sw.currentIndex = sw.currentIndex + uint64(len(tblks))
 					}
 					//blks, _ := sw.blockFetcher(sw.req.Id, sw.currentIndex, maxBlockFetchNum)
 					if blks != nil && len(blks) > 0 {
@@ -149,7 +150,6 @@ func (sw *streamWorker) start() error {
                             break
 						}
 
-						sw.currentIndex = sw.currentIndex + uint64(len(blks))
 						if len(blks) >= maxBlockFetchNum {
 							// Notice the worker again if there maybe more blocks can be fetched.
 							sw.notice()
