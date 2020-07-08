@@ -5,6 +5,8 @@ import (
 	"encoding/json"
 	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 	"github.com/golang/protobuf/ptypes"
+	"strconv"
+
 	//"github.com/golang/protobuf/proto"
 	ipld "github.com/ipfs/go-ipld-format"
 	"github.com/SJTU-OpenNetwork/hon-textile/recorder"
@@ -32,9 +34,11 @@ func (t *Textile) DataAtStreamFile(feedpb *pb.FeedStreamMeta, cid []byte) ([]byt
 	}
 
 	sid := feedpb.Streammeta.Id
+	duration, _ := t.stream.RemoveDuration(sid)
 	block_map := map[string] string {
 		"ID": sid,
 		"Parent": t.StreamGetParent(sid),
+		"Duration": strconv.FormatInt(duration,10),
 	}
 	block_json, err := json.Marshal(block_map)
 	if err != nil {
@@ -42,10 +46,11 @@ func (t *Textile) DataAtStreamFile(feedpb *pb.FeedStreamMeta, cid []byte) ([]byt
 	}
 
 	record2 := &pb.Notification{
-		Block: string(block_json),
+		Block: sid,
 		Date:  ptypes.TimestampNow(),
 		//Actor:                t.node().Identity.Pretty(),	// Whether this is id of this peer ?
 		Subject: recorder.Event_DoneIPFSGet,
+		Body: string(block_json),
 		Target:  feedpb.PeerId,
 		Read:    false, // Do not send to notification channel directly
 	}

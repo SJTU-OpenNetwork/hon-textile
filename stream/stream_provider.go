@@ -5,6 +5,7 @@ import (
 	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 	"github.com/SJTU-OpenNetwork/hon-textile/util"
 	"sync"
+	"time"
 
 	//"github.com/libp2p/go-libp2p-core/peer"
 )
@@ -16,7 +17,9 @@ type providedStream struct {
 	nextIndex uint64
 	//currentIndex uint64
 	blocks util.Heap
-	hLock sync.Mutex
+	startTime time.Time
+	//endTime time.Time
+	hLock sync.Mutex	// lock of heap
 }
 
 // *streamBlock implements util.HeapItem
@@ -67,6 +70,7 @@ func (p *ProvidedStreams) getOrCreate(streamId string, providerId string, startI
 		providerId: providerId,
 		startIndex: startIndex,
 		nextIndex:  startIndex,
+		startTime: time.Now(),
 		blocks:     make(util.Heap,0,10),
 	}
 	p.streams = append(p.streams, newStream)
@@ -86,6 +90,9 @@ func (p *ProvidedStreams) remove(streamId string) *providedStream {
 			result = s
 		}
 	}
+	//if result != nil {
+	//	result.endTime = time.Now()
+	//}
 	p.streams = newStreams
 	return result
 }

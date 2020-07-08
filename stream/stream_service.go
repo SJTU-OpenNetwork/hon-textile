@@ -14,6 +14,7 @@ import (
 	"github.com/ipfs/interface-go-ipfs-core/path"
 	"github.com/segmentio/ksuid"
 	"io/ioutil"
+	"sync"
 	"time"
 
 	"github.com/golang/protobuf/ptypes"
@@ -72,7 +73,9 @@ type StreamService struct {
 	ctx context.Context
 
     // currently using a map to store stream tree parent
-	treeParent map[string] string
+	treeParent         map[string] string
+	streamDuration     map[string] int64
+	streamDurationLock sync.Mutex
 
 	//
 	recvBuf chan *recvTask
@@ -100,6 +103,7 @@ func NewStreamService(
 		taskQueue: util.NewTaskQueue(ctx, defaultMaxTaskWorkers),
 		mode: StreamMode_PUSH,
 		recvBuf: make(chan *recvTask, 100),
+		streamDuration: make(map[string]int64),
 	}
     handler.treeParent = make(map[string] string)
 	handler.activeStreams = newActiveStreamStore(ctx, datastore, node, handler.activeWorkers.newFileAdd)
@@ -287,7 +291,9 @@ func (h *StreamService) handleRecvTask(){
 					continue
 				}
 
+
 				for _, blk := range blks.Blocks {
+
 					size := len(blk.Data)
 					cidStr := ""
 					if size != 0 {
@@ -448,7 +454,6 @@ func (h *StreamService) handleRootBlk(pid peer.ID, blk *pb.StreamBlock) error {
 		}
 	}
 
-
     if blk.Id == "" {
     	log.Debugf("[%s] Stream %s", TAG_STREAM_COMPLETE, blk.Streamid)
     	recorder.Hlog.Add(fmt.Sprintf("[%s] Stream %s", TAG_STREAM_COMPLETE, blk.Streamid))
@@ -464,7 +469,11 @@ func (h *StreamService) handleRootBlk(pid peer.ID, blk *pb.StreamBlock) error {
         }
         // Remove provider here
 		// h.providers.RemoveStream(blk.Streamid)
-		h.providedStreams.remove(blk.Streamid)
+		endStream := h.providedStreams.remove(blk.Streamid)
+		recvDuration := time.Since(endStream.startTime)
+		h.streamDurationLock.Lock()
+		h.streamDuration[endStream.streamId] = recvDuration.Milliseconds()
+		h.streamDurationLock.Unlock()
     }
 
 	pdate, _ := ptypes.TimestampProto(time.Now())
@@ -487,6 +496,14 @@ func (h *StreamService) handleRootBlk(pid peer.ID, blk *pb.StreamBlock) error {
 	}
 
     return nil
+}
+
+func (h* StreamService) RemoveDuration(streamId string) (int64, bool) {
+	h.streamDurationLock.Lock()
+	defer h.streamDurationLock.Unlock()
+	t, ok := h.streamDuration[streamId]
+	delete(h.streamDuration, streamId)
+	return t, ok
 }
 
 func (h* StreamService) handleStreamPushInform(env *pb.Envelope, peer peer.ID) (*pb.Envelope, error) {
@@ -523,6 +540,7 @@ func (h* StreamService) handleStreamPushInform(env *pb.Envelope, peer peer.ID) (
 	} else {
 		log.Debugf("Request %s accepted by %s", meta.Id, peer.Pretty())
 		h.RequestAccepted(peer.Pretty(), request)
+
 		// =========== Add Meta to DB ===============
 		err = h.datastore.StreamMetas().Add(meta)
 		if err != nil {
@@ -530,16 +548,11 @@ func (h* StreamService) handleStreamPushInform(env *pb.Envelope, peer peer.ID) (
 			recorder.Hlog.Add("Error when add inform meta to db: "+err.Error())
 		}
 		// =========== Forward Inform to Other Peer ===========
-		//go func() {
-		//	honlog.Hlog.Add("[WAIT_TO_FORWARD_INFORM] "+inform.Meta.Id)
-		//	time.Sleep(10*time.Second)
-		//	honlog.Hlog.Add("[FORWARD_INFORM] "+inform.Meta.Id)
-			err = h.informForward(inform)
-			if err != nil {
-				log.Error("Error when forward inform: ", err)
-				recorder.Hlog.Add("Error when forward inform: "+err.Error())
-			}
-		//}()
+		err = h.informForward(inform)
+		if err != nil {
+			log.Error("Error when forward inform: ", err)
+			recorder.Hlog.Add("Error when forward inform: "+err.Error())
+		}
 
 	}
 	return nil, nil
@@ -636,12 +649,12 @@ func (h *StreamService) handleUnsubscribe(env *pb.Envelope, pid peer.ID) (*pb.En
 }
 
 // RequestAccepted is called when a stream request is accepted by some peer.
-func (h *StreamService) RequestAccepted(peerId string, config *pb.StreamRequest) {
+func (h *StreamService) RequestAccepted(peerId string, config *pb.StreamRequest){
 	log.Debugf("[%s] Stream %s, By %s", TAG_STREAM_REQUEST_ACCEPTED, config.Id, peerId)
 	recorder.Hlog.Add(fmt.Sprintf("[%s] Stream %s, By %s", TAG_STREAM_REQUEST_ACCEPTED, config.Id, peerId))
 	//acceptedSubstream := newProvidedSubstream(config.Id, config.StreamMap, 1, config.StartIndex, peerId, h.handleBlockLost)
-	h.providedStreams.getOrCreate(config.Id, peerId, config.StartIndex)
     h.treeParent[config.Id] = peerId
+	h.providedStreams.getOrCreate(config.Id, peerId, config.StartIndex)
 }
 
 
@@ -825,6 +838,7 @@ func (h *StreamService) informForward(inform *pb.StreamPushInform) error {
 		recorder.Hlog.Add("Error when unmarshal tree from inform. " + err.Error())
 		return err
 	}
+
 	toPeers := tree[h.service.Node().Identity.Pretty()]
 	for _, pid := range toPeers{
 		log.Debug(pid)

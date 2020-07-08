@@ -8,6 +8,7 @@ const (
 	Event_DoneIPFSPin = "ipfsPin"
 	Event_DoneTextileProcess = "textileProcess"
 	Event_DoneIPFSGet = "ipfsDone"			// used in core/thread_files.go/Thread.handleFileBlock()
+	Event_DoneRecv = "recvDone"
 )
 
 const (
