@@ -59,7 +59,7 @@ const (
 type StreamInfo struct {
     status  pb.StreamStatus
     timer time.Timer
-    treeParrent string
+    treeParent string
     streamDuration int64
     lastAccessTime time.Time
 }
@@ -87,12 +87,7 @@ type StreamService struct {
 	// Context for main routine
 	ctx context.Context
 
-    // currently using a map to store stream tree parent
-	treeParent         map[string] string
-	streamDuration     map[string] int64
-	streamDurationLock sync.Mutex
-    
-    streamInfos        map[string] StreamInfo
+    streamInfos        map[string] *StreamInfo
 	streamInfosLock    sync.Mutex
 	//
 	recvBuf chan *recvTask
@@ -120,9 +115,8 @@ func NewStreamService(
 		taskQueue: util.NewTaskQueue(ctx, defaultMaxTaskWorkers),
 		mode: StreamMode_PUSH,
 		recvBuf: make(chan *recvTask, 100),
-		streamDuration: make(map[string]int64),
-	}
-    handler.treeParent = make(map[string] string)
+	    streamInfos: make(map[string]*StreamInfo),
+    }
 	handler.activeStreams = newActiveStreamStore(ctx, datastore, node, handler.activeWorkers.newFileAdd)
 	handler.service = service.NewService(account, handler, node)
 	return handler
@@ -144,9 +138,11 @@ func (h *StreamService) clearObsoleteInfos() {
 }
 
 func (h *StreamService) GetParent(sid string) string {
-    pid, ok := h.treeParent[sid]
+    h.streamInfosLock.Lock()
+    defer h.streamInfosLock.Unlock()
+    sinfo, ok := h.streamInfos[sid]
     if ok {
-        return pid
+        return sinfo.treeParent
     }
     return ""
 }
@@ -169,11 +165,11 @@ func (h *StreamService) Start() {
     // Run periodic jobs such as clean stream infos
     go func() {
         h.runJobs()
-    }
+    }()
 }
 
 func (h *StreamService) runJobs() {
-    freq := kMobileJobFreq
+    freq := time.Minute * 30
 	tick := time.NewTicker(freq)
 	defer tick.Stop()
 
@@ -536,9 +532,13 @@ func (h *StreamService) handleRootBlk(pid peer.ID, blk *pb.StreamBlock) error {
 			honlog.Hlog.Add("No providedStream" + blk.Streamid)
 		} else {
 			recvDuration := time.Since(endStream.startTime)
-			h.streamDurationLock.Lock()
-			h.streamDuration[endStream.streamId] = recvDuration.Milliseconds()
-			h.streamDurationLock.Unlock()
+			
+            //h.streamDurationLock.Lock()
+			//h.streamDuration[endStream.streamId] = recvDuration.Milliseconds()
+			//h.streamDurationLock.Unlock()
+            h.streamInfosLock.Lock()
+            (h.streamInfos[endStream.streamId]).streamDuration = recvDuration.Milliseconds()
+            h.streamInfosLock.Unlock()
 		}
     }
 
@@ -563,7 +563,7 @@ func (h *StreamService) handleRootBlk(pid peer.ID, blk *pb.StreamBlock) error {
 
     return nil
 }
-
+/*
 func (h* StreamService) RemoveDuration(streamId string) (int64, bool) {
 	h.streamDurationLock.Lock()
 	defer h.streamDurationLock.Unlock()
@@ -571,6 +571,7 @@ func (h* StreamService) RemoveDuration(streamId string) (int64, bool) {
 	delete(h.streamDuration, streamId)
 	return t, ok
 }
+*/
 
 func (h* StreamService) handleStreamPushInform(env *pb.Envelope, peer peer.ID) (*pb.Envelope, error) {
 	log.Debugf("Receive streamPushInform from ", peer.Pretty())
@@ -722,7 +723,10 @@ func (h *StreamService) RequestAccepted(peerId string, config *pb.StreamRequest)
     //h.treeParent[config.Id] = peerId
 	
     h.streamInfosLock.Lock()
-    h.streamInfos[config.Id].treeParent = peerId
+    sinfo, ok := h.streamInfos[config.Id]
+    if ok{
+        sinfo.treeParent = peerId
+    }
 	h.streamInfosLock.Unlock()
 	h.providedStreams.getOrCreate(config.Id, peerId, config.StartIndex)
 }
