@@ -539,15 +539,10 @@ func (h *StreamService) handleRootBlk(pid peer.ID, blk *pb.StreamBlock) error {
 
     return nil
 }
-/*
-func (h* StreamService) RemoveDuration(streamId string) (int64, bool) {
-	h.streamDurationLock.Lock()
-	defer h.streamDurationLock.Unlock()
-	t, ok := h.streamDuration[streamId]
-	delete(h.streamDuration, streamId)
-	return t, ok
+
+func (h* StreamService) GetDuration(streamId string) int64 {
+	return h.streamInfos.getDuration(streamId)
 }
-*/
 
 func (h* StreamService) handleStreamPushInform(env *pb.Envelope, peer peer.ID) (*pb.Envelope, error) {
 	log.Debugf("Receive streamPushInform from ", peer.Pretty())

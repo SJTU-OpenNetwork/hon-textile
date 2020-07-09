@@ -37,11 +37,8 @@ func (t *Textile) DataAtStreamFile(feedpb *pb.FeedStreamMeta, cid []byte) ([]byt
 	}
 
 	sid := feedpb.Streammeta.Id
-	duration, ok := t.stream.RemoveDuration(sid)
-	if !ok {
-		log.Error("No duration info for ", sid)
-		honlog.Hlog.Add("No duration info for "+sid)
-	}
+	duration := t.stream.GetDuration(sid)
+	
 	block_map := map[string] string {
 		"ID": sid,
 		"Parent": t.StreamGetParent(sid),

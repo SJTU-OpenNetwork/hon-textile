@@ -69,6 +69,19 @@ func (s *StreamInfos) setDuration(sid string, duration int64)  {
 	}
 }
 
+func (s *StreamInfos) getDuration(sid string) int64 {
+	s.lock.Lock()
+	defer s.lock.Unlock()
+	info, ok := s.infos[sid]
+	if ok {
+		return info.streamDuration
+	} else {
+		log.Error("No stream info when get duration ", sid)
+		honlog.Hlog.Add("No stream info when get duration " + sid)
+		return 0
+	}
+}
+
 type StreamInfo struct {
 	status  pb.StreamStatus
 	timer *time.Timer
