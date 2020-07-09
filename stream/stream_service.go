@@ -42,7 +42,7 @@ const streamServiceProtocol = protocol.ID("/textile/stream/1.0.0")
 const defaultMaxWorkers = 2
 const defaultMaxTaskWorkers = 1
 const InfoObsoleteTime = time.Hour * 5
-const InformTimeOut = time.Second * 10
+const InformTimeOut = time.Second * 30
 const RecvTimeout = time.Second * 10
 
 var maxWorkers int
