@@ -204,6 +204,9 @@ func (info *StreamInfo) refreshProviderTimer() {
 		if info.timer != nil {
 			info.timer.Reset(RecvTimeout)
 		}
+	case pb.StreamStatus_RECEIVE_TIMEOUT:
+		log.Debug("Stream already time out when recv a new block: ", info.status.String())
+		honlog.Hlog.Add("Stream already time out when recv a new block: " + info.status.String())
 	default:
 		log.Error("Wrong status when refresh provider timer: ", info.status.String())
 		honlog.Hlog.Add("Error, Wrong status when refresh provider timer: " + info.status.String())

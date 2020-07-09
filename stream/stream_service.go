@@ -43,7 +43,7 @@ const defaultMaxWorkers = 2
 const defaultMaxTaskWorkers = 1
 const InfoObsoleteTime = time.Hour * 5
 const InformTimeOut = time.Second * 10
-const RecvTimeout = time.Second * 5
+const RecvTimeout = time.Second * 10
 
 var maxWorkers int
 var maxTaskWorkers int
@@ -620,6 +620,9 @@ func (h* StreamService) handleStreamPushInform(env *pb.Envelope, peer peer.ID) (
 			honlog.Hlog.Add("No info when get request response")
 		} else {
 			info.onRequestSuccess(func() {
+				info.sLock.Lock()
+				info.status = pb.StreamStatus_RECEIVE_TIMEOUT
+				info.sLock.Unlock()
 				h.SendUnsubscribeRequest(peer.Pretty(), meta.Id)
 				pdate, _ := ptypes.TimestampProto(time.Now())
 				note := &pb.Notification{
