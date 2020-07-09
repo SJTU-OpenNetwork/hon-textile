@@ -14,7 +14,7 @@ import (
 	"github.com/ipfs/interface-go-ipfs-core/path"
 	"github.com/segmentio/ksuid"
 	"io/ioutil"
-	"sync"
+	//"sync"
 	"time"
 
 	"github.com/golang/protobuf/ptypes"
