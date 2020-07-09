@@ -41,17 +41,28 @@ const streamServiceProtocol = protocol.ID("/textile/stream/1.0.0")
 //const maxWorkers = 2
 const defaultMaxWorkers = 2
 const defaultMaxTaskWorkers = 1
+const InfoObsoleteTime = time.Hour * 5
+
 var maxWorkers int
 var maxTaskWorkers int
 var log = logging.Logger("stream")
 var ErrRedundantReq = fmt.Errorf("Request is redundant")
 var ErrUnknowkStream = fmt.Errorf("Unknown stream")
 
+
 type StreamMode int
 const (
 	StreamMode_PUSH	StreamMode = 0
 	StreamMode_PULL StreamMode = 1
 )
+
+type StreamInfo struct {
+    status  pb.StreamStatus
+    treeParrent string
+    streamDuration int64
+    stopTimer func()
+    lastAccessTime time.Time
+}
 
 type StreamService struct {
 	service          *service.Service
@@ -76,7 +87,9 @@ type StreamService struct {
 	treeParent         map[string] string
 	streamDuration     map[string] int64
 	streamDurationLock sync.Mutex
-
+    
+    streamInfos        map[string] StreamInfo
+	streamInfosLock    sync.Mutex
 	//
 	recvBuf chan *recvTask
 
@@ -109,6 +122,21 @@ func NewStreamService(
 	handler.activeStreams = newActiveStreamStore(ctx, datastore, node, handler.activeWorkers.newFileAdd)
 	handler.service = service.NewService(account, handler, node)
 	return handler
+}
+
+func (h *StreamService) ClearStreamInfo() {
+    var obsoleteStreams []string
+    for sid, sinfo := range h.streamInfos {
+        if time.Since(sinfo.lastAccessTime) >= InfoObsoleteTime {
+            obsoleteStreams = append(obsoleteStreams, sid)
+        }
+    }
+	h.streamInfosLock.Lock()
+	defer h.streamInfosLock.Unlock()
+    for _, sid := ranage obsoleteStreams {
+        delete (h.streamInfos, sid)
+    }
+
 }
 
 func (h *StreamService) GetParent(sid string) string {
