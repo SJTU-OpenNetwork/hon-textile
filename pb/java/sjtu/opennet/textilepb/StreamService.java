@@ -28,21 +28,25 @@ public final class StreamService {
      */
     NO_INFORM(1),
     /**
-     * <code>RECEIVING = 2;</code>
+     * <code>REQUESTING = 2;</code>
      */
-    RECEIVING(2),
+    REQUESTING(2),
     /**
-     * <code>RECEIVE_TIMEOUT = 3;</code>
+     * <code>RECEIVING = 3;</code>
      */
-    RECEIVE_TIMEOUT(3),
+    RECEIVING(3),
     /**
-     * <code>INFORM_TIMEOUT = 4;</code>
+     * <code>RECEIVE_TIMEOUT = 4;</code>
      */
-    INFORM_TIMEOUT(4),
+    RECEIVE_TIMEOUT(4),
     /**
-     * <code>COMPLETE = 5;</code>
+     * <code>INFORM_TIMEOUT = 5;</code>
      */
-    COMPLETE(5),
+    INFORM_TIMEOUT(5),
+    /**
+     * <code>COMPLETE = 6;</code>
+     */
+    COMPLETE(6),
     UNRECOGNIZED(-1),
     ;
 
@@ -55,21 +59,25 @@ public final class StreamService {
      */
     public static final int NO_INFORM_VALUE = 1;
     /**
-     * <code>RECEIVING = 2;</code>
+     * <code>REQUESTING = 2;</code>
      */
-    public static final int RECEIVING_VALUE = 2;
+    public static final int REQUESTING_VALUE = 2;
     /**
-     * <code>RECEIVE_TIMEOUT = 3;</code>
+     * <code>RECEIVING = 3;</code>
      */
-    public static final int RECEIVE_TIMEOUT_VALUE = 3;
+    public static final int RECEIVING_VALUE = 3;
     /**
-     * <code>INFORM_TIMEOUT = 4;</code>
+     * <code>RECEIVE_TIMEOUT = 4;</code>
      */
-    public static final int INFORM_TIMEOUT_VALUE = 4;
+    public static final int RECEIVE_TIMEOUT_VALUE = 4;
     /**
-     * <code>COMPLETE = 5;</code>
+     * <code>INFORM_TIMEOUT = 5;</code>
      */
-    public static final int COMPLETE_VALUE = 5;
+    public static final int INFORM_TIMEOUT_VALUE = 5;
+    /**
+     * <code>COMPLETE = 6;</code>
+     */
+    public static final int COMPLETE_VALUE = 6;
 
 
     public final int getNumber() {
@@ -92,10 +100,11 @@ public final class StreamService {
       switch (value) {
         case 0: return NEW;
         case 1: return NO_INFORM;
-        case 2: return RECEIVING;
-        case 3: return RECEIVE_TIMEOUT;
-        case 4: return INFORM_TIMEOUT;
-        case 5: return COMPLETE;
+        case 2: return REQUESTING;
+        case 3: return RECEIVING;
+        case 4: return RECEIVE_TIMEOUT;
+        case 5: return INFORM_TIMEOUT;
+        case 6: return COMPLETE;
         default: return null;
       }
     }
@@ -5367,10 +5376,11 @@ public final class StreamService {
       "orm\022\031\n\004meta\030\001 \001(\0132\013.StreamMeta\022\014\n\004tree\030\002" +
       " \001(\014\"\"\n\024StreamUnsubscribeAck\022\n\n\002id\030\001 \001(\t" +
       "\"1\n\013StreamClose\022\020\n\010streamId\030\001 \001(\t\022\020\n\010max" +
-      "Index\030\002 \001(\004*l\n\014StreamStatus\022\007\n\003NEW\020\000\022\r\n\t" +
-      "NO_INFORM\020\001\022\r\n\tRECEIVING\020\002\022\023\n\017RECEIVE_TI" +
-      "MEOUT\020\003\022\022\n\016INFORM_TIMEOUT\020\004\022\014\n\010COMPLETE\020" +
-      "\005B\034\n\026sjtu.opennet.textilepbZ\002pbb\006proto3"
+      "Index\030\002 \001(\004*|\n\014StreamStatus\022\007\n\003NEW\020\000\022\r\n\t" +
+      "NO_INFORM\020\001\022\016\n\nREQUESTING\020\002\022\r\n\tRECEIVING" +
+      "\020\003\022\023\n\017RECEIVE_TIMEOUT\020\004\022\022\n\016INFORM_TIMEOU" +
+      "T\020\005\022\014\n\010COMPLETE\020\006B\034\n\026sjtu.opennet.textil" +
+      "epbZ\002pbb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
