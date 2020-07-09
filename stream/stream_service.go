@@ -239,6 +239,15 @@ func (h *StreamService) UnsubscribeStream(sid string) error{
 	return nil
 }
 
+/*
+ * ThreadGetStream is called when a new stream meta comes through application (thread most case).
+ * In that case, a timer will be set.
+ * If no inform receive before the timer end, the status would be set to timeout.
+ */
+func (h *StreamService) ThreadGetStream(meta *pb.StreamMeta) {
+	//timer := time.NewTicker()
+}
+
 // ======================== FOR MESSAGE RECV/SEND ==================================
 // handleStreamBlock receives a STREAM_BLOCK message [deprecated]
 func (h *StreamService) handleStreamBlock(env *pb.Envelope, pid peer.ID) (*pb.Envelope, error) {

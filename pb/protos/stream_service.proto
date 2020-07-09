@@ -50,3 +50,7 @@ message StreamClose {
     string streamId = 1;
     uint64 maxIndex = 2;
 }
+
+enum StreamStatus {
+
+}
