@@ -543,3 +543,12 @@ func (t *Textile) GetMaxWorkers() int {
 func (t *Textile) StreamGetParent(sid string) string {
     return t.stream.GetParent(sid)
 }
+
+func (t *Textile) StreamGetStatusString(sid string) string {
+	stat, ok := t.stream.GetStatus(sid)
+	if ok {
+		return stat.String()
+	} else {
+		return "UNKNOWN"
+	}
+}

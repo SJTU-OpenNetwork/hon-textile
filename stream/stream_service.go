@@ -118,6 +118,10 @@ func (h *StreamService) GetParent(sid string) string {
    return h.streamInfos.getParent(sid)
 }
 
+func (h *StreamService) GetStatus(sid string) (pb.StreamStatus, bool) {
+	return h.streamInfos.getStatus(sid)
+}
+
 // Protocol returns the handler protocol
 func (h *StreamService) Protocol() protocol.ID {
 	return streamServiceProtocol

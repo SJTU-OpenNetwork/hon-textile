@@ -44,6 +44,18 @@ func (s *StreamInfos) getParent(sid string) string {
 	return ""
 }
 
+func (s *StreamInfos) getStatus(sid string) (pb.StreamStatus, bool) {
+	s.lock.Lock()
+	defer s.lock.Unlock()
+
+	info, ok := s.infos[sid]
+	if !ok {
+		return pb.StreamStatus_NEW, false
+	} else {
+		return info.status, true
+	}
+}
+
 func (s *StreamInfos) setParent(sid string, parent string) {
 	s.lock.Lock()
 	defer s.lock.Unlock()
