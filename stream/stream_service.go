@@ -602,7 +602,30 @@ func (h* StreamService) handleStreamPushInform(env *pb.Envelope, peer peer.ID) (
 	} else {
 		log.Debugf("Request %s accepted by %s", meta.Id, peer.Pretty())
 		h.RequestAccepted(peer.Pretty(), request)
+		info, ok := h.streamInfos.get(meta.Id)
+		if !ok {
+			log.Error("No info when get request response")
+			honlog.Hlog.Add("No info when get request response")
+		} else {
+			info.onRequestSuccess(func() {
+				h.SendUnsubscribeRequest(peer.Pretty(), meta.Id)
+				pdate, _ := ptypes.TimestampProto(time.Now())
+				note := &pb.Notification{
+					Id:          ksuid.New().String(),
+					Date:        pdate,
+					//Actor:       pid.Pretty(),
+					Subject:     meta.Id,
+					Target:      "",
+					Type:        pb.Notification_INFORM_TIMEOUT,
+				}
 
+				err := h.sendNotification(note)
+				if err != nil {
+					log.Error("Error when send notification ", err)
+					honlog.Hlog.Add("Error when send notification "+err.Error())
+				}
+			})
+		}
 		// =========== Add Meta to DB ===============
 		err = h.datastore.StreamMetas().Add(meta)
 		if err != nil {

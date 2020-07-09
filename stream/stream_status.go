@@ -120,10 +120,10 @@ func (info *StreamInfo) onInform() {
 	defer info.sLock.Unlock()
 	switch info.status {
 	case pb.StreamStatus_NEW:
-		honlog.Hlog.Add(fmt.Sprintf("[%s] %s ==> %s", TAG_STATUS, info.status.String(), pb.StreamStatus_RECEIVING.String()))
+		honlog.Hlog.Add(fmt.Sprintf("[%s] %s ==> %s", TAG_STATUS, info.status.String(), pb.StreamStatus_REQUESTING.String()))
 		//time.AfterFunc(Inform)
 		//info.status
-		info.status = pb.StreamStatus_RECEIVING
+		info.status = pb.StreamStatus_REQUESTING
 	case pb.StreamStatus_NO_INFORM:
 		if info.timer == nil {
 			log.Error("No timer when receive inform")
@@ -131,21 +131,22 @@ func (info *StreamInfo) onInform() {
 		} else {
 			info.timer.Stop()
 		}
-		info.status = pb.StreamStatus_RECEIVING
-		honlog.Hlog.Add(fmt.Sprintf("[%s] %s ==> %s", TAG_STATUS, info.status.String(), pb.StreamStatus_RECEIVING.String()))
+		info.status = pb.StreamStatus_REQUESTING
+		honlog.Hlog.Add(fmt.Sprintf("[%s] %s ==> %s", TAG_STATUS, info.status.String(), pb.StreamStatus_REQUESTING.String()))
 	default:
 		log.Error("Wrong status when get inform: ", info.status.String())
 		honlog.Hlog.Add("Error, Wrong status when get inform: " + info.status.String())
 	}
 }
 
-func (info *StreamInfo) onRequestSuccess() {
+func (info *StreamInfo) onRequestSuccess(timeout func()) {
 	info.sLock.Lock()
 	defer info.sLock.Unlock()
 	switch info.status {
 	case pb.StreamStatus_REQUESTING:
-            info.timer = new
-        }
+		info.timer = time.AfterFunc(RecvTimeout, timeout)
+		info.status = pb.StreamStatus_RECEIVING
+		honlog.Hlog.Add(fmt.Sprintf("[%s] %s ==> %s", TAG_STATUS, info.status.String(), pb.StreamStatus_RECEIVING.String()))
     default:
 		log.Error("Wrong status when handling request success: ", info.status.String())
 		honlog.Hlog.Add("Error, Wrong status when handling request success: " + info.status.String())
