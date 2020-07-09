@@ -56,13 +56,6 @@ const (
 	StreamMode_PULL StreamMode = 1
 )
 
-type StreamInfo struct {
-    status  pb.StreamStatus
-    timer *time.Timer
-    treeParent string
-    streamDuration int64
-    lastAccessTime time.Time
-}
 
 func (info *StreamInfo) changeStatus(status pb.StreamStatus, timer *time.Timer) {
 	log.Debugf("[%s] %s ==> %s Stream %s", TAG_STATUS, info.status.String(), status.String())
@@ -95,13 +88,8 @@ type StreamService struct {
 	// Context for main routine
 	ctx context.Context
 
-    // currently using a map to store stream tree parent
-	treeParent         map[string] string
-	streamDuration     map[string] int64
-	streamDurationLock sync.Mutex
-    
-    streamInfos        map[string] StreamInfo
-	streamInfosLock    sync.Mutex
+    streamInfos        *StreamInfos
+	//streamInfosLock    sync.Mutex
 	//
 	recvBuf chan *recvTask
 
@@ -128,35 +116,16 @@ func NewStreamService(
 		taskQueue: util.NewTaskQueue(ctx, defaultMaxTaskWorkers),
 		mode: StreamMode_PUSH,
 		recvBuf: make(chan *recvTask, 100),
-		streamDuration: make(map[string]int64),
-	}
-    handler.treeParent = make(map[string] string)
+	    streamInfos: NewStreamInfos(),
+    }
 	handler.activeStreams = newActiveStreamStore(ctx, datastore, node, handler.activeWorkers.newFileAdd)
 	handler.service = service.NewService(account, handler, node)
 	return handler
 }
 
-func (h *StreamService) clearObsoleteInfos() {
-    var obsoleteStreams []string
-    for sid, sinfo := range h.streamInfos {
-        if time.Since(sinfo.lastAccessTime) >= InfoObsoleteTime {
-            obsoleteStreams = append(obsoleteStreams, sid)
-        }
-    }
-	h.streamInfosLock.Lock()
-	defer h.streamInfosLock.Unlock()
-    for _, sid := range obsoleteStreams {
-        delete (h.streamInfos, sid)
-    }
-
-}
 
 func (h *StreamService) GetParent(sid string) string {
-    pid, ok := h.treeParent[sid]
-    if ok {
-        return pid
-    }
-    return ""
+   return h.streamInfos.getParent(sid)
 }
 
 // Protocol returns the handler protocol
@@ -177,18 +146,18 @@ func (h *StreamService) Start() {
     // Run periodic jobs such as clean stream infos
     go func() {
         h.runJobs()
-    }
+    }()
 }
 
 func (h *StreamService) runJobs() {
-    freq := kMobileJobFreq
+    freq := time.Minute * 30
 	tick := time.NewTicker(freq)
 	defer tick.Stop()
 
 	for {
 		select {
 		case <-tick.C:
-            h.clearObsoleteInfos()
+            h.streamInfos.clearObsoleteInfos()
 		case <-h.ctx.Done():
 			return
 		}
@@ -544,10 +513,8 @@ func (h *StreamService) handleRootBlk(pid peer.ID, blk *pb.StreamBlock) error {
 			log.Error("No providedStream ", blk.Streamid)
 			honlog.Hlog.Add("No providedStream" + blk.Streamid)
 		} else {
-			recvDuration := time.Since(endStream.startTime)
-			h.streamDurationLock.Lock()
-			h.streamDuration[endStream.streamId] = recvDuration.Milliseconds()
-			h.streamDurationLock.Unlock()
+			recvDuration := time.Since(endStream.startTime).Milliseconds()
+			h.streamInfos.setDuration(blk.Streamid, recvDuration)
 		}
     }
 
@@ -572,7 +539,7 @@ func (h *StreamService) handleRootBlk(pid peer.ID, blk *pb.StreamBlock) error {
 
     return nil
 }
-
+/*
 func (h* StreamService) RemoveDuration(streamId string) (int64, bool) {
 	h.streamDurationLock.Lock()
 	defer h.streamDurationLock.Unlock()
@@ -580,6 +547,7 @@ func (h* StreamService) RemoveDuration(streamId string) (int64, bool) {
 	delete(h.streamDuration, streamId)
 	return t, ok
 }
+*/
 
 func (h* StreamService) handleStreamPushInform(env *pb.Envelope, peer peer.ID) (*pb.Envelope, error) {
 	log.Debugf("Receive streamPushInform from ", peer.Pretty())
@@ -731,9 +699,7 @@ func (h *StreamService) RequestAccepted(peerId string, config *pb.StreamRequest)
 	//acceptedSubstream := newProvidedSubstream(config.Id, config.StreamMap, 1, config.StartIndex, peerId, h.handleBlockLost)
     //h.treeParent[config.Id] = peerId
 	
-    h.streamInfosLock.Lock()
-    h.streamInfos[config.Id].treeParent = peerId
-	h.streamInfosLock.Unlock()
+    h.streamInfos.setParent(config.Id, peerId)
 	h.providedStreams.getOrCreate(config.Id, peerId, config.StartIndex)
 }
 
