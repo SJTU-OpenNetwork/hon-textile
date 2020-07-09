@@ -411,7 +411,10 @@ func (h *StreamService) handleRecvTask(){
 }
 
 func (h *StreamService) refreshProviderTimer(sid string) {
-
+    info, ok := h.streamInfos.get(sid)
+    if ok{
+        info.refreshProviderTimer()
+    }
 }
 
 
