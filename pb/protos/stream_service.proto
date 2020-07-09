@@ -54,8 +54,9 @@ message StreamClose {
 enum StreamStatus {
     NEW = 0;
     NO_INFORM = 1;
-    RECEIVING = 2;
-    RECEIVE_TIMEOUT = 3;
-    INFORM_TIMEOUT = 4;
-    COMPLETE = 5;
+    REQUESTING = 2;
+    RECEIVING = 3;
+    RECEIVE_TIMEOUT = 4;
+    INFORM_TIMEOUT = 5;
+    COMPLETE = 6;
 }
