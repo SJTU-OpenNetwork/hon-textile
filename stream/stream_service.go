@@ -58,14 +58,22 @@ const (
 
 type StreamInfo struct {
     status  pb.StreamStatus
-    timer time.Timer
-    treeParrent string
+    timer *time.Timer
+    treeParent string
     streamDuration int64
     lastAccessTime time.Time
 }
 
-func (info *StreamInfo) changeStatus(status pb.StreamStatus) {
-
+func (info *StreamInfo) changeStatus(status pb.StreamStatus, timer *time.Timer) {
+	log.Debugf("[%s] %s ==> %s Stream %s", TAG_STATUS, info.status.String(), status.String())
+	if info.timer != nil {
+		stopped := info.timer.Stop()
+		if !stopped {
+			log.Warn("Timer already stopped or expired")
+			honlog.Hlog.Add("Warning: Timer already stopped or expired")
+		}
+	}
+	info.timer = timer
 }
 
 type StreamService struct {
@@ -298,6 +306,7 @@ func (h *StreamService) UnsubscribeStream(sid string) error{
  */
 func (h *StreamService) ThreadGetStream(meta *pb.StreamMeta) {
 	//timer := time.NewTicker()
+
 }
 
 // ======================== FOR MESSAGE RECV/SEND ==================================
@@ -638,6 +647,7 @@ func (h *StreamService) SendMessage(ctx context.Context, peerId string, env *pb.
 func (h *StreamService) IsBusy() bool {
 	numWorkers := h.Workload()
 	return numWorkers >= maxWorkers
+	//return false
 }
 
 // HandleRequest
@@ -656,7 +666,7 @@ func (h *StreamService) handleStreamRequest(env *pb.Envelope, pid peer.ID) (*pb.
     
     // TODO: calculate capacity according to video rate
 	numWorkers := h.Workload()
-    if numWorkers < maxWorkers {
+    //if numWorkers < maxWorkers {
     	log.Debugf("[%s], Stream %s, To %s, Workers %d", TAG_STREAMREQUESTACCEPT, req.Id, pid.Pretty(), numWorkers)
     	recorder.Hlog.Add(fmt.Sprintf("[%s], Stream %s, To %s, Workers %d", TAG_STREAMREQUESTACCEPT, req.Id, pid.Pretty(), numWorkers))
         err = h.responseRequest(pid, req)
@@ -666,13 +676,13 @@ func (h *StreamService) handleStreamRequest(env *pb.Envelope, pid peer.ID) (*pb.
         return h.service.NewEnvelope(pb.Message_STREAM_REQUEST_HANDLE, &pb.StreamRequestHandle{
     	    Value:1,
         },nil, true)
-    } else {
-		log.Debugf("[%s], Stream %s, To %s, Workers %d", TAG_STREAMREQUESTREJECT, req.Id, pid.Pretty(), numWorkers)
-		recorder.Hlog.Add(fmt.Sprintf("[%s], Stream %s, To %s, Workers %d", TAG_STREAMREQUESTREJECT, req.Id, pid.Pretty(), numWorkers))
-        return h.service.NewEnvelope(pb.Message_STREAM_REQUEST_HANDLE, &pb.StreamRequestHandle{
-    	    Value:0,
-        },nil, true)
-    }
+    //} else {
+	//	log.Debugf("[%s], Stream %s, To %s, Workers %d", TAG_STREAMREQUESTREJECT, req.Id, pid.Pretty(), numWorkers)
+	//	recorder.Hlog.Add(fmt.Sprintf("[%s], Stream %s, To %s, Workers %d", TAG_STREAMREQUESTREJECT, req.Id, pid.Pretty(), numWorkers))
+    //    return h.service.NewEnvelope(pb.Message_STREAM_REQUEST_HANDLE, &pb.StreamRequestHandle{
+    //	    Value:0,
+    //    },nil, true)
+    //}
 }
 
 func (h *StreamService) SendStreamRequest(peerId string, config *pb.StreamRequest) (*pb.Envelope, error) {
