@@ -579,10 +579,18 @@ func (h* StreamService) handleStreamPushInform(env *pb.Envelope, peer peer.ID) (
 	// =========
 
 	meta := inform.Meta
+	localMeta := h.datastore.StreamMetas().Get(meta.Id)
+	last := h.datastore.StreamBlocks().LastIndex(meta.Id)
+	if localMeta != nil && last == localMeta.Nblocks && last != 0{
+		info.status = pb.StreamStatus_COMPLETE
+		err = h.informForward(inform)
+		return nil, err
+	}
+
 	request := &pb.StreamRequest{
 		Id:                   meta.Id,
 		StreamMap:            1,
-		StartIndex:           0,
+		StartIndex:           last,
 	}
 	responseEnv, err := h.SendStreamRequest(peer.Pretty(), request)
 	if err != nil {
