@@ -131,8 +131,8 @@ func (info *StreamInfo) onInform() {
 		} else {
 			info.timer.Stop()
 		}
-		info.status = pb.StreamStatus_REQUESTING
 		honlog.Hlog.Add(fmt.Sprintf("[%s] %s ==> %s", TAG_STATUS, info.status.String(), pb.StreamStatus_REQUESTING.String()))
+		info.status = pb.StreamStatus_REQUESTING
 	default:
 		log.Error("Wrong status when get inform: ", info.status.String())
 		honlog.Hlog.Add("Error, Wrong status when get inform: " + info.status.String())
@@ -145,8 +145,9 @@ func (info *StreamInfo) onRequestSuccess(timeout func()) {
 	switch info.status {
 	case pb.StreamStatus_REQUESTING:
 		info.timer = time.AfterFunc(RecvTimeout, timeout)
-		info.status = pb.StreamStatus_RECEIVING
+
 		honlog.Hlog.Add(fmt.Sprintf("[%s] %s ==> %s", TAG_STATUS, info.status.String(), pb.StreamStatus_RECEIVING.String()))
+		info.status = pb.StreamStatus_RECEIVING
     default:
 		log.Error("Wrong status when handling request success: ", info.status.String())
 		honlog.Hlog.Add("Error, Wrong status when handling request success: " + info.status.String())
@@ -159,8 +160,9 @@ func (info *StreamInfo) onMeta(timeout func()) {
 	switch info.status {
 	case pb.StreamStatus_NEW:
 		info.timer = time.AfterFunc(InformTimeOut, timeout)
-		info.status = pb.StreamStatus_NO_INFORM
+
 		honlog.Hlog.Add(fmt.Sprintf("[%s] %s ==> %s", TAG_STATUS, info.status.String(), pb.StreamStatus_NO_INFORM.String()))
+		info.status = pb.StreamStatus_NO_INFORM
 	case pb.StreamStatus_COMPLETE:
 		honlog.Hlog.Add("Stream has already been received")
 	default:
@@ -173,8 +175,9 @@ func (info *StreamInfo) onCreateStream() {
 	defer info.sLock.Unlock()
 	switch info.status {
 	case pb.StreamStatus_NEW:
-		info.status = pb.StreamStatus_COMPLETE
+
 		honlog.Hlog.Add(fmt.Sprintf("[%s] %s ==> %s", TAG_STATUS, info.status.String(), pb.StreamStatus_COMPLETE.String()))
+		info.status = pb.StreamStatus_COMPLETE
 	default:
 		log.Error("Wrong status when create stream: ", info.status.String())
 		honlog.Hlog.Add("Error, Wrong status when create stream: " + info.status.String())
