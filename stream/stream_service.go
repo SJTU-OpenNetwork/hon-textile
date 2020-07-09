@@ -58,10 +58,14 @@ const (
 
 type StreamInfo struct {
     status  pb.StreamStatus
+    timer time.Timer
     treeParrent string
     streamDuration int64
-    stopTimer func()
     lastAccessTime time.Time
+}
+
+func (info *StreamInfo) changeStatus(status pb.StreamStatus) {
+
 }
 
 type StreamService struct {
@@ -133,7 +137,7 @@ func (h *StreamService) clearObsoleteInfos() {
     }
 	h.streamInfosLock.Lock()
 	defer h.streamInfosLock.Unlock()
-    for _, sid := ranage obsoleteStreams {
+    for _, sid := range obsoleteStreams {
         delete (h.streamInfos, sid)
     }
 
@@ -285,6 +289,15 @@ func (h *StreamService) UnsubscribeStream(sid string) error{
     	return err
 	}
 	return nil
+}
+
+/*
+ * ThreadGetStream is called when a new stream meta comes through application (thread most case).
+ * In that case, a timer will be set.
+ * If no inform receive before the timer end, the status would be set to timeout.
+ */
+func (h *StreamService) ThreadGetStream(meta *pb.StreamMeta) {
+	//timer := time.NewTicker()
 }
 
 // ======================== FOR MESSAGE RECV/SEND ==================================

@@ -50,3 +50,12 @@ message StreamClose {
     string streamId = 1;
     uint64 maxIndex = 2;
 }
+
+enum StreamStatus {
+    NO_INFORM = 0;
+    RECEIVING = 1;
+    RECEIVE_TIMEOUT = 2;
+    INFORM_TIMEOUT = 3;
+    COMPLETE = 4;
+    UNKNOWN = 5;
+}
