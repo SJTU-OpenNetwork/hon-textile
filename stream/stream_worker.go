@@ -12,6 +12,9 @@ import (
 
 const maxBlockFetchNum = 1
 const maxBlockSize = 512 * 1024
+
+const WorkerTimeout = time.Second * 20
+
 // StreamWorker is used do blocksending task.
 // Each streamrequest will create a independent worker.
 // Note:
@@ -97,7 +100,7 @@ func (sw *streamWorker) start() error {
 	sw.currentIndex = sw.req.StartIndex
 	sw.notice() //notice once at begining
 	retryChan := make(chan *sendTask, 5)
-
+    timer := time.NewTimer(WorkerTimeout)
 	go func(){
 		//defer fmt.Printf("stream/streamWorker.go start(): worker for stream %s to %s end\n", sw.stream.Id, sw.pid.Pretty())
 		for {
@@ -147,7 +150,10 @@ func (sw *streamWorker) start() error {
 					}
 					//log.Debug("Worker sleep.")
 					//recorder.Hlog.Add("Worker sleep.")
-
+                    timer.Reset(WorkerTimeout)
+                case <- timer.C:
+                    timer.Stop()
+                    sw.cancel()
 				case <- sw.ctx.Done():
 					// Note that break will break select only.
                     // log.Debug("worker task complete, call cancel")

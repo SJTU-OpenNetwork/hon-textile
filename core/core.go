@@ -481,7 +481,7 @@ func (t *Textile) Start() error {
 			return
 		}
 
-        ipfs.SwarmConnect(t.node, config.DefaultOpennetBootstrapAddresses)
+        // ipfs.SwarmConnect(t.node, config.DefaultOpennetBootstrapAddresses)
 		t.threads.Start()
 		t.threads.online = true
 

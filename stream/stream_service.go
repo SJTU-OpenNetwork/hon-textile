@@ -387,6 +387,7 @@ func (h *StreamService) handleRecvTask(){
 					if err != nil {
 						log.Error(err)
 					}
+                    h.refreshProviderTimer(id)
 				}
 			case <-h.ctx.Done():
 				err := h.ctx.Err()
@@ -396,6 +397,10 @@ func (h *StreamService) handleRecvTask(){
 		}
 
 	}
+}
+
+func (h *StreamService) refreshProviderTimer(sid string) {
+
 }
 
 
@@ -679,12 +684,8 @@ func (h *StreamService) handleUnsubscribe(env *pb.Envelope, pid peer.ID) (*pb.En
 		return nil, err
 	}
     
-    //TODO: stop sending data to pid
     h.activeWorkers.endWorker(req.Id, pid.Pretty())
-
-	return h.service.NewEnvelope(pb.Message_STREAM_UNSUBSCRIBE_RES, &pb.StreamUnsubscribeAck{
-        Id:req.Id,
-    }, nil, true)
+    return nil, nil
 }
 
 // RequestAccepted is called when a stream request is accepted by some peer.
