@@ -14,6 +14,140 @@ public final class StreamService {
     registerAllExtensions(
         (com.google.protobuf.ExtensionRegistryLite) registry);
   }
+  /**
+   * Protobuf enum {@code StreamStatus}
+   */
+  public enum StreamStatus
+      implements com.google.protobuf.ProtocolMessageEnum {
+    /**
+     * <code>NO_INFORM = 0;</code>
+     */
+    NO_INFORM(0),
+    /**
+     * <code>RECEIVING = 1;</code>
+     */
+    RECEIVING(1),
+    /**
+     * <code>RECEIVE_TIMEOUT = 2;</code>
+     */
+    RECEIVE_TIMEOUT(2),
+    /**
+     * <code>INFORM_TIMEOUT = 3;</code>
+     */
+    INFORM_TIMEOUT(3),
+    /**
+     * <code>COMPLETE = 4;</code>
+     */
+    COMPLETE(4),
+    /**
+     * <code>UNKNOWN = 5;</code>
+     */
+    UNKNOWN(5),
+    UNRECOGNIZED(-1),
+    ;
+
+    /**
+     * <code>NO_INFORM = 0;</code>
+     */
+    public static final int NO_INFORM_VALUE = 0;
+    /**
+     * <code>RECEIVING = 1;</code>
+     */
+    public static final int RECEIVING_VALUE = 1;
+    /**
+     * <code>RECEIVE_TIMEOUT = 2;</code>
+     */
+    public static final int RECEIVE_TIMEOUT_VALUE = 2;
+    /**
+     * <code>INFORM_TIMEOUT = 3;</code>
+     */
+    public static final int INFORM_TIMEOUT_VALUE = 3;
+    /**
+     * <code>COMPLETE = 4;</code>
+     */
+    public static final int COMPLETE_VALUE = 4;
+    /**
+     * <code>UNKNOWN = 5;</code>
+     */
+    public static final int UNKNOWN_VALUE = 5;
+
+
+    public final int getNumber() {
+      if (this == UNRECOGNIZED) {
+        throw new java.lang.IllegalArgumentException(
+            "Can't get the number of an unknown enum value.");
+      }
+      return value;
+    }
+
+    /**
+     * @deprecated Use {@link #forNumber(int)} instead.
+     */
+    @java.lang.Deprecated
+    public static StreamStatus valueOf(int value) {
+      return forNumber(value);
+    }
+
+    public static StreamStatus forNumber(int value) {
+      switch (value) {
+        case 0: return NO_INFORM;
+        case 1: return RECEIVING;
+        case 2: return RECEIVE_TIMEOUT;
+        case 3: return INFORM_TIMEOUT;
+        case 4: return COMPLETE;
+        case 5: return UNKNOWN;
+        default: return null;
+      }
+    }
+
+    public static com.google.protobuf.Internal.EnumLiteMap<StreamStatus>
+        internalGetValueMap() {
+      return internalValueMap;
+    }
+    private static final com.google.protobuf.Internal.EnumLiteMap<
+        StreamStatus> internalValueMap =
+          new com.google.protobuf.Internal.EnumLiteMap<StreamStatus>() {
+            public StreamStatus findValueByNumber(int number) {
+              return StreamStatus.forNumber(number);
+            }
+          };
+
+    public final com.google.protobuf.Descriptors.EnumValueDescriptor
+        getValueDescriptor() {
+      return getDescriptor().getValues().get(ordinal());
+    }
+    public final com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptorForType() {
+      return getDescriptor();
+    }
+    public static final com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptor() {
+      return sjtu.opennet.textilepb.StreamService.getDescriptor().getEnumTypes().get(0);
+    }
+
+    private static final StreamStatus[] VALUES = values();
+
+    public static StreamStatus valueOf(
+        com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+      if (desc.getType() != getDescriptor()) {
+        throw new java.lang.IllegalArgumentException(
+          "EnumValueDescriptor is not for this type.");
+      }
+      if (desc.getIndex() == -1) {
+        return UNRECOGNIZED;
+      }
+      return VALUES[desc.getIndex()];
+    }
+
+    private final int value;
+
+    private StreamStatus(int value) {
+      this.value = value;
+    }
+
+    // @@protoc_insertion_point(enum_scope:StreamStatus)
+  }
+
   public interface StreamBlockContentOrBuilder extends
       // @@protoc_insertion_point(interface_extends:StreamBlockContent)
       com.google.protobuf.MessageOrBuilder {
@@ -5233,8 +5367,11 @@ public final class StreamService {
       "orm\022\031\n\004meta\030\001 \001(\0132\013.StreamMeta\022\014\n\004tree\030\002" +
       " \001(\014\"\"\n\024StreamUnsubscribeAck\022\n\n\002id\030\001 \001(\t" +
       "\"1\n\013StreamClose\022\020\n\010streamId\030\001 \001(\t\022\020\n\010max" +
-      "Index\030\002 \001(\004B\034\n\026sjtu.opennet.textilepbZ\002p" +
-      "bb\006proto3"
+      "Index\030\002 \001(\004*p\n\014StreamStatus\022\r\n\tNO_INFORM" +
+      "\020\000\022\r\n\tRECEIVING\020\001\022\023\n\017RECEIVE_TIMEOUT\020\002\022\022" +
+      "\n\016INFORM_TIMEOUT\020\003\022\014\n\010COMPLETE\020\004\022\013\n\007UNKN" +
+      "OWN\020\005B\034\n\026sjtu.opennet.textilepbZ\002pbb\006pro" +
+      "to3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
