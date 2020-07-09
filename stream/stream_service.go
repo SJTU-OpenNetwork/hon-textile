@@ -58,10 +58,14 @@ const (
 
 type StreamInfo struct {
     status  pb.StreamStatus
+    timer time.Timer
     treeParrent string
     streamDuration int64
-    stopTimer func()
     lastAccessTime time.Time
+}
+
+func (info *StreamInfo) changeStatus(status pb.StreamStatus) {
+
 }
 
 type StreamService struct {
@@ -133,7 +137,7 @@ func (h *StreamService) ClearStreamInfo() {
     }
 	h.streamInfosLock.Lock()
 	defer h.streamInfosLock.Unlock()
-    for _, sid := ranage obsoleteStreams {
+    for _, sid := range obsoleteStreams {
         delete (h.streamInfos, sid)
     }
 
