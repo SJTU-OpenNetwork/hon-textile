@@ -124,7 +124,7 @@ func NewStreamService(
 	return handler
 }
 
-func (h *StreamService) ClearStreamInfo() {
+func (h *StreamService) clearObsoleteInfos() {
     var obsoleteStreams []string
     for sid, sinfo := range h.streamInfos {
         if time.Since(sinfo.lastAccessTime) >= InfoObsoleteTime {
@@ -161,6 +161,26 @@ func (h *StreamService) Start() {
     // TODO:
     // 		It may not be a good idea to use StreamService as StreamNotifee directly.
 	h.service.Node().PeerHost.Network().Notify((*StreamNotifee)(h))
+
+    // Run periodic jobs such as clean stream infos
+    go func() {
+        h.runJobs()
+    }
+}
+
+func (h *StreamService) runJobs() {
+    freq := kMobileJobFreq
+	tick := time.NewTicker(freq)
+	defer tick.Stop()
+
+	for {
+		select {
+		case <-tick.C:
+            h.clearObsoleteInfos()
+		case <-h.ctx.Done():
+			return
+		}
+	}
 }
 
 // Ping pings another peer
@@ -686,7 +706,11 @@ func (h *StreamService) RequestAccepted(peerId string, config *pb.StreamRequest)
 	log.Debugf("[%s] Stream %s, By %s", TAG_STREAM_REQUEST_ACCEPTED, config.Id, peerId)
 	recorder.Hlog.Add(fmt.Sprintf("[%s] Stream %s, By %s", TAG_STREAM_REQUEST_ACCEPTED, config.Id, peerId))
 	//acceptedSubstream := newProvidedSubstream(config.Id, config.StreamMap, 1, config.StartIndex, peerId, h.handleBlockLost)
-    h.treeParent[config.Id] = peerId
+    //h.treeParent[config.Id] = peerId
+	
+    h.streamInfosLock.Lock()
+    h.streamInfos[config.Id].treeParent = peerId
+	h.streamInfosLock.Unlock()
 	h.providedStreams.getOrCreate(config.Id, peerId, config.StartIndex)
 }
 
