@@ -1,6 +1,8 @@
 package stream
 
 import (
+	"errors"
+	"fmt"
 	honlog "github.com/SJTU-OpenNetwork/hon-textile/hon-log"
 	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 	"sync"
@@ -30,7 +32,6 @@ func (s *StreamInfos) clearObsoleteInfos() {
 	for _, sid := range obsoleteStreams {
 		delete (s.infos, sid)
 	}
-
 }
 
 func (s *StreamInfos) getParent(sid string) string {
@@ -82,14 +83,6 @@ func (s *StreamInfos) getDuration(sid string) int64 {
 	}
 }
 
-type StreamInfo struct {
-	status  pb.StreamStatus
-	timer *time.Timer
-	treeParent string
-	streamDuration int64
-	lastAccessTime time.Time
-}
-
 func (s *StreamInfos) get(id string) (*StreamInfo, bool) {
 	s.lock.Lock()
 	defer s.lock.Unlock()
@@ -112,4 +105,83 @@ func (s *StreamInfos) getOrCreate(id string) *StreamInfo {
 		s.infos[id] = info
 	}
 	return info
+}
+
+type StreamInfo struct {
+	status  pb.StreamStatus
+	sLock sync.Mutex
+	timer *time.Timer
+	treeParent string
+	streamDuration int64
+	lastAccessTime time.Time
+}
+
+func (info *StreamInfo) onInform() {
+	info.sLock.Lock()
+	defer info.sLock.Unlock()
+	switch info.status {
+	case pb.StreamStatus_UNKNOWN:
+		honlog.Hlog.Add(fmt.Sprintf("[%s] %s ==> %s", TAG_STATUS, info.status.String(), pb.StreamStatus_RECEIVING.String()))
+		//time.AfterFunc(Inform)
+		//info.status
+		info.status = pb.StreamStatus_RECEIVING
+	case pb.StreamStatus_NO_INFORM:
+		if info.timer == nil {
+			log.Error("No timer when receive inform")
+			honlog.Hlog.Add("Error: no timer when receive inform.")
+		} else {
+			info.timer.Stop()
+		}
+		info.status = pb.StreamStatus_RECEIVING
+		honlog.Hlog.Add(fmt.Sprintf("[%s] %s ==> %s", TAG_STATUS, info.status.String(), pb.StreamStatus_RECEIVING.String()))
+	default:
+		log.Error("Wrong status when get inform: ", info.status.String())
+		honlog.Hlog.Add("Error, Wrong status when get inform: " + info.status.String())
+	}
+}
+
+func (info *StreamInfo) onMeta(timeout func()) {
+	info.sLock.Lock()
+	defer info.sLock.Unlock()
+	switch info.status {
+	case pb.StreamStatus_UNKNOWN:
+		info.timer = time.AfterFunc(InformTimeOut, timeout)
+		info.status = pb.StreamStatus_NO_INFORM
+		honlog.Hlog.Add(fmt.Sprintf("[%s] %s ==> %s", TAG_STATUS, info.status.String(), pb.StreamStatus_NO_INFORM.String()))
+	default:
+		log.Debugf("[%s] Status is %s when receive meta.", TAG_STATUS, info.status.String())
+	}
+}
+
+func (info *StreamInfo) refreshProviderTimer() {
+	info.sLock.Lock()
+	defer info.sLock.Unlock()
+	switch info.status {
+	case pb.StreamStatus_RECEIVING:
+		if info.timer != nil {
+			info.timer.Reset(RecvTimeout)
+		}
+	default:
+		log.Error("Wrong status when refresh provider timer: ", info.status.String())
+		honlog.Hlog.Add("Error, Wrong status when refresh provider timer: " + info.status.String())
+	}
+}
+
+func (s *StreamInfos) changeStatus(sid string, status pb.StreamStatus, timer *time.Timer) error {
+	info, ok := s.infos[sid]
+	if !ok {
+		log.Error("No info when change status for ", sid)
+		honlog.Hlog.Add("No info when change status for " + sid)
+		return errors.New("No info of " + sid)
+	}
+	log.Debugf("[%s] %s ==> %s Stream %s", TAG_STATUS, info.status.String(), status.String(), sid)
+	if info.timer != nil {
+		stopped := info.timer.Stop()
+		if !stopped {
+			log.Warn("Timer already stopped or expired")
+			honlog.Hlog.Add("Warning: Timer already stopped or expired")
+		}
+	}
+	info.timer = timer
+	return nil
 }

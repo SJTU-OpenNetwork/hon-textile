@@ -42,6 +42,8 @@ const streamServiceProtocol = protocol.ID("/textile/stream/1.0.0")
 const defaultMaxWorkers = 2
 const defaultMaxTaskWorkers = 1
 const InfoObsoleteTime = time.Hour * 5
+const InformTimeOut = time.Second * 10
+const RecvTimeout = time.Second * 5
 
 var maxWorkers int
 var maxTaskWorkers int
@@ -56,18 +58,6 @@ const (
 	StreamMode_PULL StreamMode = 1
 )
 
-
-func (info *StreamInfo) changeStatus(status pb.StreamStatus, timer *time.Timer) {
-	log.Debugf("[%s] %s ==> %s Stream %s", TAG_STATUS, info.status.String(), status.String())
-	if info.timer != nil {
-		stopped := info.timer.Stop()
-		if !stopped {
-			log.Warn("Timer already stopped or expired")
-			honlog.Hlog.Add("Warning: Timer already stopped or expired")
-		}
-	}
-	info.timer = timer
-}
 
 type StreamService struct {
 	service          *service.Service
@@ -275,7 +265,10 @@ func (h *StreamService) UnsubscribeStream(sid string) error{
  */
 func (h *StreamService) ThreadGetStream(meta *pb.StreamMeta) {
 	//timer := time.NewTicker()
+	info := h.streamInfos.getOrCreate(meta.Id)
+	info.onMeta(func(){
 
+	})
 }
 
 // ======================== FOR MESSAGE RECV/SEND ==================================
@@ -558,6 +551,11 @@ func (h* StreamService) handleStreamPushInform(env *pb.Envelope, peer peer.ID) (
 		log.Error("Fail to unmarshal inform from envelop.")
 		return nil, err
 	}
+
+	// ========= change status
+	info := h.streamInfos.getOrCreate(inform.Meta.Id)
+	info.onInform()
+	// =========
 
 	meta := inform.Meta
 	request := &pb.StreamRequest{

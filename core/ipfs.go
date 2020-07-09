@@ -38,7 +38,7 @@ func (t *Textile) DataAtStreamFile(feedpb *pb.FeedStreamMeta, cid []byte) ([]byt
 
 	sid := feedpb.Streammeta.Id
 	duration := t.stream.GetDuration(sid)
-	
+
 	block_map := map[string] string {
 		"ID": sid,
 		"Parent": t.StreamGetParent(sid),
