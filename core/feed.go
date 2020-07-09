@@ -196,6 +196,7 @@ func (t *Textile) feedItem(block *pb.Block, opts feedItemOpts) (*pb.FeedItem, er
 				Streammeta:   msg,
 				PeerId: block.Author,
 			}
+			t.stream.OnStreamMeta(msg)
 		} else {
 			payload, err = t.message(block, opts)
 		}

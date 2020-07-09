@@ -194,6 +194,8 @@ func (h *StreamService) StartStream(config *pb.StreamMeta) {
 	//acceptedSubstream := newProvidedSubstream(config.Id, 1, 1, 0, selfPeerId, h.handleBlockLost)
 	//provider := h.providers.getOrCreate(selfPeerId)
 	//provider.add(acceptedSubstream)
+	info := h.streamInfos.getOrCreate(config.Id)
+	info.onCreateStream()
 }
 
 /*
@@ -205,6 +207,8 @@ func (h *StreamService) FileAsStream(sf *pb.StreamFile, fileType pb.StreamMeta_T
 		log.Error(err)
 		return nil, err
 	}
+	info := h.streamInfos.getOrCreate(meta.Id)
+	info.onCreateStream()
     return meta, nil
 }
 
@@ -263,11 +267,25 @@ func (h *StreamService) UnsubscribeStream(sid string) error{
  * In that case, a timer will be set.
  * If no inform receive before the timer end, the status would be set to timeout.
  */
-func (h *StreamService) ThreadGetStream(meta *pb.StreamMeta) {
+func (h *StreamService) OnStreamMeta(meta *pb.StreamMeta) {
 	//timer := time.NewTicker()
 	info := h.streamInfos.getOrCreate(meta.Id)
 	info.onMeta(func(){
+		pdate, _ := ptypes.TimestampProto(time.Now())
+		note := &pb.Notification{
+			Id:          ksuid.New().String(),
+			Date:        pdate,
+			//Actor:       pid.Pretty(),
+			Subject:     meta.Id,
+			Target:      "",
+			Type:        pb.Notification_INFORM_TIMEOUT,
+		}
 
+		err := h.sendNotification(note)
+		if err != nil {
+			log.Error("Error when send notification ", err)
+			honlog.Hlog.Add("Error when send notification "+err.Error())
+		}
 	})
 }
 

@@ -1,7 +1,6 @@
 package stream
 
 import (
-	"errors"
 	"fmt"
 	honlog "github.com/SJTU-OpenNetwork/hon-textile/hon-log"
 	"github.com/SJTU-OpenNetwork/hon-textile/pb"
@@ -96,7 +95,7 @@ func (s *StreamInfos) getOrCreate(id string) *StreamInfo {
 	info, ok := s.infos[id]
 	if !ok {
 		info = &StreamInfo{
-			status:         pb.StreamStatus_UNKNOWN,
+			status:         pb.StreamStatus_NEW,
 			timer:          nil,
 			treeParent:     "",
 			streamDuration: 0,
@@ -120,7 +119,7 @@ func (info *StreamInfo) onInform() {
 	info.sLock.Lock()
 	defer info.sLock.Unlock()
 	switch info.status {
-	case pb.StreamStatus_UNKNOWN:
+	case pb.StreamStatus_NEW:
 		honlog.Hlog.Add(fmt.Sprintf("[%s] %s ==> %s", TAG_STATUS, info.status.String(), pb.StreamStatus_RECEIVING.String()))
 		//time.AfterFunc(Inform)
 		//info.status
@@ -144,12 +143,26 @@ func (info *StreamInfo) onMeta(timeout func()) {
 	info.sLock.Lock()
 	defer info.sLock.Unlock()
 	switch info.status {
-	case pb.StreamStatus_UNKNOWN:
+	case pb.StreamStatus_NEW:
 		info.timer = time.AfterFunc(InformTimeOut, timeout)
 		info.status = pb.StreamStatus_NO_INFORM
 		honlog.Hlog.Add(fmt.Sprintf("[%s] %s ==> %s", TAG_STATUS, info.status.String(), pb.StreamStatus_NO_INFORM.String()))
+	
 	default:
 		log.Debugf("[%s] Status is %s when receive meta.", TAG_STATUS, info.status.String())
+	}
+}
+
+func (info *StreamInfo) onCreateStream() {
+	info.sLock.Lock()
+	defer info.sLock.Unlock()
+	switch info.status {
+	case pb.StreamStatus_NEW:
+		info.status = pb.StreamStatus_COMPLETE
+		honlog.Hlog.Add(fmt.Sprintf("[%s] %s ==> %s", TAG_STATUS, info.status.String(), pb.StreamStatus_COMPLETE.String()))
+	default:
+		log.Error("Wrong status when create stream: ", info.status.String())
+		honlog.Hlog.Add("Error, Wrong status when create stream: " + info.status.String())
 	}
 }
 
@@ -167,21 +180,3 @@ func (info *StreamInfo) refreshProviderTimer() {
 	}
 }
 
-func (s *StreamInfos) changeStatus(sid string, status pb.StreamStatus, timer *time.Timer) error {
-	info, ok := s.infos[sid]
-	if !ok {
-		log.Error("No info when change status for ", sid)
-		honlog.Hlog.Add("No info when change status for " + sid)
-		return errors.New("No info of " + sid)
-	}
-	log.Debugf("[%s] %s ==> %s Stream %s", TAG_STATUS, info.status.String(), status.String(), sid)
-	if info.timer != nil {
-		stopped := info.timer.Stop()
-		if !stopped {
-			log.Warn("Timer already stopped or expired")
-			honlog.Hlog.Add("Warning: Timer already stopped or expired")
-		}
-	}
-	info.timer = timer
-	return nil
-}
