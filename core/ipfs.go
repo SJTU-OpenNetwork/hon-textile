@@ -23,6 +23,7 @@ func (t *Textile) DataAtStreamFile(feedpb *pb.FeedStreamMeta, cid []byte) ([]byt
 
 	data, err := t.DataAtPath(string(cid))
 	if err != nil {
+		honlog.Hlog.Add(err.Error())
 		if err == ipld.ErrNotFound {
 			return nil, "", nil
 		}
@@ -31,6 +32,7 @@ func (t *Textile) DataAtStreamFile(feedpb *pb.FeedStreamMeta, cid []byte) ([]byt
 
 	media, err := t.GetMedia(bytes.NewReader(data))
 	if err != nil {
+		honlog.Hlog.Add(err.Error())
 		return nil, "", err
 	}
 
@@ -47,6 +49,7 @@ func (t *Textile) DataAtStreamFile(feedpb *pb.FeedStreamMeta, cid []byte) ([]byt
 	}
 	block_json, err := json.Marshal(block_map)
 	if err != nil {
+		honlog.Hlog.Add(err.Error())
 		log.Error(err)
 	}
 

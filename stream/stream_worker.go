@@ -107,21 +107,7 @@ func (sw *streamWorker) start() error {
 					// Block if there is no signal
 					//log.Debug("Worker wake up.")
 					//recorder.Hlog.Add("Worker wake up.")
-					blks := make([] *pb.StreamBlock, 0)
-					currentSize := 0
-					for currentSize < maxBlockSize {
-						tblks, _ := sw.blockFetcher(sw.req.Id, sw.currentIndex, maxBlockFetchNum)
-						// break the loop when there is no more blocks
-						if len(tblks)==0 {
-							break
-						}
-						for _, tblk := range tblks {
-							blks = append(blks, tblk)
-							currentSize += int(tblk.Size)
-						}
-                        sw.currentIndex = sw.currentIndex + uint64(len(tblks))
-					}
-					//blks, _ := sw.blockFetcher(sw.req.Id, sw.currentIndex, maxBlockFetchNum)
+					blks, _ := sw.blockFetcher(sw.req.Id, sw.currentIndex, maxBlockFetchNum)
 					if blks != nil && len(blks) > 0 {
 						//fmt.Printf("stream/streamWorker.go start(): send %d blks for stream %s to %s start\n", len(blks), sw.stream.Id, sw.pid.Pretty())
 						fblks := sw.filterBlocks(blks)
@@ -149,6 +135,7 @@ func (sw *streamWorker) start() error {
                             sw.notice()	// Resend block if the connection is still there
                             break
 						}
+                        sw.currentIndex = sw.currentIndex + uint64(len(blks))
 
 						if len(blks) >= maxBlockFetchNum {
 							// Notice the worker again if there maybe more blocks can be fetched.
