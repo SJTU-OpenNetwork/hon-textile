@@ -43,7 +43,7 @@ const defaultMaxWorkers = 2
 const defaultMaxTaskWorkers = 1
 const InfoObsoleteTime = time.Hour * 5
 const InformTimeOut = time.Second * 30
-const RecvTimeout = time.Second * 10
+const RecvTimeout = time.Second * 30
 
 var maxWorkers int
 var maxTaskWorkers int
