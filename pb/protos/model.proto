@@ -282,6 +282,7 @@ message Notification {
 
         RECORD_REPORT       = 501;
 
+        INFORM_TIMEOUT      = 502;
     }
 
     // view info

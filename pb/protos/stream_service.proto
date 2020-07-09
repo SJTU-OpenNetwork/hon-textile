@@ -52,10 +52,10 @@ message StreamClose {
 }
 
 enum StreamStatus {
-    NO_INFORM = 0;
-    RECEIVING = 1;
-    RECEIVE_TIMEOUT = 2;
-    INFORM_TIMEOUT = 3;
-    COMPLETE = 4;
-    UNKNOWN = 5;
+    NEW = 0;
+    NO_INFORM = 1;
+    RECEIVING = 2;
+    RECEIVE_TIMEOUT = 3;
+    INFORM_TIMEOUT = 4;
+    COMPLETE = 5;
 }
