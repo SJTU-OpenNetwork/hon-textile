@@ -139,6 +139,19 @@ func (info *StreamInfo) onInform() {
 	}
 }
 
+func (info *StreamInfo) onRequestSuccess() {
+	info.sLock.Lock()
+	defer info.sLock.Unlock()
+	switch info.status {
+	case pb.StreamStatus_REQUESTING:
+            info.timer = new
+        }
+    default:
+		log.Error("Wrong status when handling request success: ", info.status.String())
+		honlog.Hlog.Add("Error, Wrong status when handling request success: " + info.status.String())
+    }
+}
+
 func (info *StreamInfo) onMeta(timeout func()) {
 	info.sLock.Lock()
 	defer info.sLock.Unlock()
