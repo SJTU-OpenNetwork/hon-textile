@@ -201,6 +201,54 @@ func (t *Textile) FileAsStream_Text(threadId string, sf *pb.StreamFile, file_typ
 	return meta, nil
 }
 
+/*
+ * fetchStreamTreePrevious find some previous previous nodes on the push tree.
+ */
+func (t *Textile) fetchStreamTreePrevious(threadId string, rootPeer string, number int) ([]string, error) {
+	thread := t.Thread(threadId)
+	if thread == nil {
+		return nil, ErrThreadNotFound
+	}
+
+	// Sort all peers
+	allPeers := thread.Peers()
+	var allPeerIDs []string
+	for _, p := range allPeers {
+		allPeerIDs = append(allPeerIDs, p.Id)
+	}
+	sort.Strings(allPeerIDs)
+
+	// Find index of root peer
+	var  rootInd int
+	for i, p := range allPeerIDs {
+		if p == rootPeer {
+			rootInd = i
+		}
+	}
+
+	// Fetch peers:
+	//		(number-1) peers behind root peer and the root peer
+	threadSize := len(allPeerIDs)
+	if threadSize < 2 {
+		return nil, nil
+	}
+	if number > threadSize - 1 {
+		number = threadSize - 1
+	}
+	res := make([]string, 0)
+	i:=1
+	for len(res)<number-1 {
+		tmpPeer := allPeerIDs[(i+rootInd)%threadSize]
+		i++
+		if tmpPeer != t.node.Identity.Pretty() {
+			res = append(res, tmpPeer)
+		} else {
+			continue
+		}
+	}
+	res = append(res, rootPeer)
+	return res, nil
+}
 
 func (t *Textile) constructStreamTree(threadId string, workerCnt int) (map[string][]string, error) {
 	tree := make (map[string] []string)
@@ -208,7 +256,6 @@ func (t *Textile) constructStreamTree(threadId string, workerCnt int) (map[strin
 	if thread == nil {
 		return tree, ErrThreadNotFound
 	}
-
 	
 	allPeers := thread.Peers()
 	var allPeerIDs []string

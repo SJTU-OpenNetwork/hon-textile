@@ -172,6 +172,7 @@ func (t *Textile) feedItem(block *pb.Block, opts feedItemOpts) (*pb.FeedItem, er
 	case pb.Block_LEAVE:
 		payload, err = t.leave(block, opts)
 	case pb.Block_TEXT:
+		//block.Author
 		ok, cmd, contains := t.textBot.Extract(block.Body)
 		log.Debugf("Receive text command %s contains %s", cmd, contains)
 		if ok && cmd == util.CMD_STREAM_META{
@@ -196,7 +197,8 @@ func (t *Textile) feedItem(block *pb.Block, opts feedItemOpts) (*pb.FeedItem, er
 				Streammeta:   msg,
 				PeerId: block.Author,
 			}
-			t.stream.OnStreamMeta(msg)
+			treePrevious, err := t.fetchStreamTreePrevious(block.Thread, block.Author, MAX_RETRY)
+			t.stream.OnStreamMeta(msg, treePrevious)
 		} else {
 			payload, err = t.message(block, opts)
 		}

@@ -42,7 +42,7 @@ const streamServiceProtocol = protocol.ID("/textile/stream/1.0.0")
 const defaultMaxWorkers = 2
 const defaultMaxTaskWorkers = 1
 const InfoObsoleteTime = time.Hour * 5
-const InformTimeOut = time.Minute
+const InformTimeOut = time.Second * 20
 const RecvTimeout = time.Minute
 
 var maxWorkers int
@@ -271,10 +271,62 @@ func (h *StreamService) UnsubscribeStream(sid string) error{
  * In that case, a timer will be set.
  * If no inform receive before the timer end, the status would be set to timeout.
  */
-func (h *StreamService) OnStreamMeta(meta *pb.StreamMeta) {
+func (h *StreamService) OnStreamMeta(meta *pb.StreamMeta, treePrevious []string) {
 	//timer := time.NewTicker()
 	info := h.streamInfos.getOrCreate(meta.Id)
 	info.onMeta(func(){
+		info.onInformTimeout()
+		request := &pb.StreamRequest{
+			Id:                   meta.Id,
+			StreamMap:            1,
+			StartIndex:           0,
+		}
+		for _, pid := range(treePrevious) {
+			responseEnv, err := h.SendStreamRequest(pid, request)
+			if err != nil {
+				log.Errorf("Error when send request %s to %s", meta.Id, pid)
+				recorder.Hlog.Add("Error when send request "+meta.Id+" to "+pid)
+				continue
+			}
+			response := new(pb.StreamRequestHandle)
+			err = ptypes.UnmarshalAny(responseEnv.Message.Payload, response)
+			if err!=nil {
+				log.Error("Fail to unmarshal inform request response.", err)
+				continue
+			}
+			if response.Value != 1 {
+				log.Debugf("Request %s denied by %s", meta.Id, pid)
+				recorder.Hlog.Add("Request "+ meta.Id +" denied by "+pid)
+				continue
+			} else {
+				info, ok := h.streamInfos.get(meta.Id)
+				if !ok {
+					recorder.Hlog.Add("Stream info for strem "+ meta.Id +" not exists")
+					break
+				}
+				info.onRequestSuccess(func() {
+					info.sLock.Lock()
+					info.status = pb.StreamStatus_RECEIVE_TIMEOUT
+					info.sLock.Unlock()
+					h.SendUnsubscribeRequest(pid, meta.Id)
+					pdate, _ := ptypes.TimestampProto(time.Now())
+					note := &pb.Notification{
+						Id:          ksuid.New().String(),
+						Date:        pdate,
+						//Actor:       pid.Pretty(),
+						Subject:     meta.Id,
+						Target:      "",
+						Type:        pb.Notification_INFORM_TIMEOUT,
+					}
+
+					err := h.sendNotification(note)
+					if err != nil {
+						log.Error("Error when send notification ", err)
+						honlog.Hlog.Add("Error when send notification "+err.Error())
+					}
+				})
+			}
+		}
 		pdate, _ := ptypes.TimestampProto(time.Now())
 		note := &pb.Notification{
 			Id:          ksuid.New().String(),
@@ -579,7 +631,11 @@ func (h* StreamService) handleStreamPushInform(env *pb.Envelope, peer peer.ID) (
 
 	// ========= change status
 	info := h.streamInfos.getOrCreate(inform.Meta.Id)
-	info.onInform()
+	canRequest := info.onInform()
+	if !canRequest {
+		return nil,nil
+	}
+
 	// =========
 
 	meta := inform.Meta
@@ -588,6 +644,8 @@ func (h* StreamService) handleStreamPushInform(env *pb.Envelope, peer peer.ID) (
 	if localMeta != nil && last == localMeta.Nblocks && last != 0{
 		info.status = pb.StreamStatus_COMPLETE
 		err = h.informForward(inform)
+		log.Debugf("Can not sending request: ", meta.Id)
+		honlog.Hlog.Add("Can not sending request: " + meta.Id)
 		return nil, err
 	}
 
