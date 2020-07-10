@@ -13,7 +13,7 @@ import (
 const maxBlockFetchNum = 1
 const maxBlockSize = 512 * 1024
 
-const WorkerTimeout = time.Second * 20
+const WorkerTimeout = time.Minute
 
 // StreamWorker is used do blocksending task.
 // Each streamrequest will create a independent worker.
