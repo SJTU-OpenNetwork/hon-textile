@@ -1,0 +1,6 @@
+package shadow
+
+const (
+	TAG_INFORM_RECV = "INFORM_RECV"
+	TAG_SHADOW_REGISTER = "SHADOW_REGISTER"
+)

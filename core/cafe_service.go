@@ -5,6 +5,7 @@ import (
 	"context"
 	"encoding/hex"
 	"fmt"
+	honlog "github.com/SJTU-OpenNetwork/hon-textile/hon-log"
 	"github.com/SJTU-OpenNetwork/hon-textile/recorder"
 	"math"
 	"strings"
@@ -661,7 +662,12 @@ func (h *CafeService) sendObject(id icid.Cid, cafeId string, token string) error
 // searchLocal searches the local index based on the given query
 func (h *CafeService) searchLocal(qtype pb.Query_Type, options *pb.QueryOptions, payload *any.Any, local bool, pid peer.ID) (*queryResultSet, error) {
 	results := newQueryResultSet(options)
-
+	log.Debugf("[SEARCH_LOCAL] Type %s, For %s", qtype.String(), pid.Pretty())
+	honlog.Hlog.Add(fmt.Sprintf("[SEARCH_LOCAL] Type %s, For %s", qtype.String(), pid.Pretty()))
+	defer func(){
+		log.Debugf("[SEARCH_LOCAL] DONE")
+		honlog.Hlog.Add("[SEARCH_LOCAL] DONE")
+	}()
 	switch qtype {
 	case pb.Query_THREAD_SNAPSHOTS:
 		q := new(pb.ThreadSnapshotQuery)
@@ -760,7 +766,6 @@ func (h *CafeService) searchLocal(qtype pb.Query_Type, options *pb.QueryOptions,
 			})
 		}
 	case pb.Query_STREAM:
-		fmt.Printf("cafe_service searchLocal: Search local stream\n")
 
         // have shadow node, return nothing
         // the shaodw node will connect other peers through other methods
@@ -836,7 +841,7 @@ func (h *CafeService) searchLocal(qtype pb.Query_Type, options *pb.QueryOptions,
             }
         }
         peerId := h.service.Node().Identity.Pretty()
-//        tmpShadow := h.shadow.GetShadow()
+//      tmpShadow := h.shadow.GetShadow()
 		result := &pb.StreamQueryResultItem {
 			Hopcnt: int32(hopcnt),
 		}

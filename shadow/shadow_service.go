@@ -4,6 +4,7 @@ package shadow
 
 import (
 	"fmt"
+	honlog "github.com/SJTU-OpenNetwork/hon-textile/hon-log"
 	"github.com/SJTU-OpenNetwork/hon-textile/keypair"
 	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 	"github.com/SJTU-OpenNetwork/hon-textile/repo"
@@ -87,8 +88,6 @@ func (h *ShadowService) Handle(env *pb.Envelope, pid peer.ID) (*pb.Envelope, err
 		return h.handleInform(env, pid)
 	case pb.Message_SHADOW_STREAM_META:
 		return h.handleStreamMeta(env, pid)
-	case pb.Message_SHADOW_INFORM_RES:
-		return h.handleInformRes(env, pid)
     default:
         return nil, nil
     }
@@ -152,7 +151,8 @@ func (h *ShadowService) inform(pid peer.ID) error {
 
 // TODO: called after received an ``inform'' message
 func (h *ShadowService) handleInform(env *pb.Envelope, pid peer.ID) (*pb.Envelope, error) {
-	log.Debugf("Shadow: Handle inform from %s", pid.Pretty())
+	log.Debugf("[%s] From %s", TAG_INFORM_RECV, pid.Pretty())
+	honlog.Hlog.Add(fmt.Sprintf("[%s] From %s", TAG_INFORM_RECV, pid.Pretty()))
 	if !h.isShadow {
 		inform := &pb.ShadowInform{}
 		err := ptypes.UnmarshalAny(env.Message.Payload, inform);
@@ -187,24 +187,11 @@ func (h *ShadowService) handleInform(env *pb.Envelope, pid peer.ID) (*pb.Envelop
 	}
 }
 
-func (h *ShadowService) handleInformRes(env *pb.Envelope, pid peer.ID) (*pb.Envelope, error){
-	log.Debugf("Shadow: Receive shadow inform response from %s", pid.Pretty())
-	if h.isShadow {
-		res := &pb.ShadowInformResponse{}
-		err := ptypes.UnmarshalAny(env.Message.Payload, res); if err != nil {return nil, err}
-		if res.Accept {
-			log.Debugf("Shadow: Inform is accepted by %s", pid.Pretty())
-			h.addUser(pid)
-		}
-		return nil, nil
-	} else {
-		return nil, ErrWrongRole
-	}
-}
-
 func (h *ShadowService) RegisterShadow(id peer.ID) error {
 	//h.lock.Lock()
 	//defer h.lock.Unlock()
+	log.Debugf("[%s] %s", TAG_SHADOW_REGISTER, id.Pretty())
+	honlog.Hlog.Add(fmt.Sprintf("[%s] %s", TAG_SHADOW_REGISTER, id.Pretty()))
 	h.shadow = id
 	return nil
 }
