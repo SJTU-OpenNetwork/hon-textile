@@ -197,8 +197,13 @@ func (t *Textile) feedItem(block *pb.Block, opts feedItemOpts) (*pb.FeedItem, er
 				Streammeta:   msg,
 				PeerId: block.Author,
 			}
-			treePrevious, err := t.fetchStreamTreePrevious(block.Thread, block.Author, MAX_RETRY)
-			t.stream.OnStreamMeta(msg, treePrevious)
+			if msg.Type != pb.StreamMeta_VIDEO {
+				// TODO: For now, Video does not support push.
+				//		In that case, call OnStreamMeta would cause a inform timeout.
+				//		So we only call OnStreamMeta when meta is not a VIDEO.
+				treePrevious, _ := t.fetchStreamTreePrevious(block.Thread, block.Author, MAX_RETRY)
+				t.stream.OnStreamMeta(msg, treePrevious)
+			}
 		} else {
 			payload, err = t.message(block, opts)
 		}

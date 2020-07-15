@@ -273,6 +273,7 @@ func (h *StreamService) UnsubscribeStream(sid string) error{
  */
 func (h *StreamService) OnStreamMeta(meta *pb.StreamMeta, treePrevious []string) {
 	//timer := time.NewTicker()
+	honlog.Hlog.Add("[OnStreamMeta] " + meta.Type.String())
 	info := h.streamInfos.getOrCreate(meta.Id)
 	info.onMeta(func(){
 		info.onInformTimeout()
