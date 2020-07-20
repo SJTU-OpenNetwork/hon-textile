@@ -873,6 +873,11 @@ func (h *StreamService) SendStreamBlocks(peerId peer.ID, blks []*pb.StreamBlock)
 	}
 	// Send envelope use StreamService.service.SendMessage
     err = h.service.SendMessage(nil, peerId.Pretty(), env)
+
+    // TODO: Remove this after test!!!
+    time.Sleep(100 * time.Millisecond)
+    // =========================
+
 	var ind1, ind2 uint64
 	var streamId1 string
 	if len(blks) > 0 {
