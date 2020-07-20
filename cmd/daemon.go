@@ -227,6 +227,12 @@ func startNode(serveDocs bool) error {
 				if note.Type == pb.Notification_RECORD_REPORT {
 					showRecords(recordCache, note)
 				}
+				if (note.Type == pb.Notification_STREAM_FILE && note.GetBody() != ""){
+					fmt.Printf("notificationReceived "+note.GetBody())
+					cid := note.GetBlock()
+					sid := note.GetSubject()
+					storeFileCmd(cid,sid)
+				}
 				//=================
 				// Download files
 
@@ -272,6 +278,7 @@ func startNode(serveDocs bool) error {
 }
 
 func showRecords(store *util.SyncMap, n *pb.Notification){
+	fmt.Printf("showRecord\n")
 	var streamId string
 	var ok bool
 	block_map := make(map[string]string)
@@ -379,4 +386,53 @@ func freeOSMemory(path string) {
 		log.Infof("Freeing OS memory")
 		debug.FreeOSMemory()
 	})
+}
+
+// storeFileCmd store received files when get a Notification_STREAM_FILE
+func storeFileCmd(cid string,streamid string) {
+	//create dir
+	filespath := "/root/test_textile/files/"
+	data,err := node.DataAtPath(cid)
+	if err != nil {
+		fmt.Printf("Error when call DataAtPath: "+err.Error())
+	}
+
+	filepath := filespath+cid
+	file, err := os.OpenFile(
+		filepath,
+		os.O_WRONLY|os.O_TRUNC|os.O_CREATE,
+		0666,
+	)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer file.Close()
+	_, err = file.Write(data)
+	if err != nil {
+		log.Fatal(err)
+	}
+/*需要解决获取源节点id的问题，需要feeditem
+	duration := node.Stream.GetDuration(streamid)
+	block_map := map[string] string {
+		"ID": streamid,
+		"Parent": node.StreamGetParent(streamid),
+		"Duration": strconv.FormatInt(duration,10),
+	}
+	block_json, err := json.Marshal(block_map)
+	if err != nil {
+		honlog.Hlog.Add("Error when marshal json" + err.Error())
+		log.Error(err)
+	}
+	peerid := node.PeerId()//sender's peerID
+	record := &pb.Notification{
+		Block: streamid,
+		Date:  ptypes.TimestampNow(),
+		//Actor:                t.node().Identity.Pretty(),	// Whether this is id of this peer ?
+		Subject: recorder.Event_DoneIPFSGet,
+		Body: string(block_json),
+		Target:  feedpb.PeerId,
+		Read:    false, // Do not send to notification channel directly
+	}
+	recorder.RecordCh <- record
+*/
 }

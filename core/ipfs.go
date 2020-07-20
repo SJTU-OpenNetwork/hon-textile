@@ -30,6 +30,7 @@ func (t *Textile) DataAtStreamFile(feedpb *pb.FeedStreamMeta, cid []byte) ([]byt
 		return nil, "", err
 	}
 
+    //t.stream.FlushStreamDatabase(feedpb, string(cid))
 	media, err := t.GetMedia(bytes.NewReader(data))
 	if err != nil {
 		honlog.Hlog.Add("Error when call GetMedia: " + err.Error())
