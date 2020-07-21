@@ -3,7 +3,9 @@ package cmd
 import (
 	"encoding/json"
 	"fmt"
+	honlog "github.com/SJTU-OpenNetwork/hon-textile/hon-log"
 	"github.com/SJTU-OpenNetwork/hon-textile/recorder"
+	"github.com/golang/protobuf/ptypes"
 	"github.com/golang/protobuf/ptypes/timestamp"
 	"net/http"
 	"os"
@@ -11,6 +13,7 @@ import (
 	"runtime"
 	"runtime/debug"
 	"strconv"
+	"sync"
 	"time"
 
 	"github.com/SJTU-OpenNetwork/hon-textile/api"
@@ -96,10 +99,23 @@ func printSplash() {
 	fmt.Println(Grey("Account: ") + Cyan(node.Account().Address()))
 }
 
+type MetaAndNotification struct {
+	notification *pb.Notification
+	feedStreamItem *pb.FeedItem
+}
+type SafeMap struct {
+	data map[string]*MetaAndNotification
+	lock sync.Mutex
+}
 // Start the node, the API, and the Gateway
 // And subsribe to updates of the wallet, thread, and notifications
 func startNode(serveDocs bool) error {
 	listener := node.ThreadUpdateListener()
+
+	metaNotiMap := SafeMap{
+		data : make(map[string]*MetaAndNotification),
+		lock : sync.Mutex{},
+	}
 
 	err := node.Start()
 	if err != nil {
@@ -141,6 +157,7 @@ func startNode(serveDocs bool) error {
 						log.Error("update is nil")
 						continue
 					}
+
 					thrd := update.Thread[len(update.Thread)-8:]
 
 					btype, err := core.FeedItemType(update)
@@ -157,6 +174,18 @@ func startNode(serveDocs bool) error {
 					}
 					user := payload.GetUser()
 					date := payload.GetDate()
+
+					//Update metaNotiMap
+					if meta,ok := payload.(*pb.FeedStreamMeta);ok {
+						streamid := meta.Streammeta.Id
+						metaNotiMap.lock.Lock()
+						if _,ok := metaNotiMap.data[streamid];ok {//if metaNotiMap  include this stream
+							metaNotiMap.data[streamid].feedStreamItem = update
+						}else{
+							metaNotiMap.data[streamid] = &MetaAndNotification{feedStreamItem:update,notification:nil}
+						}
+						metaNotiMap.lock.Unlock()
+					}
 
 					// Subscribe automatically
 					if node.Config().IsAuto && btype == pb.Block_STREAMMETA && user.Address!=node.Profile().Address{
@@ -227,11 +256,40 @@ func startNode(serveDocs bool) error {
 				if note.Type == pb.Notification_RECORD_REPORT {
 					showRecords(recordCache, note)
 				}
-				if (note.Type == pb.Notification_STREAM_FILE && note.GetBody() != ""){
+				//=================
+				if note.Type == pb.Notification_STREAM_FILE && note.GetBody() != "" {
 					fmt.Printf("notificationReceived "+note.GetBody())
 					cid := note.GetBlock()
 					sid := note.GetSubject()
-					storeFileCmd(cid,sid)
+					metaNotiMap.lock.Lock()
+					if _,ok := metaNotiMap.data[sid];ok {//if metaNotiMap include this stream
+						metaNotiMap.data[sid].notification = note
+					}else{
+						metaNotiMap.data[sid] = &MetaAndNotification{feedStreamItem:nil,notification:note}
+					}
+					metaNotiMap.lock.Unlock()
+					for {//wait for feedstreamitem
+						if metaNotiMap.data[sid].feedStreamItem.String() != "" {
+							payload,err := core.GetFeedItemPayload(metaNotiMap.data[sid].feedStreamItem)
+							if err != nil{
+								fmt.Printf("error when get feedite payload")
+								break
+							}
+							if meta,ok := payload.(*pb.FeedStreamMeta);ok {
+								//StreamSubscribe(meta.Streammeta.Id)
+								//log.Debugf("[AUTO] Subscribe stream %s", meta.Streammeta.Id)
+								//err := node.SubscribeStream(meta.Streammeta.Id)
+								storeFileCmd(cid,sid,meta)
+								break
+							} else {
+								log.Error("[AUTO] Can not convert FeedItemPayload to FeedStreamMeta")
+							}
+
+						}else {
+							//wait for feedstreamite update
+						}
+					}
+
 				}
 				//=================
 				// Download files
@@ -389,7 +447,7 @@ func freeOSMemory(path string) {
 }
 
 // storeFileCmd store received files when get a Notification_STREAM_FILE
-func storeFileCmd(cid string,streamid string) {
+func storeFileCmd(cid string,streamid string,feedmeta *pb.FeedStreamMeta) {
 	//create dir
 	filespath := "/root/test_textile/files/"
 	data,err := node.DataAtPath(cid)
@@ -410,8 +468,7 @@ func storeFileCmd(cid string,streamid string) {
 	_, err = file.Write(data)
 	if err != nil {
 		log.Fatal(err)
-	}
-/*需要解决获取源节点id的问题，需要feeditem
+    }
 	duration := node.Stream.GetDuration(streamid)
 	block_map := map[string] string {
 		"ID": streamid,
@@ -423,16 +480,16 @@ func storeFileCmd(cid string,streamid string) {
 		honlog.Hlog.Add("Error when marshal json" + err.Error())
 		log.Error(err)
 	}
-	peerid := node.PeerId()//sender's peerID
+
 	record := &pb.Notification{
 		Block: streamid,
 		Date:  ptypes.TimestampNow(),
 		//Actor:                t.node().Identity.Pretty(),	// Whether this is id of this peer ?
 		Subject: recorder.Event_DoneIPFSGet,
 		Body: string(block_json),
-		Target:  feedpb.PeerId,
+		Target:  feedmeta.PeerId,
 		Read:    false, // Do not send to notification channel directly
 	}
 	recorder.RecordCh <- record
-*/
+//
 }
