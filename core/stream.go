@@ -599,3 +599,7 @@ func (t *Textile) StreamGetStatusString(sid string) string {
 		return "UNKNOWN"
 	}
 }
+
+func (t *Textile) GetDuration(streamId string) int64 {
+	return t.stream.GetDuration(streamId)
+}

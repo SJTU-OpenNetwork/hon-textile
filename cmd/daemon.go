@@ -469,7 +469,7 @@ func storeFileCmd(cid string,streamid string,feedmeta *pb.FeedStreamMeta) {
 	if err != nil {
 		log.Fatal(err)
     }
-	duration := node.Stream.GetDuration(streamid)
+	duration := node.GetDuration(streamid)
 	block_map := map[string] string {
 		"ID": streamid,
 		"Parent": node.StreamGetParent(streamid),
