@@ -101,7 +101,8 @@ func printSplash() {
 
 type MetaAndNotification struct {
 	notification *pb.Notification
-	feedStreamItem *pb.FeedItem
+	//feedStreamItem *pb.FeedItem
+	feedItemPayload core.FeedItemPayload
 }
 type SafeMap struct {
 	data map[string]*MetaAndNotification
@@ -112,10 +113,11 @@ type SafeMap struct {
 func startNode(serveDocs bool) error {
 	listener := node.ThreadUpdateListener()
 
-	metaNotiMap := SafeMap{
-		data : make(map[string]*MetaAndNotification),
-		lock : sync.Mutex{},
-	}
+	var metaNotiMap sync.Map
+	//metaNotiMap := SafeMap{
+	//	data : make(map[string]*MetaAndNotification),
+	//	lock : sync.Mutex{},
+	//}
 
 	err := node.Start()
 	if err != nil {
@@ -178,13 +180,18 @@ func startNode(serveDocs bool) error {
 					//Update metaNotiMap
 					if meta,ok := payload.(*pb.FeedStreamMeta);ok {
 						streamid := meta.Streammeta.Id
-						metaNotiMap.lock.Lock()
-						if _,ok := metaNotiMap.data[streamid];ok {//if metaNotiMap  include this stream
-							metaNotiMap.data[streamid].feedStreamItem = update
+						fmt.Printf("cmdtest== update metanotimap,streamid: %s\n",streamid)
+						//metaNotiMap.lock.Lock()
+						if metaNoti,ok := metaNotiMap.Load(streamid);ok {//if metaNotiMap  include this stream
+							//metaNot,_ := metaNotiMap.Load(streamid)
+							//metaNoti := metaNot.(*MetaAndNotification)
+							metaNotiMap.Store(streamid,&MetaAndNotification{feedItemPayload:payload,notification:metaNoti.(*MetaAndNotification).notification})
+							fmt.Printf("cmdtest== metanotimap exist streamid, update metanotimap,feedstreamitemm: %s\n",update.String())
 						}else{
-							metaNotiMap.data[streamid] = &MetaAndNotification{feedStreamItem:update,notification:nil}
+							metaNotiMap.Store(streamid,&MetaAndNotification{feedItemPayload:payload,notification:nil})
+							fmt.Printf("cmdtest== metanotimap doesn't exist streamid, update metanotimap,feedstreamitemm: %s\n",update.String())
 						}
-						metaNotiMap.lock.Unlock()
+						//metaNotiMap.lock.Unlock()
 					}
 
 					// Subscribe automatically
@@ -258,27 +265,41 @@ func startNode(serveDocs bool) error {
 				}
 				//=================
 				if note.Type == pb.Notification_STREAM_FILE && note.GetBody() != "" {
-					fmt.Printf("notificationReceived "+note.GetBody())
+					fmt.Printf("cmdtest== notificationReceived "+note.String()+"\n")
 					cid := note.GetBlock()
 					sid := note.GetSubject()
-					metaNotiMap.lock.Lock()
-					if _,ok := metaNotiMap.data[sid];ok {//if metaNotiMap include this stream
-						metaNotiMap.data[sid].notification = note
+					//metaNotiMap.lock.Lock()
+					if metaNoti,ok := metaNotiMap.Load(sid);ok {//if metaNotiMap include this stream
+						metaNotiMap.Store(sid,&MetaAndNotification{notification:note,feedItemPayload:metaNoti.(*MetaAndNotification).feedItemPayload})
+						fmt.Printf("cmdtest== metaNotiMap include this stream\n "+sid)
+						//metaNotiMap.data[sid].notification = note
 					}else{
-						metaNotiMap.data[sid] = &MetaAndNotification{feedStreamItem:nil,notification:note}
+						metaNotiMap.Store(sid,&MetaAndNotification{feedItemPayload:nil,notification:note})
+						fmt.Printf("cmdtest== metaNotiMap doesn't include this streamn\n "+sid)
 					}
-					metaNotiMap.lock.Unlock()
+					//metaNotiMap.lock.Unlock()
 					for {//wait for feedstreamitem
-						if metaNotiMap.data[sid].feedStreamItem.String() != "" {
-							payload,err := core.GetFeedItemPayload(metaNotiMap.data[sid].feedStreamItem)
-							if err != nil{
-								fmt.Printf("error when get feedite payload")
-								break
-							}
-							if meta,ok := payload.(*pb.FeedStreamMeta);ok {
+						fmt.Printf("cmdtest== wait for feedstreamitem\n")
+						metaNoti,_ := metaNotiMap.Load(sid)
+						//metaNoti := metaNot.(*MetaAndNotification)
+						if metaNoti.(*MetaAndNotification).feedItemPayload != nil {
+							fmt.Printf("cmdtest==show feeditem:%s\n,show noti: %s\n",
+								metaNoti.(*MetaAndNotification).feedItemPayload.String(),
+								metaNoti.(*MetaAndNotification).notification.String())
+							//payload,err :=  core.GetFeedItemPayload(metaNoti.(*MetaAndNotification).feedStreamItem)//直接在map里放payload？？
+							//if err != nil{
+
+								//fmt.Printf("error when get feeditem payload\n")
+								//fmt.Printf("cmdtest==print feeditem %s\n",payload.String())
+								//log.Errorf("error when get feeditem payload: %s\n", err)
+								//break
+							//}
+							if meta,ok := metaNoti.(*MetaAndNotification).feedItemPayload.(*pb.FeedStreamMeta); ok{
+							//if meta,ok := payload.(*pb.FeedStreamMeta);ok {
 								//StreamSubscribe(meta.Streammeta.Id)
 								//log.Debugf("[AUTO] Subscribe stream %s", meta.Streammeta.Id)
 								//err := node.SubscribeStream(meta.Streammeta.Id)
+								fmt.Printf("cmdtest== run storeFileCmd\n")
 								storeFileCmd(cid,sid,meta)
 								break
 							} else {
@@ -286,6 +307,8 @@ func startNode(serveDocs bool) error {
 							}
 
 						}else {
+							fmt.Printf("cmdtest== sleep 0.5s for feedstreamitem\n")
+							time.Sleep(time.Millisecond * 500)
 							//wait for feedstreamite update
 						}
 					}
@@ -449,15 +472,30 @@ func freeOSMemory(path string) {
 // storeFileCmd store received files when get a Notification_STREAM_FILE
 func storeFileCmd(cid string,streamid string,feedmeta *pb.FeedStreamMeta) {
 	//create dir
-	filespath := "/root/test_textile/files/"
+	filespath := "/root/textile_testfiles/"
+	_,err := os.Stat(filespath)
+	if err != nil{//filepath doesn't exist
+		if os.IsNotExist(err) {
+			fmt.Println("dir is not exist,creating......")
+			err := os.Mkdir(filespath, os.ModePerm)
+			if err != nil {
+				fmt.Printf("mkdir failed![%v]\n", err)
+				return
+			}
+			fmt.Println("created dir")
+		}else{
+			fmt.Println("stat file error")
+			return
+		}
+	}
+
 	data,err := node.DataAtPath(cid)
 	if err != nil {
 		fmt.Printf("Error when call DataAtPath: "+err.Error())
 	}
-
-	filepath := filespath+cid
+	
 	file, err := os.OpenFile(
-		filepath,
+		filespath+cid,
 		os.O_WRONLY|os.O_TRUNC|os.O_CREATE,
 		0666,
 	)
