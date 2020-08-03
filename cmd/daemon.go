@@ -260,32 +260,32 @@ func startNode(serveDocs bool) error {
 				}
 				//=================
 				// Show record
-				if note.Type == pb.Notification_RECORD_REPORT {
+				if note.Type == pb.Notification_RECORD_REPORT && note.GetBody() != "" {
 					showRecords(recordCache, note)
 				}
 				//=================
 				if note.Type == pb.Notification_STREAM_FILE && note.GetBody() != "" {
-					fmt.Printf("cmdtest== notificationReceived "+note.String()+"\n")
+					//fmt.Printf("cmdtest== notificationReceived "+note.String()+"\n")
 					cid := note.GetBlock()
 					sid := note.GetSubject()
 					//metaNotiMap.lock.Lock()
 					if metaNoti,ok := metaNotiMap.Load(sid);ok {//if metaNotiMap include this stream
 						metaNotiMap.Store(sid,&MetaAndNotification{notification:note,feedItemPayload:metaNoti.(*MetaAndNotification).feedItemPayload})
-						fmt.Printf("cmdtest== metaNotiMap include this stream\n "+sid)
+						//fmt.Printf("cmdtest== metaNotiMap include this stream\n "+sid)
 						//metaNotiMap.data[sid].notification = note
 					}else{
 						metaNotiMap.Store(sid,&MetaAndNotification{feedItemPayload:nil,notification:note})
-						fmt.Printf("cmdtest== metaNotiMap doesn't include this streamn\n "+sid)
+						//fmt.Printf("cmdtest== metaNotiMap doesn't include this streamn\n "+sid)
 					}
 					//metaNotiMap.lock.Unlock()
 					for {//wait for feedstreamitem
-						fmt.Printf("cmdtest== wait for feedstreamitem\n")
+						//fmt.Printf("cmdtest== wait for feedstreamitem\n")
 						metaNoti,_ := metaNotiMap.Load(sid)
 						//metaNoti := metaNot.(*MetaAndNotification)
 						if metaNoti.(*MetaAndNotification).feedItemPayload != nil {
-							fmt.Printf("cmdtest==show feeditem:%s\n,show noti: %s\n",
-								metaNoti.(*MetaAndNotification).feedItemPayload.String(),
-								metaNoti.(*MetaAndNotification).notification.String())
+							//fmt.Printf("cmdtest==show feeditem:%s\n,show noti: %s\n",
+							//	metaNoti.(*MetaAndNotification).feedItemPayload.String(),
+							//	metaNoti.(*MetaAndNotification).notification.String())
 							//payload,err :=  core.GetFeedItemPayload(metaNoti.(*MetaAndNotification).feedStreamItem)//直接在map里放payload？？
 							//if err != nil{
 
@@ -299,7 +299,7 @@ func startNode(serveDocs bool) error {
 								//StreamSubscribe(meta.Streammeta.Id)
 								//log.Debugf("[AUTO] Subscribe stream %s", meta.Streammeta.Id)
 								//err := node.SubscribeStream(meta.Streammeta.Id)
-								fmt.Printf("cmdtest== run storeFileCmd\n")
+								//fmt.Printf("cmdtest== run storeFileCmd\n")
 								storeFileCmd(cid,sid,meta)
 								break
 							} else {
@@ -307,7 +307,7 @@ func startNode(serveDocs bool) error {
 							}
 
 						}else {
-							fmt.Printf("cmdtest== sleep 0.5s for feedstreamitem\n")
+							//fmt.Printf("cmdtest== sleep 0.5s for feedstreamitem\n")
 							time.Sleep(time.Millisecond * 500)
 							//wait for feedstreamite update
 						}
@@ -359,7 +359,7 @@ func startNode(serveDocs bool) error {
 }
 
 func showRecords(store *util.SyncMap, n *pb.Notification){
-	fmt.Printf("showRecord\n")
+	//fmt.Printf("showRecord\n")
 	var streamId string
 	var ok bool
 	block_map := make(map[string]string)
@@ -372,13 +372,19 @@ func showRecords(store *util.SyncMap, n *pb.Notification){
 	}
 	switch n.Subject{
 	case recorder.Event_ThreadAddFile:
-		store.Push(streamId, n.Date)
+        fmt.Println("========================Show Record")
+        store.Push(streamId, n.Date)
+       // fmt.Printf("file 时间戳：%d,发送时刻：%d\n",n.Date.GetNanos()/1000000,time.Now())
+       // fmt.Println(time.Now())
 	case recorder.Event_DoneIPFSGet:
+       // fmt.Printf("当前时间戳：%d，当前时刻：%d\n",ptypes.TimestampNow().GetNanos()/1000000,time.Now())
+       // fmt.Println(time.Now())
 		date := store.Get(streamId).(*timestamp.Timestamp)
 		if date == nil {
 			fmt.Printf("收到其他人发送的stream的反馈：%s\n", streamId)
 		}
-		duration := (n.Date.GetNanos() - date.GetNanos())/1000000
+       // fmt.Printf("file 发送时间：%d;Noti 接收时间 %d\n",date.GetNanos()/1000000,n.Date.GetNanos()/1000000)
+        duration :=(n.Date.GetSeconds() - date.GetSeconds())*1000+ int64(n.Date.GetNanos() - date.GetNanos())/1000000
 		fmt.Printf("发送用时统计：\n\tStream：\t%s\n\t接受者：\t%s\n\t总RTT：\t%dms\n",
 			streamId, n.Actor, duration)
 	}
@@ -493,7 +499,7 @@ func storeFileCmd(cid string,streamid string,feedmeta *pb.FeedStreamMeta) {
 	if err != nil {
 		fmt.Printf("Error when call DataAtPath: "+err.Error())
 	}
-	
+
 	file, err := os.OpenFile(
 		filespath+cid,
 		os.O_WRONLY|os.O_TRUNC|os.O_CREATE,

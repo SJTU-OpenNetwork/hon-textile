@@ -6,7 +6,9 @@ import (
 	"fmt"
     "encoding/json"
 	"github.com/ipfs/go-ipfs/core"
-	"github.com/SJTU-OpenNetwork/hon-textile/ipfs"
+	"github.com/SJTU-OpenNetwork/hon-textile/recorder"
+	"github.com/golang/protobuf/ptypes"
+    "github.com/SJTU-OpenNetwork/hon-textile/ipfs"
 	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 	"github.com/SJTU-OpenNetwork/hon-textile/repo"
 	"github.com/ipfs/go-cid"
@@ -82,7 +84,20 @@ func (store *activeStreamStore) fileAsStream(sf *pb.StreamFile, file_type pb.Str
 	as := store.streamList[fileid]
 	err = as.traverseNode(fileCid, true, sf.Description); if err != nil {return nil, err}
 	err = as.handleFileEndmark(); if err != nil {return nil, err}
-	err = as.notify(as.meta.Id); if err != nil {return nil, err}
+    err = as.notify(as.meta.Id); if err != nil {return nil, err}
+
+    //====== send notification to self
+	record := &pb.Notification{
+		Block:                config.Id,
+		Date:                 ptypes.TimestampNow(),
+		Actor:                "",	// self id. filled with "" if can not get.
+		Subject:              recorder.Event_ThreadAddFile,	// event type
+		Target:               "",	// self id. The peer that add the file would be collector
+        Body:fileid,
+		Read:                 true,	// send to notification channel. There is other notification fot thread add file.
+	}
+	recorder.RecordCh <- record
+	//======
 	return config, nil
 }
 
