@@ -37,7 +37,8 @@ func NewConnPool(factory Factory,capacity int,connTimeOut time.Duration) (*ConnP
 		connRes, err:=cp.factory()
 		if err != nil {
 			cp.Close()
-			log.Debugf("tcp connection pool factory error")
+			log.Error("tcp connection pool factory error",err)
+			return nil, err
 		}
 		cp.conns <- &Conn{
 			conn: connRes,
