@@ -160,7 +160,6 @@ func (h *ShadowService) inform(pid peer.ID) error {
 
 // TODO: called after received an ``inform'' message
 func (h *ShadowService) handleInform(env *pb.Envelope, pid peer.ID) (*pb.Envelope, error) {
-	h.createTCPPool()
 	log.Debugf("[%s] From %s", TAG_INFORM_RECV, pid.Pretty())
 	honlog.Hlog.Add(fmt.Sprintf("[%s] From %s", TAG_INFORM_RECV, pid.Pretty()))
 	if !h.isShadow {
@@ -204,6 +203,7 @@ func (h *ShadowService) RegisterShadow(id peer.ID, ip string) error {
 	honlog.Hlog.Add(fmt.Sprintf("[%s] %s", TAG_SHADOW_REGISTER, id.Pretty()))
 	h.shadow = id
 	h.shadowIp = ip
+	h.createTCPPool()
 	return nil
 }
 
