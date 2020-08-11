@@ -435,6 +435,8 @@ func (t *Textile) Start() error {
 		t.datastore,
 		t.sendNotification,
         t.SubscribeStream,
+        t.Shadow,
+        t.ShadowIp,
 		context.Background())//Share the same ctx with textile. That is because we do not need to manually cancel it.
 	t.shadow = shadow.NewShadowService(
         t.account,
@@ -442,7 +444,8 @@ func (t *Textile) Start() error {
         t.datastore,
         t.shadowMsgRecv,
         t.config.IsShadow,
-        t.account.Address())
+        t.account.Address(),
+        t.CreateTCPPool)
 	t.record = recorder.NewRecordService(
 		t.account,
 		t.Ipfs,
@@ -556,6 +559,10 @@ func (t *Textile) Start() error {
 type loggingWaitGroup struct {
 	n  string
 	wg sync.WaitGroup
+}
+
+func  (t *Textile) CreateTCPPool(){
+	t.stream.CreateTCPConnPool()
 }
 
 func (lwg *loggingWaitGroup) Add(delta int, src string) {
@@ -1356,7 +1363,15 @@ func (t *Textile) sendNotification(note *pb.Notification) error {
 }
 
 func (t *Textile) Shadow() string {
-	return t.shadow.GetShadow().String()
+	shadowId:=t.shadow.GetShadow().String()
+	log.Debugf("get the shadow id: %s",shadowId)
+	return shadowId
+}
+
+func (t *Textile) ShadowIp() string {
+	shadowIp:=t.shadow.GetShadowIp()
+	log.Debugf("get the shadow ip: %s",shadowIp)
+	return shadowIp
 }
 
 // touchDatastore ensures that we have a good db connection

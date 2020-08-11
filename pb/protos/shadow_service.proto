@@ -4,6 +4,7 @@ option go_package = "pb";
 
 message ShadowInform {
     string publicKey =1;
+    string shadowIp = 2;
 }
 
 message ShadowInformResponse {

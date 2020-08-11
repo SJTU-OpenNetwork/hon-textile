@@ -34,6 +34,9 @@ type ShadowService struct {
 	isShadow		 bool
 	address			 string  // public key. textile.account.Address()
     shadow           peer.ID //if isShadow == false, it maintains its shadow node
+    shadowIp		 string // ip address of shadow
+    createTCPPool    func()
+
     //shadow 			 *shadowInfo
     users            []peer.ID //if isShadow == true, it maintains its user list
 	// TODO: REMOVE THIS AFTER TEST!!!
@@ -53,12 +56,14 @@ func NewShadowService(
 	msgRecv func(*pb.Envelope, peer.ID) error,
 	isShadow bool,
 	address string,
+	createTCPPool func(),
 ) *ShadowService {
 	handler := &ShadowService{
 		datastore:        datastore,
 		msgRecv:          msgRecv,
 		isShadow:		  isShadow,
 		address:		  address,
+		createTCPPool: createTCPPool,
 	}
 	handler.service = service.NewService(account, handler, node)
 	return handler
@@ -78,6 +83,10 @@ func (h *ShadowService) Start() {
 
 func (h *ShadowService) GetShadow() peer.ID {
     return h.shadow
+}
+
+func (h *ShadowService) GetShadowIp() string {
+	return h.shadowIp
 }
 
 // Handle is called by the underlying service handler method
@@ -151,6 +160,7 @@ func (h *ShadowService) inform(pid peer.ID) error {
 
 // TODO: called after received an ``inform'' message
 func (h *ShadowService) handleInform(env *pb.Envelope, pid peer.ID) (*pb.Envelope, error) {
+	h.createTCPPool()
 	log.Debugf("[%s] From %s", TAG_INFORM_RECV, pid.Pretty())
 	honlog.Hlog.Add(fmt.Sprintf("[%s] From %s", TAG_INFORM_RECV, pid.Pretty()))
 	if !h.isShadow {
@@ -160,7 +170,7 @@ func (h *ShadowService) handleInform(env *pb.Envelope, pid peer.ID) (*pb.Envelop
 			//log.Error(err);
 			return nil, err
 		}
-		return nil, h.RegisterShadow(pid)
+		return nil, h.RegisterShadow(pid,inform.ShadowIp)
 		//pk, err := pid.ExtractPublicKey()
 
 		// Add it as shadow node if it has the same publickey
@@ -187,12 +197,13 @@ func (h *ShadowService) handleInform(env *pb.Envelope, pid peer.ID) (*pb.Envelop
 	}
 }
 
-func (h *ShadowService) RegisterShadow(id peer.ID) error {
+func (h *ShadowService) RegisterShadow(id peer.ID, ip string) error {
 	//h.lock.Lock()
 	//defer h.lock.Unlock()
-	log.Debugf("[%s] %s", TAG_SHADOW_REGISTER, id.Pretty())
+	log.Debugf("[%s] %s , shadow ip: %s", TAG_SHADOW_REGISTER, id.Pretty(), ip)
 	honlog.Hlog.Add(fmt.Sprintf("[%s] %s", TAG_SHADOW_REGISTER, id.Pretty()))
 	h.shadow = id
+	h.shadowIp = ip
 	return nil
 }
 

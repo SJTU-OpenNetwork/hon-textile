@@ -11,9 +11,12 @@ import (
 	honlog "github.com/SJTU-OpenNetwork/hon-textile/hon-log"
 	"github.com/SJTU-OpenNetwork/hon-textile/recorder"
 	"github.com/SJTU-OpenNetwork/hon-textile/util"
+	"github.com/golang/protobuf/proto"
 	"github.com/ipfs/interface-go-ipfs-core/path"
 	"github.com/segmentio/ksuid"
 	"io/ioutil"
+	"net"
+
 	//"sync"
 	"time"
 
@@ -66,6 +69,8 @@ type StreamService struct {
 	sendNotification func(*pb.Notification) error
     subscribe        func(string) error 
 	activeStreams *activeStreamStore
+	getShadow        func() string
+	getShadowIp 	 func() string
 	
     // for workers
     activeWorkers *workerStore
@@ -85,6 +90,8 @@ type StreamService struct {
 
 	// config
 	mode StreamMode
+
+	cp *ConnPool
 }
 
 // NewStreamService returns a new stream service
@@ -94,6 +101,8 @@ func NewStreamService(
 	datastore repo.Datastore,
 	sendNotification func(*pb.Notification) error,
     subscribe func(string) error,
+	getShadow func() string,
+	getShadowIp func() string,
 	ctx context.Context,
 ) *StreamService {
 	handler := &StreamService{
@@ -107,6 +116,8 @@ func NewStreamService(
 		mode: StreamMode_PUSH,
 		recvBuf: make(chan *recvTask, 100),
 	    streamInfos: NewStreamInfos(),
+	    getShadow: getShadow,
+	    getShadowIp: getShadowIp,
     }
 	handler.activeStreams = newActiveStreamStore(ctx, datastore, node, handler.activeWorkers.newFileAdd)
 	handler.service = service.NewService(account, handler, node)
@@ -141,6 +152,15 @@ func (h *StreamService) Start() {
     go func() {
         h.runJobs()
     }()
+}
+
+func (h *StreamService) CreateTCPConnPool(){
+	if h.cp.closed {
+		log.Debugf("create tcp pool")
+		h.cp,_=NewConnPool(func()(ConnEle,error){return net.Dial("tcp",h.getShadowIp()+":40121")},10,time.Second*10)
+	}else{
+		log.Debugf("tcp pool already created")
+	}
 }
 
 func (h *StreamService) runJobs() {
@@ -838,6 +858,37 @@ func (h *StreamService) responseRequest(pid peer.ID, req *pb.StreamRequest) erro
 	return worker.start()
 }
 
+func (h *StreamService) SendStreamBlcoksToShadow_TCP(peerId peer.ID, blks []*pb.StreamBlock) error{
+	blist := new(pb.StreamBlockContentList)
+	for _, blk:= range blks {
+		var data []byte
+		if blk.Id != "" {
+			r, err := ipfs.GetBlock(h.service.Node(), path.New(blk.Id))
+			data, err = ioutil.ReadAll(r)
+			if err != nil {
+				log.Error(err)
+				return err
+			}
+		}
+
+		content := &pb.StreamBlockContent{
+			StreamID: blk.Streamid,
+			Index: blk.Index,
+			Data: data,
+			IsRoot: blk.IsRoot,
+			Description: []byte(blk.Description),
+		}
+		blist.Blocks = append(blist.Blocks, content)
+	}
+
+	//tcp socket from h.getShadow(), send the blist pb
+	conn1,_:=h.cp.Get()
+	blistData,_:=proto.Marshal(blist)
+	conn1.(net.Conn).Write(blistData)
+	h.cp.Put(conn1)
+	return nil
+}
+
 //SendStreamBlocks send a list of block to a peer
 func (h *StreamService) SendStreamBlocks(peerId peer.ID, blks []*pb.StreamBlock) error{
 	//fmt.Printf("StreamService: Send %d stream blks to %s\n", len(blks), peerId.Pretty())
@@ -914,7 +965,12 @@ func (h *StreamService) createWorker(pid peer.ID, req *pb.StreamRequest) (*strea
 	if stream == nil {
 		return nil, ErrUnknowkStream
 	}
-	return newStreamWorker(h.ctx, stream, pid, req, h.FetchBlocks, h.SendStreamBlocks, h.taskQueue), nil
+	if pid.String() == h.getShadow() { // if the requester is shadow, then use TCP
+		log.Debugf("the requester is shadow, will use TCP to send blocks")
+		return newStreamWorker(h.ctx, stream, pid, req, h.FetchBlocks, h.SendStreamBlcoksToShadow_TCP, h.taskQueue), nil
+	}else{ // normal peer
+		return newStreamWorker(h.ctx, stream, pid, req, h.FetchBlocks, h.SendStreamBlocks, h.taskQueue), nil
+	}
 }
 
 func (h *StreamService) Workload() int {
