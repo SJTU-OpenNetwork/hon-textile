@@ -60,14 +60,14 @@ func (cp *ConnPool) Get() (ConnEle, error){
 				connRes.conn.Close()
 				continue
 			}
-			log.Debugf("get an conn")
+			log.Debugf("get a conn")
 			return connRes.conn,nil
 		default:
 			connRes,err := cp.factory()
 			if err != nil {
 				return nil, err
 			}
-			log.Debugf("create an conn")
+			log.Debugf("create a conn")
 			return connRes,nil
 		}
 	}
@@ -79,6 +79,7 @@ func (cp *ConnPool) Put(conn ConnEle) error {
 	}
 	select {
 	case cp.conns <- &Conn{conn: conn,time: time.Now()}:
+		log.Debugf("put a conn")
 		return nil
 	default:
 		conn.Close()
