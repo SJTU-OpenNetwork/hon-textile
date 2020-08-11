@@ -155,7 +155,7 @@ func (h *StreamService) Start() {
 }
 
 func (h *StreamService) CreateTCPConnPool(){
-	if h.cp.closed {
+	if h.cp==nil || h.cp.closed {
 		log.Debugf("create tcp pool")
 		h.cp,_=NewConnPool(func()(ConnEle,error){return net.Dial("tcp",h.getShadowIp()+":40121")},10,time.Second*10)
 	}else{
@@ -859,6 +859,7 @@ func (h *StreamService) responseRequest(pid peer.ID, req *pb.StreamRequest) erro
 }
 
 func (h *StreamService) SendStreamBlcoksToShadow_TCP(peerId peer.ID, blks []*pb.StreamBlock) error{
+	log.Debugf("use tcp to send blocks to %s",peerId.String())
 	blist := new(pb.StreamBlockContentList)
 	for _, blk:= range blks {
 		var data []byte
