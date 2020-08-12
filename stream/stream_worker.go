@@ -10,7 +10,7 @@ import (
 	"time"
 )
 
-const maxBlockFetchNum = 1
+//const maxBlockFetchNum = 1
 const maxBlockSize = 512 * 1024
 
 const WorkerTimeout = time.Minute
@@ -34,6 +34,7 @@ type streamWorker struct {
 	blockSender func (destination peer.ID, streamBlk [] *pb.StreamBlock) error
 	//stopSignal chan interface{}
 	taskQueue *util.TaskQueue
+	maxBlockFetch int
 }
 
 func newStreamWorker(
@@ -43,8 +44,15 @@ func newStreamWorker(
 	req *pb.StreamRequest,
 	blockFetcher func(streamId string, startIndex uint64, maxNum int) ([] *pb.StreamBlock, error),
 	blockSender func (destination peer.ID, streamBlk [] *pb.StreamBlock) error,
-	queue *util.TaskQueue) *streamWorker{
+	queue *util.TaskQueue,
+	isTCP bool) *streamWorker{
 		newCtx, cancelFunc := context.WithCancel(ctx)
+		var blockFetchNum int
+		if isTCP{
+			blockFetchNum=10
+		}else{
+			blockFetchNum=1
+		}
 		return &streamWorker{
 			ctx: newCtx,
 			cancelFunc: cancelFunc,
@@ -57,6 +65,7 @@ func newStreamWorker(
 			blockSender: blockSender,
             end: false,
             taskQueue: queue,
+            maxBlockFetch: blockFetchNum,
 		}
 }
 
@@ -110,7 +119,7 @@ func (sw *streamWorker) start() error {
 					// Block if there is no signal
 					//log.Debug("Worker wake up.")
 					//recorder.Hlog.Add("Worker wake up.")
-					blks, _ := sw.blockFetcher(sw.req.Id, sw.currentIndex, maxBlockFetchNum)
+					blks, _ := sw.blockFetcher(sw.req.Id, sw.currentIndex, sw.maxBlockFetch)
 					if blks != nil && len(blks) > 0 {
 						//fmt.Printf("stream/streamWorker.go start(): send %d blks for stream %s to %s start\n", len(blks), sw.stream.Id, sw.pid.Pretty())
 						fblks := sw.filterBlocks(blks)
@@ -140,7 +149,7 @@ func (sw *streamWorker) start() error {
 						}
                         sw.currentIndex = sw.currentIndex + uint64(len(blks))
 
-						if len(blks) >= maxBlockFetchNum {
+						if len(blks) >= sw.maxBlockFetch {
 							// Notice the worker again if there maybe more blocks can be fetched.
 							sw.notice()
 						}
