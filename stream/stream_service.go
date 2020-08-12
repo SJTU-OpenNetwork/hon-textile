@@ -979,7 +979,8 @@ func (h *StreamService) createWorker(pid peer.ID, req *pb.StreamRequest) (*strea
 	}
 	if pid.String() == h.getShadow() { // if the requester is shadow, then use TCP
 		log.Debugf("the requester is shadow, will use TCP to send blocks")
-		return newStreamWorker(h.ctx, stream, pid, req, h.FetchBlocks, h.SendStreamBlcoksToShadow_TCP, h.taskQueue,true), nil
+		//return newStreamWorker(h.ctx, stream, pid, req, h.FetchBlocks, h.SendStreamBlcoksToShadow_TCP, h.taskQueue,true), nil
+		return newStreamWorker(h.ctx, stream, pid, req, h.FetchBlocks, h.SendStreamBlocks, h.taskQueue,false), nil
 	}else{ // normal peer
 		return newStreamWorker(h.ctx, stream, pid, req, h.FetchBlocks, h.SendStreamBlocks, h.taskQueue,false), nil
 	}
