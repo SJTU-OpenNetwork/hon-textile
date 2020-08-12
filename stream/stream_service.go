@@ -158,7 +158,7 @@ func (h *StreamService) CreateTCPConnPool(){
 	if h.cp==nil || h.cp.closed {
 		socketAddr:=h.getShadowIp()+":40121"
 		log.Debugf("create tcp pool: %s",socketAddr)
-		h.cp,_=NewConnPool(func()(ConnEle,error){return net.Dial("tcp",socketAddr)},10,time.Second*10)
+		h.cp,_=NewConnPool(func()(ConnEle,error){return net.Dial("tcp",socketAddr)},30,time.Second*10)
 	}else{
 		log.Debugf("tcp pool already created")
 	}
@@ -886,7 +886,9 @@ func (h *StreamService) SendStreamBlcoksToShadow_TCP(peerId peer.ID, blks []*pb.
 	//tcp socket from h.getShadow(), send the blist pb
 	conn1,_:=h.cp.Get()
 	blistData,_:=proto.Marshal(blist)
+	conn1.(net.Conn).Write([]byte(string(len(blistData))))
 	conn1.(net.Conn).Write(blistData)
+	conn1.(net.Conn).Write([]byte("tcpend"))
 	h.cp.Put(conn1)
 	return nil
 }
