@@ -2,6 +2,7 @@ package core
 
 import (
 	"github.com/SJTU-OpenNetwork/hon-textile/pb"
+	"github.com/SJTU-OpenNetwork/hon-textile/shadow"
 	"github.com/golang/protobuf/ptypes"
 	"github.com/libp2p/go-libp2p-core/peer"
 )
@@ -19,6 +20,11 @@ func (t* Textile) SetServePeer(pubkey string) error {
 		t.shadow.Shadow_serve_peer = pubkey
 	}
 	return nil
+}
+
+// Connect to shadow peer through tcp command directly.
+func (t *Textile) ConnectShadowTCP(ip string, port int) error {
+	return shadow.ConnectShadow(ip, port, t.node)
 }
 
 // shadowMsgRecv is called by shadow service when receive a new stream meta.
