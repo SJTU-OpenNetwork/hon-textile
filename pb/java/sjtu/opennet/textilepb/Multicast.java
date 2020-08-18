@@ -2455,13 +2455,23 @@ public final class Multicast {
     com.google.protobuf.ByteString getData();
 
     /**
+     * <code>int32 index = 3;</code>
+     */
+    int getIndex();
+
+    /**
+     * <code>int32 groupIndex = 4;</code>
+     */
+    int getGroupIndex();
+
+    /**
      * <pre>
      * Note:
      *    Shard number and parity number is required by reed solomon decoder.
      *    They should be contained in every data packet cause we do not know which of them would be lost.
      * </pre>
      *
-     * <code>int32 shardNum = 3;</code>
+     * <code>int32 shardNum = 5;</code>
      */
     int getShardNum();
 
@@ -2470,7 +2480,7 @@ public final class Multicast {
      * number of reed solomon parity shards
      * </pre>
      *
-     * <code>int32 parityNum = 4;</code>
+     * <code>int32 parityNum = 6;</code>
      */
     int getParityNum();
   }
@@ -2489,6 +2499,8 @@ public final class Multicast {
     private MulticastData() {
       id_ = "";
       data_ = com.google.protobuf.ByteString.EMPTY;
+      index_ = 0;
+      groupIndex_ = 0;
       shardNum_ = 0;
       parityNum_ = 0;
     }
@@ -2530,10 +2542,20 @@ public final class Multicast {
             }
             case 24: {
 
-              shardNum_ = input.readInt32();
+              index_ = input.readInt32();
               break;
             }
             case 32: {
+
+              groupIndex_ = input.readInt32();
+              break;
+            }
+            case 40: {
+
+              shardNum_ = input.readInt32();
+              break;
+            }
+            case 48: {
 
               parityNum_ = input.readInt32();
               break;
@@ -2625,7 +2647,25 @@ public final class Multicast {
       return data_;
     }
 
-    public static final int SHARDNUM_FIELD_NUMBER = 3;
+    public static final int INDEX_FIELD_NUMBER = 3;
+    private int index_;
+    /**
+     * <code>int32 index = 3;</code>
+     */
+    public int getIndex() {
+      return index_;
+    }
+
+    public static final int GROUPINDEX_FIELD_NUMBER = 4;
+    private int groupIndex_;
+    /**
+     * <code>int32 groupIndex = 4;</code>
+     */
+    public int getGroupIndex() {
+      return groupIndex_;
+    }
+
+    public static final int SHARDNUM_FIELD_NUMBER = 5;
     private int shardNum_;
     /**
      * <pre>
@@ -2634,20 +2674,20 @@ public final class Multicast {
      *    They should be contained in every data packet cause we do not know which of them would be lost.
      * </pre>
      *
-     * <code>int32 shardNum = 3;</code>
+     * <code>int32 shardNum = 5;</code>
      */
     public int getShardNum() {
       return shardNum_;
     }
 
-    public static final int PARITYNUM_FIELD_NUMBER = 4;
+    public static final int PARITYNUM_FIELD_NUMBER = 6;
     private int parityNum_;
     /**
      * <pre>
      * number of reed solomon parity shards
      * </pre>
      *
-     * <code>int32 parityNum = 4;</code>
+     * <code>int32 parityNum = 6;</code>
      */
     public int getParityNum() {
       return parityNum_;
@@ -2673,11 +2713,17 @@ public final class Multicast {
       if (!data_.isEmpty()) {
         output.writeBytes(2, data_);
       }
+      if (index_ != 0) {
+        output.writeInt32(3, index_);
+      }
+      if (groupIndex_ != 0) {
+        output.writeInt32(4, groupIndex_);
+      }
       if (shardNum_ != 0) {
-        output.writeInt32(3, shardNum_);
+        output.writeInt32(5, shardNum_);
       }
       if (parityNum_ != 0) {
-        output.writeInt32(4, parityNum_);
+        output.writeInt32(6, parityNum_);
       }
       unknownFields.writeTo(output);
     }
@@ -2695,13 +2741,21 @@ public final class Multicast {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(2, data_);
       }
+      if (index_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(3, index_);
+      }
+      if (groupIndex_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(4, groupIndex_);
+      }
       if (shardNum_ != 0) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(3, shardNum_);
+          .computeInt32Size(5, shardNum_);
       }
       if (parityNum_ != 0) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(4, parityNum_);
+          .computeInt32Size(6, parityNum_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -2723,6 +2777,10 @@ public final class Multicast {
           .equals(other.getId());
       result = result && getData()
           .equals(other.getData());
+      result = result && (getIndex()
+          == other.getIndex());
+      result = result && (getGroupIndex()
+          == other.getGroupIndex());
       result = result && (getShardNum()
           == other.getShardNum());
       result = result && (getParityNum()
@@ -2742,6 +2800,10 @@ public final class Multicast {
       hash = (53 * hash) + getId().hashCode();
       hash = (37 * hash) + DATA_FIELD_NUMBER;
       hash = (53 * hash) + getData().hashCode();
+      hash = (37 * hash) + INDEX_FIELD_NUMBER;
+      hash = (53 * hash) + getIndex();
+      hash = (37 * hash) + GROUPINDEX_FIELD_NUMBER;
+      hash = (53 * hash) + getGroupIndex();
       hash = (37 * hash) + SHARDNUM_FIELD_NUMBER;
       hash = (53 * hash) + getShardNum();
       hash = (37 * hash) + PARITYNUM_FIELD_NUMBER;
@@ -2883,6 +2945,10 @@ public final class Multicast {
 
         data_ = com.google.protobuf.ByteString.EMPTY;
 
+        index_ = 0;
+
+        groupIndex_ = 0;
+
         shardNum_ = 0;
 
         parityNum_ = 0;
@@ -2915,6 +2981,8 @@ public final class Multicast {
         sjtu.opennet.textilepb.Multicast.MulticastData result = new sjtu.opennet.textilepb.Multicast.MulticastData(this);
         result.id_ = id_;
         result.data_ = data_;
+        result.index_ = index_;
+        result.groupIndex_ = groupIndex_;
         result.shardNum_ = shardNum_;
         result.parityNum_ = parityNum_;
         onBuilt();
@@ -2971,6 +3039,12 @@ public final class Multicast {
         }
         if (other.getData() != com.google.protobuf.ByteString.EMPTY) {
           setData(other.getData());
+        }
+        if (other.getIndex() != 0) {
+          setIndex(other.getIndex());
+        }
+        if (other.getGroupIndex() != 0) {
+          setGroupIndex(other.getGroupIndex());
         }
         if (other.getShardNum() != 0) {
           setShardNum(other.getShardNum());
@@ -3137,6 +3211,58 @@ public final class Multicast {
         return this;
       }
 
+      private int index_ ;
+      /**
+       * <code>int32 index = 3;</code>
+       */
+      public int getIndex() {
+        return index_;
+      }
+      /**
+       * <code>int32 index = 3;</code>
+       */
+      public Builder setIndex(int value) {
+        
+        index_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 index = 3;</code>
+       */
+      public Builder clearIndex() {
+        
+        index_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int groupIndex_ ;
+      /**
+       * <code>int32 groupIndex = 4;</code>
+       */
+      public int getGroupIndex() {
+        return groupIndex_;
+      }
+      /**
+       * <code>int32 groupIndex = 4;</code>
+       */
+      public Builder setGroupIndex(int value) {
+        
+        groupIndex_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 groupIndex = 4;</code>
+       */
+      public Builder clearGroupIndex() {
+        
+        groupIndex_ = 0;
+        onChanged();
+        return this;
+      }
+
       private int shardNum_ ;
       /**
        * <pre>
@@ -3145,7 +3271,7 @@ public final class Multicast {
        *    They should be contained in every data packet cause we do not know which of them would be lost.
        * </pre>
        *
-       * <code>int32 shardNum = 3;</code>
+       * <code>int32 shardNum = 5;</code>
        */
       public int getShardNum() {
         return shardNum_;
@@ -3157,7 +3283,7 @@ public final class Multicast {
        *    They should be contained in every data packet cause we do not know which of them would be lost.
        * </pre>
        *
-       * <code>int32 shardNum = 3;</code>
+       * <code>int32 shardNum = 5;</code>
        */
       public Builder setShardNum(int value) {
         
@@ -3172,7 +3298,7 @@ public final class Multicast {
        *    They should be contained in every data packet cause we do not know which of them would be lost.
        * </pre>
        *
-       * <code>int32 shardNum = 3;</code>
+       * <code>int32 shardNum = 5;</code>
        */
       public Builder clearShardNum() {
         
@@ -3187,7 +3313,7 @@ public final class Multicast {
        * number of reed solomon parity shards
        * </pre>
        *
-       * <code>int32 parityNum = 4;</code>
+       * <code>int32 parityNum = 6;</code>
        */
       public int getParityNum() {
         return parityNum_;
@@ -3197,7 +3323,7 @@ public final class Multicast {
        * number of reed solomon parity shards
        * </pre>
        *
-       * <code>int32 parityNum = 4;</code>
+       * <code>int32 parityNum = 6;</code>
        */
       public Builder setParityNum(int value) {
         
@@ -3210,7 +3336,7 @@ public final class Multicast {
        * number of reed solomon parity shards
        * </pre>
        *
-       * <code>int32 parityNum = 4;</code>
+       * <code>int32 parityNum = 6;</code>
        */
       public Builder clearParityNum() {
         
@@ -3861,11 +3987,12 @@ public final class Multicast {
       "eSize\030\004 \001(\005\022\022\n\nsenderName\030\005 \001(\t\022\020\n\010sende" +
       "rIp\030\006 \001(\t\022\020\n\010threadId\030\007 \001(\t\022,\n\010sendTime\030" +
       "\010 \001(\0132\032.google.protobuf.Timestamp\"#\n\004Typ" +
-      "e\022\010\n\004FILE\020\000\022\007\n\003IMG\020\001\022\010\n\004TEXT\020\002\"N\n\rMultic" +
-      "astData\022\n\n\002id\030\001 \001(\t\022\014\n\004data\030\002 \001(\014\022\020\n\010sha" +
-      "rdNum\030\003 \001(\005\022\021\n\tparityNum\030\004 \001(\005\"\032\n\014Multic" +
-      "astEnd\022\n\n\002id\030\001 \001(\tB\034\n\026sjtu.opennet.texti" +
-      "lepbZ\002pbb\006proto3"
+      "e\022\010\n\004FILE\020\000\022\007\n\003IMG\020\001\022\010\n\004TEXT\020\002\"q\n\rMultic" +
+      "astData\022\n\n\002id\030\001 \001(\t\022\014\n\004data\030\002 \001(\014\022\r\n\005ind" +
+      "ex\030\003 \001(\005\022\022\n\ngroupIndex\030\004 \001(\005\022\020\n\010shardNum" +
+      "\030\005 \001(\005\022\021\n\tparityNum\030\006 \001(\005\"\032\n\014MulticastEn" +
+      "d\022\n\n\002id\030\001 \001(\tB\034\n\026sjtu.opennet.textilepbZ" +
+      "\002pbb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -3898,7 +4025,7 @@ public final class Multicast {
     internal_static_MulticastData_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_MulticastData_descriptor,
-        new java.lang.String[] { "Id", "Data", "ShardNum", "ParityNum", });
+        new java.lang.String[] { "Id", "Data", "Index", "GroupIndex", "ShardNum", "ParityNum", });
     internal_static_MulticastEnd_descriptor =
       getDescriptor().getMessageTypes().get(3);
     internal_static_MulticastEnd_fieldAccessorTable = new
