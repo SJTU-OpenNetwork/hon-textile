@@ -19,14 +19,16 @@ message MulticastMeta {
   enum Type {
     FILE = 0;
     IMG = 1;
+    TEXT = 2;
   }
   Type type = 1;
-  string id = 2;        // unique id of one file or image
-  string name = 3;
-  string sender = 4;
-  int32 fileSize = 5;
-  string threadId = 6;
-  google.protobuf.Timestamp sendTime = 7;
+  string fileId = 2;        // unique id of one file or image
+  string fileName = 3;
+  int32 fileSize = 4;
+  string senderName = 5;
+  string senderIp = 6;
+  string threadId = 7;
+  google.protobuf.Timestamp sendTime = 8;
 }
 
 message MulticastData {
