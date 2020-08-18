@@ -25,7 +25,8 @@ message MulticastMeta {
   string name = 3;
   string sender = 4;
   int32 fileSize = 5;
-  google.protobuf.Timestamp sendTime = 6;
+  string threadId = 6;
+  google.protobuf.Timestamp sendTime = 7;
 }
 
 message MulticastData {
