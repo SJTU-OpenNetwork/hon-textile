@@ -25,6 +25,7 @@ message MulticastMeta {
   string name = 3;
   string sender = 4;
   int32 fileSize = 5;
+  google.protobuf.Timestamp sendTime = 6;
 }
 
 message MulticastData {
@@ -36,4 +37,8 @@ message MulticastData {
   //    They should be contained in every data packet cause we do not know which of them would be lost.
   int32  shardNum = 3;  // number of reed solomon data shards
   int32  parityNum = 4; // number of reed solomon parity shards
+}
+
+message MulticastEnd {
+  string id = 1;
 }
