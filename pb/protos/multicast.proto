@@ -35,12 +35,14 @@ message MulticastMeta {
 message MulticastData {
   string id = 1;        // same with id in meta
   bytes  data = 2;      // reed solomon shard data
+  int32 index = 3;
+  int32 groupIndex = 4;
 
   // Note:
   //    Shard number and parity number is required by reed solomon decoder.
   //    They should be contained in every data packet cause we do not know which of them would be lost.
-  int32  shardNum = 3;  // number of reed solomon data shards
-  int32  parityNum = 4; // number of reed solomon parity shards
+  int32  shardNum = 5;  // number of reed solomon data shards
+  int32  parityNum = 6; // number of reed solomon parity shards
 }
 
 message MulticastEnd {
