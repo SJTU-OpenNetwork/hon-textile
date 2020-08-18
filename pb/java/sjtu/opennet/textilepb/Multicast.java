@@ -148,6 +148,10 @@ public final class Multicast {
        * <code>END = 2;</code>
        */
       END(2),
+      /**
+       * <code>HEART_BEAT = 3;</code>
+       */
+      HEART_BEAT(3),
       UNRECOGNIZED(-1),
       ;
 
@@ -163,6 +167,10 @@ public final class Multicast {
        * <code>END = 2;</code>
        */
       public static final int END_VALUE = 2;
+      /**
+       * <code>HEART_BEAT = 3;</code>
+       */
+      public static final int HEART_BEAT_VALUE = 3;
 
 
       public final int getNumber() {
@@ -186,6 +194,7 @@ public final class Multicast {
           case 0: return META;
           case 1: return DATA;
           case 2: return END;
+          case 3: return HEART_BEAT;
           default: return null;
         }
       }
@@ -3842,20 +3851,21 @@ public final class Multicast {
   static {
     java.lang.String[] descriptorData = {
       "\n\017multicast.proto\032\037google/protobuf/times" +
-      "tamp.proto\032\031google/protobuf/any.proto\"\202\001" +
+      "tamp.proto\032\031google/protobuf/any.proto\"\222\001" +
       "\n\017MulticastPacket\022#\n\004type\030\001 \001(\0162\025.Multic" +
       "astPacket.Type\022%\n\007payload\030\002 \001(\0132\024.google" +
-      ".protobuf.Any\"#\n\004Type\022\010\n\004META\020\000\022\010\n\004DATA\020" +
-      "\001\022\007\n\003END\020\002\"\361\001\n\rMulticastMeta\022!\n\004type\030\001 \001" +
-      "(\0162\023.MulticastMeta.Type\022\016\n\006fileId\030\002 \001(\t\022" +
-      "\020\n\010fileName\030\003 \001(\t\022\020\n\010fileSize\030\004 \001(\005\022\022\n\ns" +
-      "enderName\030\005 \001(\t\022\020\n\010senderIp\030\006 \001(\t\022\020\n\010thr" +
-      "eadId\030\007 \001(\t\022,\n\010sendTime\030\010 \001(\0132\032.google.p" +
-      "rotobuf.Timestamp\"#\n\004Type\022\010\n\004FILE\020\000\022\007\n\003I" +
-      "MG\020\001\022\010\n\004TEXT\020\002\"N\n\rMulticastData\022\n\n\002id\030\001 " +
-      "\001(\t\022\014\n\004data\030\002 \001(\014\022\020\n\010shardNum\030\003 \001(\005\022\021\n\tp" +
-      "arityNum\030\004 \001(\005\"\032\n\014MulticastEnd\022\n\n\002id\030\001 \001" +
-      "(\tB\034\n\026sjtu.opennet.textilepbZ\002pbb\006proto3"
+      ".protobuf.Any\"3\n\004Type\022\010\n\004META\020\000\022\010\n\004DATA\020" +
+      "\001\022\007\n\003END\020\002\022\016\n\nHEART_BEAT\020\003\"\361\001\n\rMulticast" +
+      "Meta\022!\n\004type\030\001 \001(\0162\023.MulticastMeta.Type\022" +
+      "\016\n\006fileId\030\002 \001(\t\022\020\n\010fileName\030\003 \001(\t\022\020\n\010fil" +
+      "eSize\030\004 \001(\005\022\022\n\nsenderName\030\005 \001(\t\022\020\n\010sende" +
+      "rIp\030\006 \001(\t\022\020\n\010threadId\030\007 \001(\t\022,\n\010sendTime\030" +
+      "\010 \001(\0132\032.google.protobuf.Timestamp\"#\n\004Typ" +
+      "e\022\010\n\004FILE\020\000\022\007\n\003IMG\020\001\022\010\n\004TEXT\020\002\"N\n\rMultic" +
+      "astData\022\n\n\002id\030\001 \001(\t\022\014\n\004data\030\002 \001(\014\022\020\n\010sha" +
+      "rdNum\030\003 \001(\005\022\021\n\tparityNum\030\004 \001(\005\"\032\n\014Multic" +
+      "astEnd\022\n\n\002id\030\001 \001(\tB\034\n\026sjtu.opennet.texti" +
+      "lepbZ\002pbb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
