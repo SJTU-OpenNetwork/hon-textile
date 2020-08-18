@@ -10,6 +10,7 @@ message MulticastPacket {
     META = 0;
     DATA = 1;
     END = 2;
+    HEART_BEAT = 3;
   }
   Type type = 1;
   google.protobuf.Any payload = 2;
