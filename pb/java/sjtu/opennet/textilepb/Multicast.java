@@ -840,64 +840,74 @@ public final class Multicast {
      * unique id of one file or image
      * </pre>
      *
-     * <code>string id = 2;</code>
+     * <code>string fileId = 2;</code>
      */
-    java.lang.String getId();
+    java.lang.String getFileId();
     /**
      * <pre>
      * unique id of one file or image
      * </pre>
      *
-     * <code>string id = 2;</code>
+     * <code>string fileId = 2;</code>
      */
     com.google.protobuf.ByteString
-        getIdBytes();
+        getFileIdBytes();
 
     /**
-     * <code>string name = 3;</code>
+     * <code>string fileName = 3;</code>
      */
-    java.lang.String getName();
+    java.lang.String getFileName();
     /**
-     * <code>string name = 3;</code>
+     * <code>string fileName = 3;</code>
      */
     com.google.protobuf.ByteString
-        getNameBytes();
+        getFileNameBytes();
 
     /**
-     * <code>string sender = 4;</code>
-     */
-    java.lang.String getSender();
-    /**
-     * <code>string sender = 4;</code>
-     */
-    com.google.protobuf.ByteString
-        getSenderBytes();
-
-    /**
-     * <code>int32 fileSize = 5;</code>
+     * <code>int32 fileSize = 4;</code>
      */
     int getFileSize();
 
     /**
-     * <code>string threadId = 6;</code>
+     * <code>string senderName = 5;</code>
+     */
+    java.lang.String getSenderName();
+    /**
+     * <code>string senderName = 5;</code>
+     */
+    com.google.protobuf.ByteString
+        getSenderNameBytes();
+
+    /**
+     * <code>string senderIp = 6;</code>
+     */
+    java.lang.String getSenderIp();
+    /**
+     * <code>string senderIp = 6;</code>
+     */
+    com.google.protobuf.ByteString
+        getSenderIpBytes();
+
+    /**
+     * <code>string threadId = 7;</code>
      */
     java.lang.String getThreadId();
     /**
-     * <code>string threadId = 6;</code>
+     * <code>string threadId = 7;</code>
      */
     com.google.protobuf.ByteString
         getThreadIdBytes();
 
     /**
-     * <code>.google.protobuf.Timestamp sendTime = 7;</code>
+     * <code>.google.protobuf.Timestamp sendTime = 8;</code>
      */
     boolean hasSendTime();
     /**
-     * <code>.google.protobuf.Timestamp sendTime = 7;</code>
+     * <code>.google.protobuf.Timestamp sendTime = 8;</code>
      */
     com.google.protobuf.Timestamp getSendTime();
     /**
-     * <code>.google.protobuf.Timestamp sendTime = 7;</code>
+     * <code>.google.protobuf.Timestamp sendTime = 8;</code>
      */
     com.google.protobuf.TimestampOrBuilder getSendTimeOrBuilder();
   }
@@ -915,10 +925,11 @@ public final class Multicast {
     }
     private MulticastMeta() {
       type_ = 0;
-      id_ = "";
-      name_ = "";
-      sender_ = "";
+      fileId_ = "";
+      fileName_ = "";
       fileSize_ = 0;
+      senderName_ = "";
+      senderIp_ = "";
       threadId_ = "";
     }
 
@@ -955,33 +966,39 @@ public final class Multicast {
             case 18: {
               java.lang.String s = input.readStringRequireUtf8();
 
-              id_ = s;
+              fileId_ = s;
               break;
             }
             case 26: {
               java.lang.String s = input.readStringRequireUtf8();
 
-              name_ = s;
+              fileName_ = s;
               break;
             }
-            case 34: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              sender_ = s;
-              break;
-            }
-            case 40: {
+            case 32: {
 
               fileSize_ = input.readInt32();
+              break;
+            }
+            case 42: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              senderName_ = s;
               break;
             }
             case 50: {
               java.lang.String s = input.readStringRequireUtf8();
 
-              threadId_ = s;
+              senderIp_ = s;
               break;
             }
             case 58: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              threadId_ = s;
+              break;
+            }
+            case 66: {
               com.google.protobuf.Timestamp.Builder subBuilder = null;
               if (sendTime_ != null) {
                 subBuilder = sendTime_.toBuilder();
@@ -1039,6 +1056,10 @@ public final class Multicast {
        * <code>IMG = 1;</code>
        */
       IMG(1),
+      /**
+       * <code>TEXT = 2;</code>
+       */
+      TEXT(2),
       UNRECOGNIZED(-1),
       ;
 
@@ -1050,6 +1071,10 @@ public final class Multicast {
        * <code>IMG = 1;</code>
        */
       public static final int IMG_VALUE = 1;
+      /**
+       * <code>TEXT = 2;</code>
+       */
+      public static final int TEXT_VALUE = 2;
 
 
       public final int getNumber() {
@@ -1072,6 +1097,7 @@ public final class Multicast {
         switch (value) {
           case 0: return FILE;
           case 1: return IMG;
+          case 2: return TEXT;
           default: return null;
         }
       }
@@ -1141,24 +1167,24 @@ public final class Multicast {
       return result == null ? sjtu.opennet.textilepb.Multicast.MulticastMeta.Type.UNRECOGNIZED : result;
     }
 
-    public static final int ID_FIELD_NUMBER = 2;
-    private volatile java.lang.Object id_;
+    public static final int FILEID_FIELD_NUMBER = 2;
+    private volatile java.lang.Object fileId_;
     /**
      * <pre>
      * unique id of one file or image
      * </pre>
      *
-     * <code>string id = 2;</code>
+     * <code>string fileId = 2;</code>
      */
-    public java.lang.String getId() {
-      java.lang.Object ref = id_;
+    public java.lang.String getFileId() {
+      java.lang.Object ref = fileId_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        id_ = s;
+        fileId_ = s;
         return s;
       }
     }
@@ -1167,103 +1193,137 @@ public final class Multicast {
      * unique id of one file or image
      * </pre>
      *
-     * <code>string id = 2;</code>
+     * <code>string fileId = 2;</code>
      */
     public com.google.protobuf.ByteString
-        getIdBytes() {
-      java.lang.Object ref = id_;
+        getFileIdBytes() {
+      java.lang.Object ref = fileId_;
       if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        id_ = b;
+        fileId_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
       }
     }
 
-    public static final int NAME_FIELD_NUMBER = 3;
-    private volatile java.lang.Object name_;
+    public static final int FILENAME_FIELD_NUMBER = 3;
+    private volatile java.lang.Object fileName_;
     /**
-     * <code>string name = 3;</code>
+     * <code>string fileName = 3;</code>
      */
-    public java.lang.String getName() {
-      java.lang.Object ref = name_;
+    public java.lang.String getFileName() {
+      java.lang.Object ref = fileName_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        name_ = s;
+        fileName_ = s;
         return s;
       }
     }
     /**
-     * <code>string name = 3;</code>
+     * <code>string fileName = 3;</code>
      */
     public com.google.protobuf.ByteString
-        getNameBytes() {
-      java.lang.Object ref = name_;
+        getFileNameBytes() {
+      java.lang.Object ref = fileName_;
       if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        name_ = b;
+        fileName_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
       }
     }
 
-    public static final int SENDER_FIELD_NUMBER = 4;
-    private volatile java.lang.Object sender_;
-    /**
-     * <code>string sender = 4;</code>
-     */
-    public java.lang.String getSender() {
-      java.lang.Object ref = sender_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        sender_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string sender = 4;</code>
-     */
-    public com.google.protobuf.ByteString
-        getSenderBytes() {
-      java.lang.Object ref = sender_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        sender_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int FILESIZE_FIELD_NUMBER = 5;
+    public static final int FILESIZE_FIELD_NUMBER = 4;
     private int fileSize_;
     /**
-     * <code>int32 fileSize = 5;</code>
+     * <code>int32 fileSize = 4;</code>
      */
     public int getFileSize() {
       return fileSize_;
     }
 
-    public static final int THREADID_FIELD_NUMBER = 6;
+    public static final int SENDERNAME_FIELD_NUMBER = 5;
+    private volatile java.lang.Object senderName_;
+    /**
+     * <code>string senderName = 5;</code>
+     */
+    public java.lang.String getSenderName() {
+      java.lang.Object ref = senderName_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        senderName_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string senderName = 5;</code>
+     */
+    public com.google.protobuf.ByteString
+        getSenderNameBytes() {
+      java.lang.Object ref = senderName_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        senderName_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int SENDERIP_FIELD_NUMBER = 6;
+    private volatile java.lang.Object senderIp_;
+    /**
+     * <code>string senderIp = 6;</code>
+     */
+    public java.lang.String getSenderIp() {
+      java.lang.Object ref = senderIp_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        senderIp_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string senderIp = 6;</code>
+     */
+    public com.google.protobuf.ByteString
+        getSenderIpBytes() {
+      java.lang.Object ref = senderIp_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        senderIp_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int THREADID_FIELD_NUMBER = 7;
     private volatile java.lang.Object threadId_;
     /**
-     * <code>string threadId = 6;</code>
+     * <code>string threadId = 7;</code>
      */
     public java.lang.String getThreadId() {
       java.lang.Object ref = threadId_;
@@ -1278,7 +1338,7 @@ public final class Multicast {
       }
     }
     /**
-     * <code>string threadId = 6;</code>
+     * <code>string threadId = 7;</code>
      */
     public com.google.protobuf.ByteString
         getThreadIdBytes() {
@@ -1294,22 +1354,22 @@ public final class Multicast {
       }
     }
 
-    public static final int SENDTIME_FIELD_NUMBER = 7;
+    public static final int SENDTIME_FIELD_NUMBER = 8;
     private com.google.protobuf.Timestamp sendTime_;
     /**
-     * <code>.google.protobuf.Timestamp sendTime = 7;</code>
+     * <code>.google.protobuf.Timestamp sendTime = 8;</code>
      */
     public boolean hasSendTime() {
       return sendTime_ != null;
     }
     /**
-     * <code>.google.protobuf.Timestamp sendTime = 7;</code>
+     * <code>.google.protobuf.Timestamp sendTime = 8;</code>
      */
     public com.google.protobuf.Timestamp getSendTime() {
       return sendTime_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : sendTime_;
     }
     /**
-     * <code>.google.protobuf.Timestamp sendTime = 7;</code>
+     * <code>.google.protobuf.Timestamp sendTime = 8;</code>
      */
     public com.google.protobuf.TimestampOrBuilder getSendTimeOrBuilder() {
       return getSendTime();
@@ -1332,23 +1392,26 @@ public final class Multicast {
       if (type_ != sjtu.opennet.textilepb.Multicast.MulticastMeta.Type.FILE.getNumber()) {
         output.writeEnum(1, type_);
       }
-      if (!getIdBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, id_);
+      if (!getFileIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, fileId_);
       }
-      if (!getNameBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, name_);
-      }
-      if (!getSenderBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 4, sender_);
+      if (!getFileNameBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, fileName_);
       }
       if (fileSize_ != 0) {
-        output.writeInt32(5, fileSize_);
+        output.writeInt32(4, fileSize_);
+      }
+      if (!getSenderNameBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 5, senderName_);
+      }
+      if (!getSenderIpBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 6, senderIp_);
       }
       if (!getThreadIdBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 6, threadId_);
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 7, threadId_);
       }
       if (sendTime_ != null) {
-        output.writeMessage(7, getSendTime());
+        output.writeMessage(8, getSendTime());
       }
       unknownFields.writeTo(output);
     }
@@ -1363,25 +1426,28 @@ public final class Multicast {
         size += com.google.protobuf.CodedOutputStream
           .computeEnumSize(1, type_);
       }
-      if (!getIdBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, id_);
+      if (!getFileIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, fileId_);
       }
-      if (!getNameBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, name_);
-      }
-      if (!getSenderBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, sender_);
+      if (!getFileNameBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, fileName_);
       }
       if (fileSize_ != 0) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(5, fileSize_);
+          .computeInt32Size(4, fileSize_);
+      }
+      if (!getSenderNameBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, senderName_);
+      }
+      if (!getSenderIpBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, senderIp_);
       }
       if (!getThreadIdBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, threadId_);
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(7, threadId_);
       }
       if (sendTime_ != null) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(7, getSendTime());
+          .computeMessageSize(8, getSendTime());
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -1400,14 +1466,16 @@ public final class Multicast {
 
       boolean result = true;
       result = result && type_ == other.type_;
-      result = result && getId()
-          .equals(other.getId());
-      result = result && getName()
-          .equals(other.getName());
-      result = result && getSender()
-          .equals(other.getSender());
+      result = result && getFileId()
+          .equals(other.getFileId());
+      result = result && getFileName()
+          .equals(other.getFileName());
       result = result && (getFileSize()
           == other.getFileSize());
+      result = result && getSenderName()
+          .equals(other.getSenderName());
+      result = result && getSenderIp()
+          .equals(other.getSenderIp());
       result = result && getThreadId()
           .equals(other.getThreadId());
       result = result && (hasSendTime() == other.hasSendTime());
@@ -1428,14 +1496,16 @@ public final class Multicast {
       hash = (19 * hash) + getDescriptor().hashCode();
       hash = (37 * hash) + TYPE_FIELD_NUMBER;
       hash = (53 * hash) + type_;
-      hash = (37 * hash) + ID_FIELD_NUMBER;
-      hash = (53 * hash) + getId().hashCode();
-      hash = (37 * hash) + NAME_FIELD_NUMBER;
-      hash = (53 * hash) + getName().hashCode();
-      hash = (37 * hash) + SENDER_FIELD_NUMBER;
-      hash = (53 * hash) + getSender().hashCode();
+      hash = (37 * hash) + FILEID_FIELD_NUMBER;
+      hash = (53 * hash) + getFileId().hashCode();
+      hash = (37 * hash) + FILENAME_FIELD_NUMBER;
+      hash = (53 * hash) + getFileName().hashCode();
       hash = (37 * hash) + FILESIZE_FIELD_NUMBER;
       hash = (53 * hash) + getFileSize();
+      hash = (37 * hash) + SENDERNAME_FIELD_NUMBER;
+      hash = (53 * hash) + getSenderName().hashCode();
+      hash = (37 * hash) + SENDERIP_FIELD_NUMBER;
+      hash = (53 * hash) + getSenderIp().hashCode();
       hash = (37 * hash) + THREADID_FIELD_NUMBER;
       hash = (53 * hash) + getThreadId().hashCode();
       if (hasSendTime()) {
@@ -1577,13 +1647,15 @@ public final class Multicast {
         super.clear();
         type_ = 0;
 
-        id_ = "";
+        fileId_ = "";
 
-        name_ = "";
-
-        sender_ = "";
+        fileName_ = "";
 
         fileSize_ = 0;
+
+        senderName_ = "";
+
+        senderIp_ = "";
 
         threadId_ = "";
 
@@ -1620,10 +1692,11 @@ public final class Multicast {
       public sjtu.opennet.textilepb.Multicast.MulticastMeta buildPartial() {
         sjtu.opennet.textilepb.Multicast.MulticastMeta result = new sjtu.opennet.textilepb.Multicast.MulticastMeta(this);
         result.type_ = type_;
-        result.id_ = id_;
-        result.name_ = name_;
-        result.sender_ = sender_;
+        result.fileId_ = fileId_;
+        result.fileName_ = fileName_;
         result.fileSize_ = fileSize_;
+        result.senderName_ = senderName_;
+        result.senderIp_ = senderIp_;
         result.threadId_ = threadId_;
         if (sendTimeBuilder_ == null) {
           result.sendTime_ = sendTime_;
@@ -1681,20 +1754,24 @@ public final class Multicast {
         if (other.type_ != 0) {
           setTypeValue(other.getTypeValue());
         }
-        if (!other.getId().isEmpty()) {
-          id_ = other.id_;
+        if (!other.getFileId().isEmpty()) {
+          fileId_ = other.fileId_;
           onChanged();
         }
-        if (!other.getName().isEmpty()) {
-          name_ = other.name_;
-          onChanged();
-        }
-        if (!other.getSender().isEmpty()) {
-          sender_ = other.sender_;
+        if (!other.getFileName().isEmpty()) {
+          fileName_ = other.fileName_;
           onChanged();
         }
         if (other.getFileSize() != 0) {
           setFileSize(other.getFileSize());
+        }
+        if (!other.getSenderName().isEmpty()) {
+          senderName_ = other.senderName_;
+          onChanged();
+        }
+        if (!other.getSenderIp().isEmpty()) {
+          senderIp_ = other.senderIp_;
+          onChanged();
         }
         if (!other.getThreadId().isEmpty()) {
           threadId_ = other.threadId_;
@@ -1777,21 +1854,21 @@ public final class Multicast {
         return this;
       }
 
-      private java.lang.Object id_ = "";
+      private java.lang.Object fileId_ = "";
       /**
        * <pre>
        * unique id of one file or image
        * </pre>
        *
-       * <code>string id = 2;</code>
+       * <code>string fileId = 2;</code>
        */
-      public java.lang.String getId() {
-        java.lang.Object ref = id_;
+      public java.lang.String getFileId() {
+        java.lang.Object ref = fileId_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
-          id_ = s;
+          fileId_ = s;
           return s;
         } else {
           return (java.lang.String) ref;
@@ -1802,16 +1879,16 @@ public final class Multicast {
        * unique id of one file or image
        * </pre>
        *
-       * <code>string id = 2;</code>
+       * <code>string fileId = 2;</code>
        */
       public com.google.protobuf.ByteString
-          getIdBytes() {
-        java.lang.Object ref = id_;
+          getFileIdBytes() {
+        java.lang.Object ref = fileId_;
         if (ref instanceof String) {
           com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
-          id_ = b;
+          fileId_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
@@ -1822,15 +1899,15 @@ public final class Multicast {
        * unique id of one file or image
        * </pre>
        *
-       * <code>string id = 2;</code>
+       * <code>string fileId = 2;</code>
        */
-      public Builder setId(
+      public Builder setFileId(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
   
-        id_ = value;
+        fileId_ = value;
         onChanged();
         return this;
       }
@@ -1839,11 +1916,11 @@ public final class Multicast {
        * unique id of one file or image
        * </pre>
        *
-       * <code>string id = 2;</code>
+       * <code>string fileId = 2;</code>
        */
-      public Builder clearId() {
+      public Builder clearFileId() {
         
-        id_ = getDefaultInstance().getId();
+        fileId_ = getDefaultInstance().getFileId();
         onChanged();
         return this;
       }
@@ -1852,167 +1929,98 @@ public final class Multicast {
        * unique id of one file or image
        * </pre>
        *
-       * <code>string id = 2;</code>
+       * <code>string fileId = 2;</code>
        */
-      public Builder setIdBytes(
+      public Builder setFileIdBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
         
-        id_ = value;
+        fileId_ = value;
         onChanged();
         return this;
       }
 
-      private java.lang.Object name_ = "";
+      private java.lang.Object fileName_ = "";
       /**
-       * <code>string name = 3;</code>
+       * <code>string fileName = 3;</code>
        */
-      public java.lang.String getName() {
-        java.lang.Object ref = name_;
+      public java.lang.String getFileName() {
+        java.lang.Object ref = fileName_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
-          name_ = s;
+          fileName_ = s;
           return s;
         } else {
           return (java.lang.String) ref;
         }
       }
       /**
-       * <code>string name = 3;</code>
+       * <code>string fileName = 3;</code>
        */
       public com.google.protobuf.ByteString
-          getNameBytes() {
-        java.lang.Object ref = name_;
+          getFileNameBytes() {
+        java.lang.Object ref = fileName_;
         if (ref instanceof String) {
           com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
-          name_ = b;
+          fileName_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
         }
       }
       /**
-       * <code>string name = 3;</code>
+       * <code>string fileName = 3;</code>
        */
-      public Builder setName(
+      public Builder setFileName(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
   
-        name_ = value;
+        fileName_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>string name = 3;</code>
+       * <code>string fileName = 3;</code>
        */
-      public Builder clearName() {
+      public Builder clearFileName() {
         
-        name_ = getDefaultInstance().getName();
+        fileName_ = getDefaultInstance().getFileName();
         onChanged();
         return this;
       }
       /**
-       * <code>string name = 3;</code>
+       * <code>string fileName = 3;</code>
        */
-      public Builder setNameBytes(
+      public Builder setFileNameBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
         
-        name_ = value;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object sender_ = "";
-      /**
-       * <code>string sender = 4;</code>
-       */
-      public java.lang.String getSender() {
-        java.lang.Object ref = sender_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          sender_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string sender = 4;</code>
-       */
-      public com.google.protobuf.ByteString
-          getSenderBytes() {
-        java.lang.Object ref = sender_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          sender_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string sender = 4;</code>
-       */
-      public Builder setSender(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        sender_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string sender = 4;</code>
-       */
-      public Builder clearSender() {
-        
-        sender_ = getDefaultInstance().getSender();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string sender = 4;</code>
-       */
-      public Builder setSenderBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        sender_ = value;
+        fileName_ = value;
         onChanged();
         return this;
       }
 
       private int fileSize_ ;
       /**
-       * <code>int32 fileSize = 5;</code>
+       * <code>int32 fileSize = 4;</code>
        */
       public int getFileSize() {
         return fileSize_;
       }
       /**
-       * <code>int32 fileSize = 5;</code>
+       * <code>int32 fileSize = 4;</code>
        */
       public Builder setFileSize(int value) {
         
@@ -2021,7 +2029,7 @@ public final class Multicast {
         return this;
       }
       /**
-       * <code>int32 fileSize = 5;</code>
+       * <code>int32 fileSize = 4;</code>
        */
       public Builder clearFileSize() {
         
@@ -2030,9 +2038,147 @@ public final class Multicast {
         return this;
       }
 
+      private java.lang.Object senderName_ = "";
+      /**
+       * <code>string senderName = 5;</code>
+       */
+      public java.lang.String getSenderName() {
+        java.lang.Object ref = senderName_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          senderName_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string senderName = 5;</code>
+       */
+      public com.google.protobuf.ByteString
+          getSenderNameBytes() {
+        java.lang.Object ref = senderName_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          senderName_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string senderName = 5;</code>
+       */
+      public Builder setSenderName(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        senderName_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string senderName = 5;</code>
+       */
+      public Builder clearSenderName() {
+        
+        senderName_ = getDefaultInstance().getSenderName();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string senderName = 5;</code>
+       */
+      public Builder setSenderNameBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        senderName_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object senderIp_ = "";
+      /**
+       * <code>string senderIp = 6;</code>
+       */
+      public java.lang.String getSenderIp() {
+        java.lang.Object ref = senderIp_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          senderIp_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string senderIp = 6;</code>
+       */
+      public com.google.protobuf.ByteString
+          getSenderIpBytes() {
+        java.lang.Object ref = senderIp_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          senderIp_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string senderIp = 6;</code>
+       */
+      public Builder setSenderIp(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        senderIp_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string senderIp = 6;</code>
+       */
+      public Builder clearSenderIp() {
+        
+        senderIp_ = getDefaultInstance().getSenderIp();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string senderIp = 6;</code>
+       */
+      public Builder setSenderIpBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        senderIp_ = value;
+        onChanged();
+        return this;
+      }
+
       private java.lang.Object threadId_ = "";
       /**
-       * <code>string threadId = 6;</code>
+       * <code>string threadId = 7;</code>
        */
       public java.lang.String getThreadId() {
         java.lang.Object ref = threadId_;
@@ -2047,7 +2193,7 @@ public final class Multicast {
         }
       }
       /**
-       * <code>string threadId = 6;</code>
+       * <code>string threadId = 7;</code>
        */
       public com.google.protobuf.ByteString
           getThreadIdBytes() {
@@ -2063,7 +2209,7 @@ public final class Multicast {
         }
       }
       /**
-       * <code>string threadId = 6;</code>
+       * <code>string threadId = 7;</code>
        */
       public Builder setThreadId(
           java.lang.String value) {
@@ -2076,7 +2222,7 @@ public final class Multicast {
         return this;
       }
       /**
-       * <code>string threadId = 6;</code>
+       * <code>string threadId = 7;</code>
        */
       public Builder clearThreadId() {
         
@@ -2085,7 +2231,7 @@ public final class Multicast {
         return this;
       }
       /**
-       * <code>string threadId = 6;</code>
+       * <code>string threadId = 7;</code>
        */
       public Builder setThreadIdBytes(
           com.google.protobuf.ByteString value) {
@@ -2103,13 +2249,13 @@ public final class Multicast {
       private com.google.protobuf.SingleFieldBuilderV3<
           com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> sendTimeBuilder_;
       /**
-       * <code>.google.protobuf.Timestamp sendTime = 7;</code>
+       * <code>.google.protobuf.Timestamp sendTime = 8;</code>
        */
       public boolean hasSendTime() {
         return sendTimeBuilder_ != null || sendTime_ != null;
       }
       /**
-       * <code>.google.protobuf.Timestamp sendTime = 7;</code>
+       * <code>.google.protobuf.Timestamp sendTime = 8;</code>
        */
       public com.google.protobuf.Timestamp getSendTime() {
         if (sendTimeBuilder_ == null) {
@@ -2119,7 +2265,7 @@ public final class Multicast {
         }
       }
       /**
-       * <code>.google.protobuf.Timestamp sendTime = 7;</code>
+       * <code>.google.protobuf.Timestamp sendTime = 8;</code>
        */
       public Builder setSendTime(com.google.protobuf.Timestamp value) {
         if (sendTimeBuilder_ == null) {
@@ -2135,7 +2281,7 @@ public final class Multicast {
         return this;
       }
       /**
-       * <code>.google.protobuf.Timestamp sendTime = 7;</code>
+       * <code>.google.protobuf.Timestamp sendTime = 8;</code>
        */
       public Builder setSendTime(
           com.google.protobuf.Timestamp.Builder builderForValue) {
@@ -2149,7 +2295,7 @@ public final class Multicast {
         return this;
       }
       /**
-       * <code>.google.protobuf.Timestamp sendTime = 7;</code>
+       * <code>.google.protobuf.Timestamp sendTime = 8;</code>
        */
       public Builder mergeSendTime(com.google.protobuf.Timestamp value) {
         if (sendTimeBuilder_ == null) {
@@ -2167,7 +2313,7 @@ public final class Multicast {
         return this;
       }
       /**
-       * <code>.google.protobuf.Timestamp sendTime = 7;</code>
+       * <code>.google.protobuf.Timestamp sendTime = 8;</code>
        */
       public Builder clearSendTime() {
         if (sendTimeBuilder_ == null) {
@@ -2181,7 +2327,7 @@ public final class Multicast {
         return this;
       }
       /**
-       * <code>.google.protobuf.Timestamp sendTime = 7;</code>
+       * <code>.google.protobuf.Timestamp sendTime = 8;</code>
        */
       public com.google.protobuf.Timestamp.Builder getSendTimeBuilder() {
         
@@ -2189,7 +2335,7 @@ public final class Multicast {
         return getSendTimeFieldBuilder().getBuilder();
       }
       /**
-       * <code>.google.protobuf.Timestamp sendTime = 7;</code>
+       * <code>.google.protobuf.Timestamp sendTime = 8;</code>
        */
       public com.google.protobuf.TimestampOrBuilder getSendTimeOrBuilder() {
         if (sendTimeBuilder_ != null) {
@@ -2200,7 +2346,7 @@ public final class Multicast {
         }
       }
       /**
-       * <code>.google.protobuf.Timestamp sendTime = 7;</code>
+       * <code>.google.protobuf.Timestamp sendTime = 8;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> 
@@ -3700,12 +3846,13 @@ public final class Multicast {
       "\n\017MulticastPacket\022#\n\004type\030\001 \001(\0162\025.Multic" +
       "astPacket.Type\022%\n\007payload\030\002 \001(\0132\024.google" +
       ".protobuf.Any\"#\n\004Type\022\010\n\004META\020\000\022\010\n\004DATA\020" +
-      "\001\022\007\n\003END\020\002\"\311\001\n\rMulticastMeta\022!\n\004type\030\001 \001" +
-      "(\0162\023.MulticastMeta.Type\022\n\n\002id\030\002 \001(\t\022\014\n\004n" +
-      "ame\030\003 \001(\t\022\016\n\006sender\030\004 \001(\t\022\020\n\010fileSize\030\005 " +
-      "\001(\005\022\020\n\010threadId\030\006 \001(\t\022,\n\010sendTime\030\007 \001(\0132" +
-      "\032.google.protobuf.Timestamp\"\031\n\004Type\022\010\n\004F" +
-      "ILE\020\000\022\007\n\003IMG\020\001\"N\n\rMulticastData\022\n\n\002id\030\001 " +
+      "\001\022\007\n\003END\020\002\"\361\001\n\rMulticastMeta\022!\n\004type\030\001 \001" +
+      "(\0162\023.MulticastMeta.Type\022\016\n\006fileId\030\002 \001(\t\022" +
+      "\020\n\010fileName\030\003 \001(\t\022\020\n\010fileSize\030\004 \001(\005\022\022\n\ns" +
+      "enderName\030\005 \001(\t\022\020\n\010senderIp\030\006 \001(\t\022\020\n\010thr" +
+      "eadId\030\007 \001(\t\022,\n\010sendTime\030\010 \001(\0132\032.google.p" +
+      "rotobuf.Timestamp\"#\n\004Type\022\010\n\004FILE\020\000\022\007\n\003I" +
+      "MG\020\001\022\010\n\004TEXT\020\002\"N\n\rMulticastData\022\n\n\002id\030\001 " +
       "\001(\t\022\014\n\004data\030\002 \001(\014\022\020\n\010shardNum\030\003 \001(\005\022\021\n\tp" +
       "arityNum\030\004 \001(\005\"\032\n\014MulticastEnd\022\n\n\002id\030\001 \001" +
       "(\tB\034\n\026sjtu.opennet.textilepbZ\002pbb\006proto3"
@@ -3735,7 +3882,7 @@ public final class Multicast {
     internal_static_MulticastMeta_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_MulticastMeta_descriptor,
-        new java.lang.String[] { "Type", "Id", "Name", "Sender", "FileSize", "ThreadId", "SendTime", });
+        new java.lang.String[] { "Type", "FileId", "FileName", "FileSize", "SenderName", "SenderIp", "ThreadId", "SendTime", });
     internal_static_MulticastData_descriptor =
       getDescriptor().getMessageTypes().get(2);
     internal_static_MulticastData_fieldAccessorTable = new
