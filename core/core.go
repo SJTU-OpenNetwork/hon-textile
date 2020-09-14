@@ -747,6 +747,12 @@ func (t *Textile) TryConnect(peerId string) {
     }()
 }
 
+func (t *Textile) TryConnectShadowByRelay(shadowId string){
+	var ids []string
+	ids=append(ids,shadowId)
+	t.TryConnectThroughRelay(ids)
+}
+
 func (t *Textile) GetSwarmAddress(peerId string) string {
     log.Debug("In GetSwarmAddress")
     sessions := t.datastore.CafeSessions().List().Items
