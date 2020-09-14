@@ -3628,7 +3628,7 @@ func (m *CafeClientMessage) GetDate() *timestamp.Timestamp {
 	return nil
 }
 
-// Bots KV Store //
+// Bots KV store //
 type BotKV struct {
 	Key                  string               `protobuf:"bytes,1,opt,name=key,proto3" json:"key,omitempty"`
 	Value                []byte               `protobuf:"bytes,2,opt,name=value,proto3" json:"value,omitempty"`

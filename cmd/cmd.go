@@ -1042,6 +1042,13 @@ The response contains a base58 encoded version of the random bytes token.`).Alia
 		return AddSimpleFile(*simpleAddPath, *simpleAddThread)
 	}
 
+	// ================================
+	// For Thread2
+	thread2Cmd := appCmd.Command("thread2", "go-threads corresponding command.")
+	thread2ListCmd := thread2Cmd.Command("list", "List all the threads.")
+	cmds[thread2ListCmd.FullCommand()] = Thread2List
+
+
 	hideGlobalsFlagsFor(
 		daemonCmd,
 		initCmd,

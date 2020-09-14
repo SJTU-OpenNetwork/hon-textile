@@ -380,6 +380,11 @@ func (a *Api) Run() {
 			shadow.GET("/stat", a.shadowStat)
 			shadow.POST("/setservepeer", a.shadowServePeer)
 		}
+
+		thread2 := v0.Group("/thread2")
+		{
+			thread2.GET("", a.thread2ls)
+		}
 	}
 
 	a.server = &http.Server{

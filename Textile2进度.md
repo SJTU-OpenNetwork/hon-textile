@@ -6,12 +6,22 @@
 ## 进度
 - [ ] go-threads基本运行
     - [ ] 使用原有host和repo目录创建go-threads服务
-    - [ ] 实现节点间消息的发送
-    - [ ] 创建public thread用于测试
-    - [ ] 实现cmd对public thread的查看和添加
-    - [ ] 对安卓端开放public thread接口，确保可以在移动端稳定运行
+    - [ ] 实现byte数组往thread上的添加。
+    - [ ] 实现cmd对thread的创建、查看、添加、更新监听、历史获取
+    - [ ] 对安卓端开放thread更新的监听接口，确保可以在移动端稳定运行
+- [ ] 使用go-threads实现消息发送
+    - [ ] 定义结构化的msg，以及其序列化、反序列化方式。最方便的方式是通过pb实现。
+- [ ] 使用go-threads实现群组管理
+    - [ ] 单个thread代表群组，实现群组的添加接口。
+    - [ ] 为thread添加访问权限。
+    - [ ] 群组成员管理能力，能够感知群组成员变动。但是发送信息不再依赖于群组成员列表，成员列表仅仅用于显示。
     
+
 ## go-threads架构
+### 工作方式
+thread本身是一个分布式数据库，多个节点可以通过<b>添加</b>或<b>创建</b>
+两个动作来获取一个thread。thread的更新会在其拥有者之间同步，拥有者可以
+向thread添加内容、监听thread更新、或者主动拉取thread历史。
 ### 接口定义
 - core.app.Net <code>Interface</code>
   - core.net.Net

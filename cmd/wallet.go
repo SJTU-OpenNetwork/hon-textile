@@ -22,7 +22,7 @@ func WalletInit(words int, passphrase string) error {
 	fmt.Println(strings.Repeat("-", len(w.RecoveryPhrase)+4))
 	fmt.Println("| " + w.RecoveryPhrase + " |")
 	fmt.Println(strings.Repeat("-", len(w.RecoveryPhrase)+4))
-	fmt.Println("WARNING! Store these words above in a safe place!")
+	fmt.Println("WARNING! store these words above in a safe place!")
 	fmt.Println("WARNING! If you lose your words, you will lose access to data in all derived accounts!")
 	fmt.Println("WARNING! Anyone who has access to these words can access your wallet accounts!")
 	fmt.Println("")
