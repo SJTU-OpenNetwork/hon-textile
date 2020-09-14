@@ -12,6 +12,31 @@ import (
 	"github.com/golang/protobuf/ptypes/timestamp"
 )
 
+type ErrFileAlreadyExists struct {
+	Path string
+}
+
+type ErrDirAlreadyExists struct {
+	Path string
+}
+
+type ErrDirNotExists struct {
+	Path string
+}
+
+func (e *ErrDirNotExists) Error() string {
+	return "directory " + e.Path + " not exists."
+}
+
+func (e *ErrDirAlreadyExists) Error()string {
+	return "directory " + e.Path + " already exists."
+}
+
+func (e *ErrFileAlreadyExists) Error() string {
+	return "file " + e.Path + " already exists."
+}
+
+
 func UnmarshalString(body io.ReadCloser) (string, error) {
 	data, err := ioutil.ReadAll(body)
 	if err != nil {
@@ -110,3 +135,19 @@ func RandomWait(from int, to int) *time.Timer {
 
 }
  */
+
+func FileExist(filePath string) bool {
+	info, err := os.Stat(filePath)
+	if err != nil || info.IsDir() {
+		return false
+	}
+	return true
+}
+
+func DirectoryExist(dirPath string) bool {
+	info, err := os.Stat(dirPath)
+	if err != nil || !info.IsDir() {
+		return false
+	}
+	return true
+}

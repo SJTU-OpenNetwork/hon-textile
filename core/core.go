@@ -134,6 +134,9 @@ type Textile struct {
     stream            *stream.StreamService
 	record			  *recorder.RecordService
 	textBot			  *util.TextBot
+
+	// go-threads
+	thread2 		  *ThreadService2
 }
 
 // common errors
@@ -345,6 +348,7 @@ func NewTextile(conf RunConfig) (*Textile, error) {
 		return nil, err
 	}
 	node.account = accnt
+
 	return node, nil
 }
 
@@ -462,6 +466,8 @@ func (t *Textile) Start() error {
 		t.cafeOutbox.handler = t.cafe
 	}
 
+
+
 	// start the ipfs node
 	log.Debug("creating an ipfs node...")
     recorder.Hlog.Add("Creating ipfs node ...")
@@ -500,6 +506,15 @@ func (t *Textile) Start() error {
 				t.cafe.open = true
 				t.startCafeApi(t.config.Addresses.CafeAPI)
 			}()
+		}
+
+		// Create and start threadService2
+		log.Debug("Try to create go-threads service.")
+		thread2, err := NewThreadService2(t.ctx, t.Ipfs(), t.repoPath)
+		if err != nil {
+			log.Error("Error when start go-threads: ", err)
+		} else {
+			t.thread2 = thread2
 		}
 
 		err = ipfs.PrintSwarmAddrs(t.node)
