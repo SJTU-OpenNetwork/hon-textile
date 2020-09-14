@@ -73,6 +73,7 @@ func NewThreadService2(ctx context.Context, node *ipfscore.IpfsNode, repoPath st
 }
 
 func (t *Textile) Thread2List() (thread.IDSlice, error){
+	fmt.Println("Thread2List")
 	return t.thread2.store.Threads()
 }
 

@@ -11,6 +11,10 @@ func (a *Api) thread2ls(g *gin.Context) {
 		log.Error("Error when fetch the go-threads list: ", err)
 		g.String(http.StatusBadGateway, "Error: %v", err)
 	} else {
-		g.JSON(http.StatusOK, threadSlice)
+		if threadSlice == nil {
+			g.String(http.StatusOK, "")
+		} else {
+			g.JSON(http.StatusOK, threadSlice)
+		}
 	}
 }
