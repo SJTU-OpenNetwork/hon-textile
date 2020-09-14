@@ -1,0 +1,50 @@
+syntax = "proto3";
+option java_package = "sjtu.opennet.textilepb";
+option go_package = "pb";
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/any.proto";
+
+message MulticastPacket {
+  enum Type {
+    META = 0;
+    DATA = 1;
+    END = 2;
+    HEART_BEAT = 3;
+  }
+  Type type = 1;
+  google.protobuf.Any payload = 2;
+}
+
+message MulticastMeta {
+  enum Type {
+    FILE = 0;
+    IMG = 1;
+    TEXT = 2;
+  }
+  Type type = 1;
+  string fileId = 2;        // unique id of one file or image
+  string fileName = 3;
+  int32 fileSize = 4;
+  string senderName = 5;
+  string senderIp = 6;
+  string threadId = 7;
+  google.protobuf.Timestamp sendTime = 8;
+}
+
+message MulticastData {
+  string id = 1;        // same with id in meta
+  bytes  data = 2;      // reed solomon shard data
+  int32 index = 3;
+  int32 groupIndex = 4;
+
+  // Note:
+  //    Shard number and parity number is required by reed solomon decoder.
+  //    They should be contained in every data packet cause we do not know which of them would be lost.
+  int32  shardNum = 5;  // number of reed solomon data shards
+  int32  parityNum = 6; // number of reed solomon parity shards
+}
+
+message MulticastEnd {
+  string id = 1;
+}

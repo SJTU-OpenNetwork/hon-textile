@@ -27,6 +27,16 @@ public final class ShadowService {
      */
     com.google.protobuf.ByteString
         getPublicKeyBytes();
+
+    /**
+     * <code>string shadowIp = 2;</code>
+     */
+    java.lang.String getShadowIp();
+    /**
+     * <code>string shadowIp = 2;</code>
+     */
+    com.google.protobuf.ByteString
+        getShadowIpBytes();
   }
   /**
    * Protobuf type {@code ShadowInform}
@@ -42,6 +52,7 @@ public final class ShadowService {
     }
     private ShadowInform() {
       publicKey_ = "";
+      shadowIp_ = "";
     }
 
     @java.lang.Override
@@ -72,6 +83,12 @@ public final class ShadowService {
               java.lang.String s = input.readStringRequireUtf8();
 
               publicKey_ = s;
+              break;
+            }
+            case 18: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              shadowIp_ = s;
               break;
             }
             default: {
@@ -140,6 +157,40 @@ public final class ShadowService {
       }
     }
 
+    public static final int SHADOWIP_FIELD_NUMBER = 2;
+    private volatile java.lang.Object shadowIp_;
+    /**
+     * <code>string shadowIp = 2;</code>
+     */
+    public java.lang.String getShadowIp() {
+      java.lang.Object ref = shadowIp_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        shadowIp_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string shadowIp = 2;</code>
+     */
+    public com.google.protobuf.ByteString
+        getShadowIpBytes() {
+      java.lang.Object ref = shadowIp_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        shadowIp_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -157,6 +208,9 @@ public final class ShadowService {
       if (!getPublicKeyBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, publicKey_);
       }
+      if (!getShadowIpBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, shadowIp_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -168,6 +222,9 @@ public final class ShadowService {
       size = 0;
       if (!getPublicKeyBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, publicKey_);
+      }
+      if (!getShadowIpBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, shadowIp_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -187,6 +244,8 @@ public final class ShadowService {
       boolean result = true;
       result = result && getPublicKey()
           .equals(other.getPublicKey());
+      result = result && getShadowIp()
+          .equals(other.getShadowIp());
       result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
@@ -200,6 +259,8 @@ public final class ShadowService {
       hash = (19 * hash) + getDescriptor().hashCode();
       hash = (37 * hash) + PUBLICKEY_FIELD_NUMBER;
       hash = (53 * hash) + getPublicKey().hashCode();
+      hash = (37 * hash) + SHADOWIP_FIELD_NUMBER;
+      hash = (53 * hash) + getShadowIp().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -335,6 +396,8 @@ public final class ShadowService {
         super.clear();
         publicKey_ = "";
 
+        shadowIp_ = "";
+
         return this;
       }
 
@@ -362,6 +425,7 @@ public final class ShadowService {
       public sjtu.opennet.textilepb.ShadowService.ShadowInform buildPartial() {
         sjtu.opennet.textilepb.ShadowService.ShadowInform result = new sjtu.opennet.textilepb.ShadowService.ShadowInform(this);
         result.publicKey_ = publicKey_;
+        result.shadowIp_ = shadowIp_;
         onBuilt();
         return result;
       }
@@ -412,6 +476,10 @@ public final class ShadowService {
         if (other == sjtu.opennet.textilepb.ShadowService.ShadowInform.getDefaultInstance()) return this;
         if (!other.getPublicKey().isEmpty()) {
           publicKey_ = other.publicKey_;
+          onChanged();
+        }
+        if (!other.getShadowIp().isEmpty()) {
+          shadowIp_ = other.shadowIp_;
           onChanged();
         }
         this.mergeUnknownFields(other.unknownFields);
@@ -508,6 +576,75 @@ public final class ShadowService {
   checkByteStringIsUtf8(value);
         
         publicKey_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object shadowIp_ = "";
+      /**
+       * <code>string shadowIp = 2;</code>
+       */
+      public java.lang.String getShadowIp() {
+        java.lang.Object ref = shadowIp_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          shadowIp_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string shadowIp = 2;</code>
+       */
+      public com.google.protobuf.ByteString
+          getShadowIpBytes() {
+        java.lang.Object ref = shadowIp_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          shadowIp_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string shadowIp = 2;</code>
+       */
+      public Builder setShadowIp(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        shadowIp_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string shadowIp = 2;</code>
+       */
+      public Builder clearShadowIp() {
+        
+        shadowIp_ = getDefaultInstance().getShadowIp();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string shadowIp = 2;</code>
+       */
+      public Builder setShadowIpBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        shadowIp_ = value;
         onChanged();
         return this;
       }
@@ -1946,11 +2083,12 @@ public final class ShadowService {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\024shadow_service.proto\"!\n\014ShadowInform\022\021" +
-      "\n\tpublicKey\030\001 \001(\t\"&\n\024ShadowInformRespons" +
-      "e\022\016\n\006accept\030\001 \001(\010\"9\n\nShadowStat\022\014\n\004role\030" +
-      "\001 \001(\t\022\016\n\006shadow\030\002 \001(\t\022\r\n\005users\030\003 \003(\tB\034\n\026" +
-      "sjtu.opennet.textilepbZ\002pbb\006proto3"
+      "\n\024shadow_service.proto\"3\n\014ShadowInform\022\021" +
+      "\n\tpublicKey\030\001 \001(\t\022\020\n\010shadowIp\030\002 \001(\t\"&\n\024S" +
+      "hadowInformResponse\022\016\n\006accept\030\001 \001(\010\"9\n\nS" +
+      "hadowStat\022\014\n\004role\030\001 \001(\t\022\016\n\006shadow\030\002 \001(\t\022" +
+      "\r\n\005users\030\003 \003(\tB\034\n\026sjtu.opennet.textilepb" +
+      "Z\002pbb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -1969,7 +2107,7 @@ public final class ShadowService {
     internal_static_ShadowInform_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ShadowInform_descriptor,
-        new java.lang.String[] { "PublicKey", });
+        new java.lang.String[] { "PublicKey", "ShadowIp", });
     internal_static_ShadowInformResponse_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_ShadowInformResponse_fieldAccessorTable = new
