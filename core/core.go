@@ -510,10 +510,7 @@ func (t *Textile) Start() error {
 		}
 
 		// Create and start threadService2
-		fmt.Println("Try to create go-threads service.")
-		log.Debug("Try to create go-threads service.")
 		thread2, err := NewThreadService2(t.ctx, t.Ipfs(), t.repoPath)
-		fmt.Println("??????????")
 		if err != nil {
 			fmt.Println("Error when start go-threads: ", err)
 			log.Error("Error when start go-threads: ", err)

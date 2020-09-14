@@ -384,6 +384,8 @@ func (a *Api) Run() {
 		thread2 := v0.Group("/thread2")
 		{
 			thread2.GET("", a.thread2ls)
+			thread2.POST("/create", a.thread2Create)
+			thread2.PUT("/addString/:threadId", a.thread2AddString)
 		}
 	}
 

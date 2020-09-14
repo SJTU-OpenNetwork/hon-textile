@@ -34,8 +34,6 @@ type ThreadService2 struct {
 //	- repoPath must be an existing directory.
 func NewThreadService2(ctx context.Context, node *ipfscore.IpfsNode, repoPath string) (*ThreadService2, error) {
 	// Create logStore
-	fmt.Println("NewThreadService2")
-	defer fmt.Println("Done NewThreadService2")
 	logPath := path.Join(repoPath, "threadsLog")
 	if !util.DirectoryExist(logPath) {
 		if err := os.Mkdir(logPath, os.ModePerm); err != nil {
@@ -43,19 +41,16 @@ func NewThreadService2(ctx context.Context, node *ipfscore.IpfsNode, repoPath st
 			return nil, err
 		}
 	}
-	fmt.Println("46")
 	tmpstore, err := ipfslite.BadgerDatastore(logPath)
 	if err != nil {
 		log.Error("Error when create ipfslite badger datastore: ", err)
 		return nil, err
 	}
-	fmt.Println("52")
 	tstore, err := lstoreds.NewLogstore(ctx, tmpstore, lstoreds.DefaultOpts())
 	if err != nil {
 		log.Error("Error when create tmpstore from ipfslite badger datastore: ", err)
 		return nil, err
 	}
-	fmt.Println("58")
 	tmpNet, err := net.NewNetwork(
 		ctx,
 		node.PeerHost,
@@ -70,9 +65,7 @@ func NewThreadService2(ctx context.Context, node *ipfscore.IpfsNode, repoPath st
 		log.Error("Error when create net.Network: ", err)
 		return nil, err
 	}
-	fmt.Println("73")
 	//cbornode.RegisterCborType(make([]byte,0))
-	fmt.Println("End of NewThread2")
 	return &ThreadService2{net: tmpNet, store: tstore}, nil
 }
 
