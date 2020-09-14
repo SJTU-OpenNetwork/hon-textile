@@ -479,6 +479,7 @@ func (t *Textile) Start() error {
 	go func() {
 		defer func() {
 			close(t.online)
+			fmt.Println("Node start")
 			recorder.Hlog.Add("Node start")
 			t.lock.Unlock()
 			t.runJobs()
