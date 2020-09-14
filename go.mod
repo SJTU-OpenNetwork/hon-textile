@@ -18,6 +18,7 @@ require (
 	github.com/gin-gonic/gin v1.3.0
 	github.com/gogo/protobuf v1.3.1
 	github.com/golang/protobuf v1.3.3
+	github.com/hsanjuan/ipfs-lite v1.1.11
 	github.com/ipfs/go-cid v0.0.5
 	github.com/ipfs/go-datastore v0.4.4
 	github.com/ipfs/go-ipfs v0.5.1
@@ -25,6 +26,7 @@ require (
 	github.com/ipfs/go-ipfs-cmds v0.2.2
 	github.com/ipfs/go-ipfs-config v0.5.3
 	github.com/ipfs/go-ipfs-files v0.0.8
+	github.com/ipfs/go-ipld-cbor v0.0.4
 	github.com/ipfs/go-ipld-format v0.2.0
 	github.com/ipfs/go-log v1.0.4
 	github.com/ipfs/go-log/v2 v2.0.5
@@ -62,3 +64,5 @@ require (
 	gopkg.in/alecthomas/kingpin.v2 v2.2.6
 	gopkg.in/natefinch/lumberjack.v2 v2.0.0-20170531160350-a96e63847dc3
 )
+
+replace github.com/ipfs/go-filestore => github.com/ipfs/go-filestore v1.0.0
