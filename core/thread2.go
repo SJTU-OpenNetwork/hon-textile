@@ -2,6 +2,7 @@ package core
 
 import (
 	"context"
+	"fmt"
 	"github.com/SJTU-OpenNetwork/hon-textile/util"
 	ipfslite "github.com/hsanjuan/ipfs-lite"
 	ipfscore "github.com/ipfs/go-ipfs/core"
@@ -33,6 +34,7 @@ type ThreadService2 struct {
 //	- repoPath must be an existing directory.
 func NewThreadService2(ctx context.Context, node *ipfscore.IpfsNode, repoPath string) (*ThreadService2, error) {
 	// Create logStore
+	fmt.Println("NewThreadService2")
 	logPath := path.Join(repoPath, "threadsLog")
 	if !util.DirectoryExist(logPath) {
 		if err := os.Mkdir(logPath, os.ModePerm); err != nil {
