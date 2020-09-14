@@ -512,6 +512,7 @@ func (t *Textile) Start() error {
 		fmt.Println("Try to create go-threads service.")
 		log.Debug("Try to create go-threads service.")
 		thread2, err := NewThreadService2(t.ctx, t.Ipfs(), t.repoPath)
+		fmt.Println("??????????")
 		if err != nil {
 			fmt.Println("Error when start go-threads: ", err)
 			log.Error("Error when start go-threads: ", err)
@@ -522,7 +523,7 @@ func (t *Textile) Start() error {
 				fmt.Println("thread2 is still nil")
 			}
 		}
-
+		fmt.Println("!!!!!!!!!!!")
 		err = ipfs.PrintSwarmAddrs(t.node)
 		if err != nil {
 			log.Errorf(err.Error())
