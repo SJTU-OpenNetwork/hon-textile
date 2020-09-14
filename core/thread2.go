@@ -70,6 +70,7 @@ func NewThreadService2(ctx context.Context, node *ipfscore.IpfsNode, repoPath st
 	}
 
 	cbornode.RegisterCborType(make([]byte,0))
+	fmt.Println("End of NewThread2")
 	return &ThreadService2{net: tmpNet, store: tstore}, nil
 }
 
