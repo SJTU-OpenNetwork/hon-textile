@@ -14,7 +14,7 @@ import (
 	"time"
 
 	cbornode "github.com/ipfs/go-ipld-cbor"
-	"github.com/textileio/go-threads/cbor"
+	//"github.com/textileio/go-threads/cbor"
 	"github.com/textileio/go-threads/core/logstore"
 	"github.com/textileio/go-threads/logstore/lstoreds"
 	"github.com/textileio/go-threads/net"
