@@ -335,6 +335,31 @@ func startNode(serveDocs bool) error {
 		}
 	}()
 
+
+	// Subscribe to thread2 update:
+	go func() {
+		var err error
+		thread2Ch, err := node.Thread2Subscribe()
+		if err != nil {
+			log.Error("Error when subscribe thread2: ", err)
+			fmt.Println("Error when subscribe thread2: ", err)
+			return
+		}
+		var msg string
+		var threadRecord *core.Thread2Record
+		for record := range thread2Ch {
+			threadRecord, err = node.UnmarshalRecord(record)
+			if err != nil {
+				log.Error("Error when unmarshal record: ", err)
+				fmt.Println("Error when unmarshal record: ", err)
+				continue
+			}
+			msg = Green("Thread2 Record: "+"  "+ threadRecord.ThreadId +" - " + threadRecord.LogId) + "\n" +
+				Grey(string(threadRecord.Value))
+			fmt.Println(msg)
+		}
+	}()
+
 	// start apis
 	api.Host.Start(node.Config().Addresses.API, serveDocs)
 	gateway.Host.Start(node.Config().Addresses.Gateway)

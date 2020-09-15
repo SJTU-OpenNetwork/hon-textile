@@ -515,13 +515,8 @@ func (t *Textile) Start() error {
 			fmt.Println("Error when start go-threads: ", err)
 			log.Error("Error when start go-threads: ", err)
 		} else {
-			fmt.Println("Set thread2")
 			t.thread2 = thread2
-			if t.thread2 == nil {
-				fmt.Println("thread2 is still nil")
-			}
 		}
-		fmt.Println("!!!!!!!!!!!")
 		err = ipfs.PrintSwarmAddrs(t.node)
 		if err != nil {
 			log.Errorf(err.Error())

@@ -13,6 +13,7 @@ import (
 	"time"
 
 	cbornode "github.com/ipfs/go-ipld-cbor"
+	"github.com/textileio/go-threads/cbor"
 	"github.com/textileio/go-threads/core/logstore"
 	"github.com/textileio/go-threads/logstore/lstoreds"
 	"github.com/textileio/go-threads/net"
@@ -25,9 +26,29 @@ import (
 const msgTimeout = time.Second * 10
 const addTimeout = time.Second * 10
 
+type ErrThreadNoAuth struct {
+	threadId string
+}
+
+func (e *ErrThreadNoAuth) Error() string {
+	return fmt.Sprintf("have no privilege to access thread %s", e.threadId)
+}
+
+func init() {
+	fmt.Println("Register XmlMsg to cbor.")
+	cbornode.RegisterCborType(XmlMsg{})
+	fmt.Println("Register success.")
+}
+
 type ThreadService2 struct {
 	net   app.Net
 	store logstore.Logstore
+}
+
+type Thread2Record struct {
+	ThreadId string
+	LogId string
+	Value []byte
 }
 
 // Note:
@@ -69,6 +90,37 @@ func NewThreadService2(ctx context.Context, node *ipfscore.IpfsNode, repoPath st
 	return &ThreadService2{net: tmpNet, store: tstore}, nil
 }
 
+func (t *Textile) UnmarshalRecord(rec netcore.ThreadRecord) (*Thread2Record, error) {
+	info, err := t.thread2.net.GetThread(t.ctx, rec.ThreadID())
+	if err != nil {
+		return nil, err
+	}
+	if !info.Key.CanRead() {
+		return nil, &ErrThreadNoAuth{threadId: info.ID.String()}
+	}
+	tmpMsg := XmlMsg{}
+	// TODO:
+	//	 This only works for plaintext.
+	//cbornode.DecodeInto(rec.Value().RawData(), tmpMsg)
+	event, err := cbor.EventFromNode(rec.Value())
+	if err != nil  {
+		return nil, err
+	}
+	node, err := event.GetBody(t.ctx, t.thread2.net, info.Key.Read())
+	if err != nil {
+		return nil, err
+	}
+	err = cbornode.DecodeInto(node.RawData(), tmpMsg)
+	if err != nil {
+		return nil, err
+	}
+	return &Thread2Record{
+		Value: tmpMsg.data,
+		LogId: rec.LogID().Pretty(),
+		ThreadId: rec.ThreadID().String(),
+	}, nil
+}
+
 func (t *Textile) Thread2List() (thread.IDSlice, error){
 	fmt.Println("Thread2List")
 	if t.thread2 == nil {
@@ -102,7 +154,7 @@ func (t *Textile) Thread2AddThread(multiaddr ma.Multiaddr) (thread.Info, error) 
 
 // Thread2AddBytes add bytes to the thread corresponding with id.
 func (t *Textile) Thread2AddBytes(id thread.ID, data []byte) error {
-	body, err := cbornode.WrapObject(data, mh.SHA2_256, -1)
+	body, err := cbornode.WrapObject(XmlMsg{data: data}, mh.SHA2_256, -1)
 	if err != nil {
 		log.Error("Error when wrap node object: ", err)
 		return err
