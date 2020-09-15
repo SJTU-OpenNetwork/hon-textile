@@ -9,6 +9,7 @@ import (
 	ipfscore "github.com/ipfs/go-ipfs/core"
 	ma "github.com/multiformats/go-multiaddr"
 	mh "github.com/multiformats/go-multihash"
+	"github.com/textileio/go-threads/cbor"
 	"github.com/textileio/go-threads/core/thread"
 	"github.com/textileio/go-threads/core/app"
 	"time"
@@ -100,16 +101,16 @@ func (t *Textile) UnmarshalRecord(rec netcore.ThreadRecord) (*Thread2Record, err
 	if !info.Key.CanRead() {
 		return nil, &ErrThreadNoAuth{threadId: info.ID.String()}
 	}
-	tmpMsg := XmlMsg{}
+	tmpMsg := new(XmlMsg)
 	// TODO:
 	//	 This only works for plaintext.
-	err = cbornode.DecodeInto(rec.Value().RawData(), &tmpMsg)
-	if err != nil {
-		log.Error("Error when decode record into msg: ", err)
-		return nil, err
-	}
+	//err = cbornode.DecodeInto(rec.Value().RawData(), &tmpMsg)
+	//if err != nil {
+	//	log.Error("Error when decode record into msg: ", err)
+	//	return nil, err
+	//}
 	//rec.Value().RawData()
-	/*
+
 	event, err := cbor.EventFromNode(rec.Value())
 	if err != nil  {
 		log.Error("Error when get event from record: ", err)
@@ -125,7 +126,7 @@ func (t *Textile) UnmarshalRecord(rec netcore.ThreadRecord) (*Thread2Record, err
 		log.Error("Error when decode data into msg: ", err)
 		return nil, err
 	}
-	 */
+
 	return &Thread2Record{
 		Value: tmpMsg.data,
 		LogId: rec.LogID().Pretty(),
