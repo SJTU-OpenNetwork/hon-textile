@@ -339,6 +339,7 @@ func startNode(serveDocs bool) error {
 	// Subscribe to thread2 update:
 	go func() {
 		var err error
+		<- node.OnlineCh()
 		thread2Ch, err := node.Thread2Subscribe()
 		if err != nil {
 			log.Error("Error when subscribe thread2: ", err)
