@@ -618,6 +618,7 @@ func (t *Textile) TryConnectThroughRelay(ids []string) (bool, error){
         "/ipfs/QmZt8jsim548Y5UFN24GL9nX9x3eSS8QFMsbSRNMBAqKBb/p2p-circuit/ipfs/", //202.120.38.100
         "/ipfs/QmRHLRg5vihUgakbk7JnQFswWu7D92awdZnKiQRi1DmJhE/p2p-circuit/ipfs/", //139.9.123.113
         "/ipfs/QmYovpcqB12c56AjGRaMUcwfoZg1DYinCFmEAzFHYvLb6R/p2p-circuit/ipfs/",//159.138.3.74
+        "/ipfs/QmZX8WVgJ3cQCW3bNcodXhmK34rmNkvqk8Zg9u7f3JEFgN/p2p-circuit/ipfs", //159.138.130.129
         //"/ipfs/QmYBXdc56TrPqKWhAYJZneLpVeG4qMaV8Be6yox3fiqBYd/p2p-circuit/ipfs/", //119.3.23.219
         //"/ipfs/QmYL5AAcaGA2undBnRqWRTmndkL1YV3v7tML8DbakC8sTD/p2p-circuit/ipfs/", //121.36.167.61
         //"/ipfs/QmcwtfsFoJALLQwJWmsh5SmothbrniohPcW2PuggSVKurT/p2p-circuit/ipfs/", //122.112.199.88

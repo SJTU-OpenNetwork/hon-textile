@@ -74,6 +74,8 @@ var DefaultOpennetBootstrapAddresses = []string{
     "/ip4/121.36.167.61/tcp/4001/ipfs/QmYL5AAcaGA2undBnRqWRTmndkL1YV3v7tML8DbakC8sTD",
     "/ip4/122.112.199.88/tcp/4001/ipfs/QmcwtfsFoJALLQwJWmsh5SmothbrniohPcW2PuggSVKurT",
     "/ip4/119.3.24.157/tcp/4001/ipfs/QmYCYQMhyDJV4BU9fRr5xBzFDEccnukuViUT7GJLngP7fj",
+    "/ip4/159.138.3.74/tcp/4001/ipfs/QmYovpcqB12c56AjGRaMUcwfoZg1DYinCFmEAzFHYvLb6R/",
+	"/ip4/159.138.130.129/tcp/4001/ipfs/QmZX8WVgJ3cQCW3bNcodXhmK34rmNkvqk8Zg9u7f3JEFgN",
 }
 
 var OpennetCafeAddresses = []string{
