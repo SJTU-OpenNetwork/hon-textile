@@ -171,10 +171,19 @@ func (t *Textile) Thread2AddBytes(id thread.ID, data []byte) error {
 		log.Error("Error when wrap node object: ", err)
 		return err
 	}
+	jsByte, err := body.MarshalJSON()
+	if err != nil {
+		log.Error("Error when marshel created record node into json: ", err)
+	} else {
+		fmt.Println("Create node for record:\n", jsByte)
+	}
 	mctx, cancel := context.WithTimeout(t.ctx, msgTimeout)
 	defer cancel()
-	if _, err = t.thread2.net.CreateRecord(mctx, id, body); err != nil {
+	if rec, err := t.thread2.net.CreateRecord(mctx, id, body); err != nil {
 		return err
+	} else {
+		fmt.Println("RawData of created record:\n",
+		rec.Value().RawData())
 	}
 	return nil
 }
