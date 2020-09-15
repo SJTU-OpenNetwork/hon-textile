@@ -1058,6 +1058,13 @@ The response contains a base58 encoded version of the random bytes token.`).Alia
 		return Thread2AddString(*thread2AddStringThreadId, *thread2AddStringText)
 	}
 
+	thread2AddFile := thread2Cmd.Command("addFile", "Add a file to thread with file path.")
+	thread2AddFileThreadId := thread2AddFile.Arg("thread", "thread Id").Required().String()
+	thread2AddFilePath := thread2AddFile.Arg("path", "file path").Required().String()
+	cmds[thread2AddFile.FullCommand()] = func() error {
+		return Thread2AddFile(*thread2AddFileThreadId, *thread2AddFilePath)
+	}
+
 	hideGlobalsFlagsFor(
 		daemonCmd,
 		initCmd,

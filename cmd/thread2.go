@@ -32,3 +32,13 @@ func Thread2AddString(threadId string, text string) error {
 	output(res)
 	return nil
 }
+
+func Thread2AddFile(threadId string, filePath string) error {
+	cmdOpt := map[string]string{"threadId": threadId, "filePath": filePath}
+	res, err := executeStringCmd(http.MethodPost, "thread2/addfile", params{opts:cmdOpt})
+	if err != nil {
+		return err
+	}
+	output(res)
+	return nil
+}

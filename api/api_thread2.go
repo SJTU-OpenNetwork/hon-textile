@@ -56,3 +56,39 @@ func (a *Api) thread2AddString(g *gin.Context) {
 
 	g.Status(http.StatusOK)
 }
+
+func (a *Api) thread2AddFile(g *gin.Context)  {
+	// Parse parameters
+	// params are defined in cmd/thread2.go
+	opts, err := a.readOpts(g)
+	if err != nil {
+		a.abort500(g, err)
+		return
+	}
+	threadId, ok := opts["threadId"]
+	if !ok {
+		g.String(http.StatusBadRequest, "missing threadId")
+		return
+	}
+	filePath, ok := opts["filePath"]
+	if !ok {
+		g.String(http.StatusBadRequest, "missing file path")
+		return
+	}
+
+	//openfile
+	bytes, err := ioutil.ReadFile(filePath)
+	//fileObj, err := os.Open(filePath)
+	if err != nil {
+		g.String(http.StatusBadRequest, err.Error())
+		return
+	}
+
+	// Call thread2AddFile
+	//Assume we add a picture to thread
+	err = a.Node.Thread2AddFile(threadId,2 ,bytes)
+	if err != nil {
+		g.String(http.StatusBadRequest, err.Error())
+		return
+	}
+}
