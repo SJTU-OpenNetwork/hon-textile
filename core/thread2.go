@@ -167,6 +167,7 @@ func (t *Textile) Thread2AddThread(multiaddr ma.Multiaddr) (thread.Info, error) 
 
 // Thread2AddBytes add bytes to the thread corresponding with id.
 func (t *Textile) Thread2AddBytes(id thread.ID, data []byte) error {
+	fmt.Println(string(data))
 	body, err := cbornode.WrapObject(XmlMsg{data: data}, mh.SHA2_256, -1)
 	if err != nil {
 		log.Error("Error when wrap node object: ", err)
