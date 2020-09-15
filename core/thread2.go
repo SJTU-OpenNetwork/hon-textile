@@ -126,7 +126,7 @@ func (t *Textile) UnmarshalRecord(rec netcore.ThreadRecord) (*Thread2Record, err
 		log.Error("Error when decode data into msg: ", err)
 		return nil, err
 	}
-
+	fmt.Println("Decode result: ", string(tmpMsg.data))
 	return &Thread2Record{
 		Value: tmpMsg.data,
 		LogId: rec.LogID().Pretty(),
