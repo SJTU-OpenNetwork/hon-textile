@@ -352,7 +352,6 @@ func startNode(serveDocs bool) error {
 			threadRecord, err = node.UnmarshalRecord(record)
 			if err != nil {
 				log.Error("Error when unmarshal record: ", err)
-				fmt.Println("Error when unmarshal record: ", err)
 				continue
 			}
 			msg = Green("Thread2 Record: "+"  "+ threadRecord.ThreadId +" - " + threadRecord.LogId) + "\n" +

@@ -105,14 +105,17 @@ func (t *Textile) UnmarshalRecord(rec netcore.ThreadRecord) (*Thread2Record, err
 	//cbornode.DecodeInto(rec.Value().RawData(), tmpMsg)
 	event, err := cbor.EventFromNode(rec.Value())
 	if err != nil  {
+		log.Error("Error when get event from record: ", err)
 		return nil, err
 	}
 	node, err := event.GetBody(t.ctx, t.thread2.net, info.Key.Read())
 	if err != nil {
+		log.Error("Error when get body from event: ", err)
 		return nil, err
 	}
 	err = cbornode.DecodeInto(node.RawData(), tmpMsg)
 	if err != nil {
+		log.Error("Error when decode data into msg: ", err)
 		return nil, err
 	}
 	return &Thread2Record{
