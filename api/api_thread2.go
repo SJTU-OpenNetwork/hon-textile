@@ -37,7 +37,11 @@ func (a *Api) thread2AddString(g *gin.Context) {
 		g.String(http.StatusBadRequest, "threadId missed")
 		return
 	}
-	threadId := thread2.ID(threadIdStr)
+	threadId, err := thread2.Decode(threadIdStr)
+	if err != nil {
+		g.String(http.StatusBadRequest, "error when decode thread id: %s", err.Error())
+		return
+	}
 	data, err := ioutil.ReadAll(g.Request.Body)
 	if err != nil {
 		g.String(http.StatusBadRequest, "error when read from request body: %s", err.Error())
