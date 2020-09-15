@@ -94,6 +94,7 @@ func NewThreadService2(ctx context.Context, node *ipfscore.IpfsNode, repoPath st
 func (t *Textile) UnmarshalRecord(rec netcore.ThreadRecord) (*Thread2Record, error) {
 	info, err := t.thread2.net.GetThread(t.ctx, rec.ThreadID())
 	if err != nil {
+		log.Error("Error when get thread: ", err)
 		return nil, err
 	}
 	if !info.Key.CanRead() {
