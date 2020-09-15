@@ -193,3 +193,25 @@ func (t *Textile) Thread2Subscribe() (<-chan netcore.ThreadRecord, error){
 	}
 	return t.thread2.net.Subscribe(t.ctx)
 }
+
+func (t *Textile) Thread2SubscribeHandler() error {
+	ch, err := t.thread2.net.Subscribe(t.ctx)
+	if err != nil {
+		return err
+	}
+	go func() {
+		var err error
+		<- t.online
+		//msg := new(XmlMsg)
+		var threadRecord *Thread2Record
+		for record := range ch {
+			threadRecord, err = t.UnmarshalRecord(record)
+			if err != nil {
+				log.Error("Error when unmarshal record: ", err)
+				continue
+			}
+			fmt.Println(threadRecord.Value)
+		}
+	}()
+	return nil
+}
