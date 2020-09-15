@@ -148,6 +148,7 @@ func (t *Textile) Thread2CreateRaw() (thread.Info, error) {
 	return t.thread2.net.CreateThread(t.ctx, thread.NewIDV1(thread.Raw, 32))
 }
 
+//what is the function of this method?
 // Thread2AddThread add an existing thread.
 // Note that this method would not fetch the history of thread.
 // You may need to call net.PullThread later.
