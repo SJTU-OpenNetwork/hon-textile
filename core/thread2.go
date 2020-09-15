@@ -111,7 +111,7 @@ func (t *Textile) UnmarshalRecord(rec netcore.ThreadRecord) (*Thread2Record, err
 	//}
 	//rec.Value().RawData()
 
-	event, err := cbor.EventFromNode(rec.Value())
+	event, err := cbor.EventFromRecord(t.ctx, t.thread2.net, rec.Value())
 	if err != nil  {
 		log.Error("Error when get event from record: ", err)
 		return nil, err
