@@ -172,15 +172,12 @@ func (t *Textile) Thread2AddBytes(id thread.ID, data []byte) error {
 		return err
 	}
 
-	fmt.Println("Create node for record:\n", body.String())
+	//fmt.Println("Create node for record:\n", body.String())
 
 	mctx, cancel := context.WithTimeout(t.ctx, msgTimeout)
 	defer cancel()
-	if rec, err := t.thread2.net.CreateRecord(mctx, id, body); err != nil {
+	if _, err := t.thread2.net.CreateRecord(mctx, id, body); err != nil {
 		return err
-	} else {
-		fmt.Println("RawData of created record:\n",
-		string(rec.Value().RawData()))
 	}
 	return nil
 }
