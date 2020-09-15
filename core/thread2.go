@@ -175,7 +175,7 @@ func (t *Textile) Thread2AddBytes(id thread.ID, data []byte) error {
 	if err != nil {
 		log.Error("Error when marshel created record node into json: ", err)
 	} else {
-		fmt.Println("Create node for record:\n", jsByte)
+		fmt.Println("Create node for record:\n", string(jsByte))
 	}
 	mctx, cancel := context.WithTimeout(t.ctx, msgTimeout)
 	defer cancel()
@@ -183,7 +183,7 @@ func (t *Textile) Thread2AddBytes(id thread.ID, data []byte) error {
 		return err
 	} else {
 		fmt.Println("RawData of created record:\n",
-		rec.Value().RawData())
+		string(rec.Value().RawData()))
 	}
 	return nil
 }
