@@ -2,6 +2,7 @@ package core
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"github.com/SJTU-OpenNetwork/hon-textile/util"
 	ipfslite "github.com/hsanjuan/ipfs-lite"
@@ -169,5 +170,9 @@ func (t *Textile) Thread2AddBytes(id thread.ID, data []byte) error {
 
 // Thread2Subscribe return a channel to listen the update of threads.
 func (t *Textile) Thread2Subscribe() (<-chan netcore.ThreadRecord, error){
+	if t.thread2 == nil {
+		fmt.Println("thread2 is nil")
+		return nil, errors.New("thread2 is nil")
+	}
 	return t.thread2.net.Subscribe(t.ctx)
 }
