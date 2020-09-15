@@ -1,5 +1,5 @@
 package core
 
 type XmlMsg struct {
-	data []byte
+	Data []byte
 }

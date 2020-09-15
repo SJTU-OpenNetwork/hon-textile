@@ -126,9 +126,9 @@ func (t *Textile) UnmarshalRecord(rec netcore.ThreadRecord) (*Thread2Record, err
 		log.Error("Error when decode data into msg: ", err)
 		return nil, err
 	}
-	fmt.Println("Decode result: ", string(tmpMsg.data))
+	fmt.Println("Decode result: ", string(tmpMsg.Data))
 	return &Thread2Record{
-		Value: tmpMsg.data,
+		Value: tmpMsg.Data,
 		LogId: rec.LogID().Pretty(),
 		ThreadId: rec.ThreadID().String(),
 	}, nil
@@ -168,7 +168,7 @@ func (t *Textile) Thread2AddThread(multiaddr ma.Multiaddr) (thread.Info, error) 
 // Thread2AddBytes add bytes to the thread corresponding with id.
 func (t *Textile) Thread2AddBytes(id thread.ID, data []byte) error {
 	fmt.Println(string(data))
-	body, err := cbornode.WrapObject(XmlMsg{data: data}, mh.SHA2_256, -1)
+	body, err := cbornode.WrapObject(XmlMsg{Data: data}, mh.SHA2_256, -1)
 	if err != nil {
 		log.Error("Error when wrap node object: ", err)
 		return err
