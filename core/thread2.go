@@ -103,7 +103,7 @@ func (t *Textile) UnmarshalRecord(rec netcore.ThreadRecord) (*Thread2Record, err
 	tmpMsg := XmlMsg{}
 	// TODO:
 	//	 This only works for plaintext.
-	err = cbornode.DecodeInto(rec.Value().RawData(), tmpMsg)
+	err = cbornode.DecodeInto(rec.Value().RawData(), &tmpMsg)
 	if err != nil {
 		log.Error("Error when decode record into msg: ", err)
 		return nil, err
