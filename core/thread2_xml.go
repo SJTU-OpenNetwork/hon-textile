@@ -3,7 +3,6 @@ package core
 import (
 	"context"
 	"encoding/xml"
-	"fmt"
 	cbornode "github.com/ipfs/go-ipld-cbor"
 	mh "github.com/multiformats/go-multihash"
 	thread2 "github.com/textileio/go-threads/core/thread"
