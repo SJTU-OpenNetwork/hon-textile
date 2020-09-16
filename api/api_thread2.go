@@ -49,7 +49,7 @@ func (a *Api) thread2AddString(g *gin.Context) {
 		return
 	}
 
-	err = a.Node.Thread2AddBytes(threadId, data)
+	err = a.Node.Thread2AddBytes(threadId, "text",data)
 	if err != nil {
 		g.String(http.StatusBadGateway, "error when add bytes: %s", err.Error())
 		return
@@ -95,7 +95,7 @@ func (a *Api) thread2AddFile(g *gin.Context)  {
 		fmt.Println("error :", err)
 	}
 
-	err = a.Node.Thread2AddBytes(threadId, []byte(id))
+	err = a.Node.Thread2AddBytes(threadId, "img", []byte(id))
 	if err != nil {
 		g.String(http.StatusBadRequest, err.Error())
 		return

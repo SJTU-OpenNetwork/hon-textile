@@ -33,6 +33,7 @@ type XmlMsg struct {
 
 
 //Add any type file to a thread
+//not used
 func (t *Textile) Thread2AddFile(id interface{}, msgtype string, data []byte) error {
 	xmlmsg := &XmlMsg{Type:msgtype,Data:data}
 	output, err := xml.Marshal(xmlmsg)
