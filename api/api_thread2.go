@@ -1,6 +1,7 @@
 package api
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/gogo/protobuf/proto"
 	thread2 "github.com/textileio/go-threads/core/thread"
@@ -77,6 +78,7 @@ func (a *Api) thread2AddFile(g *gin.Context)  {
 		return
 	}
 
+	fmt.Println("api_thread2 thread id and file path:",threadId," ",filePath)
 	//Add file to ipfs with filepath
 	block, err := a.Node.AddSimpleFile(filePath, threadId)
 	if err != nil {
