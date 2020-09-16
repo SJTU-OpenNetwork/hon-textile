@@ -68,9 +68,14 @@ func (a *Api) thread2AddFile(g *gin.Context)  {
 		a.abort500(g, err)
 		return
 	}
-	threadId, ok := opts["threadId"]
+	threadIdStr, ok := opts["threadId"]
 	if !ok {
 		g.String(http.StatusBadRequest, "missing threadId")
+		return
+	}
+	threadId, err := thread2.Decode(threadIdStr)
+	if err != nil {
+		g.String(http.StatusBadRequest, "error when decode thread id: %s", err.Error())
 		return
 	}
 	filePath, ok := opts["filePath"]
@@ -94,11 +99,11 @@ func (a *Api) thread2AddFile(g *gin.Context)  {
 	}
 
 	cids := cid.Bytes()
-	//turn pb to []byte
+
 	//bytes,err := proto.Marshal(cid)
 	// Call thread2AddFile
 	//Assume we add a picture to thread
-	err = a.Node.Thread2AddFile(threadId,2 ,cids)
+	err = a.Node.Thread2AddBytes(threadId, cids)
 	if err != nil {
 		g.String(http.StatusBadRequest, err.Error())
 		return
