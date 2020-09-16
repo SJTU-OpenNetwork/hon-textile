@@ -1,9 +1,10 @@
 package api
 
 import (
+	"bytes"
 	"fmt"
+	"github.com/SJTU-OpenNetwork/hon-textile/ipfs"
 	"github.com/gin-gonic/gin"
-	"github.com/gogo/protobuf/proto"
 	thread2 "github.com/textileio/go-threads/core/thread"
 	"io/ioutil"
 	"net/http"
@@ -78,22 +79,26 @@ func (a *Api) thread2AddFile(g *gin.Context)  {
 		return
 	}
 
-	fmt.Println("api_thread2 thread id and file path:",threadId," ",filePath)
-	//Add file to ipfs with filepath
-	block, err := a.Node.AddSimpleFile(filePath, threadId)
+	// Open File
+	data, err := ioutil.ReadFile(filePath)
+	//fileObj, err := os.Open(filePath)
 	if err != nil {
-		log.Error(err)
-		g.String(http.StatusBadRequest, "error occur")
-		return
+		g.String(http.StatusBadRequest, err.Error())
 	}
-	log.Debugf("Api done add simple file\n%s", block.String())
-	//pbJSON(g, http.StatusOK, block)
+	r := bytes.NewReader(data)
 
+	// Add file to ipfs
+	cid,err := ipfs.AddData(a.Node.Ipfs(), r, false, false)
+	if err != nil{
+		fmt.Println("error :", err)
+	}
+
+	cids := cid.Bytes()
 	//turn pb to []byte
-	bytes,err := proto.Marshal(block)
+	//bytes,err := proto.Marshal(cid)
 	// Call thread2AddFile
 	//Assume we add a picture to thread
-	err = a.Node.Thread2AddFile(threadId,2 ,bytes)
+	err = a.Node.Thread2AddFile(threadId,2 ,cids)
 	if err != nil {
 		g.String(http.StatusBadRequest, err.Error())
 		return
