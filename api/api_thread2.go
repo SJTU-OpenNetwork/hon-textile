@@ -1,9 +1,7 @@
 package api
 
 import (
-	"bytes"
 	"fmt"
-	"github.com/SJTU-OpenNetwork/hon-textile/ipfs"
 	"github.com/gin-gonic/gin"
 	thread2 "github.com/textileio/go-threads/core/thread"
 	"io/ioutil"
@@ -90,20 +88,14 @@ func (a *Api) thread2AddFile(g *gin.Context)  {
 	if err != nil {
 		g.String(http.StatusBadRequest, err.Error())
 	}
-	r := bytes.NewReader(data)
 
 	// Add file to ipfs
-	cid,err := ipfs.AddData(a.Node.Ipfs(), r, false, false)
+	id,err := a.Node.AddData(data, false, false)
 	if err != nil{
 		fmt.Println("error :", err)
 	}
 
-	cids := cid.Bytes()
-
-	//bytes,err := proto.Marshal(cid)
-	// Call thread2AddFile
-	//Assume we add a picture to thread
-	err = a.Node.Thread2AddBytes(threadId, cids)
+	err = a.Node.Thread2AddBytes(threadId, []byte(id))
 	if err != nil {
 		g.String(http.StatusBadRequest, err.Error())
 		return

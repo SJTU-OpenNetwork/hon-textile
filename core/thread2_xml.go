@@ -17,11 +17,7 @@ const (
 
 )
 type XmlMsg struct {
-	Type int
-	Data []byte
-}
-
-type Msg struct {
+	Type string
 	Data []byte
 }
 
@@ -37,7 +33,7 @@ type Msg struct {
 
 
 //Add any type file to a thread
-func (t *Textile) Thread2AddFile(id interface{}, msgtype int, data []byte) error {
+func (t *Textile) Thread2AddFile(id interface{}, msgtype string, data []byte) error {
 	xmlmsg := &XmlMsg{Type:msgtype,Data:data}
 	output, err := xml.Marshal(xmlmsg)
 	if err != nil{
