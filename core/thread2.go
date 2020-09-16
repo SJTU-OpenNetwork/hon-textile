@@ -10,16 +10,16 @@ import (
 	ma "github.com/multiformats/go-multiaddr"
 	mh "github.com/multiformats/go-multihash"
 	"github.com/textileio/go-threads/cbor"
-	"github.com/textileio/go-threads/core/thread"
 	"github.com/textileio/go-threads/core/app"
+	"github.com/textileio/go-threads/core/thread"
 	"time"
 
 	cbornode "github.com/ipfs/go-ipld-cbor"
 	//"github.com/textileio/go-threads/cbor"
 	"github.com/textileio/go-threads/core/logstore"
+	netcore "github.com/textileio/go-threads/core/net"
 	"github.com/textileio/go-threads/logstore/lstoreds"
 	"github.com/textileio/go-threads/net"
-	netcore "github.com/textileio/go-threads/core/net"
 	"os"
 	"path"
 )
@@ -215,3 +215,4 @@ func (t *Textile) Thread2SubscribeHandler() error {
 	}()
 	return nil
 }
+

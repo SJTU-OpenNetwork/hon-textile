@@ -1058,7 +1058,8 @@ The response contains a base58 encoded version of the random bytes token.`).Alia
 		return Thread2AddString(*thread2AddStringThreadId, *thread2AddStringText)
 	}
 
-	thread2AddFile := thread2Cmd.Command("addFile", "Add a file to thread with file path.")
+	thread2AddFile := thread2Cmd.Command("addFile", "Add a file to thread with file path. " +
+		"In cmd we just add all raw data of a file to thread to test, and in mobile we add streammeta to a thread")
 	thread2AddFileThreadId := thread2AddFile.Arg("thread", "thread Id").Required().String()
 	thread2AddFilePath := thread2AddFile.Arg("path", "file path").Required().String()
 	cmds[thread2AddFile.FullCommand()] = func() error {

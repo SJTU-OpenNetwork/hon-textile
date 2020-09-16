@@ -2,6 +2,7 @@ package api
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/gogo/protobuf/proto"
 	thread2 "github.com/textileio/go-threads/core/thread"
 	"io/ioutil"
 	"net/http"
@@ -76,14 +77,18 @@ func (a *Api) thread2AddFile(g *gin.Context)  {
 		return
 	}
 
-	//openfile
-	bytes, err := ioutil.ReadFile(filePath)
-	//fileObj, err := os.Open(filePath)
+	//Add file to ipfs with filepath
+	block, err := a.Node.AddSimpleFile(filePath, threadId)
 	if err != nil {
-		g.String(http.StatusBadRequest, err.Error())
+		log.Error(err)
+		g.String(http.StatusBadRequest, "error occur")
 		return
 	}
+	log.Debugf("Api done add simple file\n%s", block.String())
+	//pbJSON(g, http.StatusOK, block)
 
+	//turn pb to []byte
+	bytes,err := proto.Marshal(block)
 	// Call thread2AddFile
 	//Assume we add a picture to thread
 	err = a.Node.Thread2AddFile(threadId,2 ,bytes)
