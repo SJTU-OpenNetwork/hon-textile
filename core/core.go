@@ -6,6 +6,9 @@ import (
 	"fmt"
 	"github.com/SJTU-OpenNetwork/hon-textile/recorder"
 	"github.com/SJTU-OpenNetwork/hon-textile/shadow"
+	"github.com/phayes/freeport"
+	"github.com/textileio/go-threads/api/client"
+	grpc "grpc.go4.org"
 	"io"
 	"math/rand"
 	"os"
@@ -42,6 +45,7 @@ import (
     log2 "github.com/ipfs/go-log/v2"
 	"go.uber.org/fx"
 	"gopkg.in/natefinch/lumberjack.v2"
+	threadutil "github.com/textileio/go-threads/util"
 )
 
 var log = logging.Logger("tex-core")
@@ -137,6 +141,7 @@ type Textile struct {
 
 	// go-threads
 	thread2 		  *ThreadService2
+	threadclient	  *client.Client
 }
 
 // common errors
@@ -507,6 +512,21 @@ func (t *Textile) Start() error {
 				t.cafe.open = true
 				t.startCafeApi(t.config.Addresses.CafeAPI)
 			}()
+		}
+
+		//New a thread v2.0 client
+		port, err := freeport.GetFreePort()
+		if err != nil {
+			log.Errorf(err.Error())
+		}
+		addr := threadutil.MustParseAddr(fmt.Sprintf("/ip4/127.0.0.1/tcp/%d", port))
+		target, err := threadutil.TCPAddrFromMultiAddr(addr)
+		if err != nil {
+			log.Errorf(err.Error())
+		}
+		_, err = client.NewClient(target, grpc.WithInsecure())
+		if err != nil {
+			log.Errorf(err.Error())
 		}
 
 		// Create and start threadService2

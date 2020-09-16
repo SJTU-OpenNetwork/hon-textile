@@ -6,7 +6,7 @@ import (
 	"fmt"
 	cbornode "github.com/ipfs/go-ipld-cbor"
 	mh "github.com/multiformats/go-multihash"
-	"github.com/textileio/go-threads/core/thread"
+	thread2 "github.com/textileio/go-threads/core/thread"
 )
 
 const (
@@ -34,16 +34,15 @@ type XmlMsg struct {
 
 //Add any type file to a thread
 //not used
-func (t *Textile) Thread2AddFile(id interface{}, msgtype string, data []byte) error {
-	xmlmsg := &XmlMsg{Type:msgtype,Data:data}
+func (t *Textile) Thread2AddFile(id string, data []byte) error {
+	xmlmsg := &XmlMsg{Data:data}
 	output, err := xml.Marshal(xmlmsg)
 	if err != nil{
 		return err
 	}
-	tid,ok := id.(thread.ID)
-	if !ok {
-		fmt.Println("Error for assertion")
-		return nil
+	threadId, err := thread2.Decode(id)
+	if err != nil {
+		return err
 	}
 	body, err := cbornode.WrapObject(output, mh.SHA2_256, -1)
 	if err != nil {
@@ -51,7 +50,7 @@ func (t *Textile) Thread2AddFile(id interface{}, msgtype string, data []byte) er
 	}
 	mctx, cancel := context.WithTimeout(t.ctx, msgTimeout)
 	defer cancel()
-	if _, err := t.thread2.net.CreateRecord(mctx, tid, body); err != nil {
+	if _, err := t.thread2.net.CreateRecord(mctx, threadId, body); err != nil {
 		return err
 	}
 	return nil
