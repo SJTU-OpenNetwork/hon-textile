@@ -8,7 +8,7 @@ import (
 	"github.com/SJTU-OpenNetwork/hon-textile/shadow"
 	"github.com/phayes/freeport"
 	"github.com/textileio/go-threads/api/client"
-	grpc "grpc.go4.org"
+	//grpc "grpc.go4.org"
 	"io"
 	"math/rand"
 	"os"
@@ -46,6 +46,7 @@ import (
 	"go.uber.org/fx"
 	"gopkg.in/natefinch/lumberjack.v2"
 	threadutil "github.com/textileio/go-threads/util"
+	"google.golang.org/grpc"
 )
 
 var log = logging.Logger("tex-core")
