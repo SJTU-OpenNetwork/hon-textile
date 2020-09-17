@@ -23,12 +23,13 @@ import (
 
 
 const (
-	collectionName = "Group"
+	collectionMember = "GroupMember"
+	collectionMessage = "GroupMessage"
 
-	schemamember = `{
+	schemaMember = `{
 		"$id": "https://example.com/person.schema.json",
 		"$schema": "http://json-schema.org/draft-07/schema#",
-		"title": "` + collectionName + `",
+		"title": "` + collectionMember + `",
 		"type": "object",
 		"properties": {
 			"_id": {
@@ -47,10 +48,10 @@ const (
 		}
 	}`
 
-	schemamessage = `{
+	schemaMessage = `{
 		"$id": "https://example.com/person.schema.json",
 		"$schema": "http://json-schema.org/draft-07/schema#",
-		"title": "` + collectionName + `",
+		"title": "` + collectionMessage + `",
 		"type": "object",
 		"properties": {
 			"sender": {
@@ -70,14 +71,14 @@ const (
 )
 type Member struct {
 	ID        string `json:"_id"`
-	Name 	  string `json:"name,omitempty"`
+	Name 	  string `json:"name"`
 	Role      string `json:"role,omitempty"`
 }
 
 type Message struct {
 	Sender    string `json:"sender"`
-	Time 	  string `json:"time,omitempty"`
-	Content   string `json:"content,omitempty"`
+	Time 	  string `json:"time"`
+	Content   string `json:"content"`
 }
 
 
@@ -134,10 +135,10 @@ func (t *Textile) CreateGroup() (thread.ID, error) {
 	if err != nil{
 		return "",err
 	}
-	//err = t.NewMessagesCollection(threadid)
-	//if err != nil{
-	//	return "",err
-	//}
+	err = t.NewMessagesCollection(threadid)
+	if err != nil{
+		return "",err
+	}
 	return threadid,nil
 }
 
@@ -172,7 +173,7 @@ func (t *Textile) DeleteDB(threadIdStr string) (*client.DBInfo,error) {
 }
 
 func (t *Textile) NewMembersCollection(threadId thread.ID) error {
-	err := t.threadclient.NewCollection(t.ctx,threadId,db.CollectionConfig{Name: collectionName,Schema: util.SchemaFromSchemaString(schemamember)})
+	err := t.threadclient.NewCollection(t.ctx,threadId,db.CollectionConfig{Name: collectionMember,Schema: util.SchemaFromSchemaString(schemaMember)})
 	if err!= nil {
 		return err
 	}
@@ -180,7 +181,7 @@ func (t *Textile) NewMembersCollection(threadId thread.ID) error {
 }
 
 func (t *Textile) NewMessagesCollection(threadId thread.ID) error {
-	err := t.threadclient.NewCollection(t.ctx,threadId,db.CollectionConfig{Name: collectionName,Schema: util.SchemaFromSchemaString(schemamessage)})
+	err := t.threadclient.NewCollection(t.ctx,threadId,db.CollectionConfig{Name: collectionMessage,Schema: util.SchemaFromSchemaString(schemaMessage)})
 	if err!= nil {
 		return err
 	}
