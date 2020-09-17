@@ -138,10 +138,10 @@ func (t *Textile) CreateGroup() (thread.ID, error) {
 	if err != nil{
 		return "",err
 	}
-	//err = t.NewMessagesCollection(threadId)
-	//if err != nil{
-	//	return "",err
-	//}
+	err = t.NewMessagesCollection(threadId)
+	if err != nil{
+		return "",err
+	}
 	return threadId,nil
 }
 
