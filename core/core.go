@@ -629,12 +629,14 @@ func (t *Textile) TryConnectThroughRelay(ids []string) (bool, error){
     rand.Seed(time.Now().UnixNano())
     size := len(RelayServers)
     complete := true
+
+	log.Debug("CONNECT THROUGH RELAY!!!!!!!!!!!!!!!!!!!")
     for _, id := range ids {
         rid := rand.Intn(size)
-        swarmAddress = append(swarmAddress, RelayServers[rid]+id)
+        tmp := RelayServers[rid]+id
+        swarmAddress = append(swarmAddress, tmp)
+        log.Debug("RELAY: ",tmp)
     }
-    log.Debug("CONNECT THROUGH RELAY!!!!!!!!!!!!!!!!!!!")
-    log.Debug(swarmAddress)
     output, err := ipfs.SwarmConnect(t.node, swarmAddress)
     if err != nil{
         log.Debug(err)
@@ -649,6 +651,7 @@ func (t *Textile) TryConnectThroughRelay(ids []string) (bool, error){
     }
     return complete, nil
 }
+
 
 func Max(x, y int) int {
     if x < y {
@@ -756,28 +759,27 @@ func (t *Textile) TryConnectShadowByRelay(shadowId string){
 }
 
 func (t *Textile) GetSwarmAddress(peerId string) string {
-    log.Debug("In GetSwarmAddress")
-    sessions := t.datastore.CafeSessions().List().Items
-    if len(sessions) == 0 {
-        return ""
-    }
-    
-    query := new (pb.IpfsQuery)
-    query.Items = append(query.Items, peerId)
-    
-    for _, session := range sessions {
-        result, err := t.cafe.CafeFindIpfsAddr(query, session.Id)
-        if err != nil {
-            log.Error(err)
-            return ""
-        }
-        if len(result.Items) > 0{
-            log.Debug(result.Items[0])
-            return result.Items[0]
-        }
-    }
-    return ""
+	log.Debug("In GetSwarmAddress")
+	sessions := t.datastore.CafeSessions().List().Items
+	if len(sessions) == 0 {
+		return ""
+	}
 
+	query := new(pb.IpfsQuery)
+	query.Items = append(query.Items, peerId)
+
+	for _, session := range sessions {
+		result, err := t.cafe.CafeFindIpfsAddr(query, session.Id)
+		if err != nil {
+			log.Error(err)
+			return ""
+		}
+		if len(result.Items) > 0 {
+			log.Debug(result.Items[0])
+			return result.Items[0]
+		}
+	}
+	return ""
 }
 
 func (t *Textile) DiscoverAndConnect() {

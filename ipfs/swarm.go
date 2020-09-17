@@ -30,7 +30,8 @@ func SwarmConnect(node *core.IpfsNode, addrs []string) ([]string, error) {
 	output := make([]string, len(pis))
 	for i, pi := range pis {
         log.Debug("Connecting to "+pi.ID.Pretty())
-		output[i] = "connect " + pi.ID.Pretty()
+		//output[i] = "connect " + pi.ID.Pretty()
+		output[i] = "connect " + pi.Addrs[0].String()+" "+pi.ID.String()
 
 		err := api.Swarm().Connect(ctx, pi)
 		if err != nil {

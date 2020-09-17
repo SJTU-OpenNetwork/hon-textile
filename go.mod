@@ -59,7 +59,7 @@ require (
 	github.com/xeipuuv/gojsonschema v1.1.0
 	go.uber.org/fx v1.12.0
 	golang.org/x/crypto v0.0.0-20200423211502-4bdfaf469ed5
-	golang.org/x/mobile v0.0.0-20200329125638-4c31acba0007 // indirect
+	golang.org/x/mobile v0.0.0-20200801112145-973feb4309de // indirect
 	google.golang.org/genproto v0.0.0-20190502173448-54afdca5d873 // indirect
 	gopkg.in/alecthomas/kingpin.v2 v2.2.6
 	gopkg.in/natefinch/lumberjack.v2 v2.0.0-20170531160350-a96e63847dc3
