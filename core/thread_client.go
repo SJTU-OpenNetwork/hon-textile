@@ -52,7 +52,7 @@ const (
 		"title": "` + collectionMessage + `",
 		"type": "object",
 		"properties": {
-			"_id": {
+			"sender": {
 				"type": "string",
 				"description": "The member's id."
 			},
