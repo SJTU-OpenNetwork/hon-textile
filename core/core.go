@@ -629,12 +629,14 @@ func (t *Textile) TryConnectThroughRelay(ids []string) (bool, error){
     rand.Seed(time.Now().UnixNano())
     size := len(RelayServers)
     complete := true
+
+	log.Debug("CONNECT THROUGH RELAY!!!!!!!!!!!!!!!!!!!")
     for _, id := range ids {
         rid := rand.Intn(size)
-        swarmAddress = append(swarmAddress, RelayServers[rid]+id)
+        tmp := RelayServers[rid]+id
+        swarmAddress = append(swarmAddress, tmp)
+        log.Debug("RELAY: ",tmp)
     }
-    log.Debug("CONNECT THROUGH RELAY!!!!!!!!!!!!!!!!!!!")
-    log.Debug(swarmAddress)
     output, err := ipfs.SwarmConnect(t.node, swarmAddress)
     if err != nil{
         log.Debug(err)
@@ -712,6 +714,7 @@ func (t *Textile) TryConnectPeers(query *pb.IpfsQuery) (bool, error){
     if err != nil {
         return false, err
     }
+    
 
     log.Debug("out:===",output)
     //complete := true //relay off
