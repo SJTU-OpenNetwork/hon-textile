@@ -27,14 +27,13 @@ const (
 	collectionMessage = "GroupMessage"
 
 	schemaMember = `{
-		"$id": "https://example.com/person.schema.json",
 		"$schema": "http://json-schema.org/draft-07/schema#",
 		"title": "` + collectionMember + `",
 		"type": "object",
 		"properties": {
 			"_id": {
 				"type": "string",
-				"description": "The instance's id."
+				"description": "The member's id."
 			},
 			"name": {
 				"type": "string",
@@ -49,7 +48,6 @@ const (
 	}`
 
 	schemaMessage = `{
-		"$id": "https://example.com/person.schema.json",
 		"$schema": "http://json-schema.org/draft-07/schema#",
 		"title": "` + collectionMessage + `",
 		"type": "object",
