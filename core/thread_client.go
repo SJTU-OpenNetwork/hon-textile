@@ -181,10 +181,16 @@ func (t *Textile) GetDBInfo(threadIdStr string) (*client.DBInfo,error) {
 	return dbinfo,nil
 }
 
+
+//not used for now
 func (t *Textile) DeleteDB(threadIdStr string) (*client.DBInfo,error) {
 	return nil,nil
 }
 
+
+//create a new collection to a DB.
+//And there are two types of collection in a DB: member and message,
+// so we have two methods for collection creation
 func (t *Textile) NewMembersCollection(threadId thread.ID) error {
 	err := t.threadclient.NewCollection(t.ctx,threadId,db.CollectionConfig{Name: collectionMember,Schema: util.SchemaFromSchemaString(schemaMember)})
 	if err!= nil {
@@ -196,6 +202,59 @@ func (t *Textile) NewMembersCollection(threadId thread.ID) error {
 func (t *Textile) NewMessagesCollection(threadId thread.ID) error {
 	err := t.threadclient.NewCollection(t.ctx,threadId,db.CollectionConfig{Name: collectionMessage,Schema: util.SchemaFromSchemaString(schemaMessage)})
 	if err!= nil {
+		return err
+	}
+	return nil
+}
+
+// Instances is a list of collection instances.
+//Because we have two type of collection, so we also need two
+//methods to add instances to two kinds of collection.
+func (t *Textile) AddInstanceMember(id thread.ID,  instances client.Instances) ([]string, error) {
+	instanceIds, err := t.threadclient.Create(context.Background(), id, collectionMember, instances)
+	if err != nil {
+		return nil,err
+	}
+	return instanceIds,err
+}
+
+func (t *Textile) AddInstanceMessage(id thread.ID, instances client.Instances ) ([]string, error) {
+	instanceIds, err := t.threadclient.Create(context.Background(), id, collectionMessage, instances)
+	if err != nil {
+		return nil,err
+	}
+	return instanceIds,err
+}
+
+//Create instances.
+func (t *Textile) CreateInstanceMember(id thread.ID,  instances client.Instances) ([]string, error) {
+	instanceIds, err := t.threadclient.Create(context.Background(), id, collectionMember, instances)
+	if err != nil {
+		return nil,err
+	}
+	return instanceIds,err
+}
+
+func (t *Textile) CreateInstanceMessage(id thread.ID, instances client.Instances ) ([]string, error) {
+	instanceIds, err := t.threadclient.Create(context.Background(), id, collectionMessage, instances)
+	if err != nil {
+		return nil,err
+	}
+	return instanceIds,err
+}
+
+//Save instances to a collection(table) of threadDB
+func (t *Textile) SaveInstanceMember(id thread.ID,  instances client.Instances) error {
+	err := t.threadclient.Save(context.Background(), id, collectionMember, instances)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func (t *Textile) SaveInstanceMessage(id thread.ID, instances client.Instances) error {
+	err := t.threadclient.Save(context.Background(), id, collectionMember, instances)
+	if err != nil {
 		return err
 	}
 	return nil
