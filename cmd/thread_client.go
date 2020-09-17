@@ -19,3 +19,12 @@ func ThreadClientAddDB() error {
 	output(res)
 	return nil
 }
+
+func ThreadClientListDB() error {
+	res, err := executeJsonCmd(http.MethodPost, "threadClient/listDB", params{}, nil)
+	if err != nil {
+		return err
+	}
+	output(res)
+	return nil
+}

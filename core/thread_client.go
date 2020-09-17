@@ -144,8 +144,9 @@ func (t *Textile) CreateGroup() (thread.ID, error) {
 func (t *Textile) CreateDB() (thread.ID, error) {
 	id := thread.NewIDV1(thread.Raw, 32)
 	actx, _ := context.WithTimeout(t.ctx, addTimeout)
-	name1 := "db1"
-	err :=t.threadclient.NewDB(actx,id,db.WithNewManagedName(name1))
+	//name1 := "db1"
+	//err :=t.threadclient.NewDB(actx,id,db.WithNewManagedName(name1))
+	err :=t.threadclient.NewDB(actx,id)
 	if err != nil {
 		return "",err
 	}
