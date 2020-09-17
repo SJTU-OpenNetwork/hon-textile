@@ -4,8 +4,6 @@ import (
 	"bytes"
 	"context"
 	"fmt"
-	"github.com/SJTU-OpenNetwork/hon-textile/recorder"
-	"github.com/SJTU-OpenNetwork/hon-textile/shadow"
 	"io"
 	"math/rand"
 	"os"
@@ -16,13 +14,10 @@ import (
 	"sync"
 	"time"
 
-	utilmain "github.com/ipfs/go-ipfs/cmd/ipfs/util"
-	"github.com/ipfs/go-ipfs/core"
-	"github.com/ipfs/go-ipfs/core/bootstrap"
-	"github.com/ipfs/go-ipfs/core/corerepo"
-	corenode "github.com/ipfs/go-ipfs/core/node"
-	"github.com/ipfs/go-ipfs/core/node/libp2p"
-	"github.com/ipfs/go-ipfs/repo/fsrepo"
+	"github.com/SJTU-OpenNetwork/hon-textile/mail"
+	"github.com/SJTU-OpenNetwork/hon-textile/recorder"
+	"github.com/SJTU-OpenNetwork/hon-textile/shadow"
+
 	"github.com/SJTU-OpenNetwork/hon-textile/broadcast"
 	"github.com/SJTU-OpenNetwork/hon-textile/ipfs"
 	"github.com/SJTU-OpenNetwork/hon-textile/keypair"
@@ -33,13 +28,20 @@ import (
 	"github.com/SJTU-OpenNetwork/hon-textile/service"
 	"github.com/SJTU-OpenNetwork/hon-textile/stream"
 	"github.com/SJTU-OpenNetwork/hon-textile/util"
+	utilmain "github.com/ipfs/go-ipfs/cmd/ipfs/util"
+	"github.com/ipfs/go-ipfs/core"
+	"github.com/ipfs/go-ipfs/core/bootstrap"
+	"github.com/ipfs/go-ipfs/core/corerepo"
+	corenode "github.com/ipfs/go-ipfs/core/node"
+	"github.com/ipfs/go-ipfs/core/node/libp2p"
+	"github.com/ipfs/go-ipfs/repo/fsrepo"
 	ipld "github.com/ipfs/go-ipld-format"
 	logging "github.com/ipfs/go-log"
+	log2 "github.com/ipfs/go-log/v2"
 	"github.com/ipfs/go-metrics-interface"
 	"github.com/libp2p/go-libp2p-core/peer"
 	"github.com/libp2p/go-libp2p-core/peerstore"
 	logger "github.com/whyrusleeping/go-logging"
-    log2 "github.com/ipfs/go-log/v2"
 	"go.uber.org/fx"
 	"gopkg.in/natefinch/lumberjack.v2"
 )
@@ -74,8 +76,8 @@ type InitConfig struct {
 	CafeURL         string
 	CafeNeighborURL string
 	IsPrivate       bool
-    IsShadow        bool // whether the node works as a shadow node, default:0, added in 2020.04.05
-    IsAuto			bool // whether the node works as a automatic node. default:0, added in 2020.6.14
+	IsShadow        bool // whether the node works as a shadow node, default:0, added in 2020.04.05
+	IsAuto          bool // whether the node works as a automatic node. default:0, added in 2020.6.14
 }
 
 // MigrateConfig is used to define options during a major migration
@@ -94,11 +96,11 @@ type RunConfig struct {
 }
 
 type Variables struct {
-    SwarmAddress    string
-    FailedAddresses []string
+	SwarmAddress    string
+	FailedAddresses []string
 	lock            sync.Mutex
-    //StreamFileChannels map[string]chan *pb.StreamFile
-    //streamBlockIndex map[string]uint64
+	//StreamFileChannels map[string]chan *pb.StreamFile
+	//streamBlockIndex map[string]uint64
 }
 
 // Textile is the main Textile node structure
@@ -130,10 +132,11 @@ type Textile struct {
 	cancelSync        *broadcast.Broadcaster
 	lock              sync.Mutex
 	writer            io.Writer
-    variables         *Variables
-    stream            *stream.StreamService
-	record			  *recorder.RecordService
-	textBot			  *util.TextBot
+	variables         *Variables
+	stream            *stream.StreamService
+	record            *recorder.RecordService
+	mail              *mail.MailService
+	textBot           *util.TextBot
 }
 
 // common errors
@@ -228,33 +231,33 @@ func InitRepo(conf InitConfig) error {
 	}()
 
 	// apply ipfs config opts
-//    if conf.IsServer && !conf.IsMobile{
-	    err = applySwarmPortConfigOption(rep, conf.SwarmPorts)
-//    } else {
-//	    err = applySwarmPortConfigOptionIpv6(rep, conf.SwarmPorts)
-//    }
+	//    if conf.IsServer && !conf.IsMobile{
+	err = applySwarmPortConfigOption(rep, conf.SwarmPorts)
+	//    } else {
+	//	    err = applySwarmPortConfigOptionIpv6(rep, conf.SwarmPorts)
+	//    }
 	if err != nil {
 		return err
 	}
 
-    log.Debug("create db")
+	log.Debug("create db")
 	sqliteDb, err := db.Create(repoPath, conf.PinCode)
 	if err != nil {
 		return err
 	}
-    log.Debug("init db")
+	log.Debug("init db")
 	err = sqliteDb.Config().Init(conf.PinCode)
 	if err != nil {
-        log.Error(err)
+		log.Error(err)
 		return err
 	}
-    log.Debug("config")
+	log.Debug("config")
 	err = sqliteDb.Config().Configure(conf.Account, time.Now())
 	if err != nil {
 		return err
 	}
 
-    log.Debug("config2")
+	log.Debug("config2")
 	ipfsConf, err := rep.Config()
 	if err != nil {
 		return err
@@ -269,7 +272,7 @@ func InitRepo(conf InitConfig) error {
 		return err
 	}
 
-    log.Debug("finish")
+	log.Debug("finish")
 	return applyTextileConfigOptions(conf)
 }
 
@@ -288,7 +291,7 @@ func MigrateRepo(conf MigrateConfig) error {
 
 // NewTextile runs a node out of an initialized repo
 func NewTextile(conf RunConfig) (*Textile, error) {
-    if !fsrepo.IsInitialized(conf.RepoPath) {
+	if !fsrepo.IsInitialized(conf.RepoPath) {
 		return nil, repo.ErrRepoDoesNotExist
 	}
 
@@ -360,7 +363,7 @@ func (t *Textile) Start() error {
 	t.online = make(chan struct{})
 	t.done = make(chan struct{})
 
-    t.variables = new(Variables)
+	t.variables = new(Variables)
 
 	_, err := repo.LoadPlugins(t.repoPath)
 	if err != nil {
@@ -434,37 +437,41 @@ func (t *Textile) Start() error {
 		t.Ipfs,
 		t.datastore,
 		t.sendNotification,
-        t.SubscribeStream,
-        t.Shadow,
-        t.ShadowIp,
-		context.Background())//Share the same ctx with textile. That is because we do not need to manually cancel it.
+		t.SubscribeStream,
+		t.Shadow,
+		t.ShadowIp,
+		context.Background()) //Share the same ctx with textile. That is because we do not need to manually cancel it.
 	t.shadow = shadow.NewShadowService(
-        t.account,
-        t.Ipfs,
-        t.datastore,
-        t.shadowMsgRecv,
-        t.config.IsShadow,
-        t.account.Address(),
-        t.CreateTCPPool)
+		t.account,
+		t.Ipfs,
+		t.datastore,
+		t.shadowMsgRecv,
+		t.config.IsShadow,
+		t.account.Address(),
+		t.CreateTCPPool)
 	t.record = recorder.NewRecordService(
 		t.account,
 		t.Ipfs,
 		t.sendNotification,
 		context.Background())
-    t.cafe = NewCafeService(
+	t.cafe = NewCafeService(
 		t.account,
 		t.Ipfs,
 		t.datastore,
 		t.cafeInbox,
-        t.stream,
-        t.shadow)
+		t.stream,
+		t.shadow)
+	t.mail = mail.NewMailService(
+		context.Background(),
+		t.account,
+		t.Ipfs)
 	if t.cafeOutbox.handler == nil {
 		t.cafeOutbox.handler = t.cafe
 	}
 
 	// start the ipfs node
 	log.Debug("creating an ipfs node...")
-    recorder.Hlog.Add("Creating ipfs node ...")
+	recorder.Hlog.Add("Creating ipfs node ...")
 	err = t.createNode()
 	if err != nil {
 		return err
@@ -484,7 +491,7 @@ func (t *Textile) Start() error {
 			return
 		}
 
-        // ipfs.SwarmConnect(t.node, config.DefaultOpennetBootstrapAddresses)
+		// ipfs.SwarmConnect(t.node, config.DefaultOpennetBootstrapAddresses)
 		t.threads.Start()
 		t.threads.online = true
 
@@ -492,9 +499,11 @@ func (t *Textile) Start() error {
 		t.cafe.online = true
 
 		t.stream.Start()
-        t.shadow.Start()
+		t.shadow.Start()
 		t.record.Start()
-        if t.config.Cafe.Host.Open {
+		t.mail.Start()
+		go t.watchMailBox()
+		if t.config.Cafe.Host.Open {
 			go func() {
 				t.cafe.setAddrs(t.config)
 				t.cafe.open = true
@@ -509,16 +518,16 @@ func (t *Textile) Start() error {
 		log.Info("node is online")
 		recorder.Hlog.Add("Node is online")
 		// ensure the peer table is not empty by adding our bootstraps
-//  		boots, err := config.TextileBootstrapPeers()
-//  		if err != nil {
-//  			log.Errorf(err.Error())
-//  		}
-//  		for _, p := range boots {
-//  			t.node.Peerstore.AddAddrs(p.ID, p.Addrs, peerstore.PermanentAddrTTL)
-//  		}
+		//  		boots, err := config.TextileBootstrapPeers()
+		//  		if err != nil {
+		//  			log.Errorf(err.Error())
+		//  		}
+		//  		for _, p := range boots {
+		//  			t.node.Peerstore.AddAddrs(p.ID, p.Addrs, peerstore.PermanentAddrTTL)
+		//  		}
 
 		// ensure the peer table is not empty by adding hon bootstraps
-        boots, err := config.OpennetCafes()
+		boots, err := config.OpennetCafes()
 		if err != nil {
 			log.Errorf(err.Error())
 		}
@@ -526,9 +535,9 @@ func (t *Textile) Start() error {
 			t.node.Peerstore.AddAddrs(p.ID, p.Addrs, peerstore.PermanentAddrTTL)
 		}
 
-        log.Debug("In start")
-        log.Debug(t.variables.SwarmAddress)
-        t.variables.SwarmAddress = t.GetSwarmAddress(t.node.Identity.Pretty())
+		log.Debug("In start")
+		log.Debug(t.variables.SwarmAddress)
+		t.variables.SwarmAddress = t.GetSwarmAddress(t.node.Identity.Pretty())
 	}()
 
 	for _, mod := range t.datastore.Threads().List().Items {
@@ -561,8 +570,14 @@ type loggingWaitGroup struct {
 	wg sync.WaitGroup
 }
 
-func  (t *Textile) CreateTCPPool(){
+func (t *Textile) CreateTCPPool() {
 	t.stream.CreateTCPConnPool()
+}
+
+func (t *Textile) watchMailBox() {
+	for msg := range t.mail.Inbox {
+		log.Infof("New message arrive:%s", msg)
+	}
 }
 
 func (lwg *loggingWaitGroup) Add(delta int, src string) {
@@ -581,22 +596,22 @@ func (lwg *loggingWaitGroup) Wait(src string) {
 }
 
 func getTarget(output string) string {
-    str := strings.Split(output, " ")[1];
-    return str;
+	str := strings.Split(output, " ")[1]
+	return str
 }
 
 func getStatus(output string) bool {
-	str := strings.Split(output, " ")[2];
-	if str=="success"{
+	str := strings.Split(output, " ")[2]
+	if str == "success" {
 		return true
-	}else {
+	} else {
 		return false
 	}
 }
 
 func getId(output string) string {
-    list := strings.Split(output, "/")
-    return list[len(list)-1]
+	list := strings.Split(output, "/")
+	return list[len(list)-1]
 }
 
 func stringInSlice(a string, list []string) bool {
@@ -652,45 +667,46 @@ func (t *Textile) TryConnectThroughRelay(ids []string) (bool, error){
     return complete, nil
 }
 
+
 func Max(x, y int) int {
-    if x < y {
-        return y
-    }
-    return x
+	if x < y {
+		return y
+	}
+	return x
 }
 
-func (t *Textile) TryConnectPeers(query *pb.IpfsQuery) (bool, error){
+func (t *Textile) TryConnectPeers(query *pb.IpfsQuery) (bool, error) {
 	t.variables.lock.Lock()
 	defer t.variables.lock.Unlock()
-    if len(query.Items) == 0 {
-        return true, nil
-    }
+	if len(query.Items) == 0 {
+		return true, nil
+	}
 
-    log.Debug("Try Connect Peers")
-    sessions := t.datastore.CafeSessions().List().Items
-    if len(sessions) == 0 {
-        return t.TryConnectThroughRelay(query.Items)
-        //return false, nil
-    }
+	log.Debug("Try Connect Peers")
+	sessions := t.datastore.CafeSessions().List().Items
+	if len(sessions) == 0 {
+		return t.TryConnectThroughRelay(query.Items)
+		//return false, nil
+	}
 
-    swarmAddress := t.GetSwarmAddress(t.node.Identity.Pretty())
-    log.Debug(swarmAddress)
-    log.Debug(t.variables.SwarmAddress)
+	swarmAddress := t.GetSwarmAddress(t.node.Identity.Pretty())
+	log.Debug(swarmAddress)
+	log.Debug(t.variables.SwarmAddress)
 
-    if swarmAddress != "" && swarmAddress != t.variables.SwarmAddress {
-        t.variables.SwarmAddress = swarmAddress
-        t.variables.FailedAddresses = append([]string{})
-    }
-    log.Debug(t.variables.FailedAddresses)
-    var targets []string
-    var failedIds []string
-    
-    var queryMap = make(map[string] int)
-    for _, item := range query.Items {
-        queryMap[item] = 0 //0 -> not found
-    }
+	if swarmAddress != "" && swarmAddress != t.variables.SwarmAddress {
+		t.variables.SwarmAddress = swarmAddress
+		t.variables.FailedAddresses = append([]string{})
+	}
+	log.Debug(t.variables.FailedAddresses)
+	var targets []string
+	var failedIds []string
 
-    for _, session := range sessions {
+	var queryMap = make(map[string]int)
+	for _, item := range query.Items {
+		queryMap[item] = 0 //0 -> not found
+	}
+
+	for _, session := range sessions {
 		result, err := t.cafe.CafeFindIpfsAddr(query, session.Id)
         if err != nil {
             log.Error(err)
@@ -714,7 +730,6 @@ func (t *Textile) TryConnectPeers(query *pb.IpfsQuery) (bool, error){
     if err != nil {
         return false, err
     }
-    
 
     log.Debug("out:===",output)
     //complete := true //relay off
@@ -741,138 +756,137 @@ func (t *Textile) TryConnectPeers(query *pb.IpfsQuery) (bool, error){
 }
 
 func (t *Textile) TryConnect(peerId string) {
-    query := new (pb.IpfsQuery)
-    query.Items = append(query.Items, peerId)
+	query := new(pb.IpfsQuery)
+	query.Items = append(query.Items, peerId)
 
-    go func() {
-        _, err := t.TryConnectPeers(query)
-        if err != nil {
-            log.Error(err)
-        }
-    }()
+	go func() {
+		_, err := t.TryConnectPeers(query)
+		if err != nil {
+			log.Error(err)
+		}
+	}()
 }
 
-func (t *Textile) TryConnectShadowByRelay(shadowId string){
+func (t *Textile) TryConnectShadowByRelay(shadowId string) {
 	var ids []string
-	ids=append(ids,shadowId)
+	ids = append(ids, shadowId)
 	t.TryConnectThroughRelay(ids)
 }
 
 func (t *Textile) GetSwarmAddress(peerId string) string {
-    log.Debug("In GetSwarmAddress")
-    sessions := t.datastore.CafeSessions().List().Items
-    if len(sessions) == 0 {
-        return ""
-    }
-    
-    query := new (pb.IpfsQuery)
-    query.Items = append(query.Items, peerId)
-    
-    for _, session := range sessions {
-        result, err := t.cafe.CafeFindIpfsAddr(query, session.Id)
-        if err != nil {
-            log.Error(err)
-            return ""
-        }
-        if len(result.Items) > 0{
-            log.Debug(result.Items[0])
-            return result.Items[0]
-        }
-    }
-    return ""
+	log.Debug("In GetSwarmAddress")
+	sessions := t.datastore.CafeSessions().List().Items
+	if len(sessions) == 0 {
+		return ""
+	}
 
+	query := new(pb.IpfsQuery)
+	query.Items = append(query.Items, peerId)
+
+	for _, session := range sessions {
+		result, err := t.cafe.CafeFindIpfsAddr(query, session.Id)
+		if err != nil {
+			log.Error(err)
+			return ""
+		}
+		if len(result.Items) > 0 {
+			log.Debug(result.Items[0])
+			return result.Items[0]
+		}
+	}
+	return ""
 }
 
 func (t *Textile) DiscoverAndConnect() {
-    // just quit if no cafe
-    sessions := t.datastore.CafeSessions().List().Items
-    if len(sessions) == 0 {
-        return 
-    }
+	// just quit if no cafe
+	sessions := t.datastore.CafeSessions().List().Items
+	if len(sessions) == 0 {
+		return
+	}
 
-    // get all online peers
-    addrs, err := t.cafe.DiscoverPeers(sessions[0].Id)
-    if err != nil {
-        return
-    }
-    connectedPeers, err := ipfs.SwarmPeers(t.node, true, true, true, true)
-    connectMap := make(map[string] string)
-    for _, sp := range connectedPeers.Peers {
-       connectMap[sp.Peer] = sp.Addr 
-    }
-    go func() {
-	    t.variables.lock.Lock()
-	    defer t.variables.lock.Unlock()
-        var filteredAddr []string
-        var unconnectedId []string
-        for _, cur := range addrs {
-            curId := getId(cur)
-            _, ok := connectMap[curId]
-            if ok {
-                continue
-            }
-            if stringInSlice(cur, t.variables.FailedAddresses) {
-                unconnectedId = append(unconnectedId, getId(cur))
-                continue
-            }
-            filteredAddr = append(filteredAddr, cur)
-        }
-        out, err := ipfs.SwarmConnect(t.node, filteredAddr)
-        if err != nil {
-            log.Error(err)
-            return
-        }
-        for id, o := range out {
-            status := getStatus(o)
-            if !status {
-                target := getTarget(o)
-                failedAddr := filteredAddr[id]
-                unconnectedId = append(unconnectedId, target)
-                t.variables.FailedAddresses = append(t.variables.FailedAddresses, failedAddr)
-            }
-        }
-        log.Debug("unconnectedId")
-        log.Debug(unconnectedId)
-        t.TryConnectThroughRelay(unconnectedId)
-    }()
+	// get all online peers
+	addrs, err := t.cafe.DiscoverPeers(sessions[0].Id)
+	if err != nil {
+		return
+	}
+	connectedPeers, err := ipfs.SwarmPeers(t.node, true, true, true, true)
+	connectMap := make(map[string]string)
+	for _, sp := range connectedPeers.Peers {
+		connectMap[sp.Peer] = sp.Addr
+	}
+	go func() {
+		t.variables.lock.Lock()
+		defer t.variables.lock.Unlock()
+		var filteredAddr []string
+		var unconnectedId []string
+		for _, cur := range addrs {
+			curId := getId(cur)
+			_, ok := connectMap[curId]
+			if ok {
+				continue
+			}
+			if stringInSlice(cur, t.variables.FailedAddresses) {
+				unconnectedId = append(unconnectedId, getId(cur))
+				continue
+			}
+			filteredAddr = append(filteredAddr, cur)
+		}
+		out, err := ipfs.SwarmConnect(t.node, filteredAddr)
+		if err != nil {
+			log.Error(err)
+			return
+		}
+		for id, o := range out {
+			status := getStatus(o)
+			if !status {
+				target := getTarget(o)
+				failedAddr := filteredAddr[id]
+				unconnectedId = append(unconnectedId, target)
+				t.variables.FailedAddresses = append(t.variables.FailedAddresses, failedAddr)
+			}
+		}
+		log.Debug("unconnectedId")
+		log.Debug(unconnectedId)
+		t.TryConnectThroughRelay(unconnectedId)
+	}()
 }
 
 func (t *Textile) ConnectCafes() {
-    go func(){
-	    t.variables.lock.Lock()
-	    defer t.variables.lock.Unlock()
-        log.Debug("connecting cafes")
-        //out, err := ipfs.SwarmConnect(t.node, config.OpennetCafeAddresses)
-        out, err := ipfs.SwarmConnect(t.node, config.DefaultOpennetBootstrapAddresses)
-        if err != nil {
-            log.Error(err)
-            return
-        }
-        log.Debug("connect cafe")
-        log.Debug(out)
-        t.variables.SwarmAddress = t.GetSwarmAddress(t.node.Identity.Pretty())
-    }()
+	go func() {
+		t.variables.lock.Lock()
+		defer t.variables.lock.Unlock()
+		log.Debug("connecting cafes")
+		//out, err := ipfs.SwarmConnect(t.node, config.OpennetCafeAddresses)
+		out, err := ipfs.SwarmConnect(t.node, config.DefaultOpennetBootstrapAddresses)
+		if err != nil {
+			log.Error(err)
+			return
+		}
+		log.Debug("connect cafe")
+		log.Debug(out)
+		t.variables.SwarmAddress = t.GetSwarmAddress(t.node.Identity.Pretty())
+	}()
 }
 
 func (t *Textile) ConnectedAddresses() (*pb.SwarmPeerList, error) {
-    connectedPeers, err := ipfs.SwarmPeers(t.node, true, true, true, true)
-    if err != nil {
-        log.Error(err)
-        return nil, err
-    }
+	connectedPeers, err := ipfs.SwarmPeers(t.node, true, true, true, true)
+	if err != nil {
+		log.Error(err)
+		return nil, err
+	}
 
-    result := &pb.SwarmPeerList{Items: make([]*pb.SwarmPeer, 0)}
-    for _, sp := range connectedPeers.Peers {
-        tmp := &pb.SwarmPeer{
-            Addr: sp.Addr,
-            Id:   sp.Peer,
-            Latency: sp.Latency,
-            Muxer: sp.Muxer,
-            Direction: int32(sp.Direction),
-        }
-        result.Items = append(result.Items, tmp)
-    }
-    return result, nil
+	result := &pb.SwarmPeerList{Items: make([]*pb.SwarmPeer, 0)}
+	for _, sp := range connectedPeers.Peers {
+		tmp := &pb.SwarmPeer{
+			Addr:      sp.Addr,
+			Id:        sp.Peer,
+			Latency:   sp.Latency,
+			Muxer:     sp.Muxer,
+			Direction: int32(sp.Direction),
+		}
+		result.Items = append(result.Items, tmp)
+	}
+	return result, nil
 }
 
 // stopGroup is used to block shutdown. Workers must add to the wait group counter
@@ -1025,7 +1039,7 @@ func (t *Textile) PeerId() (peer.ID, error) {
 
 // MySwarmAddress returns my swarm address
 func (t *Textile) MySwarmAddress() string {
-    return t.variables.SwarmAddress
+	return t.variables.SwarmAddress
 }
 
 // RepoPath returns the node's repo path
@@ -1040,13 +1054,13 @@ func (t *Textile) DataAtPath(path string) ([]byte, error) {
 
 // AddData add data to ipfs network
 func (t *Textile) AddData(data []byte, pin bool, hashOnly bool) (string, error) {
-    r := bytes.NewReader(data)
-    id, err := ipfs.AddData(t.node, r, pin, hashOnly)
-    if err != nil {
-        log.Error(err)
-        return "", err
-    }
-    return id.Hash().B58String(), nil
+	r := bytes.NewReader(data)
+	id, err := ipfs.AddData(t.node, r, pin, hashOnly)
+	if err != nil {
+		log.Error(err)
+		return "", err
+	}
+	return id.Hash().B58String(), nil
 }
 
 // LinksAtPath returns ipld links behind an ipfs path
@@ -1062,7 +1076,7 @@ func (t *Textile) SetLogLevel(level *pb.LogLevel, color bool) error {
 
 // FlushBlocks flushes the block message outbox
 func (t *Textile) FlushBlocks() {
-    log.Debug("FlushBlocks")
+	log.Debug("FlushBlocks")
 	query := fmt.Sprintf("status=%d", pb.Block_QUEUED)
 	queued := t.datastore.Blocks().List("", -1, query)
 	sort.SliceStable(queued.Items, func(i, j int) bool {
@@ -1071,7 +1085,7 @@ func (t *Textile) FlushBlocks() {
 	})
 	wg := sync.WaitGroup{}
 	for blkIndex, block := range queued.Items {
-		log.Debugf("queued block index: %d",blkIndex)
+		log.Debugf("queued block index: %d", blkIndex)
 		if t.datastore.CafeRequests().SyncGroupComplete(block.Id) {
 			wg.Add(1)
 			go func(block *pb.Block) {
@@ -1118,7 +1132,7 @@ func (t *Textile) FlushBlocks() {
 				}
 				posted = true
 
-				log.Debugf("already posted the block: %s",block.Id)
+				log.Debugf("already posted the block: %s", block.Id)
 				err = t.datastore.CafeRequests().DeleteBySyncGroup(block.Id)
 				if err != nil {
 					log.Error(err)
@@ -1133,7 +1147,7 @@ func (t *Textile) FlushBlocks() {
 
 // FlushCafes flushes the cafe request outbox
 func (t *Textile) FlushCafes() {
-    log.Debug("FlushCafes")
+	log.Debug("FlushCafes")
 	stopGroup.Add(1, "FlushCafes")
 	go func() {
 		defer stopGroup.Done("FlushCafes")
@@ -1158,7 +1172,7 @@ func (t *Textile) streamService() *stream.StreamService {
 
 // createNode constructs an IpfsNode
 func (t *Textile) createNode() error {
-    rep, err := fsrepo.Open(t.repoPath)
+	rep, err := fsrepo.Open(t.repoPath)
 	if err != nil {
 		return err
 	}
@@ -1192,7 +1206,6 @@ func (t *Textile) createNode() error {
 		fx.NopLogger,
 		fx.Extract(n),
 	)
-
 
 	var once sync.Once
 	var stopErr error
@@ -1253,8 +1266,8 @@ func (t *Textile) runJobs() {
 		case <-tick.C:
 			go t.flushQueues()
 			t.maybeSyncAccount()
-            t.ConnectCafes()
-            t.DiscoverAndConnect()
+			t.ConnectCafes()
+			t.DiscoverAndConnect()
 		case <-t.done:
 			return
 		}
@@ -1314,7 +1327,7 @@ func (t *Textile) loadThread(mod *pb.Thread) (*Thread, error) {
 		BlockOutbox:    t.blockOutbox,
 		BlockDownloads: t.blockDownloads,
 		CafeOutbox:     t.cafeOutbox,
-		AddPeer:        t.	AddPeer,
+		AddPeer:        t.AddPeer,
 		PushUpdate:     t.sendThreadUpdate,
 	})
 	if err != nil {
@@ -1367,21 +1380,21 @@ func (t *Textile) sendNotification(note *pb.Notification) error {
 	if err := t.datastore.Notifications().Add(note); err != nil {
 		return err
 	}
-    log.Debug("send notification")
-    log.Debugf("body: %s, block: %s", note.Body, note.Block)
+	log.Debug("send notification")
+	log.Debugf("body: %s, block: %s", note.Body, note.Block)
 	t.notifications <- t.NotificationView(note)
 	return nil
 }
 
 func (t *Textile) Shadow() string {
-	shadowId:=t.shadow.GetShadow().String()
-	log.Debugf("get the shadow id: %s",shadowId)
+	shadowId := t.shadow.GetShadow().String()
+	log.Debugf("get the shadow id: %s", shadowId)
 	return shadowId
 }
 
 func (t *Textile) ShadowIp() string {
-	shadowIp:=t.shadow.GetShadowIp()
-	log.Debugf("get the shadow ip: %s",shadowIp)
+	shadowIp := t.shadow.GetShadowIp()
+	log.Debugf("get the shadow ip: %s", shadowIp)
 	return shadowIp
 }
 
@@ -1449,14 +1462,14 @@ func setLogLevels(repoPath string, level *pb.LogLevel, disk bool, color bool) (i
 	backendFile := logger.NewLogBackend(writer, "", 0)
 	logger.SetBackend(backendFile)
 
-//	var format string
-//	if color {
-//		format = logging.LogFormats["color"]
-//	} else {
-//		format = logging.LogFormats["nocolor"]
-//	}
-//	logger.SetFormatter(logger.MustStringFormatter(format))
-	logging.SetAllLoggers(log2.LevelError )
+	//	var format string
+	//	if color {
+	//		format = logging.LogFormats["color"]
+	//	} else {
+	//		format = logging.LogFormats["nocolor"]
+	//	}
+	//	logger.SetFormatter(logger.MustStringFormatter(format))
+	logging.SetAllLoggers(log2.LevelError)
 
 	var err error
 	for key, value := range level.Systems {
@@ -1495,5 +1508,3 @@ func removeLocks(repoPath string) {
 	dsLockFile := filepath.Join(repoPath, "datastore", "LOCK")
 	_ = os.Remove(dsLockFile)
 }
-
-
