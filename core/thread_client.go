@@ -12,7 +12,7 @@ import (
 const (
 	collectionName = "Group"
 
-	schema = `{
+	schemamember = `{
 		"$id": "https://example.com/person.schema.json",
 		"$schema": "http://json-schema.org/draft-07/schema#",
 		"title": "` + collectionName + `",
@@ -34,7 +34,7 @@ const (
 		}
 	}`
 
-	schema2 = `{
+	schemamessage = `{
 		"$id": "https://example.com/person.schema.json",
 		"$schema": "http://json-schema.org/draft-07/schema#",
 		"title": "` + collectionName + `",
@@ -113,7 +113,7 @@ func (t *Textile) DeleteDB(threadIdStr string) (*client.DBInfo,error) {
 }
 
 func (t *Textile) NewMembersCollection(threadId thread.ID) error {
-	err := t.threadclient.NewCollection(t.ctx,threadId,db.CollectionConfig{Name: collectionName,Schema: util.SchemaFromSchemaString(schema)})
+	err := t.threadclient.NewCollection(t.ctx,threadId,db.CollectionConfig{Name: collectionName,Schema: util.SchemaFromSchemaString(schemamember)})
 	if err!= nil {
 		return err
 	}
@@ -121,7 +121,7 @@ func (t *Textile) NewMembersCollection(threadId thread.ID) error {
 }
 
 func (t *Textile) NewMessagesCollection(threadId thread.ID) error {
-	err := t.threadclient.NewCollection(t.ctx,threadId,db.CollectionConfig{Name: collectionName,Schema: util.SchemaFromSchemaString(schema2)})
+	err := t.threadclient.NewCollection(t.ctx,threadId,db.CollectionConfig{Name: collectionName,Schema: util.SchemaFromSchemaString(schemamessage)})
 	if err!= nil {
 		return err
 	}
