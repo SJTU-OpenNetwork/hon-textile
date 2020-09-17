@@ -4,8 +4,6 @@ import (
 	"context"
 	"fmt"
 	"errors"
-	"github.com/SJTU-OpenNetwork/hon-textile/pb"
-	"github.com/ipfs/go-graphsync/message"
 	"github.com/textileio/go-threads/api/client"
 	"github.com/textileio/go-threads/common"
 	"github.com/textileio/go-threads/core/thread"
