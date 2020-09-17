@@ -25,7 +25,7 @@ import (
 const (
 	collectionMember = "GroupMember"
 	collectionMessage = "GroupMessage"
-
+	//In go-threads schema, properties must have _id to indicate the instance's id.
 	schemaMember = `{
 		"$schema": "http://json-schema.org/draft-07/schema#",
 		"title": "` + collectionMember + `",
@@ -33,6 +33,10 @@ const (
 		"properties": {
 			"_id": {
 				"type": "string",
+				"description": "The instance's id."
+			},
+			"memberId": {
+				"type": "string",
 				"description": "The member's id."
 			},
 			"name": {
@@ -47,22 +51,27 @@ const (
 		}
 	}`
 
+
 	schemaMessage = `{
 		"$schema": "http://json-schema.org/draft-07/schema#",
 		"title": "` + collectionMessage + `",
 		"type": "object",
 		"properties": {
+			"_id": {
+				"type": "string",
+				"description": "The instance's id."
+			},
 			"sender": {
 				"type": "string",
-				"description": "The member's id."
+				"description": "The sender's id."
 			},
-			"name": {
-				"type": "string",
-				"description": "The member's' name."
+			"time": {
+				"type": "data-time",
+				"description": "The time of sending."
 			},
-			"role": {
+			"content": {
 				"type": "string",
-				"description": "Role represent member's access."
+				"description": "The content of a instance."
 
 			}
 		}
@@ -70,13 +79,15 @@ const (
 )
 type Member struct {
 	ID        string `json:"_id"`
+	MemberId  string `json:"member_id"`
 	Name 	  string `json:"name"`
 	Role      string `json:"role"`
 }
 
 type Message struct {
+	ID        string `json:"_id"`
 	Sender    string `json:"sender"`
-	Time 	  string `json:"time"`
+	Time 	  time.Time `json:"time"`
 	Content   string `json:"content"`
 }
 
@@ -133,10 +144,10 @@ func (t *Textile) CreateGroup() (thread.ID, error) {
 		return "",err
 	}
 
-	//err = t.NewMembersCollection(threadId)
-	//if err != nil{
-	//	return "",err
-	//}
+	err = t.NewMembersCollection(threadId)
+	if err != nil{
+		return "",err
+	}
 	err = t.NewMessagesCollection(threadId)
 	if err != nil{
 		return "",err
