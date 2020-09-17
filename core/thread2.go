@@ -1,30 +1,13 @@
 package core
 
 import (
-	"context"
-	"errors"
-	"fmt"
-	"github.com/SJTU-OpenNetwork/hon-textile/util"
-	ipfslite "github.com/hsanjuan/ipfs-lite"
-	ipfscore "github.com/ipfs/go-ipfs/core"
-	ma "github.com/multiformats/go-multiaddr"
-	mh "github.com/multiformats/go-multihash"
-	"github.com/textileio/go-threads/cbor"
-	"github.com/textileio/go-threads/core/app"
-	"github.com/textileio/go-threads/core/thread"
-	"time"
-
-	cbornode "github.com/ipfs/go-ipld-cbor"
-	//"github.com/textileio/go-threads/cbor"
-	"github.com/textileio/go-threads/core/logstore"
-	netcore "github.com/textileio/go-threads/core/net"
-	"github.com/textileio/go-threads/logstore/lstoreds"
-	"github.com/textileio/go-threads/net"
-	"os"
-	"path"
+	"github.com/textileio/go-threads/api/client"
 )
-// Use go-threads (https://github.com/textileio/go-threads) to cover the functionality of thread.
 
+//"github.com/textileio/go-threads/cbor"
+
+// Use go-threads (https://github.com/textileio/go-threads) to cover the functionality of thread.
+/*
 const msgTimeout = time.Second * 10
 const addTimeout = time.Second * 10
 
@@ -49,8 +32,8 @@ type ThreadService2 struct {
 
 type Thread2Record struct {
 	ThreadId string
-	LogId string
-	Value []byte
+	LogId    string
+	Value    []byte
 }
 
 // Note:
@@ -112,7 +95,7 @@ func (t *Textile) UnmarshalRecord(rec netcore.ThreadRecord) (*Thread2Record, err
 	//rec.Value().RawData()
 
 	event, err := cbor.EventFromRecord(t.ctx, t.thread2.net, rec.Value())
-	if err != nil  {
+	if err != nil {
 		log.Error("Error when get event from record: ", err)
 		return nil, err
 	}
@@ -128,13 +111,13 @@ func (t *Textile) UnmarshalRecord(rec netcore.ThreadRecord) (*Thread2Record, err
 	}
 	fmt.Println("Decode result: ", string(tmpMsg.Data))
 	return &Thread2Record{
-		Value: tmpMsg.Data,
-		LogId: rec.LogID().Pretty(),
+		Value:    tmpMsg.Data,
+		LogId:    rec.LogID().Pretty(),
 		ThreadId: rec.ThreadID().String(),
 	}, nil
 }
 
-func (t *Textile) Thread2List() (thread.IDSlice, error){
+func (t *Textile) Thread2List() (thread.IDSlice, error) {
 	fmt.Println("Thread2List")
 	if t.thread2 == nil {
 		fmt.Println("thread2 is nil!")
@@ -186,7 +169,7 @@ func (t *Textile) Thread2AddBytes(id thread.ID, data []byte) error {
 }
 
 // Thread2Subscribe return a channel to listen the update of threads.
-func (t *Textile) Thread2Subscribe() (<-chan netcore.ThreadRecord, error){
+func (t *Textile) Thread2Subscribe() (<-chan netcore.ThreadRecord, error) {
 	if t.thread2 == nil {
 		fmt.Println("thread2 is nil")
 		return nil, errors.New("thread2 is nil")
@@ -201,7 +184,7 @@ func (t *Textile) Thread2SubscribeHandler() error {
 	}
 	go func() {
 		var err error
-		<- t.online
+		<-t.online
 		//msg := new(XmlMsg)
 		var threadRecord *Thread2Record
 		for record := range ch {
@@ -216,3 +199,38 @@ func (t *Textile) Thread2SubscribeHandler() error {
 	return nil
 }
 
+*/
+
+type Thread2UpdateMessage struct {
+	ThreadID string
+	Event    client.ListenEvent
+}
+
+// Listen all thread2s
+func (t *Textile) ListenThread2s() {
+	dbs, err := t.threadclient.ListDBs(t.ctx)
+	for dbID, _ := range dbs {
+		Ch, err := t.ListenOneThread2(dbID)
+		go func() {
+			for {
+				select {
+				case val, ok := <-Ch:
+					if ok {
+						t.thread2Updates.Send(&Thread2UpdateMessage{
+							ThreadID: dbID,
+							Event:    val,
+						})
+					}
+				}
+			}
+		}()
+	}
+}
+
+func (t *Textile) ListenOneThread2(dbID string) {
+	opt := ListenOption{
+		Collection: "",
+		InstanceID: "",
+	}
+	return t.threadclient.Listen(t.ctx, dbID, []ListenOption{opt})
+}

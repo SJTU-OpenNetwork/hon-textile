@@ -3,10 +3,6 @@ package cmd
 import (
 	"encoding/json"
 	"fmt"
-	honlog "github.com/SJTU-OpenNetwork/hon-textile/hon-log"
-	"github.com/SJTU-OpenNetwork/hon-textile/recorder"
-	"github.com/golang/protobuf/ptypes"
-	"github.com/golang/protobuf/ptypes/timestamp"
 	"net/http"
 	"os"
 	"os/signal"
@@ -15,6 +11,11 @@ import (
 	"strconv"
 	"sync"
 	"time"
+
+	honlog "github.com/SJTU-OpenNetwork/hon-textile/hon-log"
+	"github.com/SJTU-OpenNetwork/hon-textile/recorder"
+	"github.com/golang/protobuf/ptypes"
+	"github.com/golang/protobuf/ptypes/timestamp"
 
 	"github.com/SJTU-OpenNetwork/hon-textile/api"
 	"github.com/SJTU-OpenNetwork/hon-textile/bots"
@@ -108,11 +109,12 @@ type SafeMap struct {
 	data map[string]*MetaAndNotification
 	lock sync.Mutex
 }
+
 // Start the node, the API, and the Gateway
 // And subsribe to updates of the wallet, thread, and notifications
 func startNode(serveDocs bool) error {
 	listener := node.ThreadUpdateListener()
-
+	listener2 := node.Thread2UpdateListener()
 	var metaNotiMap sync.Map
 	//metaNotiMap := SafeMap{
 	//	data : make(map[string]*MetaAndNotification),
@@ -178,26 +180,26 @@ func startNode(serveDocs bool) error {
 					date := payload.GetDate()
 
 					//Update metaNotiMap
-					if meta,ok := payload.(*pb.FeedStreamMeta);ok {
+					if meta, ok := payload.(*pb.FeedStreamMeta); ok {
 						streamid := meta.Streammeta.Id
-						fmt.Printf("cmdtest== update metanotimap,streamid: %s\n",streamid)
+						fmt.Printf("cmdtest== update metanotimap,streamid: %s\n", streamid)
 						//metaNotiMap.lock.Lock()
-						if metaNoti,ok := metaNotiMap.Load(streamid);ok {//if metaNotiMap  include this stream
+						if metaNoti, ok := metaNotiMap.Load(streamid); ok { //if metaNotiMap  include this stream
 							//metaNot,_ := metaNotiMap.Load(streamid)
 							//metaNoti := metaNot.(*MetaAndNotification)
-							metaNotiMap.Store(streamid,&MetaAndNotification{feedItemPayload:payload,notification:metaNoti.(*MetaAndNotification).notification})
-							fmt.Printf("cmdtest== metanotimap exist streamid, update metanotimap,feedstreamitemm: %s\n",update.String())
-						}else{
-							metaNotiMap.Store(streamid,&MetaAndNotification{feedItemPayload:payload,notification:nil})
-							fmt.Printf("cmdtest== metanotimap doesn't exist streamid, update metanotimap,feedstreamitemm: %s\n",update.String())
+							metaNotiMap.Store(streamid, &MetaAndNotification{feedItemPayload: payload, notification: metaNoti.(*MetaAndNotification).notification})
+							fmt.Printf("cmdtest== metanotimap exist streamid, update metanotimap,feedstreamitemm: %s\n", update.String())
+						} else {
+							metaNotiMap.Store(streamid, &MetaAndNotification{feedItemPayload: payload, notification: nil})
+							fmt.Printf("cmdtest== metanotimap doesn't exist streamid, update metanotimap,feedstreamitemm: %s\n", update.String())
 						}
 						//metaNotiMap.lock.Unlock()
 					}
 
 					// Subscribe automatically
-					if node.Config().IsAuto && btype == pb.Block_STREAMMETA && user.Address!=node.Profile().Address{
+					if node.Config().IsAuto && btype == pb.Block_STREAMMETA && user.Address != node.Profile().Address {
 						log.Debug("[AUTO] Get Stream Meta")
-						if meta,ok := payload.(*pb.FeedStreamMeta);ok {
+						if meta, ok := payload.(*pb.FeedStreamMeta); ok {
 							//StreamSubscribe(meta.Streammeta.Id)
 							log.Debugf("[AUTO] Subscribe stream %s", meta.Streammeta.Id)
 							err := node.SubscribeStream(meta.Streammeta.Id)
@@ -269,18 +271,18 @@ func startNode(serveDocs bool) error {
 					cid := note.GetBlock()
 					sid := note.GetSubject()
 					//metaNotiMap.lock.Lock()
-					if metaNoti,ok := metaNotiMap.Load(sid);ok {//if metaNotiMap include this stream
-						metaNotiMap.Store(sid,&MetaAndNotification{notification:note,feedItemPayload:metaNoti.(*MetaAndNotification).feedItemPayload})
+					if metaNoti, ok := metaNotiMap.Load(sid); ok { //if metaNotiMap include this stream
+						metaNotiMap.Store(sid, &MetaAndNotification{notification: note, feedItemPayload: metaNoti.(*MetaAndNotification).feedItemPayload})
 						//fmt.Printf("cmdtest== metaNotiMap include this stream\n "+sid)
 						//metaNotiMap.data[sid].notification = note
-					}else{
-						metaNotiMap.Store(sid,&MetaAndNotification{feedItemPayload:nil,notification:note})
+					} else {
+						metaNotiMap.Store(sid, &MetaAndNotification{feedItemPayload: nil, notification: note})
 						//fmt.Printf("cmdtest== metaNotiMap doesn't include this streamn\n "+sid)
 					}
 					//metaNotiMap.lock.Unlock()
-					for {//wait for feedstreamitem
+					for { //wait for feedstreamitem
 						//fmt.Printf("cmdtest== wait for feedstreamitem\n")
-						metaNoti,_ := metaNotiMap.Load(sid)
+						metaNoti, _ := metaNotiMap.Load(sid)
 						//metaNoti := metaNot.(*MetaAndNotification)
 						if metaNoti.(*MetaAndNotification).feedItemPayload != nil {
 							//fmt.Printf("cmdtest==show feeditem:%s\n,show noti: %s\n",
@@ -289,24 +291,24 @@ func startNode(serveDocs bool) error {
 							//payload,err :=  core.GetFeedItemPayload(metaNoti.(*MetaAndNotification).feedStreamItem)//直接在map里放payload？？
 							//if err != nil{
 
-								//fmt.Printf("error when get feeditem payload\n")
-								//fmt.Printf("cmdtest==print feeditem %s\n",payload.String())
-								//log.Errorf("error when get feeditem payload: %s\n", err)
-								//break
+							//fmt.Printf("error when get feeditem payload\n")
+							//fmt.Printf("cmdtest==print feeditem %s\n",payload.String())
+							//log.Errorf("error when get feeditem payload: %s\n", err)
+							//break
 							//}
-							if meta,ok := metaNoti.(*MetaAndNotification).feedItemPayload.(*pb.FeedStreamMeta); ok{
-							//if meta,ok := payload.(*pb.FeedStreamMeta);ok {
+							if meta, ok := metaNoti.(*MetaAndNotification).feedItemPayload.(*pb.FeedStreamMeta); ok {
+								//if meta,ok := payload.(*pb.FeedStreamMeta);ok {
 								//StreamSubscribe(meta.Streammeta.Id)
 								//log.Debugf("[AUTO] Subscribe stream %s", meta.Streammeta.Id)
 								//err := node.SubscribeStream(meta.Streammeta.Id)
 								//fmt.Printf("cmdtest== run storeFileCmd\n")
-								storeFileCmd(cid,sid,meta)
+								storeFileCmd(cid, sid, meta)
 								break
 							} else {
 								log.Error("[AUTO] Can not convert FeedItemPayload to FeedStreamMeta")
 							}
 
-						}else {
+						} else {
 							//fmt.Printf("cmdtest== sleep 0.5s for feedstreamitem\n")
 							time.Sleep(time.Millisecond * 500)
 							//wait for feedstreamite update
@@ -335,32 +337,44 @@ func startNode(serveDocs bool) error {
 		}
 	}()
 
-
 	// Subscribe to thread2 update:
-	go func() {
-		var err error
-		<- node.OnlineCh()
-		thread2Ch, err := node.Thread2Subscribe()
-		if err != nil {
-			log.Error("Error when subscribe thread2: ", err)
-			fmt.Println("Error when subscribe thread2: ", err)
-			return
-		}
-		var msg string
-		var threadRecord *core.Thread2Record
-		for record := range thread2Ch {
-			threadRecord, err = node.UnmarshalRecord(record)
+	/*
+		go func() {
+			var err error
+			<-node.OnlineCh()
+			thread2Ch, err := node.Thread2Subscribe()
 			if err != nil {
-				log.Error("Error when unmarshal record: ", err)
-				continue
+				log.Error("Error when subscribe thread2: ", err)
+				fmt.Println("Error when subscribe thread2: ", err)
+				return
 			}
-			msg = Green("Thread2 Record: "+"  "+ threadRecord.ThreadId +" - " + threadRecord.LogId) + "\n" +
-				Grey(string(threadRecord.Value))
-			fmt.Println(msg)
+			var msg string
+			var threadRecord *core.Thread2Record
+			for record := range thread2Ch {
+				threadRecord, err = node.UnmarshalRecord(record)
+				if err != nil {
+					log.Error("Error when unmarshal record: ", err)
+					continue
+				}
+				msg = Green("Thread2 Record: "+"  "+threadRecord.ThreadId+" - "+threadRecord.LogId) + "\n" +
+					Grey(string(threadRecord.Value))
+				fmt.Println(msg)
+			}
+		}()
+	*/
+	//Subscribe to thread client update:
+	// subscribe to thread2
+	go func() {
+		for {
+			select {
+			case value, ok := <-listener2.Ch:
+				if !ok {
+					return
+				}
+				fmt.Println(msg)
+			}
 		}
 	}()
-
-	//Subscribe to thread client update:
 
 	//==================================
 	// start apis
@@ -386,7 +400,7 @@ func startNode(serveDocs bool) error {
 	return nil
 }
 
-func showRecords(store *util.SyncMap, n *pb.Notification){
+func showRecords(store *util.SyncMap, n *pb.Notification) {
 	//fmt.Printf("showRecord\n")
 	var streamId string
 	var ok bool
@@ -394,25 +408,27 @@ func showRecords(store *util.SyncMap, n *pb.Notification){
 	err := json.Unmarshal([]byte(n.Block), &block_map)
 	if err == nil {
 		streamId, ok = block_map["ID"]
-		if !ok {return}
+		if !ok {
+			return
+		}
 	} else {
 		streamId = n.Block
 	}
-	switch n.Subject{
+	switch n.Subject {
 	case recorder.Event_ThreadAddFile:
-        fmt.Println("========================Show Record")
-        store.Push(streamId, n.Date)
-       // fmt.Printf("file 时间戳：%d,发送时刻：%d\n",n.Date.GetNanos()/1000000,time.Now())
-       // fmt.Println(time.Now())
+		fmt.Println("========================Show Record")
+		store.Push(streamId, n.Date)
+		// fmt.Printf("file 时间戳：%d,发送时刻：%d\n",n.Date.GetNanos()/1000000,time.Now())
+		// fmt.Println(time.Now())
 	case recorder.Event_DoneIPFSGet:
-       // fmt.Printf("当前时间戳：%d，当前时刻：%d\n",ptypes.TimestampNow().GetNanos()/1000000,time.Now())
-       // fmt.Println(time.Now())
+		// fmt.Printf("当前时间戳：%d，当前时刻：%d\n",ptypes.TimestampNow().GetNanos()/1000000,time.Now())
+		// fmt.Println(time.Now())
 		date := store.Get(streamId).(*timestamp.Timestamp)
 		if date == nil {
 			fmt.Printf("收到其他人发送的stream的反馈：%s\n", streamId)
 		}
-       // fmt.Printf("file 发送时间：%d;Noti 接收时间 %d\n",date.GetNanos()/1000000,n.Date.GetNanos()/1000000)
-        duration :=(n.Date.GetSeconds() - date.GetSeconds())*1000+ int64(n.Date.GetNanos() - date.GetNanos())/1000000
+		// fmt.Printf("file 发送时间：%d;Noti 接收时间 %d\n",date.GetNanos()/1000000,n.Date.GetNanos()/1000000)
+		duration := (n.Date.GetSeconds()-date.GetSeconds())*1000 + int64(n.Date.GetNanos()-date.GetNanos())/1000000
 		fmt.Printf("发送用时统计：\n\tStream：\t%s\n\t接受者：\t%s\n\t总RTT：\t%dms\n",
 			streamId, n.Actor, duration)
 	}
@@ -504,11 +520,11 @@ func freeOSMemory(path string) {
 }
 
 // storeFileCmd store received files when get a Notification_STREAM_FILE
-func storeFileCmd(cid string,streamid string,feedmeta *pb.FeedStreamMeta) {
+func storeFileCmd(cid string, streamid string, feedmeta *pb.FeedStreamMeta) {
 	//create dir
 	filespath := "/root/textile_testfiles/"
-	_,err := os.Stat(filespath)
-	if err != nil{//filepath doesn't exist
+	_, err := os.Stat(filespath)
+	if err != nil { //filepath doesn't exist
 		if os.IsNotExist(err) {
 			fmt.Println("dir is not exist,creating......")
 			err := os.Mkdir(filespath, os.ModePerm)
@@ -517,15 +533,15 @@ func storeFileCmd(cid string,streamid string,feedmeta *pb.FeedStreamMeta) {
 				return
 			}
 			fmt.Println("created dir")
-		}else{
+		} else {
 			fmt.Println("stat file error")
 			return
 		}
 	}
 
-	data,err := node.DataAtPath(cid)
+	data, err := node.DataAtPath(cid)
 	if err != nil {
-		fmt.Printf("Error when call DataAtPath: "+err.Error())
+		fmt.Printf("Error when call DataAtPath: " + err.Error())
 	}
 
 	file, err := os.OpenFile(
@@ -540,12 +556,12 @@ func storeFileCmd(cid string,streamid string,feedmeta *pb.FeedStreamMeta) {
 	_, err = file.Write(data)
 	if err != nil {
 		log.Fatal(err)
-    }
+	}
 	duration := node.GetDuration(streamid)
-	block_map := map[string] string {
-		"ID": streamid,
-		"Parent": node.StreamGetParent(streamid),
-		"Duration": strconv.FormatInt(duration,10),
+	block_map := map[string]string{
+		"ID":       streamid,
+		"Parent":   node.StreamGetParent(streamid),
+		"Duration": strconv.FormatInt(duration, 10),
 	}
 	block_json, err := json.Marshal(block_map)
 	if err != nil {
@@ -558,10 +574,10 @@ func storeFileCmd(cid string,streamid string,feedmeta *pb.FeedStreamMeta) {
 		Date:  ptypes.TimestampNow(),
 		//Actor:                t.node().Identity.Pretty(),	// Whether this is id of this peer ?
 		Subject: recorder.Event_DoneIPFSGet,
-		Body: string(block_json),
+		Body:    string(block_json),
 		Target:  feedmeta.PeerId,
 		Read:    false, // Do not send to notification channel directly
 	}
 	recorder.RecordCh <- record
-//
+	//
 }

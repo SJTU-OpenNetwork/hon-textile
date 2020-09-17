@@ -16,11 +16,13 @@ require (
 	github.com/gin-contrib/location v0.0.0-20190301062650-0462caccbb9c
 	github.com/gin-contrib/size v0.0.0-20190301062339-6fb8220baadb
 	github.com/gin-gonic/gin v1.3.0
+	github.com/go-errors/errors v1.0.1
 	github.com/gogo/protobuf v1.3.1
 	github.com/golang/protobuf v1.3.3
 	github.com/hsanjuan/ipfs-lite v1.1.11
 	github.com/ipfs/go-cid v0.0.5
 	github.com/ipfs/go-datastore v0.4.4
+	github.com/ipfs/go-graphsync v0.0.5
 	github.com/ipfs/go-ipfs v0.5.1
 	github.com/ipfs/go-ipfs-addr v0.0.1
 	github.com/ipfs/go-ipfs-cmds v0.2.2
@@ -36,6 +38,7 @@ require (
 	github.com/ipfs/go-unixfs v0.2.4
 	github.com/ipfs/interface-go-ipfs-core v0.2.7
 	github.com/libp2p/go-libp2p-core v0.5.3
+	github.com/libp2p/go-libp2p-peer v0.2.0
 	github.com/libp2p/go-libp2p-record v0.1.2
 	github.com/libp2p/go-msgio v0.0.4
 	github.com/miekg/dns v1.1.31 // indirect

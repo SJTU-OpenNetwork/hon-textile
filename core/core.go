@@ -125,6 +125,7 @@ type Textile struct {
 	done              chan struct{}
 	updates           chan *pb.AccountUpdate
 	threadUpdates     *broadcast.Broadcaster
+	thread2Updates    *broadcast.Broadcaster
 	notifications     chan *pb.Notification
 	threads           *ThreadsService
 	blockOutbox       *BlockOutbox
@@ -320,6 +321,7 @@ func NewTextile(conf RunConfig) (*Textile, error) {
 		pinCode:           conf.PinCode,
 		updates:           make(chan *pb.AccountUpdate, 10),
 		threadUpdates:     broadcast.NewBroadcaster(10),
+		thread2Updates:    broadcast.NewBroadcaster(10),
 		notifications:     make(chan *pb.Notification, 10),
 		cafeOutboxHandler: conf.CafeOutboxHandler,
 		checkMessages:     conf.CheckMessages,
@@ -530,8 +532,8 @@ func (t *Textile) Start() error {
 			log.Errorf(err.Error())
 		}
 
-		fmt.Println("addr make from makeserver: ",addr.String())
-		fmt.Println("addr from t.account.Address: ",t.MySwarmAddress())
+		fmt.Println("addr make from makeserver: ", addr.String())
+		fmt.Println("addr from t.account.Address: ", t.MySwarmAddress())
 		target, err := threadutil.TCPAddrFromMultiAddr(addr)
 		if err != nil {
 			log.Errorf(err.Error())
@@ -616,6 +618,8 @@ func (t *Textile) CreateTCPPool() {
 func (t *Textile) watchMailBox() {
 	for msg := range t.mail.Inbox {
 		log.Infof("New message arrive:%s", msg)
+		// case thread invite:
+		//      t.handleInvite(msg)
 	}
 }
 
@@ -976,6 +980,7 @@ func (t *Textile) Stop() error {
 func (t *Textile) CloseChns() {
 	close(t.updates)
 	t.threadUpdates.Close()
+	t.thread2Updates.Close()
 	close(t.notifications)
 }
 
@@ -1060,6 +1065,11 @@ func (t *Textile) UpdateCh() <-chan *pb.AccountUpdate {
 // ThreadUpdateListener returns the thread update channel
 func (t *Textile) ThreadUpdateListener() *broadcast.Listener {
 	return t.threadUpdates.Listen()
+}
+
+// ThreadUpdateListener returns the thread update channel
+func (t *Textile) Thread2UpdateListener() *broadcast.Listener {
+	return t.thread2Updates.Listen()
 }
 
 // NotificationsCh returns the notifications channel

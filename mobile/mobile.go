@@ -1,17 +1,18 @@
 package mobile
 
 import (
-    "fmt"
-	"github.com/SJTU-OpenNetwork/hon-textile/recorder"
-	"github.com/golang/protobuf/proto"
-	logging "github.com/ipfs/go-log"
-	mh "github.com/multiformats/go-multihash"
+	"fmt"
+
 	"github.com/SJTU-OpenNetwork/hon-textile/broadcast"
 	"github.com/SJTU-OpenNetwork/hon-textile/common"
 	"github.com/SJTU-OpenNetwork/hon-textile/core"
 	"github.com/SJTU-OpenNetwork/hon-textile/keypair"
 	"github.com/SJTU-OpenNetwork/hon-textile/pb"
+	"github.com/SJTU-OpenNetwork/hon-textile/recorder"
 	"github.com/SJTU-OpenNetwork/hon-textile/wallet"
+	"github.com/golang/protobuf/proto"
+	logging "github.com/ipfs/go-log"
+	mh "github.com/multiformats/go-multihash"
 )
 
 var log = logging.Logger("tex-mobile")
@@ -171,10 +172,10 @@ func (conf InitConfig) coreInitConfig() (core.InitConfig, error) {
 		RepoPath:     conf.RepoPath,
 		BaseRepoPath: conf.BaseRepoPath,
 		IsMobile:     true,
-        IsServer:     true,
+		IsServer:     true,
 		LogToDisk:    conf.LogToDisk,
 		Debug:        conf.Debug,
-		IsPrivate:	  conf.IsPrivate,
+		IsPrivate:    conf.IsPrivate,
 	}, nil
 }
 
@@ -217,8 +218,8 @@ func NewTextile(config *RunConfig, messenger Messenger) (*Mobile, error) {
 		RepoPath:          config.RepoPath,
 		CafeOutboxHandler: config.CafeOutboxHandler,
 		//CheckMessages:     mobile.checkCafeMessages,
-		CheckMessages:     mobile.doNotCheckCafeMessages,
-		Debug:             config.Debug,
+		CheckMessages: mobile.doNotCheckCafeMessages,
+		Debug:         config.Debug,
 	})
 	if err != nil {
 		return nil, err
@@ -226,6 +227,7 @@ func NewTextile(config *RunConfig, messenger Messenger) (*Mobile, error) {
 
 	mobile.node = node
 	mobile.listener = node.ThreadUpdateListener()
+	mobile.listener2 = node.Thread2UpdateListener()
 
 	return mobile, nil
 }
@@ -276,17 +278,32 @@ func (m *Mobile) Start() error {
 				select {
 				case note, ok := <-m.node.NotificationCh():
 					if !ok {
-                        fmt.Print("NOT OK!")
+						fmt.Print("NOT OK!")
 						return
 					}
-                    //fmt.Print(note.Body)
-                    //fmt.Print(note.Block)
+					//fmt.Print(note.Body)
+					//fmt.Print(note.Block)
 					recorder.Hlog.Add("Mobile: Notification " + note.Type.String())
 					log.Debug("Mobile: Notification ", note.Type.String())
 					m.notify(pb.MobileEventType_NOTIFICATION, note)
 				}
 			}
 		}()
+
+		// subscribe to thread2 updates
+		/*
+			go func() {
+				for {
+					select {
+					case msg, ok := <-m.listener2.Ch():
+						if !ok {
+							return
+						}
+						m.notify(pb.MobileEventType_THREAD2_UPDATE, msg)
+					}
+				}
+			}
+		*/
 
 		m.notify(pb.MobileEventType_NODE_ONLINE, nil)
 	}()
