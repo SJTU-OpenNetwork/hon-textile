@@ -1066,6 +1066,13 @@ The response contains a base58 encoded version of the random bytes token.`).Alia
 		return Thread2AddFile(*thread2AddFileThreadId, *thread2AddFilePath)
 	}
 
+	//=======================================
+	// For 	ThreadClient
+	threadClientCmd := appCmd.Command("threadClient","go-threads client corresponding commands.")
+	threadClientAddGroupCmd := threadClientCmd.Command("addGroup","Add a new group and return its threadId.")
+	cmds[threadClientAddGroupCmd.FullCommand()] =  ThreadClientAddGroup
+
+
 	hideGlobalsFlagsFor(
 		daemonCmd,
 		initCmd,

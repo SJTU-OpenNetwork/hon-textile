@@ -388,6 +388,11 @@ func (a *Api) Run() {
 			thread2.PUT("/addString/:threadId", a.thread2AddString)
 			thread2.POST("/addfile",a.thread2AddFile)
 		}
+
+		threadClient := v0.Group("/threadClient")
+		{
+			threadClient.POST("/addGroup",a.threadClientAddGroup)
+		}
 	}
 
 	a.server = &http.Server{
