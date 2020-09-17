@@ -360,6 +360,9 @@ func startNode(serveDocs bool) error {
 		}
 	}()
 
+	//Subscribe to thread client update:
+
+	//==================================
 	// start apis
 	api.Host.Start(node.Config().Addresses.API, serveDocs)
 	gateway.Host.Start(node.Config().Addresses.Gateway)
