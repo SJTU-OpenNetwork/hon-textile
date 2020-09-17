@@ -1,7 +1,6 @@
 package core
 
 import (
-	"fmt"
 	"github.com/textileio/go-threads/api/client"
 	"github.com/textileio/go-threads/core/thread"
 	thread2 "github.com/textileio/go-threads/core/thread"
@@ -88,7 +87,7 @@ func (t *Textile) CreateGroup() (thread.ID, error) {
 
 func (t *Textile) CreateDB() (thread.ID, error) {
 	id := thread.NewIDV1(thread.Raw, 32)
-	fmt.Println("NewDB thread Id:",id)
+
 	err :=t.threadclient.NewDB(t.ctx,id)
 	if err != nil {
 		return "",err
