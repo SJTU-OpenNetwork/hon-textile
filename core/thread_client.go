@@ -2,11 +2,23 @@ package core
 
 import (
 	"context"
+	"fmt"
+	"github.com/go-errors/errors"
+	"github.com/phayes/freeport"
 	"github.com/textileio/go-threads/api/client"
+	"github.com/textileio/go-threads/common"
 	"github.com/textileio/go-threads/core/thread"
 	thread2 "github.com/textileio/go-threads/core/thread"
 	"github.com/textileio/go-threads/db"
 	"github.com/textileio/go-threads/util"
+	"google.golang.org/grpc"
+	"io/ioutil"
+	"math/rand"
+	"net"
+	"time"
+	ma "github.com/multiformats/go-multiaddr"
+	"github.com/textileio/go-threads/api"
+	newthreadspb "github.com/textileio/go-threads/api/pb"
 )
 
 
@@ -66,6 +78,49 @@ type Message struct {
 	Sender    string `json:"sender"`
 	Time 	  string `json:"fullName,omitempty"`
 	Content   string `json:"age,omitempty"`
+}
+
+
+func makeServer() (ma.Multiaddr,error) {
+	time.Sleep(time.Second * time.Duration(rand.Intn(5)))
+	dir, err := ioutil.TempDir("", "")
+	if err != nil {
+		return nil,err
+	}
+	n, err := common.DefaultNetwork(dir, common.WithNetDebug(true), common.WithNetHostAddr(util.FreeLocalAddr()))
+	if err != nil {
+		return nil,err
+	}
+	n.Bootstrap(util.DefaultBoostrapPeers())
+	service, err := api.NewService(n, api.Config{
+		RepoPath: dir,
+		Debug:    true,
+	})
+	if err != nil {
+		return nil,err
+	}
+	port, err := freeport.GetFreePort()
+	if err != nil {
+		return nil,err
+	}
+	addr := util.MustParseAddr(fmt.Sprintf("/ip4/127.0.0.1/tcp/%d", port))
+	target, err := util.TCPAddrFromMultiAddr(addr)
+	if err != nil {
+		return nil,err
+	}
+	server := grpc.NewServer()
+	listener, err := net.Listen("tcp", target)
+	if err != nil {
+		return nil,err
+	}
+	go func() {
+		newthreadspb.RegisterAPIServer(server, service)
+		if err := server.Serve(listener); err != nil && !errors.Is(err, grpc.ErrServerStopped) {
+			log.Fatalf("serve error: %v", err)
+		}
+	}()
+
+	return addr,nil
 }
 
 //CreateGroup actually are two steps:

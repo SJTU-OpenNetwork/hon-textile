@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"github.com/SJTU-OpenNetwork/hon-textile/recorder"
 	"github.com/SJTU-OpenNetwork/hon-textile/shadow"
-	"github.com/phayes/freeport"
 	"github.com/textileio/go-threads/api/client"
 	//grpc "grpc.go4.org"
 	"io"
@@ -19,13 +18,6 @@ import (
 	"sync"
 	"time"
 
-	utilmain "github.com/ipfs/go-ipfs/cmd/ipfs/util"
-	"github.com/ipfs/go-ipfs/core"
-	"github.com/ipfs/go-ipfs/core/bootstrap"
-	"github.com/ipfs/go-ipfs/core/corerepo"
-	corenode "github.com/ipfs/go-ipfs/core/node"
-	"github.com/ipfs/go-ipfs/core/node/libp2p"
-	"github.com/ipfs/go-ipfs/repo/fsrepo"
 	"github.com/SJTU-OpenNetwork/hon-textile/broadcast"
 	"github.com/SJTU-OpenNetwork/hon-textile/ipfs"
 	"github.com/SJTU-OpenNetwork/hon-textile/keypair"
@@ -36,17 +28,24 @@ import (
 	"github.com/SJTU-OpenNetwork/hon-textile/service"
 	"github.com/SJTU-OpenNetwork/hon-textile/stream"
 	"github.com/SJTU-OpenNetwork/hon-textile/util"
+	utilmain "github.com/ipfs/go-ipfs/cmd/ipfs/util"
+	"github.com/ipfs/go-ipfs/core"
+	"github.com/ipfs/go-ipfs/core/bootstrap"
+	"github.com/ipfs/go-ipfs/core/corerepo"
+	corenode "github.com/ipfs/go-ipfs/core/node"
+	"github.com/ipfs/go-ipfs/core/node/libp2p"
+	"github.com/ipfs/go-ipfs/repo/fsrepo"
 	ipld "github.com/ipfs/go-ipld-format"
 	logging "github.com/ipfs/go-log"
+	log2 "github.com/ipfs/go-log/v2"
 	"github.com/ipfs/go-metrics-interface"
 	"github.com/libp2p/go-libp2p-core/peer"
 	"github.com/libp2p/go-libp2p-core/peerstore"
-	logger "github.com/whyrusleeping/go-logging"
-    log2 "github.com/ipfs/go-log/v2"
-	"go.uber.org/fx"
-	"gopkg.in/natefinch/lumberjack.v2"
 	threadutil "github.com/textileio/go-threads/util"
+	logger "github.com/whyrusleeping/go-logging"
+	"go.uber.org/fx"
 	"google.golang.org/grpc"
+	"gopkg.in/natefinch/lumberjack.v2"
 )
 
 var log = logging.Logger("tex-core")
@@ -514,22 +513,22 @@ func (t *Textile) Start() error {
 				t.startCafeApi(t.config.Addresses.CafeAPI)
 			}()
 		}
-
+		//======================================================================
 		//New a thread v2.0 client
-		port, err := freeport.GetFreePort()
+		addr,err :=makeServer()
 		if err != nil {
 			log.Errorf(err.Error())
 		}
-		addr := threadutil.MustParseAddr(fmt.Sprintf("/ip4/127.0.0.1/tcp/%d", port))
 		target, err := threadutil.TCPAddrFromMultiAddr(addr)
 		if err != nil {
 			log.Errorf(err.Error())
 		}
-		_, err = client.NewClient(target, grpc.WithInsecure())
+		threadClient, err := client.NewClient(target, grpc.WithInsecure())
 		if err != nil {
 			log.Errorf(err.Error())
 		}
-
+		t.threadclient = threadClient
+		//======================================================================
 		// Create and start threadService2
 		thread2, err := NewThreadService2(t.ctx, t.Ipfs(), t.repoPath)
 		if err != nil {
