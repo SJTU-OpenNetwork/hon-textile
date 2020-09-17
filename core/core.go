@@ -529,6 +529,10 @@ func (t *Textile) Start() error {
 		if err != nil {
 			log.Errorf(err.Error())
 		}
+
+		fmt.Println("addr make from makeserver: ",addr.String())
+		fmt.Println("addr from t.account.Address: ",t.account.Address())
+
 		target, err := threadutil.TCPAddrFromMultiAddr(addr)
 		if err != nil {
 			log.Errorf(err.Error())

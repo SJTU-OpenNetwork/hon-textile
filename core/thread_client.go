@@ -76,8 +76,8 @@ type Member struct {
 
 type Message struct {
 	Sender    string `json:"sender"`
-	Time 	  string `json:"fullName,omitempty"`
-	Content   string `json:"age,omitempty"`
+	Time 	  string `json:"time,omitempty"`
+	Content   string `json:"content,omitempty"`
 }
 
 
@@ -134,10 +134,10 @@ func (t *Textile) CreateGroup() (thread.ID, error) {
 	if err != nil{
 		return "",err
 	}
-	err = t.NewMessagesCollection(threadid)
-	if err != nil{
-		return "",err
-	}
+	//err = t.NewMessagesCollection(threadid)
+	//if err != nil{
+	//	return "",err
+	//}
 	return threadid,nil
 }
 
