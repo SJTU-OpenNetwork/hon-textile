@@ -531,8 +531,8 @@ func (t *Textile) Start() error {
 		}
 
 		fmt.Println("addr make from makeserver: ",addr.String())
-		fmt.Println("addr from t.account.Address: ",t.config.Account)
-
+		fmt.Println("addr from t.account.Address: ",t.config.Gateway)
+		fmt.Println("addr from t.account.Address: ",t.config.Gateway.HTTPHeaders)
 		target, err := threadutil.TCPAddrFromMultiAddr(addr)
 		if err != nil {
 			log.Errorf(err.Error())
