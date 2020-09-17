@@ -72,7 +72,7 @@ const (
 type Member struct {
 	ID        string `json:"_id"`
 	Name 	  string `json:"name"`
-	Role      string `json:"role,omitempty"`
+	Role      string `json:"role"`
 }
 
 type Message struct {
@@ -127,19 +127,22 @@ func makeServer() (ma.Multiaddr,error) {
 //CreateGroup actually are two steps:
 // create a threadDB and add two collections to the DB.
 func (t *Textile) CreateGroup() (thread.ID, error) {
-	threadid, err := t.CreateDB()
+	threadId := thread.NewIDV1(thread.Raw, 32)
+	actx, _ := context.WithTimeout(t.ctx, addTimeout)
+	err := t.threadclient.NewDB(actx,threadId)
 	if err != nil{
 		return "",err
 	}
-	err = t.NewMembersCollection(threadid)
+
+	err = t.NewMembersCollection(threadId)
 	if err != nil{
 		return "",err
 	}
-	err = t.NewMessagesCollection(threadid)
-	if err != nil{
-		return "",err
-	}
-	return threadid,nil
+	//err = t.NewMessagesCollection(threadId)
+	//if err != nil{
+	//	return "",err
+	//}
+	return threadId,nil
 }
 
 func (t *Textile) CreateDB() (thread.ID, error) {
