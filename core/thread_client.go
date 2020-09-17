@@ -52,17 +52,18 @@ const (
 		"title": "` + collectionMessage + `",
 		"type": "object",
 		"properties": {
-			"sender": {
+			"_id": {
 				"type": "string",
-				"description": "The sender's id."
+				"description": "The member's id."
 			},
-			"time": {
+			"name": {
 				"type": "string",
-				"description": "The message's send time."
+				"description": "The member's' name."
 			},
-			"content": {
-				"type": "string"
-				"description": "The content in thread.",
+			"role": {
+				"type": "string",
+				"description": "Role represent member's access."
+
 			}
 		}
 	}`
@@ -132,14 +133,14 @@ func (t *Textile) CreateGroup() (thread.ID, error) {
 		return "",err
 	}
 
-	err = t.NewMembersCollection(threadId)
-	if err != nil{
-		return "",err
-	}
-	//err = t.NewMessagesCollection(threadId)
+	//err = t.NewMembersCollection(threadId)
 	//if err != nil{
 	//	return "",err
 	//}
+	err = t.NewMessagesCollection(threadId)
+	if err != nil{
+		return "",err
+	}
 	return threadId,nil
 }
 
