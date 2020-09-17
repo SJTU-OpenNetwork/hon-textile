@@ -31,7 +31,7 @@ func (a *Api) threadClientListDB(g *gin.Context) {
 	threadMap,err := a.Node.ListDBs()
 	var threadList []string
 	for k := range threadMap {
-		threadList = append(threadList,k)
+		threadList = append(threadList,k.String())
 	}
 	if err != nil {
 		log.Error("Error when create thread client: ", err)
