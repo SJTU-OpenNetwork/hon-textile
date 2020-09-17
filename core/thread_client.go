@@ -57,7 +57,7 @@ const (
 				"description": "The sender's id."
 			},
 			"time": {
-				"type": "data-time",
+				"type": "string",
 				"description": "The message's send time."
 			},
 			"content": {
