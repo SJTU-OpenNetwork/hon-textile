@@ -3,7 +3,7 @@ package core
 import (
 	"context"
 	"fmt"
-	"github.com/go-errors/errors"
+	"errors"
 	"github.com/phayes/freeport"
 	"github.com/textileio/go-threads/api/client"
 	"github.com/textileio/go-threads/common"
