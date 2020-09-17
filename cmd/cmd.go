@@ -1072,7 +1072,10 @@ The response contains a base58 encoded version of the random bytes token.`).Alia
 	threadClientAddGroupCmd := threadClientCmd.Command("addGroup","Add a new group and return its threadId.")
 	cmds[threadClientAddGroupCmd.FullCommand()] =  ThreadClientAddGroup
 
+	threadClientAddDBCmd := threadClientCmd.Command("addDB","Add a new DB and return its threadId.")
+	cmds[threadClientAddDBCmd.FullCommand()] =  ThreadClientAddDB
 
+	//=======================================
 	hideGlobalsFlagsFor(
 		daemonCmd,
 		initCmd,

@@ -392,6 +392,7 @@ func (a *Api) Run() {
 		threadClient := v0.Group("/threadClient")
 		{
 			threadClient.POST("/addGroup",a.threadClientAddGroup)
+			threadClient.POST("/addDB",a.threadClientAddDB)
 		}
 	}
 

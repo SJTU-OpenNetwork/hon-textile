@@ -10,3 +10,12 @@ func ThreadClientAddGroup() error {
 	output(res)
 	return nil
 }
+
+func ThreadClientAddDB() error {
+	res, err := executeJsonCmd(http.MethodPost, "threadClient/addDB", params{}, nil)
+	if err != nil {
+		return err
+	}
+	output(res)
+	return nil
+}
