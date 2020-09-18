@@ -3,6 +3,7 @@ package core
 import (
 	"fmt"
 	"errors"
+	"github.com/phayes/freeport"
 	"github.com/textileio/go-threads/api/client"
 	"github.com/textileio/go-threads/common"
 	"github.com/textileio/go-threads/core/thread"
@@ -113,12 +114,12 @@ func makeServer() (ma.Multiaddr,error) {
 	if err != nil {
 		return nil,err
 	}
-	//port, err := freeport.GetFreePort()
-	//if err != nil {
-	//	return nil,err
-	//}
-	//our port default is 4001,so we dont need freeport.GetFreePort()
-	addr := util.MustParseAddr(fmt.Sprintf("/ip4/127.0.0.1/tcp/%d", 4001))
+	port, err := freeport.GetFreePort()
+	if err != nil {
+		return nil,err
+	}
+	//our port default is 4001,so we dont need freeport.GetFreePort(), but it seems that thread port is different with ipfs.
+	addr := util.MustParseAddr(fmt.Sprintf("/ip4/127.0.0.1/tcp/%d", port))
 	target, err := util.TCPAddrFromMultiAddr(addr)
 	if err != nil {
 		return nil,err
