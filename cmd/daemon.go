@@ -364,17 +364,17 @@ func startNode(serveDocs bool) error {
 	*/
 	//Subscribe to thread client update:
 	// subscribe to thread2
-	go func() {
-		for {
-			select {
-			case value, ok := <-listener2.Ch:
-				if !ok {
-					return
-				}
-				fmt.Println(msg)
-			}
-		}
-	}()
+	//go func() {
+	//	for {
+	//		select {
+	//		case value, ok := <-listener2.Ch:
+	//			if !ok {
+	//				return
+	//			}
+	//			fmt.Println(msg)
+	//		}
+	//	}
+	//}()
 
 	//==================================
 	// start apis

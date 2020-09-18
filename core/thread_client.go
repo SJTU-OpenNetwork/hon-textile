@@ -305,6 +305,7 @@ func (t *Textile) AddThreadDBString(id string, mes string) error {
 	if err != nil {
 		return err
 	}
+	fmt.Println("added message: '",mes,"' to thread: '", id,"'")
 	return nil
 }
 
