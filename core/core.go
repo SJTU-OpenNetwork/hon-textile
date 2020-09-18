@@ -543,6 +543,9 @@ func (t *Textile) Start() error {
 			log.Errorf(err.Error())
 		}
 		t.threadclient = threadClient
+
+		//start listening to all DB
+		t.ListenThread2s()
 		//======================================================================
 		// Create and start threadService2
 		//thread2, err := NewThreadService2(t.ctx, t.Ipfs(), t.repoPath)

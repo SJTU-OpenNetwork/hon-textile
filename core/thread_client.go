@@ -158,6 +158,8 @@ func (t *Textile) CreateGroup() (thread.ID, error) {
 		return "",err
 	}
 
+	//Start listening new created thread
+	t.ListenThread2s()
 	//add myself info to the thread collection of member
 	_,err = t.CreateInstance(threadId, collectionMember,client.Instances{
 		ThreadMember{MemberId:t.Account().Address(), Name:t.Name(), Role: owner}})
