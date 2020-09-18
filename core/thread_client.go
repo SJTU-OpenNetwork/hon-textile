@@ -222,38 +222,6 @@ func (t *Textile) NewMessagesCollection(threadId thread.ID) error {
 	}
 	return nil
 }
-/*
-Instances is a list of collection instances.
-
-CreateInstance actually create a new instance and add it to collection of thread.
-SaveInstance actually is used to modify the instance we created and added before.
- */
-//func (t *Textile) AddInstanceMember(id thread.ID, instances client.Instances) ([]string,error) {
-//	ids, err := t.CreateInstance(id, collectionMember, instances)
-//	if err != nil {
-//		return nil,err
-//	}
-//
-//
-//	//err = t.SaveInstance(id, collectionMember, instances)
-//	//if err != nil {
-//	//	return nil,err
-//	//}
-//	return ids,nil
-//}
-//
-//func (t *Textile) AddInstanceMessage(id thread.ID, instances client.Instances ) ([]string, error) {
-//	ids, err := t.CreateInstance(id, collectionMessage, instances)
-//	if err != nil {
-//		return nil,err
-//	}
-//
-//	err = t.SaveInstance(id, collectionMessage, instances)
-//	if err != nil {
-//		return nil,err
-//	}
-//	return ids,nil
-//}
 
 //Create instances objects.
 func (t *Textile) CreateInstance(id thread.ID, ctype string, instances client.Instances) ([]string, error) {
@@ -327,3 +295,15 @@ func (t *Textile) ThreadClientSubscribe(id thread.ID) (<-chan client.ListenEvent
 	}
 	return t.threadclient.Listen(t.ctx, id,  []client.ListenOption{opt})
 }
+
+//func unmarshalItems(items []interface{}) ([][]byte, error) {
+//	values := make([][]byte, len(items))
+//	for i, item := range items {
+//		bytes, err := json.Marshal(item)
+//		if err != nil {
+//			return nil, err
+//		}
+//		values[i] = bytes
+//	}
+//	return values, nil
+//}

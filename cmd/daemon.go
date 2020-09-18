@@ -369,6 +369,7 @@ func startNode(serveDocs bool) error {
 			select {
 			case value, ok := <-listener2.Ch:
 				if !ok {
+					fmt.Println("The channel is died")
 					return
 				}
 				fmt.Println("Received a update")
@@ -377,6 +378,7 @@ func startNode(serveDocs bool) error {
 						fmt.Println("update is nil")
 						continue
 					}
+
 					instance := update.Event.Action.Instance
 
 					fmt.Println("Received from thread2,value is ",instance)
