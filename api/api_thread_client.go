@@ -3,6 +3,7 @@ package api
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"io/ioutil"
 	"net/http"
 )
 
@@ -42,23 +43,35 @@ func (a *Api) threadClientListDB(g *gin.Context) {
 }
 
 func (a *Api) threadClientAddString(g *gin.Context) {
-	opts, err := a.readOpts(g)
-	if err != nil {
-		a.abort500(g, err)
-		return
-	}
-	threadIdStr, ok := opts["threadId"]
-	if !ok {
-		g.String(http.StatusBadRequest, "missing threadId")
-		return
-	}
-	text, ok := opts["text"]
-	if !ok {
-		g.String(http.StatusBadRequest, "missing file path")
+	//opts, err := a.readOpts(g)
+	//if err != nil {
+	//	a.abort500(g, err)
+	//	return
+	//}
+	//threadIdStr, ok := opts["threadId"]
+	//if !ok {
+	//	g.String(http.StatusBadRequest, "missing threadId")
+	//	return
+	//}
+	//text, ok := opts["text"]
+	//if !ok {
+	//	g.String(http.StatusBadRequest, "missing message")
+	//	return
+	//}
+
+	threadIdStr :=  g.Param("threadId")
+	if threadIdStr == "" {
+		g.String(http.StatusBadRequest, "threadId missed")
 		return
 	}
 
-	err = a.Node.AddThreadDBString(threadIdStr,text)
+	data, err := ioutil.ReadAll(g.Request.Body)
+	if err != nil {
+		g.String(http.StatusBadRequest, "error when read from request body: %s", err.Error())
+		return
+	}
+
+	err = a.Node.AddThreadDBString(threadIdStr,string(data[:]))
 	if err != nil {
 		return
 	}

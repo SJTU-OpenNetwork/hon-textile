@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"net/http"
+	"strings"
 )
 
 func ThreadClientAddGroup() error {
@@ -32,8 +33,8 @@ func ThreadClientListDB() error {
 }
 
 func ThreadClientAddString(threadId string, text string) error {
-	cmdOpt := map[string]string{"threadId": threadId, "text": text}
-	res, err := executeStringCmd(http.MethodPost, "threadClient/addString", params{opts:cmdOpt})
+	res, err := executeJsonCmd(http.MethodPut, "threadClient/addString/"+threadId, params{
+		payload: strings.NewReader(text)}, nil)
 	if err != nil {
 		return err
 	}
