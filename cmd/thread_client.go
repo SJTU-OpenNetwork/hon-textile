@@ -33,7 +33,7 @@ func ThreadClientListDB() error {
 
 func ThreadClientAddString(threadId string, text string) error {
 	cmdOpt := map[string]string{"threadId": threadId, "text": text}
-	res, err := executeStringCmd(http.MethodPut, "threadClient/addString", params{opts:cmdOpt})
+	res, err := executeStringCmd(http.MethodPost, "threadClient/addString", params{opts:cmdOpt})
 	if err != nil {
 		return err
 	}

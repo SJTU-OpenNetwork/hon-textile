@@ -160,7 +160,7 @@ func (t *Textile) CreateGroup() (thread.ID, error) {
 
 	//add myself info to the thread collection of member
 	_,err = t.AddInstanceMember(threadId, client.Instances{
-		ThreadMember{ID:"1", MemberId:t.Account().Address(), Name:t.Name(), Role: owner}})
+		ThreadMember{MemberId:t.Account().Address(), Name:t.Name(), Role: owner}})
 	if err != nil{
 		fmt.Println("Error when add myself info to the thread")
 		return threadId,err
@@ -230,16 +230,17 @@ the reason why we need to create instance first because we may delete instance l
 and delete we need to use instance id from method create.
  */
 func (t *Textile) AddInstanceMember(id thread.ID, instances client.Instances) ([]string,error) {
-	ids, err := t.CreateInstance(id, collectionMember, instances)
-	if err != nil {
-		return nil,err
-	}
+	//ids, err := t.CreateInstance(id, collectionMember, instances)
+	//if err != nil {
+	//	return nil,err
+	//}
 
-	err = t.SaveInstance(id, collectionMember, instances)
+
+	err := t.SaveInstance(id, collectionMember, instances)
 	if err != nil {
 		return nil,err
 	}
-	return ids,nil
+	return nil,nil
 }
 
 func (t *Textile) AddInstanceMessage(id thread.ID, instances client.Instances ) ([]string, error) {
