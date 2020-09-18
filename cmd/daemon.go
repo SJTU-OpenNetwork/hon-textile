@@ -372,7 +372,7 @@ func startNode(serveDocs bool) error {
 					fmt.Println("The channel is died")
 					return
 				}
-				fmt.Println("Received a update")
+				//fmt.Println("Received a update")
 				if update, ok := value.(*core.Thread2UpdateMessage); ok {
 					if update == nil {
 						fmt.Println("update is nil")
