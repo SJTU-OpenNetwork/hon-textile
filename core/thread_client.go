@@ -162,7 +162,7 @@ func (t *Textile) CreateGroup() (thread.ID, error) {
 	t.ListenThread2s()
 	//add myself info to the thread collection of member
 	_,err = t.CreateInstance(threadId, collectionMember,client.Instances{
-		ThreadMember{MemberId:t.Account().Address(), Name:t.Name(), Role: owner}})
+		&ThreadMember{MemberId:t.Account().Address(), Name:t.Name(), Role: owner}})
 	if err != nil{
 		fmt.Println("Error when add myself info to the thread")
 		return threadId,err
@@ -271,13 +271,11 @@ func (t *Textile) SaveMessageInstance(id thread.ID, ids []string, newContent str
 
 //add a string to the message collection of a thread
 func (t *Textile) AddThreadDBString(id string, mes string) error {
-	fmt.Println("the message is: " , mes)
-
 	threadId, err := thread2.Decode(id)
 	if err != nil {
 		return err
 	}
-	_,err = t.CreateInstance(threadId, collectionMessage, client.Instances{ThreadMessage{Sender:t.Account().Address(),Time:time.Now(),Content:mes}})
+	_,err = t.CreateInstance(threadId, collectionMessage, client.Instances{&ThreadMessage{Sender:t.Account().Address(),Time:time.Now(),Content:mes}})
 	if err != nil {
 		return err
 	}
