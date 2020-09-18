@@ -223,6 +223,7 @@ func (t *Textile) ListenThread2s() {
 		if err != nil {
 			log.Errorf("error when listen one thread2", err)
 		}
+		fmt.Println("11111111111111111")
 		go func() {
 			for {
 				select {
