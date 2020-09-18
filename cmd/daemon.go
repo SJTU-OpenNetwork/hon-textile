@@ -114,7 +114,7 @@ type SafeMap struct {
 // And subsribe to updates of the wallet, thread, and notifications
 func startNode(serveDocs bool) error {
 	listener := node.ThreadUpdateListener()
-	listener2 := node.Thread2UpdateListener()
+	//listener2 := node.Thread2UpdateListener()
 	var metaNotiMap sync.Map
 	//metaNotiMap := SafeMap{
 	//	data : make(map[string]*MetaAndNotification),
