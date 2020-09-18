@@ -234,7 +234,7 @@ func (t *Textile) CreateInstance(id thread.ID, ctype string, instances client.In
 		return instanceIds,nil
 	case collectionMessage:
 		instanceIds, err := t.threadclient.Create(t.ctx, id, collectionMessage, instances)
-		fmt.Println("complete addString: ", instanceIds[0])
+		//fmt.Println("complete addString: ", instanceIds[0])
 
 		if err != nil {
 			return nil,err
@@ -271,6 +271,8 @@ func (t *Textile) SaveMessageInstance(id thread.ID, ids []string, newContent str
 
 //add a string to the message collection of a thread
 func (t *Textile) AddThreadDBString(id string, mes string) error {
+	fmt.Println("the message is: " , mes)
+
 	threadId, err := thread2.Decode(id)
 	if err != nil {
 		return err
