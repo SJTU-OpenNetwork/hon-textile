@@ -168,6 +168,12 @@ func (t *Textile) CreateGroup() (thread.ID, error) {
 		return threadId,err
 	}
 
+	_,err = t.CreateInstance(threadId, collectionMessage,client.Instances{
+		&ThreadMessage{Sender:t.Account().Address(), Time:time.Now(), Content: "123456789"}})
+	if err != nil{
+		fmt.Println("Error when add myself info to the thread")
+		return threadId,err
+	}
 	return threadId,nil
 }
 
@@ -234,8 +240,7 @@ func (t *Textile) CreateInstance(id thread.ID, ctype string, instances client.In
 		return instanceIds,nil
 	case collectionMessage:
 		instanceIds, err := t.threadclient.Create(t.ctx, id, collectionMessage, instances)
-		fmt.Println("complete addString: ", instanceIds[0])
-
+		//fmt.Println("complete addString: ", instanceIds[0])
 		if err != nil {
 			return nil,err
 		}
