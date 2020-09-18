@@ -1077,6 +1077,13 @@ The response contains a base58 encoded version of the random bytes token.`).Alia
 
 	threadClientListDBCmd := threadClientCmd.Command("listDB","List all active DBs.")
 	cmds[threadClientListDBCmd.FullCommand()] =  ThreadClientListDB
+
+	threadClientAddString := threadClientCmd.Command("addString", "Add a string instance to thread DB.")
+	threadClientAddStringThreadId := threadClientAddString.Arg("thread", "thread Id").Required().String()
+	threadClientAddStringText := threadClientAddString.Arg("text", "text message you want to add to the thread").Required().String()
+	cmds[threadClientAddString.FullCommand()] = func() error {
+		return ThreadClientAddString(*threadClientAddStringThreadId, *threadClientAddStringText)
+	}
 	//=======================================
 	hideGlobalsFlagsFor(
 		daemonCmd,

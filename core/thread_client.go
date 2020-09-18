@@ -1,7 +1,6 @@
 package core
 
 import (
-	"context"
 	"fmt"
 	"errors"
 	"github.com/textileio/go-threads/api/client"
@@ -143,8 +142,8 @@ func makeServer() (ma.Multiaddr,error) {
 // create a threadDB and add two collections(member and message) to the DB.
 func (t *Textile) CreateGroup() (thread.ID, error) {
 	threadId := thread.NewIDV1(thread.Raw, 32)
-	actx, _ := context.WithTimeout(t.ctx, addTimeout)
-	err := t.threadclient.NewDB(actx,threadId)
+	//actx, _ := context.WithTimeout(t.ctx, addTimeout)
+	err := t.threadclient.NewDB(t.ctx,threadId)
 	if err != nil{
 		return "",err
 	}
@@ -171,10 +170,10 @@ func (t *Textile) CreateGroup() (thread.ID, error) {
 
 func (t *Textile) CreateDB() (thread.ID, error) {
 	id := thread.NewIDV1(thread.Raw, 32)
-	actx, _ := context.WithTimeout(t.ctx, addTimeout)
+	//actx, _ := context.WithTimeout(t.ctx, addTimeout)
 	//name1 := "db1"
 	//err :=t.threadclient.NewDB(actx,id,db.WithNewManagedName(name1))
-	err :=t.threadclient.NewDB(actx,id)
+	err :=t.threadclient.NewDB(t.ctx,id)
 	if err != nil {
 		return "",err
 	}
@@ -254,6 +253,7 @@ func (t *Textile) AddInstanceMessage(id thread.ID, instances client.Instances ) 
 	}
 	return ids,nil
 }
+
 
 //Create instances objects.
 func (t *Textile) CreateInstance(id thread.ID, ctype string, instances client.Instances) ([]string, error) {

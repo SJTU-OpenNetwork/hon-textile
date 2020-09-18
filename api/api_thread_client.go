@@ -40,3 +40,26 @@ func (a *Api) threadClientListDB(g *gin.Context) {
 		g.JSON(http.StatusOK, threadList)
 	}
 }
+
+func (a *Api) threadClientAddString(g *gin.Context) {
+	opts, err := a.readOpts(g)
+	if err != nil {
+		a.abort500(g, err)
+		return
+	}
+	threadIdStr, ok := opts["threadId"]
+	if !ok {
+		g.String(http.StatusBadRequest, "missing threadId")
+		return
+	}
+	text, ok := opts["text"]
+	if !ok {
+		g.String(http.StatusBadRequest, "missing file path")
+		return
+	}
+
+	err = a.Node.AddThreadDBString(threadIdStr,text)
+	if err != nil {
+		return
+	}
+}

@@ -1,6 +1,7 @@
 package core
 
 import (
+	"github.com/textileio/go-threads/core/thread"
 	"github.com/textileio/go-threads/api/client"
 )
 
@@ -209,15 +210,25 @@ type Thread2UpdateMessage struct {
 // Listen all thread2s
 func (t *Textile) ListenThread2s() {
 	dbs, err := t.threadclient.ListDBs(t.ctx)
+	if err != nil{
+		log.Errorf("error when list DBs",err)
+	}
 	for dbID, _ := range dbs {
-		Ch, err := t.ListenOneThread2(dbID)
+		//threadId, err := thread.Decode(dbID)
+		//if err != nil {
+		//	log.Errorf("error when Decode threadID", err)
+		//}
+		Ch, err := t.ListenOneThread2(dbID.String())
+		if err != nil {
+			log.Errorf("error when listen one thread2", err)
+		}
 		go func() {
 			for {
 				select {
 				case val, ok := <-Ch:
 					if ok {
 						t.thread2Updates.Send(&Thread2UpdateMessage{
-							ThreadID: dbID,
+							ThreadID: dbID.String(),
 							Event:    val,
 						})
 					}
@@ -227,10 +238,14 @@ func (t *Textile) ListenThread2s() {
 	}
 }
 
-func (t *Textile) ListenOneThread2(dbID string) {
-	opt := ListenOption{
+func (t *Textile) ListenOneThread2(dbID string) (<-chan client.ListenEvent, error) {
+	threadId, err := thread.Decode(dbID)
+	if err != nil {
+		return nil,err
+	}
+	opt := client.ListenOption{
 		Collection: "",
 		InstanceID: "",
 	}
-	return t.threadclient.Listen(t.ctx, dbID, []ListenOption{opt})
+	return t.threadclient.Listen(t.ctx, threadId, []client.ListenOption{opt})
 }

@@ -394,6 +394,7 @@ func (a *Api) Run() {
 			threadClient.POST("/addGroup",a.threadClientAddGroup)
 			threadClient.POST("/addDB",a.threadClientAddDB)
 			threadClient.POST("/listDB",a.threadClientListDB)
+			threadClient.PUT("/addString", a.threadClientAddString)
 		}
 	}
 

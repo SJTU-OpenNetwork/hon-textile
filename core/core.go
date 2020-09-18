@@ -141,7 +141,7 @@ type Textile struct {
 	writer            io.Writer
 
 	// go-threads
-	thread2      *ThreadService2
+	//thread2      *thread2.ThreadService2
 	threadclient *client.Client
 
 	variables *Variables
@@ -545,13 +545,13 @@ func (t *Textile) Start() error {
 		t.threadclient = threadClient
 		//======================================================================
 		// Create and start threadService2
-		thread2, err := NewThreadService2(t.ctx, t.Ipfs(), t.repoPath)
-		if err != nil {
-			fmt.Println("Error when start go-threads: ", err)
-			log.Error("Error when start go-threads: ", err)
-		} else {
-			t.thread2 = thread2
-		}
+		//thread2, err := NewThreadService2(t.ctx, t.Ipfs(), t.repoPath)
+		//if err != nil {
+		//	fmt.Println("Error when start go-threads: ", err)
+		//	log.Error("Error when start go-threads: ", err)
+		//} else {
+		//	t.thread2 = thread2
+		//}
 		err = ipfs.PrintSwarmAddrs(t.node)
 		if err != nil {
 			log.Errorf(err.Error())
