@@ -159,7 +159,7 @@ func (t *Textile) CreateGroup() (thread.ID, error) {
 	}
 
 	//add myself info to the thread collection of member
-	_,err = t.AddInstanceMember(threadId, client.Instances{
+	_,err = t.CreateInstance(threadId, collectionMember,client.Instances{
 		ThreadMember{MemberId:t.Account().Address(), Name:t.Name(), Role: owner}})
 	if err != nil{
 		fmt.Println("Error when add myself info to the thread")
@@ -181,7 +181,7 @@ func (t *Textile) CreateDB() (thread.ID, error) {
 	return id,nil
 }
 
-//not used
+
 func (t *Textile) ListDBs() (map[thread.ID]*client.DBInfo, error) {
 	return t.threadclient.ListDBs(t.ctx)
 }
@@ -222,40 +222,36 @@ func (t *Textile) NewMessagesCollection(threadId thread.ID) error {
 }
 /*
 Instances is a list of collection instances.
-Because we have two type of collection, so we also need two
-methods to add instances to two kinds of collection.
-AddInstance does two things: create and save instances.
-But actually we just need to save instance,
-the reason why we need to create instance first because we may delete instance later,
-and delete we need to use instance id from method create.
+
+CreateInstance actually create a new instance and add it to collection of thread.
+SaveInstance actually is used to modify the instance we created and added before.
  */
-func (t *Textile) AddInstanceMember(id thread.ID, instances client.Instances) ([]string,error) {
-	//ids, err := t.CreateInstance(id, collectionMember, instances)
-	//if err != nil {
-	//	return nil,err
-	//}
-
-
-	err := t.SaveInstance(id, collectionMember, instances)
-	if err != nil {
-		return nil,err
-	}
-	return nil,nil
-}
-
-func (t *Textile) AddInstanceMessage(id thread.ID, instances client.Instances ) ([]string, error) {
-	ids, err := t.CreateInstance(id, collectionMessage, instances)
-	if err != nil {
-		return nil,err
-	}
-
-	err = t.SaveInstance(id, collectionMessage, instances)
-	if err != nil {
-		return nil,err
-	}
-	return ids,nil
-}
-
+//func (t *Textile) AddInstanceMember(id thread.ID, instances client.Instances) ([]string,error) {
+//	ids, err := t.CreateInstance(id, collectionMember, instances)
+//	if err != nil {
+//		return nil,err
+//	}
+//
+//
+//	//err = t.SaveInstance(id, collectionMember, instances)
+//	//if err != nil {
+//	//	return nil,err
+//	//}
+//	return ids,nil
+//}
+//
+//func (t *Textile) AddInstanceMessage(id thread.ID, instances client.Instances ) ([]string, error) {
+//	ids, err := t.CreateInstance(id, collectionMessage, instances)
+//	if err != nil {
+//		return nil,err
+//	}
+//
+//	err = t.SaveInstance(id, collectionMessage, instances)
+//	if err != nil {
+//		return nil,err
+//	}
+//	return ids,nil
+//}
 
 //Create instances objects.
 func (t *Textile) CreateInstance(id thread.ID, ctype string, instances client.Instances) ([]string, error) {
@@ -277,25 +273,29 @@ func (t *Textile) CreateInstance(id thread.ID, ctype string, instances client.In
 	}
 }
 
-//Save instances to a kind of collection of thread.
-func (t *Textile) SaveInstance(id thread.ID, ctype string, instances client.Instances) error {
-	switch ctype {
-	case collectionMember:
-		err := t.threadclient.Save(t.ctx, id, collectionMember, instances)
-		if err != nil {
-			return err
-		}
-		return nil
-	case collectionMessage:
-		err := t.threadclient.Save(t.ctx, id, collectionMessage, instances)
-		if err != nil {
-			return err
-		}
-		return nil
-	default:
-		return nil
+//Save used to modify instances, users use instanceId(ID) change specific instance,
+//and users can modify the name and role of members.
+//ids is gotten from creat instance.
+func (t *Textile) SaveMemberInstance(id thread.ID, ids []string, name string, role string) error {
+	instanceId := ids[0]
+	err := t.threadclient.Save(t.ctx, id, collectionMember, client.Instances{ThreadMember{ID:instanceId,Name:name,Role:role}})
+	if err != nil {
+		return err
 	}
+	return nil
 }
+//Users can modify the message content.
+func (t *Textile) SaveMessageInstance(id thread.ID, ids []string, newContent string) error {
+	instanceId := ids[0]
+	err := t.threadclient.Save(t.ctx, id, collectionMessage, client.Instances{ThreadMessage{ID:instanceId,Content:newContent}})
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+
+
 
 //add a string to the message collection of a thread
 func (t *Textile) AddThreadDBString(id string, mes string) error {
@@ -303,7 +303,7 @@ func (t *Textile) AddThreadDBString(id string, mes string) error {
 	if err != nil {
 		return err
 	}
-	_,err = t.AddInstanceMessage(threadId, client.Instances{ThreadMessage{Sender:t.Account().Address(),Time:time.Now(),Content:mes}})
+	_,err = t.CreateInstance(threadId, collectionMessage, client.Instances{ThreadMessage{Sender:t.Account().Address(),Time:time.Now(),Content:mes}})
 	if err != nil {
 		return err
 	}
