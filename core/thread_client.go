@@ -234,7 +234,7 @@ func (t *Textile) CreateInstance(id thread.ID, ctype string, instances client.In
 		return instanceIds,nil
 	case collectionMessage:
 		instanceIds, err := t.threadclient.Create(t.ctx, id, collectionMessage, instances)
-		//fmt.Println("complete addString: ", instanceIds[0])
+		fmt.Println("complete addString: ", instanceIds[0])
 
 		if err != nil {
 			return nil,err
