@@ -1,9 +1,8 @@
 package core
 
 import (
-	"fmt"
-	"github.com/textileio/go-threads/core/thread"
 	"github.com/textileio/go-threads/api/client"
+	"github.com/textileio/go-threads/core/thread"
 )
 
 //"github.com/textileio/go-threads/cbor"
@@ -223,13 +222,12 @@ func (t *Textile) ListenThread2s() {
 		if err != nil {
 			log.Errorf("error when listen one thread2", err)
 		}
-		fmt.Println("11111111111111111")
 		go func() {
 			for {
 				select {
 				case val, ok := <-Ch:
 					if ok {
-						fmt.Println("Received update from thread")
+						//fmt.Println("Received update from thread")
 						t.thread2Updates.Send(&Thread2UpdateMessage{
 							ThreadID: dbID.String(),
 							Event:    val,

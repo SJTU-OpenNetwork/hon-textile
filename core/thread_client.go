@@ -171,6 +171,7 @@ func (t *Textile) CreateGroup() (thread.ID, error) {
 		fmt.Println("Error when add myself info to the thread")
 		return threadId, err
 	}
+<<<<<<< HEAD
 
 	_, err = t.CreateInstance(threadId, collectionMessage, client.Instances{
 		&ThreadMessage{Sender: t.Account().Address(), Time: time.Now().String(), Content: "123456789"}})
@@ -179,14 +180,21 @@ func (t *Textile) CreateGroup() (thread.ID, error) {
 		return threadId, err
 	}
 	return threadId, nil
+=======
+	return threadId,nil
+>>>>>>> 467ad73438038384084c720436841dda636120ef
 }
 
 func (t *Textile) CreateDB() (thread.ID, error) {
 	id := thread.NewIDV1(thread.Raw, 32)
+<<<<<<< HEAD
 	//actx, _ := context.WithTimeout(t.ctx, addTimeout)
 	//name1 := "db1"
 	//err :=t.threadclient.NewDB(actx,id,db.WithNewManagedName(name1))
 	err := t.threadclient.NewDB(t.ctx, id)
+=======
+	err :=t.threadclient.NewDB(t.ctx,id)
+>>>>>>> 467ad73438038384084c720436841dda636120ef
 	if err != nil {
 		return "", err
 	}
@@ -241,7 +249,7 @@ func (t *Textile) CreateInstance(id thread.ID, ctype string, instances client.In
 		return instanceIds, nil
 	case collectionMessage:
 		instanceIds, err := t.threadclient.Create(t.ctx, id, collectionMessage, instances)
-		//fmt.Println("complete addString: ", instanceIds[0])
+		fmt.Println("complete addString: ", instanceIds[0])
 		if err != nil {
 			return nil, err
 		}
@@ -302,6 +310,7 @@ func (t *Textile) ThreadClientSubscribe(id thread.ID) (<-chan client.ListenEvent
 	}
 	return t.threadclient.Listen(t.ctx, id, []client.ListenOption{opt})
 }
+<<<<<<< HEAD
 
 //func unmarshalItems(items []interface{}) ([][]byte, error) {
 //	values := make([][]byte, len(items))
@@ -314,3 +323,5 @@ func (t *Textile) ThreadClientSubscribe(id thread.ID) (<-chan client.ListenEvent
 //	}
 //	return values, nil
 //}
+=======
+>>>>>>> 467ad73438038384084c720436841dda636120ef
