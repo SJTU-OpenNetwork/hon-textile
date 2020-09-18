@@ -70,7 +70,7 @@ const (
 				"description": "The sender's id."
 			},
 			"time": {
-				"type": "data-time",
+				"type": "string",
 				"description": "The time of sending."
 			},
 			"content": {
@@ -91,7 +91,7 @@ type ThreadMember struct {
 type ThreadMessage struct {
 	ID        string `json:"_id"`
 	Sender    string `json:"sender"`
-	Time 	  time.Time `json:"time"`
+	Time 	  string `json:"time"`
 	Content   string `json:"content"`
 }
 
@@ -169,7 +169,7 @@ func (t *Textile) CreateGroup() (thread.ID, error) {
 	}
 
 	_,err = t.CreateInstance(threadId, collectionMessage,client.Instances{
-		&ThreadMessage{Sender:t.Account().Address(), Time:time.Now(), Content: "123456789"}})
+		&ThreadMessage{Sender:t.Account().Address(), Time:time.Now().String(), Content: "123456789"}})
 	if err != nil{
 		fmt.Println("Error when add myself info to the thread")
 		return threadId,err
@@ -280,7 +280,8 @@ func (t *Textile) AddThreadDBString(id string, mes string) error {
 	if err != nil {
 		return err
 	}
-	_,err = t.CreateInstance(threadId, collectionMessage, client.Instances{&ThreadMessage{Sender:t.Account().Address(),Time:time.Now(),Content:mes}})
+	_,err = t.CreateInstance(threadId, collectionMessage, client.Instances{
+		&ThreadMessage{Sender:t.Account().Address(),Time:time.Now().String(),Content:mes}})
 	if err != nil {
 		return err
 	}
