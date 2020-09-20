@@ -174,15 +174,14 @@ func (t *Textile) CreateGroup() (thread.ID, error) {
 	}
 
 
-	_, err = t.CreateInstance(threadId, collectionMessage, client.Instances{
-		&ThreadMessage{Sender: t.Account().Address(), Time: time.Now().String(), Content: "123456789"}})
-	if err != nil {
-		fmt.Println("Error when add myself info to the thread")
-		return threadId, err
-	}
+	//_, err = t.CreateInstance(threadId, collectionMessage, client.Instances{
+	//	&ThreadMessage{Sender: t.Account().Address(), Time: time.Now().String(), Content: "123456789"}})
+	//if err != nil {
+	//	fmt.Println("Error when add myself info to the thread")
+	//	return threadId, err
+	//}
 	return threadId, nil
 
-	return threadId,nil
 
 }
 
@@ -311,6 +310,8 @@ func (t *Textile) ThreadClientSubscribe(id thread.ID) (<-chan client.ListenEvent
 	}
 	return t.threadclient.Listen(t.ctx, id, []client.ListenOption{opt})
 }
+
+//func (t *Textile) AddNewPeer(thread)
 
 
 //func unmarshalItems(items []interface{}) ([][]byte, error) {

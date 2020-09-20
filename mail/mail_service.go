@@ -2,7 +2,7 @@ package mail
 
 import (
 	"context"
-
+	"github.com/golang/protobuf/proto"
 	"github.com/SJTU-OpenNetwork/hon-textile/keypair"
 	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 	"github.com/SJTU-OpenNetwork/hon-textile/service"
@@ -66,4 +66,8 @@ func (h *MailService) SendMessage(ctx context.Context, peerID string, env *pb.En
 func (h *MailService) Handle(env *pb.Envelope, pid peer.ID) (*pb.Envelope, error) {
 	h.Inbox <- env
 	return nil, nil
+}
+
+func (h *MailService) NewEnvelope(mtype pb.Message_Type, msg proto.Message, id *int32, response bool) (*pb.Envelope, error) {
+	return h.service.NewEnvelope(mtype, msg, id, response)
 }
