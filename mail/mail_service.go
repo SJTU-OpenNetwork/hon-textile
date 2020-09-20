@@ -2,6 +2,7 @@ package mail
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/SJTU-OpenNetwork/hon-textile/ipfs"
 	"github.com/SJTU-OpenNetwork/hon-textile/keypair"
@@ -68,6 +69,7 @@ func (h *MailService) SendMessage(ctx context.Context, peerID string, env *pb.En
 		return err
 	}
 	if connected {
+		fmt.Println("[Mail]: send message directly")
 		err = h.service.SendMessage(nil, peerID, env)
 	} else {
 		topic := string(mailServiceProtocol) + "/" + peerID
@@ -75,6 +77,7 @@ func (h *MailService) SendMessage(ctx context.Context, peerID string, env *pb.En
 		if err != nil {
 			return err
 		}
+		fmt.Println("[Mail]: send message through pubsub")
 		err = ipfs.Publish(h.service.Node(), topic, payload)
 	}
 	return err
@@ -82,6 +85,7 @@ func (h *MailService) SendMessage(ctx context.Context, peerID string, env *pb.En
 
 // Handle is called by the underlying service handler method
 func (h *MailService) Handle(env *pb.Envelope, pid peer.ID) (*pb.Envelope, error) {
+	fmt.Println("[Mail]: receive a new message")
 	h.Inbox <- env
 	return nil, nil
 }
