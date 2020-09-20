@@ -293,3 +293,5 @@ func (t *Textile) ThreadClientSubscribe(id thread.ID) (<-chan client.ListenEvent
 	}
 	return t.threadclient.Listen(t.ctx, id,  []client.ListenOption{opt})
 }
+
+
