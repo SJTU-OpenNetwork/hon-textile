@@ -95,7 +95,24 @@ func (t *Textile) handleInvite(env *pb.Envelope) error {
 
 	//add myself to member collection
 	//Start listening new created thread
-	//t.ListenThread2s()
+	Ch, err := t.ListenOneThread2(inform.ThreadId)
+	if err != nil {
+		log.Errorf("error when listen one thread2", err)
+	}
+	go func() {
+		for {
+			select {
+			case val, ok := <-Ch:
+				if ok {
+					//fmt.Println("Received update from thread")
+					t.thread2Updates.Send(&Thread2UpdateMessage{
+						ThreadID: inform.ThreadId,
+						Event:    val,
+					})
+				}
+			}
+		}
+	}()
 	//add myself info to the thread collection of member
 
 	_, err = t.CreateMemInstance(threadId,  client.Instances{
