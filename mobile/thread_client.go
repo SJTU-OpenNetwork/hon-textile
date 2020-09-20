@@ -42,6 +42,15 @@ func (m *Mobile) ThreadInvitePeer(threadid string, peerid string) error {
 	return m.node.Invite(threadid,peerid)
 }
 
+func (m *Mobile) ThreadRemoveMessage(threadid string, index string) error {
+	return m.node.DeleteInstance(threadid, "GroupMessage", []string{index} )
+}
+
+func (m *Mobile) ThreadRemoveMember(threadid string, index string) error {
+	return m.node.DeleteInstance(threadid, "GroupMember", []string{index})
+}
+
+
 //func (m *Mobile) ListDBs() ([]byte,error) {
 //	dblist,err := m.node.ListDBs()
 //	if err != nil{

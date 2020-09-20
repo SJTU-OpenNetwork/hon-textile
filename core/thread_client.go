@@ -252,6 +252,31 @@ func (t *Textile) CreateInstance(id thread.ID, ctype string, instances client.In
 	}
 }
 
+//Delete instance. Delete instance Through ID.
+//Assume we get ids from CreateInstance, then we can use ids[0] to delete it.
+func (t *Textile) DeleteInstance(id string, ctype string, instanceIDs []string) error {
+	threadId, err := thread2.Decode(id)
+	if err != nil {
+		return err
+	}
+	switch ctype {
+	case collectionMember:
+		err := t.threadclient.Delete(t.ctx, threadId, collectionMember, instanceIDs)
+		if err != nil {
+			return err
+		}
+		return nil
+	case collectionMessage:
+		err := t.threadclient.Delete(t.ctx, threadId, collectionMessage, instanceIDs)
+		if err != nil {
+			return err
+		}
+		return nil
+	default:
+		return nil
+	}
+}
+
 //Save used to modify instances, users use instanceId(ID) change specific instance,
 //and users can modify the name and role of members.
 //ids is gotten from creat instance.
