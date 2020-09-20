@@ -14,6 +14,7 @@ import (
 func (t *Textile) Invite(threadID string, peerID string) error {
 	info, err := t.GetDBInfo(threadID)
 	if err != nil {
+		fmt.Println("error when get dbinfo,",err)
 		return err
 	}
 	if !info.Key.Defined() {
@@ -32,11 +33,14 @@ func (t *Textile) Invite(threadID string, peerID string) error {
 	}
 	env, err := t.mail.NewEnvelope(pb.Message_THREAD2_INVITE, reg, nil, false)
 	if err != nil {
+		fmt.Println("error when new envelop,",err)
 		return err
 	}
+
 	// send the envelope to peer through t.mail.SendMessage(peerID, envelope)
 	err = t.mail.SendMessage(t.ctx, peerID, env)
 	if err != nil {
+		fmt.Println("error when send message",err)
 		return err
 	}
 	return nil
