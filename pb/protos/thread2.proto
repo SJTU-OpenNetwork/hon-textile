@@ -4,8 +4,7 @@ option go_package = "pb";
 
 message Thread2Peer {
     string id     = 1;
-    string thread = 2;
-    int role      = 3;
+    int role      = 2;
 }
 
 
