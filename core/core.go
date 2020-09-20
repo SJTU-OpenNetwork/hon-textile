@@ -1347,6 +1347,10 @@ func (t *Textile) threadByBlock(block *pb.Block) (*Thread, error) {
 
 // loadThread loads a thread into memory from the given on-disk model
 func (t *Textile) loadThread(mod *pb.Thread) (*Thread, error) {
+	//
+	fmt.Println("========mod sk: ",mod.Sk)
+
+
 	if loaded := t.Thread(mod.Id); loaded != nil {
 		return nil, ErrThreadLoaded
 	}
