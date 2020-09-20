@@ -21,6 +21,14 @@ func (m *Mobile) CreateDB() (string,error) {
 	return threadIdStr,nil
 }
 
+func (m *Mobile) ThreadAddStringMessage(id string, mes string) error {
+	return m.node.AddThreadDBString(id,mes)
+}
+
+func (m *Mobile) ThreadAddPeer(threadid string, peerid string) error {
+
+	return nil
+}
 //func (m *Mobile) ListDBs() ([]byte,error) {
 //	dblist,err := m.node.ListDBs()
 //	if err != nil{

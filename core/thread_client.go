@@ -1,33 +1,34 @@
 package core
 
 import (
-	"fmt"
 	"errors"
-	"github.com/phayes/freeport"
+	"fmt"
+	"net"
+	"os"
+	"path"
+	"time"
+
+	ma "github.com/multiformats/go-multiaddr"
+	 "github.com/phayes/freeport"
+	"github.com/textileio/go-threads/api"
 	"github.com/textileio/go-threads/api/client"
+	newthreadspb "github.com/textileio/go-threads/api/pb"
 	"github.com/textileio/go-threads/common"
 	"github.com/textileio/go-threads/core/thread"
 	thread2 "github.com/textileio/go-threads/core/thread"
 	"github.com/textileio/go-threads/db"
-	"github.com/textileio/go-threads/util"
+	threadutil "github.com/textileio/go-threads/util"
 	"google.golang.org/grpc"
-	"io/ioutil"
-	"math/rand"
-	"net"
-	"time"
-	ma "github.com/multiformats/go-multiaddr"
-	"github.com/textileio/go-threads/api"
-	newthreadspb "github.com/textileio/go-threads/api/pb"
+	"github.com/SJTU-OpenNetwork/hon-textile/util"
 )
-
 
 const (
 	// Roles for member collection
-	owner = "OWNER"
-	admin = "ADMINISTRATOR"
+	owner  = "OWNER"
+	admin  = "ADMINISTRATOR"
 	member = "GENERAL_MEMBER"
 
-	collectionMember = "GroupMember"
+	collectionMember  = "GroupMember"
 	collectionMessage = "GroupMessage"
 	//In go-threads schema, properties must have _id to indicate the instance's id.
 	schemaMember = `{
@@ -55,7 +56,6 @@ const (
 		}
 	}`
 
-
 	schemaMessage = `{
 		"$schema": "http://json-schema.org/draft-07/schema#",
 		"title": "` + collectionMessage + `",
@@ -81,53 +81,58 @@ const (
 		}
 	}`
 )
+
 type ThreadMember struct {
-	ID        string `json:"_id"`
-	MemberId  string `json:"member_id"`
-	Name 	  string `json:"name"`
-	Role      string `json:"role"`
+	ID       string `json:"_id"`
+	MemberId string `json:"member_id"`
+	Name     string `json:"name"`
+	Role     string `json:"role"`
 }
 
 type ThreadMessage struct {
-	ID        string `json:"_id"`
-	Sender    string `json:"sender"`
-	Time 	  string `json:"time"`
-	Content   string `json:"content"`
+	ID      string `json:"_id"`
+	Sender  string `json:"sender"`
+	Time    string `json:"time"`
+	Content string `json:"content"`
 }
 
+func (t *Textile) makeServer() (ma.Multiaddr, error) {
+	//time.Sleep(time.Second * time.Duration(rand.Intn(5)))
+	dir := path.Join(t.repoPath, "threads")
+	if !util.DirectoryExist(dir) {
+		if err := os.Mkdir(dir, os.ModePerm); err != nil {
+			log.Error("Error when create path for go-threads: ", err)
+			return nil, err
+		}
+	}
 
-func makeServer() (ma.Multiaddr,error) {
-	time.Sleep(time.Second * time.Duration(rand.Intn(5)))
-	dir, err := ioutil.TempDir("", "")
+	// TODO: check whether t.node.PeerHost.Addrs is corrert!!!
+	n, err := common.DefaultNetwork(dir, common.WithNetDebug(true), common.WithNetHostAddr(t.node.PeerHost.Addrs[0]))
 	if err != nil {
-		return nil,err
+		return nil, err
 	}
-	n, err := common.DefaultNetwork(dir, common.WithNetDebug(true), common.WithNetHostAddr(util.FreeLocalAddr()))
-	if err != nil {
-		return nil,err
-	}
-	n.Bootstrap(util.DefaultBoostrapPeers())
+	n.Bootstrap(threadutil.DefaultBoostrapPeers())
 	service, err := api.NewService(n, api.Config{
 		RepoPath: dir,
 		Debug:    true,
 	})
 	if err != nil {
-		return nil,err
+		return nil, err
 	}
 	port, err := freeport.GetFreePort()
 	if err != nil {
-		return nil,err
+		return nil, err
 	}
 	//our port default is 4001,so we dont need freeport.GetFreePort(), but it seems that thread port is different with ipfs.
-	addr := util.MustParseAddr(fmt.Sprintf("/ip4/127.0.0.1/tcp/%d", port))
-	target, err := util.TCPAddrFromMultiAddr(addr)
+	addr := threadutil.MustParseAddr(fmt.Sprintf("/ip4/127.0.0.1/tcp/%d", port))
+	target, err := threadutil.TCPAddrFromMultiAddr(addr)
 	if err != nil {
-		return nil,err
+		return nil, err
 	}
 	server := grpc.NewServer()
 	listener, err := net.Listen("tcp", target)
 	if err != nil {
-		return nil,err
+		return nil, err
 	}
 	go func() {
 		newthreadspb.RegisterAPIServer(server, service)
@@ -136,7 +141,7 @@ func makeServer() (ma.Multiaddr,error) {
 		}
 	}()
 
-	return addr,nil
+	return addr, nil
 }
 
 //CreateGroup actually are two steps:
@@ -144,76 +149,91 @@ func makeServer() (ma.Multiaddr,error) {
 func (t *Textile) CreateGroup() (thread.ID, error) {
 	threadId := thread.NewIDV1(thread.Raw, 32)
 	//actx, _ := context.WithTimeout(t.ctx, addTimeout)
-	err := t.threadclient.NewDB(t.ctx,threadId)
-	if err != nil{
-		return "",err
+	err := t.threadclient.NewDB(t.ctx, threadId)
+	if err != nil {
+		return "", err
 	}
 
 	err = t.NewMembersCollection(threadId)
-	if err != nil{
-		return "",err
+	if err != nil {
+		return "", err
 	}
 	err = t.NewMessagesCollection(threadId)
-	if err != nil{
-		return "",err
+	if err != nil {
+		return "", err
 	}
 
 	//Start listening new created thread
 	t.ListenThread2s()
 	//add myself info to the thread collection of member
-	_,err = t.CreateInstance(threadId, collectionMember,client.Instances{
-		&ThreadMember{MemberId:t.Account().Address(), Name:t.Name(), Role: owner}})
-	if err != nil{
+	_, err = t.CreateInstance(threadId, collectionMember, client.Instances{
+		&ThreadMember{MemberId: t.Account().Address(), Name: t.Name(), Role: owner}})
+	if err != nil {
 		fmt.Println("Error when add myself info to the thread")
-		return threadId,err
+		return threadId, err
 	}
+
+
+	_, err = t.CreateInstance(threadId, collectionMessage, client.Instances{
+		&ThreadMessage{Sender: t.Account().Address(), Time: time.Now().String(), Content: "123456789"}})
+	if err != nil {
+		fmt.Println("Error when add myself info to the thread")
+		return threadId, err
+	}
+	return threadId, nil
+
 	return threadId,nil
+
 }
 
 func (t *Textile) CreateDB() (thread.ID, error) {
 	id := thread.NewIDV1(thread.Raw, 32)
-	err :=t.threadclient.NewDB(t.ctx,id)
-	if err != nil {
-		return "",err
-	}
-	return id,nil
-}
 
+	//actx, _ := context.WithTimeout(t.ctx, addTimeout)
+	//name1 := "db1"
+	//err :=t.threadclient.NewDB(actx,id,db.WithNewManagedName(name1))
+	err := t.threadclient.NewDB(t.ctx, id)
+
+	//err :=t.threadclient.NewDB(t.ctx,id)
+
+	if err != nil {
+		return "", err
+	}
+	return id, nil
+}
 
 func (t *Textile) ListDBs() (map[thread.ID]*client.DBInfo, error) {
 	return t.threadclient.ListDBs(t.ctx)
 }
 
-func (t *Textile) GetDBInfo(threadIdStr string) (*client.DBInfo,error) {
+func (t *Textile) GetDBInfo(threadIdStr string) (*client.DBInfo, error) {
 	threadId, err := thread2.Decode(threadIdStr)
 	if err != nil {
-		return nil,err
+		return nil, err
 	}
-	dbinfo,err :=t.threadclient.GetDBInfo(t.ctx,threadId)
-	return dbinfo,nil
+	dbinfo, err := t.threadclient.GetDBInfo(t.ctx, threadId)
+	return dbinfo, nil
 }
-
 
 //not used for now
-func (t *Textile) DeleteDB(threadIdStr string) (*client.DBInfo,error) {
-	return nil,nil
+func (t *Textile) DeleteDB(threadIdStr string) (*client.DBInfo, error) {
+	return nil, nil
 }
-
 
 //create a new collection to a DB.
 //And there are two types of collection in a DB: member and message,
 // so we have two methods for collection creation
 func (t *Textile) NewMembersCollection(threadId thread.ID) error {
-	err := t.threadclient.NewCollection(t.ctx,threadId,db.CollectionConfig{Name: collectionMember,Schema: util.SchemaFromSchemaString(schemaMember)})
-	if err!= nil {
+	err := t.threadclient.NewCollection(t.ctx, threadId, db.CollectionConfig{Name: collectionMember, Schema: threadutil.SchemaFromSchemaString(schemaMember)})
+	if err != nil {
 		return err
 	}
 	return nil
 }
 
 func (t *Textile) NewMessagesCollection(threadId thread.ID) error {
-	err := t.threadclient.NewCollection(t.ctx,threadId,db.CollectionConfig{Name: collectionMessage,Schema: util.SchemaFromSchemaString(schemaMessage)})
-	if err!= nil {
+	err := t.threadclient.NewCollection(t.ctx, threadId, db.CollectionConfig{Name: collectionMessage, Schema: threadutil.SchemaFromSchemaString(schemaMessage)})
+	if err != nil {
 		return err
 	}
 	return nil
@@ -225,18 +245,18 @@ func (t *Textile) CreateInstance(id thread.ID, ctype string, instances client.In
 	case collectionMember:
 		instanceIds, err := t.threadclient.Create(t.ctx, id, collectionMember, instances)
 		if err != nil {
-			return nil,err
+			return nil, err
 		}
-		return instanceIds,nil
+		return instanceIds, nil
 	case collectionMessage:
 		instanceIds, err := t.threadclient.Create(t.ctx, id, collectionMessage, instances)
 		fmt.Println("complete addString: ", instanceIds[0])
 		if err != nil {
-			return nil,err
+			return nil, err
 		}
-		return instanceIds,nil
+		return instanceIds, nil
 	default:
-		return nil,nil
+		return nil, nil
 	}
 }
 
@@ -245,24 +265,22 @@ func (t *Textile) CreateInstance(id thread.ID, ctype string, instances client.In
 //ids is gotten from creat instance.
 func (t *Textile) SaveMemberInstance(id thread.ID, ids []string, name string, role string) error {
 	instanceId := ids[0]
-	err := t.threadclient.Save(t.ctx, id, collectionMember, client.Instances{ThreadMember{ID:instanceId,Name:name,Role:role}})
+	err := t.threadclient.Save(t.ctx, id, collectionMember, client.Instances{ThreadMember{ID: instanceId, Name: name, Role: role}})
 	if err != nil {
 		return err
 	}
 	return nil
 }
+
 //Users can modify the message content.
 func (t *Textile) SaveMessageInstance(id thread.ID, ids []string, newContent string) error {
 	instanceId := ids[0]
-	err := t.threadclient.Save(t.ctx, id, collectionMessage, client.Instances{ThreadMessage{ID:instanceId,Content:newContent}})
+	err := t.threadclient.Save(t.ctx, id, collectionMessage, client.Instances{ThreadMessage{ID: instanceId, Content: newContent}})
 	if err != nil {
 		return err
 	}
 	return nil
 }
-
-
-
 
 //add a string to the message collection of a thread
 func (t *Textile) AddThreadDBString(id string, mes string) error {
@@ -270,17 +288,17 @@ func (t *Textile) AddThreadDBString(id string, mes string) error {
 	if err != nil {
 		return err
 	}
-	_,err = t.CreateInstance(threadId, collectionMessage, client.Instances{
-		&ThreadMessage{Sender:t.Account().Address(),Time:time.Now().String(),Content:mes}})
+	_, err = t.CreateInstance(threadId, collectionMessage, client.Instances{
+		&ThreadMessage{Sender: t.Account().Address(), Time: time.Now().String(), Content: mes}})
 	if err != nil {
 		return err
 	}
-	fmt.Println("added message: '",mes,"' to thread: '", id,"'")
+	fmt.Println("added message: '", mes, "' to thread: '", id, "'")
 	return nil
 }
 
 // ThreadClientSubscribe return a channel to listen the update of threads.
-func (t *Textile) ThreadClientSubscribe(id thread.ID) (<-chan client.ListenEvent, error){
+func (t *Textile) ThreadClientSubscribe(id thread.ID) (<-chan client.ListenEvent, error) {
 	if t.threadclient == nil {
 		fmt.Println("threadClient is nil")
 		return nil, errors.New("threadClient is nil")
@@ -291,7 +309,19 @@ func (t *Textile) ThreadClientSubscribe(id thread.ID) (<-chan client.ListenEvent
 		Collection: collectionMessage,
 		//InstanceID: ,
 	}
-	return t.threadclient.Listen(t.ctx, id,  []client.ListenOption{opt})
+	return t.threadclient.Listen(t.ctx, id, []client.ListenOption{opt})
 }
 
+
+//func unmarshalItems(items []interface{}) ([][]byte, error) {
+//	values := make([][]byte, len(items))
+//	for i, item := range items {
+//		bytes, err := json.Marshal(item)
+//		if err != nil {
+//			return nil, err
+//		}
+//		values[i] = bytes
+//	}
+//	return values, nil
+//}
 

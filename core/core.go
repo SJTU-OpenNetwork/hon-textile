@@ -527,7 +527,7 @@ func (t *Textile) Start() error {
 		}
 		//======================================================================
 		//New a thread v2.0 client
-		addr, err := makeServer()
+		addr, err := t.makeServer()
 		if err != nil {
 			log.Errorf(err.Error())
 		}
