@@ -55,7 +55,7 @@ func (a *Api) threadClientAddString(g *gin.Context) {
 		return
 	}
 
-	err = a.Node.AddThreadDBString(threadIdStr,string(data[:]))
+	err = a.Node.ThreadAddMessage(threadIdStr,string(data[:]))
 	if err != nil {
 		return
 	}

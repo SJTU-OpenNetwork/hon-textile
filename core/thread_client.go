@@ -157,7 +157,7 @@ func (t *Textile) CreateGroup() (thread.ID, error) {
 	//Start listening new created thread
 	t.ListenThread2s()
 	//add myself info to the thread collection of member
-	_, err = t.CreateInstance(threadId, collectionMember, client.Instances{
+	_, err = t.CreateMemInstance(threadId,  client.Instances{
 		&ThreadMember{MemberId: t.Account().Address(), Name: t.Name(), Role: owner}})
 	if err != nil {
 		fmt.Println("Error when add myself info to the thread")
@@ -232,25 +232,24 @@ func (t *Textile) NewMessagesCollection(threadId thread.ID) error {
 }
 
 //Create instances objects.
-func (t *Textile) CreateInstance(id thread.ID, ctype string, instances client.Instances) ([]string, error) {
-	switch ctype {
-	case collectionMember:
+func (t *Textile) CreateMemInstance(id thread.ID, instances client.Instances) ([]string, error) {
 		instanceIds, err := t.threadclient.Create(t.ctx, id, collectionMember, instances)
 		if err != nil {
 			return nil, err
 		}
 		return instanceIds, nil
-	case collectionMessage:
+}
+
+func (t *Textile) CreateMesInstance(id thread.ID, instances client.Instances) ([]string, error) {
 		instanceIds, err := t.threadclient.Create(t.ctx, id, collectionMessage, instances)
-		fmt.Println("complete addString: ", instanceIds[0])
+		//fmt.Println("complete addString: ", instanceIds[0])
 		if err != nil {
 			return nil, err
 		}
 		return instanceIds, nil
-	default:
-		return nil, nil
-	}
 }
+
+
 
 //Delete instance. Delete instance Through ID.
 //Assume we get ids from CreateInstance, then we can use ids[0] to delete it.
@@ -300,12 +299,12 @@ func (t *Textile) SaveMessageInstance(id thread.ID, ids []string, newContent str
 }
 
 //add a string to the message collection of a thread
-func (t *Textile) AddThreadDBString(id string, mes string) error {
+func (t *Textile) ThreadAddMessage(id string, mes string) error {
 	threadId, err := thread2.Decode(id)
 	if err != nil {
 		return err
 	}
-	_, err = t.CreateInstance(threadId, collectionMessage, client.Instances{
+	_, err = t.CreateMesInstance(threadId, client.Instances{
 		&ThreadMessage{Sender: t.Account().Address(), Time: time.Now().String(), Content: mes}})
 	if err != nil {
 		return err

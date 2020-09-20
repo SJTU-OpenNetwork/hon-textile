@@ -35,7 +35,7 @@ func (m *Mobile) ListDBs() ([]byte,error) {
 }
 
 func (m *Mobile) ThreadAddStringMessage(id string, mes string) error {
-	return m.node.AddThreadDBString(id,mes)
+	return m.node.ThreadAddMessage(id,mes)
 }
 
 func (m *Mobile) ThreadInvitePeer(threadid string, peerid string) error {
