@@ -45,10 +45,8 @@ import (
 	"github.com/ipfs/go-metrics-interface"
 	"github.com/libp2p/go-libp2p-core/peer"
 	"github.com/libp2p/go-libp2p-core/peerstore"
-	threadutil "github.com/textileio/go-threads/util"
 	logger "github.com/whyrusleeping/go-logging"
 	"go.uber.org/fx"
-	"google.golang.org/grpc"
 	"gopkg.in/natefinch/lumberjack.v2"
 )
 
@@ -491,6 +489,13 @@ func (t *Textile) Start() error {
 		return err
 	}
 
+	// Create thread2Client after the ipfs is started!!
+	t.threadclient, err = NewThread2Client(t.ctx, t.node, t.repoPath)
+	if err != nil {
+		log.Error("Error when create thread2 client: ", err)
+		return err
+	}
+
 	go func() {
 		defer func() {
 			close(t.online)
@@ -525,36 +530,7 @@ func (t *Textile) Start() error {
 				t.startCafeApi(t.config.Addresses.CafeAPI)
 			}()
 		}
-		//======================================================================
-		//New a thread v2.0 client
-		addr, err := t.makeServer()
-		if err != nil {
-			log.Errorf(err.Error())
-		}
 
-		//fmt.Println("addr make from makeserver: ", addr.String())
-		//fmt.Println("addr from t.account.Address: ", t.MySwarmAddress())
-		target, err := threadutil.TCPAddrFromMultiAddr(addr)
-		if err != nil {
-			log.Errorf(err.Error())
-		}
-		threadClient, err := client.NewClient(target, grpc.WithInsecure())
-		if err != nil {
-			log.Errorf(err.Error())
-		}
-		t.threadclient = threadClient
-
-		//start listening to all DB
-		//t.ListenThread2s()
-		//======================================================================
-		// Create and start threadService2
-		//thread2, err := NewThreadService2(t.ctx, t.Ipfs(), t.repoPath)
-		//if err != nil {
-		//	fmt.Println("Error when start go-threads: ", err)
-		//	log.Error("Error when start go-threads: ", err)
-		//} else {
-		//	t.thread2 = thread2
-		//}
 		err = ipfs.PrintSwarmAddrs(t.node)
 		if err != nil {
 			log.Errorf(err.Error())
