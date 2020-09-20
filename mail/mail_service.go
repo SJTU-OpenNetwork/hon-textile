@@ -61,7 +61,7 @@ func (h *MailService) HandleStream(_ *pb.Envelope, _ peer.ID) (chan *pb.Envelope
 
 // SendMessage sends a message to a peer.
 func (h *MailService) SendMessage(ctx context.Context, peerID string, env *pb.Envelope) error {
-	return h.service.SendMessage(ctx, peerID, env)
+	//return h.service.SendMessage(ctx, peerID, env)
 
 	connected, err := ipfs.SwarmConnected(h.service.Node(), peerID)
 	if err != nil {
