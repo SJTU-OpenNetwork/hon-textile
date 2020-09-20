@@ -585,8 +585,8 @@ func (t *Textile) Start() error {
 	if t.config.IsAuto {
 		log.Info("This is an automatic node")
 	}
-
-	return t.addAccountThread()
+	return nil
+	//return t.addAccountThread()
 }
 
 type loggingWaitGroup struct {
