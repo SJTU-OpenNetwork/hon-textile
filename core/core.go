@@ -599,6 +599,7 @@ func (t *Textile) CreateTCPPool() {
 }
 
 func (t *Textile) watchMailBox() {
+	fmt.Println("watch mail box")
 	for msg := range t.mail.Inbox {
 		fmt.Println("New message arrive:", msg)
 		log.Infof("New message arrive:%s", msg)
