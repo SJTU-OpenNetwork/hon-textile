@@ -560,6 +560,7 @@ func (t *Textile) Start() error {
 		t.variables.SwarmAddress = t.GetSwarmAddress(t.node.Identity.Pretty())
 	}()
 
+	fmt.Println("====================================")
 	for _, mod := range t.datastore.Threads().List().Items {
 		_, err = t.loadThread(mod)
 		if err != nil {

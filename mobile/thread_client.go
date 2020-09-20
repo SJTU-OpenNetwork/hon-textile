@@ -1,6 +1,7 @@
 package mobile
 
 import (
+	"encoding/json"
 )
 
 func (m *Mobile) CreateGroup() (string,error) {
@@ -21,6 +22,18 @@ func (m *Mobile) CreateDB() (string,error) {
 	return threadIdStr,nil
 }
 
+func (m *Mobile) ListDBs() ([]byte,error) {
+	dblist,err := m.node.ListDBs()
+	if err != nil{
+		return nil,err
+	}
+	bytes,err := json.Marshal(dblist)
+	if err != nil{
+		return nil,err
+	}
+	return bytes,nil
+}
+
 func (m *Mobile) ThreadAddStringMessage(id string, mes string) error {
 	return m.node.AddThreadDBString(id,mes)
 }
@@ -28,6 +41,7 @@ func (m *Mobile) ThreadAddStringMessage(id string, mes string) error {
 func (m *Mobile) ThreadInvitePeer(threadid string, peerid string) error {
 	return m.node.Invite(threadid,peerid)
 }
+
 //func (m *Mobile) ListDBs() ([]byte,error) {
 //	dblist,err := m.node.ListDBs()
 //	if err != nil{
