@@ -182,8 +182,6 @@ func (t *Textile) CreateGroup() (thread.ID, error) {
 	}
 	return threadId, nil
 
-	return threadId,nil
-
 }
 
 func (t *Textile) CreateDB() (thread.ID, error) {

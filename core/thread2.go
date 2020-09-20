@@ -1,14 +1,35 @@
 package core
 
 import (
+	"github.com/SJTU-OpenNetwork/hon-textile/util"
+	ipfslite "github.com/hsanjuan/ipfs-lite"
+	ma "github.com/multiformats/go-multiaddr"
 	"github.com/textileio/go-threads/api/client"
+	newthreadspb "github.com/textileio/go-threads/api/pb"
+	"github.com/textileio/go-threads/core/app"
+	"github.com/textileio/go-threads/core/logstore"
 	"github.com/textileio/go-threads/core/thread"
+	"github.com/textileio/go-threads/logstore/lstoreds"
+	thread2Net "github.com/textileio/go-threads/net"
+	threadutil "github.com/textileio/go-threads/util"
+	"google.golang.org/grpc"
+	"net"
+	"os"
+	"time"
+	"fmt"
+	"path"
+	"context"
+	ipfscore "github.com/ipfs/go-ipfs/core"
+	thread2Client "github.com/textileio/go-threads/api/client"
+	thread2Api "github.com/textileio/go-threads/api"
+	"github.com/phayes/freeport"
+	"errors"
 )
 
 //"github.com/textileio/go-threads/cbor"
 
 // Use go-threads (https://github.com/textileio/go-threads) to cover the functionality of thread.
-/*
+
 const msgTimeout = time.Second * 10
 const addTimeout = time.Second * 10
 
@@ -20,26 +41,25 @@ func (e *ErrThreadNoAuth) Error() string {
 	return fmt.Sprintf("have no privilege to access thread %s", e.threadId)
 }
 
-func init() {
-	fmt.Println("Register XmlMsg to cbor.")
-	cbornode.RegisterCborType(XmlMsg{})
-	fmt.Println("Register success.")
-}
 
-type ThreadService2 struct {
-	net   app.Net
-	store logstore.Logstore
-}
-
-type Thread2Record struct {
-	ThreadId string
-	LogId    string
-	Value    []byte
-}
-
+// NewThread2Client create the thread2 client from the running ipfs node.
+// It does following things:
+//	- Create logstrore for thread2.
+//	- Create thread2.net from the current libp2p host.
+//	- Create thread2.client from the thread2.net.
 // Note:
 //	- repoPath must be an existing directory.
-func NewThreadService2(ctx context.Context, node *ipfscore.IpfsNode, repoPath string) (*ThreadService2, error) {
+//	- Make sure the ipfs node is already online.
+func NewThread2Client(ctx context.Context, node *ipfscore.IpfsNode, repoPath string) (*thread2Client.Client, error) {
+	// Create repo for thread2
+	threadRepoPath := path.Join(repoPath, "threadsClient")
+	if !util.DirectoryExist(threadRepoPath) {
+		if err := os.Mkdir(threadRepoPath, os.ModePerm); err != nil {
+			log.Error("Error when create repo path for go-threads: ", err)
+			return nil, err
+		}
+	}
+
 	// Create logStore
 	logPath := path.Join(repoPath, "threadsLog")
 	if !util.DirectoryExist(logPath) {
@@ -48,6 +68,8 @@ func NewThreadService2(ctx context.Context, node *ipfscore.IpfsNode, repoPath st
 			return nil, err
 		}
 	}
+
+	// Create threads.net
 	tmpstore, err := ipfslite.BadgerDatastore(logPath)
 	if err != nil {
 		log.Error("Error when create ipfslite badger datastore: ", err)
@@ -58,13 +80,13 @@ func NewThreadService2(ctx context.Context, node *ipfscore.IpfsNode, repoPath st
 		log.Error("Error when create tmpstore from ipfslite badger datastore: ", err)
 		return nil, err
 	}
-	tmpNet, err := net.NewNetwork(
+	tmpNet, err := thread2Net.NewNetwork(
 		ctx,
 		node.PeerHost,
 		node.Blockstore,
 		node.DAG,
 		tstore,
-		net.Config{
+		thread2Net.Config{
 			Debug: true,
 			//PubSub: true,
 		})
@@ -72,172 +94,50 @@ func NewThreadService2(ctx context.Context, node *ipfscore.IpfsNode, repoPath st
 		log.Error("Error when create net.Network: ", err)
 		return nil, err
 	}
-	//cbornode.RegisterCborType(make([]byte,0))
-	return &ThreadService2{net: tmpNet, store: tstore}, nil
-}
 
-func (t *Textile) UnmarshalRecord(rec netcore.ThreadRecord) (*Thread2Record, error) {
-	info, err := t.thread2.net.GetThread(t.ctx, rec.ThreadID())
+	threadService, err := thread2Api.NewService(tmpNet, thread2Api.Config{
+		RepoPath: threadRepoPath,
+		Debug:    true,
+	})
 	if err != nil {
-		log.Error("Error when get thread: ", err)
+		log.Error("Error when create thread2 service: ", err)
 		return nil, err
 	}
-	if !info.Key.CanRead() {
-		return nil, &ErrThreadNoAuth{threadId: info.ID.String()}
-	}
-	tmpMsg := new(XmlMsg)
-	// TODO:
-	//	 This only works for plaintext.
-	//err = cbornode.DecodeInto(rec.Value().RawData(), &tmpMsg)
-	//if err != nil {
-	//	log.Error("Error when decode record into msg: ", err)
-	//	return nil, err
-	//}
-	//rec.Value().RawData()
 
-	event, err := cbor.EventFromRecord(t.ctx, t.thread2.net, rec.Value())
+	// Open server for threadService
+	port, err := freeport.GetFreePort()
 	if err != nil {
-		log.Error("Error when get event from record: ", err)
 		return nil, err
 	}
-	node, err := event.GetBody(t.ctx, t.thread2.net, info.Key.Read())
+	//our port default is 4001,so we dont need freeport.GetFreePort(), but it seems that thread port is different with ipfs.
+	addr := threadutil.MustParseAddr(fmt.Sprintf("/ip4/127.0.0.1/tcp/%d", port))
+	target, err := threadutil.TCPAddrFromMultiAddr(addr)
 	if err != nil {
-		log.Error("Error when get body from event: ", err)
 		return nil, err
 	}
-	err = cbornode.DecodeInto(node.RawData(), tmpMsg)
+	server := grpc.NewServer()
+	listener, err := net.Listen("tcp", target)
 	if err != nil {
-		log.Error("Error when decode data into msg: ", err)
 		return nil, err
 	}
-	fmt.Println("Decode result: ", string(tmpMsg.Data))
-	return &Thread2Record{
-		Value:    tmpMsg.Data,
-		LogId:    rec.LogID().Pretty(),
-		ThreadId: rec.ThreadID().String(),
-	}, nil
-}
 
-func (t *Textile) Thread2List() (thread.IDSlice, error) {
-	fmt.Println("Thread2List")
-	if t.thread2 == nil {
-		fmt.Println("thread2 is nil!")
-		return nil, nil
-	}
-	if t.thread2.store == nil {
-		fmt.Println("thread2.store is nil!!")
-		return nil, nil
-	}
-	return t.thread2.store.Threads()
-}
-
-// Thread2CreateRaw create a new thread with random id.
-// "raw" means the thread has no access control.
-// TODO:
-//		Implement another method Thread2CreateAccess with access control.
-//		Implement a method that can create thread and add meta as first node on thread.
-//		Meta may contains name, access key, create time.
-func (t *Textile) Thread2CreateRaw() (thread.Info, error) {
-	return t.thread2.net.CreateThread(t.ctx, thread.NewIDV1(thread.Raw, 32))
-}
-
-//what is the function of this method?
-// Thread2AddThread add an existing thread.
-// Note that this method would not fetch the history of thread.
-// You may need to call net.PullThread later.
-func (t *Textile) Thread2AddThread(multiaddr ma.Multiaddr) (thread.Info, error) {
-	actx, _ := context.WithTimeout(t.ctx, addTimeout)
-	return t.thread2.net.AddThread(actx, multiaddr)
-}
-
-// Thread2AddBytes add bytes to the thread corresponding with id.
-func (t *Textile) Thread2AddBytes(id thread.ID, data []byte) error {
-	fmt.Println(string(data))
-	body, err := cbornode.WrapObject(XmlMsg{Data: data}, mh.SHA2_256, -1)
-	if err != nil {
-		log.Error("Error when wrap node object: ", err)
-		return err
-	}
-
-	//fmt.Println("Create node for record:\n", body.String())
-
-	mctx, cancel := context.WithTimeout(t.ctx, msgTimeout)
-	defer cancel()
-	if _, err := t.thread2.net.CreateRecord(mctx, id, body); err != nil {
-		return err
-	}
-	return nil
-}
-
-// Thread2Subscribe return a channel to listen the update of threads.
-func (t *Textile) Thread2Subscribe() (<-chan netcore.ThreadRecord, error) {
-	if t.thread2 == nil {
-		fmt.Println("thread2 is nil")
-		return nil, errors.New("thread2 is nil")
-	}
-	return t.thread2.net.Subscribe(t.ctx)
-}
-
-func (t *Textile) Thread2SubscribeHandler() error {
-	ch, err := t.thread2.net.Subscribe(t.ctx)
-	if err != nil {
-		return err
-	}
+	// Connect server with service.
+	newthreadspb.RegisterAPIServer(server, threadService)
 	go func() {
-		var err error
-		<-t.online
-		//msg := new(XmlMsg)
-		var threadRecord *Thread2Record
-		for record := range ch {
-			threadRecord, err = t.UnmarshalRecord(record)
-			if err != nil {
-				log.Error("Error when unmarshal record: ", err)
-				continue
-			}
-			fmt.Println(threadRecord.Value)
+		if err := server.Serve(listener); err != nil && !errors.Is(err, grpc.ErrServerStopped) {
+			log.Fatalf("serve error: %v", err)
 		}
 	}()
-	return nil
-}
 
-*/
-
-type Thread2UpdateMessage struct {
-	ThreadID string
-	Event    client.ListenEvent
-}
-
-// Listen all thread2s
-func (t *Textile) ListenThread2s() {
-	dbs, err := t.threadclient.ListDBs(t.ctx)
-	if err != nil{
-		log.Errorf("error when list DBs",err)
+	// Open client
+	threadClient, err := client.NewClient(target, grpc.WithInsecure())
+	if err != nil {
+		log.Error("Error when create client: ", err)
+		return nil, err
 	}
-	for dbID, _ := range dbs {
-		//threadId, err := thread.Decode(dbID)
-		//if err != nil {
-		//	log.Errorf("error when Decode threadID", err)
-		//}
-		Ch, err := t.ListenOneThread2(dbID.String())
-		if err != nil {
-			log.Errorf("error when listen one thread2", err)
-		}
-		go func() {
-			for {
-				select {
-				case val, ok := <-Ch:
-					if ok {
-						//fmt.Println("Received update from thread")
-						t.thread2Updates.Send(&Thread2UpdateMessage{
-							ThreadID: dbID.String(),
-							Event:    val,
-						})
-					}
-				}
-			}
-		}()
-	}
+	return threadClient, nil
 }
+
 
 func (t *Textile) ListenOneThread2(dbID string) (<-chan client.ListenEvent, error) {
 	threadId, err := thread.Decode(dbID)
