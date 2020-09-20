@@ -80,16 +80,16 @@ func (t *Textile) handleInvite(env *pb.Envelope) error {
 	//Start listening new created thread
 	t.ListenThread2s()
 	//add myself info to the thread collection of member
-	threadId, err := thread2.Decode(inform.ThreadId)
-	if err != nil {
-		fmt.Println("error when decode string to threadid")
-		return err
-	}
-	_, err = t.CreateMemInstance(threadId,  client.Instances{
-		ThreadMember{MemberId: t.Account().Address(), Name: t.Name(), Role: member}})
-	if err != nil {
-		fmt.Println("Error when add myself info to the thread, ",err)
-		return err
-	}
+	//threadId, err := thread2.Decode(inform.ThreadId)
+	//if err != nil {
+	//	fmt.Println("error when decode string to threadid")
+	//	return err
+	//}
+	//_, err = t.CreateMemInstance(threadId,  client.Instances{
+	//	ThreadMember{MemberId: t.Account().Address(), Name: t.Name(), Role: member}})
+	//if err != nil {
+	//	fmt.Println("Error when add myself info to the thread, ",err)
+	//	return err
+	//}
 	return nil
 }
