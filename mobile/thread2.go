@@ -2,7 +2,7 @@ package mobile
 
 import (
 	"fmt"
-
+	"encoding/json"
 	thread2 "github.com/textileio/go-threads/core/thread"
 )
 
@@ -74,15 +74,61 @@ func Thread2Subscribe(handler Thread2Handler) {
 
 //In backend, we will not use pb.StreamMeta, we directly receive the []byte.
 // [DEPRECATED]
-func (m *Mobile) Thread2_AddBytes(threadid string, bytes []byte) error {
-	threadId, err := thread2.Decode(threadid)
-	if err != nil {
-		fmt.Println("Error when thread2 decode string to thread.ID")
-		return err
+//func (m *Mobile) Thread2_AddBytes(threadid string, bytes []byte) error {
+//	threadId, err := thread2.Decode(threadid)
+//	if err != nil {
+//		fmt.Println("Error when thread2 decode string to thread.ID")
+//		return err
+//	}
+//	err = m.node.Thread2AddBytes(threadId, bytes)
+//	if err != nil {
+//		return err
+//	}
+//	return nil
+//}
+
+func (m *Mobile) CreateGroup() (string,error) {
+	threadid, err := m.node.CreateGroup()
+	if err != nil{
+		return "",err
 	}
-	err = m.node.Thread2AddBytes(threadId, bytes)
-	if err != nil {
-		return err
+	threadIdStr := threadid.String()
+	return threadIdStr,nil
+}
+
+func (m *Mobile) CreateDB() (string,error) {
+	threadid, err := m.node.CreateDB()
+	if err != nil{
+		return "",err
 	}
-	return nil
+	threadIdStr := threadid.String()
+	return threadIdStr,nil
+}
+
+func (m *Mobile) ListDBs() ([]byte,error) {
+	dblist,err := m.node.ListDBs()
+	if err != nil{
+		return nil,err
+	}
+	bytes,err := json.Marshal(dblist)
+	if err != nil{
+		return nil,err
+	}
+	return bytes,nil
+}
+
+func (m *Mobile) ThreadAddStringMessage(threadId string, mes string) error {
+	return m.node.ThreadAddMessage(threadId,mes)
+}
+
+func (m *Mobile) ThreadInvitePeer(threadId string, peerid string) error {
+	return m.node.Invite(threadId,peerid)
+}
+
+func (m *Mobile) ThreadDeleteMessage(threadId string, index string) error {
+	return m.node.DeleteInstance(threadId, "GroupMessage", []string{index} )
+}
+
+func (m *Mobile) ThreadDeleteMember(threadId string, index string) error {
+	return m.node.DeleteInstance(threadId, "GroupMember", []string{index})
 }

@@ -4,8 +4,10 @@ import (
 	"fmt"
 	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 	"github.com/golang/protobuf/ptypes"
+	"github.com/textileio/go-threads/api/client"
 	"github.com/textileio/go-threads/core/thread"
 	ma "github.com/multiformats/go-multiaddr"
+	thread2 "github.com/textileio/go-threads/core/thread"
 )
 
 // Invite peer to a thread
@@ -64,6 +66,21 @@ func (t *Textile) handleInvite(env *pb.Envelope) error {
 	err = t.threadclient.NewDBFromAddr(t.ctx, dbAddr , dbkey)
 	if err!= nil {
 		fmt.Println("failed to create new db from address")
+		return err
+	}
+
+	//add myself to member collection
+	//Start listening new created thread
+	t.ListenThread2s()
+	//add myself info to the thread collection of member
+	threadId, err := thread2.Decode(inform.ThreadId)
+	if err != nil {
+		return err
+	}
+	_, err = t.CreateMemInstance(threadId,  client.Instances{
+		&ThreadMember{MemberId: t.Account().Address(), Name: t.Name(), Role: member}})
+	if err != nil {
+		fmt.Println("Error when add myself info to the thread")
 		return err
 	}
 	return nil
