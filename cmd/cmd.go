@@ -1086,8 +1086,8 @@ The response contains a base58 encoded version of the random bytes token.`).Alia
 	}
 
 	threadClientAddPeer := threadClientCmd.Command("addPeer", "Add a peer to my thread DB.")
-	threadClientAddPeerThreadId := threadClientAddString.Arg("threadId", "thread Id").Required().String()
-	threadClientAddPeerPid := threadClientAddString.Arg("peerId", "peer you want to add to the thread").Required().String()
+	threadClientAddPeerThreadId := threadClientAddPeer.Arg("threadId", "thread Id").Required().String()
+	threadClientAddPeerPid := threadClientAddPeer.Arg("peerId", "peer you want to add to the thread").Required().String()
 	cmds[threadClientAddPeer.FullCommand()] = func() error {
 		return ThreadClientAddPeer(*threadClientAddPeerThreadId, *threadClientAddPeerPid)
 	}

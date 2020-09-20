@@ -492,6 +492,7 @@ func (t *Textile) Start() error {
 	// Create thread2Client after the ipfs is started!!
 	t.threadclient, err = NewThread2Client(t.ctx, t.node, t.repoPath)
 	if err != nil {
+		fmt.Println("Error when create thread2 client")
 		log.Error("Error when create thread2 client: ", err)
 		return err
 	}
@@ -560,8 +561,9 @@ func (t *Textile) Start() error {
 		t.variables.SwarmAddress = t.GetSwarmAddress(t.node.Identity.Pretty())
 	}()
 
-	fmt.Println("====================================")
+
 	for _, mod := range t.datastore.Threads().List().Items {
+		fmt.Println("==========",mod.Id)
 		_, err = t.loadThread(mod)
 		if err != nil {
 			if err == ErrThreadLoaded {
