@@ -86,9 +86,9 @@ func (t *Textile) handleInvite(env *pb.Envelope) error {
 		return err
 	}
 	_, err = t.CreateMemInstance(threadId,  client.Instances{
-		&ThreadMember{MemberId: t.Account().Address(), Name: t.Name(), Role: member}})
+		ThreadMember{MemberId: t.Account().Address(), Name: t.Name(), Role: member}})
 	if err != nil {
-		fmt.Println("Error when add myself info to the thread")
+		fmt.Println("Error when add myself info to the thread, ",err)
 		return err
 	}
 	return nil
