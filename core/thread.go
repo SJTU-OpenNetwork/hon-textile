@@ -113,6 +113,7 @@ type Thread struct {
 // NewThread create a new Thread from a repo model and config
 func NewThread(model *pb.Thread, conf *ThreadConfig) (*Thread, error) {
 	sk, err := ipfs.UnmarshalPrivateKey(model.Sk)
+	fmt.Println("===============================sk = ",sk)
 	if err != nil {
 		return nil, err
 	}
