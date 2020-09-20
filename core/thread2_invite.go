@@ -95,7 +95,7 @@ func (t *Textile) handleInvite(env *pb.Envelope) error {
 
 	//add myself to member collection
 	//Start listening new created thread
-	t.ListenThread2s()
+	//t.ListenThread2s()
 	//add myself info to the thread collection of member
 
 	_, err = t.CreateMemInstance(threadId,  client.Instances{
