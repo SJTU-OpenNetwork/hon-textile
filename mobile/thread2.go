@@ -2,8 +2,33 @@ package mobile
 
 import (
 	"fmt"
+
 	thread2 "github.com/textileio/go-threads/core/thread"
 )
+
+func (m *Mobile) Thread2AddMessage(threadID string, msg []byte) error {
+	return m.node.ThreadAddMessage(threadID, string(msg))
+}
+
+func (m *Mobile) ThreadRemoveMessage(threadID string, msgID []byte) error {
+	return nil
+}
+
+func (m *Mobile) ThreadAddPeer(threadID string, peer []byte) error {
+	return nil
+}
+
+func (m *Mobile) TheadUpdatePeer(threadID string, peer []byte) error {
+	return nil
+}
+
+func (m *Mobile) TheradRemovePeer(threadID string, peerID []byte) error {
+	return nil
+}
+
+func (m *Mobile) ThreadUpdateGroupInfo(threadID string, name []byte, des []byte) error {
+	return nil
+}
 
 /*
  Class xxxx implements Thread2Handler {
@@ -12,7 +37,7 @@ import (
 		xxxxxxx
 	}
 }
- */
+*/
 type Thread2Handler interface {
 	HandleMsg(threadId string, bytes []byte)
 }
@@ -48,6 +73,7 @@ func Thread2Subscribe(handler Thread2Handler) {
 }
 
 //In backend, we will not use pb.StreamMeta, we directly receive the []byte.
+// [DEPRECATED]
 func (m *Mobile) Thread2_AddBytes(threadid string, bytes []byte) error {
 	threadId, err := thread2.Decode(threadid)
 	if err != nil {
