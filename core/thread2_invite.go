@@ -64,7 +64,7 @@ func (t *Textile) handleInvite(env *pb.Envelope) error {
 		fmt.Println("error when keyfromstring, ",err)
 		return err
 	}
-	dbAddr,err := ma.NewMultiaddr(inform.DbKey)
+	dbAddr,err := ma.NewMultiaddr(inform.DbAddr)
 	if err != nil {
 		fmt.Println("error when NewMultiaddr, ",err)
 		return err
