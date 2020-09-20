@@ -43,22 +43,6 @@ func (a *Api) threadClientListDB(g *gin.Context) {
 }
 
 func (a *Api) threadClientAddString(g *gin.Context) {
-	//opts, err := a.readOpts(g)
-	//if err != nil {
-	//	a.abort500(g, err)
-	//	return
-	//}
-	//threadIdStr, ok := opts["threadId"]
-	//if !ok {
-	//	g.String(http.StatusBadRequest, "missing threadId")
-	//	return
-	//}
-	//text, ok := opts["text"]
-	//if !ok {
-	//	g.String(http.StatusBadRequest, "missing message")
-	//	return
-	//}
-
 	threadIdStr :=  g.Param("threadId")
 	if threadIdStr == "" {
 		g.String(http.StatusBadRequest, "threadId missed")
@@ -74,5 +58,28 @@ func (a *Api) threadClientAddString(g *gin.Context) {
 	err = a.Node.AddThreadDBString(threadIdStr,string(data[:]))
 	if err != nil {
 		return
+	}
+}
+
+func (a *Api) threadClientAddPeer(g *gin.Context) {
+	opts, err := a.readOpts(g)
+	if err != nil {
+		a.abort500(g, err)
+		return
+	}
+	threadIdStr, ok := opts["threadId"]
+	if !ok {
+		g.String(http.StatusBadRequest, "missing threadId")
+		return
+	}
+	pid, ok := opts["peerId"]
+	if !ok {
+		g.String(http.StatusBadRequest, "missing peer id")
+		return
+	}
+
+	err = a.Node.Invite(threadIdStr,pid)
+	if err!= nil {
+		fmt.Println("error when invite peer")
 	}
 }

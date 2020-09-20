@@ -18,7 +18,7 @@ require (
 	github.com/gin-gonic/gin v1.3.0
 	github.com/go-errors/errors v1.0.1
 	github.com/gogo/protobuf v1.3.1
-	github.com/golang/protobuf v1.3.3
+	github.com/golang/protobuf v1.4.2
 	github.com/hsanjuan/ipfs-lite v1.1.11
 	github.com/ipfs/go-cid v0.0.5
 	github.com/ipfs/go-datastore v0.4.4

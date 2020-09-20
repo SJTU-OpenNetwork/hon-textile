@@ -395,6 +395,7 @@ func (a *Api) Run() {
 			threadClient.POST("/addDB",a.threadClientAddDB)
 			threadClient.POST("/listDB",a.threadClientListDB)
 			threadClient.PUT("/addString/:threadId", a.threadClientAddString)
+			threadClient.POST("/addPeer",a.threadClientAddPeer)
 		}
 	}
 

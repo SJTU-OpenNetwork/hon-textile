@@ -201,6 +201,9 @@ func (t *Textile) GetDBInfo(threadIdStr string) (*client.DBInfo, error) {
 		return nil, err
 	}
 	dbinfo, err := t.threadclient.GetDBInfo(t.ctx, threadId)
+	if err!= nil {
+		return nil,err
+	}
 	return dbinfo, nil
 }
 

@@ -80,6 +80,8 @@ message Message {
         RECORD_NOTIFICATION = 1011;
 
         STREAM_PUSH_INFORM = 1012;
+
+        THREAD2_INVITE = 1013;
     }
 }
 

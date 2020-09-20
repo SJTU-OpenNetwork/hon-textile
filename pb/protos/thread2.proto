@@ -1,0 +1,8 @@
+syntax = "proto3";
+option java_package = "sjtu.opennet.textilepb";
+option go_package = "pb";
+
+message Thread2Invite {
+    string peerId = 1;
+    string threadId = 2;
+}

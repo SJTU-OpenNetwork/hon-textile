@@ -599,6 +599,12 @@ func (t *Textile) watchMailBox() {
 		log.Infof("New message arrive:%s", msg)
 		// case thread invite:
 		//      t.handleInvite(msg)
+		if (msg.Message.Type == pb.Message_THREAD2_INVITE){
+			err := t.handleInvite(msg)
+			if err!= nil {
+				fmt.Println("error when handle thread2 invite")
+			}
+		}
 	}
 }
 

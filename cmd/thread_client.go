@@ -41,3 +41,13 @@ func ThreadClientAddString(threadId string, text string) error {
 	output(res)
 	return nil
 }
+
+func ThreadClientAddPeer(threadId string, pid string) error {
+	cmdOpt := map[string]string{"threadId": threadId, "peerId": pid}
+	res, err := executeStringCmd(http.MethodPost, "threadClient/addPeer", params{opts:cmdOpt})
+	if err != nil {
+		return err
+	}
+	output(res)
+	return nil
+}
