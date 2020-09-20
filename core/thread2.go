@@ -138,7 +138,42 @@ func NewThread2Client(ctx context.Context, node *ipfscore.IpfsNode, repoPath str
 	return threadClient, nil
 }
 
+type Thread2UpdateMessage struct {
+	ThreadID string
+	Event    client.ListenEvent
+}
 
+// Listen all thread2s
+func (t *Textile) ListenThread2s() {
+	dbs, err := t.threadclient.ListDBs(t.ctx)
+	if err != nil {
+		log.Errorf("error when list DBs", err)
+	}
+	for dbID, _ := range dbs {
+		//threadId, err := thread.Decode(dbID)
+		//if err != nil {
+		//	log.Errorf("error when Decode threadID", err)
+		//}
+		Ch, err := t.ListenOneThread2(dbID.String())
+		if err != nil {
+			log.Errorf("error when listen one thread2", err)
+		}
+		go func() {
+			for {
+				select {
+				case val, ok := <-Ch:
+					if ok {
+						//fmt.Println("Received update from thread")
+						t.thread2Updates.Send(&Thread2UpdateMessage{
+							ThreadID: dbID.String(),
+							Event:    val,
+						})
+					}
+				}
+			}
+		}()
+	}
+}
 func (t *Textile) ListenOneThread2(dbID string) (<-chan client.ListenEvent, error) {
 	threadId, err := thread.Decode(dbID)
 	if err != nil {
