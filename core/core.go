@@ -563,6 +563,7 @@ func (t *Textile) Start() error {
 
 
 	for _, mod := range t.datastore.Threads().List().Items {
+		fmt.Println("==========",t.datastore.Threads().Count())
 		fmt.Println("==========",mod.Id)
 		_, err = t.loadThread(mod)
 		if err != nil {
