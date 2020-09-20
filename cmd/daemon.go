@@ -380,7 +380,6 @@ func startNode(serveDocs bool) error {
 					}
 
 					instance := update.Event.Action.Instance
-
 					fmt.Println("Received from thread2,value is ",instance)
 				}
 
