@@ -2,10 +2,12 @@ package mail
 
 import (
 	"context"
-	"github.com/golang/protobuf/proto"
+
+	"github.com/SJTU-OpenNetwork/hon-textile/ipfs"
 	"github.com/SJTU-OpenNetwork/hon-textile/keypair"
 	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 	"github.com/SJTU-OpenNetwork/hon-textile/service"
+	"github.com/golang/protobuf/proto"
 	"github.com/ipfs/go-ipfs/core"
 	logging "github.com/ipfs/go-log"
 	"github.com/libp2p/go-libp2p-core/protocol"
@@ -14,7 +16,7 @@ import (
 
 const mailServiceProtocol = protocol.ID("/hon-textile/mail/1.0.0")
 
-var log = logging.Logger("stream")
+var log = logging.Logger("mailbox")
 
 type MailService struct {
 	service *service.Service
@@ -60,6 +62,22 @@ func (h *MailService) HandleStream(_ *pb.Envelope, _ peer.ID) (chan *pb.Envelope
 // SendMessage sends a message to a peer.
 func (h *MailService) SendMessage(ctx context.Context, peerID string, env *pb.Envelope) error {
 	return h.service.SendMessage(ctx, peerID, env)
+
+	connected, err := ipfs.SwarmConnected(h.service.Node(), peerID)
+	if err != nil {
+		return err
+	}
+	if connected {
+		err = h.service.SendMessage(nil, peerID, env)
+	} else {
+		topic := string(mailServiceProtocol) + "/" + peerID
+		payload, err := proto.Marshal(env)
+		if err != nil {
+			return err
+		}
+		err = ipfs.Publish(h.service.Node(), topic, payload)
+	}
+	return err
 }
 
 // Handle is called by the underlying service handler method
