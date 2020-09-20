@@ -54,16 +54,19 @@ func (t *Textile) handleInvite(env *pb.Envelope) error {
 	err := ptypes.UnmarshalAny(env.Message.Payload, inform);
 	if err != nil {
 		//log.Error(err);
+		fmt.Println("error when unmarshal, ",err)
 		return err
 	}
 	//get db info
 
 	dbkey,err := thread.KeyFromString(inform.DbKey)
 	if err != nil {
+		fmt.Println("error when keyfromstring, ",err)
 		return err
 	}
 	dbAddr,err := ma.NewMultiaddr(inform.DbKey)
 	if err != nil {
+		fmt.Println("error when NewMultiaddr, ",err)
 		return err
 	}
 	//newdbfromaddr
@@ -79,6 +82,7 @@ func (t *Textile) handleInvite(env *pb.Envelope) error {
 	//add myself info to the thread collection of member
 	threadId, err := thread2.Decode(inform.ThreadId)
 	if err != nil {
+		fmt.Println("error when decode string to threadid")
 		return err
 	}
 	_, err = t.CreateMemInstance(threadId,  client.Instances{
