@@ -1079,6 +1079,7 @@ The response contains a base58 encoded version of the random bytes token.`).Alia
 	threadClientListDBCmd := threadClientCmd.Command("listDB","List all active DBs.")
 	cmds[threadClientListDBCmd.FullCommand()] =  ThreadClientListDB
 
+	//message 的增 删
 	threadClientAddString := threadClientCmd.Command("addString", "Add a string instance to thread DB.")
 	threadClientAddStringThreadId := threadClientAddString.Arg("thread", "thread Id").Required().String()
 	threadClientAddStringText := threadClientAddString.Arg("text", "text message you want to add to the thread").Required().String()
@@ -1086,12 +1087,58 @@ The response contains a base58 encoded version of the random bytes token.`).Alia
 		return ThreadClientAddString(*threadClientAddStringThreadId, *threadClientAddStringText)
 	}
 
+	threadClientRemoveMessage := threadClientCmd.Command("delMessage", "Delete a string instance in thread DB.")
+	threadClientRemoveMessageThreadId := threadClientRemoveMessage.Arg("thread", "thread Id").Required().String()
+	threadClientRemoveMessageInstanceId := threadClientRemoveMessage.Arg("instanceId", "message instance id you want to delete in the thread").Required().String()
+	cmds[threadClientRemoveMessage.FullCommand()] = func() error {
+		return ThreadClientRemoveMessage(*threadClientRemoveMessageThreadId, *threadClientRemoveMessageInstanceId)
+	}
+
+	//member 的 增 删 改 查
 	threadClientAddPeer := threadClientCmd.Command("addPeer", "Add a peer to my thread DB.")
 	threadClientAddPeerThreadId := threadClientAddPeer.Arg("threadId", "thread Id").Required().String()
 	threadClientAddPeerPid := threadClientAddPeer.Arg("peerId", "peer you want to add to the thread").Required().String()
 	cmds[threadClientAddPeer.FullCommand()] = func() error {
 		return ThreadClientAddPeer(*threadClientAddPeerThreadId, *threadClientAddPeerPid)
 	}
+
+	threadClientRemovePeer := threadClientCmd.Command("removePeer", "Remove a peer from thread DB.")
+	threadClientRemovePeerThreadId := threadClientRemovePeer.Arg("threadId", "thread Id").Required().String()
+	threadClientRemovePeerPid := threadClientRemovePeer.Arg("peerId", "peer you want to remove from the thread").Required().String()
+	cmds[threadClientRemovePeer.FullCommand()] = func() error {
+		return ThreadClientRemovePeer(*threadClientRemovePeerThreadId, *threadClientRemovePeerPid)
+	}
+
+	threadClientModiPeer := threadClientCmd.Command("modPeer", "Modify a peer's role in thread DB.")
+	threadClientModiPeerThreadId := threadClientModiPeer.Arg("threadId", "thread Id").Required().String()
+	threadClientModiPeerPid := threadClientModiPeer.Arg("peerId", "peer you want to modify his role in the thread").Required().String()
+	threadClientModiPeerRole := threadClientModiPeer.Arg("role", "Role").Required().String()
+	cmds[threadClientModiPeer.FullCommand()] = func() error {
+		return ThreadClientModiPeer(*threadClientModiPeerThreadId, *threadClientModiPeerPid, *threadClientModiPeerRole)
+	}
+	//查member 返回role
+	threadClientFindPeer := threadClientCmd.Command("findPeer", "Find a peer in thread and return his role")
+	threadClientFindPeerThreadId := threadClientFindPeer.Arg("threadId", "thread Id").Required().String()
+	threadClientFindPeerPid := threadClientFindPeer.Arg("peerId", "peer you want to check to the thread").Required().String()
+	cmds[threadClientFindPeer.FullCommand()] = func() error {
+		return ThreadClientFindPeer(*threadClientFindPeerThreadId, *threadClientFindPeerPid)
+	}
+
+	//Group info 的 查 改(目前只针对group name的修改)
+	threadClientGroupInfo := threadClientCmd.Command("groupInfo", "return the group name.")
+	threadClientGroupInfoThreadId := threadClientGroupInfo.Arg("threadId", "thread Id").Required().String()
+	cmds[threadClientGroupInfo.FullCommand()] = func() error {
+		return ThreadClientGroupName(*threadClientGroupInfoThreadId)
+	}
+
+	threadClientGroupInfoMod := threadClientCmd.Command("newGroupName", "Modify the group name.")
+	threadClientGroupInfoModThreadId := threadClientGroupInfoMod.Arg("threadId", "thread Id").Required().String()
+	threadClientGroupInfoModName := threadClientGroupInfoMod.Arg("name", "peer you want to add to the thread").Required().String()
+	cmds[threadClientGroupInfoMod.FullCommand()] = func() error {
+		return ThreadClientGroupInfoMod(*threadClientGroupInfoModThreadId, *threadClientGroupInfoModName)
+	}
+
+
 	//=======================================
 	hideGlobalsFlagsFor(
 		daemonCmd,

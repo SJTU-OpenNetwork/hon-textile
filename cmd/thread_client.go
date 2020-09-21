@@ -34,9 +34,70 @@ func ThreadClientAddString(threadId string, text string) error {
 	return nil
 }
 
+//
+func ThreadClientRemoveMessage(threadId string, instanceId string) error {
+	cmdOpt := map[string]string{"threadId": threadId, "instanceId": instanceId}
+	res, err := executeStringCmd(http.MethodPut, "threadClient/delMessage", params{opts:cmdOpt})
+	if err != nil {
+		return err
+	}
+	output(res)
+	return nil
+}
+
 func ThreadClientAddPeer(threadId string, pid string) error {
 	cmdOpt := map[string]string{"threadId": threadId, "peerId": pid}
 	res, err := executeStringCmd(http.MethodPost, "threadClient/addPeer", params{opts:cmdOpt})
+	if err != nil {
+		return err
+	}
+	output(res)
+	return nil
+}
+
+func ThreadClientRemovePeer(threadId string, pid string) error {
+	cmdOpt := map[string]string{"threadId": threadId, "peerId": pid}
+	res, err := executeStringCmd(http.MethodPost, "threadClient/removePeer", params{opts:cmdOpt})
+	if err != nil {
+		return err
+	}
+	output(res)
+	return nil
+}
+
+func ThreadClientModiPeer(threadId string, pid string, role string) error {
+	cmdOpt := map[string]string{"threadId": threadId, "peerId": pid, "role": role}
+	res, err := executeStringCmd(http.MethodPost, "threadClient/modPeer", params{opts:cmdOpt})
+	if err != nil {
+		return err
+	}
+	output(res)
+	return nil
+}
+
+func ThreadClientFindPeer(threadId string, pid string) error {
+	cmdOpt := map[string]string{"threadId": threadId, "peerId": pid}
+	res, err := executeStringCmd(http.MethodPost, "threadClient/findPeer", params{opts:cmdOpt})
+	if err != nil {
+		return err
+	}
+	output(res)
+	return nil
+}
+
+func ThreadClientGroupName(threadId string) error {
+	cmdOpt := map[string]string{"threadId": threadId}
+	res, err := executeStringCmd(http.MethodPost, "threadClient/groupInfo", params{opts:cmdOpt})
+	if err != nil {
+		return err
+	}
+	output(res)
+	return nil
+}
+
+func ThreadClientGroupInfoMod(threadId string, name string) error {
+	cmdOpt := map[string]string{"threadId": threadId,"name": name}
+	res, err := executeStringCmd(http.MethodPost, "threadClient/newGroupName", params{opts:cmdOpt})
 	if err != nil {
 		return err
 	}

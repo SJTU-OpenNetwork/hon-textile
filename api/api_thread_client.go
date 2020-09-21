@@ -61,6 +61,10 @@ func (a *Api) threadClientAddString(g *gin.Context) {
 	}
 }
 
+func (a *Api) threadClientRemoveMessage(g *gin.Context) {
+
+}
+
 func (a *Api) threadClientAddPeer(g *gin.Context) {
 	opts, err := a.readOpts(g)
 	if err != nil {
@@ -82,4 +86,24 @@ func (a *Api) threadClientAddPeer(g *gin.Context) {
 	if err!= nil {
 		fmt.Println("error when invite peer")
 	}
+}
+
+func (a *Api) threadClientRemovePeer(g *gin.Context) {
+
+}
+
+func (a *Api) threadClientModPeer(g *gin.Context) {
+
+}
+
+func (a *Api) threadClientFindPeer(g *gin.Context) {
+
+}
+
+func (a *Api) threadClientGroupInfo(g *gin.Context) {
+
+}
+
+func (a *Api) threadClientNewGroupName(g *gin.Context) {
+
 }

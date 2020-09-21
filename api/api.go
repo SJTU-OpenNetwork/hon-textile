@@ -389,12 +389,19 @@ func (a *Api) Run() {
 			thread2.POST("/addfile",a.thread2AddFile)
 		}
 
+		//for new thread
 		threadClient := v0.Group("/threadClient")
 		{
 			threadClient.POST("/addGroup",a.threadClientAddGroup)
 			threadClient.POST("/listDB",a.threadClientListDB)
 			threadClient.PUT("/addString/:threadId", a.threadClientAddString)
+			threadClient.PUT("/delMessage",a.threadClientRemoveMessage)
 			threadClient.POST("/addPeer",a.threadClientAddPeer)
+			threadClient.POST("/removePeer",a.threadClientRemovePeer)
+			threadClient.POST("/modPeer",a.threadClientModPeer)
+			threadClient.POST("/findPeer",a.threadClientFindPeer)
+			threadClient.POST("/groupInfo",a.threadClientGroupInfo)
+			threadClient.POST("/newGroupName",a.threadClientNewGroupName)
 		}
 	}
 
