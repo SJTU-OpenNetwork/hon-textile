@@ -86,8 +86,8 @@ const (
 			},
 			"type": {
 				"type": "string",
-				"description": "The group's type'."
-			},
+				"description": "The group's type."
+			}
 		}
 	}`
 
