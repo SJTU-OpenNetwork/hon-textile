@@ -87,6 +87,10 @@ const (
 			"type": {
 				"type": "string",
 				"description": "The group's type."
+			},
+			"flag": {
+				"type": "string",
+				"description": "The group's flag."
 			}
 		}
 	}`
@@ -111,6 +115,7 @@ type ThreadGroup struct {
 	ID      string `json:"_id"`
 	Name    string `json:"name"`
 	Type    string `json:"type"`
+	Flag	string `json:"flag"`
 }
 
 //func (t *Textile) makeServer() (ma.Multiaddr, error) {
@@ -278,7 +283,7 @@ func (t *Textile) CreateMesInstance(id thread.ID, instances client.Instances) ([
 //create a collection to storage group info, generally it has only one instance.
 func (t *Textile) CreateGroupInfo(id thread.ID, groupName string) ([]string, error) {
 	instanceIds, err := t.threadclient.Create(t.ctx, id, collectionMessage,
-		client.Instances{&ThreadGroup{Name:groupName}})
+		client.Instances{&ThreadGroup{Name:groupName,Flag:"groupInfo"}})
 	if err != nil {
 		return nil, err
 	}
@@ -314,9 +319,13 @@ func (t *Textile) DeleteMessageInstance(id string, instanceIDs string) error {
 //Save used to modify instances, users use instanceId(ID) change specific instance,
 //and users can modify the name and role of members.
 //ids is gotten from creat instance.
-func (t *Textile) ModifyMemberInstance(id thread.ID, ids []string, name string, role string) error {
+func (t *Textile) ModifyMemberInstance(id string, ids []string, name string, role string) error {
+	threadId, err := thread2.Decode(id)
+	if err != nil {
+		return err
+	}
 	instanceId := ids[0]
-	err := t.threadclient.Save(t.ctx, id, collectionMember, client.Instances{ThreadMember{ID: instanceId, Name: name, Role: role}})
+	err = t.threadclient.Save(t.ctx, threadId, collectionMember, client.Instances{ThreadMember{ID: instanceId, Name: name, Role: role}})
 	if err != nil {
 		return err
 	}
@@ -324,14 +333,20 @@ func (t *Textile) ModifyMemberInstance(id thread.ID, ids []string, name string, 
 }
 
 //Users can modify the message content.
-func (t *Textile) ModifyMessageInstance(id thread.ID, ids []string, newContent string) error {
+func (t *Textile) ModifyMessageInstance(id string, ids []string, newContent string) error {
+	threadId, err := thread2.Decode(id)
+	if err != nil {
+		return err
+	}
 	instanceId := ids[0]
-	err := t.threadclient.Save(t.ctx, id, collectionMessage, client.Instances{ThreadMessage{ID: instanceId, Content: newContent}})
+	err = t.threadclient.Save(t.ctx, threadId, collectionMessage, client.Instances{ThreadMessage{ID: instanceId, Content: newContent}})
 	if err != nil {
 		return err
 	}
 	return nil
 }
+
+
 
 func (t *Textile) FindMessageByID(threadIdStr string, instanceID string) (*ThreadMessage,error){
 	threadId, err := thread2.Decode(threadIdStr)
@@ -400,4 +415,50 @@ func (t *Textile) ThreadAddMessage(id string, mes string) error {
 	return nil
 }
 
+
+//Users can modify the message content.
+func (t *Textile) GroupInfo(id string) (string,error) {
+	threadId, err := thread2.Decode(id)
+	if err != nil {
+		return "",err
+	}
+	q := db.Where("").Eq("groupInfo")
+	rawResults, err := t.threadclient.Find(t.ctx, threadId, collectionGroup, q, &ThreadGroup{})
+	if err != nil {
+		fmt.Println("failed to find ", err)
+	}
+	results := rawResults.([]*ThreadGroup)
+	if len(results) != 1 {
+		fmt.Println("expected 1 result, but got ", len(results))
+	}
+	groupName := results[0].Name
+
+	return groupName,nil
+}
+
+//Users can modify the message content.
+func (t *Textile) ModifyGroupInfo(id string, newName string) error {
+	threadId, err := thread2.Decode(id)
+	if err != nil {
+		return err
+	}
+
+	q := db.Where("").Eq("groupInfo")
+	rawResults, err := t.threadclient.Find(t.ctx, threadId, collectionGroup, q, &ThreadGroup{})
+	if err != nil {
+		fmt.Println("failed to find ", err)
+	}
+	results := rawResults.([]*ThreadGroup)
+	if len(results) != 1 {
+		fmt.Println("expected 1 result, but got ", len(results))
+	}
+	results[0].Name =newName
+
+	err = t.threadclient.Save(t.ctx, threadId, collectionGroup, client.Instances{results[0]})
+	if err != nil {
+		fmt.Println("failed to save a new name for group, ", err)
+		return err
+	}
+	return nil
+}
 

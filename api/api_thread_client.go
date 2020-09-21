@@ -101,9 +101,50 @@ func (a *Api) threadClientFindPeer(g *gin.Context) {
 }
 
 func (a *Api) threadClientGroupInfo(g *gin.Context) {
+	opts, err := a.readOpts(g)
+	if err != nil {
+		a.abort500(g, err)
+		return
+	}
+	threadIdStr, ok := opts["threadId"]
+	if !ok {
+		g.String(http.StatusBadRequest, "missing threadId")
+		return
+	}
 
+	groupName,err := a.Node.GroupInfo(threadIdStr)
+	if err != nil {
+		log.Error("Error when get group info, ", err)
+		g.String(http.StatusBadGateway, "Error: %v", err)
+	} else {
+		g.JSON(http.StatusOK, groupName)
+	}
 }
 
 func (a *Api) threadClientNewGroupName(g *gin.Context) {
+	opts, err := a.readOpts(g)
+	if err != nil {
+		a.abort500(g, err)
+		return
+	}
+	threadIdStr, ok := opts["threadId"]
+	if !ok {
+		g.String(http.StatusBadRequest, "missing threadId")
+		return
+	}
+	newName, ok := opts["name"]
+	if !ok {
+		g.String(http.StatusBadRequest, "missing new name")
+		return
+	}
+
+	err = a.Node.ModifyGroupInfo(threadIdStr,newName)
+	if err != nil {
+		log.Error("Error when modify group info, ", err)
+		g.String(http.StatusBadGateway, "Error: %v", err)
+	} else {
+		g.JSON(http.StatusOK, newName)
+	}
+
 
 }
