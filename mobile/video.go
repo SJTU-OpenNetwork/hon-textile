@@ -19,25 +19,25 @@ func (m *Mobile) AddVideo(video []byte) error {
 	return m.node.AddVideo(model)
 }
 
-
+// [DEPRECATED]
 func (m *Mobile) ThreadAddVideo(thread string, video string) error {
 	if !m.node.Started() {
 		return core.ErrStopped
 	}
 
-    err := m.node.ConnectThreadPeers(thread)
+	err := m.node.ConnectThreadPeers(thread)
 	if err != nil {
-        log.Error(err)
+		log.Error(err)
 	}
 
-    err = m.node.ThreadAddVideo(thread, video)
-    if err != nil {
-        log.Error(err)
-        return err
-    }
+	err = m.node.ThreadAddVideo(thread, video)
+	if err != nil {
+		log.Error(err)
+		return err
+	}
 	m.node.FlushCafes()
-    //m.node.FlushBlocks()
-    return nil
+	//m.node.FlushBlocks()
+	return nil
 }
 
 func (m *Mobile) PublishVideo(video []byte, store bool) error {
@@ -49,7 +49,7 @@ func (m *Mobile) PublishVideo(video []byte, store bool) error {
 	if err := proto.Unmarshal(video, model); err != nil {
 		return err
 	}
-    return m.node.OLD_PublishVideo(model,store)
+	return m.node.PublishVideo(model, store)
 }
 
 func (m *Mobile) PublishVideoChunk(vchunk []byte) error {
@@ -61,7 +61,7 @@ func (m *Mobile) PublishVideoChunk(vchunk []byte) error {
 	if err := proto.Unmarshal(vchunk, model); err != nil {
 		return err
 	}
-    return m.node.OLD_PublishVideoChunk(model)
+	return m.node.PublishVideoChunk(model)
 }
 
 func (m *Mobile) AddVideoChunk(vchunk []byte) error {
@@ -76,8 +76,6 @@ func (m *Mobile) AddVideoChunk(vchunk []byte) error {
 
 	return m.node.AddVideoChunk(model)
 }
-
-
 
 func (m *Mobile) GetVideo(id string) ([]byte, error) {
 	if !m.node.Started() {
@@ -105,8 +103,8 @@ func (m *Mobile) GetVideoChunk(id string, chunk string) ([]byte, error) {
 	return proto.Marshal(vchunk)
 }
 
-func (m *Mobile) GetVideoChunkByIndex(id string, index int64)([]byte, error){
-	if !m.node.Started(){
+func (m *Mobile) GetVideoChunkByIndex(id string, index int64) ([]byte, error) {
+	if !m.node.Started() {
 		return nil, core.ErrStopped
 	}
 
@@ -153,13 +151,12 @@ func (m *Mobile) SearchVideo(query []byte, options []byte) (*SearchHandle, error
 	}
 
 	resCh, errCh, cancel, err := m.node.SearchVideo(mquery, moptions)
-    if err != nil {
-        log.Warning(err)
+	if err != nil {
+		log.Warning(err)
 		return nil, err
 	}
 	return m.handleSearchStream(resCh, errCh, cancel)
 }
-
 
 func (m *Mobile) SearchVideoChunks(query []byte, options []byte) (*SearchHandle, error) {
 	if !m.node.Online() {
@@ -176,27 +173,9 @@ func (m *Mobile) SearchVideoChunks(query []byte, options []byte) (*SearchHandle,
 	}
 
 	resCh, errCh, cancel, err := m.node.SearchVideoChunks(mquery, moptions)
-    if err != nil {
-        log.Warning(err)
+	if err != nil {
+		log.Warning(err)
 		return nil, err
 	}
 	return m.handleSearchStream(resCh, errCh, cancel)
 }
-
-// StoreThread calls core StoreThread
-//func (m *Mobile) StoreThread() ([]byte, error) {
-//	if !m.node.Started() {
-//		return nil, core.ErrStopped
-//	}
-//
-//	thrd := m.node.StoreThread()
-//	if thrd == nil {
-//		return nil, fmt.Errorf("store thread not found")
-//	}
-//	view, err := m.node.ThreadView(thrd.Id)
-//	if err != nil {
-//		return nil, err
-//	}
-//
-//	return proto.Marshal(view)
-//}

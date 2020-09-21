@@ -31,6 +31,7 @@ func (t *Textile) Invite(threadID string, peerID string) error {
 		PeerId:   t.node.PeerHost.ID().Pretty(),
 		DbAddr:   info.Addrs[0].String(),
 		DbKey:    info.Key.String(),
+		//CollectionConfig: 把collectioninfo放进来
 	}
 	env, err := t.mail.NewEnvelope(pb.Message_THREAD2_INVITE, reg, nil, false)
 	if err != nil {
@@ -71,6 +72,7 @@ func (t *Textile) handleInvite(env *pb.Envelope) error {
 		return err
 	}
 	//newdbfromaddr
+	// 用collectioninfo直接创建DB
 	err = t.threadclient.NewDBFromAddr(t.ctx, dbAddr, dbkey)
 	if err != nil {
 		fmt.Println("failed to create new db from address")
