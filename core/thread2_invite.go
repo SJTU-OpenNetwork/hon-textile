@@ -95,9 +95,9 @@ func (t *Textile) handleInvite(env *pb.Envelope) error {
 		return err
 	}
 
-	//add myself to member collection
+
 	//Start listening new created thread
-	err := t.ListenOneThread2(inform.ThreadId)
+	err = t.ListenOneThread2(inform.ThreadId)
 	if err != nil {
 		log.Errorf("error when listen one thread2", err)
 	}

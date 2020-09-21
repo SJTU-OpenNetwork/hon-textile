@@ -85,7 +85,6 @@ func NewThread2Client(ctx context.Context, node *ipfscore.IpfsNode, repoPath str
 		tstore,
 		thread2Net.Config{
 			Debug:  true,
-			PubSub: true,
 		})
 	if err != nil {
 		log.Error("Error when create net.Network: ", err)
@@ -156,7 +155,7 @@ func (t *Textile) ListenThread2s() {
 func (t *Textile) ListenOneThread2(dbID string) error {
 	threadId, err := thread.Decode(dbID)
 	if err != nil {
-		return nil, err
+		return err
 	}
 	opt := client.ListenOption{
 		Collection: "",
@@ -174,7 +173,7 @@ func (t *Textile) ListenOneThread2(dbID string) error {
 					return
 				}
 				t.thread2Updates.Send(&Thread2UpdateMessage{
-					ThreadID: dbID.String(),
+					ThreadID: dbID,
 					Event:    val,
 				})
 			}
