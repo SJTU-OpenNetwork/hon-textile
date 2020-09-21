@@ -422,7 +422,7 @@ func (t *Textile) GroupInfo(threadid string, instanceId string) (string,error) {
 	if err != nil {
 		return "",err
 	}
-
+	//
 	//q := db.Where("").Eq("groupInfo")
 	//rawResults, err := t.threadclient.Find(t.ctx, threadId, collectionGroup, q, &ThreadGroup{})
 	//if err != nil {
@@ -438,30 +438,35 @@ func (t *Textile) GroupInfo(threadid string, instanceId string) (string,error) {
 	if err != nil {
 		fmt.Println("failed to find collection by id: ", err)
 	}
-	return groupInfo.Name,nil
+	return groupInfo.Name, nil
 }
 
 //Users can modify the message content.
-func (t *Textile) ModifyGroupInfo(id string, newName string) error {
+func (t *Textile) ModifyGroupInfo(threadIdStr string, instanceId string, newName string) error {
 	// maybe we need add access control, only owner or admin can modify
 
-	threadId, err := thread2.Decode(id)
+	threadId, err := thread2.Decode(threadIdStr)
 	if err != nil {
 		return err
 	}
+	//q := db.Where("").Eq("groupInfo")
+	//rawResults, err := t.threadclient.Find(t.ctx, threadId, collectionGroup, q, &ThreadGroup{})
+	//if err != nil {
+	//	fmt.Println("failed to find ", err)
+	//}
+	//results := rawResults.([]*ThreadGroup)
+	//if len(results) != 1 {
+	//	fmt.Println("expected 1 result, but got ", len(results))
+	//}
+	//results[0].Name =newName
 
-	q := db.Where("").Eq("groupInfo")
-	rawResults, err := t.threadclient.Find(t.ctx, threadId, collectionGroup, q, &ThreadGroup{})
+	groupInfo := &ThreadGroup{}
+	err = t.threadclient.FindByID(t.ctx, threadId, collectionGroup, instanceId, groupInfo)
 	if err != nil {
-		fmt.Println("failed to find ", err)
+		fmt.Println("failed to find collection by id: ", err)
 	}
-	results := rawResults.([]*ThreadGroup)
-	if len(results) != 1 {
-		fmt.Println("expected 1 result, but got ", len(results))
-	}
-	results[0].Name =newName
-
-	err = t.threadclient.Save(t.ctx, threadId, collectionGroup, client.Instances{results[0]})
+	groupInfo.Name = newName
+	err = t.threadclient.Save(t.ctx, threadId, collectionGroup, client.Instances{groupInfo})
 	if err != nil {
 		fmt.Println("failed to save a new name for group, ", err)
 		return err

@@ -1134,9 +1134,10 @@ The response contains a base58 encoded version of the random bytes token.`).Alia
 
 	threadClientGroupInfoMod := threadClientCmd.Command("newGroupName", "Modify the group name.")
 	threadClientGroupInfoModThreadId := threadClientGroupInfoMod.Arg("threadId", "thread Id").Required().String()
+	threadClientGroupInfoModInstanceId := threadClientGroupInfoMod.Arg("instanceId", "instance Id").Required().String()
 	threadClientGroupInfoModName := threadClientGroupInfoMod.Arg("name", "peer you want to add to the thread").Required().String()
 	cmds[threadClientGroupInfoMod.FullCommand()] = func() error {
-		return ThreadClientGroupInfoMod(*threadClientGroupInfoModThreadId, *threadClientGroupInfoModName)
+		return ThreadClientGroupInfoMod(*threadClientGroupInfoModThreadId, *threadClientGroupInfoModInstanceId,*threadClientGroupInfoModName)
 	}
 
 
