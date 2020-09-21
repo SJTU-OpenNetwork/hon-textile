@@ -111,8 +111,12 @@ func (a *Api) threadClientGroupInfo(g *gin.Context) {
 		g.String(http.StatusBadRequest, "missing threadId")
 		return
 	}
-
-	groupName,err := a.Node.GroupInfo(threadIdStr)
+	instanceId, ok := opts["instanceId"]
+	if !ok {
+		g.String(http.StatusBadRequest, "missing instanceId")
+		return
+	}
+	groupName,err := a.Node.GroupInfo(threadIdStr, instanceId)
 	if err != nil {
 		log.Error("Error when get group info, ", err)
 		g.String(http.StatusBadGateway, "Error: %v", err)
