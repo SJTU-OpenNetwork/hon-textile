@@ -1069,8 +1069,12 @@ The response contains a base58 encoded version of the random bytes token.`).Alia
 	//=======================================
 	// For 	ThreadClient
 	threadClientCmd := appCmd.Command("threadClient","go-threads client corresponding commands.")
+
 	threadClientAddGroupCmd := threadClientCmd.Command("addGroup","Add a new group and return its threadId.")
-	cmds[threadClientAddGroupCmd.FullCommand()] =  ThreadClientAddGroup
+	threadClientAddGroupName := threadClientAddGroupCmd.Arg("groupName", "group name").Required().String()
+	cmds[threadClientAddGroupCmd.FullCommand()] = func() error {
+		return ThreadClientAddGroup(*threadClientAddGroupName)
+	}
 
 	threadClientAddDBCmd := threadClientCmd.Command("addDB","Add a new DB and return its threadId.")
 	cmds[threadClientAddDBCmd.FullCommand()] =  ThreadClientAddDB

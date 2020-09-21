@@ -8,7 +8,17 @@ import (
 )
 
 func (a *Api) threadClientAddGroup(g *gin.Context) {
-	threadId,err := a.Node.CreateGroup()
+	opts, err := a.readOpts(g)
+	if err != nil {
+		a.abort500(g, err)
+		return
+	}
+	groupName, ok := opts["groupName"]
+	if !ok {
+		g.String(http.StatusBadRequest, "missing groupName")
+		return
+	}
+	threadId,err := a.Node.CreateGroup(groupName)
 	if err != nil {
 		log.Error("Error when create thread client: ", err)
 		g.String(http.StatusBadGateway, "Error: %v", err)

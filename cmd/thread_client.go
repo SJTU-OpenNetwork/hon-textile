@@ -5,8 +5,9 @@ import (
 	"strings"
 )
 
-func ThreadClientAddGroup() error {
-	res, err := executeJsonCmd(http.MethodPost, "threadClient/addGroup", params{}, nil)
+func ThreadClientAddGroup(groupName string) error {
+	cmdOpt := map[string]string{"groupName":groupName}
+	res, err := executeStringCmd(http.MethodPost, "threadClient/addGroup", params{opts:cmdOpt})
 	if err != nil {
 		return err
 	}

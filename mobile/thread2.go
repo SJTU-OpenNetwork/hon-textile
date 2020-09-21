@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 )
 
-func (m *Mobile) CreateGroup() (string, error) {
-	threadid, err := m.node.CreateGroup()
+func (m *Mobile) CreateGroup(name string) (string, error) {
+	threadid, err := m.node.CreateGroup(name)
 	if err != nil {
 		return "", err
 	}
