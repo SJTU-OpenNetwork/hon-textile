@@ -1076,9 +1076,6 @@ The response contains a base58 encoded version of the random bytes token.`).Alia
 		return ThreadClientAddGroup(*threadClientAddGroupName)
 	}
 
-	threadClientAddDBCmd := threadClientCmd.Command("addDB","Add a new DB and return its threadId.")
-	cmds[threadClientAddDBCmd.FullCommand()] =  ThreadClientAddDB
-
 	threadClientListDBCmd := threadClientCmd.Command("listDB","List all active DBs.")
 	cmds[threadClientListDBCmd.FullCommand()] =  ThreadClientListDB
 

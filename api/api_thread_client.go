@@ -27,16 +27,6 @@ func (a *Api) threadClientAddGroup(g *gin.Context) {
 	}
 }
 
-func (a *Api) threadClientAddDB(g *gin.Context) {
-	threadId,err := a.Node.CreateDB()
-	fmt.Println("NewDB thread Id:",threadId)
-	if err != nil {
-		log.Error("Error when create thread client: ", err)
-		g.String(http.StatusBadGateway, "Error: %v", err)
-	} else {
-		g.JSON(http.StatusOK, threadId)
-	}
-}
 
 func (a *Api) threadClientListDB(g *gin.Context) {
 	threadMap,err := a.Node.ListDBs()
