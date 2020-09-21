@@ -282,7 +282,7 @@ func (t *Textile) CreateMesInstance(id thread.ID, instances client.Instances) ([
 
 //create a collection to storage group info, generally it has only one instance.
 func (t *Textile) CreateGroupInfo(id thread.ID, groupName string) ([]string, error) {
-	instanceIds, err := t.threadclient.Create(t.ctx, id, collectionMessage,
+	instanceIds, err := t.threadclient.Create(t.ctx, id, collectionGroup,
 		client.Instances{&ThreadGroup{Name:groupName,Flag:"groupInfo"}})
 	if err != nil {
 		return nil, err
