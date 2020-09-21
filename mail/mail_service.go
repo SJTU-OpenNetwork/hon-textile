@@ -2,7 +2,6 @@ package mail
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/SJTU-OpenNetwork/hon-textile/ipfs"
 	"github.com/SJTU-OpenNetwork/hon-textile/keypair"
@@ -33,7 +32,8 @@ func NewMailService(
 	node func() *core.IpfsNode,
 ) *MailService {
 	handler := &MailService{
-		ctx: ctx,
+		ctx:   ctx,
+		Inbox: make(chan *pb.Envelope, 10),
 	}
 	handler.service = service.NewService(account, handler, node)
 	return handler
@@ -63,13 +63,13 @@ func (h *MailService) HandleStream(_ *pb.Envelope, _ peer.ID) (chan *pb.Envelope
 // SendMessage sends a message to a peer.
 func (h *MailService) SendMessage(ctx context.Context, peerID string, env *pb.Envelope) error {
 	//return h.service.SendMessage(ctx, peerID, env)
-
+	log.Debugf("[Mail] Sending message to %s", peerID)
 	connected, err := ipfs.SwarmConnected(h.service.Node(), peerID)
 	if err != nil {
 		return err
 	}
 	if connected {
-		fmt.Println("[Mail]: send message directly")
+		// fmt.Println("[Mail]: send message directly")
 		err = h.service.SendMessage(nil, peerID, env)
 	} else {
 		topic := string(mailServiceProtocol) + "/" + peerID
@@ -77,7 +77,7 @@ func (h *MailService) SendMessage(ctx context.Context, peerID string, env *pb.En
 		if err != nil {
 			return err
 		}
-		fmt.Println("[Mail]: send message through pubsub")
+		// fmt.Println("[Mail]: send message through pubsub")
 		err = ipfs.Publish(h.service.Node(), topic, payload)
 	}
 	return err
@@ -85,8 +85,9 @@ func (h *MailService) SendMessage(ctx context.Context, peerID string, env *pb.En
 
 // Handle is called by the underlying service handler method
 func (h *MailService) Handle(env *pb.Envelope, pid peer.ID) (*pb.Envelope, error) {
-	fmt.Println("[Mail]: receive a new message")
+	// fmt.Println("[Mail]: receive a new message")
 	h.Inbox <- env
+
 	return nil, nil
 }
 

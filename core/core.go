@@ -561,7 +561,7 @@ func (t *Textile) Start() error {
 		t.variables.SwarmAddress = t.GetSwarmAddress(t.node.Identity.Pretty())
 	}()
 
-//之前的thread load过程，暂时注释掉
+	//之前的thread load过程，暂时注释掉
 	//for _, mod := range t.datastore.Threads().List().Items {
 	//	fmt.Println("==========",t.datastore.Threads().Count())
 	//	fmt.Println("==========",mod.Id)
@@ -607,7 +607,7 @@ func (t *Textile) watchMailBox() {
 		//      t.handleInvite(msg)
 		if msg.Message.Type == pb.Message_THREAD2_INVITE {
 			err := t.handleInvite(msg)
-			if err!= nil {
+			if err != nil {
 				fmt.Println("error when handle thread2 invite")
 			}
 		}

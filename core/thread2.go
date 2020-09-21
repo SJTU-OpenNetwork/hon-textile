@@ -4,6 +4,11 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"net"
+	"os"
+	"path"
+	"time"
+
 	"github.com/SJTU-OpenNetwork/hon-textile/util"
 	ipfslite "github.com/hsanjuan/ipfs-lite"
 	ipfscore "github.com/ipfs/go-ipfs/core"
@@ -17,10 +22,6 @@ import (
 	thread2Net "github.com/textileio/go-threads/net"
 	threadutil "github.com/textileio/go-threads/util"
 	"google.golang.org/grpc"
-	"net"
-	"os"
-	"path"
-	"time"
 )
 
 //"github.com/textileio/go-threads/cbor"
@@ -37,7 +38,6 @@ type ErrThreadNoAuth struct {
 func (e *ErrThreadNoAuth) Error() string {
 	return fmt.Sprintf("have no privilege to access thread %s", e.threadId)
 }
-
 
 // NewThread2Client create the thread2 client from the running ipfs node.
 // It does following things:
@@ -84,8 +84,8 @@ func NewThread2Client(ctx context.Context, node *ipfscore.IpfsNode, repoPath str
 		node.DAG,
 		tstore,
 		thread2Net.Config{
-			Debug: true,
-			//PubSub: true,
+			Debug:  true,
+			PubSub: true,
 		})
 	if err != nil {
 		log.Error("Error when create net.Network: ", err)
@@ -147,38 +147,38 @@ func (t *Textile) ListenThread2s() {
 		log.Errorf("error when list DBs", err)
 	}
 	for dbID, _ := range dbs {
-		//threadId, err := thread.Decode(dbID)
-		//if err != nil {
-		//	log.Errorf("error when Decode threadID", err)
-		//}
-		Ch, err := t.ListenOneThread2(dbID.String())
+		err := t.ListenOneThread2(dbID.String())
 		if err != nil {
 			log.Errorf("error when listen one thread2", err)
 		}
-		go func() {
-			for {
-				select {
-				case val, ok := <-Ch:
-					if ok {
-						//fmt.Println("Received update from thread")
-						t.thread2Updates.Send(&Thread2UpdateMessage{
-							ThreadID: dbID.String(),
-							Event:    val,
-						})
-					}
-				}
-			}
-		}()
 	}
 }
-func (t *Textile) ListenOneThread2(dbID string) (<-chan client.ListenEvent, error) {
+func (t *Textile) ListenOneThread2(dbID string) error {
 	threadId, err := thread.Decode(dbID)
 	if err != nil {
-		return nil,err
+		return nil, err
 	}
 	opt := client.ListenOption{
 		Collection: "",
 		InstanceID: "",
 	}
-	return t.threadclient.Listen(t.ctx, threadId, []client.ListenOption{opt})
+	Ch, err := t.threadclient.Listen(t.ctx, threadId, []client.ListenOption{opt})
+	if err != nil {
+		return err
+	}
+	go func() {
+		for {
+			select {
+			case val, ok := <-Ch:
+				if !ok {
+					return
+				}
+				t.thread2Updates.Send(&Thread2UpdateMessage{
+					ThreadID: dbID.String(),
+					Event:    val,
+				})
+			}
+		}
+	}()
+	return nil
 }

@@ -2,7 +2,7 @@ package ipfs
 
 import (
 	"context"
-    //	"fmt"
+	//	"fmt"
 	"sort"
 
 	"github.com/ipfs/go-ipfs/core"
@@ -22,24 +22,24 @@ func SwarmConnect(node *core.IpfsNode, addrs []string) ([]string, error) {
 		return nil, err
 	}
 
-    log.Debug(pis)
-    log.Debug(len(pis))
+	log.Debug(pis)
+	log.Debug(len(pis))
 	ctx, cancel := context.WithTimeout(node.Context(), ConnectTimeout)
 	defer cancel()
 
 	output := make([]string, len(pis))
 	for i, pi := range pis {
-        log.Debug("Connecting to "+pi.ID.Pretty())
+		log.Debug("Connecting to " + pi.ID.Pretty())
 		output[i] = "connect " + pi.ID.Pretty()
 
 		err := api.Swarm().Connect(ctx, pi)
 		if err != nil {
-            output[i] += " failed"
+			output[i] += " failed"
 		} else {
-		    output[i] += " success"
-        }
+			output[i] += " success"
+		}
 	}
-    log.Debug(output)
+	log.Debug(output)
 	return output, nil
 }
 
@@ -141,8 +141,6 @@ func SwarmPeers(node *core.IpfsNode, verbose bool, latency bool, streams bool, d
 	return &out, nil
 }
 
-
-
 // SwarmConnected returns whether or not the node has the peer in its current swarm
 func SwarmConnected(node *core.IpfsNode, peerId string) (bool, error) {
 	api, err := coreapi.NewCoreAPI(node)
@@ -159,6 +157,7 @@ func SwarmConnected(node *core.IpfsNode, peerId string) (bool, error) {
 	}
 
 	for _, c := range conns {
+		// fmt.Println("[SwarmPeers]" + c.ID().Pretty())
 		if c.ID().Pretty() == peerId {
 			return true, nil
 		}
