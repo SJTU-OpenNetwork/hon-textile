@@ -60,7 +60,7 @@ const (
 				"description": "The sender's id."
 			},
 			"time": {
-				"type": "int",
+				"type": "integer",
 				"description": "The time of sending."
 			},
 			"content": {
@@ -109,7 +109,7 @@ type ThreadMessage struct {
 
 type ThreadGroup struct {
 	ID      string `json:"_id"`
-	Name  string `json:"name"`
+	Name    string `json:"name"`
 	Type    string `json:"type"`
 }
 
@@ -204,22 +204,6 @@ func (t *Textile) CreateGroup(groupName string) (thread.ID, error) {
 	}
 
 	return threadId, nil
-}
-
-func (t *Textile) CreateDB() (thread.ID, error) {
-	id := thread.NewIDV1(thread.Raw, 32)
-
-	//actx, _ := context.WithTimeout(t.ctx, addTimeout)
-	//name1 := "db1"
-	//err :=t.threadclient.NewDB(actx,id,db.WithNewManagedName(name1))
-	err := t.threadclient.NewDB(t.ctx, id)
-
-	//err :=t.threadclient.NewDB(t.ctx,id)
-
-	if err != nil {
-		return "", err
-	}
-	return id, nil
 }
 
 func (t *Textile) ListDBs() (map[thread.ID]*client.DBInfo, error) {
