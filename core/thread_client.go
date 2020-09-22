@@ -397,7 +397,7 @@ func (t *Textile) FindMemberByID(threadIdStr string, instanceID string) (string,
 	}
 
 	checkedMember := &ThreadMember{}
-	err = t.threadclient.FindByID(t.ctx, threadId, collectionMessage, instanceID, checkedMember)
+	err = t.threadclient.FindByID(t.ctx, threadId, collectionMember, instanceID, checkedMember)
 	if err != nil {
 		fmt.Println("failed to find collection by id, ", err)
 		return "",err
