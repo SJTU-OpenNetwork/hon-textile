@@ -321,22 +321,22 @@ func (t *Textile) DeleteMessageInstance(id string, instanceIDs string) error {
 //Save used to modify instances, users use instanceId(ID) change specific instance,
 //and users can modify the name and role of members.
 //ids is gotten from creat instance.
-func (t *Textile) ModifyMemberInstance(id string, instanceId string,  role string) error {
+func (t *Textile) ModifyMemberInstance(id string, instanceId string,  role string) (string,error) {
 	//check the correction of role
 	if role!=owner && role != admin && role != member {
-		fmt.Println("the role given from cmd is not standard, only owner, admin and member can be used as role")
-		return nil
+		fmt.Println("error, the role given from cmd is not standard, only owner, admin and member can be used as role")
+		return "",nil
 	}
 	threadId, err := thread2.Decode(id)
 	if err != nil {
-		return err
+		return "",err
 	}
 	//instanceId := ids[0]
 	err = t.threadclient.Save(t.ctx, threadId, collectionMember, client.Instances{ThreadMember{ID: instanceId, Role: role}})
 	if err != nil {
-		return err
+		return "",err
 	}
-	return nil
+	return role,nil
 }
 
 //Users can modify the message content.

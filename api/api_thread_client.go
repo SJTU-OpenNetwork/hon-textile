@@ -177,9 +177,12 @@ func (a *Api) threadClientModPeer(g *gin.Context) {
 		g.String(http.StatusBadRequest, "missing role")
 		return
 	}
-	err = a.Node.ModifyMemberInstance(threadIdStr,instanceId,role)
-	if err!= nil {
-		return
+	role,err = a.Node.ModifyMemberInstance(threadIdStr,instanceId,role)
+	if err == nil && role != ""{
+		g.JSON(http.StatusOK, role)
+	} else {
+		log.Error("Error when get member role, ", err)
+		g.String(http.StatusBadGateway, "Error: %v", err)
 	}
 }
 
