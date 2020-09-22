@@ -394,7 +394,7 @@ func (a *Api) Run() {
 		{
 			threadClient.POST("/addGroup",a.threadClientAddGroup)
 			threadClient.POST("/listDB",a.threadClientListDB)
-			threadClient.PUT("/addString/:threadId", a.threadClientAddString)
+			threadClient.PUT("/addMessage/:threadId", a.threadClientAddString)
 			threadClient.PUT("/delMessage",a.threadClientRemoveMessage)
 			threadClient.POST("/findMessage",a.threadClientFindMessage)
 			threadClient.POST("/addPeer",a.threadClientAddPeer)
