@@ -1,8 +1,6 @@
 package mobile
 
-import (
-	"encoding/json"
-)
+
 
 func (m *Mobile) CreateGroup(name string) (string, error) {
 	threadid, err := m.node.CreateGroup(name)
@@ -13,63 +11,60 @@ func (m *Mobile) CreateGroup(name string) (string, error) {
 	return threadIdStr, nil
 }
 
-func (m *Mobile) CreateDB() (string, error) {
-	threadid, err := m.node.CreateDB()
-	if err != nil {
-		return "", err
-	}
-	threadIdStr := threadid.String()
-	return threadIdStr, nil
-}
-
-func (m *Mobile) ListDBs() ([]byte, error) {
-	dblist, err := m.node.ListDBs()
+func (m *Mobile) ListDBs() ([]string, error) {
+	dbMap, err := m.node.ListDBs()
 	if err != nil {
 		return nil, err
 	}
-	bytes, err := json.Marshal(dblist)
-	if err != nil {
-		return nil, err
+	var threadList []string
+	for k := range dbMap {
+		threadList = append(threadList,k.String())
 	}
-	return bytes, nil
+	return threadList, nil
 }
 
+//return group name
+func (m *Mobile) ThreadGroupInfo(threadID string) error {
+
+	return nil
+}
+
+func (m *Mobile) ThreadModifyGroupInfo(threadID string, name string) error {
+
+	return nil
+}
+
+//message add,remove and find
 func (m *Mobile) Thread2AddMessage(threadId string, mes string) error {
 	return m.node.ThreadAddMessage(threadId, mes)
 }
 
-func (m *Mobile) Thread2InvitePeer(threadId string, peerid string) error {
+func (m *Mobile) Thread2RemoveMessage(threadId string, instanceId string) error {
+	return m.node.DeleteMessageInstance(threadId, instanceId)
+}
+
+func (m *Mobile) Thread2FindMessage(threadId string, instanceId string) (string, error) {
+	return m.node.FindMessageByID(threadId, instanceId)
+
+}
+
+//peer invite remove find modify
+func (m *Mobile) Thread2InviteMember(threadId string, peerid string) error {
 	return m.node.Invite(threadId, peerid)
 }
 
-func (m *Mobile) Thread2DeleteMessage(threadId string, index string) error {
-	return m.node.DeleteInstance(threadId, "GroupMessage", []string{index})
+func (m *Mobile) Thread2DeleteMember(threadId string, instanceId string) error {
+	return m.node.DeleteMemberInstance(threadId,instanceId)
 }
 
-func (m *Mobile) Thread2DeleteMember(threadId string, index string) error {
-	return m.node.DeleteInstance(threadId, "GroupMember", []string{index})
+func (m *Mobile) Thead2MemberRole(threadId string, instanceId string) (string, error) {
+	return m.node.FindMemberByID(threadId, instanceId)
 }
 
-func (m *Mobile) ThreadAddPeer(threadID string, peer []byte) error {
-	return nil
+func (m *Mobile) Thead2MemberRoleChange(threadId string, instanceId string, role string) (string, error) {
+	return m.node.ModifyMemberInstance(threadId, instanceId, role)
 }
 
-func (m *Mobile) TheadUpdatePeer(threadID string, peer []byte) error {
-	return nil
-}
-
-func (m *Mobile) ThreadUpdateGroupInfo(threadID string, name []byte, des []byte) error {
-	return nil
-}
-
-/*
- Class xxxx implements Thread2Handler {
-	@Override
-	HandlerMsg() {
-		xxxxxxx
-	}
-}
-*/
 type Thread2Handler interface {
 	HandleMsg(threadId string, bytes []byte)
 }
@@ -103,18 +98,3 @@ func Thread2Subscribe(handler Thread2Handler) {
 	//}()
 
 }
-
-//In backend, we will not use pb.StreamMeta, we directly receive the []byte.
-// [DEPRECATED]
-//func (m *Mobile) Thread2_AddBytes(threadid string, bytes []byte) error {
-//	threadId, err := thread2.Decode(threadid)
-//	if err != nil {
-//		fmt.Println("Error when thread2 decode string to thread.ID")
-//		return err
-//	}
-//	err = m.node.Thread2AddBytes(threadId, bytes)
-//	if err != nil {
-//		return err
-//	}
-//	return nil
-//}
