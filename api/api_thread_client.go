@@ -203,11 +203,13 @@ func (a *Api) threadClientFindPeer(g *gin.Context) {
 		return
 	}
 	role,err := a.Node.FindMemberByID(threadIdStr,instanceId)
-	if err != nil {
-		log.Error("Error when get member role, ", err)
-		g.String(http.StatusBadGateway, "Error: %v", err)
-	} else {
+	if err==nil && role != ""{
 		g.JSON(http.StatusOK, role)
+	}else if err == nil && role == ""{
+		log.Error("Error when get member role, haven't the people you checked")
+	}else {
+		log.Error("Error when get member role,  ", err)
+		g.String(http.StatusBadGateway, "Error: %v", err)
 	}
 }
 
