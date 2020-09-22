@@ -384,23 +384,23 @@ func (t *Textile) FindMessageByID(threadIdStr string, instanceID string) (*Threa
 func (t *Textile) FindMemberByID(threadIdStr string, instanceID string) (string,error) {
 	threadId, err := thread2.Decode(threadIdStr)
 	if err != nil {
-		return nil,err
+		return "",err
 	}
 	exists, err := t.threadclient.Has(t.ctx, threadId, collectionMember , []string{instanceID})
 	if err != nil {
 		fmt.Println("error when chenck whether thread has a instance,", err)
-		return nil,err
+		return "",err
 	}
 	if !exists {
 		fmt.Println("This thread hasn't instance you checked", err)
-		return nil,nil
+		return "",nil
 	}
 
 	checkedMember := &ThreadMember{}
 	err = t.threadclient.FindByID(t.ctx, threadId, collectionMessage, instanceID, checkedMember)
 	if err != nil {
 		fmt.Println("failed to find collection by id, ", err)
-		return nil,err
+		return "",err
 	}
 
 	return checkedMember.Role,nil
