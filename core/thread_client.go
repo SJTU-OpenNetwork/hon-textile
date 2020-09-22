@@ -299,6 +299,7 @@ func (t *Textile) DeleteMemberInstance(id string, instanceIDs string) error {
 	}
 	err = t.threadclient.Delete(t.ctx, threadId, collectionMember, []string{instanceIDs})
 	if err != nil {
+		fmt.Println("error when delete member in thread, ",err)
 		return err
 	}
 	return nil
@@ -311,6 +312,7 @@ func (t *Textile) DeleteMessageInstance(id string, instanceIDs string) error {
 	}
 	err = t.threadclient.Delete(t.ctx, threadId, collectionMessage, []string{instanceIDs})
 	if err != nil {
+		fmt.Println("error when delete message in thread, ",err)
 		return err
 	}
 	return nil
@@ -319,13 +321,18 @@ func (t *Textile) DeleteMessageInstance(id string, instanceIDs string) error {
 //Save used to modify instances, users use instanceId(ID) change specific instance,
 //and users can modify the name and role of members.
 //ids is gotten from creat instance.
-func (t *Textile) ModifyMemberInstance(id string, ids []string, name string, role string) error {
+func (t *Textile) ModifyMemberInstance(id string, instanceId string,  role string) error {
+	//check the correction of role
+	if role!=owner && role != admin && role != member {
+		fmt.Println("the role given from cmd is not standard, only owner, admin and member can be used as role")
+		return nil
+	}
 	threadId, err := thread2.Decode(id)
 	if err != nil {
 		return err
 	}
-	instanceId := ids[0]
-	err = t.threadclient.Save(t.ctx, threadId, collectionMember, client.Instances{ThreadMember{ID: instanceId, Name: name, Role: role}})
+	//instanceId := ids[0]
+	err = t.threadclient.Save(t.ctx, threadId, collectionMember, client.Instances{ThreadMember{ID: instanceId, Role: role}})
 	if err != nil {
 		return err
 	}
@@ -373,7 +380,8 @@ func (t *Textile) FindMessageByID(threadIdStr string, instanceID string) (*Threa
 	return newMessage,nil
 }
 
-func (t *Textile) FindMemberByID(threadIdStr string, instanceID string) (*ThreadMember,error) {
+//return member role according to instanceID
+func (t *Textile) FindMemberByID(threadIdStr string, instanceID string) (string,error) {
 	threadId, err := thread2.Decode(threadIdStr)
 	if err != nil {
 		return nil,err
@@ -395,7 +403,7 @@ func (t *Textile) FindMemberByID(threadIdStr string, instanceID string) (*Thread
 		return nil,err
 	}
 
-	return checkedMember,nil
+	return checkedMember.Role,nil
 
 }
 

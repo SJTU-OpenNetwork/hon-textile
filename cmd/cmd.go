@@ -1104,14 +1104,14 @@ The response contains a base58 encoded version of the random bytes token.`).Alia
 
 	threadClientRemovePeer := threadClientCmd.Command("removePeer", "Remove a peer from thread DB.")
 	threadClientRemovePeerThreadId := threadClientRemovePeer.Arg("threadId", "thread Id").Required().String()
-	threadClientRemovePeerPid := threadClientRemovePeer.Arg("peerId", "peer you want to remove from the thread").Required().String()
+	threadClientRemovePeerPid := threadClientRemovePeer.Arg("instanceId", "instanceId of peer you want to remove from the thread").Required().String()
 	cmds[threadClientRemovePeer.FullCommand()] = func() error {
 		return ThreadClientRemovePeer(*threadClientRemovePeerThreadId, *threadClientRemovePeerPid)
 	}
 
 	threadClientModiPeer := threadClientCmd.Command("modPeer", "Modify a peer's role in thread DB.")
 	threadClientModiPeerThreadId := threadClientModiPeer.Arg("threadId", "thread Id").Required().String()
-	threadClientModiPeerPid := threadClientModiPeer.Arg("peerId", "peer you want to modify his role in the thread").Required().String()
+	threadClientModiPeerPid := threadClientModiPeer.Arg("instanceId", "instanceId of peer you want to modify his role in the thread").Required().String()
 	threadClientModiPeerRole := threadClientModiPeer.Arg("role", "Role").Required().String()
 	cmds[threadClientModiPeer.FullCommand()] = func() error {
 		return ThreadClientModiPeer(*threadClientModiPeerThreadId, *threadClientModiPeerPid, *threadClientModiPeerRole)
@@ -1119,7 +1119,7 @@ The response contains a base58 encoded version of the random bytes token.`).Alia
 	//查member 返回role
 	threadClientFindPeer := threadClientCmd.Command("findPeer", "Find a peer in thread and return his role")
 	threadClientFindPeerThreadId := threadClientFindPeer.Arg("threadId", "thread Id").Required().String()
-	threadClientFindPeerPid := threadClientFindPeer.Arg("peerId", "peer you want to check to the thread").Required().String()
+	threadClientFindPeerPid := threadClientFindPeer.Arg("instanceId", "instance Id of peer you want to check to the thread").Required().String()
 	cmds[threadClientFindPeer.FullCommand()] = func() error {
 		return ThreadClientFindPeer(*threadClientFindPeerThreadId, *threadClientFindPeerPid)
 	}

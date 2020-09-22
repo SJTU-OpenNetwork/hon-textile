@@ -62,6 +62,25 @@ func (a *Api) threadClientAddString(g *gin.Context) {
 }
 
 func (a *Api) threadClientRemoveMessage(g *gin.Context) {
+	opts, err := a.readOpts(g)
+	if err != nil {
+		a.abort500(g, err)
+		return
+	}
+	threadIdStr, ok := opts["threadId"]
+	if !ok {
+		g.String(http.StatusBadRequest, "missing threadId")
+		return
+	}
+	instanceId, ok := opts["instanceId"]
+	if !ok {
+		g.String(http.StatusBadRequest, "missing instance id")
+		return
+	}
+	err  = a.Node.DeleteMessageInstance(threadIdStr,instanceId)
+	if err != nil{
+		return
+	}
 
 }
 
@@ -89,15 +108,77 @@ func (a *Api) threadClientAddPeer(g *gin.Context) {
 }
 
 func (a *Api) threadClientRemovePeer(g *gin.Context) {
-
+	opts, err := a.readOpts(g)
+	if err != nil {
+		a.abort500(g, err)
+		return
+	}
+	threadIdStr, ok := opts["threadId"]
+	if !ok {
+		g.String(http.StatusBadRequest, "missing threadId")
+		return
+	}
+	instanceId, ok := opts["instanceId"]
+	if !ok {
+		g.String(http.StatusBadRequest, "missing instance id")
+		return
+	}
+	err  = a.Node.DeleteMemberInstance(threadIdStr,instanceId)
+	if err != nil{
+		return
+	}
 }
 
 func (a *Api) threadClientModPeer(g *gin.Context) {
-
+	opts, err := a.readOpts(g)
+	if err != nil {
+		a.abort500(g, err)
+		return
+	}
+	threadIdStr, ok := opts["threadId"]
+	if !ok {
+		g.String(http.StatusBadRequest, "missing threadId")
+		return
+	}
+	instanceId, ok := opts["instanceId"]
+	if !ok {
+		g.String(http.StatusBadRequest, "missing instance id")
+		return
+	}
+	role, ok := opts["role"]
+	if !ok {
+		g.String(http.StatusBadRequest, "missing role")
+		return
+	}
+	err = a.Node.ModifyMemberInstance(threadIdStr,instanceId,role)
+	if err!= nil {
+		return
+	}
 }
 
 func (a *Api) threadClientFindPeer(g *gin.Context) {
-
+	opts, err := a.readOpts(g)
+	if err != nil {
+		a.abort500(g, err)
+		return
+	}
+	threadIdStr, ok := opts["threadId"]
+	if !ok {
+		g.String(http.StatusBadRequest, "missing threadId")
+		return
+	}
+	instanceId, ok := opts["instanceId"]
+	if !ok {
+		g.String(http.StatusBadRequest, "missing instance id")
+		return
+	}
+	role,err := a.Node.FindMemberByID(threadIdStr,instanceId)
+	if err != nil {
+		log.Error("Error when get member role, ", err)
+		g.String(http.StatusBadGateway, "Error: %v", err)
+	} else {
+		g.JSON(http.StatusOK, role)
+	}
 }
 
 func (a *Api) threadClientGroupInfo(g *gin.Context) {

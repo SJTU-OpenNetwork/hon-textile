@@ -56,7 +56,7 @@ func ThreadClientAddPeer(threadId string, pid string) error {
 }
 
 func ThreadClientRemovePeer(threadId string, pid string) error {
-	cmdOpt := map[string]string{"threadId": threadId, "peerId": pid}
+	cmdOpt := map[string]string{"threadId": threadId, "instanceId": pid}
 	res, err := executeStringCmd(http.MethodPost, "threadClient/removePeer", params{opts:cmdOpt})
 	if err != nil {
 		return err
@@ -66,7 +66,7 @@ func ThreadClientRemovePeer(threadId string, pid string) error {
 }
 
 func ThreadClientModiPeer(threadId string, pid string, role string) error {
-	cmdOpt := map[string]string{"threadId": threadId, "peerId": pid, "role": role}
+	cmdOpt := map[string]string{"threadId": threadId, "instanceId": pid, "role": role}
 	res, err := executeStringCmd(http.MethodPost, "threadClient/modPeer", params{opts:cmdOpt})
 	if err != nil {
 		return err
@@ -76,7 +76,7 @@ func ThreadClientModiPeer(threadId string, pid string, role string) error {
 }
 
 func ThreadClientFindPeer(threadId string, pid string) error {
-	cmdOpt := map[string]string{"threadId": threadId, "peerId": pid}
+	cmdOpt := map[string]string{"threadId": threadId, "instanceId": pid}
 	res, err := executeStringCmd(http.MethodPost, "threadClient/findPeer", params{opts:cmdOpt})
 	if err != nil {
 		return err
