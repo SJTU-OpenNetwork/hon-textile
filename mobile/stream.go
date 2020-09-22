@@ -40,6 +40,10 @@ func (m *Mobile) StartStream_Text(thread string, stream []byte) error {
 	return nil
 }
 
+func (m *Mobile) SetStreamSpeedInterval(intv int64){
+	m.node.ShadowSpeedSlow(intv)
+}
+
 func (m *Mobile) FileAsStream_Text(thread string, sf []byte, file_type int) ([]byte, error) {
 	model := new(pb.StreamFile)
 	if err := proto.Unmarshal(sf, model); err != nil {
