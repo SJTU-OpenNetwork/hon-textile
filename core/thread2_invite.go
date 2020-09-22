@@ -94,7 +94,11 @@ func (t *Textile) handleInvite(env *pb.Envelope) error {
 		fmt.Println("error when new message collection")
 		return err
 	}
-
+	err = t.NewGroupInfoCollection(threadId)
+	if err != nil {
+		fmt.Println("error when new message collection")
+		return err
+	}
 
 	//Start listening new created thread
 	err = t.ListenOneThread2(inform.ThreadId)

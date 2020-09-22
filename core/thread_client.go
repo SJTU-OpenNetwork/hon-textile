@@ -88,9 +88,9 @@ const (
 				"type": "string",
 				"description": "The group's type."
 			},
-			"flag": {
-				"type": "string",
-				"description": "The group's flag."
+			"number": {
+				"type": "integer",
+				"description": "Number of group member."
 			}
 		}
 	}`
@@ -115,7 +115,7 @@ type ThreadGroup struct {
 	ID      string `json:"_id"`
 	Name    string `json:"name"`
 	Type    string `json:"type"`
-	Flag	string `json:"flag"`
+	Number	int	   `json:"number"`
 }
 
 //func (t *Textile) makeServer() (ma.Multiaddr, error) {
@@ -202,7 +202,7 @@ func (t *Textile) CreateGroup(groupName string) (thread.ID, error) {
 		return threadId, err
 	}
 	//add group info
-	_, err = t.CreateGroupInfo(threadId, groupName)
+	_, err = t.CreateGroupInfoInstance(threadId, groupName)
 	if err != nil {
 		fmt.Println("Error when add group info")
 		return threadId, err
@@ -281,14 +281,16 @@ func (t *Textile) CreateMesInstance(id thread.ID, instances client.Instances) ([
 }
 
 //create a collection to storage group info, generally it has only one instance.
-func (t *Textile) CreateGroupInfo(id thread.ID, groupName string) ([]string, error) {
+func (t *Textile) CreateGroupInfoInstance(id thread.ID, groupName string) ([]string, error) {
 	instanceIds, err := t.threadclient.Create(t.ctx, id, collectionGroup,
-		client.Instances{&ThreadGroup{Name:groupName,Flag:"groupInfo"}})
+		client.Instances{&ThreadGroup{Name:groupName,Number:1}})
 	if err != nil {
 		return nil, err
 	}
 	return instanceIds, nil
 }
+
+
 
 //Delete instance. Delete instance Through ID.
 //Assume we get ids from CreateInstance, then we can use ids[0] to delete it.
