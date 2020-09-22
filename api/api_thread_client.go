@@ -84,6 +84,33 @@ func (a *Api) threadClientRemoveMessage(g *gin.Context) {
 
 }
 
+func (a *Api) threadClientFindMessage(g *gin.Context) {
+	opts, err := a.readOpts(g)
+	if err != nil {
+		a.abort500(g, err)
+		return
+	}
+	threadIdStr, ok := opts["threadId"]
+	if !ok {
+		g.String(http.StatusBadRequest, "missing threadId")
+		return
+	}
+	instanceId, ok := opts["instanceId"]
+	if !ok {
+		g.String(http.StatusBadRequest, "missing instance id")
+		return
+	}
+	content,err  := a.Node.FindMessageByID(threadIdStr,instanceId)
+	if err != nil {
+		log.Error("Error when find message by id, ", err)
+		g.String(http.StatusBadGateway, "Error: %v", err)
+	} else {
+		g.JSON(http.StatusOK, content)
+	}
+
+}
+
+
 func (a *Api) threadClientAddPeer(g *gin.Context) {
 	opts, err := a.readOpts(g)
 	if err != nil {

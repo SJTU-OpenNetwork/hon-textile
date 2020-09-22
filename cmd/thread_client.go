@@ -25,7 +25,7 @@ func ThreadClientListDB() error {
 }
 
 func ThreadClientAddString(threadId string, text string) error {
-	res, err := executeJsonCmd(http.MethodPut, "threadClient/addString/"+threadId, params{
+	res, err := executeJsonCmd(http.MethodPut, "threadClient/addMessage/"+threadId, params{
 		payload: strings.NewReader(text)}, nil)
 	if err != nil {
 		return err
@@ -38,6 +38,16 @@ func ThreadClientAddString(threadId string, text string) error {
 func ThreadClientRemoveMessage(threadId string, instanceId string) error {
 	cmdOpt := map[string]string{"threadId": threadId, "instanceId": instanceId}
 	res, err := executeStringCmd(http.MethodPut, "threadClient/delMessage", params{opts:cmdOpt})
+	if err != nil {
+		return err
+	}
+	output(res)
+	return nil
+}
+
+func ThreadClientFindMessage(threadId string, pid string) error {
+	cmdOpt := map[string]string{"threadId": threadId, "instanceId": pid}
+	res, err := executeStringCmd(http.MethodPost, "threadClient/findMessage", params{opts:cmdOpt})
 	if err != nil {
 		return err
 	}

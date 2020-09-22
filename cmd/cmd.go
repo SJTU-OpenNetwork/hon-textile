@@ -1079,19 +1079,26 @@ The response contains a base58 encoded version of the random bytes token.`).Alia
 	threadClientListDBCmd := threadClientCmd.Command("listDB","List all active DBs.")
 	cmds[threadClientListDBCmd.FullCommand()] =  ThreadClientListDB
 
-	//message 的增 删
-	threadClientAddString := threadClientCmd.Command("addString", "Add a string instance to thread DB.")
-	threadClientAddStringThreadId := threadClientAddString.Arg("thread", "thread Id").Required().String()
+	//message 的增 删 查
+	threadClientAddString := threadClientCmd.Command("addMessage", "Add a string instance to thread DB.")
+	threadClientAddStringThreadId := threadClientAddString.Arg("threadId", "thread Id").Required().String()
 	threadClientAddStringText := threadClientAddString.Arg("text", "text message you want to add to the thread").Required().String()
 	cmds[threadClientAddString.FullCommand()] = func() error {
 		return ThreadClientAddString(*threadClientAddStringThreadId, *threadClientAddStringText)
 	}
 
 	threadClientRemoveMessage := threadClientCmd.Command("delMessage", "Delete a string instance in thread DB.")
-	threadClientRemoveMessageThreadId := threadClientRemoveMessage.Arg("thread", "thread Id").Required().String()
+	threadClientRemoveMessageThreadId := threadClientRemoveMessage.Arg("threadId", "thread Id").Required().String()
 	threadClientRemoveMessageInstanceId := threadClientRemoveMessage.Arg("instanceId", "message instance id you want to delete in the thread").Required().String()
 	cmds[threadClientRemoveMessage.FullCommand()] = func() error {
 		return ThreadClientRemoveMessage(*threadClientRemoveMessageThreadId, *threadClientRemoveMessageInstanceId)
+	}
+
+	threadClientFindMessage := threadClientCmd.Command("findMessage", "Find a instance in thread DB.")
+	threadClientFindMessageThreadId := threadClientFindMessage.Arg("threadId", "thread Id").Required().String()
+	threadClientFindMessageInstanceId := threadClientFindMessage.Arg("instanceId", "message instance id you want to delete in the thread").Required().String()
+	cmds[threadClientFindMessage.FullCommand()] = func() error {
+		return ThreadClientFindMessage(*threadClientFindMessageThreadId, *threadClientFindMessageInstanceId)
 	}
 
 	//member 的 增 删 改 查

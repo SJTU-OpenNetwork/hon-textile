@@ -396,6 +396,7 @@ func (a *Api) Run() {
 			threadClient.POST("/listDB",a.threadClientListDB)
 			threadClient.PUT("/addString/:threadId", a.threadClientAddString)
 			threadClient.PUT("/delMessage",a.threadClientRemoveMessage)
+			threadClient.POST("/findMessage",a.threadClientFindMessage)
 			threadClient.POST("/addPeer",a.threadClientAddPeer)
 			threadClient.POST("/removePeer",a.threadClientRemovePeer)
 			threadClient.POST("/modPeer",a.threadClientModPeer)

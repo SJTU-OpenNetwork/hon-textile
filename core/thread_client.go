@@ -354,30 +354,30 @@ func (t *Textile) ModifyMessageInstance(id string, ids []string, newContent stri
 }
 
 
-
-func (t *Textile) FindMessageByID(threadIdStr string, instanceID string) (*ThreadMessage,error){
+//return content
+func (t *Textile) FindMessageByID(threadIdStr string, instanceID string) (string,error){
 	threadId, err := thread2.Decode(threadIdStr)
 	if err != nil {
-		return nil,err
+		return "",err
 	}
 	exists, err := t.threadclient.Has(t.ctx, threadId, collectionMessage , []string{instanceID})
 	if err != nil {
 		fmt.Println("error when chenck whether thread has a instance,", err)
-		return nil,err
+		return "",err
 	}
 	if !exists {
 		fmt.Println("This thread hasn't instance you checked", err)
-		return nil,nil
+		return "",nil
 	}
 
 	newMessage := &ThreadMessage{}
 	err = t.threadclient.FindByID(t.ctx, threadId, collectionMessage, instanceID, newMessage)
 	if err != nil {
 		fmt.Println("failed to find collection by id, ", err)
-		return nil,err
+		return "",err
 	}
 
-	return newMessage,nil
+	return newMessage.Content,nil
 }
 
 //return member role according to instanceID
