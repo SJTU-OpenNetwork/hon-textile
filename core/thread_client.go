@@ -91,6 +91,10 @@ const (
 			"number": {
 				"type": "integer",
 				"description": "Number of group member."
+			},
+			"flag": {
+				"type": "string",
+				"description": "Flag to find instance."
 			}
 		}
 	}`
@@ -116,6 +120,7 @@ type ThreadGroup struct {
 	Name    string `json:"name"`
 	Type    string `json:"type"`
 	Number	int	   `json:"number"`
+	Flag	string `json:"flag"`
 }
 
 //func (t *Textile) makeServer() (ma.Multiaddr, error) {
@@ -283,7 +288,7 @@ func (t *Textile) CreateMesInstance(id thread.ID, instances client.Instances) ([
 //create a collection to storage group info, generally it has only one instance.
 func (t *Textile) CreateGroupInfoInstance(id thread.ID, groupName string) ([]string, error) {
 	instanceIds, err := t.threadclient.Create(t.ctx, id, collectionGroup,
-		client.Instances{&ThreadGroup{Name:groupName,Number:1}})
+		client.Instances{&ThreadGroup{Name:groupName,Number:1,Flag:"groupInfo"}})
 	if err != nil {
 		return nil, err
 	}
@@ -467,7 +472,7 @@ func (t *Textile) GroupInfo2(threadIdStr string) (string, error) {
 	//}
 
 
-	q := db.Where("name").Eq("ppp")
+	q := db.Where("flag").Eq("groupInfo")
 	fmt.Println("============================start find in collection group")
 	rawResults, err := t.threadclient.Find(t.ctx, threadId, collectionGroup, q, &ThreadGroup{})
 	if err != nil {
