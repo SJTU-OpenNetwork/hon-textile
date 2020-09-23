@@ -451,6 +451,24 @@ func (t *Textile) GroupInfo(threadid string, instanceId string) (string,error) {
 	return groupInfo.Name, nil
 }
 
+func (t *Textile) GroupInfo2(threadIdStr string) (string, error) {
+	threadId, err := thread2.Decode(threadIdStr)
+	if err != nil {
+		return "",err
+	}
+	q := db.Where("number").Eq(1).UseIndex("number")
+	rawResults, err := t.threadclient.Find(t.ctx, threadId, collectionGroup, q, &ThreadGroup{})
+	if err != nil {
+		fmt.Println("failed to find: ", err)
+	}
+	results := rawResults.([]*ThreadGroup)
+	if len(results) != 1 {
+		fmt.Println("expected 1 result, but got ", len(results))
+	}
+	name := results[0].Name
+	return name, nil
+}
+
 //Users can modify the message content.
 func (t *Textile) ModifyGroupInfo(threadIdStr string, instanceId string, newName string) error {
 	// maybe we need add access control, only owner or admin can modify
