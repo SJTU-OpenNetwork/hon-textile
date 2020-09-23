@@ -457,11 +457,15 @@ func (t *Textile) GroupInfo2(threadIdStr string) (string, error) {
 		return "",err
 	}
 	q := db.Where("number").Eq(1).UseIndex("number")
+	fmt.Println("============================start find in collection group")
 	rawResults, err := t.threadclient.Find(t.ctx, threadId, collectionGroup, q, &ThreadGroup{})
 	if err != nil {
-		fmt.Println("failed to find: ", err)
+		fmt.Println("==================failed to find: ", err)
 	}
+	fmt.Println("============================")
 	results := rawResults.([]*ThreadGroup)
+	fmt.Println("group info result have :",len(results))
+
 	if len(results) != 1 {
 		fmt.Println("expected 1 result, but got ", len(results))
 	}
