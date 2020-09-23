@@ -1134,9 +1134,8 @@ The response contains a base58 encoded version of the random bytes token.`).Alia
 	//Group info 的 查 改(目前只针对group name的修改)
 	threadClientGroupInfo := threadClientCmd.Command("groupInfo", "return the group name.")
 	threadClientGroupInfoThreadId := threadClientGroupInfo.Arg("threadId", "thread Id").Required().String()
-	threadClientGroupInfoInstanceId := threadClientGroupInfo.Arg("instanceId", "instance Id").Required().String()
 	cmds[threadClientGroupInfo.FullCommand()] = func() error {
-		return ThreadClientGroupName(*threadClientGroupInfoThreadId, *threadClientGroupInfoInstanceId)
+		return ThreadClientGroupName(*threadClientGroupInfoThreadId)
 	}
 
 	threadClientGroupInfoMod := threadClientCmd.Command("newGroupName", "Modify the group name.")

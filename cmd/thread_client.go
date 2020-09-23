@@ -95,8 +95,8 @@ func ThreadClientFindPeer(threadId string, pid string) error {
 	return nil
 }
 
-func ThreadClientGroupName(threadId string, instanceId string) error {
-	cmdOpt := map[string]string{"threadId": threadId, "instanceId":instanceId}
+func ThreadClientGroupName(threadId string) error {
+	cmdOpt := map[string]string{"threadId": threadId}
 	res, err := executeStringCmd(http.MethodPost, "threadClient/groupInfo", params{opts:cmdOpt})
 	if err != nil {
 		return err

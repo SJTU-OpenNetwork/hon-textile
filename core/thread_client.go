@@ -461,27 +461,13 @@ func (t *Textile) GroupInfo2(threadIdStr string) (string, error) {
 	if err != nil {
 		return "",err
 	}
-	//exists, err := t.threadclient.Has(t.ctx, threadId, collectionGroup , []string{instanceID})
-	//if err != nil {
-	//	fmt.Println("error when chenck whether thread has a instance,", err)
-	//	return "",err
-	//}
-	//if !exists {
-	//	fmt.Println("This thread hasn't instance you checked", err)
-	//	return "",nil
-	//}
-
-
 	q := db.Where("flag").Eq("groupInfo")
-	fmt.Println("============================start find in collection group")
 	rawResults, err := t.threadclient.Find(t.ctx, threadId, collectionGroup, q, &ThreadGroup{})
 	if err != nil {
-		fmt.Println("==================failed to find: ", err)
+		fmt.Println("failed to find: ", err)
+		return "",err
 	}
-	fmt.Println("============================")
 	results := rawResults.([]*ThreadGroup)
-	fmt.Println("group info result have :",len(results))
-
 	if len(results) != 1 {
 		fmt.Println("expected 1 result, but got ", len(results))
 	}
@@ -497,22 +483,17 @@ func (t *Textile) ModifyGroupInfo(threadIdStr string, instanceId string, newName
 	if err != nil {
 		return err
 	}
-	//q := db.Where("").Eq("groupInfo")
-	//rawResults, err := t.threadclient.Find(t.ctx, threadId, collectionGroup, q, &ThreadGroup{})
-	//if err != nil {
-	//	fmt.Println("failed to find ", err)
-	//}
-	//results := rawResults.([]*ThreadGroup)
-	//if len(results) != 1 {
-	//	fmt.Println("expected 1 result, but got ", len(results))
-	//}
-	//results[0].Name =newName
-
-	groupInfo := &ThreadGroup{}
-	err = t.threadclient.FindByID(t.ctx, threadId, collectionGroup, instanceId, groupInfo)
+	q := db.Where("flag").Eq("groupInfo")
+	rawResults, err := t.threadclient.Find(t.ctx, threadId, collectionGroup, q, &ThreadGroup{})
 	if err != nil {
-		fmt.Println("failed to find collection by id: ", err)
+		fmt.Println("failed to find: ", err)
+		return err
 	}
+	results := rawResults.([]*ThreadGroup)
+	if len(results) != 1 {
+		fmt.Println("expected 1 result, but got ", len(results))
+	}
+	groupInfo := results[0]
 	groupInfo.Name = newName
 	err = t.threadclient.Save(t.ctx, threadId, collectionGroup, client.Instances{groupInfo})
 	if err != nil {
