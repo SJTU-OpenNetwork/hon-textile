@@ -25,11 +25,11 @@ func (m *Mobile) ListDBs() ([]string, error) {
 
 //return group name
 func (m *Mobile) ThreadGroupInfo(threadId string, instanceId string) (string, error) {
-	return m.node.GroupInfo(threadId, instanceId)
+	return m.node.GroupInfo2(threadId)
 }
 
-func (m *Mobile) ThreadModifyGroupInfo(threadId string, instanceId string, name string) error {
-	return m.node.ModifyGroupInfo(threadId, instanceId, name)
+func (m *Mobile) ThreadModifyGroupInfo(threadId string, name string) error {
+	return m.node.ModifyGroupName(threadId,  name)
 }
 
 //message add,remove and find

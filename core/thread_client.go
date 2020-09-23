@@ -476,7 +476,7 @@ func (t *Textile) GroupInfo2(threadIdStr string) (string, error) {
 }
 
 //Users can modify the message content.
-func (t *Textile) ModifyGroupInfo(threadIdStr string, instanceId string, newName string) error {
+func (t *Textile) ModifyGroupName(threadIdStr string, newName string) error {
 	// maybe we need add access control, only owner or admin can modify
 
 	threadId, err := thread2.Decode(threadIdStr)

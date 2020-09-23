@@ -249,18 +249,13 @@ func (a *Api) threadClientNewGroupName(g *gin.Context) {
 		g.String(http.StatusBadRequest, "missing threadId")
 		return
 	}
-	instanceId, ok := opts["instanceId"]
-	if !ok {
-		g.String(http.StatusBadRequest, "missing instance Id")
-		return
-	}
 	newName, ok := opts["name"]
 	if !ok {
 		g.String(http.StatusBadRequest, "missing new name")
 		return
 	}
 
-	err = a.Node.ModifyGroupInfo(threadIdStr,instanceId, newName)
+	err = a.Node.ModifyGroupName(threadIdStr,newName)
 	if err != nil {
 		log.Error("Error when modify group info, ", err)
 		g.String(http.StatusBadGateway, "Error: %v", err)

@@ -105,8 +105,8 @@ func ThreadClientGroupName(threadId string) error {
 	return nil
 }
 
-func ThreadClientGroupInfoMod(threadId string, instanceId string, name string) error {
-	cmdOpt := map[string]string{"threadId": threadId,"instanceId":instanceId,"name": name}
+func ThreadClientGroupInfoMod(threadId string, name string) error {
+	cmdOpt := map[string]string{"threadId": threadId,"name": name}
 	res, err := executeStringCmd(http.MethodPost, "threadClient/newGroupName", params{opts:cmdOpt})
 	if err != nil {
 		return err
