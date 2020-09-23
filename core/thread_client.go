@@ -456,15 +456,15 @@ func (t *Textile) GroupInfo2(threadIdStr string) (string, error) {
 	if err != nil {
 		return "",err
 	}
-	exists, err := t.threadclient.Has(t.ctx, threadId, collectionGroup , []string{instanceID})
-	if err != nil {
-		fmt.Println("error when chenck whether thread has a instance,", err)
-		return "",err
-	}
-	if !exists {
-		fmt.Println("This thread hasn't instance you checked", err)
-		return "",nil
-	}
+	//exists, err := t.threadclient.Has(t.ctx, threadId, collectionGroup , []string{instanceID})
+	//if err != nil {
+	//	fmt.Println("error when chenck whether thread has a instance,", err)
+	//	return "",err
+	//}
+	//if !exists {
+	//	fmt.Println("This thread hasn't instance you checked", err)
+	//	return "",nil
+	//}
 
 
 	q := db.Where("name").Eq("ppp")
