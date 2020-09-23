@@ -456,7 +456,7 @@ func (t *Textile) GroupInfo2(threadIdStr string) (string, error) {
 	if err != nil {
 		return "",err
 	}
-	q := db.Where("number").Eq(ThreadGroup{Number:1}.Number).UseIndex("number")
+	q := db.Where("name").Eq("ppp").UseIndex("name")
 	fmt.Println("============================start find in collection group")
 	rawResults, err := t.threadclient.Find(t.ctx, threadId, collectionGroup, q, &ThreadGroup{})
 	if err != nil {
