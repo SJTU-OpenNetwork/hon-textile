@@ -33,8 +33,8 @@ func (m *Mobile) ThreadModifyGroupInfo(threadId string, name string) error {
 }
 
 //message add,remove and find
-func (m *Mobile) Thread2AddMessage(threadId string, mes string) error {
-	return m.node.ThreadAddMessage(threadId, mes)
+func (m *Mobile) Thread2AddMessage(threadId string, mes string) (string,error) {
+	return m.node.Thread2AddMessage(threadId, mes)
 }
 
 func (m *Mobile) Thread2RemoveMessage(threadId string, instanceId string) error {
@@ -62,6 +62,32 @@ func (m *Mobile) Thead2MemberRole(threadId string, instanceId string) (string, e
 func (m *Mobile) Thead2MemberRoleChange(threadId string, instanceId string, role string) (string, error) {
 	return m.node.ModifyMemberInstance(threadId, instanceId, role)
 }
+
+// invite peer and add message are using handler now.
+type Thread2AddMesCallBack interface {
+	Call(instanceId string, err error)
+}
+
+func (m *Mobile) Thread2AddStringMessage(threadId string, mes string, cb Thread2AddMesCallBack)  {
+	m.node.WaitAdd(1, "Mobile.Thread2AddStringMessage")
+	go func() {
+		defer m.node.WaitDone("Mobile.Thread2AddStringMessage")
+		cb.Call(m.node.Thread2AddMessage(threadId, mes))
+	}()
+}
+
+type Thread2AddMemCallBack interface {
+	Call(err error)
+}
+
+func (m *Mobile) Thread2AddMember(threadId string, peerId string, cb Thread2AddMemCallBack)  {
+	m.node.WaitAdd(1, "Mobile.Thread2AddMember")
+	go func() {
+		defer m.node.WaitDone("Mobile.Thread2AddMember")
+		cb.Call(m.node.Invite(threadId, peerId))
+	}()
+}
+
 
 type Thread2Handler interface {
 	HandleMsg(threadId string, bytes []byte)

@@ -416,18 +416,18 @@ func (t *Textile) FindMemberByID(threadIdStr string, instanceID string) (string,
 
 
 //add a string to the message collection of a thread
-func (t *Textile) ThreadAddMessage(id string, mes string) error {
+func (t *Textile) Thread2AddMessage(id string, mes string) (string,error) {
 	threadId, err := thread2.Decode(id)
 	if err != nil {
-		return err
+		return "",err
 	}
-	_, err = t.CreateMesInstance(threadId, client.Instances{
+	Ids, err := t.CreateMesInstance(threadId, client.Instances{
 		&ThreadMessage{Sender: t.Account().Address(), Time: int(time.Now().Unix()), Content: mes}})
 	if err != nil {
-		return err
+		return "",err
 	}
 	fmt.Println("added message: '", mes, "' to thread: '", id, "'")
-	return nil
+	return Ids[0],nil
 }
 
 
