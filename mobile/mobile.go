@@ -115,6 +115,7 @@ type Mobile struct {
 	node      *core.Textile
 	messenger Messenger
 	listener  *broadcast.Listener
+	listener2  *broadcast.Listener
 }
 
 // Repo returns the actual location of the configured repo
