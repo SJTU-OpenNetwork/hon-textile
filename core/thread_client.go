@@ -17,6 +17,9 @@ const (
 	admin  = "ADMINISTRATOR"
 	member = "GENERAL_MEMBER"
 
+	singleChat = "SINGLE_CHAT"
+	groupChat = "GROUP_CHAT"
+
 	collectionMember  = "GroupMember"
 	collectionMessage = "GroupMessage"
 	collectionGroup = "GroupInfo"
@@ -216,6 +219,50 @@ func (t *Textile) CreateGroup(groupName string) (thread.ID, error) {
 	return threadId, nil
 }
 
+//CreateChat is different with CreateGroup, one is used for one to one chatting,
+//and another is used for group chatting.
+func (t *Textile) CreateSingleChat(groupName string) (thread.ID, error) {
+	threadId := thread.NewIDV1(thread.Raw, 32)
+	err := t.threadclient.NewDB(t.ctx, threadId)
+	if err != nil {
+		return "", err
+	}
+	err = t.NewMembersCollection(threadId)
+	if err != nil {
+		return "", err
+	}
+	err = t.NewMessagesCollection(threadId)
+	if err != nil {
+		return "", err
+	}
+	err = t.NewGroupInfoCollection(threadId)
+	if err != nil {
+		return "", err
+	}
+
+	//Start listening new created thread
+	err = t.ListenOneThread2(threadId.String())
+	if err != nil {
+		fmt.Println("Error when listen new group")
+		return "",err
+	}
+	//add myself info to the thread collection of member
+	_, err = t.CreateMemInstance(threadId,  client.Instances{
+		ThreadMember{MemberId: t.Account().Address(), Name: t.Name(), Role: owner}})
+	if err != nil {
+		fmt.Println("Error when add myself info to the thread")
+		return threadId, err
+	}
+	//add group info
+	_, err = t.CreateGroupInfoInstance2(threadId, groupName)
+	if err != nil {
+		fmt.Println("Error when add single chat info")
+		return threadId, err
+	}
+
+	return threadId, nil
+}
+
 func (t *Textile) ListDBs() (map[thread.ID]*client.DBInfo, error) {
 	return t.threadclient.ListDBs(t.ctx)
 }
@@ -233,8 +280,16 @@ func (t *Textile) GetDBInfo(threadIdStr string) (*client.DBInfo, error) {
 }
 
 //not used for now
-func (t *Textile) DeleteDB(threadIdStr string) (*client.DBInfo, error) {
-	return nil, nil
+func (t *Textile) DeleteDB(threadIdStr string) (error) {
+	threadId, err := thread2.Decode(threadIdStr)
+	if err != nil {
+		return err
+	}
+	err = t.threadclient.DeleteDB(t.ctx,threadId)
+	if err != nil {
+		return err
+	}
+	return nil
 }
 
 //create a new collection to a DB.
@@ -285,16 +340,25 @@ func (t *Textile) CreateMesInstance(id thread.ID, instances client.Instances) ([
 		return instanceIds, nil
 }
 
-//create a collection to storage group info, generally it has only one instance.
+//create a collection to storage group chat info, generally it has only one instance.
 func (t *Textile) CreateGroupInfoInstance(id thread.ID, groupName string) ([]string, error) {
 	instanceIds, err := t.threadclient.Create(t.ctx, id, collectionGroup,
-		client.Instances{&ThreadGroup{Name:groupName,Number:1,Flag:"groupInfo"}})
+		client.Instances{&ThreadGroup{Name:groupName,Number:1,Type:groupChat,Flag:"groupInfo"}})
 	if err != nil {
 		return nil, err
 	}
 	return instanceIds, nil
 }
 
+//create a collection to storage single chat info, indicate the type of it.
+func (t *Textile) CreateGroupInfoInstance2(id thread.ID, groupName string) ([]string, error) {
+	instanceIds, err := t.threadclient.Create(t.ctx, id, collectionGroup,
+		client.Instances{&ThreadGroup{Name:groupName,Number:1,Type:singleChat,Flag:"groupInfo"}})
+	if err != nil {
+		return nil, err
+	}
+	return instanceIds, nil
+}
 
 
 //Delete instance. Delete instance Through ID.
@@ -456,7 +520,7 @@ func (t *Textile) GroupInfo(threadid string, instanceId string) (string,error) {
 	return groupInfo.Name, nil
 }
 
-func (t *Textile) GroupInfo2(threadIdStr string) (string, error) {
+func (t *Textile) GroupInfoName(threadIdStr string) (string, error) {
 	threadId, err := thread2.Decode(threadIdStr)
 	if err != nil {
 		return "",err
@@ -475,10 +539,48 @@ func (t *Textile) GroupInfo2(threadIdStr string) (string, error) {
 	return name, nil
 }
 
+func (t *Textile) GroupInfoType(threadIdStr string) (string, error) {
+	threadId, err := thread2.Decode(threadIdStr)
+	if err != nil {
+		return "",err
+	}
+	q := db.Where("flag").Eq("groupInfo")
+	rawResults, err := t.threadclient.Find(t.ctx, threadId, collectionGroup, q, &ThreadGroup{})
+	if err != nil {
+		fmt.Println("failed to find: ", err)
+		return "",err
+	}
+	results := rawResults.([]*ThreadGroup)
+	if len(results) != 1 {
+		fmt.Println("expected 1 result, but got ", len(results))
+	}
+	gType := results[0].Type
+	return gType, nil
+}
+
+//Return the member number in a threadDB.
+func (t *Textile) GroupInfoNumber(threadIdStr string) (int, error) {
+	threadId, err := thread2.Decode(threadIdStr)
+	if err != nil {
+		return 0,err
+	}
+	q := db.Where("flag").Eq("groupInfo")
+	rawResults, err := t.threadclient.Find(t.ctx, threadId, collectionGroup, q, &ThreadGroup{})
+	if err != nil {
+		fmt.Println("failed to find: ", err)
+		return 0,err
+	}
+	results := rawResults.([]*ThreadGroup)
+	if len(results) != 1 {
+		fmt.Println("expected 1 result, but got ", len(results))
+	}
+	memNumber := results[0].Number
+	return memNumber, nil
+}
+
 //Users can modify the message content.
 func (t *Textile) ModifyGroupName(threadIdStr string, newName string) error {
 	// maybe we need add access control, only owner or admin can modify
-
 	threadId, err := thread2.Decode(threadIdStr)
 	if err != nil {
 		return err
@@ -503,3 +605,30 @@ func (t *Textile) ModifyGroupName(threadIdStr string, newName string) error {
 	return nil
 }
 
+//Used when join to a threadDB
+func (t *Textile) ModifyGroupNumber(threadIdStr string) error {
+	// maybe we need add access control, only owner or admin can modify
+	threadId, err := thread2.Decode(threadIdStr)
+	if err != nil {
+		return err
+	}
+
+	q := db.Where("flag").Eq("groupInfo")
+	rawResults, err := t.threadclient.Find(t.ctx, threadId, collectionGroup, q, &ThreadGroup{})
+	if err != nil {
+		fmt.Println("failed to find: ", err)
+		return err
+	}
+	results := rawResults.([]*ThreadGroup)
+	if len(results) != 1 {
+		fmt.Println("expected 1 result, but got ", len(results))
+	}
+	groupInfo := results[0]
+	groupInfo.Number = groupInfo.Number + 1
+	err = t.threadclient.Save(t.ctx, threadId, collectionGroup, client.Instances{groupInfo})
+	if err != nil {
+		fmt.Println("failed to save a new name for group, ", err)
+		return err
+	}
+	return nil
+}

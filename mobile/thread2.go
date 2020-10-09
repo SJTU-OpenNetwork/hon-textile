@@ -24,8 +24,13 @@ func (m *Mobile) ListDBs() ([]string, error) {
 }
 
 //return group name
-func (m *Mobile) ThreadGroupInfo(threadId string, instanceId string) (string, error) {
-	return m.node.GroupInfo2(threadId)
+func (m *Mobile) ThreadGroupName(threadId string, instanceId string) (string, error) {
+	return m.node.GroupInfoName(threadId)
+}
+
+//return group name
+func (m *Mobile) ThreadGroupType(threadId string, instanceId string) (string, error) {
+	return m.node.GroupInfoType(threadId)
 }
 
 func (m *Mobile) ThreadModifyGroupInfo(threadId string, name string) error {
