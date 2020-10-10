@@ -1,10 +1,11 @@
 syntax = "proto3";
 option java_package = "sjtu.opennet.textilepb";
 option go_package = "pb";
+import "google/protobuf/any.proto";
 
 message Thread2Peer {
     string id     = 1;
-    int role      = 2;
+    int32 role      = 2;
 }
 
 
@@ -13,4 +14,11 @@ message Thread2Invite {
     string threadId = 2;
     string dbAddr = 3;
     string dbKey =4;
+}
+
+message Thread2MessageUpdate {
+    string threadId = 1;
+    string collection =2;
+    string instanceId =3;
+    bytes  instance   = 4;
 }

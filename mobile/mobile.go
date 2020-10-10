@@ -299,7 +299,7 @@ func (m *Mobile) Start() error {
 					if !ok {
 						return
 					}
-					if msg, ok := update.(*pb.FeedItem); ok {
+					if msg, ok := update.(*pb.Thread2MessageUpdate); ok {
 						m.notify(pb.MobileEventType_THREAD2_UPDATE, msg)
 					}
 				}
@@ -402,3 +402,21 @@ func (m *Mobile) notify(etype pb.MobileEventType, msg proto.Message) {
 		Data: data,
 	})
 }
+
+//used to send notify for thread2 update only.
+//func (m *Mobile) notify2(etype pb.MobileEventType, msg core.Thread2UpdateMessage) {
+//	var data []byte
+//	if msg != nil {
+//		var err error
+//		data, err = proto.Marshal(msg)
+//		if err != nil {
+//			log.Error(err.Error())
+//			return
+//		}
+//	}
+//	m.messenger.Notify(&Event{
+//		Name: etype.String(),
+//		Type: int32(etype),
+//		Data: data,
+//	})
+//}
