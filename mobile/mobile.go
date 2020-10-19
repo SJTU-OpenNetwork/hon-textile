@@ -362,7 +362,6 @@ func (m *Mobile) TryConnectShadowByRelay(shadowId string){
 	m.node.TryConnectShadowByRelay(shadowId)
 }
 
-
 // GitSummary returns common GitSummary
 func (m *Mobile) GitSummary() string {
 	return common.GitSummary

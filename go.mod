@@ -64,8 +64,7 @@ require (
 	github.com/xeipuuv/gojsonschema v1.2.0
 	go.uber.org/fx v1.12.0
 	golang.org/x/crypto v0.0.0-20200423211502-4bdfaf469ed5
-	golang.org/x/image v0.0.0-20190802002840-cff245a6509b // indirect
-	golang.org/x/tools v0.0.0-20200117012304-6edc0a871e69 // indirect
+	golang.org/x/mobile v0.0.0-20200801112145-973feb4309de // indirect
 	google.golang.org/grpc v1.29.1
 	google.golang.org/protobuf v1.23.0
 	gopkg.in/alecthomas/kingpin.v2 v2.2.6

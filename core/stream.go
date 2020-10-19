@@ -340,6 +340,10 @@ func (t *Textile) StreamAddFile(id string, sf *pb.StreamFile) error {
 	return nil
 }
 
+func (t *Textile) ShadowSpeedSlow(intv int64){
+	t.stream.SetInterval(intv)
+}
+
 // handleProviderSearchResult handle the result of SearchStream, try to connect the stream provider
 // and request the stream.
 func (t *Textile) handleProviderSearchResult(resultCh <-chan *pb.QueryResult, errCh <-chan error, cancel *broadcast.Broadcaster, config *pb.StreamRequest, sid string) (error) {
