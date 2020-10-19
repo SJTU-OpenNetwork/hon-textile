@@ -1,6 +1,9 @@
 package mobile
 
-
+import (
+	"github.com/SJTU-OpenNetwork/hon-textile/pb"
+	"github.com/golang/protobuf/proto"
+)
 
 func (m *Mobile) CreateGroup(name string) (string, error) {
 	threadid, err := m.node.CreateGroup(name)
@@ -21,16 +24,22 @@ func (m *Mobile) CreateSingleGroup(name string) (string, error) {
 }
 
 
-func (m *Mobile) ListDBs() ([]string, error) {
+func (m *Mobile) ListDBs() ([]byte, error) {
+	views := &pb.Thread2List{
+		Item: make([]*pb.Thread2, 0),
+	}
+
 	dbMap, err := m.node.ListDBs()
 	if err != nil {
 		return nil, err
 	}
-	var threadList []string
+	//var threadList []string
 	for k := range dbMap {
-		threadList = append(threadList,k.String())
+		threadId := k.String() //thread Id
+		view := &pb.Thread2{ThreadId:threadId}
+		views.Item = append(views.Item,view)
 	}
-	return threadList, nil
+	return proto.Marshal(views)
 }
 
 //return group name
