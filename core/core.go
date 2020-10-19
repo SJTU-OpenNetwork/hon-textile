@@ -1544,3 +1544,4 @@ func removeLocks(repoPath string) {
 	dsLockFile := filepath.Join(repoPath, "datastore", "LOCK")
 	_ = os.Remove(dsLockFile)
 }
+

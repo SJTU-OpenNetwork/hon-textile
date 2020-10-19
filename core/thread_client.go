@@ -126,55 +126,6 @@ type ThreadGroup struct {
 	Flag	string `json:"flag"`
 }
 
-//func (t *Textile) makeServer() (ma.Multiaddr, error) {
-//	//time.Sleep(time.Second * time.Duration(rand.Intn(5)))
-//	dir := path.Join(t.repoPath, "threads")
-//	if !util.DirectoryExist(dir) {
-//		if err := os.Mkdir(dir, os.ModePerm); err != nil {
-//			log.Error("Error when create path for go-threads: ", err)
-//			return nil, err
-//		}
-//	}
-//
-//	// TODO: check whether t.node.PeerHost.Addrs is corrert!!!
-//
-//	n, err := common.DefaultNetwork(dir, common.WithNetDebug(true), common.WithNetHostAddr(t.node.PeerHost.Addrs[0]))
-//	if err != nil {
-//		return nil, err
-//	}
-//	n.Bootstrap(threadutil.DefaultBoostrapPeers())
-//	service, err := api.NewService(n, api.Config{
-//		RepoPath: dir,
-//		Debug:    true,
-//	})
-//	if err != nil {
-//		return nil, err
-//	}
-//	port, err := freeport.GetFreePort()
-//	if err != nil {
-//		return nil, err
-//	}
-//	//our port default is 4001,so we dont need freeport.GetFreePort(), but it seems that thread port is different with ipfs.
-//	addr := threadutil.MustParseAddr(fmt.Sprintf("/ip4/127.0.0.1/tcp/%d", port))
-//	target, err := threadutil.TCPAddrFromMultiAddr(addr)
-//	if err != nil {
-//		return nil, err
-//	}
-//	server := grpc.NewServer()
-//	listener, err := net.Listen("tcp", target)
-//	if err != nil {
-//		return nil, err
-//	}
-//	go func() {
-//		newthreadspb.RegisterAPIServer(server, service)
-//		if err := server.Serve(listener); err != nil && !errors.Is(err, grpc.ErrServerStopped) {
-//			log.Fatalf("serve error: %v", err)
-//		}
-//	}()
-//
-//	return addr, nil
-//}
-
 //CreateGroup actually are two steps:
 // create a threadDB and add two collections(member and message) to the DB.
 func (t *Textile) CreateGroup(groupName string) (thread.ID, error) {

@@ -94,6 +94,8 @@ type StreamService struct {
 	//cp *ConnPool
 
 	tcpCon net.Conn
+
+	interval int64
 }
 
 // NewStreamService returns a new stream service
@@ -126,6 +128,9 @@ func NewStreamService(
 	return handler
 }
 
+func (h *StreamService) SetInterval(intv int64) {
+	h.interval=intv
+}
 
 func (h *StreamService) GetParent(sid string) string {
    return h.streamInfos.getParent(sid)

@@ -11,6 +11,16 @@ func (m *Mobile) CreateGroup(name string) (string, error) {
 	return threadIdStr, nil
 }
 
+func (m *Mobile) CreateSingleGroup(name string) (string, error) {
+	threadid, err := m.node.CreateSingleChat(name)
+	if err != nil {
+		return "", err
+	}
+	threadIdStr := threadid.String()
+	return threadIdStr, nil
+}
+
+
 func (m *Mobile) ListDBs() ([]string, error) {
 	dbMap, err := m.node.ListDBs()
 	if err != nil {
@@ -24,12 +34,12 @@ func (m *Mobile) ListDBs() ([]string, error) {
 }
 
 //return group name
-func (m *Mobile) ThreadGroupName(threadId string, instanceId string) (string, error) {
+func (m *Mobile) ThreadGroupName(threadId string) (string, error) {
 	return m.node.GroupInfoName(threadId)
 }
 
 //return group name
-func (m *Mobile) ThreadGroupType(threadId string, instanceId string) (string, error) {
+func (m *Mobile) ThreadGroupType(threadId string) (string, error) {
 	return m.node.GroupInfoType(threadId)
 }
 
