@@ -174,6 +174,12 @@ func (t *Textile) CreateGroup(groupName string) (thread.ID, error) {
 func (t *Textile) CreateGroup2(groupName string) (thread.ID, error) {
 	threadId := thread.NewIDV1(thread.Raw, 32)
 	token, err := thread.NewTokenFromMD(t.ctx)
+	if err!=nil{
+		return "",err
+	}
+	if token==""{
+		fmt.Println("have not get token, it's nil")
+	}
 	fmt.Println("new token for group is: ",string(token))
 	err = t.threadclient.NewDB(t.ctx, threadId,db.WithNewManagedToken(token))
 	if err != nil {
@@ -259,6 +265,7 @@ func (t *Textile) CreateGroupFromToken(threadIdStr string, tokenStr string)  err
 
 	return nil
 }
+
 
 //CreateChat is different with CreateGroup, one is used for one to one chatting,
 //and another is used for group chatting.
