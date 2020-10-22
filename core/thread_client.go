@@ -7,7 +7,7 @@ import (
 	"github.com/segmentio/ksuid"
 	jwted25519 "github.com/textileio/go-threads/jwt"
 	"time"
-
+	"github.com/libp2p/go-libp2p-core/crypto"
 	"github.com/textileio/go-threads/api/client"
 	"github.com/textileio/go-threads/core/thread"
 	thread2 "github.com/textileio/go-threads/core/thread"
@@ -177,34 +177,30 @@ func (t *Textile) CreateGroup(groupName string) (thread.ID, error) {
 
 func (t *Textile) CreateGroup2(groupName string) (thread.ID, error) {
 	threadId := thread.NewIDV1(thread.Raw, 32)
-	sk := t.node.PrivateKey
-	issuer, err := peer.IDFromPrivateKey(sk)
-	if err != nil {
-		fmt.Println("error when peer.IDFromPrivateKey(sk)")
-		return "", err
-	}
-	claims := &jwt.StandardClaims{
-		Id:        ksuid.New().String(),
-		IssuedAt:  time.Now().Unix(),
-		Issuer:    issuer.Pretty(),
-		Subject:   threadId.String(),
-	}
-	str, err := jwt.NewWithClaims(jwted25519.SigningMethodEd25519i, claims).SignedString(issuer)
-	if err != nil {
-		fmt.Println("error when jwt.NewWithClaims")
-		return "",err
-	}
-	//return Token(str), nil
-	//token, err := thread.NewToken(t.account.LibP2PPrivKey(),t.account.LibP2PPubKey())
-	//
-	//if err!=nil{
-	//	return "",err
+	//sk := t.node.PrivateKey
+	//sk,ok := sk.(*crypto.Ed25519PrivateKey)
+	//if !ok {
+	//	log.Fatal("issuer must be an Ed25519PrivateKey")
 	//}
-	//if token==""{
-	//	fmt.Println("have not get token, it's nil")
+	//issuer, err := peer.IDFromPrivateKey(sk)
+	//if err != nil {
+	//	fmt.Println("error when peer.IDFromPrivateKey(sk)")
+	//	return "", err
 	//}
-	fmt.Println("new token for group is: ",thread.Token(str))
-	err = t.threadclient.NewDB(t.ctx, threadId,db.WithNewManagedToken(thread.Token(str)))
+	//claims := &jwt.StandardClaims{
+	//	Id:        ksuid.New().String(),
+	//	IssuedAt:  time.Now().Unix(),
+	//	Issuer:    issuer.Pretty(),
+	//	Subject:   threadId.String(),
+	//}
+	//str, err := jwt.NewWithClaims(jwted25519.SigningMethodEd25519i, claims).SignedString(issuer)
+	str1,err := jwt.New(jwted25519.SigningMethodEd25519i).SigningString()
+	if err != nil {
+			fmt.Println("error when jwt.NewWithClaims")
+			return "",err
+		}
+	fmt.Println("new token for group is: ",thread.Token(str1))
+	err = t.threadclient.NewDB(t.ctx, threadId,db.WithNewManagedToken(thread.Token(str1)))
 	if err != nil {
 		return "", err
 	}
