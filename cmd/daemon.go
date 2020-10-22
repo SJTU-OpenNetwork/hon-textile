@@ -373,13 +373,13 @@ func startNode(serveDocs bool) error {
 					return
 				}
 				//fmt.Println("Received a update")
-				if update, ok := value.(*core.Thread2UpdateMessage); ok {
+				if update, ok := value.(*pb.Thread2MessageUpdate); ok {
 					if update == nil {
 						fmt.Println("update is nil")
 						continue
 					}
 
-					instance := string(update.Event.Action.Instance)
+					instance := string(update.Instance)
 					fmt.Println("Received from thread2,value is ",instance)
 				}
 

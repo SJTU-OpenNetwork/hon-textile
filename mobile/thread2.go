@@ -1,6 +1,9 @@
 package mobile
 
-
+import (
+	"github.com/SJTU-OpenNetwork/hon-textile/pb"
+	"github.com/golang/protobuf/proto"
+)
 
 func (m *Mobile) CreateGroup(name string) (string, error) {
 	threadid, err := m.node.CreateGroup(name)
@@ -11,21 +14,42 @@ func (m *Mobile) CreateGroup(name string) (string, error) {
 	return threadIdStr, nil
 }
 
-func (m *Mobile) ListDBs() ([]string, error) {
+func (m *Mobile) CreateSingleGroup(name string) (string, error) {
+	threadid, err := m.node.CreateSingleChat(name)
+	if err != nil {
+		return "", err
+	}
+	threadIdStr := threadid.String()
+	return threadIdStr, nil
+}
+
+
+func (m *Mobile) ListDBs() ([]byte, error) {
+	views := &pb.Thread2List{
+		Item: make([]*pb.Thread2, 0),
+	}
+
 	dbMap, err := m.node.ListDBs()
 	if err != nil {
 		return nil, err
 	}
-	var threadList []string
+	//var threadList []string
 	for k := range dbMap {
-		threadList = append(threadList,k.String())
+		threadId := k.String() //thread Id
+		view := &pb.Thread2{ThreadId:threadId}
+		views.Item = append(views.Item,view)
 	}
-	return threadList, nil
+	return proto.Marshal(views)
 }
 
 //return group name
-func (m *Mobile) ThreadGroupInfo(threadId string, instanceId string) (string, error) {
-	return m.node.GroupInfo2(threadId)
+func (m *Mobile) ThreadGroupName(threadId string) (string, error) {
+	return m.node.GroupInfoName(threadId)
+}
+
+//return group name
+func (m *Mobile) ThreadGroupType(threadId string) (string, error) {
+	return m.node.GroupInfoType(threadId)
 }
 
 func (m *Mobile) ThreadModifyGroupInfo(threadId string, name string) error {
@@ -33,8 +57,8 @@ func (m *Mobile) ThreadModifyGroupInfo(threadId string, name string) error {
 }
 
 //message add,remove and find
-func (m *Mobile) Thread2AddMessage(threadId string, mes string) error {
-	return m.node.ThreadAddMessage(threadId, mes)
+func (m *Mobile) Thread2AddMessage(threadId string, mes string) (string,error) {
+	return m.node.Thread2AddMessage(threadId, mes)
 }
 
 func (m *Mobile) Thread2RemoveMessage(threadId string, instanceId string) error {
@@ -62,6 +86,32 @@ func (m *Mobile) Thead2MemberRole(threadId string, instanceId string) (string, e
 func (m *Mobile) Thead2MemberRoleChange(threadId string, instanceId string, role string) (string, error) {
 	return m.node.ModifyMemberInstance(threadId, instanceId, role)
 }
+
+// invite peer and add message are using handler now.
+type Thread2AddMesCallBack interface {
+	Call(instanceId string, err error)
+}
+
+func (m *Mobile) Thread2AddStringMessage(threadId string, mes string, cb Thread2AddMesCallBack)  {
+	m.node.WaitAdd(1, "Mobile.Thread2AddStringMessage")
+	go func() {
+		defer m.node.WaitDone("Mobile.Thread2AddStringMessage")
+		cb.Call(m.node.Thread2AddMessage(threadId, mes))
+	}()
+}
+
+type Thread2AddMemCallBack interface {
+	Call(err error)
+}
+
+func (m *Mobile) Thread2AddMember(threadId string, peerId string, cb Thread2AddMemCallBack)  {
+	m.node.WaitAdd(1, "Mobile.Thread2AddMember")
+	go func() {
+		defer m.node.WaitDone("Mobile.Thread2AddMember")
+		cb.Call(m.node.Invite(threadId, peerId))
+	}()
+}
+
 
 type Thread2Handler interface {
 	HandleMsg(threadId string, bytes []byte)

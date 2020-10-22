@@ -115,6 +115,7 @@ type Mobile struct {
 	node      *core.Textile
 	messenger Messenger
 	listener  *broadcast.Listener
+	listener2  *broadcast.Listener
 }
 
 // Repo returns the actual location of the configured repo
@@ -291,19 +292,20 @@ func (m *Mobile) Start() error {
 		}()
 
 		// subscribe to thread2 updates
-		/*
-			go func() {
-				for {
-					select {
-					case msg, ok := <-m.listener2.Ch():
-						if !ok {
-							return
-						}
+		go func() {
+			for {
+				select {
+				case update, ok := <-m.listener2.Ch:
+					if !ok {
+						return
+					}
+					if msg, ok := update.(*pb.Thread2MessageUpdate); ok {
 						m.notify(pb.MobileEventType_THREAD2_UPDATE, msg)
 					}
 				}
 			}
-		*/
+		}()
+
 
 		m.notify(pb.MobileEventType_NODE_ONLINE, nil)
 	}()
@@ -356,6 +358,10 @@ func (m *Mobile) Shadow() string {
 	return m.node.Shadow()
 }
 
+func (m *Mobile) TryConnectShadowByRelay(shadowId string){
+	m.node.TryConnectShadowByRelay(shadowId)
+}
+
 // GitSummary returns common GitSummary
 func (m *Mobile) GitSummary() string {
 	return common.GitSummary
@@ -400,3 +406,21 @@ func (m *Mobile) notify(etype pb.MobileEventType, msg proto.Message) {
 		Data: data,
 	})
 }
+
+//used to send notify for thread2 update only.
+//func (m *Mobile) notify2(etype pb.MobileEventType, msg core.Thread2UpdateMessage) {
+//	var data []byte
+//	if msg != nil {
+//		var err error
+//		data, err = proto.Marshal(msg)
+//		if err != nil {
+//			log.Error(err.Error())
+//			return
+//		}
+//	}
+//	m.messenger.Notify(&Event{
+//		Name: etype.String(),
+//		Type: int32(etype),
+//		Data: data,
+//	})
+//}

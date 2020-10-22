@@ -601,7 +601,7 @@ func (t *Textile) CreateTCPPool() {
 func (t *Textile) watchMailBox() {
 	//fmt.Println("watch mail box")
 	for msg := range t.mail.Inbox {
-		//fmt.Println("New message arrive:", msg)
+		fmt.Println("New message arrive:", msg)
 		log.Infof("New message arrive:%s", msg)
 		// case thread invite:
 		//      t.handleInvite(msg)
@@ -657,45 +657,51 @@ func stringInSlice(a string, list []string) bool {
 	return false
 }
 
-func (t *Textile) TryConnectThroughRelay(ids []string) (bool, error) {
-	if len(ids) == 0 {
-		return true, nil
-	}
+func (t *Textile) TryConnectThroughRelay(ids []string) (bool, error){
+    if len(ids) == 0 {
+        return true, nil
+    }
 
-	var RelayServers = []string{
-		//"/ipfs/12D3KooWEBKQAdjyqa4iMp8Lu8NF9tMQSWZoninNNPhbGYJ1xvcH/p2p-circuit/ipfs/", //202.120.38.131
-		"/ipfs/QmZt8jsim548Y5UFN24GL9nX9x3eSS8QFMsbSRNMBAqKBb/p2p-circuit/ipfs/", //202.120.38.100
-		"/ipfs/QmRHLRg5vihUgakbk7JnQFswWu7D92awdZnKiQRi1DmJhE/p2p-circuit/ipfs/", //139.9.123.113
-		//"/ipfs/QmYBXdc56TrPqKWhAYJZneLpVeG4qMaV8Be6yox3fiqBYd/p2p-circuit/ipfs/", //119.3.23.219
-		//"/ipfs/QmYL5AAcaGA2undBnRqWRTmndkL1YV3v7tML8DbakC8sTD/p2p-circuit/ipfs/", //121.36.167.61
-		//"/ipfs/QmcwtfsFoJALLQwJWmsh5SmothbrniohPcW2PuggSVKurT/p2p-circuit/ipfs/", //122.112.199.88
-		//"/ipfs/QmYCYQMhyDJV4BU9fRr5xBzFDEccnukuViUT7GJLngP7fj/p2p-circuit/ipfs/", //119.3.24.157
-	}
-	var swarmAddress []string
+    var RelayServers = []string{
+        //"/ipfs/12D3KooWEBKQAdjyqa4iMp8Lu8NF9tMQSWZoninNNPhbGYJ1xvcH/p2p-circuit/ipfs/", //202.120.38.131
+        "/ipfs/QmZt8jsim548Y5UFN24GL9nX9x3eSS8QFMsbSRNMBAqKBb/p2p-circuit/ipfs/", //202.120.38.100
+        //"/ipfs/QmRHLRg5vihUgakbk7JnQFswWu7D92awdZnKiQRi1DmJhE/p2p-circuit/ipfs/", //139.9.123.113
+        //"/ipfs/QmYovpcqB12c56AjGRaMUcwfoZg1DYinCFmEAzFHYvLb6R/p2p-circuit/ipfs/",//159.138.3.74
+        //"/ipfs/QmZX8WVgJ3cQCW3bNcodXhmK34rmNkvqk8Zg9u7f3JEFgN/p2p-circuit/ipfs/", //159.138.130.129
+        //"/ipfs/QmYBXdc56TrPqKWhAYJZneLpVeG4qMaV8Be6yox3fiqBYd/p2p-circuit/ipfs/", //119.3.23.219
+        //"/ipfs/QmYL5AAcaGA2undBnRqWRTmndkL1YV3v7tML8DbakC8sTD/p2p-circuit/ipfs/", //121.36.167.61
+        //"/ipfs/QmcwtfsFoJALLQwJWmsh5SmothbrniohPcW2PuggSVKurT/p2p-circuit/ipfs/", //122.112.199.88
+        //"/ipfs/QmYCYQMhyDJV4BU9fRr5xBzFDEccnukuViUT7GJLngP7fj/p2p-circuit/ipfs/", //119.3.24.157
+		//"/p2p/QmYSGmQwQo7PWZmGNv2DWEqLdP437Ks1f87xmpkqueucbU/p2p-circuit/ipfs/",
+    }
+    var swarmAddress []string
 
-	rand.Seed(time.Now().UnixNano())
-	size := len(RelayServers)
-	complete := true
-	for _, id := range ids {
-		rid := rand.Intn(size)
-		swarmAddress = append(swarmAddress, RelayServers[rid]+id)
-	}
+    rand.Seed(time.Now().UnixNano())
+    size := len(RelayServers)
+    complete := true
+
 	log.Debug("CONNECT THROUGH RELAY!!!!!!!!!!!!!!!!!!!")
-	log.Debug(swarmAddress)
-	output, err := ipfs.SwarmConnect(t.node, swarmAddress)
-	if err != nil {
-		log.Debug(err)
-		return false, err
-	}
-	log.Debug(output)
-	for _, o := range output {
-		status := getStatus(o)
-		if !status {
-			complete = false
-		}
-	}
-	return complete, nil
+    for _, id := range ids {
+        rid := rand.Intn(size)
+        tmp := RelayServers[rid]+id
+        swarmAddress = append(swarmAddress, tmp)
+        log.Debug("RELAY: ",tmp)
+    }
+    output, err := ipfs.SwarmConnect(t.node, swarmAddress)
+    if err != nil{
+        log.Debug(err)
+        return false, err
+    }
+    log.Debug(output)
+    for _, o := range output {
+        status := getStatus(o)
+        if !status {
+            complete = false
+        }
+    }
+    return complete, nil
 }
+
 
 func Max(x, y int) int {
 	if x < y {
@@ -824,7 +830,6 @@ func (t *Textile) GetSwarmAddress(peerId string) string {
 		}
 	}
 	return ""
-
 }
 
 func (t *Textile) DiscoverAndConnect() {
@@ -1544,3 +1549,4 @@ func removeLocks(repoPath string) {
 	dsLockFile := filepath.Join(repoPath, "datastore", "LOCK")
 	_ = os.Remove(dsLockFile)
 }
+

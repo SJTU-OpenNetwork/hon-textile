@@ -16,7 +16,11 @@ import (
 
 const mailServiceProtocol = protocol.ID("/hon-textile/mail/1.0.0")
 
+
 var log = logging.Logger("mailbox")
+
+//var log = logging.Logger("stream")
+
 
 type MailService struct {
 	service *service.Service
@@ -81,6 +85,7 @@ func (h *MailService) SendMessage(ctx context.Context, peerID string, env *pb.En
 		err = ipfs.Publish(h.service.Node(), topic, payload)
 	}
 	return err
+	return h.service.SendMessage(ctx, peerID, env)
 }
 
 // Handle is called by the underlying service handler method

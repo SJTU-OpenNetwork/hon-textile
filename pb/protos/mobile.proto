@@ -18,7 +18,7 @@ enum MobileEventType {
     ACCOUNT_UPDATE = 10;
     THREAD_UPDATE  = 11;
     NOTIFICATION   = 12;
-
+    THREAD2_UPDATE = 13;
     QUERY_RESPONSE = 20;
 
     CAFE_SYNC_GROUP_UPDATE   = 30;

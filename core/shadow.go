@@ -8,6 +8,7 @@ import (
 )
 
 func (t *Textile) ShadowStat() *pb.ShadowStat {
+	//shadow.ConnectShadow("106.12.102.87",40101,t.node)
 	return t.shadow.ShadowStat()
 }
 

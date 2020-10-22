@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 	"net"
 	"os"
 	"path"
@@ -172,9 +173,11 @@ func (t *Textile) ListenOneThread2(dbID string) error {
 				if !ok {
 					return
 				}
-				t.thread2Updates.Send(&Thread2UpdateMessage{
-					ThreadID: dbID,
-					Event:    val,
+				t.thread2Updates.Send(&pb.Thread2MessageUpdate{
+					ThreadId: dbID,
+					Collection: val.Action.Collection,
+					InstanceId: val.Action.InstanceID,
+					Instance: val.Action.Instance,
 				})
 			}
 		}

@@ -92,8 +92,11 @@ type StreamService struct {
 	mode StreamMode
 
 	//cp *ConnPool
+	//tcpCon net.Conn
 
 	tcpCon net.Conn
+
+	interval int64
 }
 
 // NewStreamService returns a new stream service
@@ -126,6 +129,9 @@ func NewStreamService(
 	return handler
 }
 
+func (h *StreamService) SetInterval(intv int64) {
+	h.interval=intv
+}
 
 func (h *StreamService) GetParent(sid string) string {
    return h.streamInfos.getParent(sid)
@@ -939,7 +945,7 @@ func (h *StreamService) SendStreamBlocks(peerId peer.ID, blks []*pb.StreamBlock)
     err = h.service.SendMessage(nil, peerId.Pretty(), env)
 
     // TODO: Remove this after test!!!
-    // time.Sleep(100 * time.Millisecond)
+    time.Sleep(time.Duration(h.interval * 1000000))
     // =========================
 
 	var ind1, ind2 uint64
@@ -977,13 +983,13 @@ func (h *StreamService) createWorker(pid peer.ID, req *pb.StreamRequest) (*strea
 	if stream == nil {
 		return nil, ErrUnknowkStream
 	}
-	if pid.String() == h.getShadow() { // if the requester is shadow, then use TCP
-		log.Debugf("the requester is shadow, will use TCP to send blocks")
+	//if pid.String() == h.getShadow() { // if the requester is shadow, then use TCP
+	//	log.Debugf("the requester is shadow, will use TCP to send blocks")
 		//return newStreamWorker(h.ctx, stream, pid, req, h.FetchBlocks, h.SendStreamBlcoksToShadow_TCP, h.taskQueue,true), nil
 		return newStreamWorker(h.ctx, stream, pid, req, h.FetchBlocks, h.SendStreamBlocks, h.taskQueue,false), nil
-	}else{ // normal peer
-		return newStreamWorker(h.ctx, stream, pid, req, h.FetchBlocks, h.SendStreamBlocks, h.taskQueue,false), nil
-	}
+	//}else{ // normal peer
+	//	return newStreamWorker(h.ctx, stream, pid, req, h.FetchBlocks, h.SendStreamBlocks, h.taskQueue,false), nil
+	//}
 }
 
 func (h *StreamService) Workload() int {
