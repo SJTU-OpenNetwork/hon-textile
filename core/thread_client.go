@@ -3,11 +3,8 @@ package core
 import (
 	"fmt"
 	"github.com/dgrijalva/jwt-go"
-	"github.com/libp2p/go-libp2p-core/peer"
-	"github.com/segmentio/ksuid"
 	jwted25519 "github.com/textileio/go-threads/jwt"
 	"time"
-	"github.com/libp2p/go-libp2p-core/crypto"
 	"github.com/textileio/go-threads/api/client"
 	"github.com/textileio/go-threads/core/thread"
 	thread2 "github.com/textileio/go-threads/core/thread"
