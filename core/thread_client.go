@@ -180,6 +180,7 @@ func (t *Textile) CreateGroup2(groupName string) (thread.ID, error) {
 	sk := t.node.PrivateKey
 	issuer, err := peer.IDFromPrivateKey(sk)
 	if err != nil {
+		fmt.Println("error when peer.IDFromPrivateKey(sk)")
 		return "", err
 	}
 	claims := &jwt.StandardClaims{
@@ -190,6 +191,7 @@ func (t *Textile) CreateGroup2(groupName string) (thread.ID, error) {
 	}
 	str, err := jwt.NewWithClaims(jwted25519.SigningMethodEd25519i, claims).SignedString(issuer)
 	if err != nil {
+		fmt.Println("error when jwt.NewWithClaims")
 		return "",err
 	}
 	//return Token(str), nil
