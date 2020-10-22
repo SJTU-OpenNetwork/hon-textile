@@ -170,6 +170,95 @@ func (t *Textile) CreateGroup(groupName string) (thread.ID, error) {
 	return threadId, nil
 }
 
+func (t *Textile) CreateGroup2(groupName string) (thread.ID, error) {
+	threadId := thread.NewIDV1(thread.Raw, 32)
+	token, err := thread.NewTokenFromMD(t.ctx)
+	fmt.Println("new token for group is: ",token)
+	err = t.threadclient.NewDB(t.ctx, threadId,db.WithNewManagedToken(token))
+	if err != nil {
+		return "", err
+	}
+	err = t.NewMembersCollection(threadId)
+	if err != nil {
+		return "", err
+	}
+	err = t.NewMessagesCollection(threadId)
+	if err != nil {
+		return "", err
+	}
+	err = t.NewGroupInfoCollection(threadId)
+	if err != nil {
+		return "", err
+	}
+
+	//Start listening new created thread
+	err = t.ListenOneThread2(threadId.String())
+	if err != nil {
+		fmt.Println("Error when listen new group")
+		return "",err
+	}
+	//add myself info to the thread collection of member
+	_, err = t.CreateMemInstance(threadId,  client.Instances{
+		ThreadMember{MemberId: t.Account().Address(), Name: t.Name(), Role: owner}})
+	if err != nil {
+		fmt.Println("Error when add myself info to the thread")
+		return threadId, err
+	}
+	//add group info
+	_, err = t.CreateGroupInfoInstance(threadId, groupName)
+	if err != nil {
+		fmt.Println("Error when add group info")
+		return threadId, err
+	}
+
+	return threadId, nil
+}
+
+func (t *Textile) CreateGroupFromToken(threadIdStr string, tokenStr string)  error {
+	threadId, err := thread2.Decode(threadIdStr)
+	if err != nil {
+		return err
+	}
+	err = t.threadclient.NewDB(t.ctx, threadId,db.WithNewManagedToken(thread.Token(tokenStr)))
+	if err != nil {
+		return err
+	}
+	err = t.NewMembersCollection(threadId)
+	if err != nil {
+		return err
+	}
+	err = t.NewMessagesCollection(threadId)
+	if err != nil {
+		return err
+	}
+	err = t.NewGroupInfoCollection(threadId)
+	if err != nil {
+		return err
+	}
+
+	//Start listening new created thread
+	err = t.ListenOneThread2(threadId.String())
+	if err != nil {
+		fmt.Println("Error when listen new group")
+		return err
+	}
+	//add myself info to the thread collection of member
+	_, err = t.CreateMemInstance(threadId,  client.Instances{
+		ThreadMember{MemberId: t.Account().Address(), Name: t.Name(), Role: owner}})
+	if err != nil {
+		fmt.Println("Error when add myself info to the thread")
+		return err
+	}
+	//add group info
+	//_, err = t.CreateGroupInfoInstance(threadId, groupName)
+	//if err != nil {
+	//	fmt.Println("Error when add group info")
+	//	return threadId, err
+	//}
+
+	return nil
+}
+
 //CreateChat is different with CreateGroup, one is used for one to one chatting,
 //and another is used for group chatting.
 func (t *Textile) CreateSingleChat(groupName string) (thread.ID, error) {

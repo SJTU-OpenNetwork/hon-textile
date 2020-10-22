@@ -393,6 +393,9 @@ func (a *Api) Run() {
 		threadClient := v0.Group("/threadClient")
 		{
 			threadClient.POST("/addGroup",a.threadClientAddGroup)
+			threadClient.POST("/addGroup2",a.threadClientAddGroup2)
+			threadClient.POST("/addGroup3",a.threadClientAddGroupFromToken)
+
 			threadClient.POST("/listDB",a.threadClientListDB)
 			threadClient.PUT("/addMessage/:threadId", a.threadClientAddString)
 			threadClient.PUT("/delMessage",a.threadClientRemoveMessage)

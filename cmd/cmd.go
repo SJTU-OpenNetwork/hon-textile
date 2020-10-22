@@ -1076,6 +1076,19 @@ The response contains a base58 encoded version of the random bytes token.`).Alia
 		return ThreadClientAddGroup(*threadClientAddGroupName)
 	}
 
+	threadClientAddGroup2Cmd := threadClientCmd.Command("addGroup2","Add a new group according to token and return its threadId and token.")
+	threadClientAddGroup2Name := threadClientAddGroup2Cmd.Arg("groupName", "group name").Required().String()
+	cmds[threadClientAddGroup2Cmd.FullCommand()] = func() error {
+		return ThreadClientAddGroup2(*threadClientAddGroup2Name)
+	}
+
+	threadClientAddGroupFromTokenCmd := threadClientCmd.Command("addGroup3","Add a new group from  exist token.")
+	threadClientAddGroupFromTokenThreadId := threadClientAddGroupFromTokenCmd.Arg("threadId", "thread id").Required().String()
+	threadClientAddGroupFromTokenToken := threadClientAddGroupFromTokenCmd.Arg("token", "token").Required().String()
+	cmds[threadClientAddGroupFromTokenCmd.FullCommand()] = func() error {
+		return ThreadClientAddGroupFromToken(*threadClientAddGroupFromTokenThreadId,*threadClientAddGroupFromTokenToken)
+	}
+
 	threadClientListDBCmd := threadClientCmd.Command("listDB","List all active DBs.")
 	cmds[threadClientListDBCmd.FullCommand()] =  ThreadClientListDB
 
