@@ -170,10 +170,11 @@ func (t *Textile) CreateGroup(groupName string) (thread.ID, error) {
 	return threadId, nil
 }
 
+
 func (t *Textile) CreateGroup2(groupName string) (thread.ID, error) {
 	threadId := thread.NewIDV1(thread.Raw, 32)
 	token, err := thread.NewTokenFromMD(t.ctx)
-	fmt.Println("new token for group is: ",token)
+	fmt.Println("new token for group is: ",string(token))
 	err = t.threadclient.NewDB(t.ctx, threadId,db.WithNewManagedToken(token))
 	if err != nil {
 		return "", err
