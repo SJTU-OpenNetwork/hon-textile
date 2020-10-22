@@ -196,7 +196,7 @@ func (t *Textile) CreateGroup2(groupName string) (thread.ID, error) {
 			fmt.Println("error when jwt.NewWithClaims")
 			return "",err
 		}
-	fmt.Println("new token for group is: ",thread.Token(str1))
+	fmt.Println("new token for group is:<",str1,">")
 	err = t.threadclient.NewDB(t.ctx, threadId,db.WithNewManagedToken(thread.Token(str1)))
 	if err != nil {
 		return "", err
