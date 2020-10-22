@@ -7,7 +7,6 @@ import (
 	"time"
 	"github.com/textileio/go-threads/api/client"
 	"github.com/textileio/go-threads/core/thread"
-	thread2 "github.com/textileio/go-threads/core/thread"
 	"github.com/textileio/go-threads/db"
 	threadutil "github.com/textileio/go-threads/util"
 )
@@ -174,7 +173,16 @@ func (t *Textile) CreateGroup(groupName string) (thread.ID, error) {
 
 func (t *Textile) CreateGroup2(groupName string) (thread.ID, error) {
 	threadId := thread.NewIDV1(thread.Raw, 32)
-	//sk := t.node.PrivateKey
+	issuer,err := t.account.LibP2PPrivKey()
+	if err != nil{
+		fmt.Println("error when t.account.LibP2PPrivKey()")
+		return "",err
+	}
+	claims := jwt.StandardClaims{
+		Subject:  threadId.String(),
+		Issuer:   thread.NewLibp2pIdentity(issuer).GetPublic().String(),
+		IssuedAt: time.Now().Unix(),
+	}
 	//sk,ok := sk.(*crypto.Ed25519PrivateKey)
 	//if !ok {
 	//	log.Fatal("issuer must be an Ed25519PrivateKey")
@@ -190,14 +198,14 @@ func (t *Textile) CreateGroup2(groupName string) (thread.ID, error) {
 	//	Issuer:    issuer.Pretty(),
 	//	Subject:   threadId.String(),
 	//}
-	//str, err := jwt.NewWithClaims(jwted25519.SigningMethodEd25519i, claims).SignedString(issuer)
-	str1,err := jwt.New(jwted25519.SigningMethodEd25519i).SigningString()
+	str, err := jwt.NewWithClaims(jwted25519.SigningMethodEd25519i, claims).SignedString(issuer)
+	//str1,err := jwt.New(jwted25519.SigningMethodEd25519i).SigningString()
 	if err != nil {
 			fmt.Println("error when jwt.NewWithClaims")
 			return "",err
 		}
-	fmt.Println("new token for group is:<",str1,">")
-	err = t.threadclient.NewDB(t.ctx, threadId,db.WithNewManagedToken(thread.Token(str1)))
+	fmt.Println("new token for group is:<",str,">")
+	err = t.threadclient.NewDB(t.ctx, threadId,db.WithNewManagedToken(thread.Token(str)))
 	if err != nil {
 		return "", err
 	}
@@ -238,7 +246,7 @@ func (t *Textile) CreateGroup2(groupName string) (thread.ID, error) {
 }
 
 func (t *Textile) CreateGroupFromToken(threadIdStr string, tokenStr string)  error {
-	threadId, err := thread2.Decode(threadIdStr)
+	threadId, err := thread.Decode(threadIdStr)
 	if err != nil {
 		return err
 	}
@@ -332,7 +340,7 @@ func (t *Textile) ListDBs() (map[thread.ID]*client.DBInfo, error) {
 }
 
 func (t *Textile) GetDBInfo(threadIdStr string) (*client.DBInfo, error) {
-	threadId, err := thread2.Decode(threadIdStr)
+	threadId, err := thread.Decode(threadIdStr)
 	if err != nil {
 		return nil, err
 	}
@@ -345,7 +353,7 @@ func (t *Textile) GetDBInfo(threadIdStr string) (*client.DBInfo, error) {
 
 //not used for now
 func (t *Textile) DeleteDB(threadIdStr string) (error) {
-	threadId, err := thread2.Decode(threadIdStr)
+	threadId, err := thread.Decode(threadIdStr)
 	if err != nil {
 		return err
 	}
@@ -428,7 +436,7 @@ func (t *Textile) CreateGroupInfoInstance2(id thread.ID, groupName string) ([]st
 //Delete instance. Delete instance Through ID.
 //Assume we get ids from CreateInstance, then we can use ids[0] to delete it.
 func (t *Textile) DeleteMemberInstance(id string, instanceIDs string) error {
-	threadId, err := thread2.Decode(id)
+	threadId, err := thread.Decode(id)
 	if err != nil {
 		return err
 	}
@@ -441,7 +449,7 @@ func (t *Textile) DeleteMemberInstance(id string, instanceIDs string) error {
 }
 
 func (t *Textile) DeleteMessageInstance(id string, instanceIDs string) error {
-	threadId, err := thread2.Decode(id)
+	threadId, err := thread.Decode(id)
 	if err != nil {
 		return err
 	}
@@ -462,7 +470,7 @@ func (t *Textile) ModifyMemberInstance(id string, instanceId string,  role strin
 		fmt.Println("error, the role given from cmd is not standard, only owner, admin and member can be used as role")
 		return "",nil
 	}
-	threadId, err := thread2.Decode(id)
+	threadId, err := thread.Decode(id)
 	if err != nil {
 		return "",err
 	}
@@ -476,7 +484,7 @@ func (t *Textile) ModifyMemberInstance(id string, instanceId string,  role strin
 
 //Users can modify the message content.
 func (t *Textile) ModifyMessageInstance(id string, ids []string, newContent string) error {
-	threadId, err := thread2.Decode(id)
+	threadId, err := thread.Decode(id)
 	if err != nil {
 		return err
 	}
@@ -491,7 +499,7 @@ func (t *Textile) ModifyMessageInstance(id string, ids []string, newContent stri
 
 //return content
 func (t *Textile) FindMessageByID(threadIdStr string, instanceID string) (string,error){
-	threadId, err := thread2.Decode(threadIdStr)
+	threadId, err := thread.Decode(threadIdStr)
 	if err != nil {
 		return "",err
 	}
@@ -517,7 +525,7 @@ func (t *Textile) FindMessageByID(threadIdStr string, instanceID string) (string
 
 //return member role according to instanceID
 func (t *Textile) FindMemberByID(threadIdStr string, instanceID string) (string,error) {
-	threadId, err := thread2.Decode(threadIdStr)
+	threadId, err := thread.Decode(threadIdStr)
 	if err != nil {
 		return "",err
 	}
@@ -545,7 +553,7 @@ func (t *Textile) FindMemberByID(threadIdStr string, instanceID string) (string,
 
 //add a string to the message collection of a thread
 func (t *Textile) Thread2AddMessage(id string, mes string) (string,error) {
-	threadId, err := thread2.Decode(id)
+	threadId, err := thread.Decode(id)
 	if err != nil {
 		return "",err
 	}
@@ -561,7 +569,7 @@ func (t *Textile) Thread2AddMessage(id string, mes string) (string,error) {
 
 //Users can modify the message content.
 func (t *Textile) GroupInfo(threadid string, instanceId string) (string,error) {
-	threadId, err := thread2.Decode(threadid)
+	threadId, err := thread.Decode(threadid)
 	if err != nil {
 		return "",err
 	}
@@ -585,7 +593,7 @@ func (t *Textile) GroupInfo(threadid string, instanceId string) (string,error) {
 }
 
 func (t *Textile) GroupInfoName(threadIdStr string) (string, error) {
-	threadId, err := thread2.Decode(threadIdStr)
+	threadId, err := thread.Decode(threadIdStr)
 	if err != nil {
 		return "",err
 	}
@@ -604,7 +612,7 @@ func (t *Textile) GroupInfoName(threadIdStr string) (string, error) {
 }
 
 func (t *Textile) GroupInfoType(threadIdStr string) (string, error) {
-	threadId, err := thread2.Decode(threadIdStr)
+	threadId, err := thread.Decode(threadIdStr)
 	if err != nil {
 		return "",err
 	}
@@ -624,7 +632,7 @@ func (t *Textile) GroupInfoType(threadIdStr string) (string, error) {
 
 //Return the member number in a threadDB.
 func (t *Textile) GroupInfoNumber(threadIdStr string) (int, error) {
-	threadId, err := thread2.Decode(threadIdStr)
+	threadId, err := thread.Decode(threadIdStr)
 	if err != nil {
 		return 0,err
 	}
@@ -645,7 +653,7 @@ func (t *Textile) GroupInfoNumber(threadIdStr string) (int, error) {
 //Users can modify the message content.
 func (t *Textile) ModifyGroupName(threadIdStr string, newName string) error {
 	// maybe we need add access control, only owner or admin can modify
-	threadId, err := thread2.Decode(threadIdStr)
+	threadId, err := thread.Decode(threadIdStr)
 	if err != nil {
 		return err
 	}
@@ -672,7 +680,7 @@ func (t *Textile) ModifyGroupName(threadIdStr string, newName string) error {
 //Used when join to a threadDB
 func (t *Textile) ModifyGroupNumber(threadIdStr string) error {
 	// maybe we need add access control, only owner or admin can modify
-	threadId, err := thread2.Decode(threadIdStr)
+	threadId, err := thread.Decode(threadIdStr)
 	if err != nil {
 		return err
 	}
