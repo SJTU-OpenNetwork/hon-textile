@@ -2,6 +2,10 @@ package core
 
 import (
 	"fmt"
+	"github.com/dgrijalva/jwt-go"
+	"github.com/libp2p/go-libp2p-core/peer"
+	"github.com/segmentio/ksuid"
+	jwted25519 "github.com/textileio/go-threads/jwt"
 	"time"
 
 	"github.com/textileio/go-threads/api/client"
@@ -173,15 +177,32 @@ func (t *Textile) CreateGroup(groupName string) (thread.ID, error) {
 
 func (t *Textile) CreateGroup2(groupName string) (thread.ID, error) {
 	threadId := thread.NewIDV1(thread.Raw, 32)
-	token, err := thread.NewTokenFromMD(t.ctx)
-	if err!=nil{
+	sk := t.node.PrivateKey
+	issuer, err := peer.IDFromPrivateKey(sk)
+	if err != nil {
+		return "", err
+	}
+	claims := &jwt.StandardClaims{
+		Id:        ksuid.New().String(),
+		IssuedAt:  time.Now().Unix(),
+		Issuer:    issuer.Pretty(),
+		Subject:   threadId.String(),
+	}
+	str, err := jwt.NewWithClaims(jwted25519.SigningMethodEd25519i, claims).SignedString(issuer)
+	if err != nil {
 		return "",err
 	}
-	if token==""{
-		fmt.Println("have not get token, it's nil")
-	}
-	fmt.Println("new token for group is: ",string(token))
-	err = t.threadclient.NewDB(t.ctx, threadId,db.WithNewManagedToken(token))
+	//return Token(str), nil
+	//token, err := thread.NewToken(t.account.LibP2PPrivKey(),t.account.LibP2PPubKey())
+	//
+	//if err!=nil{
+	//	return "",err
+	//}
+	//if token==""{
+	//	fmt.Println("have not get token, it's nil")
+	//}
+	fmt.Println("new token for group is: ",thread.Token(str))
+	err = t.threadclient.NewDB(t.ctx, threadId,db.WithNewManagedToken(thread.Token(str)))
 	if err != nil {
 		return "", err
 	}
