@@ -3,7 +3,6 @@ package api
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
-	"io/ioutil"
 	"net/http"
 )
 
@@ -92,21 +91,28 @@ func (a *Api) threadClientListDB(g *gin.Context) {
 }
 
 func (a *Api) threadClientAddString(g *gin.Context) {
-	threadIdStr :=  g.Param("threadId")
-	if threadIdStr == "" {
-		g.String(http.StatusBadRequest, "threadId missed")
+	opts, err := a.readOpts(g)
+	if err != nil {
+		a.abort500(g, err)
+		return
+	}
+	threadIdStr, ok := opts["threadId"]
+	if !ok {
+		g.String(http.StatusBadRequest, "missing threadId")
+		return
+	}
+	text, ok := opts["text"]
+	if !ok {
+		g.String(http.StatusBadRequest, "missing text message")
 		return
 	}
 
-	data, err := ioutil.ReadAll(g.Request.Body)
+	_,err = a.Node.Thread2AddMessage(threadIdStr,text)
 	if err != nil {
-		g.String(http.StatusBadRequest, "error when read from request body: %s", err.Error())
-		return
-	}
-
-	_,err = a.Node.Thread2AddMessage(threadIdStr,string(data[:]))
-	if err != nil {
-		return
+		log.Error("Error when find message by id, ", err)
+		g.String(http.StatusBadGateway, "Error: %v", err)
+	} else {
+		g.JSON(http.StatusOK, text)
 	}
 }
 
@@ -273,11 +279,6 @@ func (a *Api) threadClientGroupInfo(g *gin.Context) {
 		g.String(http.StatusBadRequest, "missing threadId")
 		return
 	}
-	//instanceId, ok := opts["instanceId"]
-	//if !ok {
-	//	g.String(http.StatusBadRequest, "missing instanceId")
-	//	return
-	//}
 	groupName,err := a.Node.GroupInfoName(threadIdStr)
 	if err != nil {
 		log.Error("Error when get group info, ", err)

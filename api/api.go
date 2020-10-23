@@ -403,7 +403,7 @@ func (a *Api) Run() {
 			}
 			threadMessage:=threadClient.Group("/message")
 			{
-				threadMessage.PUT("/add/:threadId", a.threadClientAddString)
+				threadMessage.PUT("/add", a.threadClientAddString)
 				threadMessage.PUT("/del",a.threadClientRemoveMessage)
 				threadMessage.POST("/get",a.threadClientFindMessage)
 			}
