@@ -25,8 +25,8 @@ func ThreadClientAddGroup2(groupName string) error {
 	return nil
 }
 
-func ThreadClientAddGroupFromToken(threadId string, token string) error {
-	cmdOpt := map[string]string{"threadId":threadId,"token":token}
+func ThreadClientAddGroupFromToken(threadId string, addr string, key string) error {
+	cmdOpt := map[string]string{"threadId":threadId,"addr":addr,"key":key}
 	res, err := executeStringCmd(http.MethodPost, "threadClient/addGroup3", params{opts:cmdOpt})
 	if err != nil {
 		return err

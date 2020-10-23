@@ -58,12 +58,17 @@ func (a *Api) threadClientAddGroupFromToken(g *gin.Context) {
 		g.String(http.StatusBadRequest, "missing threadId")
 		return
 	}
-	token, ok := opts["token"]
+	dbAddr, ok := opts["addr"]
 	if !ok {
-		g.String(http.StatusBadRequest, "missing token")
+		g.String(http.StatusBadRequest, "missing addr")
 		return
 	}
-	err = a.Node.CreateGroupFromToken(threadId,token)
+	dbKey, ok := opts["key"]
+	if !ok {
+		g.String(http.StatusBadRequest, "missing key")
+		return
+	}
+	err = a.Node.CreateGroupFromToken(threadId,dbAddr,dbKey)
 	if err != nil {
 		log.Error("Error when create thread client: ", err)
 		g.String(http.StatusBadGateway, "Error: %v", err)

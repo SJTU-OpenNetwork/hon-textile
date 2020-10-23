@@ -1068,7 +1068,7 @@ The response contains a base58 encoded version of the random bytes token.`).Alia
 
 	//=======================================
 	// For 	ThreadClient
-	threadClientCmd := appCmd.Command("threadClient","go-threads client corresponding commands.")
+	threadClientCmd := appCmd.Command("thread2","go-threads client corresponding commands.")
 
 	threadClientAddGroupCmd := threadClientCmd.Command("addGroup","Add a new group and return its threadId.")
 	threadClientAddGroupName := threadClientAddGroupCmd.Arg("groupName", "group name").Required().String()
@@ -1084,9 +1084,10 @@ The response contains a base58 encoded version of the random bytes token.`).Alia
 
 	threadClientAddGroupFromTokenCmd := threadClientCmd.Command("addGroup3","Add a new group from  exist token.")
 	threadClientAddGroupFromTokenThreadId := threadClientAddGroupFromTokenCmd.Arg("threadId", "thread id").Required().String()
-	threadClientAddGroupFromTokenToken := threadClientAddGroupFromTokenCmd.Arg("token", "token").Required().String()
+	threadClientAddGroupFromTokenAddr := threadClientAddGroupFromTokenCmd.Arg("addr", "token").Required().String()
+	threadClientAddGroupFromTokenKey := threadClientAddGroupFromTokenCmd.Arg("key", "token").Required().String()
 	cmds[threadClientAddGroupFromTokenCmd.FullCommand()] = func() error {
-		return ThreadClientAddGroupFromToken(*threadClientAddGroupFromTokenThreadId,*threadClientAddGroupFromTokenToken)
+		return ThreadClientAddGroupFromToken(*threadClientAddGroupFromTokenThreadId,*threadClientAddGroupFromTokenAddr,*threadClientAddGroupFromTokenKey)
 	}
 
 	threadClientListDBCmd := threadClientCmd.Command("listDB","List all active DBs.")

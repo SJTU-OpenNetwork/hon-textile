@@ -2,13 +2,12 @@ package core
 
 import (
 	"fmt"
-	"github.com/dgrijalva/jwt-go"
-	jwted25519 "github.com/textileio/go-threads/jwt"
-	"time"
 	"github.com/textileio/go-threads/api/client"
 	"github.com/textileio/go-threads/core/thread"
 	"github.com/textileio/go-threads/db"
 	threadutil "github.com/textileio/go-threads/util"
+	"time"
+	ma "github.com/multiformats/go-multiaddr"
 )
 
 const (
@@ -173,39 +172,24 @@ func (t *Textile) CreateGroup(groupName string) (thread.ID, error) {
 
 func (t *Textile) CreateGroup2(groupName string) (thread.ID, error) {
 	threadId := thread.NewIDV1(thread.Raw, 32)
-	issuer,err := t.account.LibP2PPrivKey()
-	if err != nil{
-		fmt.Println("error when t.account.LibP2PPrivKey()")
-		return "",err
-	}
-	claims := jwt.StandardClaims{
-		Subject:  threadId.String(),
-		Issuer:   thread.NewLibp2pIdentity(issuer).GetPublic().String(),
-		IssuedAt: time.Now().Unix(),
-	}
-	//sk,ok := sk.(*crypto.Ed25519PrivateKey)
-	//if !ok {
-	//	log.Fatal("issuer must be an Ed25519PrivateKey")
+	//issuer,err := t.account.LibP2PPrivKey()
+	//if err != nil{
+	//	fmt.Println("error when t.account.LibP2PPrivKey()")
+	//	return "",err
 	//}
-	//issuer, err := peer.IDFromPrivateKey(sk)
+	//claims := jwt.StandardClaims{
+	//	Subject:  threadId.String(),
+	//	Issuer:   thread.NewLibp2pIdentity(issuer).GetPublic().String(),
+	//	IssuedAt: time.Now().Unix(),
+	//}
+	//str, err := jwt.NewWithClaims(jwted25519.SigningMethodEd25519i, claims).SignedString(issuer)
+	////str1,err := jwt.New(jwted25519.SigningMethodEd25519i).SigningString()
 	//if err != nil {
-	//	fmt.Println("error when peer.IDFromPrivateKey(sk)")
-	//	return "", err
-	//}
-	//claims := &jwt.StandardClaims{
-	//	Id:        ksuid.New().String(),
-	//	IssuedAt:  time.Now().Unix(),
-	//	Issuer:    issuer.Pretty(),
-	//	Subject:   threadId.String(),
-	//}
-	str, err := jwt.NewWithClaims(jwted25519.SigningMethodEd25519i, claims).SignedString(issuer)
-	//str1,err := jwt.New(jwted25519.SigningMethodEd25519i).SigningString()
-	if err != nil {
-			fmt.Println("error when jwt.NewWithClaims")
-			return "",err
-		}
-	fmt.Println("new token for group is:<",str,">")
-	err = t.threadclient.NewDB(t.ctx, threadId,db.WithNewManagedToken(thread.Token(str)))
+	//		fmt.Println("error when jwt.NewWithClaims")
+	//		return "",err
+	//	}
+	//fmt.Println("new token for group is:<",str,">")
+	err := t.threadclient.NewDB(t.ctx, threadId)
 	if err != nil {
 		return "", err
 	}
@@ -221,7 +205,6 @@ func (t *Textile) CreateGroup2(groupName string) (thread.ID, error) {
 	if err != nil {
 		return "", err
 	}
-
 	//Start listening new created thread
 	err = t.ListenOneThread2(threadId.String())
 	if err != nil {
@@ -241,16 +224,43 @@ func (t *Textile) CreateGroup2(groupName string) (thread.ID, error) {
 		fmt.Println("Error when add group info")
 		return threadId, err
 	}
-
+	//get db key and
+	info, err := t.GetDBInfo(threadId.String())
+	if err != nil {
+		fmt.Println("error when get dbinfo,", err)
+		return "",err
+	}
+	if !info.Key.Defined() {
+		fmt.Println("got undefined db key")
+		return "",err
+	}
+	if len(info.Addrs) == 0 {
+		fmt.Println("got empty addresses")
+	}
+	dbAddr :=   info.Addrs[0].String()
+	dbKey :=    info.Key.String()
+	fmt.Println("dbAddr:<",dbAddr,">")
+	fmt.Println("dbKey:<",dbKey,">")
 	return threadId, nil
 }
 
-func (t *Textile) CreateGroupFromToken(threadIdStr string, tokenStr string)  error {
+func (t *Textile) CreateGroupFromToken(threadIdStr string, dbAddr string, dbKey string)  error {
 	threadId, err := thread.Decode(threadIdStr)
 	if err != nil {
 		return err
 	}
-	err = t.threadclient.NewDB(t.ctx, threadId,db.WithNewManagedToken(thread.Token(tokenStr)))
+	dbAddr1, err := ma.NewMultiaddr(dbAddr)
+	if err != nil {
+		fmt.Println("error when NewMultiaddr, ", err)
+		return err
+	}
+	dbkey1, err := thread.KeyFromString(dbKey)
+	if err != nil {
+		fmt.Println("error when keyfromstring, ", err)
+		return err
+	}
+
+	err = t.threadclient.NewDBFromAddr(t.ctx, dbAddr1,dbkey1)
 	if err != nil {
 		return err
 	}
