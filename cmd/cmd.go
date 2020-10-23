@@ -1068,7 +1068,7 @@ The response contains a base58 encoded version of the random bytes token.`).Alia
 
 	//=======================================
 	// For 	ThreadClient
-	threadClientCmd := appCmd.Command("thread2","go-threads client corresponding commands.")
+	threadClientCmd := appCmd.Command("threadClient","go-threads client corresponding commands.")
 
 	threadClientAddGroupCmd := threadClientCmd.Command("addGroup","Add a new group and return its threadId.")
 	threadClientAddGroupName := threadClientAddGroupCmd.Arg("groupName", "group name").Required().String()
