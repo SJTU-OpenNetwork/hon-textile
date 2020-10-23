@@ -392,20 +392,28 @@ func (a *Api) Run() {
 		//for new thread
 		threadClient := v0.Group("/threadClient")
 		{
-			threadClient.POST("/addGroup",a.threadClientAddGroup)
-			threadClient.POST("/addGroup2",a.threadClientAddGroup2)
-			threadClient.POST("/addGroup3",a.threadClientAddGroupFromToken)
-
-			threadClient.POST("/listDB",a.threadClientListDB)
-			threadClient.PUT("/addMessage/:threadId", a.threadClientAddString)
-			threadClient.PUT("/delMessage",a.threadClientRemoveMessage)
-			threadClient.POST("/findMessage",a.threadClientFindMessage)
-			threadClient.POST("/addPeer",a.threadClientAddPeer)
-			threadClient.POST("/removePeer",a.threadClientRemovePeer)
-			threadClient.POST("/modPeer",a.threadClientModPeer)
-			threadClient.POST("/findPeer",a.threadClientFindPeer)
-			threadClient.POST("/groupInfo",a.threadClientGroupInfo)
-			threadClient.POST("/newGroupName",a.threadClientNewGroupName)
+			threadGroup:=threadClient.Group("/group")
+			{
+				threadGroup.POST("/add1",a.threadClientAddGroup)
+				threadGroup.POST("/add2",a.threadClientAddGroup2)
+				threadGroup.POST("/add3",a.threadClientAddGroupFromToken)
+				threadGroup.POST("/ls",a.threadClientListDB)
+				threadGroup.POST("/name",a.threadClientGroupInfo)
+				threadGroup.POST("/newName",a.threadClientNewGroupName)
+			}
+			threadMessage:=threadClient.Group("/message")
+			{
+				threadMessage.PUT("/add/:threadId", a.threadClientAddString)
+				threadMessage.PUT("/del",a.threadClientRemoveMessage)
+				threadMessage.POST("/get",a.threadClientFindMessage)
+			}
+			threadPeer:=threadClient.Group("/peer")
+			{
+				threadPeer.POST("/add",a.threadClientAddPeer)
+				threadPeer.POST("/remove",a.threadClientRemovePeer)
+				threadPeer.POST("/set",a.threadClientModPeer)
+				threadPeer.POST("/role",a.threadClientFindPeer)
+			}
 		}
 	}
 
