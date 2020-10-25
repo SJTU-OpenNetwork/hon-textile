@@ -82,8 +82,14 @@ func FilePathAtIpfsPath(node *core.IpfsNode, pth string, repoPath string) (strin
 		return "", iface.ErrNotSupported
 	}
 
-	// copy file
-	tmpPath := ospath.Join(repoPath, "tmpfiles/"+pth)
+	tmpFilesDir := ospath.Join(repoPath,"tmpfiles")
+	_, err = os.Stat(tmpFilesDir)
+	if os.IsNotExist(err){
+		os.Mkdir(tmpFilesDir,0777)
+		os.Chmod(tmpFilesDir,0777)
+	}
+
+	tmpPath := ospath.Join(tmpFilesDir, pth)
 	tmpFile,_ := os.OpenFile(tmpPath,os.O_WRONLY | os.O_CREATE | os.O_TRUNC,0666)
 	defer tmpFile.Close()
 	srcBuf := bufio.NewReader(file)
