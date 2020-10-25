@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"os"
 	"sync"
+	"time"
 
 	"github.com/SJTU-OpenNetwork/hon-textile/ipfs"
 	"github.com/SJTU-OpenNetwork/hon-textile/pb"
@@ -78,7 +79,7 @@ func (store *activeStreamStore) fileAsStream(sf *pb.StreamFile, file_type pb.Str
 
 	r := bufio.NewReader(fi)
 	fileCid, err := ipfs.AddData(store.node(), r, true, false)
-	fileid := fileCid.String()
+	fileid := fileCid.String() + string(time.Now().Unix())
 	if err != nil {
 		log.Error(err)
 		return nil, err
