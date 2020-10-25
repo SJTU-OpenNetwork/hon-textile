@@ -69,6 +69,13 @@ func (store *activeStreamStore) fileAsStream(sf *pb.StreamFile, file_type pb.Str
 	if err != nil {
 		return nil, err
 	}
+	defer func() {
+		err := fi.Close()
+		if err != nil {
+			log.Error(err)
+		}
+	}()
+
 	r := bufio.NewReader(fi)
 	fileCid, err := ipfs.AddData(store.node(), r, true, false)
 	fileid := fileCid.String()
