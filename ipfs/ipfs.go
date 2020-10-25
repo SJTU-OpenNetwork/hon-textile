@@ -1,12 +1,15 @@
 package ipfs
 
 import (
-	"context"
+	"bufio"
+    "context"
 	"encoding/json"
 	"io"
 	"io/ioutil"
+    "os"
 	"strings"
 	"time"
+    ospath "path"
 
 	icid "github.com/ipfs/go-cid"
 	files "github.com/ipfs/go-ipfs-files"
@@ -28,8 +31,6 @@ const PinTimeout = time.Minute
 const CatTimeout = time.Minute
 const ConnectTimeout = time.Second * 5 //from 10 to 5 2019.11.27
 
-
-
 func PutBlock(node *core.IpfsNode, src io.Reader) (iface.BlockStat, error) {
 	api, err := coreapi.NewCoreAPI(node)
 	if err != nil {
@@ -42,7 +43,7 @@ func PutBlock(node *core.IpfsNode, src io.Reader) (iface.BlockStat, error) {
 	return api.Block().Put(ctx, src, options.Block.Pin(true))
 }
 
-func GetBlock(node *core.IpfsNode, p path.Path)(io.Reader, error) {
+func GetBlock(node *core.IpfsNode, p path.Path) (io.Reader, error) {
 	api, err := coreapi.NewCoreAPI(node)
 	if err != nil {
 		return nil, err
@@ -53,6 +54,52 @@ func GetBlock(node *core.IpfsNode, p path.Path)(io.Reader, error) {
 
 	return api.Block().Get(ctx, p)
 }
+
+
+func FilePathAtIpfsPath(node *core.IpfsNode, pth string, repoPath string) (string, error) {
+	api, err := coreapi.NewCoreAPI(node)
+	if err != nil {
+		return "", err
+	}
+
+	ctx, cancel := context.WithTimeout(node.Context(), CatTimeout)
+	defer cancel()
+
+	f, err := api.Unixfs().Get(ctx, path.New(pth))
+	if err != nil {
+		log.Error(err)
+		return "", err
+	}
+	defer f.Close()
+
+	var file files.File
+	switch f := f.(type) {
+	case files.File:
+		file = f
+	case files.Directory:
+		return "", iface.ErrIsDir
+	default:
+		return "", iface.ErrNotSupported
+	}
+
+	// todo: var file2 os.File
+	ReadSize := make([]byte, 1024)
+	r := bufio.NewReader(file)
+	tmpPath := ospath.Join(repoPath, "tmpfiles/"+pth)
+	fileWriter,_:= os.OpenFile(tmpPath,os.O_CREATE|os.O_APPEND,0)
+	w := bufio.NewWriter(fileWriter)
+	for {
+		ActualSize,_ := r.Read(ReadSize)
+		if ActualSize == 0{
+			break
+		}
+		w.Write(ReadSize)
+		w.Flush()
+	}
+
+	return tmpPath,nil
+}
+
 // DataAtPath return bytes under an ipfs path
 func DataAtPath(node *core.IpfsNode, pth string) ([]byte, error) {
 	api, err := coreapi.NewCoreAPI(node)
@@ -65,7 +112,7 @@ func DataAtPath(node *core.IpfsNode, pth string) ([]byte, error) {
 
 	f, err := api.Unixfs().Get(ctx, path.New(pth))
 	if err != nil {
-        log.Error(err)
+		log.Error(err)
 		return nil, err
 	}
 	defer f.Close()
@@ -391,7 +438,7 @@ func NotPinned(node *core.IpfsNode, cids []string) ([]icid.Cid, error) {
 		}
 		decoded = append(decoded, dec)
 	}
-	list, err := node.Pinning.CheckIfPinned(ctx,decoded...)
+	list, err := node.Pinning.CheckIfPinned(ctx, decoded...)
 	if err != nil {
 		return nil, err
 	}
@@ -433,7 +480,7 @@ func ListCids(node *core.IpfsNode, cid string) ([]string, error) {
 		return nil, err
 	}
 
-	err = PinNode(node, nd, true)	// Pin node recursively
+	err = PinNode(node, nd, true) // Pin node recursively
 	if err != nil {
 		log.Error(err)
 		return nil, err
@@ -446,13 +493,13 @@ func ListCids(node *core.IpfsNode, cid string) ([]string, error) {
 func traverseAndList(node *core.IpfsNode, cid string) ([]string, error) {
 	res := []string{cid}
 	links, err := LinksAtPath(node, cid)
-	if err != nil{
+	if err != nil {
 		return nil, err
 	}
 	if len(links) == 0 {
 		return res, nil
 	} else {
-		for _,l := range links {
+		for _, l := range links {
 			list, err := traverseAndList(node, l.Cid.String())
 			if err != nil {
 				return nil, err

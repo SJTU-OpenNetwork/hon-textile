@@ -132,6 +132,18 @@ func (m *Mobile) DataAtFeedSimpleFile(feed []byte, cb DataCallback) {
 		cb.Call(data, media, err)
 	}()
 }
+func (m *Mobile) BigFileAtStream(feed []byte, cid []byte, cb PathCallback) {
+	feedpb := &pb.FeedStreamMeta{}
+	err := proto.Unmarshal(feed, feedpb)
+	if err != nil {
+		cb.Call("", "", err)
+	}
+	m.node.WaitAdd(1, "Mobile.DataAtStreamFile")
+	go func() {
+		defer m.node.WaitDone("Mobile.DataAtStreamFile")
+		cb.Call(m.node.BigFileAtStream(feedpb, cid))
+	}()
+}
 
 func (m *Mobile) DataAtStreamFile(feed []byte, cid []byte, cb DataCallback) {
 	feedpb := &pb.FeedStreamMeta{}
