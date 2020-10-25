@@ -82,20 +82,14 @@ func FilePathAtIpfsPath(node *core.IpfsNode, pth string, repoPath string) (strin
 		return "", iface.ErrNotSupported
 	}
 
-	// todo: var file2 os.File
-	ReadSize := make([]byte, 1024)
-	r := bufio.NewReader(file)
+	// copy file
 	tmpPath := ospath.Join(repoPath, "tmpfiles/"+pth)
-	fileWriter,_:= os.OpenFile(tmpPath,os.O_CREATE|os.O_APPEND,0)
-	w := bufio.NewWriter(fileWriter)
-	for {
-		ActualSize,_ := r.Read(ReadSize)
-		if ActualSize == 0{
-			break
-		}
-		w.Write(ReadSize)
-		w.Flush()
-	}
+	tmpFile,_ := os.OpenFile(tmpPath,os.O_WRONLY | os.O_CREATE | os.O_TRUNC,0666)
+	defer tmpFile.Close()
+	srcBuf := bufio.NewReader(file)
+	desBuf := bufio.NewWriter(tmpFile)
+	io.Copy(desBuf,srcBuf)
+	desBuf.Flush()
 
 	return tmpPath,nil
 }
