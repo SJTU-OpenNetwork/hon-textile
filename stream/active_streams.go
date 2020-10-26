@@ -121,6 +121,7 @@ func (store *activeStreamStore) fileAsStream(sf *pb.StreamFile, file_type pb.Str
 	}
 	recorder.RecordCh <- record
 	//======
+	delete(store.streamList, fileid)
 	return config, nil
 }
 
