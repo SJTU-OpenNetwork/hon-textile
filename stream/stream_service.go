@@ -686,7 +686,7 @@ func (h* StreamService) handleStreamPushInform(env *pb.Envelope, peer peer.ID) (
 		note := &pb.Notification{
 			Id:          ksuid.New().String(),
 			Date:        pdate,
-			Actor:       h.service.Node().Identity.Pretty(),
+			Actor:       "UNKNOWN",
 			Subject:     meta.Id,
 			SubjectDesc: "",
 			Block:       "",
