@@ -1086,11 +1086,24 @@ The response contains a base58 encoded version of the random bytes token.`).Alia
 	}
 
 	threadClientAddGroupFromTokenCmd := threadClientGroupCmd.Command("add3","Add a new group from addr and key of creator.")
-	threadClientAddGroupFromTokenThreadId := threadClientAddGroupFromTokenCmd.Arg("threadId", "thread id").Required().String()
+	threadClientAddGroupFromAddrThreadId := threadClientAddGroupFromTokenCmd.Arg("threadId", "thread id").Required().String()
 	threadClientAddGroupFromTokenAddr := threadClientAddGroupFromTokenCmd.Arg("addr", "addr of the thread").Required().String()
 	threadClientAddGroupFromTokenKey := threadClientAddGroupFromTokenCmd.Arg("key", "key for the thread").Required().String()
 	cmds[threadClientAddGroupFromTokenCmd.FullCommand()] = func() error {
-		return ThreadClientAddGroupFromToken(*threadClientAddGroupFromTokenThreadId,*threadClientAddGroupFromTokenAddr,*threadClientAddGroupFromTokenKey)
+		return ThreadClientAddGroupFromToken(*threadClientAddGroupFromAddrThreadId,*threadClientAddGroupFromTokenAddr,*threadClientAddGroupFromTokenKey)
+	}
+
+	threadClientAddGroupFromToken1Cmd := threadClientGroupCmd.Command("fromtoken1","Add a new group from from token.")
+	threadClientAddGroupFromTokenThreadName := threadClientAddGroupFromToken1Cmd.Arg("name", "thread id").Required().String()
+	cmds[threadClientAddGroupFromToken1Cmd.FullCommand()] = func() error {
+		return ThreadClientAddGroupFromToken1(*threadClientAddGroupFromTokenThreadName)
+	}
+
+	threadClientAddGroupFromToken2Cmd := threadClientGroupCmd.Command("fromtoken2","Add a new group from from token.")
+	threadClientAddGroupFromTokenThreadId := threadClientAddGroupFromToken2Cmd.Arg("threadId", "thread id").Required().String()
+	threadClientAddGroupFromTokenThreadToken := threadClientAddGroupFromToken2Cmd.Arg("token", "token").Required().String()
+	cmds[threadClientAddGroupFromToken2Cmd.FullCommand()] = func() error {
+		return ThreadClientAddGroupFromToken2(*threadClientAddGroupFromTokenThreadId,*threadClientAddGroupFromTokenThreadToken)
 	}
 
 	threadClientListDBCmd := threadClientGroupCmd.Command("ls","List all active DBs.")

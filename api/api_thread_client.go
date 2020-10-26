@@ -76,6 +76,51 @@ func (a *Api) threadClientAddGroupFromToken(g *gin.Context) {
 	}
 }
 
+func (a *Api) threadClientAddGroupFromToken1(g *gin.Context) {
+	opts, err := a.readOpts(g)
+	if err != nil {
+		a.abort500(g, err)
+		return
+	}
+	threadName, ok := opts["threadName"]
+	if !ok {
+		g.String(http.StatusBadRequest, "missing threadId")
+		return
+	}
+	threadId,err := a.Node.CreateGroupFromToken1(threadName)
+	if err != nil {
+		log.Error("Error when create thread client: ", err)
+		g.String(http.StatusBadGateway, "Error: %v", err)
+	} else {
+		g.JSON(http.StatusOK, threadId)
+	}
+}
+
+func (a *Api) threadClientAddGroupFromToken2(g *gin.Context) {
+	opts, err := a.readOpts(g)
+	if err != nil {
+		a.abort500(g, err)
+		return
+	}
+	threadId, ok := opts["threadId"]
+	if !ok {
+		g.String(http.StatusBadRequest, "missing threadId")
+		return
+	}
+	token, ok := opts["token"]
+	if !ok {
+		g.String(http.StatusBadRequest, "missing token")
+		return
+	}
+	err = a.Node.CreateGroupFromToken2(threadId,token)
+	if err != nil {
+		log.Error("Error when create thread client: ", err)
+		g.String(http.StatusBadGateway, "Error: %v", err)
+	} else {
+		g.JSON(http.StatusOK, threadId)
+	}
+}
+
 func (a *Api) threadClientListDB(g *gin.Context) {
 	threadMap,err := a.Node.ListDBs()
 	var threadList []string

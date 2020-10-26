@@ -35,6 +35,26 @@ func ThreadClientAddGroupFromToken(threadId string, addr string, key string) err
 	return nil
 }
 
+func ThreadClientAddGroupFromToken1(threadName string) error {
+	cmdOpt := map[string]string{"threadName":threadName}
+	res, err := executeStringCmd(http.MethodPost, "threadClient/group/fromtoken1", params{opts:cmdOpt})
+	if err != nil {
+		return err
+	}
+	output(res)
+	return nil
+}
+
+func ThreadClientAddGroupFromToken2(threadId string, token string) error {
+	cmdOpt := map[string]string{"threadId":threadId,"token":token}
+	res, err := executeStringCmd(http.MethodPost, "threadClient/group/fromtoken2", params{opts:cmdOpt})
+	if err != nil {
+		return err
+	}
+	output(res)
+	return nil
+}
+
 func ThreadClientListDB() error {
 	res, err := executeJsonCmd(http.MethodPost, "threadClient/group/ls", params{}, nil)
 	if err != nil {

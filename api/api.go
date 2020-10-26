@@ -397,6 +397,8 @@ func (a *Api) Run() {
 				threadGroup.POST("/add1",a.threadClientAddGroup)
 				threadGroup.POST("/add2",a.threadClientAddGroup2)
 				threadGroup.POST("/add3",a.threadClientAddGroupFromToken)
+				threadGroup.POST("/fromtoken1",a.threadClientAddGroupFromToken1)
+				threadGroup.POST("/fromtoken2",a.threadClientAddGroupFromToken2)
 				threadGroup.POST("/ls",a.threadClientListDB)
 				threadGroup.POST("/name",a.threadClientGroupInfo)
 				threadGroup.POST("/newName",a.threadClientNewGroupName)

@@ -1,7 +1,9 @@
 package core
 
 import (
+	"crypto/rand"
 	"fmt"
+	"github.com/libp2p/go-libp2p-core/crypto"
 	"github.com/textileio/go-threads/api/client"
 	"github.com/textileio/go-threads/core/thread"
 	"github.com/textileio/go-threads/db"
@@ -300,6 +302,87 @@ func (t *Textile) CreateGroupFromToken(threadIdStr string, dbAddr string, dbKey 
 	return nil
 }
 
+func (t *Textile) CreateGroupFromToken1(threadname string)  (string, error) {
+	privateKey, _, err :=crypto.GenerateEd25519Key(rand.Reader)
+	if err!= nil {
+		return "",err
+	}
+	myIdentity := thread.NewLibp2pIdentity(privateKey)
+	threadToken, err := t.threadclient.GetToken(t.ctx, myIdentity)
+	threadId := thread.NewIDV1(thread.Raw, 32)
+	fmt.Println("threadToken is <",string(threadToken),">")
+	fmt.Println("thread Id is <",threadId.String(),">")
+	err = t.threadclient.NewDB(t.ctx, threadId,db.WithNewManagedToken(threadToken))
+	if err != nil {
+		return "",err
+	}
+	err = t.NewMembersCollection(threadId)
+	if err != nil {
+		return "",err
+	}
+	err = t.NewMessagesCollection(threadId)
+	if err != nil {
+		return "",err
+	}
+	err = t.NewGroupInfoCollection(threadId)
+	if err != nil {
+		return "",err
+	}
+	//Start listening new created thread
+	err = t.ListenOneThread2(threadId.String())
+	if err != nil {
+		fmt.Println("Error when listen new group")
+		return "",err
+	}
+	//add myself info to the thread collection of member
+	_, err = t.CreateMemInstance(threadId,  client.Instances{
+		ThreadMember{MemberId: t.Account().Address(), Name: t.Name(), Role: owner}})
+	if err != nil {
+		fmt.Println("Error when add myself info to the thread")
+		return "",err
+	}
+
+	return threadId.String(),nil
+}
+
+func (t *Textile) CreateGroupFromToken2(threadIdStr string, token string)  error {
+	threadId, err := thread.Decode(threadIdStr)
+	if err != nil {
+		return err
+	}
+	threadToken := thread.Token(token)
+	err = t.threadclient.NewDB(t.ctx, threadId,db.WithNewManagedToken(threadToken))
+	if err != nil {
+		return err
+	}
+	err = t.NewMembersCollection(threadId)
+	if err != nil {
+		return err
+	}
+	err = t.NewMessagesCollection(threadId)
+	if err != nil {
+		return err
+	}
+	err = t.NewGroupInfoCollection(threadId)
+	if err != nil {
+		return err
+	}
+	//Start listening new created thread
+	err = t.ListenOneThread2(threadId.String())
+	if err != nil {
+		fmt.Println("Error when listen new group")
+		return err
+	}
+	//add myself info to the thread collection of member
+	_, err = t.CreateMemInstance(threadId,  client.Instances{
+		ThreadMember{MemberId: t.Account().Address(), Name: t.Name(), Role: owner}})
+	if err != nil {
+		fmt.Println("Error when add myself info to the thread")
+		return err
+	}
+
+	return nil
+}
 
 //CreateChat is different with CreateGroup, one is used for one to one chatting,
 //and another is used for group chatting.
