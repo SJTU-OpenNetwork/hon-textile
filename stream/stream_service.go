@@ -672,9 +672,36 @@ func (h* StreamService) handleStreamPushInform(env *pb.Envelope, peer peer.ID) (
 	if localMeta != nil && last == localMeta.Nblocks && last != 0{
 		info.status = pb.StreamStatus_COMPLETE
 		err = h.informForward(inform)
-		log.Debugf("Can not sending request: ", meta.Id)
-		honlog.Hlog.Add("Can not sending request: " + meta.Id)
-		return nil, err
+		if err != nil {
+			log.Error("Error when forward an completed stream: ", err)
+			honlog.Hlog.Add("Error when forward an completed stream: " + err.Error())
+		}
+		log.Debugf("Stream already received complete: ", meta.Id)
+		honlog.Hlog.Add("Stream already received complete: " + meta.Id)
+
+		// Through a stream file notification to application
+		// so that it can know the stream has already been received.
+
+		pdate, _ := ptypes.TimestampProto(time.Now())
+		note := &pb.Notification{
+			Id:          ksuid.New().String(),
+			Date:        pdate,
+			Actor:       h.service.Node().Identity.Pretty(),
+			Subject:     meta.Id,
+			SubjectDesc: "",
+			Block:       "",
+			Target:      "",
+			Type:        pb.Notification_STREAM_FILE,
+			Body:        "",
+		}
+		err := h.sendNotification(note)
+		if err != nil {
+			log.Error("Error when send notification to application: ", err)
+			recorder.Hlog.Add("Error when send notification to application: " + err.Error())
+			return nil, err
+		}
+
+		return nil, nil
 	}
 
 	request := &pb.StreamRequest{
