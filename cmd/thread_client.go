@@ -67,7 +67,7 @@ func ThreadClientGroupInfoMod(threadId string, name string) error {
 //group message operations
 func ThreadClientAddString(threadId string, text string) error {
 	cmdOpt := map[string]string{"threadId": threadId, "text": text}
-	res, err := executeStringCmd(http.MethodPut, "threadClient/message/add"+threadId, params{opts:cmdOpt})
+	res, err := executeStringCmd(http.MethodPut, "threadClient/message/add", params{opts:cmdOpt})
 	if err != nil {
 		return err
 	}
@@ -99,7 +99,7 @@ func ThreadClientFindMessage(threadId string, pid string) error {
 //thread peer operations
 func ThreadClientAddPeer(threadId string, pid string) error {
 	cmdOpt := map[string]string{"threadId": threadId, "peerId": pid}
-	res, err := executeStringCmd(http.MethodPost, "threadClient/addPeer", params{opts:cmdOpt})
+	res, err := executeStringCmd(http.MethodPost, "threadClient/peer/add", params{opts:cmdOpt})
 	if err != nil {
 		return err
 	}
