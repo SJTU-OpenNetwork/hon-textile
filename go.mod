@@ -4,7 +4,6 @@ go 1.13
 
 require (
 	github.com/agl/ed25519 v0.0.0-20170116200512-5312a6153412
-	github.com/ahmetb/govvv v0.3.0 // indirect
 	github.com/alecthomas/template v0.0.0-20190718012654-fb15b899a751
 	github.com/alecthomas/units v0.0.0-20190924025748-f65c72e2690d // indirect
 	github.com/chzyer/logex v1.1.10 // indirect
@@ -17,19 +16,16 @@ require (
 	github.com/gin-contrib/location v0.0.0-20190301062650-0462caccbb9c
 	github.com/gin-contrib/size v0.0.0-20190301062339-6fb8220baadb
 	github.com/gin-gonic/gin v1.3.0
-	github.com/go-errors/errors v1.0.1
 	github.com/gogo/protobuf v1.3.1
 	github.com/golang/protobuf v1.4.2
 	github.com/hsanjuan/ipfs-lite v1.1.11
 	github.com/ipfs/go-cid v0.0.5
 	github.com/ipfs/go-datastore v0.4.4
-	github.com/ipfs/go-graphsync v0.0.5
 	github.com/ipfs/go-ipfs v0.5.1
 	github.com/ipfs/go-ipfs-addr v0.0.1
 	github.com/ipfs/go-ipfs-cmds v0.2.2
 	github.com/ipfs/go-ipfs-config v0.5.3
 	github.com/ipfs/go-ipfs-files v0.0.8
-	github.com/ipfs/go-ipld-cbor v0.0.4
 	github.com/ipfs/go-ipld-format v0.2.0
 	github.com/ipfs/go-log v1.0.4
 	github.com/ipfs/go-log/v2 v2.0.5
