@@ -64,3 +64,56 @@ func (t *Textile) DataAtStreamFile(feedpb *pb.FeedStreamMeta, cid []byte) ([]byt
 	recorder.Hlog.Add("Done Data At "+feedpb.Streammeta.Id)
 	return data, media, nil
 }
+
+func (t *Textile) BigFileAtStream(feedpb *pb.FeedStreamMeta, cid []byte) (string, string, error) {
+	recorder.Hlog.Add("Call Data At "+feedpb.Streammeta.Id)
+	if !t.started {
+		return "", "", ErrStopped
+	}
+
+	//data, err := t.DataAtPath(string(cid))
+
+	filePath, err := t.FilePathAtPath(string(cid))
+	if err != nil {
+		honlog.Hlog.Add("Error when call DataAtPath_Path: "+err.Error())
+		if err == ipld.ErrNotFound {
+			return "", "", nil
+		}
+		return "", "", err
+	}
+
+	//t.stream.FlushStreamDatabase(feedpb, string(cid))
+	//media, err := t.GetMedia(bytes.NewReader(data))
+	//if err != nil {
+	//	honlog.Hlog.Add("Error when call GetMedia: " + err.Error())
+	//	return "", "", err
+	//}
+	media := ""
+
+	sid := feedpb.Streammeta.Id
+	duration := t.stream.GetDuration(sid)
+
+	block_map := map[string] string {
+		"ID": sid,
+		"Parent": t.StreamGetParent(sid),
+		"Duration": strconv.FormatInt(duration,10),
+	}
+	block_json, err := json.Marshal(block_map)
+	if err != nil {
+		honlog.Hlog.Add("Error when marshal json" + err.Error())
+		log.Error(err)
+	}
+
+	record2 := &pb.Notification{
+		Block: sid,
+		Date:  ptypes.TimestampNow(),
+		//Actor:                t.node().Identity.Pretty(),	// Whether this is id of this peer ?
+		Subject: recorder.Event_DoneIPFSGet,
+		Body: string(block_json),
+		Target:  feedpb.PeerId,
+		Read:    false, // Do not send to notification channel directly
+	}
+	recorder.RecordCh <- record2
+	recorder.Hlog.Add("Done Data At "+feedpb.Streammeta.Id)
+	return filePath, media, nil
+}

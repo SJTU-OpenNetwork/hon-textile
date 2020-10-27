@@ -80,6 +80,10 @@ func Init(repoPath string, mobile bool, server bool) error {
 		return err
 	}
 
+    tmpfiles := path.Join(repoPath, "tmpfiles")
+	os.Mkdir(tmpfiles,0777)
+	os.Chmod(tmpfiles,0777)
+
 	// write repo version
 	repoverFile, err := os.Create(path.Join(repoPath, "repover"))
 	if err != nil {

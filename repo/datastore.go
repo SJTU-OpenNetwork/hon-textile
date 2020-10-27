@@ -15,9 +15,9 @@ type Datastore interface {
 	Streams() StreamStore
 	StreamMetas() StreamMetaStore
 	StreamBlocks() StreamBlockStore
-    Videos() VideoStore
-    VideoChunks() VideoChunkStore
-    SyncFiles() SyncFileStore
+	Videos() VideoStore
+	VideoChunks() VideoChunkStore
+	SyncFiles() SyncFileStore
 	Threads() ThreadStore
 	ThreadPeers() ThreadPeerStore
 	Blocks() BlockStore
@@ -90,18 +90,18 @@ type FileStore interface {
 }
 
 type VideoStore interface {
-    Queryable
+	Queryable
 	Add(video *pb.Video) error
-    Get(videoId string) *pb.Video
+	Get(videoId string) *pb.Video
 	Delete(videoId string) error
 }
 
 type VideoChunkStore interface {
-    Queryable
+	Queryable
 	Add(video *pb.VideoChunk) error
 	ListByVideo(videoId string) []*pb.VideoChunk
 	Get(videoId string, chunk string) *pb.VideoChunk
-    GetByIndex(videoId string, index int64) *pb.VideoChunk
+	GetByIndex(videoId string, index int64) *pb.VideoChunk
 	Delete(videoId string) error
 	Find(videoId string, chunk string, startTime int64, endTime int64, index int64) []*pb.VideoChunk
 }
@@ -112,14 +112,15 @@ type StreamBlockStore interface {
 	ListByStream(streamid string, startindex int, maxnum int) []*pb.StreamBlock
 	Delete(streamid string) error
 	GetByCid(cid string) *pb.StreamBlock
-    BlockCount(streamid string) uint64
-    LastIndex(streamid string) uint64
+	BlockCount(streamid string) uint64
+	LastIndex(streamid string) uint64
+	LastValidRoot(streamid string) *pb.StreamBlock
 }
 
 type StreamMetaStore interface {
 	Queryable
 	Add(stream *pb.StreamMeta) error
-    UpdateNblocks(id string, nblocks uint64) error
+	UpdateNblocks(id string, nblocks uint64) error
 	Get(streamId string) *pb.StreamMeta
 	Delete(streamId string) error
 	List() *pb.StreamMetaList
@@ -133,10 +134,10 @@ type StreamStore interface {
 }
 
 type SyncFileStore interface {
-    Queryable
-    Add(file *pb.SyncFile) error
-    Delete(file *pb.SyncFile) error
-    ListByType (peerAddress string, fileType pb.SyncFile_Type) []*pb.SyncFile
+	Queryable
+	Add(file *pb.SyncFile) error
+	Delete(file *pb.SyncFile) error
+	ListByType(peerAddress string, fileType pb.SyncFile_Type) []*pb.SyncFile
 }
 
 type ThreadStore interface {
@@ -164,10 +165,10 @@ type ThreadPeerStore interface {
 	Delete(id string, thread string) error
 	DeleteById(id string) error
 	DeleteByThread(thread string) error
-    
-    AddAdmin(id string, thread string) error
-    ListAdminByThread(threadId string) []pb.ThreadPeer
-    ListNonAdminByThread(threadId string) []pb.ThreadPeer
+
+	AddAdmin(id string, thread string) error
+	ListAdminByThread(threadId string) []pb.ThreadPeer
+	ListNonAdminByThread(threadId string) []pb.ThreadPeer
 }
 
 type BlockStore interface {

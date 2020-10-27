@@ -1093,6 +1093,11 @@ func (t *Textile) DataAtPath(path string) ([]byte, error) {
 	return ipfs.DataAtPath(t.node, path)
 }
 
+
+func (t *Textile) FilePathAtPath(path string) (string, error){
+	return ipfs.FilePathAtIpfsPath(t.node, path, t.repoPath)
+}
+
 // AddData add data to ipfs network
 func (t *Textile) AddData(data []byte, pin bool, hashOnly bool) (string, error) {
 	r := bytes.NewReader(data)

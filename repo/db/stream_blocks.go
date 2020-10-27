@@ -2,13 +2,14 @@ package db
 
 import (
 	"database/sql"
+	"strconv"
+	"sync"
+
 	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 	"github.com/SJTU-OpenNetwork/hon-textile/repo"
-	"sync"
-    "strconv"
 )
 
-type StreamBlockDB struct{
+type StreamBlockDB struct {
 	modelStore
 }
 
@@ -30,10 +31,10 @@ func (s StreamBlockDB) Add(streamblock *pb.StreamBlock) error {
 	var isroot int
 	if streamblock.IsRoot {
 		isroot = 1
-	}else {
+	} else {
 		isroot = 0
 	}
-	_, err = stmt.Exec(streamblock.Id, streamblock.Streamid, streamblock.Index,streamblock.Size,isroot, streamblock.Description)
+	_, err = stmt.Exec(streamblock.Id, streamblock.Streamid, streamblock.Index, streamblock.Size, isroot, streamblock.Description)
 	if err != nil {
 		_ = tx.Rollback()
 		log.Error(err)
@@ -43,75 +44,85 @@ func (s StreamBlockDB) Add(streamblock *pb.StreamBlock) error {
 }
 
 /**
-  * BUG EXIST!
-  * It cannot guarantee the returned blocks are continous and start from startindex
-  */
+ * BUG EXIST!
+ * It cannot guarantee the returned blocks are continous and start from startindex
+ */
 func (s StreamBlockDB) ListByStream(streamid string, startindex int, maxnum int) []*pb.StreamBlock {
 	s.lock.Lock()
 	defer s.lock.Unlock()
 
-	stm := "select * from stream_blocks where streamid='"  +streamid+  "' and blockindex >= " + strconv.Itoa(startindex)+  " order by blockindex limit "+strconv.Itoa(maxnum);
+	stm := "select * from stream_blocks where streamid='" + streamid + "' and blockindex >= " + strconv.Itoa(startindex) + " order by blockindex limit " + strconv.Itoa(maxnum)
 
 	res := s.handleQuery(stm)
 	return res
 }
 
-
 func (s StreamBlockDB) LastIndex(streamid string) uint64 {
 	s.lock.Lock()
 	defer s.lock.Unlock()
 
-	stm := "select * from stream_blocks where streamid='"  +streamid+ "' order by blockindex";
+	stm := "select * from stream_blocks where streamid='" + streamid + "' order by blockindex"
 	res := s.handleQuery(stm)
 
-    id := uint64(0)
+	id := uint64(0)
 
-    for {
-        if id >= uint64(len(res)) {
-            break
-        }
-        if res[id].Index == id {
-            id = id+1
-        } else {
-            break
-        }
-    }
+	for {
+		if id >= uint64(len(res)) {
+			break
+		}
+		if res[id].Index == id {
+			id = id + 1
+		} else {
+			break
+		}
+	}
 
 	return id
 }
 
+// the last block is usually a virtual block with id == ""
+// we need the last root block with id != ""
+func (s StreamBlockDB) LastValidRoot(streamid string) *pb.StreamBlock {
+	count := s.BlockCount(streamid)
+	blocks := s.ListByStream(streamid, int(count-2), 2)
+	if blocks[1].Id == "" {
+		return blocks[0]
+	}
+	return blocks[1]
+}
+
 //TODO: how many blocks do we have
-func (s StreamBlockDB) BlockCount(streamid string) uint64{
+func (s StreamBlockDB) BlockCount(streamid string) uint64 {
 	s.lock.Lock()
 	defer s.lock.Unlock()
 
-	stm := "select count(*) from stream_blocks where streamid='"  +streamid +"'" ;
+	stm := "select count(*) from stream_blocks where streamid='" + streamid + "'"
 	rows, err := s.db.Query(stm)
 	if err != nil {
 		log.Errorf("block count error: %s", err)
 		return 0
 	}
-    var count uint64
-    for rows.Next() {
-	    err = rows.Scan(&count)
-	    if err != nil {
-		    log.Errorf("block count error: %s", err)
-		    return 0
-	    }
-    }
-    return count
+	var count uint64
+	for rows.Next() {
+		err = rows.Scan(&count)
+		if err != nil {
+			log.Errorf("block count error: %s", err)
+			return 0
+		}
+	}
+	return count
 }
 
 func (s StreamBlockDB) GetByCid(cid string) *pb.StreamBlock {
 	s.lock.Lock()
 	defer s.lock.Unlock()
 
-	stm := "select * from stream_blocks where id='"+cid+"';"
-    res := s.handleQuery(stm)
+	stm := "select * from stream_blocks where id='" + cid + "';"
+	res := s.handleQuery(stm)
 	if len(res) == 0 {
 		return nil
 	}
-    //log.Debug("out GET")
+	//log.Debug("out GET")
 	return res[0]
 }
 
@@ -119,7 +130,7 @@ func (s StreamBlockDB) Delete(streamid string) error {
 	s.lock.Lock()
 	defer s.lock.Unlock()
 
-	_, err := s.db.Exec("delete from stream_blocks where id=?",streamid)
+	_, err := s.db.Exec("delete from stream_blocks where id=?", streamid)
 	return err
 }
 
@@ -130,34 +141,34 @@ func (s *StreamBlockDB) handleQuery(stm string) []*pb.StreamBlock {
 		log.Errorf("error in db query: %s", err)
 		return nil
 	}
-	for rows.Next(){
+	for rows.Next() {
 		var id, streamid, payload string
 		var index uint64
 		var blocksize int32
 		var isroot int
 		err := rows.Scan(&id, &streamid, &index, &blocksize, &isroot, &payload)
-		if err !=nil {
+		if err != nil {
 			log.Errorf("error in db scan: %s", err)
 			continue
 		}
 		var isRootBool bool
-		if isroot == 0{
-			isRootBool=false
-		}else{
-			isRootBool=true
+		if isroot == 0 {
+			isRootBool = false
+		} else {
+			isRootBool = true
 		}
 		list = append(list, &pb.StreamBlock{
-			Id: id,
-			Streamid: streamid,
-			Index: index,
-			Size: blocksize,
-			IsRoot: isRootBool,
-            Description: payload,
+			Id:          id,
+			Streamid:    streamid,
+			Index:       index,
+			Size:        blocksize,
+			IsRoot:      isRootBool,
+			Description: payload,
 		})
 	}
 	return list
 }
 
 func NewStreamBlockStore(db *sql.DB, lock *sync.Mutex) repo.StreamBlockStore {
-	return &StreamBlockDB{modelStore{db,lock}}
+	return &StreamBlockDB{modelStore{db, lock}}
 }

@@ -99,6 +99,41 @@ func (m *Mobile) dataAtPath(pth string) ([]byte, string, error) {
 	return data, media, nil
 }
 
+func (m *Mobile) BigFileAtSimpleFile(feed []byte, cb PathCallback) {
+	feedpb := &pb.FeedSimpleFile{}
+	err := proto.Unmarshal(feed, feedpb)
+	if err != nil {
+		cb.Call("", "", err)
+	}
+	m.node.WaitAdd(1, "Mobile.DataAtFeedSimpleFile")
+	go func() {
+		defer m.node.WaitDone("Mobile.DataAtFeedSimpleFile")
+		record := &pb.Notification{
+			Block:                feedpb.Block,
+			Date:                 ptypes.TimestampNow(),
+			//Actor:                t.node().Identity.Pretty(),	// Whether this is id of this peer ?
+			Subject:              recorder.Event_CallIPFSGet,
+			Target:               feedpb.PeerId,
+			Read:                 false,						// Do not send to notification channel directly
+		}
+		recorder.RecordCh <- record
+		//data, media, err := m.dataAtPath(feedpb.SimpleFile.Path)
+		tmpPath, err := m.node.FilePathAtPath(feedpb.SimpleFile.Path)
+		if err == nil {
+			record2 := &pb.Notification{
+				Block: feedpb.Block,
+				Date:  ptypes.TimestampNow(),
+				//Actor:                t.node().Identity.Pretty(),	// Whether this is id of this peer ?
+				Subject: recorder.Event_DoneIPFSGet,
+				Target:  feedpb.PeerId,
+				Read:    false, // Do not send to notification channel directly
+			}
+			recorder.RecordCh <- record2
+		}
+		cb.Call(tmpPath, "", err)
+	}()
+}
+
 func (m *Mobile) DataAtFeedSimpleFile(feed []byte, cb DataCallback) {
 	feedpb := &pb.FeedSimpleFile{}
 	err := proto.Unmarshal(feed, feedpb)
@@ -130,6 +165,18 @@ func (m *Mobile) DataAtFeedSimpleFile(feed []byte, cb DataCallback) {
 			recorder.RecordCh <- record2
 		}
 		cb.Call(data, media, err)
+	}()
+}
+func (m *Mobile) BigFileAtStream(feed []byte, cid []byte, cb PathCallback) {
+	feedpb := &pb.FeedStreamMeta{}
+	err := proto.Unmarshal(feed, feedpb)
+	if err != nil {
+		cb.Call("", "", err)
+	}
+	m.node.WaitAdd(1, "Mobile.DataAtStreamFile")
+	go func() {
+		defer m.node.WaitDone("Mobile.DataAtStreamFile")
+		cb.Call(m.node.BigFileAtStream(feedpb, cid))
 	}()
 }
 
