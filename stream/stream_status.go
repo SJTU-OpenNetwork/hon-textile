@@ -2,20 +2,21 @@ package stream
 
 import (
 	"fmt"
-	honlog "github.com/SJTU-OpenNetwork/hon-textile/hon-log"
-	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 	"sync"
 	"time"
+
+	honlog "github.com/SJTU-OpenNetwork/hon-textile/hon-log"
+	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 )
 
 type StreamInfos struct {
-	infos map[string] *StreamInfo
-	lock sync.Mutex
+	infos map[string]*StreamInfo
+	lock  sync.Mutex
 }
 
 func NewStreamInfos() *StreamInfos {
 	return &StreamInfos{
-		infos: make(map[string] *StreamInfo),
+		infos: make(map[string]*StreamInfo),
 	}
 }
 
@@ -29,7 +30,7 @@ func (s *StreamInfos) clearObsoleteInfos() {
 	s.lock.Lock()
 	defer s.lock.Unlock()
 	for _, sid := range obsoleteStreams {
-		delete (s.infos, sid)
+		delete(s.infos, sid)
 	}
 }
 
@@ -61,7 +62,7 @@ func (s *StreamInfos) setParent(sid string, parent string) {
 	defer s.lock.Unlock()
 
 	sinfo, ok := s.infos[sid]
-	if ok{
+	if ok {
 		sinfo.treeParent = parent
 	} else {
 
@@ -69,7 +70,7 @@ func (s *StreamInfos) setParent(sid string, parent string) {
 
 }
 
-func (s *StreamInfos) setDuration(sid string, duration int64)  {
+func (s *StreamInfos) setDuration(sid string, duration int64) {
 	s.lock.Lock()
 	defer s.lock.Unlock()
 	info, ok := s.infos[sid]
@@ -119,15 +120,15 @@ func (s *StreamInfos) getOrCreate(id string) *StreamInfo {
 }
 
 type StreamInfo struct {
-	status  pb.StreamStatus
-	sLock sync.Mutex
-	timer *time.Timer
-	treeParent string
+	status         pb.StreamStatus
+	sLock          sync.Mutex
+	timer          *time.Timer
+	treeParent     string
 	streamDuration int64
 	lastAccessTime time.Time
 }
 
-func (info *StreamInfo) onInform() bool{
+func (info *StreamInfo) onInform() bool {
 	info.sLock.Lock()
 	defer info.sLock.Unlock()
 	switch info.status {
@@ -147,6 +148,9 @@ func (info *StreamInfo) onInform() bool{
 		honlog.Hlog.Add(fmt.Sprintf("[%s] %s ==> %s", TAG_STATUS, info.status.String(), pb.StreamStatus_REQUESTING.String()))
 		info.status = pb.StreamStatus_REQUESTING
 		return true
+	case pb.StreamStatus_COMPLETE:
+		honlog.Hlog.Add(fmt.Sprintf("[%s] stream already received", TAG_STATUS))
+		return false
 	default:
 		log.Error("Wrong status when get inform: ", info.status.String())
 		honlog.Hlog.Add("Error, Wrong status when get inform: " + info.status.String())
@@ -163,10 +167,10 @@ func (info *StreamInfo) onRequestSuccess(timeout func()) {
 
 		honlog.Hlog.Add(fmt.Sprintf("[%s] %s ==> %s", TAG_STATUS, info.status.String(), pb.StreamStatus_RECEIVING.String()))
 		info.status = pb.StreamStatus_RECEIVING
-    default:
+	default:
 		log.Error("Wrong status when handling request success: ", info.status.String())
 		honlog.Hlog.Add("Error, Wrong status when handling request success: " + info.status.String())
-    }
+	}
 }
 
 func (info *StreamInfo) onMeta(timeout func()) {
@@ -231,4 +235,3 @@ func (info *StreamInfo) refreshProviderTimer() {
 		honlog.Hlog.Add("Error, Wrong status when refresh provider timer: " + info.status.String())
 	}
 }
-
