@@ -295,20 +295,20 @@ func (m *Mobile) Start() error {
 			}
 		}()
 
-		// subscribe to thread2 updates
-		//go func() {
-		//	for {
-		//		select {
-		//		case update, ok := <-m.listener2.Ch:
-		//			if !ok {
-		//				return
-		//			}
-		//			if msg, ok := update.(*pb.Thread2MessageUpdate); ok {
-		//				m.notify(pb.MobileEventType_THREAD2_UPDATE, msg)
-		//			}
-		//		}
-		//	}
-		//}()
+		//subscribe to thread2 updates
+		go func() {
+			for {
+				select {
+				case update, ok := <-m.listener2.Ch:
+					if !ok {
+						return
+					}
+					if msg, ok := update.(*pb.Thread2MessageUpdate); ok {
+						m.notify(pb.MobileEventType_THREAD2_UPDATE, msg)
+					}
+				}
+			}
+		}()
 
 
 		m.notify(pb.MobileEventType_NODE_ONLINE, nil)
