@@ -124,3 +124,8 @@ func (m *Mobile) IsStreamFinished(streamId string) bool {
 func (m *Mobile) StreamGetStatus(streamId string) string {
 	return m.node.StreamGetStatusString(streamId)
 }
+
+func (m *Mobile) GetStreamDuration(streamId string) int64 {
+	return m.node.GetDuration(streamId)
+}
+
