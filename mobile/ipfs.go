@@ -6,7 +6,8 @@ import (
 	"github.com/SJTU-OpenNetwork/hon-textile/recorder"
 	"github.com/SJTU-OpenNetwork/hon-textile/util"
 	"github.com/golang/protobuf/ptypes"
-	"google.golang.org/protobuf/types/known/timestamppb"
+	//"google.golang.org/protobuf/types/known/timestamppb"
+	tspb "github.com/golang/protobuf/ptypes/timestamp"
 
 	"github.com/SJTU-OpenNetwork/hon-textile/core"
 	"github.com/SJTU-OpenNetwork/hon-textile/ipfs"
@@ -110,8 +111,8 @@ func (m *Mobile) BigFileAtSimpleFile(feed []byte, cb PathCallbackWithTime) {
 	m.node.WaitAdd(1, "Mobile.DataAtFeedSimpleFile")
 	go func() {
 		defer m.node.WaitDone("Mobile.DataAtFeedSimpleFile")
-		var ipfsGetTime *timestamppb.Timestamp
-		var ipfsDoneTime *timestamppb.Timestamp
+		var ipfsGetTime *tspb.Timestamp
+		var ipfsDoneTime *tspb.Timestamp
 		ipfsGetTime = ptypes.TimestampNow()
 		record := &pb.Notification{
 			Block:                feedpb.Block,
@@ -152,8 +153,8 @@ func (m *Mobile) DataAtFeedSimpleFile(feed []byte, cb DataCallbackWithTime) {
 	m.node.WaitAdd(1, "Mobile.DataAtFeedSimpleFile")
 	go func() {
 		defer m.node.WaitDone("Mobile.DataAtFeedSimpleFile")
-		var ipfsGetTime *timestamppb.Timestamp
-		var ipfsDoneTime *timestamppb.Timestamp
+		var ipfsGetTime *tspb.Timestamp
+		var ipfsDoneTime *tspb.Timestamp
 		ipfsGetTime = ptypes.TimestampNow()
 		record := &pb.Notification{
 			Block:                feedpb.Block,
