@@ -4,7 +4,9 @@ import (
 	"bytes"
 	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 	"github.com/SJTU-OpenNetwork/hon-textile/recorder"
+	"github.com/SJTU-OpenNetwork/hon-textile/util"
 	"github.com/golang/protobuf/ptypes"
+	"google.golang.org/protobuf/types/known/timestamppb"
 
 	"github.com/SJTU-OpenNetwork/hon-textile/core"
 	"github.com/SJTU-OpenNetwork/hon-textile/ipfs"
@@ -99,18 +101,22 @@ func (m *Mobile) dataAtPath(pth string) ([]byte, string, error) {
 	return data, media, nil
 }
 
-func (m *Mobile) BigFileAtSimpleFile(feed []byte, cb PathCallback) {
+func (m *Mobile) BigFileAtSimpleFile(feed []byte, cb PathCallbackWithTime) {
 	feedpb := &pb.FeedSimpleFile{}
 	err := proto.Unmarshal(feed, feedpb)
 	if err != nil {
-		cb.Call("", "", err)
+		cb.Call("", "", 0, err)
 	}
 	m.node.WaitAdd(1, "Mobile.DataAtFeedSimpleFile")
 	go func() {
 		defer m.node.WaitDone("Mobile.DataAtFeedSimpleFile")
+		var ipfsGetTime *timestamppb.Timestamp
+		var ipfsDoneTime *timestamppb.Timestamp
+		ipfsGetTime = ptypes.TimestampNow()
 		record := &pb.Notification{
 			Block:                feedpb.Block,
-			Date:                 ptypes.TimestampNow(),
+			//Date:                 ptypes.TimestampNow(),
+			Date:					ipfsGetTime,
 			//Actor:                t.node().Identity.Pretty(),	// Whether this is id of this peer ?
 			Subject:              recorder.Event_CallIPFSGet,
 			Target:               feedpb.PeerId,
@@ -119,10 +125,12 @@ func (m *Mobile) BigFileAtSimpleFile(feed []byte, cb PathCallback) {
 		recorder.RecordCh <- record
 		//data, media, err := m.dataAtPath(feedpb.SimpleFile.Path)
 		tmpPath, err := m.node.FilePathAtPath(feedpb.SimpleFile.Path)
+		ipfsDoneTime = ptypes.TimestampNow()
 		if err == nil {
 			record2 := &pb.Notification{
 				Block: feedpb.Block,
-				Date:  ptypes.TimestampNow(),
+				//Date:  ptypes.TimestampNow(),
+				Date: 	ipfsDoneTime,
 				//Actor:                t.node().Identity.Pretty(),	// Whether this is id of this peer ?
 				Subject: recorder.Event_DoneIPFSGet,
 				Target:  feedpb.PeerId,
@@ -130,22 +138,27 @@ func (m *Mobile) BigFileAtSimpleFile(feed []byte, cb PathCallback) {
 			}
 			recorder.RecordCh <- record2
 		}
-		cb.Call(tmpPath, "", err)
+
+		cb.Call(tmpPath, "", util.ProtoDuration(ipfsGetTime, ipfsDoneTime), err)
 	}()
 }
 
-func (m *Mobile) DataAtFeedSimpleFile(feed []byte, cb DataCallback) {
+func (m *Mobile) DataAtFeedSimpleFile(feed []byte, cb DataCallbackWithTime) {
 	feedpb := &pb.FeedSimpleFile{}
 	err := proto.Unmarshal(feed, feedpb)
 	if err != nil {
-		cb.Call(nil, "", err)
+		cb.Call(nil, "", 0, err)
 	}
 	m.node.WaitAdd(1, "Mobile.DataAtFeedSimpleFile")
 	go func() {
 		defer m.node.WaitDone("Mobile.DataAtFeedSimpleFile")
+		var ipfsGetTime *timestamppb.Timestamp
+		var ipfsDoneTime *timestamppb.Timestamp
+		ipfsGetTime = ptypes.TimestampNow()
 		record := &pb.Notification{
 			Block:                feedpb.Block,
-			Date:                 ptypes.TimestampNow(),
+			//Date:                 ptypes.TimestampNow(),
+			Date:					ipfsGetTime,
 			//Actor:                t.node().Identity.Pretty(),	// Whether this is id of this peer ?
 			Subject:              recorder.Event_CallIPFSGet,
 			Target:               feedpb.PeerId,
@@ -153,10 +166,12 @@ func (m *Mobile) DataAtFeedSimpleFile(feed []byte, cb DataCallback) {
 		}
 		recorder.RecordCh <- record
 		data, media, err := m.dataAtPath(feedpb.SimpleFile.Path)
+		ipfsDoneTime = ptypes.TimestampNow()
 		if err == nil {
 			record2 := &pb.Notification{
 				Block: feedpb.Block,
-				Date:  ptypes.TimestampNow(),
+				//Date:  ptypes.TimestampNow(),
+				Date:	ipfsDoneTime,
 				//Actor:                t.node().Identity.Pretty(),	// Whether this is id of this peer ?
 				Subject: recorder.Event_DoneIPFSGet,
 				Target:  feedpb.PeerId,
@@ -164,7 +179,7 @@ func (m *Mobile) DataAtFeedSimpleFile(feed []byte, cb DataCallback) {
 			}
 			recorder.RecordCh <- record2
 		}
-		cb.Call(data, media, err)
+		cb.Call(data, media, util.ProtoDuration(ipfsGetTime, ipfsDoneTime), err)
 	}()
 }
 func (m *Mobile) BigFileAtStream(feed []byte, cid []byte, cb PathCallback) {

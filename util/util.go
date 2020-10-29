@@ -47,6 +47,13 @@ func ProtoTime(ts *timestamp.Timestamp) time.Time {
 	return time.Unix(ts.Seconds, int64(ts.Nanos))
 }
 
+// ProtoDuration return the duration between t2-t1.
+// Return the duration in millseconds.
+// return millsecond(t2-t1)
+func ProtoDuration(t1 *timestamp.Timestamp, t2 *timestamp.Timestamp) int {
+	return 1000 * int(t2.Seconds - t1.Seconds) + int(t2.Nanos - t1.Nanos) / 1e6
+}
+
 func ProtoNanos(ts *timestamp.Timestamp) int64 {
 	if ts == nil {
 		ts = ptypes.TimestampNow()

@@ -50,8 +50,16 @@ type DataCallback interface {
 	Call(data []byte, media string, err error)
 }
 
+type DataCallbackWithTime interface {
+	Call(data []byte, media string, time int, err error)
+}
+
 type PathCallback interface {
 	Call(filepath string, media string, err error)
+}
+
+type PathCallbackWithTime interface {
+	Call(filepath string, media string, time int, err error)
 }
 
 // IpfsAddDataCallback is used for asyc methods that add raw data to ipfs
