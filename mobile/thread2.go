@@ -112,6 +112,21 @@ func (m *Mobile) Thread2AddMember(threadId string, peerId string, cb Thread2AddM
 	}()
 }
 
+func (m *Mobile) Thread2InvitePeer(threadId string, peerId string) error {
+	err := m.node.Invite(threadId,peerId)
+	if err!=nil{
+		return err
+	}
+	return nil
+}
+//
+//func (m *Mobile) Thread2AcceptInvite(threadId string, peerId string) error {
+//	err := m.node.handleInvite(threadId,peerId)
+//	if err!=nil{
+//		return err
+//	}
+//	return nil
+//}
 
 type Thread2Handler interface {
 	HandleMsg(threadId string, bytes []byte)
