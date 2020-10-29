@@ -326,6 +326,10 @@ func (h *StreamService) OnStreamMeta(meta *pb.StreamMeta, treePrevious []string)
 	}
 
 	if complete {
+		// Set info duration to 0.
+		// So that the receive time at record by receiving peer would be 0 when receive an received stream.
+		h.streamInfos.setDuration(meta.Id, 0)
+
 		log.Debugf("[OnStreamMeta] Stream already received complete: ", meta.Id)
 		honlog.Hlog.Add("[OnStreamMeta] Stream already received complete: " + meta.Id)
 		lastRoot := h.datastore.StreamBlocks().LastValidRoot(meta.Id)
