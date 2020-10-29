@@ -183,6 +183,7 @@ func (info *StreamInfo) onMeta(timeout func()) {
 		honlog.Hlog.Add(fmt.Sprintf("[%s] %s ==> %s", TAG_STATUS, info.status.String(), pb.StreamStatus_NO_INFORM.String()))
 		info.status = pb.StreamStatus_NO_INFORM
 	case pb.StreamStatus_COMPLETE:
+
 		honlog.Hlog.Add("Stream has already been received")
 	default:
 		log.Debugf("[%s] Status is %s when receive meta.", TAG_STATUS, info.status.String())
