@@ -88,6 +88,14 @@ const (
 				"type": "string",
 				"description": "The group's id."
 			},
+			"creator": {
+				"type": "string",
+				"description": "The group's creator."
+			},
+			"time": {
+				"type": "integer",
+				"description": "The group's created time."
+			},
 			"type": {
 				"type": "string",
 				"description": "The group's type."
@@ -122,6 +130,8 @@ type ThreadMessage struct {
 type ThreadGroup struct {
 	ID      string `json:"_id"`
 	Name    string `json:"name"`
+	Creator string `json:"creator"`
+	Time	int `json:"time"`
 	Type    string `json:"type"`
 	Number	int	   `json:"number"`
 	Flag	string `json:"flag"`
@@ -508,7 +518,7 @@ func (t *Textile) CreateMesInstance(id thread.ID, instances client.Instances) ([
 //create a collection to storage group chat info, generally it has only one instance.
 func (t *Textile) CreateGroupInfoInstance(id thread.ID, groupName string) ([]string, error) {
 	instanceIds, err := t.threadclient.Create(t.ctx, id, collectionGroup,
-		client.Instances{&ThreadGroup{Name:groupName,Number:1,Type:groupChat,Flag:"groupInfo"}})
+		client.Instances{&ThreadGroup{Name:groupName,Number:1,Creator:t.Account().Address(),Time:int(time.Now().Unix()),Type:groupChat,Flag:"groupInfo"}})
 	if err != nil {
 		return nil, err
 	}
