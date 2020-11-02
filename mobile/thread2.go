@@ -47,7 +47,13 @@ func (m *Mobile) CreateDBFromAddrKey(threadId string,dbAddr string, dbKey string
 }
 
 func (m *Mobile) DbAddrKey(threadId string) (string, string, error) {
-	return m.node.GetDBAddrKey(threadId)
+	info,err := m.node.GetDBInfo(threadId)
+	if err!=nil{
+		return "","",err
+	}
+	DbAddr := info.Addrs[0].String()
+	DbKey := info.Key.String()
+	return DbAddr,DbKey,nil
 }
 
 //return group name
