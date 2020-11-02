@@ -57,6 +57,11 @@ func (m *Mobile) DbAddrKey(threadId string) ([]byte, error) {
 	return 	proto.Marshal(inv)
 }
 
+//when starts app, listen all threads
+func (m *Mobile) ListenAllThreads() {
+	m.node.ListenThread2s()
+}
+
 //return group name
 func (m *Mobile) ThreadGroupName(threadId string) (string, error) {
 	return m.node.GroupInfoName(threadId)
