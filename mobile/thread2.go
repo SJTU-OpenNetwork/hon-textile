@@ -46,14 +46,15 @@ func (m *Mobile) CreateDBFromAddrKey(threadId string,dbAddr string, dbKey string
 	return m.node.CreateGroupFromToken(threadId,dbAddr,dbKey)
 }
 
-func (m *Mobile) DbAddrKey(threadId string) (string, string, error) {
+func (m *Mobile) DbAddrKey(threadId string) ([]byte, error) {
 	info,err := m.node.GetDBInfo(threadId)
 	if err!=nil{
-		return "","",err
+		return nil,err
 	}
 	DbAddr := info.Addrs[0].String()
 	DbKey := info.Key.String()
-	return DbAddr,DbKey,nil
+	inv := &pb.ExternalInvite{Id:DbAddr,Key:DbKey}
+	return 	proto.Marshal(inv)
 }
 
 //return group name
