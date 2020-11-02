@@ -454,6 +454,22 @@ func (t *Textile) GetDBInfo(threadIdStr string) (*client.DBInfo, error) {
 	return dbinfo, nil
 }
 
+func (t *Textile) GetDBAddrKey(threadIdStr string) (string,string,error){
+	info,err := t.GetDBInfo(threadIdStr)
+	if err!=nil{
+		return "","",err
+	}
+	if !info.Key.Defined() {
+		fmt.Println("got undefined db key")
+	}
+	if len(info.Addrs) == 0 {
+		fmt.Println("got empty addresses")
+	}
+	DbAddr := info.Addrs[0].String()
+	DbKey := info.Key.String()
+	return DbAddr,DbKey,nil
+}
+
 //not used for now
 func (t *Textile) DeleteDB(threadIdStr string) (error) {
 	threadId, err := thread.Decode(threadIdStr)

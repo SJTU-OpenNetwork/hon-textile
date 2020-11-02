@@ -42,6 +42,14 @@ func (m *Mobile) ListDBs() ([]byte, error) {
 	return proto.Marshal(views)
 }
 
+func (m *Mobile) CreateDBFromAddrKey(threadId string,dbAddr string, dbKey string) error {
+	return m.node.CreateGroupFromToken(threadId,dbAddr,dbKey)
+}
+
+func (m *Mobile) DbAddrKey(threadId string) (string, string, error) {
+	return m.node.GetDBAddrKey(threadId)
+}
+
 //return group name
 func (m *Mobile) ThreadGroupName(threadId string) (string, error) {
 	return m.node.GroupInfoName(threadId)
