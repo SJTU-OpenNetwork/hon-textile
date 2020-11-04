@@ -6,7 +6,7 @@ import (
 )
 
 // ProtoCallback is used for asyc methods that deliver a protobuf message
-type thread2AddFileCallback interface {
+type Thread2AddFileCallback interface {
 	Call(instanceId string, err error)
 }
 
@@ -113,15 +113,13 @@ func (m *Mobile) Thread2FindMessage(threadId string, instanceId string) (string,
 
 }
 
-func (m *Mobile) Thread2AddPicture(path string, threadId string,cb thread2AddFileCallback) {
+func (m *Mobile) Thread2AddPicture(path string, threadId string,cb Thread2AddFileCallback) {
 	go func() {
-		defer m.node.WaitDone("Mobile.AddThread2Picture")
 		instanceId, err := m.node.Thread2AddPicture(path, threadId)
 		if err != nil {
 			cb.Call("", err)
 			return
 		}
-		m.node.FlushCafes()
 		cb.Call(instanceId, nil)
 	}()
 }
