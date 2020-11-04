@@ -1,13 +1,18 @@
 package core
 
 import (
+	"bufio"
 	"crypto/rand"
+	"encoding/xml"
+	"errors"
 	"fmt"
+	"github.com/SJTU-OpenNetwork/hon-textile/ipfs"
 	"github.com/libp2p/go-libp2p-core/crypto"
 	"github.com/textileio/go-threads/api/client"
 	"github.com/textileio/go-threads/core/thread"
 	"github.com/textileio/go-threads/db"
 	threadutil "github.com/textileio/go-threads/util"
+	"os"
 	"time"
 	ma "github.com/multiformats/go-multiaddr"
 )
@@ -111,8 +116,20 @@ const (
 		}
 	}`
 
+	//message type
+	textMessage = "TEXT_MESSAGE_THREAD2"
+	pictureMessage = "PICTURE_MESSAGE_THREAD2"
+	fileMessage = "FILE_MESSAGE_THREAD2"
+	videoMessage = "VIDEO_MESSAGE_THREAD2"
 )
 
+type FileMessage struct {
+	XMLName xml.Name `xml:"file_message"`
+	Name    string   `xml:"name"`
+	Path    string   `xml:"path"`
+	//Type    string   `xml:"type"`
+	Size    int64   `xml:"size"`
+}
 type ThreadMember struct {
 	ID       string `json:"_id"`
 	MemberId string `json:"member_id"`
@@ -123,7 +140,8 @@ type ThreadMember struct {
 type ThreadMessage struct {
 	ID      string `json:"_id"`
 	Sender  string `json:"sender"`
-	Time    int `json:"time"`
+	Time    int 	`json:"time"`
+	Type    string `json:"type"`
 	Content string `json:"content"`
 }
 
@@ -677,7 +695,7 @@ func (t *Textile) Thread2AddMessage(id string, mes string) (string,error) {
 		return "",err
 	}
 	Ids, err := t.CreateMesInstance(threadId, client.Instances{
-		&ThreadMessage{Sender: t.Account().Address(), Time: int(time.Now().Unix()), Content: mes}})
+		&ThreadMessage{Sender: t.Account().Address(), Time: int(time.Now().Unix()), Type:textMessage, Content: mes}})
 	if err != nil {
 		return "",err
 	}
@@ -685,6 +703,70 @@ func (t *Textile) Thread2AddMessage(id string, mes string) (string,error) {
 	return Ids[0],nil
 }
 
+func (t *Textile) Thread2AddPicture(path string, threadIdStr string) (string, error){
+	threadId, err := thread.Decode(threadIdStr)
+	if err != nil {
+		return "",err
+	}
+	log.Debugf("AddSimpleFile(%s, %s)", path, threadId)
+
+	// Open file and get reader for file
+	fileInfo, err := os.Stat(path)
+	if err != nil {
+		log.Error(err)
+		return "", err
+	}
+	if fileInfo.IsDir() {
+		err = errors.New("SimpleFile does not support directory")
+		log.Error(err)
+		return "", err
+	}
+
+	fi, err := os.Open(path)
+	if err != nil {
+		log.Error(err)
+		return "", err
+	}
+	defer func() {
+		err := fi.Close()
+		if err != nil {
+			log.Error(err)
+		}
+	}()
+
+	// Add file to ipfs
+	r := bufio.NewReader(fi)
+	fileCid, err := ipfs.AddData(t.node, r, true, false)
+	// resolvedPath, err := api.Unixfs().Add(t.ctx, files.NewReaderFile(fi), options.Unixfs.HashOnly(false), options.Unixfs.Chunker("size-1048576"))
+	if err != nil {
+		log.Error(err)
+		return "", err
+	}
+
+	fm := &FileMessage{
+		Name: fileInfo.Name(),
+		Path: fileCid.String(),
+		Size: fileInfo.Size(),
+		}
+
+	//enc := xml.NewEncoder(os.Stdout)
+	//enc.Indent("  ", "    ")
+	//Marshal xml struct to bytes then to string.
+	var contentStr string
+	if bytes,err := xml.Marshal(fm); err != nil {
+		fmt.Printf("error: %v\n", err)
+	}else {
+		contentStr = string(bytes)
+	}
+
+	//Add file to thread2
+	Ids, err := t.CreateMesInstance(threadId, client.Instances{
+		&ThreadMessage{Sender: t.Account().Address(), Time: int(time.Now().Unix()),Type:pictureMessage, Content: contentStr}})
+	if err != nil {
+		return "",err
+	}
+	return Ids[0],nil
+}
 
 //Users can modify the message content.
 func (t *Textile) GroupInfo(threadid string, instanceId string) (string,error) {

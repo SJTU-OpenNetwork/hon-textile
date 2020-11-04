@@ -5,6 +5,20 @@ import (
 	"github.com/golang/protobuf/proto"
 )
 
+// ProtoCallback is used for asyc methods that deliver a protobuf message
+type thread2AddFileCallback interface {
+	Call(instanceId string, err error)
+}
+
+// invite peer and add message are using handler now.
+type Thread2AddMesCallBack interface {
+	Call(instanceId string, err error)
+}
+
+type Thread2AddMemCallBack interface {
+	Call(err error)
+}
+
 func (m *Mobile) CreateGroup(name string) (string, error) {
 	threadid, err := m.node.CreateGroup(name)
 	if err != nil {
@@ -62,6 +76,14 @@ func (m *Mobile) ListenAllThreads() {
 	m.node.ListenThread2s()
 }
 
+func (m *Mobile) ListenOneThread(threadId string) error {
+	err := m.node.ListenOneThread2(threadId)
+	if err!= nil{
+		return err
+	}
+}
+
+
 //return group name
 func (m *Mobile) ThreadGroupName(threadId string) (string, error) {
 	return m.node.GroupInfoName(threadId)
@@ -90,6 +112,20 @@ func (m *Mobile) Thread2FindMessage(threadId string, instanceId string) (string,
 
 }
 
+func (m *Mobile) Thread2AddPicture(path string, threadId string,cb thread2AddFileCallback) {
+	go func() {
+		defer m.node.WaitDone("Mobile.AddThread2Picture")
+		instanceId, err := m.node.Thread2AddPicture(path, threadId)
+		if err != nil {
+			cb.Call("", err)
+			return
+		}
+		m.node.FlushCafes()
+		cb.Call(instanceId, nil)
+	}()
+}
+
+
 //peer invite remove find modify
 func (m *Mobile) Thread2InviteMember(threadId string, peerid string) error {
 	return m.node.Invite(threadId, peerid)
@@ -107,10 +143,7 @@ func (m *Mobile) Thead2MemberRoleChange(threadId string, instanceId string, role
 	return m.node.ModifyMemberInstance(threadId, instanceId, role)
 }
 
-// invite peer and add message are using handler now.
-type Thread2AddMesCallBack interface {
-	Call(instanceId string, err error)
-}
+
 
 func (m *Mobile) Thread2AddStringMessage(threadId string, mes string, cb Thread2AddMesCallBack)  {
 	m.node.WaitAdd(1, "Mobile.Thread2AddStringMessage")
@@ -120,9 +153,7 @@ func (m *Mobile) Thread2AddStringMessage(threadId string, mes string, cb Thread2
 	}()
 }
 
-type Thread2AddMemCallBack interface {
-	Call(err error)
-}
+
 
 func (m *Mobile) Thread2AddMember(threadId string, peerId string, cb Thread2AddMemCallBack)  {
 	m.node.WaitAdd(1, "Mobile.Thread2AddMember")
