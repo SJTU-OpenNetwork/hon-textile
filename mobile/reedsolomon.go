@@ -94,6 +94,7 @@ type Decoder interface {
 	AddData(index int, data []byte) error 	// Add a new shard to list
 	AddPb(data []byte) error
 	Decode() ([]byte, error)
+	Size() int
 }
 
 func (m *Mobile) NewDecoder(shardNumber int, parityNumber int) (Decoder, error) {
@@ -144,4 +145,8 @@ func (d *decoder) AddPb(data []byte) error {
 
 func (d *decoder) Decode() ([]byte, error) {
 	return d.codec.DecodeShardList(d.list.GetData())
+}
+
+func (d *decoder) Size() int {
+	return d.list.Size()
 }

@@ -26,6 +26,7 @@ type ShardList struct {
 	parityNumber int
 	shardSize int
 	shards [][]byte
+	size int
 }
 
 func NewShardList(_shardNumber int, _parityNumber int) *ShardList {
@@ -34,6 +35,7 @@ func NewShardList(_shardNumber int, _parityNumber int) *ShardList {
 		parityNumber: _parityNumber,
 		shardSize:    -1,
 		shards:       make([][]byte, _shardNumber + _parityNumber),
+		size : 0,
 	}
 }
 
@@ -54,12 +56,17 @@ func (s *ShardList) Add(index int, data []byte) error{
 	} else {
 		s.shards[index] = data
 		s.shardSize = len(data)
+		s.size += 1
 	}
 	return nil
 }
 
 func (s *ShardList) GetData() [][]byte {
 	return s.shards
+}
+
+func (s *ShardList) Size() int {
+	return s.size
 }
 
 //func (s *ShardList) GetData()
