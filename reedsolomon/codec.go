@@ -20,6 +20,7 @@ func (s *ShardList) ParityNumber() int {
 	return s.parityNumber
 }
 
-func Encode(reader io.Reader) (*ShardList, error) {
+func Encode(reader io.Reader, size int) (*ShardList, error) {
+
 	return nil, nil
 }

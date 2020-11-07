@@ -10,6 +10,6 @@ type ShardList interface {
 	ParityNumber() int
 }
 
-func Encode(reader io.Reader) (ShardList, error){
-	return reedsolomon.Encode(reader)
+func Encode(reader io.Reader, size int) (ShardList, error){
+	return reedsolomon.Encode(reader, size)
 }
