@@ -1,18 +1,17 @@
 package mobile
 
 import (
-    "fmt"
-	"github.com/SJTU-OpenNetwork/hon-textile/recorder"
-	"github.com/SJTU-OpenNetwork/hon-textile/reedsolomon"
-	"github.com/golang/protobuf/proto"
-	logging "github.com/ipfs/go-log"
-	mh "github.com/multiformats/go-multihash"
+	"fmt"
 	"github.com/SJTU-OpenNetwork/hon-textile/broadcast"
 	"github.com/SJTU-OpenNetwork/hon-textile/common"
 	"github.com/SJTU-OpenNetwork/hon-textile/core"
 	"github.com/SJTU-OpenNetwork/hon-textile/keypair"
 	"github.com/SJTU-OpenNetwork/hon-textile/pb"
+	"github.com/SJTU-OpenNetwork/hon-textile/recorder"
 	"github.com/SJTU-OpenNetwork/hon-textile/wallet"
+	"github.com/golang/protobuf/proto"
+	logging "github.com/ipfs/go-log"
+	mh "github.com/multiformats/go-multihash"
 )
 
 var log = logging.Logger("tex-mobile")
@@ -135,8 +134,6 @@ type Mobile struct {
 	node      *core.Textile
 	messenger Messenger
 	listener  *broadcast.Listener
-
-	codec 	  *reedsolomon.Codec // a cache of encoder and decoder for multicast data.
 }
 
 // Repo returns the actual location of the configured repo

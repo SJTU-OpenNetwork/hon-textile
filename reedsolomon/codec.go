@@ -3,12 +3,18 @@ package reedsolomon
 import (
 	"bytes"
 	"encoding/binary"
+	"errors"
 	"fmt"
+	"github.com/SJTU-OpenNetwork/hon-textile/recorder"
+	logging "github.com/ipfs/go-log"
 	"github.com/klauspost/reedsolomon"
 
 	"unsafe"
 
 )
+
+var log = logging.Logger("reedsolomon")
+
 
 type ErrShardSizeMisMatch struct {
 	want int
@@ -48,6 +54,12 @@ func (s *ShardList) ParityNumber() int {
 }
 
 func (s *ShardList) Add(index int, data []byte) error{
+	if index > len(s.shards) {
+		err := errors.New(fmt.Sprintf("ShardList out of range: %d/%d", index, len(s.shards)))
+		outError("Error when add to shardlist: ", err)
+		return err
+	}
+
 	if s.shardSize > 0 && s.shardSize != len(data) {
 		return &ErrShardSizeMisMatch{
 			want: s.shardSize,
@@ -132,6 +144,7 @@ func (c *Codec) EncodeBytes(data []byte) (*ShardList, error) {
 
 
 func (c *Codec) DecodeShardList(shards [][]byte) ([]byte, error) {
+	outLog(fmt.Sprintf("decode shardlist with %d shards", len(shards)))
 	err := c.encoder.Reconstruct(shards)
 	if err != nil {
 		outError("Error when reconstruct data from shards: ", err)
@@ -140,7 +153,16 @@ func (c *Codec) DecodeShardList(shards [][]byte) ([]byte, error) {
 
 	var sizeInfo int
 	res := bytesCombine(shards...)
-	sizeInfo = Byte2Int(res[:unsafe.Sizeof(sizeInfo)])
+	sizeLen := int(unsafe.Sizeof(sizeInfo))
+	sizeInfo = Byte2Int(res[:sizeLen])
+
+	// For safety
+	if len(res) < sizeInfo + sizeLen {
+		err = errors.New(fmt.Sprintf("lack data length, need %d, get %d, sizeInfo use %d", sizeInfo + sizeLen, len(res), sizeLen))
+		outError("Error when decode shardlist: ", err)
+		return nil, err
+	}
+
 	return res[unsafe.Sizeof(sizeInfo): sizeInfo], nil
 }
 
@@ -161,12 +183,16 @@ func bytesCombine(pBytes ...[]byte) []byte {
 	return bytes.Join(pBytes, []byte(""))
 }
 
-func outLog(log string) {
-	fmt.Println(log)
+func outLog(_log string) {
+	// fmt.Println(log)
+	log.Debug(_log)
+	recorder.Hlog.Add(_log)
 }
 
 func outError(prefix string, err error) {
-	fmt.Println(prefix, err.Error())
+	//fmt.Println(prefix, err.Error())
+	log.Error(prefix, err)
+	recorder.Hlog.Add(prefix + err.Error())
 }
 
 // Convert int64 into bytes

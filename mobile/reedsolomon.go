@@ -16,7 +16,25 @@ type ShardList interface {
 }
 */
 
-func (m *Mobile) getCodec(shardNumber int, parityNumber int) (*reedsolomon.Codec, error) {
+type ReedSolomon struct {
+	codec *reedsolomon.Codec
+}
+
+func NewEmptyReedSolomon() *ReedSolomon{
+	return &ReedSolomon{codec: nil}
+}
+
+func NewReedSolomon(shardNumber int, parityNumber int) *ReedSolomon {
+	codec, err := reedsolomon.NewCodec(shardNumber, parityNumber)
+	if err != nil {
+		log.Error("Error when create codec: ", err)
+		recorder.Hlog.Add("Error when create codec: " + err.Error())
+		return &ReedSolomon{codec: nil}
+	}
+	return &ReedSolomon{codec: codec}
+}
+
+func (m *ReedSolomon) getCodec(shardNumber int, parityNumber int) (*reedsolomon.Codec, error) {
 	var err error
 	var codec *reedsolomon.Codec
 	if m.codec == nil {
@@ -34,11 +52,11 @@ func (m *Mobile) getCodec(shardNumber int, parityNumber int) (*reedsolomon.Codec
 	return codec, err
 }
 
-func (m *Mobile) PrepareCodec(shardNumber int, parityNumber int) error {
+func (m *ReedSolomon) PrepareCodec(shardNumber int, parityNumber int) error {
 	return m.codec.Prepare(shardNumber, parityNumber)
 }
 
-func (m *Mobile)encodeBytes(data []byte, shardNumber int, parityNumber int) (*reedsolomon.ShardList, error){
+func (m *ReedSolomon)encodeBytes(data []byte, shardNumber int, parityNumber int) (*reedsolomon.ShardList, error){
 	codec, err := m.getCodec(shardNumber, parityNumber)
 	if err != nil {
 		log.Error("Error when get codec: ", err)
@@ -48,7 +66,7 @@ func (m *Mobile)encodeBytes(data []byte, shardNumber int, parityNumber int) (*re
 	return codec.EncodeBytes(data)
 }
 
-func (m *Mobile) EncodeBytes(data []byte, shardNumber int, parityNumber int, cb ShardCallback) {
+func (m *ReedSolomon) EncodeBytes(data []byte, shardNumber int, parityNumber int, cb ShardCallback) {
 	list, err := m.encodeBytes(data, shardNumber, parityNumber)
 	if err != nil {
 		cb.OnError(err)
@@ -61,7 +79,7 @@ func (m *Mobile) EncodeBytes(data []byte, shardNumber int, parityNumber int, cb 
 	cb.OnComplete()
 }
 
-func (m *Mobile) EncodeBytesToPb(data []byte, shardNumber int, parityNumber int, streamId string, GroupIndex int32, cb ShardCallback) {
+func (m *ReedSolomon) EncodeBytesToPb(data []byte, shardNumber int, parityNumber int, streamId string, GroupIndex int32, cb ShardCallback) {
 	list, err := m.encodeBytes(data, shardNumber, parityNumber)
 	if err != nil {
 		cb.OnError(err)
@@ -97,7 +115,7 @@ type Decoder interface {
 	Size() int
 }
 
-func (m *Mobile) NewDecoder(shardNumber int, parityNumber int) (Decoder, error) {
+func (m *ReedSolomon) NewDecoder(shardNumber int, parityNumber int) (Decoder, error) {
 	codec, err := m.getCodec(shardNumber, parityNumber)
 	if err != nil {
 		log.Error("Error when get codec: ", err)
