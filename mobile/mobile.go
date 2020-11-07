@@ -3,6 +3,7 @@ package mobile
 import (
     "fmt"
 	"github.com/SJTU-OpenNetwork/hon-textile/recorder"
+	"github.com/SJTU-OpenNetwork/hon-textile/reedsolomon"
 	"github.com/golang/protobuf/proto"
 	logging "github.com/ipfs/go-log"
 	mh "github.com/multiformats/go-multihash"
@@ -67,6 +68,13 @@ type IpfsAddDataCallback interface {
 	Call(path string, err error)
 }
 
+// ShardPbCallback is used to get the shards from shardlist and build pb for sending.
+type ShardPbCallback interface {
+	OnShard(data []byte)
+	OnComplete()
+	OnError(err error)
+}
+
 // NewWallet creates a brand new wallet and returns its recovery phrase
 func NewWallet(wordCount int) (string, error) {
 	w, err := wallet.WalletFromWordCount(wordCount)
@@ -126,6 +134,8 @@ type Mobile struct {
 	node      *core.Textile
 	messenger Messenger
 	listener  *broadcast.Listener
+
+	codec 	  *reedsolomon.Codec // Used for encoding and decoding multicast data.
 }
 
 // Repo returns the actual location of the configured repo
