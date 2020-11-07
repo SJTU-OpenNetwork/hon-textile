@@ -156,6 +156,8 @@ func (c *Codec) DecodeShardList(shards [][]byte) ([]byte, error) {
 	sizeLen := int(unsafe.Sizeof(sizeInfo))
 	sizeInfo = Byte2Int(res[:sizeLen])
 
+	//fmt.Println(fmt.Sprintf("decode data size %d, info size %d", sizeLen, sizeInfo))
+
 	// For safety
 	if len(res) < sizeInfo + sizeLen {
 		err = errors.New(fmt.Sprintf("lack data length, need %d, get %d, sizeInfo use %d", sizeInfo + sizeLen, len(res), sizeLen))
@@ -163,7 +165,7 @@ func (c *Codec) DecodeShardList(shards [][]byte) ([]byte, error) {
 		return nil, err
 	}
 
-	return res[unsafe.Sizeof(sizeInfo): sizeInfo], nil
+	return res[sizeLen: sizeInfo + sizeLen], nil
 }
 
 // Split input data into 2-d matrix.
@@ -174,7 +176,7 @@ func (c *Codec) split(data []byte) ([][]byte, error) {
 	}
 	sizeInfo := Int2Byte(len(data))
 	data = bytesCombine(sizeInfo, data)
-
+	//fmt.Println(fmt.Sprintf("size info %d bytes, total %d bytes", len(sizeInfo), len(data)))
 	return c.encoder.Split(data)
 }
 
