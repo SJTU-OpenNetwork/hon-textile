@@ -68,8 +68,9 @@ type IpfsAddDataCallback interface {
 	Call(path string, err error)
 }
 
-// ShardPbCallback is used to get the shards from shardlist and build pb for sending.
-type ShardPbCallback interface {
+// ShardPbCallback is used to get the shards from shardlist.
+// Note that the meaning of data is according to caller.
+type ShardCallback interface {
 	OnShard(data []byte)
 	OnComplete()
 	OnError(err error)

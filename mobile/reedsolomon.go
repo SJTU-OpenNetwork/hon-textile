@@ -48,7 +48,20 @@ func (m *Mobile)encodeBytes(data []byte, shardNumber int, parityNumber int) (*re
 	return codec.EncodeBytes(data)
 }
 
-func (m *Mobile) EncodeBytesToPb(data []byte, shardNumber int, parityNumber int, streamId string, GroupIndex int32, cb ShardPbCallback) {
+func (m *Mobile) EncodeBytes(data []byte, shardNumber int, parityNumber int, cb ShardCallback) {
+	list, err := m.encodeBytes(data, shardNumber, parityNumber)
+	if err != nil {
+		cb.OnError(err)
+		return
+	}
+	shards := list.GetData()
+	for _, shard := range shards {
+		cb.OnShard(shard)
+	}
+	cb.OnComplete()
+}
+
+func (m *Mobile) EncodeBytesToPb(data []byte, shardNumber int, parityNumber int, streamId string, GroupIndex int32, cb ShardCallback) {
 	list, err := m.encodeBytes(data, shardNumber, parityNumber)
 	if err != nil {
 		cb.OnError(err)
