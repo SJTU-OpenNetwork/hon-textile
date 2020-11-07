@@ -135,7 +135,7 @@ type Mobile struct {
 	messenger Messenger
 	listener  *broadcast.Listener
 
-	codec 	  *reedsolomon.Codec // Used for encoding and decoding multicast data.
+	codec 	  *reedsolomon.Codec // a cache of encoder and decoder for multicast data.
 }
 
 // Repo returns the actual location of the configured repo
