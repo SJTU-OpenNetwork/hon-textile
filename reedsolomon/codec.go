@@ -4,9 +4,7 @@ import (
 	"bytes"
 	"encoding/binary"
 	"fmt"
-	"github.com/ipfs/go-bitswap/wantlist"
 	"github.com/klauspost/reedsolomon"
-	"github.com/stretchr/testify/require"
 
 	"unsafe"
 
