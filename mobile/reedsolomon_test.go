@@ -2,8 +2,9 @@ package mobile
 
 import (
 	"fmt"
-	logging "github.com/ipfs/go-log"
 	"testing"
+
+	logging "github.com/ipfs/go-log"
 )
 
 var shards [][]byte
@@ -26,30 +27,32 @@ func (th TestHandler) OnError(err error) {
 func TestCodec(t *testing.T) {
 	logging.SetAllLoggers(logging.LevelDebug)
 
-	reedSolomon := NewReedSolomon(25, 15)
+	reedSolomon := NewReedSolomon(100, 28)
 
-	err := reedSolomon.PrepareCodec(25, 15)
+	err := reedSolomon.PrepareCodec(100, 28)
 	if err != nil {
 		t.Fatal(err)
 	}
 
 	fmt.Println("Codec created")
-	data := "0123455666aaafgsdfgczvsdfgsaerfgadfgsafghsftghsaregfsdfgsdrtgasdfgsafdgesrgadfgadfgsdfgsdfcvadrgsdfscvsfgaergsafdgva"
+	// data := "0123455666aaafgsdfgczvsdfgsaerfgadfgsafghsftghsaregfsdfgsdrtgasdfgsafdgesrgadfgadfgsdfgsdfcvadrgsdfscvsfgaergsafdgva"
+	data := "012345678abcdefghijklmnopqrstuvwxyz"
 
 	fmt.Println("Test Data:\n" + data)
 	fmt.Println(fmt.Sprintf("Data length: %d", len(data)))
-	d, err := reedSolomon.NewDecoder(25, 15)
+	d, err := reedSolomon.NewDecoder(100, 28)
 
 	handler := &TestHandler{}
-	reedSolomon.EncodeBytes([]byte(data), 25, 15, handler)
+	reedSolomon.EncodeBytes([]byte(data), 100, 28, handler)
 	fmt.Println("Encode Done")
 
-	fmt.Println("Drop data")
-	shards[4] = nil
-	shards[20] = nil
-	shards[12] = nil
+	fmt.Println(shards)
+	// fmt.Println("Drop data")
+	// shards[4] = nil
+	// shards[20] = nil
+	// shards[12] = nil
 
-	for i := 0; i < 40; i++ {
+	for i := 0; i < 128; i++ {
 		if shards[i] != nil {
 			d.AddData(i, shards[i])
 		}
