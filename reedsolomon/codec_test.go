@@ -10,7 +10,7 @@ func TestCodec(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	err = codec.Prepare(25,15)
+	err = codec.Prepare(200, 56)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -18,14 +18,13 @@ func TestCodec(t *testing.T) {
 	fmt.Println("Codec created")
 	data := "0123455666aaafgsdfgczvsdfgsaerfgadfgsafghsftghsaregfsdfgsdrtgasdfgsafdgesrgadfgadfgsdfgsdfcvadrgsdfscvsfgaergsafdgva"
 
-	fmt.Println("Test Data:\n"+data)
+	fmt.Println("Test Data:\n" + data)
 	fmt.Println(fmt.Sprintf("Data length: %d", len(data)))
 	list, err := codec.EncodeBytes([]byte(data))
 	if err != nil {
 		t.Fatal(err)
 	}
-	fmt.Println("Encode Done")
-
+	fmt.Println("Encode Done, list length:", len(list.shards))
 
 	fmt.Println("Drop data")
 	list.shards[4] = nil
