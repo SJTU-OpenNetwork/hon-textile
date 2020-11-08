@@ -154,7 +154,7 @@ func (c *Codec) DecodeShardList(shards [][]byte) ([]byte, error) {
 	//sizeLen := int(unsafe.Sizeof(dataLength))
 	//dataLength = BytesToInt64(res[:sizeLen])
 	dataLength := Byte2Int(res[:intLength])
-
+	outLog(fmt.Sprintf("decode data size: %d, %d, %d, %d ==> %d", int(res[0]), int(res[1]), int(res[2]), int(res[3]), dataLength))
 	outLog(fmt.Sprintf("decode data size %d, info size %d, total size %d", dataLength, intLength, len(res)))
 
 	// For safety
@@ -177,6 +177,7 @@ func (c *Codec) split(data []byte) ([][]byte, error) {
 	//sizeInfo := Int64ToBytes(dataLength)
 	sizeInfo := Int2Byte(len(data))
 	data = bytesCombine(sizeInfo, data)
+	outLog(fmt.Sprintf("split data size: %d ==> %d, %d, %d, %d", len(data), int(sizeInfo[0]), int(sizeInfo[1]), int(sizeInfo[2]), int(sizeInfo[3])))
 	//fmt.Println(fmt.Sprintf("size info %d bytes, total %d bytes", len(sizeInfo), len(data)))
 	return c.encoder.Split(data)
 }

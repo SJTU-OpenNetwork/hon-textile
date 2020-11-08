@@ -38,8 +38,8 @@ func TestCodec(t *testing.T) {
 	}
 
 	fmt.Println("Codec created")
-	// data := "0123455666aaafgsdfgczvsdfgsaerfgadfgsafghsftghsaregfsdfgsdrtgasdfgsafdgesrgadfgadfgsdfgsdfcvadrgsdfscvsfgaergsafdgva"
-	data := "012345678abcdefghijklmnopqrstuvwxyz"
+	data := "0123455666aaafgsdfgczvsdfgsaerfgadfgsafghsftghsaregfsdfgsdrtgasdfgsafdgesrgadfgadfgsdfgsdfcvadrgsdfscvsfgaergsafdgva"
+	//data := "012345678abcdefghijklmnopqrstuvwxyz"
 
 	fmt.Println("Test Data:\n" + data)
 	fmt.Println(fmt.Sprintf("Data length: %d", len(data)))
