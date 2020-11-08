@@ -2,13 +2,14 @@ package mobile
 
 import (
 	"fmt"
+	"github.com/SJTU-OpenNetwork/hon-textile/pb"
+	"github.com/gogo/protobuf/proto"
 	"testing"
 
 	logging "github.com/ipfs/go-log"
 )
 
-var shards [][]byte
-
+/*
 type TestHandler struct {
 }
 
@@ -23,6 +24,8 @@ func (th TestHandler) OnShard(data []byte) {
 func (th TestHandler) OnError(err error) {
 	fmt.Println("OnError")
 }
+
+ */
 
 func TestCodec(t *testing.T) {
 	logging.SetAllLoggers(logging.LevelDebug)
@@ -40,28 +43,32 @@ func TestCodec(t *testing.T) {
 
 	fmt.Println("Test Data:\n" + data)
 	fmt.Println(fmt.Sprintf("Data length: %d", len(data)))
-	d, err := reedSolomon.NewDecoder(100, 28)
-
-	handler := &TestHandler{}
-	reedSolomon.EncodeBytes([]byte(data), 100, 28, handler)
+	var listPb pb.ShardList
+	listByte, err := reedSolomon.EncodeBytesToPb([]byte(data), 100, 28)
+	if err != nil {
+		t.Fatal(err)
+	}
 	fmt.Println("Encode Done")
-
-	fmt.Println(shards)
+	err = proto.Unmarshal(listByte, &listPb)
+	if err != nil {
+		t.Fatal(err)
+	}
+	//fmt.Println(shards)
 	// fmt.Println("Drop data")
 	// shards[4] = nil
 	// shards[20] = nil
 	// shards[12] = nil
 
-	for i := 0; i < 128; i++ {
-		if shards[i] != nil {
-			d.AddData(i, shards[i])
-		}
-	}
-
-	fmt.Println("size", d.Size())
-	rec, err := d.Decode()
+	listByteM, err := proto.Marshal(&listPb)
 	if err != nil {
 		t.Fatal(err)
 	}
-	fmt.Println("Retrieve: \n" + string(rec))
+
+	res, err := reedSolomon.DecodePb(listByteM)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+
+	fmt.Println("Retrieve: \n" + string(res))
 }

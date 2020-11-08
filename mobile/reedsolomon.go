@@ -1,6 +1,7 @@
 package mobile
 
 import (
+	"errors"
 	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 	"github.com/SJTU-OpenNetwork/hon-textile/recorder"
 	"github.com/SJTU-OpenNetwork/hon-textile/reedsolomon"
@@ -84,92 +85,48 @@ func (m *ReedSolomon) EncodeBytes(data []byte, shardNumber int, parityNumber int
 	cb.OnComplete()
 }
 
-func (m *ReedSolomon) EncodeBytesToPb(data []byte, shardNumber int, parityNumber int, streamId string, GroupIndex int32, cb ShardCallback) {
+func (m *ReedSolomon) EncodeBytesToPb(data []byte, shardNumber int, parityNumber int) ([]byte, error) {
+	var shardListPb pb.ShardList
+	shards := make([]*pb.Shard, shardNumber + parityNumber)
+	shardListPb.ShardNumber = int32(shardNumber)
+	shardListPb.ParityNumber = int32(parityNumber)
 	list, err := m.encodeBytes(data, shardNumber, parityNumber)
 	if err != nil {
-		cb.OnError(err)
-		return
-	}
-	shards := list.GetData()
-	for i, shard := range shards {
-		shardPb := pb.MulticastData{
-			Id:                   streamId,
-			Data:                 shard,
-			Index:                int32(i),
-			GroupIndex:           GroupIndex,
-			ShardNum:             int32(shardNumber),
-			ParityNum:            int32(parityNumber),
-		}
-		marshaled, err := proto.Marshal(&shardPb)
-		if err != nil {
-			cb.OnError(err)
-			return
-		}
-		cb.OnShard(marshaled)
-	}
-	cb.OnComplete()
-
-}
-
-type Decoder interface {
-	ShardNumber() int
-	ParityNumber() int
-	AddData(index int, data []byte) error 	// Add a new shard to list
-	AddPb(data []byte) error
-	Decode() ([]byte, error)
-	Size() int
-}
-
-func (m *ReedSolomon) NewDecoder(shardNumber int, parityNumber int) (Decoder, error) {
-	codec, err := m.getCodec(shardNumber, parityNumber)
-	if err != nil {
-		log.Error("Error when get codec: ", err)
-		recorder.Hlog.Add("Error when get codec: " + err.Error())
+		recorder.Hlog.Add("Error when encode to pb: " + err.Error())
+		log.Error("Error when encode to pb: ", err)
 		return nil, err
 	}
-	return &decoder{
-		shardNumber:  shardNumber,
-		parityNumber: parityNumber,
-		list:         reedsolomon.NewShardList(shardNumber, parityNumber),
-		codec:        codec,
-	}, nil
-}
-
-type decoder struct {
-	shardNumber int
-	parityNumber int
-	list  *reedsolomon.ShardList
-	codec *reedsolomon.Codec
-}
-
-func (d *decoder) ShardNumber() int {
-	return d.shardNumber
-}
-
-func (d *decoder) ParityNumber() int {
-	return d.parityNumber
-}
-
-func (d *decoder) AddData(index int, data []byte) error {
-	return d.list.Add(index, data)
-}
-
-func (d *decoder) AddPb(data []byte) error {
-	shardPb := &pb.MulticastData{
+	for i, s := range list.GetData() {
+		shards[i] = &pb.Shard{
+			Index:                int32(i),
+			Data:                 s,
+		}
 	}
-	err := proto.Unmarshal(data, shardPb)
+	shardListPb.Shards = shards
+	return proto.Marshal(&shardListPb)
+}
+
+func (m *ReedSolomon) DecodePb(data []byte) ([]byte, error) {
+	var shardListPb pb.ShardList
+	err := proto.Unmarshal(data, &shardListPb)
 	if err != nil {
-		log.Error("Error when unmarshal shard pb: ", err)
-		recorder.Hlog.Add("Error when unmarshal shard pb: " + err.Error())
-		return err
+		recorder.Hlog.Add("Error when unmarshal shardlist pb: " + err.Error())
+		log.Error("Error when unmarshal shardlist pb: ", err)
+		return nil, err
 	}
-	return d.list.Add(int(shardPb.Index), shardPb.Data)
-}
 
-func (d *decoder) Decode() ([]byte, error) {
-	return d.codec.DecodeShardList(d.list.GetData())
-}
-
-func (d *decoder) Size() int {
-	return d.list.Size()
+	shards := make([][]byte, shardListPb.ShardNumber + shardListPb.ParityNumber)
+	decoder, err := m.getCodec(int(shardListPb.ShardNumber), int(shardListPb.ParityNumber))
+	if err != nil {
+		recorder.Hlog.Add("Error when get decoder: " + err.Error())
+		log.Error("Error when get decoder: ", err)
+		return nil, err
+	}
+	for _, s := range shardListPb.Shards {
+		if s.Index > shardListPb.ShardNumber + shardListPb.ParityNumber - 1 {
+			return nil, errors.New("shard index out of range")
+		}
+		shards[s.Index] = s.Data
+	}
+	return decoder.DecodeShardList(shards)
 }
