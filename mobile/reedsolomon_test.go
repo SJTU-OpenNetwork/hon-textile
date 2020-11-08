@@ -2,6 +2,7 @@ package mobile
 
 import (
 	"fmt"
+	logging "github.com/ipfs/go-log"
 	"testing"
 )
 
@@ -23,6 +24,8 @@ func (th TestHandler) OnError(err error) {
 }
 
 func TestCodec(t *testing.T) {
+	logging.SetAllLoggers(logging.LevelDebug)
+
 	reedSolomon := NewReedSolomon(25, 15)
 
 	err := reedSolomon.PrepareCodec(25, 15)

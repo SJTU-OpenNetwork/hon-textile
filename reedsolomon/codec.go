@@ -156,7 +156,7 @@ func (c *Codec) DecodeShardList(shards [][]byte) ([]byte, error) {
 	sizeLen := int(unsafe.Sizeof(dataLength))
 	dataLength = BytesToInt64(res[:sizeLen])
 
-	//fmt.Println(fmt.Sprintf("decode data size %d, info size %d", sizeLen, sizeInfo))
+	outLog(fmt.Sprintf("decode data size %d, info size %d", dataLength, sizeLen))
 
 	// For safety
 	if len(res) < int(dataLength) + sizeLen {
