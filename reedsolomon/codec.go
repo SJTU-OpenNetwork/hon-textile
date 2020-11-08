@@ -54,7 +54,7 @@ func (s *ShardList) ParityNumber() int {
 }
 
 func (s *ShardList) Add(index int, data []byte) error{
-	if index > len(s.shards) {
+	if index > len(s.shards)-1 {
 		err := errors.New(fmt.Sprintf("ShardList out of range: %d/%d", index, len(s.shards)))
 		outError("Error when add to shardlist: ", err)
 		return err
@@ -151,21 +151,21 @@ func (c *Codec) DecodeShardList(shards [][]byte) ([]byte, error) {
 		return nil, err
 	}
 
-	var sizeInfo int
+	var dataLength int64
 	res := bytesCombine(shards...)
-	sizeLen := int(unsafe.Sizeof(sizeInfo))
-	sizeInfo = Byte2Int(res[:sizeLen])
+	sizeLen := int(unsafe.Sizeof(dataLength))
+	dataLength = BytesToInt64(res[:sizeLen])
 
 	//fmt.Println(fmt.Sprintf("decode data size %d, info size %d", sizeLen, sizeInfo))
 
 	// For safety
-	if len(res) < sizeInfo + sizeLen {
-		err = errors.New(fmt.Sprintf("lack data length, need %d, get %d, sizeInfo use %d", sizeInfo + sizeLen, len(res), sizeLen))
+	if len(res) < int(dataLength) + sizeLen {
+		err = errors.New(fmt.Sprintf("lack data length, need %d, get %d, sizeInfo use %d", int(dataLength) + sizeLen, len(res), sizeLen))
 		outError("Error when decode shardlist: ", err)
 		return nil, err
 	}
 
-	return res[sizeLen: sizeInfo + sizeLen], nil
+	return res[sizeLen: int(dataLength) + sizeLen], nil
 }
 
 // Split input data into 2-d matrix.
@@ -174,7 +174,8 @@ func (c *Codec) split(data []byte) ([][]byte, error) {
 	if len(data) == 0 {
 		return nil, reedsolomon.ErrShortData
 	}
-	sizeInfo := Int2Byte(len(data))
+	dataLength := int64(len(data))
+	sizeInfo := Int64ToBytes(dataLength)
 	data = bytesCombine(sizeInfo, data)
 	//fmt.Println(fmt.Sprintf("size info %d bytes, total %d bytes", len(sizeInfo), len(data)))
 	return c.encoder.Split(data)

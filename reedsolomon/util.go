@@ -1,7 +1,6 @@
 package reedsolomon
 
-import "unsafe"
-
+/*
 func Int2Byte(data int)(ret []byte){
 	var len uintptr = unsafe.Sizeof(data)
 	ret = make([]byte, len)
@@ -22,3 +21,5 @@ func Byte2Int(data []byte)int{
 	}
 	return ret
 }
+
+ */
