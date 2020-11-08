@@ -163,7 +163,7 @@ func (c *Codec) DecodeShardList(shards [][]byte) ([]byte, error) {
 		outError("Error when decode shardlist: ", err)
 		return nil, err
 	}
-
+	outLog("Retrieved: " + string(res[intLength: dataLength + intLength]))
 	return res[intLength: dataLength + intLength], nil
 }
 
