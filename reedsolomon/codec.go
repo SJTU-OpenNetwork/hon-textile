@@ -2,15 +2,13 @@ package reedsolomon
 
 import (
 	"bytes"
-	"encoding/binary"
 	"errors"
 	"fmt"
 	"github.com/SJTU-OpenNetwork/hon-textile/recorder"
 	logging "github.com/ipfs/go-log"
 	"github.com/klauspost/reedsolomon"
 
-	"unsafe"
-
+	//"unsafe"
 )
 
 var log = logging.Logger("reedsolomon")
@@ -151,21 +149,22 @@ func (c *Codec) DecodeShardList(shards [][]byte) ([]byte, error) {
 		return nil, err
 	}
 
-	var dataLength int64
+	//var dataLength int64
 	res := bytesCombine(shards...)
-	sizeLen := int(unsafe.Sizeof(dataLength))
-	dataLength = BytesToInt64(res[:sizeLen])
+	//sizeLen := int(unsafe.Sizeof(dataLength))
+	//dataLength = BytesToInt64(res[:sizeLen])
+	dataLength := Byte2Int(res[:intLength])
 
-	outLog(fmt.Sprintf("decode data size %d, info size %d", dataLength, sizeLen))
+	outLog(fmt.Sprintf("decode data size %d, info size %d", dataLength, intLength))
 
 	// For safety
-	if len(res) < int(dataLength) + sizeLen {
-		err = errors.New(fmt.Sprintf("lack data length, need %d, get %d, sizeInfo use %d", int(dataLength) + sizeLen, len(res), sizeLen))
+	if len(res) < dataLength + intLength {
+		err = errors.New(fmt.Sprintf("lack data length, need %d, get %d, sizeInfo use %d", dataLength + intLength, len(res), intLength))
 		outError("Error when decode shardlist: ", err)
 		return nil, err
 	}
 
-	return res[sizeLen: int(dataLength) + sizeLen], nil
+	return res[intLength: dataLength + intLength], nil
 }
 
 // Split input data into 2-d matrix.
@@ -174,8 +173,9 @@ func (c *Codec) split(data []byte) ([][]byte, error) {
 	if len(data) == 0 {
 		return nil, reedsolomon.ErrShortData
 	}
-	dataLength := int64(len(data))
-	sizeInfo := Int64ToBytes(dataLength)
+	//dataLength := int64(len(data))
+	//sizeInfo := Int64ToBytes(dataLength)
+	sizeInfo := Int2Byte(len(data))
 	data = bytesCombine(sizeInfo, data)
 	//fmt.Println(fmt.Sprintf("size info %d bytes, total %d bytes", len(sizeInfo), len(data)))
 	return c.encoder.Split(data)
@@ -197,7 +197,7 @@ func outError(prefix string, err error) {
 	log.Error(prefix, err)
 	recorder.Hlog.Add(prefix + err.Error())
 }
-
+/*
 // Convert int64 into bytes
 func Int64ToBytes(i int64) []byte {
 	var buf = make([]byte, unsafe.Sizeof(i))
@@ -209,3 +209,4 @@ func Int64ToBytes(i int64) []byte {
 func BytesToInt64(buf []byte) int64 {
 	return int64(binary.BigEndian.Uint64(buf))
 }
+*/
