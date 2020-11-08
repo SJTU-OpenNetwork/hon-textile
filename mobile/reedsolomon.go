@@ -17,7 +17,7 @@ type ShardList interface {
 }
 */
 
-func OpenLog() {
+func (m *ReedSolomon)OpenLog() {
 	logging.SetAllLoggers(logging.LevelDebug)
 }
 
