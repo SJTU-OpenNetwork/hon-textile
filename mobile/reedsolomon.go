@@ -5,6 +5,7 @@ import (
 	"github.com/SJTU-OpenNetwork/hon-textile/recorder"
 	"github.com/SJTU-OpenNetwork/hon-textile/reedsolomon"
 	"github.com/gogo/protobuf/proto"
+	logging "github.com/ipfs/go-log"
 )
 /*
 type ShardList interface {
@@ -15,6 +16,10 @@ type ShardList interface {
 	//traverse() error
 }
 */
+
+func OpenLog() {
+	logging.SetAllLoggers(logging.LevelDebug)
+}
 
 type ReedSolomon struct {
 	codec *reedsolomon.Codec
