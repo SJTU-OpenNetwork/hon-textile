@@ -609,6 +609,7 @@ func stringInSlice(a string, list []string) bool {
 }
 
 func (t *Textile) TryConnectThroughRelay(ids []string) (bool, error){
+    return true, nil
     if len(ids) == 0 {
         return true, nil
     }

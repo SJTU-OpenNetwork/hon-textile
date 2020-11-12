@@ -89,6 +89,7 @@ func (store *activeStreamStore) fileAsStream(sf *pb.StreamFile, file_type pb.Str
 		Caption:     string(sf.Description),
 		Type:        file_type,
 	}
+	store.datastore.StreamMetas().Add(config)
 
 	err = store.addStream(config)
 	if err != nil {
@@ -251,6 +252,9 @@ func (as *activeStream) handleNewFile(f *pb.StreamFile) error {
 
 func (as *activeStream) handleFileEndmark() error {
 	err := as.datastore.StreamMetas().UpdateNblocks(as.meta.Id, as.currentIndex+1)
+	log.Debugf("[%s] Stream %s has %d blocks", TAG_STREAMEND, as.meta.Id, as.currentIndex+1)
+	metaT := as.datastore.StreamMetas().Get(as.meta.Id)
+	log.Debugf("[%s-TEST] Stream %s has %d blocks", TAG_STREAMEND, as.meta.Id, metaT.Nblocks)
 	if err != nil {
 		log.Error(err)
 		return err

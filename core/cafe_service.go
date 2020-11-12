@@ -5,13 +5,26 @@ import (
 	"context"
 	"encoding/hex"
 	"fmt"
-	honlog "github.com/SJTU-OpenNetwork/hon-textile/hon-log"
-	"github.com/SJTU-OpenNetwork/hon-textile/recorder"
 	"math"
 	"strings"
 	"sync"
 	"time"
 
+	honlog "github.com/SJTU-OpenNetwork/hon-textile/hon-log"
+	"github.com/SJTU-OpenNetwork/hon-textile/recorder"
+
+	"github.com/SJTU-OpenNetwork/hon-textile/broadcast"
+	"github.com/SJTU-OpenNetwork/hon-textile/common"
+	"github.com/SJTU-OpenNetwork/hon-textile/ipfs"
+	"github.com/SJTU-OpenNetwork/hon-textile/jwt"
+	"github.com/SJTU-OpenNetwork/hon-textile/keypair"
+	"github.com/SJTU-OpenNetwork/hon-textile/pb"
+	"github.com/SJTU-OpenNetwork/hon-textile/repo"
+	"github.com/SJTU-OpenNetwork/hon-textile/repo/config"
+	"github.com/SJTU-OpenNetwork/hon-textile/repo/db"
+	"github.com/SJTU-OpenNetwork/hon-textile/service"
+	"github.com/SJTU-OpenNetwork/hon-textile/shadow"
+	"github.com/SJTU-OpenNetwork/hon-textile/stream"
 	njwt "github.com/dgrijalva/jwt-go"
 	"github.com/golang/protobuf/proto"
 	"github.com/golang/protobuf/ptypes"
@@ -23,18 +36,6 @@ import (
 	protocol "github.com/libp2p/go-libp2p-core/protocol"
 	"github.com/mr-tron/base58/base58"
 	"github.com/segmentio/ksuid"
-	"github.com/SJTU-OpenNetwork/hon-textile/broadcast"
-	"github.com/SJTU-OpenNetwork/hon-textile/common"
-	"github.com/SJTU-OpenNetwork/hon-textile/ipfs"
-	"github.com/SJTU-OpenNetwork/hon-textile/jwt"
-	"github.com/SJTU-OpenNetwork/hon-textile/keypair"
-	"github.com/SJTU-OpenNetwork/hon-textile/pb"
-	"github.com/SJTU-OpenNetwork/hon-textile/repo"
-	"github.com/SJTU-OpenNetwork/hon-textile/repo/config"
-	"github.com/SJTU-OpenNetwork/hon-textile/repo/db"
-	"github.com/SJTU-OpenNetwork/hon-textile/service"
-	"github.com/SJTU-OpenNetwork/hon-textile/stream"
-	"github.com/SJTU-OpenNetwork/hon-textile/shadow"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -81,8 +82,8 @@ type CafeService struct {
 	open            bool
 	queryResults    *broadcast.Broadcaster
 	inFlightQueries map[string]struct{}
-    stream          *stream.StreamService
-    shadow          *shadow.ShadowService
+	stream          *stream.StreamService
+	shadow          *shadow.ShadowService
 }
 
 // NewCafeService returns a new threads service
@@ -91,15 +92,15 @@ func NewCafeService(
 	node func() *core.IpfsNode,
 	datastore repo.Datastore,
 	inbox *CafeInbox,
-    stream  *stream.StreamService,
-    shadow *shadow.ShadowService) *CafeService {
+	stream *stream.StreamService,
+	shadow *shadow.ShadowService) *CafeService {
 	handler := &CafeService{
 		datastore:       datastore,
 		inbox:           inbox,
 		queryResults:    broadcast.NewBroadcaster(10),
 		inFlightQueries: make(map[string]struct{}),
-        stream:          stream,
-        shadow:          shadow,
+		stream:          stream,
+		shadow:          shadow,
 	}
 	handler.service = service.NewService(account, handler, node)
 	return handler
@@ -159,14 +160,14 @@ func (h *CafeService) Handle(env *pb.Envelope, pid peer.ID) (*pb.Envelope, error
 		return h.handlePublishVideo(env, pid)
 	case pb.Message_CAFE_PUBLISH_VIDEO_CHUNK:
 		return h.handlePublishVideoChunk(env, pid)
-//    case pb.Message_CAFE_GET_VIDEO_CHUNK:
-//        return h.handleGetVideoChunk(env, pid)
+		//    case pb.Message_CAFE_GET_VIDEO_CHUNK:
+		//        return h.handleGetVideoChunk(env, pid)
 	case pb.Message_CAFE_SYNC_FILE:
 		return h.handleSyncFile(env, pid)
-    case pb.Message_CAFE_FIND_IPFS_ADDR:
-        return h.handleCafeFindIpfsAddr(env, pid)
-    case pb.Message_CAFE_PEER_DISCOVERY:
-        return h.handleCafeDiscovery(env, pid)
+	case pb.Message_CAFE_FIND_IPFS_ADDR:
+		return h.handleCafeFindIpfsAddr(env, pid)
+	case pb.Message_CAFE_PEER_DISCOVERY:
+		return h.handleCafeDiscovery(env, pid)
 	default:
 		return nil, nil
 	}
@@ -178,7 +179,7 @@ func (h *CafeService) HandleStream(env *pb.Envelope, pid peer.ID) (chan *pb.Enve
 	errCh := make(chan error)
 	cancelCh := make(chan interface{})
 
-    log.Debug("HandleStream")
+	log.Debug("HandleStream")
 	go func() {
 		defer close(renvCh)
 
@@ -235,7 +236,7 @@ func (h *CafeService) Register(cafeId string, token string) (*pb.CafeSession, er
 		return nil, err
 	}
 
-    log.Debug(session)
+	log.Debug(session)
 	err = h.datastore.CafeSessions().AddOrUpdate(session)
 	if err != nil {
 		return nil, err
@@ -359,41 +360,41 @@ func (h *CafeService) PublishVideo(video *pb.Video, cafeId string, store bool) e
 	if err != nil {
 		return err
 	}
-    log.Debug("Receive Publish Video ACK: %s", res.Id)
+	log.Debug("Receive Publish Video ACK: %s", res.Id)
 	return nil
 }
 
 func (h *CafeService) PublishVideoChunk(vchunk *pb.VideoChunk, cafeId string) error {
-//    chunkdata, err := ipfs.DataAtPath(h.service.Node(), vchunk.Address)
-//    var file *pb.CafeSendFile
-//    if (err != nil){
-//        log.Error(err)
-//        file = &pb.CafeSendFile {
-//            Name: "",
-//            Size: 0,
-//            Data: nil,
-//        }
-//    } else {
-//        file = &pb.CafeSendFile {
-//            Name: vchunk.Chunk,
-//            Size: int32(len(chunkdata)),
-//            Data: chunkdata,
-//        }
-//    }
-    file := &pb.CafeSendFile {
-        Name: "",
-        Size: 0,
-        Data: nil,
-    }
+	//    chunkdata, err := ipfs.DataAtPath(h.service.Node(), vchunk.Address)
+	//    var file *pb.CafeSendFile
+	//    if (err != nil){
+	//        log.Error(err)
+	//        file = &pb.CafeSendFile {
+	//            Name: "",
+	//            Size: 0,
+	//            Data: nil,
+	//        }
+	//    } else {
+	//        file = &pb.CafeSendFile {
+	//            Name: vchunk.Chunk,
+	//            Size: int32(len(chunkdata)),
+	//            Data: chunkdata,
+	//        }
+	//    }
+	file := &pb.CafeSendFile{
+		Name: "",
+		Size: 0,
+		Data: nil,
+	}
 	renv, err := h.sendCafeRequest(cafeId, func(session *pb.CafeSession) (*pb.Envelope, error) {
 		return h.service.NewEnvelope(pb.Message_CAFE_PUBLISH_VIDEO_CHUNK, &pb.CafePublishVideoChunk{
 			Token: session.Access,
 			Chunk: vchunk,
-            File: file,
+			File:  file,
 		}, nil, false)
 	})
 	if err != nil {
-        log.Error(err)
+		log.Error(err)
 		return err
 	}
 	res := new(pb.CafePublishVideoChunkAck)
@@ -402,7 +403,7 @@ func (h *CafeService) PublishVideoChunk(vchunk *pb.VideoChunk, cafeId string) er
 		log.Error(err)
 		return err
 	}
-    log.Debug("VIDEOPIPELINE: %s chunk of video %s publish ack reveived", res.Chunk, res.Id)
+	log.Debug("VIDEOPIPELINE: %s chunk of video %s publish ack reveived", res.Chunk, res.Id)
 	return nil
 }
 
@@ -428,7 +429,7 @@ func (h *CafeService) PublishSyncFile(file *pb.SyncFile, cafeId string) error {
 	_, err := h.sendCafeRequest(cafeId, func(session *pb.CafeSession) (*pb.Envelope, error) {
 		return h.service.NewEnvelope(pb.Message_CAFE_SYNC_FILE, &pb.CafeSyncFile{
 			Token: session.Access,
-			File: file,
+			File:  file,
 		}, nil, false)
 	})
 	return err
@@ -438,16 +439,16 @@ func (h *CafeService) CafeFindIpfsAddr(query *pb.IpfsQuery, cafeId string) (*pb.
 	renv, err := h.sendCafeRequest(cafeId, func(session *pb.CafeSession) (*pb.Envelope, error) {
 		return h.service.NewEnvelope(pb.Message_CAFE_FIND_IPFS_ADDR, &pb.CafeFindIpfsAddr{
 			Token: session.Access,
-		    Query: query,
+			Query: query,
 		}, nil, false)
 	})
 	res := new(pb.CafeFindIpfsAddrAck)
-    res.Result = new(pb.IpfsQueryResult)
+	res.Result = new(pb.IpfsQueryResult)
 	if err != nil {
-        return nil, err
-    }
+		return nil, err
+	}
 
-    err = ptypes.UnmarshalAny(renv.Message.Payload, res)
+	err = ptypes.UnmarshalAny(renv.Message.Payload, res)
 	if err != nil {
 		return nil, err
 	}
@@ -455,28 +456,29 @@ func (h *CafeService) CafeFindIpfsAddr(query *pb.IpfsQuery, cafeId string) (*pb.
 }
 
 func (h *CafeService) DiscoverPeers(cafeId string) ([]string, error) {
-    query := new(pb.IpfsQuery)
+	query := new(pb.IpfsQuery)
 	renv, err := h.sendCafeRequest(cafeId, func(session *pb.CafeSession) (*pb.Envelope, error) {
 		return h.service.NewEnvelope(pb.Message_CAFE_PEER_DISCOVERY, &pb.CafeFindIpfsAddr{
 			Token: session.Access,
-            Query: query,
+			Query: query,
 		}, nil, false)
 	})
 	res := new(pb.CafeFindIpfsAddrAck)
 	if err != nil {
-        return nil, err
-    }
+		return nil, err
+	}
 
-    err = ptypes.UnmarshalAny(renv.Message.Payload, res)
+	err = ptypes.UnmarshalAny(renv.Message.Payload, res)
 	if err != nil {
 		return nil, err
 	}
 	return res.Result.Items, nil
 }
+
 // Search performs a query via a cafe
 func (h *CafeService) Search(query *pb.Query, cafeId string, reply func(*pb.QueryResult), cancelCh <-chan interface{}) error {
 	log.Debug("in search")
-    session := h.datastore.CafeSessions().Get(cafeId)
+	session := h.datastore.CafeSessions().Get(cafeId)
 	if session == nil {
 		return fmt.Errorf("could not find session for cafe %s", cafeId)
 	}
@@ -487,7 +489,7 @@ func (h *CafeService) Search(query *pb.Query, cafeId string, reply func(*pb.Quer
 	}
 
 	addr := fmt.Sprintf("%s/api/%s/search", session.Cafe.Url, session.Cafe.Api)
-    log.Debug(addr)
+	log.Debug(addr)
 	renvCh, errCh, cancel := h.service.SendHTTPStreamRequest(addr, env, session.Access)
 	cancelFn := func() {
 		if cancel != nil {
@@ -664,7 +666,7 @@ func (h *CafeService) searchLocal(qtype pb.Query_Type, options *pb.QueryOptions,
 	results := newQueryResultSet(options)
 	log.Debugf("[SEARCH_LOCAL] Type %s, For %s", qtype.String(), pid.Pretty())
 	honlog.Hlog.Add(fmt.Sprintf("[SEARCH_LOCAL] Type %s, For %s", qtype.String(), pid.Pretty()))
-	defer func(){
+	defer func() {
 		log.Debugf("[SEARCH_LOCAL] DONE")
 		honlog.Hlog.Add("[SEARCH_LOCAL] DONE")
 	}()
@@ -736,23 +738,23 @@ func (h *CafeService) searchLocal(qtype pb.Query_Type, options *pb.QueryOptions,
 		if err != nil {
 			return nil, err
 		}
-        var peers []*pb.Peer
-        if q.Address == "" && q.Name == "" {  //local discovery
-            if h.open {
-                peers = h.findLocalPeers(pid)
-            } else {
-                peerId := h.service.Node().Identity.Pretty()
-                p := h.datastore.Peers().Get(peerId)
-                peers = []*pb.Peer{p}
-            }
-        } else {
-		    peers = h.datastore.Peers().Find(q.Address, q.Name, options.Exclude)
-        }
-        log.Debugf("In local search, find %d peers", len(peers))
-        for _, p := range peers {
+		var peers []*pb.Peer
+		if q.Address == "" && q.Name == "" { //local discovery
+			if h.open {
+				peers = h.findLocalPeers(pid)
+			} else {
+				peerId := h.service.Node().Identity.Pretty()
+				p := h.datastore.Peers().Get(peerId)
+				peers = []*pb.Peer{p}
+			}
+		} else {
+			peers = h.datastore.Peers().Find(q.Address, q.Name, options.Exclude)
+		}
+		log.Debugf("In local search, find %d peers", len(peers))
+		for _, p := range peers {
 			value, err := proto.Marshal(p)
 			if err != nil {
-                log.Debug(err)
+				log.Debug(err)
 				return nil, err
 			}
 			results.Add(&pb.QueryResult{
@@ -767,40 +769,39 @@ func (h *CafeService) searchLocal(qtype pb.Query_Type, options *pb.QueryOptions,
 		}
 	case pb.Query_STREAM:
 
-        // have shadow node, return nothing
-        // the shaodw node will connect other peers through other methods
-        // [deprecated] Normal will return the peerId of shadow peer instead of return nothing.
-        
-        if h.shadow.GetShadow() != peer.ID("") {
-            log.Debug("Have shadow node, return nothing")
-            recorder.Hlog.Add("Have shadow node, return nothing")
-            break
-        }
-         
+		// have shadow node, return nothing
+		// the shaodw node will connect other peers through other methods
+		// [deprecated] Normal will return the peerId of shadow peer instead of return nothing.
+
+		if h.shadow.GetShadow() != peer.ID("") {
+			log.Debug("Have shadow node, return nothing")
+			recorder.Hlog.Add("Have shadow node, return nothing")
+			break
+		}
 
 		q := new(pb.StreamQuery)
 		err := ptypes.UnmarshalAny(payload, q)
 		if err != nil {
-            log.Error(err)
+			log.Error(err)
 			return nil, err
 		}
 
-        meta := h.datastore.StreamMetas().Get(q.Id)
-
-        if meta == nil{
-        	log.Debugf("[%s] Stream %s", stream.TAG_SEARCH_NOMETA, q.Id)
-        	recorder.Hlog.Add(fmt.Sprintf("[%s] Stream %s", stream.TAG_SEARCH_NOMETA, q.Id))
-            break
-        }
+		meta := h.datastore.StreamMetas().Get(q.Id)
+		log.Debugf("In local search, Stream %s has %d blocks", q.Id, meta.Nblocks)
+		if meta == nil {
+			log.Debugf("[%s] Stream %s", stream.TAG_SEARCH_NOMETA, q.Id)
+			recorder.Hlog.Add(fmt.Sprintf("[%s] Stream %s", stream.TAG_SEARCH_NOMETA, q.Id))
+			break
+		}
 
 		//blocks := h.datastore.StreamBlocks().ListByStream(q.Id, int(q.Startindex),3)
 		//if len(blocks) == 0 {
 		//	log.Debugf("[%s] Stream %s", stream.TAG_STREAM_NOBLOCK, q.Id)
 		//	break
 		//}
-        //if q.Startindex != 0 && len(blocks) == 0 {
-        //    break
-        //}
+		//if q.Startindex != 0 && len(blocks) == 0 {
+		//    break
+		//}
 		provider := h.stream.GetProvider(q.Id)
 		if meta.Nblocks == 0 && provider == peer.ID("") {
 			log.Debugf("[%s] Stream %s", stream.TAG_SEARCH_NOPROVIDER, q.Id)
@@ -816,65 +817,65 @@ func (h *CafeService) searchLocal(qtype pb.Query_Type, options *pb.QueryOptions,
 			break
 		}
 
-        hopcnt := 1000 //arbitrary value, needed to be fixed
-        //var hopcnt int
-        started := h.stream.Started(q.Id)
-        if started {
-            hopcnt = 0
-        }else {
-            haveblocks := h.datastore.StreamBlocks().BlockCount(q.Id)
-            nblocks := meta.Nblocks
-            complete := haveblocks == nblocks
-            if complete {
-                hopcnt = 0
-            } else {
-                req := &pb.StreamRequest{
-                    Id: q.Id,
-                }
-                providedHopcnt, ok:= h.stream.GetProvidedHopcnt(req)
-                //if provider != nil && provider.Hopcnt[q.Id] != 1000 {
-                //    hopcnt = provider.Hopcnt[q.Id] + 1
-                //}
-                if ok {
-                	hopcnt = providedHopcnt + 1
+		hopcnt := 1000 //arbitrary value, needed to be fixed
+		//var hopcnt int
+		started := h.stream.Started(q.Id)
+		if started {
+			hopcnt = 0
+		} else {
+			haveblocks := h.datastore.StreamBlocks().BlockCount(q.Id)
+			nblocks := meta.Nblocks
+			complete := haveblocks == nblocks
+			if complete {
+				hopcnt = 0
+			} else {
+				req := &pb.StreamRequest{
+					Id: q.Id,
 				}
-            }
-        }
-        peerId := h.service.Node().Identity.Pretty()
-//      tmpShadow := h.shadow.GetShadow()
-		result := &pb.StreamQueryResultItem {
+				providedHopcnt, ok := h.stream.GetProvidedHopcnt(req)
+				//if provider != nil && provider.Hopcnt[q.Id] != 1000 {
+				//    hopcnt = provider.Hopcnt[q.Id] + 1
+				//}
+				if ok {
+					hopcnt = providedHopcnt + 1
+				}
+			}
+		}
+		peerId := h.service.Node().Identity.Pretty()
+		//      tmpShadow := h.shadow.GetShadow()
+		result := &pb.StreamQueryResultItem{
 			Hopcnt: int32(hopcnt),
 		}
 		result.Pid = peerId
-        
-//	    if  tmpShadow != peer.ID("") {
-//			log.Debugf("searchLocal: Have shadow node, return peerId of shadow peer: %s", tmpShadow.Pretty())
-//			result.Pid = tmpShadow.Pretty()
-//		} else {
-//			log.Debugf("searchLocal: Do not have shadow node, return peerId: %s", peerId)
-//			result.Pid = peerId
-//		}
 
-        //log.Debugf("Get result, hopcnt: %d", hopcnt)
-        value,_ := proto.Marshal(result)
+		//	    if  tmpShadow != peer.ID("") {
+		//			log.Debugf("searchLocal: Have shadow node, return peerId of shadow peer: %s", tmpShadow.Pretty())
+		//			result.Pid = tmpShadow.Pretty()
+		//		} else {
+		//			log.Debugf("searchLocal: Do not have shadow node, return peerId: %s", peerId)
+		//			result.Pid = peerId
+		//		}
+
+		//log.Debugf("Get result, hopcnt: %d", hopcnt)
+		value, _ := proto.Marshal(result)
 		results.Add(&pb.QueryResult{
-			Id:     q.Id,
-			Local:  local,
+			Id:    q.Id,
+			Local: local,
 			Value: &any.Any{
 				TypeUrl: "/Stream",
-                Value: value,
-		    },
+				Value:   value,
+			},
 		})
-    case pb.Query_VIDEO:
+	case pb.Query_VIDEO:
 		q := new(pb.VideoQuery)
 		err := ptypes.UnmarshalAny(payload, q)
 		if err != nil {
 			return nil, err
 		}
-        video := h.datastore.Videos().Get(q.Id)
-        if video == nil {
-            return nil, nil
-        }
+		video := h.datastore.Videos().Get(q.Id)
+		if video == nil {
+			return nil, nil
+		}
 		value, err := proto.Marshal(video)
 		if err != nil {
 			return nil, err
@@ -887,7 +888,7 @@ func (h *CafeService) searchLocal(qtype pb.Query_Type, options *pb.QueryOptions,
 				Value:   value,
 			},
 		})
-    case pb.Query_VIDEO_CHUNKS:
+	case pb.Query_VIDEO_CHUNKS:
 		q := new(pb.VideoChunkQuery)
 		err := ptypes.UnmarshalAny(payload, q)
 		if err != nil {
@@ -895,8 +896,8 @@ func (h *CafeService) searchLocal(qtype pb.Query_Type, options *pb.QueryOptions,
 			return nil, err
 		}
 		log.Debugf("VIDEOPIPELINE: Search local video chunk with param:\nId: %s\nChunk: %s\nstartTime: %d\n endTime: %d\n index: %d", q.Id, q.Chunk, q.StartTime, q.EndTime, q.Index)
-        vchunks := h.datastore.VideoChunks().Find(q.Id, q.Chunk, q.StartTime, q.EndTime, q.Index)
-        for _, c := range vchunks {
+		vchunks := h.datastore.VideoChunks().Find(q.Id, q.Chunk, q.StartTime, q.EndTime, q.Index)
+		for _, c := range vchunks {
 			value, err := proto.Marshal(c)
 			if err != nil {
 				return nil, err
@@ -910,14 +911,14 @@ func (h *CafeService) searchLocal(qtype pb.Query_Type, options *pb.QueryOptions,
 				},
 			})
 		}
-    case pb.Query_SYNC_FILE:
+	case pb.Query_SYNC_FILE:
 		q := new(pb.SyncFileQuery)
 		err := ptypes.UnmarshalAny(payload, q)
 		if err != nil {
 			return nil, err
 		}
-        files := h.datastore.SyncFiles().ListByType(q.Address, q.Type)
-        for _, f := range files {
+		files := h.datastore.SyncFiles().ListByType(q.Address, q.Type)
+		for _, f := range files {
 			value, err := proto.Marshal(f)
 			if err != nil {
 				return nil, err
@@ -1002,43 +1003,43 @@ func (h *CafeService) searchPubSub(query *pb.Query, reply func(*pb.QueryResults)
 }
 
 func (h *CafeService) findLocalPeers(pid peer.ID) []*pb.Peer {
-    peers, err := ipfs.SwarmPeers(h.service.Node(), true, true, true, true)
-    if err != nil {
-        log.Error(err)
-        return nil
-    }
-    var peerMap map[string]string
-    peerMap = make(map[string]string)
-    for _, sp := range peers.Peers {
-        peerMap[sp.Peer] = sp.Addr
-    }
-    spid := pid.Pretty()
-    addr, ok := peerMap[spid]
-    if !ok {
-        return nil
-    }
+	peers, err := ipfs.SwarmPeers(h.service.Node(), true, true, true, true)
+	if err != nil {
+		log.Error(err)
+		return nil
+	}
+	var peerMap map[string]string
+	peerMap = make(map[string]string)
+	for _, sp := range peers.Peers {
+		peerMap[sp.Peer] = sp.Addr
+	}
+	spid := pid.Pretty()
+	addr, ok := peerMap[spid]
+	if !ok {
+		return nil
+	}
 
-    var prefix string
-    if strings.HasPrefix(addr, "/ip4"){
-        prefix = addr[0:13]
-    } else {
-        prefix = addr[0:15]
-    }
-    log.Debug(addr)
-    var result []*pb.Peer
-    for id, cur := range peerMap {
-        if cur ==  addr {
-            continue
-        }
-        if strings.HasPrefix(cur, prefix){
-            p := h.datastore.Peers().Get(id)
-            if p != nil {
-                log.Debug(p.Name)
-                result = append(result, p)
-            }
-        }
-    }
-    return result
+	var prefix string
+	if strings.HasPrefix(addr, "/ip4") {
+		prefix = addr[0:13]
+	} else {
+		prefix = addr[0:15]
+	}
+	log.Debug(addr)
+	var result []*pb.Peer
+	for id, cur := range peerMap {
+		if cur == addr {
+			continue
+		}
+		if strings.HasPrefix(cur, prefix) {
+			p := h.datastore.Peers().Get(id)
+			if p != nil {
+				log.Debug(p.Name)
+				result = append(result, p)
+			}
+		}
+	}
+	return result
 }
 
 // publishQuery publishes a search request to the network
@@ -1444,64 +1445,64 @@ func (h *CafeService) handleUnstoreThread(env *pb.Envelope, pid peer.ID) (*pb.En
 
 func (h *CafeService) handlePublishVideoChunk(env *pb.Envelope, pid peer.ID) (*pb.Envelope, error) {
 	log.Debug("in handlePublishVideoChunk")
-    store := new(pb.CafePublishVideoChunk)
+	store := new(pb.CafePublishVideoChunk)
 	err := ptypes.UnmarshalAny(env.Message.Payload, store)
 	if err != nil {
-        log.Error(err)
+		log.Error(err)
 		return nil, err
 	}
-    log.Debug("after get video")
+	log.Debug("after get video")
 	rerr, err := h.authToken(pid, store.Token, false, env.Message.Request)
 	if err != nil {
-        log.Error(err)
+		log.Error(err)
 		return nil, err
 	}
 	if rerr != nil {
 		return rerr, nil
 	}
-    log.Debug("after authToken")
+	log.Debug("after authToken")
 
 	client := h.datastore.CafeClients().Get(pid.Pretty())
 	if client == nil {
 		return h.service.NewError(403, errForbidden, env.Message.Request)
 	}
 
-    log.Debugf("Adding video %s, chunk %s", store.Chunk.Id, store.Chunk.Chunk)
+	log.Debugf("Adding video %s, chunk %s", store.Chunk.Id, store.Chunk.Chunk)
 	err = h.datastore.VideoChunks().Add(store.Chunk)
 	if err != nil {
-        log.Error(err)
+		log.Error(err)
 	}
 
-////    file := store.File
-////    if file == nil || file.Size == 0 {
-//	    links, err := ipfs.LinksAtPath(h.service.Node(), store.Chunk.Address)
-//	    if err == nil {
-//            log.Debug("get links")
-//            for _, index := range links {
-//                node, err := ipfs.NodeAtLink(h.service.Node(), index)
-//	            if err != nil {
-//	                log.Error(err)
-//	            }
-//                err = ipfs.PinNode(h.service.Node(), node, true)
-//	            if err != nil {
-//	                log.Error(err)
-//                }
-//            }
-//            log.Debug("Pin finish!")
-//        } else {
-//            log.Error(err)
-//        }
-////    } else {
-////        _, err = ipfs.AddData(h.service.Node(), bytes.NewReader(file.Data), true, false)
-////        if err != nil {
-////            log.Error(err)
-////        }
-////    }
+	////    file := store.File
+	////    if file == nil || file.Size == 0 {
+	//	    links, err := ipfs.LinksAtPath(h.service.Node(), store.Chunk.Address)
+	//	    if err == nil {
+	//            log.Debug("get links")
+	//            for _, index := range links {
+	//                node, err := ipfs.NodeAtLink(h.service.Node(), index)
+	//	            if err != nil {
+	//	                log.Error(err)
+	//	            }
+	//                err = ipfs.PinNode(h.service.Node(), node, true)
+	//	            if err != nil {
+	//	                log.Error(err)
+	//                }
+	//            }
+	//            log.Debug("Pin finish!")
+	//        } else {
+	//            log.Error(err)
+	//        }
+	////    } else {
+	////        _, err = ipfs.AddData(h.service.Node(), bytes.NewReader(file.Data), true, false)
+	////        if err != nil {
+	////            log.Error(err)
+	////        }
+	////    }
 
 	res := &pb.CafePublishVideoChunkAck{
-        Id:      store.Chunk.Id,
-        Chunk:   store.Chunk.Chunk,
-    }
+		Id:    store.Chunk.Id,
+		Chunk: store.Chunk.Chunk,
+	}
 
 	return h.service.NewEnvelope(pb.Message_CAFE_PUBLISH_VIDEO_CHUNK_ACK, res, &env.Message.Request, true)
 }
@@ -1510,17 +1511,17 @@ func (h *CafeService) handlePublishVideo(env *pb.Envelope, pid peer.ID) (*pb.Env
 	store := new(pb.CafePublishVideo)
 	err := ptypes.UnmarshalAny(env.Message.Payload, store)
 	if err != nil {
-        log.Error(err)
+		log.Error(err)
 		return nil, err
 	}
 
 	rerr, err := h.authToken(pid, store.Token, false, env.Message.Request)
 	if err != nil {
-        log.Error(err)
+		log.Error(err)
 		return nil, err
 	}
 	if rerr != nil {
-        log.Error(err)
+		log.Error(err)
 		return rerr, nil
 	}
 
@@ -1529,49 +1530,49 @@ func (h *CafeService) handlePublishVideo(env *pb.Envelope, pid peer.ID) (*pb.Env
 		return h.service.NewError(403, errForbidden, env.Message.Request)
 	}
 
-    log.Debug("Add Video, %s", store.Video.Id)
+	log.Debug("Add Video, %s", store.Video.Id)
 	err = h.datastore.Videos().Add(store.Video)
 	if err != nil {
-        log.Error(err)
+		log.Error(err)
 	}
 
-    log.Debug("Start Pining, %s", store.Video.Id)
-   // go func() {
-   //     links, err := ipfs.LinksAtPath(h.service.Node(), store.Video.Poster)
-   //     if err != nil {
-   // 	    log.Warning(err)
-   // 	    return
-   //     }
-   //     for _, index := range links {
-   //         node, err := ipfs.NodeAtLink(h.service.Node(), index)
-   //         if err != nil {
-   // 	        log.Warning(err)
-   // 	        return
-   //         }
-   //         err = ipfs.PinNode(h.service.Node(), node, true)
-   //         if err != nil {
-   // 	        log.Warning(err)
-   // 	        return
-   //         }
-   //     }
-   // }()
-	
-   // links, err := ipfs.LinksAtPath(h.service.Node(), store.Video.Poster)
-   // if err == nil {
-   //     for _, index := range links {
-   //         node, err := ipfs.NodeAtLink(h.service.Node(), index)
-   //         if err != nil {
-   //             log.Error(err)
-   //         }
-   //         err = ipfs.PinNode(h.service.Node(), node, true)
-   //         if err != nil {
-   //             log.Error(err)
-   //         }
-   //     }
-   // }
+	log.Debug("Start Pining, %s", store.Video.Id)
+	// go func() {
+	//     links, err := ipfs.LinksAtPath(h.service.Node(), store.Video.Poster)
+	//     if err != nil {
+	// 	    log.Warning(err)
+	// 	    return
+	//     }
+	//     for _, index := range links {
+	//         node, err := ipfs.NodeAtLink(h.service.Node(), index)
+	//         if err != nil {
+	// 	        log.Warning(err)
+	// 	        return
+	//         }
+	//         err = ipfs.PinNode(h.service.Node(), node, true)
+	//         if err != nil {
+	// 	        log.Warning(err)
+	// 	        return
+	//         }
+	//     }
+	// }()
+
+	// links, err := ipfs.LinksAtPath(h.service.Node(), store.Video.Poster)
+	// if err == nil {
+	//     for _, index := range links {
+	//         node, err := ipfs.NodeAtLink(h.service.Node(), index)
+	//         if err != nil {
+	//             log.Error(err)
+	//         }
+	//         err = ipfs.PinNode(h.service.Node(), node, true)
+	//         if err != nil {
+	//             log.Error(err)
+	//         }
+	//     }
+	// }
 	res := &pb.CafePublishVideoAck{
-        Id:      store.Video.Id,
-    }
+		Id: store.Video.Id,
+	}
 	return h.service.NewEnvelope(pb.Message_CAFE_PUBLISH_VIDEO_ACK, res, &env.Message.Request, true)
 }
 
@@ -1579,17 +1580,17 @@ func (h *CafeService) handleSyncFile(env *pb.Envelope, pid peer.ID) (*pb.Envelop
 	store := new(pb.CafeSyncFile)
 	err := ptypes.UnmarshalAny(env.Message.Payload, store)
 	if err != nil {
-        log.Error(err)
+		log.Error(err)
 		return nil, err
 	}
 
 	rerr, err := h.authToken(pid, store.Token, false, env.Message.Request)
 	if err != nil {
-        log.Error(err)
+		log.Error(err)
 		return nil, err
 	}
 	if rerr != nil {
-        log.Error(err)
+		log.Error(err)
 		return rerr, nil
 	}
 
@@ -1600,13 +1601,13 @@ func (h *CafeService) handleSyncFile(env *pb.Envelope, pid peer.ID) (*pb.Envelop
 
 	err = h.datastore.SyncFiles().Add(store.File)
 	if err != nil {
-        log.Error(err)
+		log.Error(err)
 	}
 
 	res := &pb.CafeSyncFileAck{
-        PeerAddress:      store.File.PeerAddress,
-        File:   store.File.File,
-    }
+		PeerAddress: store.File.PeerAddress,
+		File:        store.File.File,
+	}
 	return h.service.NewEnvelope(pb.Message_CAFE_SYNC_FILE_ACK, res, &env.Message.Request, true)
 }
 
@@ -1642,41 +1643,41 @@ func (h *CafeService) handleCafeFindIpfsAddr(env *pb.Envelope, pid peer.ID) (*pb
 	store := new(pb.CafeFindIpfsAddr)
 	err := ptypes.UnmarshalAny(env.Message.Payload, store)
 	if err != nil {
-        log.Error(err)
+		log.Error(err)
 		return nil, err
 	}
 
 	rerr, err := h.authToken(pid, store.Token, false, env.Message.Request)
 	if err != nil {
-        log.Error(err)
+		log.Error(err)
 		return nil, err
 	}
 	if rerr != nil {
-        log.Error(err)
+		log.Error(err)
 		return rerr, nil
 	}
 
-    peers, err := ipfs.SwarmPeers(h.service.Node(), true, true, true, true)
-    if err != nil {
-        log.Error(err)
-        return nil, err
-    }
-    var peerMap map[string]string
-    peerMap = make(map[string]string)
-    for _, sp := range peers.Peers {
-        peerMap[sp.Peer] = sp.Addr
-    }
-    log.Debugf("handleCafeFindIpfsAddr, pid: %s", pid)
-    res := new(pb.CafeFindIpfsAddrAck)
-    res.Result = new(pb.IpfsQueryResult)
-    for _, p := range store.Query.Items {
-        addr, ok := peerMap[p]
-        if ok {
-            addr += "/ipfs/"+p
-            res.Result.Items = append(res.Result.Items,addr)
-            log.Debug("FindIpfsAddr:"+addr)
-        }
-    }
+	peers, err := ipfs.SwarmPeers(h.service.Node(), true, true, true, true)
+	if err != nil {
+		log.Error(err)
+		return nil, err
+	}
+	var peerMap map[string]string
+	peerMap = make(map[string]string)
+	for _, sp := range peers.Peers {
+		peerMap[sp.Peer] = sp.Addr
+	}
+	log.Debugf("handleCafeFindIpfsAddr, pid: %s", pid)
+	res := new(pb.CafeFindIpfsAddrAck)
+	res.Result = new(pb.IpfsQueryResult)
+	for _, p := range store.Query.Items {
+		addr, ok := peerMap[p]
+		if ok {
+			addr += "/ipfs/" + p
+			res.Result.Items = append(res.Result.Items, addr)
+			log.Debug("FindIpfsAddr:" + addr)
+		}
+	}
 	return h.service.NewEnvelope(pb.Message_CAFE_FIND_IPFS_ADDR_ACK, res, &env.Message.Request, true)
 
 }
@@ -1873,20 +1874,21 @@ func (h *CafeService) handleCafeDiscovery(env *pb.Envelope, pid peer.ID) (*pb.En
 		return h.service.NewError(403, errForbidden, env.Message.Request)
 	}
 
-    peers, err := ipfs.SwarmPeers(h.service.Node(), true, true, true, true)
-    if err != nil {
-        log.Error(err)
-        return nil, err
-    }
-    
-    res := new(pb.CafeFindIpfsAddrAck)
-    res.Result = new(pb.IpfsQueryResult)
-    for _, sp := range peers.Peers {
-        addr := sp.Addr + "/ipfs/" + sp.Peer
-        res.Result.Items = append(res.Result.Items,addr)
-    }
-    return h.service.NewEnvelope(pb.Message_CAFE_PEER_DISCOVERY_ACK, res, &env.Message.Request, true)
+	peers, err := ipfs.SwarmPeers(h.service.Node(), true, true, true, true)
+	if err != nil {
+		log.Error(err)
+		return nil, err
+	}
+
+	res := new(pb.CafeFindIpfsAddrAck)
+	res.Result = new(pb.IpfsQueryResult)
+	for _, sp := range peers.Peers {
+		addr := sp.Addr + "/ipfs/" + sp.Peer
+		res.Result.Items = append(res.Result.Items, addr)
+	}
+	return h.service.NewEnvelope(pb.Message_CAFE_PEER_DISCOVERY_ACK, res, &env.Message.Request, true)
 }
+
 // handlePublishPeer indexes a client's peer info for others to search
 func (h *CafeService) handlePublishPeer(env *pb.Envelope, pid peer.ID) (*pb.Envelope, error) {
 	pub := new(pb.CafePublishPeer)
@@ -1948,7 +1950,7 @@ func (h *CafeService) handleQuery(env *pb.Envelope, pid peer.ID, renvs chan *pb.
 	// search local
 	localResults, err := h.searchLocal(query.Type, query.Options, query.Payload, false, pid)
 	if err != nil {
-        log.Debug(err)
+		log.Debug(err)
 		return err
 	}
 	if reply(&pb.QueryResults{
@@ -1957,7 +1959,7 @@ func (h *CafeService) handleQuery(env *pb.Envelope, pid peer.ID, renvs chan *pb.
 	}) {
 		return nil
 	}
-    return nil
+	return nil
 	// search network
 	//return h.searchPubSub(query, reply, cancelCh, true)
 }
@@ -2289,29 +2291,29 @@ func (h *CafeService) handleRequests(reqs []*pb.CafeRequest, rtype pb.CafeReques
 			handled = append(handled, req.Id)
 		}
 
-//	case pb.CafeRequest_STORE_VIDEO: //TODO
-//		for _, req := range reqs {
-//			err := h.storeVideo(req.Target, cafeId)
-//			if err != nil {
-//				log.Errorf("cafe %s request to %s failed: %s", rtype.String(), cafeId, err)
-//				herr = err
-//				failed = append(failed, req.Id)
-//				continue
-//			}
-//			handled = append(handled, req.Id)
-//        }
-//
-//    case pb.CafeRequest_STORE_VIDEO_CHUNK: //TODO
-//		for _, req := range reqs {
-//			err := h.storeVideoChunk(req.Target, cafeId)
-//			if err != nil {
-//				log.Errorf("cafe %s request to %s failed: %s", rtype.String(), cafeId, err)
-//				herr = err
-//				failed = append(failed, req.Id)
-//				continue
-//			}
-//			handled = append(handled, req.Id)
-//        }
+		//	case pb.CafeRequest_STORE_VIDEO: //TODO
+		//		for _, req := range reqs {
+		//			err := h.storeVideo(req.Target, cafeId)
+		//			if err != nil {
+		//				log.Errorf("cafe %s request to %s failed: %s", rtype.String(), cafeId, err)
+		//				herr = err
+		//				failed = append(failed, req.Id)
+		//				continue
+		//			}
+		//			handled = append(handled, req.Id)
+		//        }
+		//
+		//    case pb.CafeRequest_STORE_VIDEO_CHUNK: //TODO
+		//		for _, req := range reqs {
+		//			err := h.storeVideoChunk(req.Target, cafeId)
+		//			if err != nil {
+		//				log.Errorf("cafe %s request to %s failed: %s", rtype.String(), cafeId, err)
+		//				herr = err
+		//				failed = append(failed, req.Id)
+		//				continue
+		//			}
+		//			handled = append(handled, req.Id)
+		//        }
 
 	case pb.CafeRequest_INBOX:
 		var err error
