@@ -787,12 +787,12 @@ func (h *CafeService) searchLocal(qtype pb.Query_Type, options *pb.QueryOptions,
 		}
 
 		meta := h.datastore.StreamMetas().Get(q.Id)
-		log.Debugf("In local search, Stream %s has %d blocks", q.Id, meta.Nblocks)
 		if meta == nil {
 			log.Debugf("[%s] Stream %s", stream.TAG_SEARCH_NOMETA, q.Id)
 			recorder.Hlog.Add(fmt.Sprintf("[%s] Stream %s", stream.TAG_SEARCH_NOMETA, q.Id))
 			break
 		}
+		log.Debugf("In local search, Stream %s has %d blocks", q.Id, meta.Nblocks)
 
 		//blocks := h.datastore.StreamBlocks().ListByStream(q.Id, int(q.Startindex),3)
 		//if len(blocks) == 0 {
