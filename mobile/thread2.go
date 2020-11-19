@@ -124,6 +124,17 @@ func (m *Mobile) Thread2AddPicture(path string, threadId string,cb Thread2AddFil
 	}()
 }
 
+func (m *Mobile) Thread2AddFile(path string, threadId string,cb Thread2AddFileCallback) {
+	go func() {
+		instanceId, err := m.node.Thread2AddFile(path, threadId)
+		if err != nil {
+			cb.Call("", err)
+			return
+		}
+		cb.Call(instanceId, nil)
+	}()
+}
+
 
 //peer invite remove find modify
 func (m *Mobile) Thread2InviteMember(threadId string, peerid string) error {

@@ -127,8 +127,9 @@ type FileMessage struct {
 	XMLName xml.Name `xml:"file_message"`
 	Name    string   `xml:"name"`
 	Path    string   `xml:"path"`
-	//Type    string   `xml:"type"`
+	Type    string   `xml:"type"`
 	Size    int64   `xml:"size"`
+	MesString string `xml:"mes_string"`
 }
 type ThreadMember struct {
 	ID       string `json:"_id"`
@@ -694,8 +695,25 @@ func (t *Textile) Thread2AddMessage(id string, mes string) (string,error) {
 	if err != nil {
 		return "",err
 	}
+
+	fm := &FileMessage{
+		Type:textMessage,
+		MesString:mes,
+	}
+
+	//enc := xml.NewEncoder(os.Stdout)
+	//enc.Indent("  ", "    ")
+	//Marshal xml struct to bytes then to string.
+	var contentStr string
+	if bytes,err := xml.Marshal(fm); err != nil {
+		fmt.Printf("error: %v\n", err)
+	}else {
+		contentStr = string(bytes)
+	}
+
+
 	Ids, err := t.CreateMesInstance(threadId, client.Instances{
-		&ThreadMessage{Sender: t.Account().Address(), Time: int(time.Now().Unix()), Type:textMessage, Content: mes}})
+		&ThreadMessage{Sender: t.Account().Address(), Time: int(time.Now().Unix()), Content: contentStr}})
 	if err != nil {
 		return "",err
 	}
@@ -746,6 +764,7 @@ func (t *Textile) Thread2AddPicture(path string, threadIdStr string) (string, er
 	fm := &FileMessage{
 		Name: fileInfo.Name(),
 		Path: fileCid.String(),
+		Type:pictureMessage,
 		Size: fileInfo.Size(),
 		}
 
@@ -761,7 +780,75 @@ func (t *Textile) Thread2AddPicture(path string, threadIdStr string) (string, er
 
 	//Add file to thread2
 	Ids, err := t.CreateMesInstance(threadId, client.Instances{
-		&ThreadMessage{Sender: t.Account().Address(), Time: int(time.Now().Unix()),Type:pictureMessage, Content: contentStr}})
+		//&ThreadMessage{Sender: t.Account().Address(), Time: int(time.Now().Unix()),Type:pictureMessage, Content: contentStr}})
+		&ThreadMessage{Sender: t.Account().Address(), Time: int(time.Now().Unix()), Content: contentStr}})
+	if err != nil {
+		return "",err
+	}
+	return Ids[0],nil
+}
+
+func (t *Textile) Thread2AddFile(path string, threadIdStr string) (string, error){
+	threadId, err := thread.Decode(threadIdStr)
+	if err != nil {
+		return "",err
+	}
+	log.Debugf("AddSimpleFile(%s, %s)", path, threadId)
+
+	// Open file and get reader for file
+	fileInfo, err := os.Stat(path)
+	if err != nil {
+		log.Error(err)
+		return "", err
+	}
+	if fileInfo.IsDir() {
+		err = errors.New("SimpleFile does not support directory")
+		log.Error(err)
+		return "", err
+	}
+
+	fi, err := os.Open(path)
+	if err != nil {
+		log.Error(err)
+		return "", err
+	}
+	defer func() {
+		err := fi.Close()
+		if err != nil {
+			log.Error(err)
+		}
+	}()
+
+	// Add file to ipfs
+	r := bufio.NewReader(fi)
+	fileCid, err := ipfs.AddData(t.node, r, true, false)
+	// resolvedPath, err := api.Unixfs().Add(t.ctx, files.NewReaderFile(fi), options.Unixfs.HashOnly(false), options.Unixfs.Chunker("size-1048576"))
+	if err != nil {
+		log.Error(err)
+		return "", err
+	}
+
+	fm := &FileMessage{
+		Name: fileInfo.Name(),
+		Path: fileCid.String(),
+		Type:fileMessage,
+		Size: fileInfo.Size(),
+	}
+
+	//enc := xml.NewEncoder(os.Stdout)
+	//enc.Indent("  ", "    ")
+	//Marshal xml struct to bytes then to string.
+	var contentStr string
+	if bytes,err := xml.Marshal(fm); err != nil {
+		fmt.Printf("error: %v\n", err)
+	}else {
+		contentStr = string(bytes)
+	}
+
+	//Add file to thread2
+	Ids, err := t.CreateMesInstance(threadId, client.Instances{
+		//&ThreadMessage{Sender: t.Account().Address(), Time: int(time.Now().Unix()),Type:pictureMessage, Content: contentStr}})
+		&ThreadMessage{Sender: t.Account().Address(), Time: int(time.Now().Unix()), Content: contentStr}})
 	if err != nil {
 		return "",err
 	}
