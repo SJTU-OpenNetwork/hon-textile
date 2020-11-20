@@ -3947,6 +3947,1459 @@ public final class Multicast {
 
   }
 
+  public interface ShardOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:Shard)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>int32 index = 1;</code>
+     */
+    int getIndex();
+
+    /**
+     * <code>bytes data = 2;</code>
+     */
+    com.google.protobuf.ByteString getData();
+  }
+  /**
+   * Protobuf type {@code Shard}
+   */
+  public  static final class Shard extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:Shard)
+      ShardOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use Shard.newBuilder() to construct.
+    private Shard(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private Shard() {
+      index_ = 0;
+      data_ = com.google.protobuf.ByteString.EMPTY;
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private Shard(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+
+              index_ = input.readInt32();
+              break;
+            }
+            case 18: {
+
+              data_ = input.readBytes();
+              break;
+            }
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return sjtu.opennet.textilepb.Multicast.internal_static_Shard_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return sjtu.opennet.textilepb.Multicast.internal_static_Shard_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              sjtu.opennet.textilepb.Multicast.Shard.class, sjtu.opennet.textilepb.Multicast.Shard.Builder.class);
+    }
+
+    public static final int INDEX_FIELD_NUMBER = 1;
+    private int index_;
+    /**
+     * <code>int32 index = 1;</code>
+     */
+    public int getIndex() {
+      return index_;
+    }
+
+    public static final int DATA_FIELD_NUMBER = 2;
+    private com.google.protobuf.ByteString data_;
+    /**
+     * <code>bytes data = 2;</code>
+     */
+    public com.google.protobuf.ByteString getData() {
+      return data_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (index_ != 0) {
+        output.writeInt32(1, index_);
+      }
+      if (!data_.isEmpty()) {
+        output.writeBytes(2, data_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (index_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, index_);
+      }
+      if (!data_.isEmpty()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(2, data_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof sjtu.opennet.textilepb.Multicast.Shard)) {
+        return super.equals(obj);
+      }
+      sjtu.opennet.textilepb.Multicast.Shard other = (sjtu.opennet.textilepb.Multicast.Shard) obj;
+
+      boolean result = true;
+      result = result && (getIndex()
+          == other.getIndex());
+      result = result && getData()
+          .equals(other.getData());
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + INDEX_FIELD_NUMBER;
+      hash = (53 * hash) + getIndex();
+      hash = (37 * hash) + DATA_FIELD_NUMBER;
+      hash = (53 * hash) + getData().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static sjtu.opennet.textilepb.Multicast.Shard parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sjtu.opennet.textilepb.Multicast.Shard parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sjtu.opennet.textilepb.Multicast.Shard parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sjtu.opennet.textilepb.Multicast.Shard parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sjtu.opennet.textilepb.Multicast.Shard parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sjtu.opennet.textilepb.Multicast.Shard parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sjtu.opennet.textilepb.Multicast.Shard parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sjtu.opennet.textilepb.Multicast.Shard parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sjtu.opennet.textilepb.Multicast.Shard parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static sjtu.opennet.textilepb.Multicast.Shard parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sjtu.opennet.textilepb.Multicast.Shard parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sjtu.opennet.textilepb.Multicast.Shard parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(sjtu.opennet.textilepb.Multicast.Shard prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code Shard}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:Shard)
+        sjtu.opennet.textilepb.Multicast.ShardOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return sjtu.opennet.textilepb.Multicast.internal_static_Shard_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return sjtu.opennet.textilepb.Multicast.internal_static_Shard_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                sjtu.opennet.textilepb.Multicast.Shard.class, sjtu.opennet.textilepb.Multicast.Shard.Builder.class);
+      }
+
+      // Construct using sjtu.opennet.textilepb.Multicast.Shard.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        index_ = 0;
+
+        data_ = com.google.protobuf.ByteString.EMPTY;
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return sjtu.opennet.textilepb.Multicast.internal_static_Shard_descriptor;
+      }
+
+      @java.lang.Override
+      public sjtu.opennet.textilepb.Multicast.Shard getDefaultInstanceForType() {
+        return sjtu.opennet.textilepb.Multicast.Shard.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public sjtu.opennet.textilepb.Multicast.Shard build() {
+        sjtu.opennet.textilepb.Multicast.Shard result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public sjtu.opennet.textilepb.Multicast.Shard buildPartial() {
+        sjtu.opennet.textilepb.Multicast.Shard result = new sjtu.opennet.textilepb.Multicast.Shard(this);
+        result.index_ = index_;
+        result.data_ = data_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof sjtu.opennet.textilepb.Multicast.Shard) {
+          return mergeFrom((sjtu.opennet.textilepb.Multicast.Shard)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(sjtu.opennet.textilepb.Multicast.Shard other) {
+        if (other == sjtu.opennet.textilepb.Multicast.Shard.getDefaultInstance()) return this;
+        if (other.getIndex() != 0) {
+          setIndex(other.getIndex());
+        }
+        if (other.getData() != com.google.protobuf.ByteString.EMPTY) {
+          setData(other.getData());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        sjtu.opennet.textilepb.Multicast.Shard parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (sjtu.opennet.textilepb.Multicast.Shard) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private int index_ ;
+      /**
+       * <code>int32 index = 1;</code>
+       */
+      public int getIndex() {
+        return index_;
+      }
+      /**
+       * <code>int32 index = 1;</code>
+       */
+      public Builder setIndex(int value) {
+        
+        index_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 index = 1;</code>
+       */
+      public Builder clearIndex() {
+        
+        index_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.ByteString data_ = com.google.protobuf.ByteString.EMPTY;
+      /**
+       * <code>bytes data = 2;</code>
+       */
+      public com.google.protobuf.ByteString getData() {
+        return data_;
+      }
+      /**
+       * <code>bytes data = 2;</code>
+       */
+      public Builder setData(com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        data_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>bytes data = 2;</code>
+       */
+      public Builder clearData() {
+        
+        data_ = getDefaultInstance().getData();
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFieldsProto3(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:Shard)
+    }
+
+    // @@protoc_insertion_point(class_scope:Shard)
+    private static final sjtu.opennet.textilepb.Multicast.Shard DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new sjtu.opennet.textilepb.Multicast.Shard();
+    }
+
+    public static sjtu.opennet.textilepb.Multicast.Shard getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<Shard>
+        PARSER = new com.google.protobuf.AbstractParser<Shard>() {
+      @java.lang.Override
+      public Shard parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new Shard(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<Shard> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<Shard> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public sjtu.opennet.textilepb.Multicast.Shard getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface ShardListOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:ShardList)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>int32 ShardNumber = 1;</code>
+     */
+    int getShardNumber();
+
+    /**
+     * <code>int32 ParityNumber = 2;</code>
+     */
+    int getParityNumber();
+
+    /**
+     * <code>repeated .Shard shards = 3;</code>
+     */
+    java.util.List<sjtu.opennet.textilepb.Multicast.Shard> 
+        getShardsList();
+    /**
+     * <code>repeated .Shard shards = 3;</code>
+     */
+    sjtu.opennet.textilepb.Multicast.Shard getShards(int index);
+    /**
+     * <code>repeated .Shard shards = 3;</code>
+     */
+    int getShardsCount();
+    /**
+     * <code>repeated .Shard shards = 3;</code>
+     */
+    java.util.List<? extends sjtu.opennet.textilepb.Multicast.ShardOrBuilder> 
+        getShardsOrBuilderList();
+    /**
+     * <code>repeated .Shard shards = 3;</code>
+     */
+    sjtu.opennet.textilepb.Multicast.ShardOrBuilder getShardsOrBuilder(
+        int index);
+  }
+  /**
+   * Protobuf type {@code ShardList}
+   */
+  public  static final class ShardList extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:ShardList)
+      ShardListOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use ShardList.newBuilder() to construct.
+    private ShardList(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private ShardList() {
+      shardNumber_ = 0;
+      parityNumber_ = 0;
+      shards_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private ShardList(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+
+              shardNumber_ = input.readInt32();
+              break;
+            }
+            case 16: {
+
+              parityNumber_ = input.readInt32();
+              break;
+            }
+            case 26: {
+              if (!((mutable_bitField0_ & 0x00000004) == 0x00000004)) {
+                shards_ = new java.util.ArrayList<sjtu.opennet.textilepb.Multicast.Shard>();
+                mutable_bitField0_ |= 0x00000004;
+              }
+              shards_.add(
+                  input.readMessage(sjtu.opennet.textilepb.Multicast.Shard.parser(), extensionRegistry));
+              break;
+            }
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000004) == 0x00000004)) {
+          shards_ = java.util.Collections.unmodifiableList(shards_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return sjtu.opennet.textilepb.Multicast.internal_static_ShardList_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return sjtu.opennet.textilepb.Multicast.internal_static_ShardList_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              sjtu.opennet.textilepb.Multicast.ShardList.class, sjtu.opennet.textilepb.Multicast.ShardList.Builder.class);
+    }
+
+    private int bitField0_;
+    public static final int SHARDNUMBER_FIELD_NUMBER = 1;
+    private int shardNumber_;
+    /**
+     * <code>int32 ShardNumber = 1;</code>
+     */
+    public int getShardNumber() {
+      return shardNumber_;
+    }
+
+    public static final int PARITYNUMBER_FIELD_NUMBER = 2;
+    private int parityNumber_;
+    /**
+     * <code>int32 ParityNumber = 2;</code>
+     */
+    public int getParityNumber() {
+      return parityNumber_;
+    }
+
+    public static final int SHARDS_FIELD_NUMBER = 3;
+    private java.util.List<sjtu.opennet.textilepb.Multicast.Shard> shards_;
+    /**
+     * <code>repeated .Shard shards = 3;</code>
+     */
+    public java.util.List<sjtu.opennet.textilepb.Multicast.Shard> getShardsList() {
+      return shards_;
+    }
+    /**
+     * <code>repeated .Shard shards = 3;</code>
+     */
+    public java.util.List<? extends sjtu.opennet.textilepb.Multicast.ShardOrBuilder> 
+        getShardsOrBuilderList() {
+      return shards_;
+    }
+    /**
+     * <code>repeated .Shard shards = 3;</code>
+     */
+    public int getShardsCount() {
+      return shards_.size();
+    }
+    /**
+     * <code>repeated .Shard shards = 3;</code>
+     */
+    public sjtu.opennet.textilepb.Multicast.Shard getShards(int index) {
+      return shards_.get(index);
+    }
+    /**
+     * <code>repeated .Shard shards = 3;</code>
+     */
+    public sjtu.opennet.textilepb.Multicast.ShardOrBuilder getShardsOrBuilder(
+        int index) {
+      return shards_.get(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (shardNumber_ != 0) {
+        output.writeInt32(1, shardNumber_);
+      }
+      if (parityNumber_ != 0) {
+        output.writeInt32(2, parityNumber_);
+      }
+      for (int i = 0; i < shards_.size(); i++) {
+        output.writeMessage(3, shards_.get(i));
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (shardNumber_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, shardNumber_);
+      }
+      if (parityNumber_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(2, parityNumber_);
+      }
+      for (int i = 0; i < shards_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(3, shards_.get(i));
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof sjtu.opennet.textilepb.Multicast.ShardList)) {
+        return super.equals(obj);
+      }
+      sjtu.opennet.textilepb.Multicast.ShardList other = (sjtu.opennet.textilepb.Multicast.ShardList) obj;
+
+      boolean result = true;
+      result = result && (getShardNumber()
+          == other.getShardNumber());
+      result = result && (getParityNumber()
+          == other.getParityNumber());
+      result = result && getShardsList()
+          .equals(other.getShardsList());
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + SHARDNUMBER_FIELD_NUMBER;
+      hash = (53 * hash) + getShardNumber();
+      hash = (37 * hash) + PARITYNUMBER_FIELD_NUMBER;
+      hash = (53 * hash) + getParityNumber();
+      if (getShardsCount() > 0) {
+        hash = (37 * hash) + SHARDS_FIELD_NUMBER;
+        hash = (53 * hash) + getShardsList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static sjtu.opennet.textilepb.Multicast.ShardList parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sjtu.opennet.textilepb.Multicast.ShardList parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sjtu.opennet.textilepb.Multicast.ShardList parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sjtu.opennet.textilepb.Multicast.ShardList parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sjtu.opennet.textilepb.Multicast.ShardList parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sjtu.opennet.textilepb.Multicast.ShardList parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sjtu.opennet.textilepb.Multicast.ShardList parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sjtu.opennet.textilepb.Multicast.ShardList parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sjtu.opennet.textilepb.Multicast.ShardList parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static sjtu.opennet.textilepb.Multicast.ShardList parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sjtu.opennet.textilepb.Multicast.ShardList parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sjtu.opennet.textilepb.Multicast.ShardList parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(sjtu.opennet.textilepb.Multicast.ShardList prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code ShardList}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:ShardList)
+        sjtu.opennet.textilepb.Multicast.ShardListOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return sjtu.opennet.textilepb.Multicast.internal_static_ShardList_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return sjtu.opennet.textilepb.Multicast.internal_static_ShardList_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                sjtu.opennet.textilepb.Multicast.ShardList.class, sjtu.opennet.textilepb.Multicast.ShardList.Builder.class);
+      }
+
+      // Construct using sjtu.opennet.textilepb.Multicast.ShardList.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getShardsFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        shardNumber_ = 0;
+
+        parityNumber_ = 0;
+
+        if (shardsBuilder_ == null) {
+          shards_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000004);
+        } else {
+          shardsBuilder_.clear();
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return sjtu.opennet.textilepb.Multicast.internal_static_ShardList_descriptor;
+      }
+
+      @java.lang.Override
+      public sjtu.opennet.textilepb.Multicast.ShardList getDefaultInstanceForType() {
+        return sjtu.opennet.textilepb.Multicast.ShardList.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public sjtu.opennet.textilepb.Multicast.ShardList build() {
+        sjtu.opennet.textilepb.Multicast.ShardList result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public sjtu.opennet.textilepb.Multicast.ShardList buildPartial() {
+        sjtu.opennet.textilepb.Multicast.ShardList result = new sjtu.opennet.textilepb.Multicast.ShardList(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        result.shardNumber_ = shardNumber_;
+        result.parityNumber_ = parityNumber_;
+        if (shardsBuilder_ == null) {
+          if (((bitField0_ & 0x00000004) == 0x00000004)) {
+            shards_ = java.util.Collections.unmodifiableList(shards_);
+            bitField0_ = (bitField0_ & ~0x00000004);
+          }
+          result.shards_ = shards_;
+        } else {
+          result.shards_ = shardsBuilder_.build();
+        }
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof sjtu.opennet.textilepb.Multicast.ShardList) {
+          return mergeFrom((sjtu.opennet.textilepb.Multicast.ShardList)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(sjtu.opennet.textilepb.Multicast.ShardList other) {
+        if (other == sjtu.opennet.textilepb.Multicast.ShardList.getDefaultInstance()) return this;
+        if (other.getShardNumber() != 0) {
+          setShardNumber(other.getShardNumber());
+        }
+        if (other.getParityNumber() != 0) {
+          setParityNumber(other.getParityNumber());
+        }
+        if (shardsBuilder_ == null) {
+          if (!other.shards_.isEmpty()) {
+            if (shards_.isEmpty()) {
+              shards_ = other.shards_;
+              bitField0_ = (bitField0_ & ~0x00000004);
+            } else {
+              ensureShardsIsMutable();
+              shards_.addAll(other.shards_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.shards_.isEmpty()) {
+            if (shardsBuilder_.isEmpty()) {
+              shardsBuilder_.dispose();
+              shardsBuilder_ = null;
+              shards_ = other.shards_;
+              bitField0_ = (bitField0_ & ~0x00000004);
+              shardsBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getShardsFieldBuilder() : null;
+            } else {
+              shardsBuilder_.addAllMessages(other.shards_);
+            }
+          }
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        sjtu.opennet.textilepb.Multicast.ShardList parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (sjtu.opennet.textilepb.Multicast.ShardList) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private int shardNumber_ ;
+      /**
+       * <code>int32 ShardNumber = 1;</code>
+       */
+      public int getShardNumber() {
+        return shardNumber_;
+      }
+      /**
+       * <code>int32 ShardNumber = 1;</code>
+       */
+      public Builder setShardNumber(int value) {
+        
+        shardNumber_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 ShardNumber = 1;</code>
+       */
+      public Builder clearShardNumber() {
+        
+        shardNumber_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int parityNumber_ ;
+      /**
+       * <code>int32 ParityNumber = 2;</code>
+       */
+      public int getParityNumber() {
+        return parityNumber_;
+      }
+      /**
+       * <code>int32 ParityNumber = 2;</code>
+       */
+      public Builder setParityNumber(int value) {
+        
+        parityNumber_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 ParityNumber = 2;</code>
+       */
+      public Builder clearParityNumber() {
+        
+        parityNumber_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private java.util.List<sjtu.opennet.textilepb.Multicast.Shard> shards_ =
+        java.util.Collections.emptyList();
+      private void ensureShardsIsMutable() {
+        if (!((bitField0_ & 0x00000004) == 0x00000004)) {
+          shards_ = new java.util.ArrayList<sjtu.opennet.textilepb.Multicast.Shard>(shards_);
+          bitField0_ |= 0x00000004;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          sjtu.opennet.textilepb.Multicast.Shard, sjtu.opennet.textilepb.Multicast.Shard.Builder, sjtu.opennet.textilepb.Multicast.ShardOrBuilder> shardsBuilder_;
+
+      /**
+       * <code>repeated .Shard shards = 3;</code>
+       */
+      public java.util.List<sjtu.opennet.textilepb.Multicast.Shard> getShardsList() {
+        if (shardsBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(shards_);
+        } else {
+          return shardsBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .Shard shards = 3;</code>
+       */
+      public int getShardsCount() {
+        if (shardsBuilder_ == null) {
+          return shards_.size();
+        } else {
+          return shardsBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .Shard shards = 3;</code>
+       */
+      public sjtu.opennet.textilepb.Multicast.Shard getShards(int index) {
+        if (shardsBuilder_ == null) {
+          return shards_.get(index);
+        } else {
+          return shardsBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .Shard shards = 3;</code>
+       */
+      public Builder setShards(
+          int index, sjtu.opennet.textilepb.Multicast.Shard value) {
+        if (shardsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureShardsIsMutable();
+          shards_.set(index, value);
+          onChanged();
+        } else {
+          shardsBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .Shard shards = 3;</code>
+       */
+      public Builder setShards(
+          int index, sjtu.opennet.textilepb.Multicast.Shard.Builder builderForValue) {
+        if (shardsBuilder_ == null) {
+          ensureShardsIsMutable();
+          shards_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          shardsBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .Shard shards = 3;</code>
+       */
+      public Builder addShards(sjtu.opennet.textilepb.Multicast.Shard value) {
+        if (shardsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureShardsIsMutable();
+          shards_.add(value);
+          onChanged();
+        } else {
+          shardsBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .Shard shards = 3;</code>
+       */
+      public Builder addShards(
+          int index, sjtu.opennet.textilepb.Multicast.Shard value) {
+        if (shardsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureShardsIsMutable();
+          shards_.add(index, value);
+          onChanged();
+        } else {
+          shardsBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .Shard shards = 3;</code>
+       */
+      public Builder addShards(
+          sjtu.opennet.textilepb.Multicast.Shard.Builder builderForValue) {
+        if (shardsBuilder_ == null) {
+          ensureShardsIsMutable();
+          shards_.add(builderForValue.build());
+          onChanged();
+        } else {
+          shardsBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .Shard shards = 3;</code>
+       */
+      public Builder addShards(
+          int index, sjtu.opennet.textilepb.Multicast.Shard.Builder builderForValue) {
+        if (shardsBuilder_ == null) {
+          ensureShardsIsMutable();
+          shards_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          shardsBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .Shard shards = 3;</code>
+       */
+      public Builder addAllShards(
+          java.lang.Iterable<? extends sjtu.opennet.textilepb.Multicast.Shard> values) {
+        if (shardsBuilder_ == null) {
+          ensureShardsIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, shards_);
+          onChanged();
+        } else {
+          shardsBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .Shard shards = 3;</code>
+       */
+      public Builder clearShards() {
+        if (shardsBuilder_ == null) {
+          shards_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000004);
+          onChanged();
+        } else {
+          shardsBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .Shard shards = 3;</code>
+       */
+      public Builder removeShards(int index) {
+        if (shardsBuilder_ == null) {
+          ensureShardsIsMutable();
+          shards_.remove(index);
+          onChanged();
+        } else {
+          shardsBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .Shard shards = 3;</code>
+       */
+      public sjtu.opennet.textilepb.Multicast.Shard.Builder getShardsBuilder(
+          int index) {
+        return getShardsFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .Shard shards = 3;</code>
+       */
+      public sjtu.opennet.textilepb.Multicast.ShardOrBuilder getShardsOrBuilder(
+          int index) {
+        if (shardsBuilder_ == null) {
+          return shards_.get(index);  } else {
+          return shardsBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .Shard shards = 3;</code>
+       */
+      public java.util.List<? extends sjtu.opennet.textilepb.Multicast.ShardOrBuilder> 
+           getShardsOrBuilderList() {
+        if (shardsBuilder_ != null) {
+          return shardsBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(shards_);
+        }
+      }
+      /**
+       * <code>repeated .Shard shards = 3;</code>
+       */
+      public sjtu.opennet.textilepb.Multicast.Shard.Builder addShardsBuilder() {
+        return getShardsFieldBuilder().addBuilder(
+            sjtu.opennet.textilepb.Multicast.Shard.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .Shard shards = 3;</code>
+       */
+      public sjtu.opennet.textilepb.Multicast.Shard.Builder addShardsBuilder(
+          int index) {
+        return getShardsFieldBuilder().addBuilder(
+            index, sjtu.opennet.textilepb.Multicast.Shard.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .Shard shards = 3;</code>
+       */
+      public java.util.List<sjtu.opennet.textilepb.Multicast.Shard.Builder> 
+           getShardsBuilderList() {
+        return getShardsFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          sjtu.opennet.textilepb.Multicast.Shard, sjtu.opennet.textilepb.Multicast.Shard.Builder, sjtu.opennet.textilepb.Multicast.ShardOrBuilder> 
+          getShardsFieldBuilder() {
+        if (shardsBuilder_ == null) {
+          shardsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              sjtu.opennet.textilepb.Multicast.Shard, sjtu.opennet.textilepb.Multicast.Shard.Builder, sjtu.opennet.textilepb.Multicast.ShardOrBuilder>(
+                  shards_,
+                  ((bitField0_ & 0x00000004) == 0x00000004),
+                  getParentForChildren(),
+                  isClean());
+          shards_ = null;
+        }
+        return shardsBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFieldsProto3(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:ShardList)
+    }
+
+    // @@protoc_insertion_point(class_scope:ShardList)
+    private static final sjtu.opennet.textilepb.Multicast.ShardList DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new sjtu.opennet.textilepb.Multicast.ShardList();
+    }
+
+    public static sjtu.opennet.textilepb.Multicast.ShardList getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<ShardList>
+        PARSER = new com.google.protobuf.AbstractParser<ShardList>() {
+      @java.lang.Override
+      public ShardList parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new ShardList(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<ShardList> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<ShardList> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public sjtu.opennet.textilepb.Multicast.ShardList getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_MulticastPacket_descriptor;
   private static final 
@@ -3967,6 +5420,16 @@ public final class Multicast {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_MulticastEnd_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_Shard_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_Shard_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_ShardList_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_ShardList_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -3991,8 +5454,11 @@ public final class Multicast {
       "astData\022\n\n\002id\030\001 \001(\t\022\014\n\004data\030\002 \001(\014\022\r\n\005ind" +
       "ex\030\003 \001(\005\022\022\n\ngroupIndex\030\004 \001(\005\022\020\n\010shardNum" +
       "\030\005 \001(\005\022\021\n\tparityNum\030\006 \001(\005\"\032\n\014MulticastEn" +
-      "d\022\n\n\002id\030\001 \001(\tB\034\n\026sjtu.opennet.textilepbZ" +
-      "\002pbb\006proto3"
+      "d\022\n\n\002id\030\001 \001(\t\"$\n\005Shard\022\r\n\005index\030\001 \001(\005\022\014\n" +
+      "\004data\030\002 \001(\014\"N\n\tShardList\022\023\n\013ShardNumber\030" +
+      "\001 \001(\005\022\024\n\014ParityNumber\030\002 \001(\005\022\026\n\006shards\030\003 " +
+      "\003(\0132\006.ShardB\034\n\026sjtu.opennet.textilepbZ\002p" +
+      "bb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -4032,6 +5498,18 @@ public final class Multicast {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_MulticastEnd_descriptor,
         new java.lang.String[] { "Id", });
+    internal_static_Shard_descriptor =
+      getDescriptor().getMessageTypes().get(4);
+    internal_static_Shard_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_Shard_descriptor,
+        new java.lang.String[] { "Index", "Data", });
+    internal_static_ShardList_descriptor =
+      getDescriptor().getMessageTypes().get(5);
+    internal_static_ShardList_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_ShardList_descriptor,
+        new java.lang.String[] { "ShardNumber", "ParityNumber", "Shards", });
     com.google.protobuf.TimestampProto.getDescriptor();
     com.google.protobuf.AnyProto.getDescriptor();
   }

@@ -7,7 +7,6 @@ import (
 	"github.com/SJTU-OpenNetwork/hon-textile/core"
 )
 
-
 func (m *Mobile) StartStream(thread string, stream []byte) error {
 	if !m.node.Started() {
 		return core.ErrStopped
@@ -17,7 +16,7 @@ func (m *Mobile) StartStream(thread string, stream []byte) error {
 	if err := proto.Unmarshal(stream, model); err != nil {
 		return err
 	}
-    err := m.node.StartStream(thread, model)
+	err := m.node.StartStream(thread, model)
 	if err != nil {
 		return err
 	}
@@ -40,7 +39,7 @@ func (m *Mobile) StartStream_Text(thread string, stream []byte) error {
 	return nil
 }
 
-func (m *Mobile) SetStreamSpeedInterval(intv int64){
+func (m *Mobile) SetStreamSpeedInterval(intv int64) {
 	m.node.ShadowSpeedSlow(intv)
 }
 
@@ -98,15 +97,15 @@ func (m *Mobile) CloseStream(threadId string, streamId string) error {
 		return core.ErrStopped
 	}
 
-	return m.node.CloseStream(threadId,streamId)
+	return m.node.CloseStream(threadId, streamId)
 }
 
-func (m *Mobile) ThreadAddStream(threadId string, streamId string) error{
+func (m *Mobile) ThreadAddStream(threadId string, streamId string) error {
 	if !m.node.Started() {
 		return core.ErrStopped
 	}
 
-	return m.node.ThreadAddStream(threadId,streamId)
+	return m.node.ThreadAddStream(threadId, streamId)
 }
 
 func (m *Mobile) SetMaxWorkers(n int) {
@@ -129,3 +128,10 @@ func (m *Mobile) GetStreamDuration(streamId string) int64 {
 	return m.node.GetDuration(streamId)
 }
 
+func (m *Mobile) GetStreamMode() int {
+	return m.node.GetStreamMode()
+}
+
+func (m *Mobile) SetStreamMode(mode int) {
+	m.node.SetStreamMode(mode)
+}

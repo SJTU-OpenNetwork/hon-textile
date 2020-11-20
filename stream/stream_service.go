@@ -318,6 +318,8 @@ func (h *StreamService) OnStreamMeta(meta *pb.StreamMeta, treePrevious []string)
 		last := h.datastore.StreamBlocks().LastIndex(meta.Id)
 		if localMeta != nil && last == localMeta.Nblocks && last != 0 {
 			complete = true
+		} else {
+			info = h.streamInfos.getOrCreate(meta.Id)
 		}
 	} else {
 		complete = (info.status == pb.StreamStatus_COMPLETE)

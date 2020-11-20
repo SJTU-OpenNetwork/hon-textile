@@ -1,17 +1,17 @@
 package mobile
 
 import (
-    "fmt"
-	"github.com/SJTU-OpenNetwork/hon-textile/recorder"
-	"github.com/golang/protobuf/proto"
-	logging "github.com/ipfs/go-log"
-	mh "github.com/multiformats/go-multihash"
+	"fmt"
 	"github.com/SJTU-OpenNetwork/hon-textile/broadcast"
 	"github.com/SJTU-OpenNetwork/hon-textile/common"
 	"github.com/SJTU-OpenNetwork/hon-textile/core"
 	"github.com/SJTU-OpenNetwork/hon-textile/keypair"
 	"github.com/SJTU-OpenNetwork/hon-textile/pb"
+	"github.com/SJTU-OpenNetwork/hon-textile/recorder"
 	"github.com/SJTU-OpenNetwork/hon-textile/wallet"
+	"github.com/golang/protobuf/proto"
+	logging "github.com/ipfs/go-log"
+	mh "github.com/multiformats/go-multihash"
 )
 
 var log = logging.Logger("tex-mobile")
@@ -67,6 +67,7 @@ type IpfsAddDataCallback interface {
 	Call(path string, err error)
 }
 
+
 // Used by mobile.IpfsComparePath
 type IpfsCompareCallback interface {
 	// n1: number of cids in first path
@@ -80,6 +81,13 @@ type IpfsListPathCallback interface {
 	OnCid(str string)
 	OnError(err error)
 	OnComplete()
+}
+// ShardPbCallback is used to get the shards from shardlist.
+// Note that the meaning of data is according to caller.
+type ShardCallback interface {
+	OnShard(data []byte)
+	OnComplete()
+	OnError(err error)
 }
 
 // NewWallet creates a brand new wallet and returns its recovery phrase

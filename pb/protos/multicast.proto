@@ -48,3 +48,14 @@ message MulticastData {
 message MulticastEnd {
   string id = 1;
 }
+
+message Shard {
+  int32 index = 1;
+  bytes data = 2;
+}
+
+message ShardList {
+  int32 ShardNumber = 1;
+  int32 ParityNumber = 2;
+  repeated Shard shards = 3;
+}
