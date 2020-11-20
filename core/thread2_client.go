@@ -120,7 +120,8 @@ const (
 	textMessage = "TEXT_MESSAGE_THREAD2"
 	pictureMessage = "PICTURE_MESSAGE_THREAD2"
 	fileMessage = "FILE_MESSAGE_THREAD2"
-	videoMessage = "VIDEO_MESSAGE_THREAD2"
+	ticketVideoMessage = "TICKET_VIDEO_MESSAGE_THREAD2"
+	streamVideoMessage = "STREAM_VIDEO_MESSAGE_THREAD2"
 )
 
 type FileMessage struct {
@@ -130,6 +131,7 @@ type FileMessage struct {
 	Type    string   `xml:"type"`
 	Size    int64   `xml:"size"`
 	MesString string `xml:"mes_string"`
+	VideoId string   `xml:"video_id"`
 }
 type ThreadMember struct {
 	ID       string `json:"_id"`
@@ -848,6 +850,39 @@ func (t *Textile) Thread2AddFile(path string, threadIdStr string) (string, error
 	//Add file to thread2
 	Ids, err := t.CreateMesInstance(threadId, client.Instances{
 		//&ThreadMessage{Sender: t.Account().Address(), Time: int(time.Now().Unix()),Type:pictureMessage, Content: contentStr}})
+		&ThreadMessage{Sender: t.Account().Address(), Time: int(time.Now().Unix()), Content: contentStr}})
+	if err != nil {
+		return "",err
+	}
+	return Ids[0],nil
+}
+
+func (t *Textile) Thread2AddTicketVideo(threadIdStr string, videoId string) (string,error) {
+	threadId, err := thread.Decode(threadIdStr)
+	if err != nil {
+		return "",err
+	}
+
+	video := t.GetVideo(videoId)
+	if video == nil {
+		return "",ErrVideoNotFound
+	}
+
+	fm := &FileMessage{
+		Name: video.Caption,//video caption
+		Path: video.Poster,//video poster hash
+		Type:ticketVideoMessage,
+		VideoId: video.Id,
+	}
+	var contentStr string
+	if bytes,err := xml.Marshal(fm); err != nil {
+		fmt.Printf("error: %v\n", err)
+	}else {
+		contentStr = string(bytes)
+	}
+
+	//Add file to thread2
+	Ids, err := t.CreateMesInstance(threadId, client.Instances{
 		&ThreadMessage{Sender: t.Account().Address(), Time: int(time.Now().Unix()), Content: contentStr}})
 	if err != nil {
 		return "",err

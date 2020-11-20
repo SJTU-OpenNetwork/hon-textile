@@ -135,6 +135,14 @@ func (m *Mobile) Thread2AddFile(path string, threadId string,cb Thread2AddFileCa
 	}()
 }
 
+func (m *Mobile) Thread2AddTicketVideo(thread string, video string) error {
+	_,err := m.node.Thread2AddTicketVideo(thread, video)
+	if err != nil {
+		log.Error(err)
+		return err
+	}
+	return nil
+}
 
 //peer invite remove find modify
 func (m *Mobile) Thread2InviteMember(threadId string, peerid string) error {
