@@ -67,6 +67,21 @@ type IpfsAddDataCallback interface {
 	Call(path string, err error)
 }
 
+// Used by mobile.IpfsComparePath
+type IpfsCompareCallback interface {
+	// n1: number of cids in first path
+	// n2: number of cids in second path
+	// same: number of same cids
+	Call(n1 int, n2 int, same int, err error)
+}
+
+// Used by mobild.IpfsListCids
+type IpfsListPathCallback interface {
+	OnCid(str string)
+	OnError(err error)
+	OnComplete()
+}
+
 // NewWallet creates a brand new wallet and returns its recovery phrase
 func NewWallet(wordCount int) (string, error) {
 	w, err := wallet.WalletFromWordCount(wordCount)

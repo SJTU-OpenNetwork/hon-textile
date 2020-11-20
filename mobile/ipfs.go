@@ -260,11 +260,36 @@ func (m *Mobile) ipfsAddData(data []byte, pin bool, hashOnly bool) (string, erro
 	return path, nil
 }
 
-
-
 func (m *Mobile) ObjectAtPath(pth string) ([]byte, error) {
 	if !m.node.Started() {
 		return nil, core.ErrStopped
 	}
 	return ipfs.ObjectAtPath(m.node.Ipfs(), pth)
+}
+
+func (m *Mobile) IpfsComparePath(pth1 string, pth2 string, cb IpfsCompareCallback) {
+	if !m.node.Started() {
+		cb.Call(0,0,0, core.ErrStopped)
+	}
+	m.node.WaitAdd(1, "Mobile.IpfsComparePath")
+	go func() {
+		defer m.node.WaitDone("Mobile.IpfsComparePath")
+		cb.Call(ipfs.ComparePath(m.node.Ipfs(), pth1, pth2))
+	}()
+}
+
+func (m *Mobile) IpfsListCids(pth string, cb IpfsListPathCallback) {
+	if !m.node.Started() {
+		cb.OnError(core.ErrStopped)
+	}
+	list, err := ipfs.ListSortCids(m.node.Ipfs(), pth)
+	if err != nil {
+		cb.OnError(err)
+		return
+	}
+
+	for _, s := range list {
+		cb.OnCid(s)
+	}
+	cb.OnComplete()
 }

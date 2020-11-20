@@ -4,9 +4,11 @@ import (
 	"bufio"
     "context"
 	"encoding/json"
+	"github.com/SJTU-OpenNetwork/hon-textile/recorder"
 	"io"
 	"io/ioutil"
     "os"
+	"sort"
 	"strings"
 	"time"
     ospath "path"
@@ -490,6 +492,16 @@ func ListCids(node *core.IpfsNode, cid string) ([]string, error) {
 	return traverseAndList(node, cid)
 }
 
+func ListSortCids(node *core.IpfsNode, cid string) ([]string, error) {
+	list, err := traverseAndList(node, cid)
+	if err != nil {
+		log.Error("Error when traverse ", cid, ": ", err)
+		return nil, err
+	}
+	sort.Strings(list)
+	return list, nil
+}
+
 func traverseAndList(node *core.IpfsNode, cid string) ([]string, error) {
 	res := []string{cid}
 	links, err := LinksAtPath(node, cid)
@@ -508,4 +520,47 @@ func traverseAndList(node *core.IpfsNode, cid string) ([]string, error) {
 		}
 	}
 	return res, nil
+}
+
+// Note that ComparePath would not fetch or pin the cid.
+// return
+//	- number of cids in first path
+//	- number of cids in second path
+// 	- number of same cids
+//	- error
+func ComparePath(node *core.IpfsNode, pth1 string, pth2 string) (int, int, int, error){
+	list1, err := traverseAndList(node, pth1)
+	if err != nil {
+		log.Error("Error when traverse node ", pth1, ": ", err)
+		recorder.Hlog.Add("Error when traverse node "+ pth1+": " + err.Error())
+		return 0,0,0,err
+	}
+	sort.Strings(list1)
+
+	list2, err := traverseAndList(node, pth2)
+	if err != nil {
+		log.Error("Error when traverse node ", pth2, ": ", err)
+		recorder.Hlog.Add("Error when traverse node "+ pth2+": " + err.Error())
+		return 0,0,0,err
+	}
+	sort.Strings(list2)
+
+	n1 := len(list1)
+	n2 := len(list2)
+	var same = 0
+	var i1 = 0
+	var i2 = 0
+	for i1<n1 && i2 < n2 {
+		if list1[i1] == list2[i2] {
+			same +=1
+			i1+=1
+			i2+=1
+		} else if list1[i1] < list2[i2] {
+			i1+=1
+		} else {
+			i2+=1
+		}
+	}
+
+	return n1, n2, same, nil
 }
