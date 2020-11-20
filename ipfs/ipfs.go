@@ -2,14 +2,14 @@ package ipfs
 
 import (
 	"bufio"
-    "context"
+	"context"
 	"encoding/json"
 	"io"
 	"io/ioutil"
-    "os"
+	"os"
+	ospath "path"
 	"strings"
 	"time"
-    ospath "path"
 
 	icid "github.com/ipfs/go-cid"
 	files "github.com/ipfs/go-ipfs-files"
@@ -27,8 +27,8 @@ import (
 var log = logging.Logger("tex-ipfs")
 
 const DefaultTimeout = time.Second * 2 //from 5 to 2 2019.11.27
-const PinTimeout = time.Minute
-const CatTimeout = time.Minute
+const PinTimeout = 5 * time.Minute
+const CatTimeout = 20 * time.Minute
 const ConnectTimeout = time.Second * 5 //from 10 to 5 2019.11.27
 
 func PutBlock(node *core.IpfsNode, src io.Reader) (iface.BlockStat, error) {
@@ -54,7 +54,6 @@ func GetBlock(node *core.IpfsNode, p path.Path) (io.Reader, error) {
 
 	return api.Block().Get(ctx, p)
 }
-
 
 func FilePathAtIpfsPath(node *core.IpfsNode, pth string, repoPath string) (string, error) {
 	api, err := coreapi.NewCoreAPI(node)
@@ -82,22 +81,22 @@ func FilePathAtIpfsPath(node *core.IpfsNode, pth string, repoPath string) (strin
 		return "", iface.ErrNotSupported
 	}
 
-	tmpFilesDir := ospath.Join(repoPath,"tmpfiles")
+	tmpFilesDir := ospath.Join(repoPath, "tmpfiles")
 	_, err = os.Stat(tmpFilesDir)
-	if os.IsNotExist(err){
-		os.Mkdir(tmpFilesDir,0777)
-		os.Chmod(tmpFilesDir,0777)
+	if os.IsNotExist(err) {
+		os.Mkdir(tmpFilesDir, 0777)
+		os.Chmod(tmpFilesDir, 0777)
 	}
 
 	tmpPath := ospath.Join(tmpFilesDir, pth)
-	tmpFile,_ := os.OpenFile(tmpPath,os.O_WRONLY | os.O_CREATE | os.O_TRUNC,0666)
+	tmpFile, _ := os.OpenFile(tmpPath, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0666)
 	defer tmpFile.Close()
 	srcBuf := bufio.NewReader(file)
 	desBuf := bufio.NewWriter(tmpFile)
-	io.Copy(desBuf,srcBuf)
+	io.Copy(desBuf, srcBuf)
 	desBuf.Flush()
 
-	return tmpPath,nil
+	return tmpPath, nil
 }
 
 // DataAtPath return bytes under an ipfs path
