@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"context"
 	"encoding/json"
-	"github.com/SJTU-OpenNetwork/hon-textile/recorder"
 	"io"
 	"io/ioutil"
 	"os"
@@ -531,7 +530,7 @@ func ComparePath(node *core.IpfsNode, pth1 string, pth2 string) (int, int, int, 
 	list1, err := traverseAndList(node, pth1)
 	if err != nil {
 		log.Error("Error when traverse node ", pth1, ": ", err)
-		recorder.Hlog.Add("Error when traverse node "+ pth1+": " + err.Error())
+		//recorder.Hlog.Add("Error when traverse node "+ pth1+": " + err.Error())
 		return 0,0,0,err
 	}
 	sort.Strings(list1)
@@ -539,7 +538,7 @@ func ComparePath(node *core.IpfsNode, pth1 string, pth2 string) (int, int, int, 
 	list2, err := traverseAndList(node, pth2)
 	if err != nil {
 		log.Error("Error when traverse node ", pth2, ": ", err)
-		recorder.Hlog.Add("Error when traverse node "+ pth2+": " + err.Error())
+		//recorder.Hlog.Add("Error when traverse node "+ pth2+": " + err.Error())
 		return 0,0,0,err
 	}
 	sort.Strings(list2)
