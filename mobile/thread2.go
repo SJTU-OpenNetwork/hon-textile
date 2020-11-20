@@ -135,13 +135,13 @@ func (m *Mobile) Thread2AddFile(path string, threadId string,cb Thread2AddFileCa
 	}()
 }
 
-func (m *Mobile) Thread2AddTicketVideo(thread string, video string) error {
-	_,err := m.node.Thread2AddTicketVideo(thread, video)
+func (m *Mobile) Thread2AddTicketVideo(thread string, videoId string, cb Thread2AddFileCallback)  {
+	instanceId,err := m.node.Thread2AddTicketVideo(thread, videoId)
 	if err != nil {
 		log.Error(err)
-		return err
+		return
 	}
-	return nil
+	cb.Call(instanceId, nil)
 }
 
 //peer invite remove find modify
@@ -159,6 +159,25 @@ func (m *Mobile) Thead2MemberRole(threadId string, instanceId string) (string, e
 
 func (m *Mobile) Thead2MemberRoleChange(threadId string, instanceId string, role string) (string, error) {
 	return m.node.ModifyMemberInstance(threadId, instanceId, role)
+}
+
+
+// updateVideoChunk()
+
+/*
+<ts>
+
+</ts>
+<ts>
+
+</ts>
+
+
+
+ */
+
+func (m *Mobile) ThreadUpdateVideoChunk(threadId string, instanceId string, tsArray string){
+
 }
 
 

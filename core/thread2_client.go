@@ -623,8 +623,8 @@ func (t *Textile) ModifyMemberInstance(id string, instanceId string,  role strin
 }
 
 //Users can modify the message content.
-func (t *Textile) ModifyMessageInstance(id string, ids []string, newContent string) error {
-	threadId, err := thread.Decode(id)
+func (t *Textile) ModifyMessageInstance(threadid string, ids []string, newContent string) error {
+	threadId, err := thread.Decode(threadid)
 	if err != nil {
 		return err
 	}
@@ -889,6 +889,12 @@ func (t *Textile) Thread2AddTicketVideo(threadIdStr string, videoId string) (str
 	}
 	return Ids[0],nil
 }
+
+//func (t *Textile) ThreadUpdateVideoChunk() {
+//	fm := &FileMessage{
+//		MesString: tsArray,
+//	}
+//}
 
 //Users can modify the message content.
 func (t *Textile) GroupInfo(threadid string, instanceId string) (string,error) {
