@@ -144,6 +144,17 @@ func (m *Mobile) Thread2AddTicketVideo(thread string, videoId string, cb Thread2
 	cb.Call(instanceId, nil)
 }
 
+
+//Thread2UpdateVideoChunk
+func (m *Mobile) Thread2UpdateVideoChunk(threadId string, instanceId string, videoId, tsArray string){
+	err := m.node.Thread2UpdateVideoChunk(threadId, instanceId, videoId, tsArray)
+	if err != nil {
+		log.Error(err)
+		return
+	}
+}
+
+
 //peer invite remove find modify
 func (m *Mobile) Thread2InviteMember(threadId string, peerid string) error {
 	return m.node.Invite(threadId, peerid)
@@ -172,13 +183,9 @@ func (m *Mobile) Thead2MemberRoleChange(threadId string, instanceId string, role
 
 </ts>
 
+*/
 
 
- */
-
-func (m *Mobile) ThreadUpdateVideoChunk(threadId string, instanceId string, tsArray string){
-
-}
 
 
 

@@ -623,12 +623,12 @@ func (t *Textile) ModifyMemberInstance(id string, instanceId string,  role strin
 }
 
 //Users can modify the message content.
-func (t *Textile) ModifyMessageInstance(threadid string, ids []string, newContent string) error {
-	threadId, err := thread.Decode(threadid)
+func (t *Textile) ModifyMessageInstance(threadIdStr string, instanceId string, newContent string) error {
+	threadId, err := thread.Decode(threadIdStr)
 	if err != nil {
 		return err
 	}
-	instanceId := ids[0]
+	//instanceId := ids[0]
 	err = t.threadclient.Save(t.ctx, threadId, collectionMessage, client.Instances{ThreadMessage{ID: instanceId, Content: newContent}})
 	if err != nil {
 		return err
@@ -890,11 +890,38 @@ func (t *Textile) Thread2AddTicketVideo(threadIdStr string, videoId string) (str
 	return Ids[0],nil
 }
 
-//func (t *Textile) ThreadUpdateVideoChunk() {
-//	fm := &FileMessage{
-//		MesString: tsArray,
-//	}
-//}
+func (t *Textile) Thread2UpdateVideoChunk(threadIdStr string, instanceId string, videoId string, tsArray string ) error {
+	threadId, err := thread.Decode(threadIdStr)
+	if err != nil {
+		return err
+	}
+
+	video := t.GetVideo(videoId)
+	if video == nil {
+		return ErrVideoNotFound
+	}
+	fm := &FileMessage{
+		Name: video.Caption,//video caption
+		Path: video.Poster,//video poster hash
+		Type:ticketVideoMessage,
+		VideoId: video.Id,
+		MesString:tsArray,
+	}
+	var contentStr string
+	if bytes,err := xml.Marshal(fm); err != nil {
+		fmt.Printf("error: %v\n", err)
+	}else {
+		contentStr = string(bytes)
+	}
+
+	//Save video chunk change to thread2
+	err = t.threadclient.Save(t.ctx, threadId, collectionMessage, client.Instances{ThreadMessage{ID: instanceId, Content: contentStr}})
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
 
 //Users can modify the message content.
 func (t *Textile) GroupInfo(threadid string, instanceId string) (string,error) {
