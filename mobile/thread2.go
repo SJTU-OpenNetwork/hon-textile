@@ -135,6 +135,17 @@ func (m *Mobile) Thread2AddFile(path string, threadId string,cb Thread2AddFileCa
 	}()
 }
 
+func (m *Mobile) Thread2AddDir(path string, threadId string,cb Thread2AddFileCallback) {
+	go func() {
+		instanceId, err := m.node.Thread2AddDirectory(threadId, path)
+		if err != nil {
+			cb.Call("", err)
+			return
+		}
+		cb.Call(instanceId, nil)
+	}()
+}
+
 func (m *Mobile) Thread2AddTicketVideo(thread string, videoId string, cb Thread2AddFileCallback)  {
 	instanceId,err := m.node.Thread2AddTicketVideo(thread, videoId)
 	if err != nil {

@@ -8,13 +8,14 @@ import (
 	"fmt"
 	"github.com/SJTU-OpenNetwork/hon-textile/ipfs"
 	"github.com/libp2p/go-libp2p-core/crypto"
+	ma "github.com/multiformats/go-multiaddr"
 	"github.com/textileio/go-threads/api/client"
 	"github.com/textileio/go-threads/core/thread"
 	"github.com/textileio/go-threads/db"
 	threadutil "github.com/textileio/go-threads/util"
+	"io/ioutil"
 	"os"
 	"time"
-	ma "github.com/multiformats/go-multiaddr"
 )
 
 const (
@@ -120,6 +121,7 @@ const (
 	textMessage = "TEXT_MESSAGE_THREAD2"
 	pictureMessage = "PICTURE_MESSAGE_THREAD2"
 	fileMessage = "FILE_MESSAGE_THREAD2"
+	directoryMessage = "DIRECTORY_MESSAGE_THREAD2"
 	ticketVideoMessage = "TICKET_VIDEO_MESSAGE_THREAD2"
 	streamVideoMessage = "STREAM_VIDEO_MESSAGE_THREAD2"
 	ticketVideoChunks = "TICKET_VIDEO_CHUNKS_MESSAGE_THREAD2"
@@ -859,6 +861,47 @@ func (t *Textile) Thread2AddFile(path string, threadIdStr string) (string, error
 	return Ids[0],nil
 }
 
+func (t *Textile) Thread2AddDirectory(threadIdStr string, pth string) (string, error) {
+	threadId, err := thread.Decode(threadIdStr)
+	if err != nil {
+		return "",err
+	}
+	dirPath,err := t.thread2AddDirectory(pth)
+	if err != nil{
+		return "",err
+	}
+	fileInfo, err := os.Stat(pth)
+	if err != nil {
+		log.Error(err)
+		return "", err
+	}
+	fm := &FileMessage{
+		Name: fileInfo.Name(),
+		Type:directoryMessage,
+		Size: fileInfo.Size(),
+		MesString: dirPath,
+	}
+
+	//enc := xml.NewEncoder(os.Stdout)
+	//enc.Indent("  ", "    ")
+	//Marshal xml struct to bytes then to string.
+	var contentStr string
+	if bytes,err := xml.Marshal(fm); err != nil {
+		fmt.Printf("error: %v\n", err)
+	}else {
+		contentStr = string(bytes)
+	}
+
+	//Add file to thread2
+	Ids, err := t.CreateMesInstance(threadId, client.Instances{
+		//&ThreadMessage{Sender: t.Account().Address(), Time: int(time.Now().Unix()),Type:pictureMessage, Content: contentStr}})
+		&ThreadMessage{Sender: t.Account().Address(), Time: int(time.Now().Unix()), Content: contentStr}})
+	if err != nil {
+		return "",err
+	}
+	return Ids[0],nil
+}
+
 func (t *Textile) Thread2AddTicketVideo(threadIdStr string, videoId string) (string,error) {
 	threadId, err := thread.Decode(threadIdStr)
 	if err != nil {
@@ -1063,3 +1106,62 @@ func (t *Textile) ModifyGroupNumber(threadIdStr string) error {
 	}
 	return nil
 }
+
+func (t *Textile) ipfsAddDirectory(pth string,xml string) (string, error) {
+	rd, err := ioutil.ReadDir(pth)
+	for _, fi := range rd {
+		if fi.IsDir() {
+			xml = xml + "<dir>" + "<dirName>" + fi.Name() + "</dirName>"
+			xml,err = t.IpfsAddDirectory(pth + "/" + fi.Name(),xml)
+			if err != nil{
+				return "",err
+			}
+			xml = xml + "</dir>"
+		} else {
+			// Open file and get reader for file
+			// Add file to ipfs
+			filePath := pth + "/" + fi.Name()
+			f, err := os.Open(filePath)
+			if err != nil{
+				return "",err
+			}
+			r := bufio.NewReader(f)
+			fileCid, err := ipfs.AddData(t.node, r, true, false)
+			if err != nil {
+				return "",err
+			}
+			xml = xml + "<file>" +
+				"<fileName>" + fi.Name() + "</fileName>" +
+				"<fileHash>" + fileCid.String() + "</fileHash>" +
+						"</file>"
+		}
+	}
+	return xml,nil
+}
+
+func (t *Textile) thread2AddDirectory(pth string) (string, error) {
+	fileInfo, err := os.Stat(pth)
+	if err != nil {
+		log.Error(err)
+		return "", err
+	}
+	if !fileInfo.IsDir() {
+		err = errors.New("Thread2AddDirectory only supports adding directory to thread")
+		log.Error(err)
+		return "", err
+	}
+	//var build strings.Builder
+
+	filein,err  := t.IpfsAddDirectory(pth,"")
+	if err != nil{
+		return "",err
+	}
+	res := "<dir>"+
+			"<dirName>" + fileInfo.Name() +"</dirName>" +
+			filein +
+			"</dir>"
+	return res,nil
+}
+
+
+
