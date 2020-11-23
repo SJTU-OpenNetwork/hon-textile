@@ -863,17 +863,17 @@ func (t *Textile) Thread2AddTicketVideo(threadIdStr string, videoId string) (str
 		return "",err
 	}
 
-	video := t.GetVideo(videoId)
-	if video == nil {
-		return "",ErrVideoNotFound
-	}
+	//video := t.GetVideo(videoId)
+	//if video == nil {
+	//	return "",ErrVideoNotFound
+	//}
 
-	log.Debugf("video caption: %s, Path: %s, VideoId: %s", video.Caption, video.Poster,video.Id)
+//	log.Debugf("video caption: %s, Path: %s, VideoId: %s", video.Caption, video.Poster,video.Id)
 	fm := &FileMessage{
-		Name: video.Caption,//video caption
-		Path: video.Poster,//video poster hash
+		//Name: video.Caption,//video caption
+		Path: videoId,//video poster hash
 		Type:ticketVideoMessage,
-		VideoId: video.Id,
+		//VideoId: video.Id,
 	}
 	var contentStr string
 	if bytes,err := xml.Marshal(fm); err != nil {
