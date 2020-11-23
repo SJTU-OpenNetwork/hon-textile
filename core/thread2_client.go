@@ -122,6 +122,8 @@ const (
 	fileMessage = "FILE_MESSAGE_THREAD2"
 	ticketVideoMessage = "TICKET_VIDEO_MESSAGE_THREAD2"
 	streamVideoMessage = "STREAM_VIDEO_MESSAGE_THREAD2"
+	ticketVideoChunks = "TICKET_VIDEO_MESSAGE_THREAD2"
+
 )
 
 type FileMessage struct {
@@ -891,21 +893,21 @@ func (t *Textile) Thread2AddTicketVideo(threadIdStr string, videoId string) (str
 	return Ids[0],nil
 }
 
-func (t *Textile) Thread2UpdateVideoChunk(threadIdStr string, instanceId string, videoId string, tsArray string ) error {
+func (t *Textile) Thread2UpdateVideoChunk(threadIdStr string, instanceId string,  tsArray string ) error {
 	threadId, err := thread.Decode(threadIdStr)
 	if err != nil {
 		return err
 	}
 
-	video := t.GetVideo(videoId)
-	if video == nil {
-		return ErrVideoNotFound
-	}
+	//video := t.GetVideo(videoId)
+	//if video == nil {
+	//	return ErrVideoNotFound
+	//}
 	fm := &FileMessage{
-		Name: video.Caption,//video caption
-		Path: video.Poster,//video poster hash
-		Type:ticketVideoMessage,
-		VideoId: video.Id,
+		//Name: video.Caption,//video caption
+		//Path: video.Poster,//video poster hash
+		Type:ticketVideoChunks,
+		//VideoId: video.Id,
 		MesString:tsArray,
 	}
 	var contentStr string
