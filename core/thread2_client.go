@@ -122,7 +122,7 @@ const (
 	fileMessage = "FILE_MESSAGE_THREAD2"
 	ticketVideoMessage = "TICKET_VIDEO_MESSAGE_THREAD2"
 	streamVideoMessage = "STREAM_VIDEO_MESSAGE_THREAD2"
-	ticketVideoChunks = "TICKET_VIDEO_MESSAGE_THREAD2"
+	ticketVideoChunks = "TICKET_VIDEO_CHUNKS_MESSAGE_THREAD2"
 
 )
 
