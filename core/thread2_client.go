@@ -868,6 +868,7 @@ func (t *Textile) Thread2AddTicketVideo(threadIdStr string, videoId string) (str
 		return "",ErrVideoNotFound
 	}
 
+	log.Debugf("video caption: %s, Path: %s, VideoId: %s", video.Caption, video.Poster,video.Id)
 	fm := &FileMessage{
 		Name: video.Caption,//video caption
 		Path: video.Poster,//video poster hash
