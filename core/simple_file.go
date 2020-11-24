@@ -24,7 +24,7 @@ func (t *Textile) AddSimpleDirectory(path string, threadId string) (*pb.Block, e
 	return t.addSimpleFile(path, threadId, pb.SimpleFile_DIR)
 }
 
-func (t *Textile) addDirectory(path string, threadId string) (*pb.Block, error) {
+func (t *Textile) addDirectory(path string, threadId string, fileType pb.SimpleFile_Type) (*pb.Block, error) {
 	//hash, err := ipfs.AddData(t.node, reader, mill.Pin(), false)
 	log.Debugf("AddDirectory(%s, %s)", path, threadId)
 
