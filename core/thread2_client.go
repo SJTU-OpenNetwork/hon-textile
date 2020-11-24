@@ -1112,7 +1112,7 @@ func (t *Textile) ipfsAddDirectory(pth string,xml string) (string, error) {
 	for _, fi := range rd {
 		if fi.IsDir() {
 			xml = xml + "<dir>" + "<dirName>" + fi.Name() + "</dirName>"
-			xml,err = t.IpfsAddDirectory(pth + "/" + fi.Name(),xml)
+			xml,err = t.ipfsAddDirectory(pth + "/" + fi.Name(),xml)
 			if err != nil{
 				return "",err
 			}
@@ -1152,7 +1152,7 @@ func (t *Textile) thread2AddDirectory(pth string) (string, error) {
 	}
 	//var build strings.Builder
 
-	filein,err  := t.IpfsAddDirectory(pth,"")
+	filein,err  := t.ipfsAddDirectory(pth,"")
 	if err != nil{
 		return "",err
 	}
