@@ -1,6 +1,7 @@
 package api
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
@@ -53,8 +54,9 @@ func (a *Api) addSimpleDir(g *gin.Context) {
 		g.String(http.StatusBadGateway, "missing threadId")
 		return
 	}
-
+	fmt.Println("*********************************")
 	block, err := a.Node.AddSimpleDirectory(path, threadId)
+	fmt.Println("*********************************")
 	if err != nil {
 		log.Error(err)
 		g.String(http.StatusBadRequest, "error occur")
