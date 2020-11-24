@@ -102,6 +102,22 @@ func (m *Mobile) dataAtPath(pth string) ([]byte, string, error) {
 	return data, media, nil
 }
 
+func (m *Mobile) pathAtFolder(pth string) (string, error){
+	if !m.node.Started() {
+		return "", core.ErrStopped
+	}
+
+	path, err := m.node.FolderAtPath(pth)
+	if err != nil {
+		if err == ipld.ErrNotFound {
+			return "", nil
+		}
+		return "", err
+	}
+
+	return path,nil
+}
+
 func (m *Mobile) BigFileAtSimpleFile(feed []byte, cb PathCallbackWithTime) {
 	feedpb := &pb.FeedSimpleFile{}
 	err := proto.Unmarshal(feed, feedpb)
@@ -183,6 +199,47 @@ func (m *Mobile) DataAtFeedSimpleFile(feed []byte, cb DataCallbackWithTime) {
 		cb.Call(data, media, util.ProtoDuration(ipfsGetTime, ipfsDoneTime), err)
 	}()
 }
+
+func (m *Mobile) DataAtFeedSimpleFolder(feed []byte, cb PathCallback){
+	feedpb := &pb.FeedSimpleFile{}
+	err := proto.Unmarshal(feed, feedpb)
+	if err != nil {
+		cb.Call("","", err)
+	}
+	m.node.WaitAdd(1, "Mobile.DataAtFeedSimpleFolder")
+	go func() {
+		defer m.node.WaitDone("Mobile.DataAtFeedSimpleFolder")
+		var ipfsGetTime *tspb.Timestamp
+		var ipfsDoneTime *tspb.Timestamp
+		ipfsGetTime = ptypes.TimestampNow()
+		record := &pb.Notification{
+			Block:                feedpb.Block,
+			//Date:                 ptypes.TimestampNow(),
+			Date:					ipfsGetTime,
+			//Actor:                t.node().Identity.Pretty(),	// Whether this is id of this peer ?
+			Subject:              recorder.Event_CallIPFSGet,
+			Target:               feedpb.PeerId,
+			Read:                 false,						// Do not send to notification channel directly
+		}
+		recorder.RecordCh <- record
+		path, err := m.pathAtFolder(feedpb.SimpleFile.Path)
+		ipfsDoneTime = ptypes.TimestampNow()
+		if err == nil {
+			record2 := &pb.Notification{
+				Block: feedpb.Block,
+				//Date:  ptypes.TimestampNow(),
+				Date:	ipfsDoneTime,
+				//Actor:                t.node().Identity.Pretty(),	// Whether this is id of this peer ?
+				Subject: recorder.Event_DoneIPFSGet,
+				Target:  feedpb.PeerId,
+				Read:    false, // Do not send to notification channel directly
+			}
+			recorder.RecordCh <- record2
+		}
+		cb.Call(path, "", err)
+	}()
+}
+
 func (m *Mobile) BigFileAtStream(feed []byte, cid []byte, cb PathCallback) {
 	feedpb := &pb.FeedStreamMeta{}
 	err := proto.Unmarshal(feed, feedpb)

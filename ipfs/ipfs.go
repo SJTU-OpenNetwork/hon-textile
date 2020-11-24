@@ -109,7 +109,7 @@ func FolderAtPath(node *core.IpfsNode, pth string, repoPath string) (string, err
 	ctx, cancel := context.WithTimeout(node.Context(), CatTimeout)
 	defer cancel()
 
-	rootNodeDirectory, err := ipfs.Unixfs().Get(ctx, path.New(pth))
+	rootNodeDirectory, err := api.Unixfs().Get(ctx, path.New(pth))
 	if err != nil {
 		return "", err
 	}
@@ -300,12 +300,14 @@ func AddFolder(node *core.IpfsNode, path string, pin bool) (*icid.Cid, error) {
 	ctx, cancel := context.WithTimeout(node.Context(), PinTimeout)
 	defer cancel()
 
-	pth, err := ipfs.Unixfs().Add(ctx, dir, , options.Unixfs.HashOnly(hashOnly))
+	//pth, err := api.Unixfs().Add(ctx, dir, , options.Unixfs.HashOnly(hashOnly))
+	pth, err := api.Unixfs().Add(ctx, dir)
 	if err != nil {
 		return nil, err
 	}
 
-	if pin && !hashOnly {
+	//if pin && !hashOnly {
+	if pin {
 		err = api.Pin().Add(ctx, pth, options.Pin.Recursive(false))
 		if err != nil {
 			return nil, err

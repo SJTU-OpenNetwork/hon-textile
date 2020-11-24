@@ -1039,6 +1039,10 @@ func (t *Textile) DataAtPath(path string) ([]byte, error) {
 	return ipfs.DataAtPath(t.node, path)
 }
 
+func (t *Textile) FolderAtPath(path string) (string, error){
+	return ipfs.FolderAtPath(t.node, path, t.repoPath)
+}
+
 func (t *Textile) FilePathAtPath(path string) (string, error) {
 	return ipfs.FilePathAtIpfsPath(t.node, path, t.repoPath)
 }

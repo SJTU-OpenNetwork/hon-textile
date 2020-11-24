@@ -47,3 +47,23 @@ func (m *Mobile) AddSimplePicture(path string, threadId string, cb ProtoCallback
 		cb.Call(blockView, nil)
 	}()
 }
+
+func (m *Mobile) AddSimpleFolder(path string, threadId string, cb ProtoCallback){
+	m.node.WaitAdd(1, "Mobile.AddSimplePicture")
+	go func() {
+		defer m.node.WaitDone("Mobile.AddSimplePicture")
+
+		block, err := m.node.AddSimpleDirectory(path, threadId)
+		if err != nil {
+			cb.Call(nil, err)
+			return
+		}
+		blockView, err := proto.Marshal(block)
+		if err != nil {
+			cb.Call(nil, err)
+			return
+		}
+		m.node.FlushCafes()
+		cb.Call(blockView, nil)
+	}()
+}
