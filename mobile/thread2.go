@@ -157,8 +157,8 @@ func (m *Mobile) Thread2AddTicketVideo(thread string, videoId string, cb Thread2
 
 
 //Thread2UpdateVideoChunk
-func (m *Mobile) Thread2UpdateVideoChunk(threadId string, instanceId string, videoId, tsArray string){
-	err := m.node.Thread2UpdateVideoChunk(threadId, instanceId, tsArray)
+func (m *Mobile) Thread2UpdateVideoChunk(threadId string, instanceId string, videoId string, tsArray string){
+	err := m.node.Thread2UpdateVideoChunk(threadId, instanceId, videoId, tsArray)
 	if err != nil {
 		log.Error(err)
 		return

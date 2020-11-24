@@ -936,7 +936,7 @@ func (t *Textile) Thread2AddTicketVideo(threadIdStr string, videoId string) (str
 	return Ids[0],nil
 }
 
-func (t *Textile) Thread2UpdateVideoChunk(threadIdStr string, instanceId string,  tsArray string ) error {
+func (t *Textile) Thread2UpdateVideoChunk(threadIdStr string, instanceId string, videoId string, tsArray string ) error {
 	threadId, err := thread.Decode(threadIdStr)
 	if err != nil {
 		return err
@@ -950,7 +950,7 @@ func (t *Textile) Thread2UpdateVideoChunk(threadIdStr string, instanceId string,
 		//Name: video.Caption,//video caption
 		//Path: video.Poster,//video poster hash
 		Type:ticketVideoChunks,
-		//VideoId: video.Id,
+		VideoId: videoId,
 		MesString:tsArray,
 	}
 	var contentStr string
