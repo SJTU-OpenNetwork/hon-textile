@@ -100,6 +100,31 @@ func FilePathAtIpfsPath(node *core.IpfsNode, pth string, repoPath string) (strin
 	return tmpPath, nil
 }
 
+func FolderAtPath(node *core.IpfsNode, pth string, repoPath string) (string, error) {
+	api, err := coreapi.NewCoreAPI(node)
+	if err != nil {
+		return "", err
+	}
+
+	ctx, cancel := context.WithTimeout(node.Context(), CatTimeout)
+	defer cancel()
+
+	rootNodeDirectory, err := ipfs.Unixfs().Get(ctx, path.New(pth))
+	if err != nil {
+		return "", err
+	}
+
+	fileFolder := ospath.Join(repoPath, pth)
+
+	err = files.WriteTo(rootNodeDirectory, fileFolder)
+
+	if err != nil {
+		return "", err
+	}
+
+	return fileFolder, nil
+}
+
 // DataAtPath return bytes under an ipfs path
 func DataAtPath(node *core.IpfsNode, pth string) ([]byte, error) {
 	api, err := coreapi.NewCoreAPI(node)
@@ -259,6 +284,50 @@ func AddObject(node *core.IpfsNode, reader io.Reader, pin bool) (*icid.Cid, erro
 	id := pth.Cid()
 
 	return &id, nil
+}
+
+func AddFolder(node *core.IpfsNode, path string, pin bool) (*icid.Cid, error) {
+	api, err := coreapi.NewCoreAPI(node)
+	if err != nil {
+		return nil, err
+	}
+
+	dir, err := getUnixfsNode(path)
+	if err != nil {
+		return nil, err
+	}
+
+	ctx, cancel := context.WithTimeout(node.Context(), PinTimeout)
+	defer cancel()
+
+	pth, err := ipfs.Unixfs().Add(ctx, dir, , options.Unixfs.HashOnly(hashOnly))
+	if err != nil {
+		return nil, err
+	}
+
+	if pin && !hashOnly {
+		err = api.Pin().Add(ctx, pth, options.Pin.Recursive(false))
+		if err != nil {
+			return nil, err
+		}
+	}
+	id := pth.Cid()
+
+	return &id, nil
+}
+
+func getUnixfsNode(path string) (files.Node, error) {
+	st, err := os.Stat(path)
+	if err != nil {
+		return nil, err
+	}
+
+	f, err := files.NewSerialFile(path, false, st)
+	if err != nil {
+		return nil, err
+	}
+
+	return f, nil
 }
 
 // NodeAtLink returns the node behind an ipld link
