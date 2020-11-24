@@ -20,19 +20,23 @@ public final class MessageOuterClass {
 
     /**
      * <code>.Message.Type type = 1;</code>
+     * @return The enum numeric value on the wire for type.
      */
     int getTypeValue();
     /**
      * <code>.Message.Type type = 1;</code>
+     * @return The type.
      */
     sjtu.opennet.textilepb.MessageOuterClass.Message.Type getType();
 
     /**
      * <code>.google.protobuf.Any payload = 2;</code>
+     * @return Whether the payload field is set.
      */
     boolean hasPayload();
     /**
      * <code>.google.protobuf.Any payload = 2;</code>
+     * @return The payload.
      */
     com.google.protobuf.Any getPayload();
     /**
@@ -46,6 +50,7 @@ public final class MessageOuterClass {
      * </pre>
      *
      * <code>int32 request = 3;</code>
+     * @return The request.
      */
     int getRequest();
 
@@ -55,13 +60,14 @@ public final class MessageOuterClass {
      * </pre>
      *
      * <code>bool response = 4;</code>
+     * @return The response.
      */
     boolean getResponse();
   }
   /**
    * Protobuf type {@code Message}
    */
-  public  static final class Message extends
+  public static final class Message extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:Message)
       MessageOrBuilder {
@@ -72,8 +78,13 @@ public final class MessageOuterClass {
     }
     private Message() {
       type_ = 0;
-      request_ = 0;
-      response_ = false;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new Message();
     }
 
     @java.lang.Override
@@ -89,7 +100,6 @@ public final class MessageOuterClass {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -130,7 +140,7 @@ public final class MessageOuterClass {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -593,19 +603,19 @@ public final class MessageOuterClass {
       /**
        * <code>CAFE_CONTACT_QUERY = 68 [deprecated = true];</code>
        */
-      public static final int CAFE_CONTACT_QUERY_VALUE = 68;
+      @java.lang.Deprecated public static final int CAFE_CONTACT_QUERY_VALUE = 68;
       /**
        * <code>CAFE_CONTACT_QUERY_RES = 69 [deprecated = true];</code>
        */
-      public static final int CAFE_CONTACT_QUERY_RES_VALUE = 69;
+      @java.lang.Deprecated public static final int CAFE_CONTACT_QUERY_RES_VALUE = 69;
       /**
        * <code>CAFE_PUBSUB_CONTACT_QUERY = 100 [deprecated = true];</code>
        */
-      public static final int CAFE_PUBSUB_CONTACT_QUERY_VALUE = 100;
+      @java.lang.Deprecated public static final int CAFE_PUBSUB_CONTACT_QUERY_VALUE = 100;
       /**
        * <code>CAFE_PUBSUB_CONTACT_QUERY_RES = 101 [deprecated = true];</code>
        */
-      public static final int CAFE_PUBSUB_CONTACT_QUERY_RES_VALUE = 101;
+      @java.lang.Deprecated public static final int CAFE_PUBSUB_CONTACT_QUERY_RES_VALUE = 101;
       /**
        * <code>STREAM_BLOCK = 1001;</code>
        */
@@ -645,7 +655,7 @@ public final class MessageOuterClass {
       /**
        * <code>RECORD_REPORT = 1010 [deprecated = true];</code>
        */
-      public static final int RECORD_REPORT_VALUE = 1010;
+      @java.lang.Deprecated public static final int RECORD_REPORT_VALUE = 1010;
       /**
        * <code>RECORD_NOTIFICATION = 1011;</code>
        */
@@ -665,6 +675,8 @@ public final class MessageOuterClass {
       }
 
       /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
        * @deprecated Use {@link #forNumber(int)} instead.
        */
       @java.lang.Deprecated
@@ -672,6 +684,10 @@ public final class MessageOuterClass {
         return forNumber(value);
       }
 
+      /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
+       */
       public static Type forNumber(int value) {
         switch (value) {
           case 0: return PING;
@@ -752,6 +768,10 @@ public final class MessageOuterClass {
 
       public final com.google.protobuf.Descriptors.EnumValueDescriptor
           getValueDescriptor() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalStateException(
+              "Can't get the descriptor of an unrecognized enum value.");
+        }
         return getDescriptor().getValues().get(ordinal());
       }
       public final com.google.protobuf.Descriptors.EnumDescriptor
@@ -790,14 +810,16 @@ public final class MessageOuterClass {
     private int type_;
     /**
      * <code>.Message.Type type = 1;</code>
+     * @return The enum numeric value on the wire for type.
      */
-    public int getTypeValue() {
+    @java.lang.Override public int getTypeValue() {
       return type_;
     }
     /**
      * <code>.Message.Type type = 1;</code>
+     * @return The type.
      */
-    public sjtu.opennet.textilepb.MessageOuterClass.Message.Type getType() {
+    @java.lang.Override public sjtu.opennet.textilepb.MessageOuterClass.Message.Type getType() {
       @SuppressWarnings("deprecation")
       sjtu.opennet.textilepb.MessageOuterClass.Message.Type result = sjtu.opennet.textilepb.MessageOuterClass.Message.Type.valueOf(type_);
       return result == null ? sjtu.opennet.textilepb.MessageOuterClass.Message.Type.UNRECOGNIZED : result;
@@ -807,19 +829,24 @@ public final class MessageOuterClass {
     private com.google.protobuf.Any payload_;
     /**
      * <code>.google.protobuf.Any payload = 2;</code>
+     * @return Whether the payload field is set.
      */
+    @java.lang.Override
     public boolean hasPayload() {
       return payload_ != null;
     }
     /**
      * <code>.google.protobuf.Any payload = 2;</code>
+     * @return The payload.
      */
+    @java.lang.Override
     public com.google.protobuf.Any getPayload() {
       return payload_ == null ? com.google.protobuf.Any.getDefaultInstance() : payload_;
     }
     /**
      * <code>.google.protobuf.Any payload = 2;</code>
      */
+    @java.lang.Override
     public com.google.protobuf.AnyOrBuilder getPayloadOrBuilder() {
       return getPayload();
     }
@@ -832,7 +859,9 @@ public final class MessageOuterClass {
      * </pre>
      *
      * <code>int32 request = 3;</code>
+     * @return The request.
      */
+    @java.lang.Override
     public int getRequest() {
       return request_;
     }
@@ -845,7 +874,9 @@ public final class MessageOuterClass {
      * </pre>
      *
      * <code>bool response = 4;</code>
+     * @return The response.
      */
+    @java.lang.Override
     public boolean getResponse() {
       return response_;
     }
@@ -916,19 +947,18 @@ public final class MessageOuterClass {
       }
       sjtu.opennet.textilepb.MessageOuterClass.Message other = (sjtu.opennet.textilepb.MessageOuterClass.Message) obj;
 
-      boolean result = true;
-      result = result && type_ == other.type_;
-      result = result && (hasPayload() == other.hasPayload());
+      if (type_ != other.type_) return false;
+      if (hasPayload() != other.hasPayload()) return false;
       if (hasPayload()) {
-        result = result && getPayload()
-            .equals(other.getPayload());
+        if (!getPayload()
+            .equals(other.getPayload())) return false;
       }
-      result = result && (getRequest()
-          == other.getRequest());
-      result = result && (getResponse()
-          == other.getResponse());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (getRequest()
+          != other.getRequest()) return false;
+      if (getResponse()
+          != other.getResponse()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -1134,35 +1164,35 @@ public final class MessageOuterClass {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -1220,21 +1250,27 @@ public final class MessageOuterClass {
       private int type_ = 0;
       /**
        * <code>.Message.Type type = 1;</code>
+       * @return The enum numeric value on the wire for type.
        */
-      public int getTypeValue() {
+      @java.lang.Override public int getTypeValue() {
         return type_;
       }
       /**
        * <code>.Message.Type type = 1;</code>
+       * @param value The enum numeric value on the wire for type to set.
+       * @return This builder for chaining.
        */
       public Builder setTypeValue(int value) {
+        
         type_ = value;
         onChanged();
         return this;
       }
       /**
        * <code>.Message.Type type = 1;</code>
+       * @return The type.
        */
+      @java.lang.Override
       public sjtu.opennet.textilepb.MessageOuterClass.Message.Type getType() {
         @SuppressWarnings("deprecation")
         sjtu.opennet.textilepb.MessageOuterClass.Message.Type result = sjtu.opennet.textilepb.MessageOuterClass.Message.Type.valueOf(type_);
@@ -1242,6 +1278,8 @@ public final class MessageOuterClass {
       }
       /**
        * <code>.Message.Type type = 1;</code>
+       * @param value The type to set.
+       * @return This builder for chaining.
        */
       public Builder setType(sjtu.opennet.textilepb.MessageOuterClass.Message.Type value) {
         if (value == null) {
@@ -1254,6 +1292,7 @@ public final class MessageOuterClass {
       }
       /**
        * <code>.Message.Type type = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearType() {
         
@@ -1262,17 +1301,19 @@ public final class MessageOuterClass {
         return this;
       }
 
-      private com.google.protobuf.Any payload_ = null;
+      private com.google.protobuf.Any payload_;
       private com.google.protobuf.SingleFieldBuilderV3<
           com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> payloadBuilder_;
       /**
        * <code>.google.protobuf.Any payload = 2;</code>
+       * @return Whether the payload field is set.
        */
       public boolean hasPayload() {
         return payloadBuilder_ != null || payload_ != null;
       }
       /**
        * <code>.google.protobuf.Any payload = 2;</code>
+       * @return The payload.
        */
       public com.google.protobuf.Any getPayload() {
         if (payloadBuilder_ == null) {
@@ -1386,7 +1427,9 @@ public final class MessageOuterClass {
        * </pre>
        *
        * <code>int32 request = 3;</code>
+       * @return The request.
        */
+      @java.lang.Override
       public int getRequest() {
         return request_;
       }
@@ -1396,6 +1439,8 @@ public final class MessageOuterClass {
        * </pre>
        *
        * <code>int32 request = 3;</code>
+       * @param value The request to set.
+       * @return This builder for chaining.
        */
       public Builder setRequest(int value) {
         
@@ -1409,6 +1454,7 @@ public final class MessageOuterClass {
        * </pre>
        *
        * <code>int32 request = 3;</code>
+       * @return This builder for chaining.
        */
       public Builder clearRequest() {
         
@@ -1424,7 +1470,9 @@ public final class MessageOuterClass {
        * </pre>
        *
        * <code>bool response = 4;</code>
+       * @return The response.
        */
+      @java.lang.Override
       public boolean getResponse() {
         return response_;
       }
@@ -1434,6 +1482,8 @@ public final class MessageOuterClass {
        * </pre>
        *
        * <code>bool response = 4;</code>
+       * @param value The response to set.
+       * @return This builder for chaining.
        */
       public Builder setResponse(boolean value) {
         
@@ -1447,6 +1497,7 @@ public final class MessageOuterClass {
        * </pre>
        *
        * <code>bool response = 4;</code>
+       * @return This builder for chaining.
        */
       public Builder clearResponse() {
         
@@ -1457,7 +1508,7 @@ public final class MessageOuterClass {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -1513,10 +1564,12 @@ public final class MessageOuterClass {
 
     /**
      * <code>.Message message = 1;</code>
+     * @return Whether the message field is set.
      */
     boolean hasMessage();
     /**
      * <code>.Message message = 1;</code>
+     * @return The message.
      */
     sjtu.opennet.textilepb.MessageOuterClass.Message getMessage();
     /**
@@ -1526,13 +1579,14 @@ public final class MessageOuterClass {
 
     /**
      * <code>bytes sig = 2;</code>
+     * @return The sig.
      */
     com.google.protobuf.ByteString getSig();
   }
   /**
    * Protobuf type {@code Envelope}
    */
-  public  static final class Envelope extends
+  public static final class Envelope extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:Envelope)
       EnvelopeOrBuilder {
@@ -1543,6 +1597,13 @@ public final class MessageOuterClass {
     }
     private Envelope() {
       sig_ = com.google.protobuf.ByteString.EMPTY;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new Envelope();
     }
 
     @java.lang.Override
@@ -1558,7 +1619,6 @@ public final class MessageOuterClass {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -1588,7 +1648,7 @@ public final class MessageOuterClass {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -1623,19 +1683,24 @@ public final class MessageOuterClass {
     private sjtu.opennet.textilepb.MessageOuterClass.Message message_;
     /**
      * <code>.Message message = 1;</code>
+     * @return Whether the message field is set.
      */
+    @java.lang.Override
     public boolean hasMessage() {
       return message_ != null;
     }
     /**
      * <code>.Message message = 1;</code>
+     * @return The message.
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.MessageOuterClass.Message getMessage() {
       return message_ == null ? sjtu.opennet.textilepb.MessageOuterClass.Message.getDefaultInstance() : message_;
     }
     /**
      * <code>.Message message = 1;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.MessageOuterClass.MessageOrBuilder getMessageOrBuilder() {
       return getMessage();
     }
@@ -1644,7 +1709,9 @@ public final class MessageOuterClass {
     private com.google.protobuf.ByteString sig_;
     /**
      * <code>bytes sig = 2;</code>
+     * @return The sig.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getSig() {
       return sig_;
     }
@@ -1701,16 +1768,15 @@ public final class MessageOuterClass {
       }
       sjtu.opennet.textilepb.MessageOuterClass.Envelope other = (sjtu.opennet.textilepb.MessageOuterClass.Envelope) obj;
 
-      boolean result = true;
-      result = result && (hasMessage() == other.hasMessage());
+      if (hasMessage() != other.hasMessage()) return false;
       if (hasMessage()) {
-        result = result && getMessage()
-            .equals(other.getMessage());
+        if (!getMessage()
+            .equals(other.getMessage())) return false;
       }
-      result = result && getSig()
-          .equals(other.getSig());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getSig()
+          .equals(other.getSig())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -1905,35 +1971,35 @@ public final class MessageOuterClass {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -1982,17 +2048,19 @@ public final class MessageOuterClass {
         return this;
       }
 
-      private sjtu.opennet.textilepb.MessageOuterClass.Message message_ = null;
+      private sjtu.opennet.textilepb.MessageOuterClass.Message message_;
       private com.google.protobuf.SingleFieldBuilderV3<
           sjtu.opennet.textilepb.MessageOuterClass.Message, sjtu.opennet.textilepb.MessageOuterClass.Message.Builder, sjtu.opennet.textilepb.MessageOuterClass.MessageOrBuilder> messageBuilder_;
       /**
        * <code>.Message message = 1;</code>
+       * @return Whether the message field is set.
        */
       public boolean hasMessage() {
         return messageBuilder_ != null || message_ != null;
       }
       /**
        * <code>.Message message = 1;</code>
+       * @return The message.
        */
       public sjtu.opennet.textilepb.MessageOuterClass.Message getMessage() {
         if (messageBuilder_ == null) {
@@ -2102,12 +2170,16 @@ public final class MessageOuterClass {
       private com.google.protobuf.ByteString sig_ = com.google.protobuf.ByteString.EMPTY;
       /**
        * <code>bytes sig = 2;</code>
+       * @return The sig.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getSig() {
         return sig_;
       }
       /**
        * <code>bytes sig = 2;</code>
+       * @param value The sig to set.
+       * @return This builder for chaining.
        */
       public Builder setSig(com.google.protobuf.ByteString value) {
         if (value == null) {
@@ -2120,6 +2192,7 @@ public final class MessageOuterClass {
       }
       /**
        * <code>bytes sig = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearSig() {
         
@@ -2130,7 +2203,7 @@ public final class MessageOuterClass {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -2186,15 +2259,18 @@ public final class MessageOuterClass {
 
     /**
      * <code>uint32 code = 1;</code>
+     * @return The code.
      */
     int getCode();
 
     /**
      * <code>string message = 2;</code>
+     * @return The message.
      */
     java.lang.String getMessage();
     /**
      * <code>string message = 2;</code>
+     * @return The bytes for message.
      */
     com.google.protobuf.ByteString
         getMessageBytes();
@@ -2202,7 +2278,7 @@ public final class MessageOuterClass {
   /**
    * Protobuf type {@code Error}
    */
-  public  static final class Error extends
+  public static final class Error extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:Error)
       ErrorOrBuilder {
@@ -2212,8 +2288,14 @@ public final class MessageOuterClass {
       super(builder);
     }
     private Error() {
-      code_ = 0;
       message_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new Error();
     }
 
     @java.lang.Override
@@ -2229,7 +2311,6 @@ public final class MessageOuterClass {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -2252,7 +2333,7 @@ public final class MessageOuterClass {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -2287,7 +2368,9 @@ public final class MessageOuterClass {
     private int code_;
     /**
      * <code>uint32 code = 1;</code>
+     * @return The code.
      */
+    @java.lang.Override
     public int getCode() {
       return code_;
     }
@@ -2296,7 +2379,9 @@ public final class MessageOuterClass {
     private volatile java.lang.Object message_;
     /**
      * <code>string message = 2;</code>
+     * @return The message.
      */
+    @java.lang.Override
     public java.lang.String getMessage() {
       java.lang.Object ref = message_;
       if (ref instanceof java.lang.String) {
@@ -2311,7 +2396,9 @@ public final class MessageOuterClass {
     }
     /**
      * <code>string message = 2;</code>
+     * @return The bytes for message.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getMessageBytes() {
       java.lang.Object ref = message_;
@@ -2377,13 +2464,12 @@ public final class MessageOuterClass {
       }
       sjtu.opennet.textilepb.MessageOuterClass.Error other = (sjtu.opennet.textilepb.MessageOuterClass.Error) obj;
 
-      boolean result = true;
-      result = result && (getCode()
-          == other.getCode());
-      result = result && getMessage()
-          .equals(other.getMessage());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (getCode()
+          != other.getCode()) return false;
+      if (!getMessage()
+          .equals(other.getMessage())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -2568,35 +2654,35 @@ public final class MessageOuterClass {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -2649,12 +2735,16 @@ public final class MessageOuterClass {
       private int code_ ;
       /**
        * <code>uint32 code = 1;</code>
+       * @return The code.
        */
+      @java.lang.Override
       public int getCode() {
         return code_;
       }
       /**
        * <code>uint32 code = 1;</code>
+       * @param value The code to set.
+       * @return This builder for chaining.
        */
       public Builder setCode(int value) {
         
@@ -2664,6 +2754,7 @@ public final class MessageOuterClass {
       }
       /**
        * <code>uint32 code = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearCode() {
         
@@ -2675,6 +2766,7 @@ public final class MessageOuterClass {
       private java.lang.Object message_ = "";
       /**
        * <code>string message = 2;</code>
+       * @return The message.
        */
       public java.lang.String getMessage() {
         java.lang.Object ref = message_;
@@ -2690,6 +2782,7 @@ public final class MessageOuterClass {
       }
       /**
        * <code>string message = 2;</code>
+       * @return The bytes for message.
        */
       public com.google.protobuf.ByteString
           getMessageBytes() {
@@ -2706,6 +2799,8 @@ public final class MessageOuterClass {
       }
       /**
        * <code>string message = 2;</code>
+       * @param value The message to set.
+       * @return This builder for chaining.
        */
       public Builder setMessage(
           java.lang.String value) {
@@ -2719,6 +2814,7 @@ public final class MessageOuterClass {
       }
       /**
        * <code>string message = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearMessage() {
         
@@ -2728,6 +2824,8 @@ public final class MessageOuterClass {
       }
       /**
        * <code>string message = 2;</code>
+       * @param value The bytes for message to set.
+       * @return This builder for chaining.
        */
       public Builder setMessageBytes(
           com.google.protobuf.ByteString value) {
@@ -2743,7 +2841,7 @@ public final class MessageOuterClass {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -2862,19 +2960,11 @@ public final class MessageOuterClass {
       "\001(\r\022\017\n\007message\030\002 \001(\tB\034\n\026sjtu.opennet.tex" +
       "tilepbZ\002pbb\006proto3"
     };
-    com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
-        new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
-          public com.google.protobuf.ExtensionRegistry assignDescriptors(
-              com.google.protobuf.Descriptors.FileDescriptor root) {
-            descriptor = root;
-            return null;
-          }
-        };
-    com.google.protobuf.Descriptors.FileDescriptor
+    descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           com.google.protobuf.AnyProto.getDescriptor(),
-        }, assigner);
+        });
     internal_static_Message_descriptor =
       getDescriptor().getMessageTypes().get(0);
     internal_static_Message_fieldAccessorTable = new

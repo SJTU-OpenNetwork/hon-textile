@@ -20,20 +20,24 @@ public final class RecordService {
 
     /**
      * <code>string key = 1;</code>
+     * @return The key.
      */
     java.lang.String getKey();
     /**
      * <code>string key = 1;</code>
+     * @return The bytes for key.
      */
     com.google.protobuf.ByteString
         getKeyBytes();
 
     /**
      * <code>.google.protobuf.Timestamp start = 2;</code>
+     * @return Whether the start field is set.
      */
     boolean hasStart();
     /**
      * <code>.google.protobuf.Timestamp start = 2;</code>
+     * @return The start.
      */
     com.google.protobuf.Timestamp getStart();
     /**
@@ -43,10 +47,12 @@ public final class RecordService {
 
     /**
      * <code>.google.protobuf.Timestamp end = 3;</code>
+     * @return Whether the end field is set.
      */
     boolean hasEnd();
     /**
      * <code>.google.protobuf.Timestamp end = 3;</code>
+     * @return The end.
      */
     com.google.protobuf.Timestamp getEnd();
     /**
@@ -57,7 +63,7 @@ public final class RecordService {
   /**
    * Protobuf type {@code RecordReport}
    */
-  public  static final class RecordReport extends
+  public static final class RecordReport extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:RecordReport)
       RecordReportOrBuilder {
@@ -68,6 +74,13 @@ public final class RecordService {
     }
     private RecordReport() {
       key_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new RecordReport();
     }
 
     @java.lang.Override
@@ -83,7 +96,6 @@ public final class RecordService {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -127,7 +139,7 @@ public final class RecordService {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -162,7 +174,9 @@ public final class RecordService {
     private volatile java.lang.Object key_;
     /**
      * <code>string key = 1;</code>
+     * @return The key.
      */
+    @java.lang.Override
     public java.lang.String getKey() {
       java.lang.Object ref = key_;
       if (ref instanceof java.lang.String) {
@@ -177,7 +191,9 @@ public final class RecordService {
     }
     /**
      * <code>string key = 1;</code>
+     * @return The bytes for key.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getKeyBytes() {
       java.lang.Object ref = key_;
@@ -196,19 +212,24 @@ public final class RecordService {
     private com.google.protobuf.Timestamp start_;
     /**
      * <code>.google.protobuf.Timestamp start = 2;</code>
+     * @return Whether the start field is set.
      */
+    @java.lang.Override
     public boolean hasStart() {
       return start_ != null;
     }
     /**
      * <code>.google.protobuf.Timestamp start = 2;</code>
+     * @return The start.
      */
+    @java.lang.Override
     public com.google.protobuf.Timestamp getStart() {
       return start_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : start_;
     }
     /**
      * <code>.google.protobuf.Timestamp start = 2;</code>
      */
+    @java.lang.Override
     public com.google.protobuf.TimestampOrBuilder getStartOrBuilder() {
       return getStart();
     }
@@ -217,19 +238,24 @@ public final class RecordService {
     private com.google.protobuf.Timestamp end_;
     /**
      * <code>.google.protobuf.Timestamp end = 3;</code>
+     * @return Whether the end field is set.
      */
+    @java.lang.Override
     public boolean hasEnd() {
       return end_ != null;
     }
     /**
      * <code>.google.protobuf.Timestamp end = 3;</code>
+     * @return The end.
      */
+    @java.lang.Override
     public com.google.protobuf.Timestamp getEnd() {
       return end_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : end_;
     }
     /**
      * <code>.google.protobuf.Timestamp end = 3;</code>
      */
+    @java.lang.Override
     public com.google.protobuf.TimestampOrBuilder getEndOrBuilder() {
       return getEnd();
     }
@@ -292,21 +318,20 @@ public final class RecordService {
       }
       sjtu.opennet.textilepb.RecordService.RecordReport other = (sjtu.opennet.textilepb.RecordService.RecordReport) obj;
 
-      boolean result = true;
-      result = result && getKey()
-          .equals(other.getKey());
-      result = result && (hasStart() == other.hasStart());
+      if (!getKey()
+          .equals(other.getKey())) return false;
+      if (hasStart() != other.hasStart()) return false;
       if (hasStart()) {
-        result = result && getStart()
-            .equals(other.getStart());
+        if (!getStart()
+            .equals(other.getStart())) return false;
       }
-      result = result && (hasEnd() == other.hasEnd());
+      if (hasEnd() != other.hasEnd()) return false;
       if (hasEnd()) {
-        result = result && getEnd()
-            .equals(other.getEnd());
+        if (!getEnd()
+            .equals(other.getEnd())) return false;
       }
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -516,35 +541,35 @@ public final class RecordService {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -600,6 +625,7 @@ public final class RecordService {
       private java.lang.Object key_ = "";
       /**
        * <code>string key = 1;</code>
+       * @return The key.
        */
       public java.lang.String getKey() {
         java.lang.Object ref = key_;
@@ -615,6 +641,7 @@ public final class RecordService {
       }
       /**
        * <code>string key = 1;</code>
+       * @return The bytes for key.
        */
       public com.google.protobuf.ByteString
           getKeyBytes() {
@@ -631,6 +658,8 @@ public final class RecordService {
       }
       /**
        * <code>string key = 1;</code>
+       * @param value The key to set.
+       * @return This builder for chaining.
        */
       public Builder setKey(
           java.lang.String value) {
@@ -644,6 +673,7 @@ public final class RecordService {
       }
       /**
        * <code>string key = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearKey() {
         
@@ -653,6 +683,8 @@ public final class RecordService {
       }
       /**
        * <code>string key = 1;</code>
+       * @param value The bytes for key to set.
+       * @return This builder for chaining.
        */
       public Builder setKeyBytes(
           com.google.protobuf.ByteString value) {
@@ -666,17 +698,19 @@ public final class RecordService {
         return this;
       }
 
-      private com.google.protobuf.Timestamp start_ = null;
+      private com.google.protobuf.Timestamp start_;
       private com.google.protobuf.SingleFieldBuilderV3<
           com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> startBuilder_;
       /**
        * <code>.google.protobuf.Timestamp start = 2;</code>
+       * @return Whether the start field is set.
        */
       public boolean hasStart() {
         return startBuilder_ != null || start_ != null;
       }
       /**
        * <code>.google.protobuf.Timestamp start = 2;</code>
+       * @return The start.
        */
       public com.google.protobuf.Timestamp getStart() {
         if (startBuilder_ == null) {
@@ -783,17 +817,19 @@ public final class RecordService {
         return startBuilder_;
       }
 
-      private com.google.protobuf.Timestamp end_ = null;
+      private com.google.protobuf.Timestamp end_;
       private com.google.protobuf.SingleFieldBuilderV3<
           com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> endBuilder_;
       /**
        * <code>.google.protobuf.Timestamp end = 3;</code>
+       * @return Whether the end field is set.
        */
       public boolean hasEnd() {
         return endBuilder_ != null || end_ != null;
       }
       /**
        * <code>.google.protobuf.Timestamp end = 3;</code>
+       * @return The end.
        */
       public com.google.protobuf.Timestamp getEnd() {
         if (endBuilder_ == null) {
@@ -902,7 +938,7 @@ public final class RecordService {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -973,19 +1009,11 @@ public final class RecordService {
       "imestampB\034\n\026sjtu.opennet.textilepbZ\002pbb\006" +
       "proto3"
     };
-    com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
-        new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
-          public com.google.protobuf.ExtensionRegistry assignDescriptors(
-              com.google.protobuf.Descriptors.FileDescriptor root) {
-            descriptor = root;
-            return null;
-          }
-        };
-    com.google.protobuf.Descriptors.FileDescriptor
+    descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           com.google.protobuf.TimestampProto.getDescriptor(),
-        }, assigner);
+        });
     internal_static_RecordReport_descriptor =
       getDescriptor().getMessageTypes().get(0);
     internal_static_RecordReport_fieldAccessorTable = new

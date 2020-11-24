@@ -20,19 +20,23 @@ public final class Multicast {
 
     /**
      * <code>.MulticastPacket.Type type = 1;</code>
+     * @return The enum numeric value on the wire for type.
      */
     int getTypeValue();
     /**
      * <code>.MulticastPacket.Type type = 1;</code>
+     * @return The type.
      */
     sjtu.opennet.textilepb.Multicast.MulticastPacket.Type getType();
 
     /**
      * <code>.google.protobuf.Any payload = 2;</code>
+     * @return Whether the payload field is set.
      */
     boolean hasPayload();
     /**
      * <code>.google.protobuf.Any payload = 2;</code>
+     * @return The payload.
      */
     com.google.protobuf.Any getPayload();
     /**
@@ -43,7 +47,7 @@ public final class Multicast {
   /**
    * Protobuf type {@code MulticastPacket}
    */
-  public  static final class MulticastPacket extends
+  public static final class MulticastPacket extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:MulticastPacket)
       MulticastPacketOrBuilder {
@@ -54,6 +58,13 @@ public final class Multicast {
     }
     private MulticastPacket() {
       type_ = 0;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new MulticastPacket();
     }
 
     @java.lang.Override
@@ -69,7 +80,6 @@ public final class Multicast {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -100,7 +110,7 @@ public final class Multicast {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -182,6 +192,8 @@ public final class Multicast {
       }
 
       /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
        * @deprecated Use {@link #forNumber(int)} instead.
        */
       @java.lang.Deprecated
@@ -189,6 +201,10 @@ public final class Multicast {
         return forNumber(value);
       }
 
+      /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
+       */
       public static Type forNumber(int value) {
         switch (value) {
           case 0: return META;
@@ -213,6 +229,10 @@ public final class Multicast {
 
       public final com.google.protobuf.Descriptors.EnumValueDescriptor
           getValueDescriptor() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalStateException(
+              "Can't get the descriptor of an unrecognized enum value.");
+        }
         return getDescriptor().getValues().get(ordinal());
       }
       public final com.google.protobuf.Descriptors.EnumDescriptor
@@ -251,14 +271,16 @@ public final class Multicast {
     private int type_;
     /**
      * <code>.MulticastPacket.Type type = 1;</code>
+     * @return The enum numeric value on the wire for type.
      */
-    public int getTypeValue() {
+    @java.lang.Override public int getTypeValue() {
       return type_;
     }
     /**
      * <code>.MulticastPacket.Type type = 1;</code>
+     * @return The type.
      */
-    public sjtu.opennet.textilepb.Multicast.MulticastPacket.Type getType() {
+    @java.lang.Override public sjtu.opennet.textilepb.Multicast.MulticastPacket.Type getType() {
       @SuppressWarnings("deprecation")
       sjtu.opennet.textilepb.Multicast.MulticastPacket.Type result = sjtu.opennet.textilepb.Multicast.MulticastPacket.Type.valueOf(type_);
       return result == null ? sjtu.opennet.textilepb.Multicast.MulticastPacket.Type.UNRECOGNIZED : result;
@@ -268,19 +290,24 @@ public final class Multicast {
     private com.google.protobuf.Any payload_;
     /**
      * <code>.google.protobuf.Any payload = 2;</code>
+     * @return Whether the payload field is set.
      */
+    @java.lang.Override
     public boolean hasPayload() {
       return payload_ != null;
     }
     /**
      * <code>.google.protobuf.Any payload = 2;</code>
+     * @return The payload.
      */
+    @java.lang.Override
     public com.google.protobuf.Any getPayload() {
       return payload_ == null ? com.google.protobuf.Any.getDefaultInstance() : payload_;
     }
     /**
      * <code>.google.protobuf.Any payload = 2;</code>
      */
+    @java.lang.Override
     public com.google.protobuf.AnyOrBuilder getPayloadOrBuilder() {
       return getPayload();
     }
@@ -337,15 +364,14 @@ public final class Multicast {
       }
       sjtu.opennet.textilepb.Multicast.MulticastPacket other = (sjtu.opennet.textilepb.Multicast.MulticastPacket) obj;
 
-      boolean result = true;
-      result = result && type_ == other.type_;
-      result = result && (hasPayload() == other.hasPayload());
+      if (type_ != other.type_) return false;
+      if (hasPayload() != other.hasPayload()) return false;
       if (hasPayload()) {
-        result = result && getPayload()
-            .equals(other.getPayload());
+        if (!getPayload()
+            .equals(other.getPayload())) return false;
       }
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -540,35 +566,35 @@ public final class Multicast {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -620,21 +646,27 @@ public final class Multicast {
       private int type_ = 0;
       /**
        * <code>.MulticastPacket.Type type = 1;</code>
+       * @return The enum numeric value on the wire for type.
        */
-      public int getTypeValue() {
+      @java.lang.Override public int getTypeValue() {
         return type_;
       }
       /**
        * <code>.MulticastPacket.Type type = 1;</code>
+       * @param value The enum numeric value on the wire for type to set.
+       * @return This builder for chaining.
        */
       public Builder setTypeValue(int value) {
+        
         type_ = value;
         onChanged();
         return this;
       }
       /**
        * <code>.MulticastPacket.Type type = 1;</code>
+       * @return The type.
        */
+      @java.lang.Override
       public sjtu.opennet.textilepb.Multicast.MulticastPacket.Type getType() {
         @SuppressWarnings("deprecation")
         sjtu.opennet.textilepb.Multicast.MulticastPacket.Type result = sjtu.opennet.textilepb.Multicast.MulticastPacket.Type.valueOf(type_);
@@ -642,6 +674,8 @@ public final class Multicast {
       }
       /**
        * <code>.MulticastPacket.Type type = 1;</code>
+       * @param value The type to set.
+       * @return This builder for chaining.
        */
       public Builder setType(sjtu.opennet.textilepb.Multicast.MulticastPacket.Type value) {
         if (value == null) {
@@ -654,6 +688,7 @@ public final class Multicast {
       }
       /**
        * <code>.MulticastPacket.Type type = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearType() {
         
@@ -662,17 +697,19 @@ public final class Multicast {
         return this;
       }
 
-      private com.google.protobuf.Any payload_ = null;
+      private com.google.protobuf.Any payload_;
       private com.google.protobuf.SingleFieldBuilderV3<
           com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> payloadBuilder_;
       /**
        * <code>.google.protobuf.Any payload = 2;</code>
+       * @return Whether the payload field is set.
        */
       public boolean hasPayload() {
         return payloadBuilder_ != null || payload_ != null;
       }
       /**
        * <code>.google.protobuf.Any payload = 2;</code>
+       * @return The payload.
        */
       public com.google.protobuf.Any getPayload() {
         if (payloadBuilder_ == null) {
@@ -781,7 +818,7 @@ public final class Multicast {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -837,10 +874,12 @@ public final class Multicast {
 
     /**
      * <code>.MulticastMeta.Type type = 1;</code>
+     * @return The enum numeric value on the wire for type.
      */
     int getTypeValue();
     /**
      * <code>.MulticastMeta.Type type = 1;</code>
+     * @return The type.
      */
     sjtu.opennet.textilepb.Multicast.MulticastMeta.Type getType();
 
@@ -850,6 +889,7 @@ public final class Multicast {
      * </pre>
      *
      * <code>string fileId = 2;</code>
+     * @return The fileId.
      */
     java.lang.String getFileId();
     /**
@@ -858,61 +898,73 @@ public final class Multicast {
      * </pre>
      *
      * <code>string fileId = 2;</code>
+     * @return The bytes for fileId.
      */
     com.google.protobuf.ByteString
         getFileIdBytes();
 
     /**
      * <code>string fileName = 3;</code>
+     * @return The fileName.
      */
     java.lang.String getFileName();
     /**
      * <code>string fileName = 3;</code>
+     * @return The bytes for fileName.
      */
     com.google.protobuf.ByteString
         getFileNameBytes();
 
     /**
      * <code>int32 fileSize = 4;</code>
+     * @return The fileSize.
      */
     int getFileSize();
 
     /**
      * <code>string senderName = 5;</code>
+     * @return The senderName.
      */
     java.lang.String getSenderName();
     /**
      * <code>string senderName = 5;</code>
+     * @return The bytes for senderName.
      */
     com.google.protobuf.ByteString
         getSenderNameBytes();
 
     /**
      * <code>string senderIp = 6;</code>
+     * @return The senderIp.
      */
     java.lang.String getSenderIp();
     /**
      * <code>string senderIp = 6;</code>
+     * @return The bytes for senderIp.
      */
     com.google.protobuf.ByteString
         getSenderIpBytes();
 
     /**
      * <code>string threadId = 7;</code>
+     * @return The threadId.
      */
     java.lang.String getThreadId();
     /**
      * <code>string threadId = 7;</code>
+     * @return The bytes for threadId.
      */
     com.google.protobuf.ByteString
         getThreadIdBytes();
 
     /**
      * <code>.google.protobuf.Timestamp sendTime = 8;</code>
+     * @return Whether the sendTime field is set.
      */
     boolean hasSendTime();
     /**
      * <code>.google.protobuf.Timestamp sendTime = 8;</code>
+     * @return The sendTime.
      */
     com.google.protobuf.Timestamp getSendTime();
     /**
@@ -923,7 +975,7 @@ public final class Multicast {
   /**
    * Protobuf type {@code MulticastMeta}
    */
-  public  static final class MulticastMeta extends
+  public static final class MulticastMeta extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:MulticastMeta)
       MulticastMetaOrBuilder {
@@ -936,10 +988,16 @@ public final class Multicast {
       type_ = 0;
       fileId_ = "";
       fileName_ = "";
-      fileSize_ = 0;
       senderName_ = "";
       senderIp_ = "";
       threadId_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new MulticastMeta();
     }
 
     @java.lang.Override
@@ -955,7 +1013,6 @@ public final class Multicast {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -1021,7 +1078,7 @@ public final class Multicast {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -1095,6 +1152,8 @@ public final class Multicast {
       }
 
       /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
        * @deprecated Use {@link #forNumber(int)} instead.
        */
       @java.lang.Deprecated
@@ -1102,6 +1161,10 @@ public final class Multicast {
         return forNumber(value);
       }
 
+      /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
+       */
       public static Type forNumber(int value) {
         switch (value) {
           case 0: return FILE;
@@ -1125,6 +1188,10 @@ public final class Multicast {
 
       public final com.google.protobuf.Descriptors.EnumValueDescriptor
           getValueDescriptor() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalStateException(
+              "Can't get the descriptor of an unrecognized enum value.");
+        }
         return getDescriptor().getValues().get(ordinal());
       }
       public final com.google.protobuf.Descriptors.EnumDescriptor
@@ -1163,14 +1230,16 @@ public final class Multicast {
     private int type_;
     /**
      * <code>.MulticastMeta.Type type = 1;</code>
+     * @return The enum numeric value on the wire for type.
      */
-    public int getTypeValue() {
+    @java.lang.Override public int getTypeValue() {
       return type_;
     }
     /**
      * <code>.MulticastMeta.Type type = 1;</code>
+     * @return The type.
      */
-    public sjtu.opennet.textilepb.Multicast.MulticastMeta.Type getType() {
+    @java.lang.Override public sjtu.opennet.textilepb.Multicast.MulticastMeta.Type getType() {
       @SuppressWarnings("deprecation")
       sjtu.opennet.textilepb.Multicast.MulticastMeta.Type result = sjtu.opennet.textilepb.Multicast.MulticastMeta.Type.valueOf(type_);
       return result == null ? sjtu.opennet.textilepb.Multicast.MulticastMeta.Type.UNRECOGNIZED : result;
@@ -1184,7 +1253,9 @@ public final class Multicast {
      * </pre>
      *
      * <code>string fileId = 2;</code>
+     * @return The fileId.
      */
+    @java.lang.Override
     public java.lang.String getFileId() {
       java.lang.Object ref = fileId_;
       if (ref instanceof java.lang.String) {
@@ -1203,7 +1274,9 @@ public final class Multicast {
      * </pre>
      *
      * <code>string fileId = 2;</code>
+     * @return The bytes for fileId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getFileIdBytes() {
       java.lang.Object ref = fileId_;
@@ -1222,7 +1295,9 @@ public final class Multicast {
     private volatile java.lang.Object fileName_;
     /**
      * <code>string fileName = 3;</code>
+     * @return The fileName.
      */
+    @java.lang.Override
     public java.lang.String getFileName() {
       java.lang.Object ref = fileName_;
       if (ref instanceof java.lang.String) {
@@ -1237,7 +1312,9 @@ public final class Multicast {
     }
     /**
      * <code>string fileName = 3;</code>
+     * @return The bytes for fileName.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getFileNameBytes() {
       java.lang.Object ref = fileName_;
@@ -1256,7 +1333,9 @@ public final class Multicast {
     private int fileSize_;
     /**
      * <code>int32 fileSize = 4;</code>
+     * @return The fileSize.
      */
+    @java.lang.Override
     public int getFileSize() {
       return fileSize_;
     }
@@ -1265,7 +1344,9 @@ public final class Multicast {
     private volatile java.lang.Object senderName_;
     /**
      * <code>string senderName = 5;</code>
+     * @return The senderName.
      */
+    @java.lang.Override
     public java.lang.String getSenderName() {
       java.lang.Object ref = senderName_;
       if (ref instanceof java.lang.String) {
@@ -1280,7 +1361,9 @@ public final class Multicast {
     }
     /**
      * <code>string senderName = 5;</code>
+     * @return The bytes for senderName.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSenderNameBytes() {
       java.lang.Object ref = senderName_;
@@ -1299,7 +1382,9 @@ public final class Multicast {
     private volatile java.lang.Object senderIp_;
     /**
      * <code>string senderIp = 6;</code>
+     * @return The senderIp.
      */
+    @java.lang.Override
     public java.lang.String getSenderIp() {
       java.lang.Object ref = senderIp_;
       if (ref instanceof java.lang.String) {
@@ -1314,7 +1399,9 @@ public final class Multicast {
     }
     /**
      * <code>string senderIp = 6;</code>
+     * @return The bytes for senderIp.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSenderIpBytes() {
       java.lang.Object ref = senderIp_;
@@ -1333,7 +1420,9 @@ public final class Multicast {
     private volatile java.lang.Object threadId_;
     /**
      * <code>string threadId = 7;</code>
+     * @return The threadId.
      */
+    @java.lang.Override
     public java.lang.String getThreadId() {
       java.lang.Object ref = threadId_;
       if (ref instanceof java.lang.String) {
@@ -1348,7 +1437,9 @@ public final class Multicast {
     }
     /**
      * <code>string threadId = 7;</code>
+     * @return The bytes for threadId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getThreadIdBytes() {
       java.lang.Object ref = threadId_;
@@ -1367,19 +1458,24 @@ public final class Multicast {
     private com.google.protobuf.Timestamp sendTime_;
     /**
      * <code>.google.protobuf.Timestamp sendTime = 8;</code>
+     * @return Whether the sendTime field is set.
      */
+    @java.lang.Override
     public boolean hasSendTime() {
       return sendTime_ != null;
     }
     /**
      * <code>.google.protobuf.Timestamp sendTime = 8;</code>
+     * @return The sendTime.
      */
+    @java.lang.Override
     public com.google.protobuf.Timestamp getSendTime() {
       return sendTime_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : sendTime_;
     }
     /**
      * <code>.google.protobuf.Timestamp sendTime = 8;</code>
      */
+    @java.lang.Override
     public com.google.protobuf.TimestampOrBuilder getSendTimeOrBuilder() {
       return getSendTime();
     }
@@ -1473,27 +1569,26 @@ public final class Multicast {
       }
       sjtu.opennet.textilepb.Multicast.MulticastMeta other = (sjtu.opennet.textilepb.Multicast.MulticastMeta) obj;
 
-      boolean result = true;
-      result = result && type_ == other.type_;
-      result = result && getFileId()
-          .equals(other.getFileId());
-      result = result && getFileName()
-          .equals(other.getFileName());
-      result = result && (getFileSize()
-          == other.getFileSize());
-      result = result && getSenderName()
-          .equals(other.getSenderName());
-      result = result && getSenderIp()
-          .equals(other.getSenderIp());
-      result = result && getThreadId()
-          .equals(other.getThreadId());
-      result = result && (hasSendTime() == other.hasSendTime());
+      if (type_ != other.type_) return false;
+      if (!getFileId()
+          .equals(other.getFileId())) return false;
+      if (!getFileName()
+          .equals(other.getFileName())) return false;
+      if (getFileSize()
+          != other.getFileSize()) return false;
+      if (!getSenderName()
+          .equals(other.getSenderName())) return false;
+      if (!getSenderIp()
+          .equals(other.getSenderIp())) return false;
+      if (!getThreadId()
+          .equals(other.getThreadId())) return false;
+      if (hasSendTime() != other.hasSendTime()) return false;
       if (hasSendTime()) {
-        result = result && getSendTime()
-            .equals(other.getSendTime());
+        if (!getSendTime()
+            .equals(other.getSendTime())) return false;
       }
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -1718,35 +1813,35 @@ public final class Multicast {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -1821,21 +1916,27 @@ public final class Multicast {
       private int type_ = 0;
       /**
        * <code>.MulticastMeta.Type type = 1;</code>
+       * @return The enum numeric value on the wire for type.
        */
-      public int getTypeValue() {
+      @java.lang.Override public int getTypeValue() {
         return type_;
       }
       /**
        * <code>.MulticastMeta.Type type = 1;</code>
+       * @param value The enum numeric value on the wire for type to set.
+       * @return This builder for chaining.
        */
       public Builder setTypeValue(int value) {
+        
         type_ = value;
         onChanged();
         return this;
       }
       /**
        * <code>.MulticastMeta.Type type = 1;</code>
+       * @return The type.
        */
+      @java.lang.Override
       public sjtu.opennet.textilepb.Multicast.MulticastMeta.Type getType() {
         @SuppressWarnings("deprecation")
         sjtu.opennet.textilepb.Multicast.MulticastMeta.Type result = sjtu.opennet.textilepb.Multicast.MulticastMeta.Type.valueOf(type_);
@@ -1843,6 +1944,8 @@ public final class Multicast {
       }
       /**
        * <code>.MulticastMeta.Type type = 1;</code>
+       * @param value The type to set.
+       * @return This builder for chaining.
        */
       public Builder setType(sjtu.opennet.textilepb.Multicast.MulticastMeta.Type value) {
         if (value == null) {
@@ -1855,6 +1958,7 @@ public final class Multicast {
       }
       /**
        * <code>.MulticastMeta.Type type = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearType() {
         
@@ -1870,6 +1974,7 @@ public final class Multicast {
        * </pre>
        *
        * <code>string fileId = 2;</code>
+       * @return The fileId.
        */
       public java.lang.String getFileId() {
         java.lang.Object ref = fileId_;
@@ -1889,6 +1994,7 @@ public final class Multicast {
        * </pre>
        *
        * <code>string fileId = 2;</code>
+       * @return The bytes for fileId.
        */
       public com.google.protobuf.ByteString
           getFileIdBytes() {
@@ -1909,6 +2015,8 @@ public final class Multicast {
        * </pre>
        *
        * <code>string fileId = 2;</code>
+       * @param value The fileId to set.
+       * @return This builder for chaining.
        */
       public Builder setFileId(
           java.lang.String value) {
@@ -1926,6 +2034,7 @@ public final class Multicast {
        * </pre>
        *
        * <code>string fileId = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearFileId() {
         
@@ -1939,6 +2048,8 @@ public final class Multicast {
        * </pre>
        *
        * <code>string fileId = 2;</code>
+       * @param value The bytes for fileId to set.
+       * @return This builder for chaining.
        */
       public Builder setFileIdBytes(
           com.google.protobuf.ByteString value) {
@@ -1955,6 +2066,7 @@ public final class Multicast {
       private java.lang.Object fileName_ = "";
       /**
        * <code>string fileName = 3;</code>
+       * @return The fileName.
        */
       public java.lang.String getFileName() {
         java.lang.Object ref = fileName_;
@@ -1970,6 +2082,7 @@ public final class Multicast {
       }
       /**
        * <code>string fileName = 3;</code>
+       * @return The bytes for fileName.
        */
       public com.google.protobuf.ByteString
           getFileNameBytes() {
@@ -1986,6 +2099,8 @@ public final class Multicast {
       }
       /**
        * <code>string fileName = 3;</code>
+       * @param value The fileName to set.
+       * @return This builder for chaining.
        */
       public Builder setFileName(
           java.lang.String value) {
@@ -1999,6 +2114,7 @@ public final class Multicast {
       }
       /**
        * <code>string fileName = 3;</code>
+       * @return This builder for chaining.
        */
       public Builder clearFileName() {
         
@@ -2008,6 +2124,8 @@ public final class Multicast {
       }
       /**
        * <code>string fileName = 3;</code>
+       * @param value The bytes for fileName to set.
+       * @return This builder for chaining.
        */
       public Builder setFileNameBytes(
           com.google.protobuf.ByteString value) {
@@ -2024,12 +2142,16 @@ public final class Multicast {
       private int fileSize_ ;
       /**
        * <code>int32 fileSize = 4;</code>
+       * @return The fileSize.
        */
+      @java.lang.Override
       public int getFileSize() {
         return fileSize_;
       }
       /**
        * <code>int32 fileSize = 4;</code>
+       * @param value The fileSize to set.
+       * @return This builder for chaining.
        */
       public Builder setFileSize(int value) {
         
@@ -2039,6 +2161,7 @@ public final class Multicast {
       }
       /**
        * <code>int32 fileSize = 4;</code>
+       * @return This builder for chaining.
        */
       public Builder clearFileSize() {
         
@@ -2050,6 +2173,7 @@ public final class Multicast {
       private java.lang.Object senderName_ = "";
       /**
        * <code>string senderName = 5;</code>
+       * @return The senderName.
        */
       public java.lang.String getSenderName() {
         java.lang.Object ref = senderName_;
@@ -2065,6 +2189,7 @@ public final class Multicast {
       }
       /**
        * <code>string senderName = 5;</code>
+       * @return The bytes for senderName.
        */
       public com.google.protobuf.ByteString
           getSenderNameBytes() {
@@ -2081,6 +2206,8 @@ public final class Multicast {
       }
       /**
        * <code>string senderName = 5;</code>
+       * @param value The senderName to set.
+       * @return This builder for chaining.
        */
       public Builder setSenderName(
           java.lang.String value) {
@@ -2094,6 +2221,7 @@ public final class Multicast {
       }
       /**
        * <code>string senderName = 5;</code>
+       * @return This builder for chaining.
        */
       public Builder clearSenderName() {
         
@@ -2103,6 +2231,8 @@ public final class Multicast {
       }
       /**
        * <code>string senderName = 5;</code>
+       * @param value The bytes for senderName to set.
+       * @return This builder for chaining.
        */
       public Builder setSenderNameBytes(
           com.google.protobuf.ByteString value) {
@@ -2119,6 +2249,7 @@ public final class Multicast {
       private java.lang.Object senderIp_ = "";
       /**
        * <code>string senderIp = 6;</code>
+       * @return The senderIp.
        */
       public java.lang.String getSenderIp() {
         java.lang.Object ref = senderIp_;
@@ -2134,6 +2265,7 @@ public final class Multicast {
       }
       /**
        * <code>string senderIp = 6;</code>
+       * @return The bytes for senderIp.
        */
       public com.google.protobuf.ByteString
           getSenderIpBytes() {
@@ -2150,6 +2282,8 @@ public final class Multicast {
       }
       /**
        * <code>string senderIp = 6;</code>
+       * @param value The senderIp to set.
+       * @return This builder for chaining.
        */
       public Builder setSenderIp(
           java.lang.String value) {
@@ -2163,6 +2297,7 @@ public final class Multicast {
       }
       /**
        * <code>string senderIp = 6;</code>
+       * @return This builder for chaining.
        */
       public Builder clearSenderIp() {
         
@@ -2172,6 +2307,8 @@ public final class Multicast {
       }
       /**
        * <code>string senderIp = 6;</code>
+       * @param value The bytes for senderIp to set.
+       * @return This builder for chaining.
        */
       public Builder setSenderIpBytes(
           com.google.protobuf.ByteString value) {
@@ -2188,6 +2325,7 @@ public final class Multicast {
       private java.lang.Object threadId_ = "";
       /**
        * <code>string threadId = 7;</code>
+       * @return The threadId.
        */
       public java.lang.String getThreadId() {
         java.lang.Object ref = threadId_;
@@ -2203,6 +2341,7 @@ public final class Multicast {
       }
       /**
        * <code>string threadId = 7;</code>
+       * @return The bytes for threadId.
        */
       public com.google.protobuf.ByteString
           getThreadIdBytes() {
@@ -2219,6 +2358,8 @@ public final class Multicast {
       }
       /**
        * <code>string threadId = 7;</code>
+       * @param value The threadId to set.
+       * @return This builder for chaining.
        */
       public Builder setThreadId(
           java.lang.String value) {
@@ -2232,6 +2373,7 @@ public final class Multicast {
       }
       /**
        * <code>string threadId = 7;</code>
+       * @return This builder for chaining.
        */
       public Builder clearThreadId() {
         
@@ -2241,6 +2383,8 @@ public final class Multicast {
       }
       /**
        * <code>string threadId = 7;</code>
+       * @param value The bytes for threadId to set.
+       * @return This builder for chaining.
        */
       public Builder setThreadIdBytes(
           com.google.protobuf.ByteString value) {
@@ -2254,17 +2398,19 @@ public final class Multicast {
         return this;
       }
 
-      private com.google.protobuf.Timestamp sendTime_ = null;
+      private com.google.protobuf.Timestamp sendTime_;
       private com.google.protobuf.SingleFieldBuilderV3<
           com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> sendTimeBuilder_;
       /**
        * <code>.google.protobuf.Timestamp sendTime = 8;</code>
+       * @return Whether the sendTime field is set.
        */
       public boolean hasSendTime() {
         return sendTimeBuilder_ != null || sendTime_ != null;
       }
       /**
        * <code>.google.protobuf.Timestamp sendTime = 8;</code>
+       * @return The sendTime.
        */
       public com.google.protobuf.Timestamp getSendTime() {
         if (sendTimeBuilder_ == null) {
@@ -2373,7 +2519,7 @@ public final class Multicast {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -2433,6 +2579,7 @@ public final class Multicast {
      * </pre>
      *
      * <code>string id = 1;</code>
+     * @return The id.
      */
     java.lang.String getId();
     /**
@@ -2441,6 +2588,7 @@ public final class Multicast {
      * </pre>
      *
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
     com.google.protobuf.ByteString
         getIdBytes();
@@ -2451,16 +2599,19 @@ public final class Multicast {
      * </pre>
      *
      * <code>bytes data = 2;</code>
+     * @return The data.
      */
     com.google.protobuf.ByteString getData();
 
     /**
      * <code>int32 index = 3;</code>
+     * @return The index.
      */
     int getIndex();
 
     /**
      * <code>int32 groupIndex = 4;</code>
+     * @return The groupIndex.
      */
     int getGroupIndex();
 
@@ -2472,6 +2623,7 @@ public final class Multicast {
      * </pre>
      *
      * <code>int32 shardNum = 5;</code>
+     * @return The shardNum.
      */
     int getShardNum();
 
@@ -2481,13 +2633,14 @@ public final class Multicast {
      * </pre>
      *
      * <code>int32 parityNum = 6;</code>
+     * @return The parityNum.
      */
     int getParityNum();
   }
   /**
    * Protobuf type {@code MulticastData}
    */
-  public  static final class MulticastData extends
+  public static final class MulticastData extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:MulticastData)
       MulticastDataOrBuilder {
@@ -2499,10 +2652,13 @@ public final class Multicast {
     private MulticastData() {
       id_ = "";
       data_ = com.google.protobuf.ByteString.EMPTY;
-      index_ = 0;
-      groupIndex_ = 0;
-      shardNum_ = 0;
-      parityNum_ = 0;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new MulticastData();
     }
 
     @java.lang.Override
@@ -2518,7 +2674,6 @@ public final class Multicast {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -2561,7 +2716,7 @@ public final class Multicast {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -2600,7 +2755,9 @@ public final class Multicast {
      * </pre>
      *
      * <code>string id = 1;</code>
+     * @return The id.
      */
+    @java.lang.Override
     public java.lang.String getId() {
       java.lang.Object ref = id_;
       if (ref instanceof java.lang.String) {
@@ -2619,7 +2776,9 @@ public final class Multicast {
      * </pre>
      *
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getIdBytes() {
       java.lang.Object ref = id_;
@@ -2642,7 +2801,9 @@ public final class Multicast {
      * </pre>
      *
      * <code>bytes data = 2;</code>
+     * @return The data.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getData() {
       return data_;
     }
@@ -2651,7 +2812,9 @@ public final class Multicast {
     private int index_;
     /**
      * <code>int32 index = 3;</code>
+     * @return The index.
      */
+    @java.lang.Override
     public int getIndex() {
       return index_;
     }
@@ -2660,7 +2823,9 @@ public final class Multicast {
     private int groupIndex_;
     /**
      * <code>int32 groupIndex = 4;</code>
+     * @return The groupIndex.
      */
+    @java.lang.Override
     public int getGroupIndex() {
       return groupIndex_;
     }
@@ -2675,7 +2840,9 @@ public final class Multicast {
      * </pre>
      *
      * <code>int32 shardNum = 5;</code>
+     * @return The shardNum.
      */
+    @java.lang.Override
     public int getShardNum() {
       return shardNum_;
     }
@@ -2688,7 +2855,9 @@ public final class Multicast {
      * </pre>
      *
      * <code>int32 parityNum = 6;</code>
+     * @return The parityNum.
      */
+    @java.lang.Override
     public int getParityNum() {
       return parityNum_;
     }
@@ -2772,21 +2941,20 @@ public final class Multicast {
       }
       sjtu.opennet.textilepb.Multicast.MulticastData other = (sjtu.opennet.textilepb.Multicast.MulticastData) obj;
 
-      boolean result = true;
-      result = result && getId()
-          .equals(other.getId());
-      result = result && getData()
-          .equals(other.getData());
-      result = result && (getIndex()
-          == other.getIndex());
-      result = result && (getGroupIndex()
-          == other.getGroupIndex());
-      result = result && (getShardNum()
-          == other.getShardNum());
-      result = result && (getParityNum()
-          == other.getParityNum());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getId()
+          .equals(other.getId())) return false;
+      if (!getData()
+          .equals(other.getData())) return false;
+      if (getIndex()
+          != other.getIndex()) return false;
+      if (getGroupIndex()
+          != other.getGroupIndex()) return false;
+      if (getShardNum()
+          != other.getShardNum()) return false;
+      if (getParityNum()
+          != other.getParityNum()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -2991,35 +3159,35 @@ public final class Multicast {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -3088,6 +3256,7 @@ public final class Multicast {
        * </pre>
        *
        * <code>string id = 1;</code>
+       * @return The id.
        */
       public java.lang.String getId() {
         java.lang.Object ref = id_;
@@ -3107,6 +3276,7 @@ public final class Multicast {
        * </pre>
        *
        * <code>string id = 1;</code>
+       * @return The bytes for id.
        */
       public com.google.protobuf.ByteString
           getIdBytes() {
@@ -3127,6 +3297,8 @@ public final class Multicast {
        * </pre>
        *
        * <code>string id = 1;</code>
+       * @param value The id to set.
+       * @return This builder for chaining.
        */
       public Builder setId(
           java.lang.String value) {
@@ -3144,6 +3316,7 @@ public final class Multicast {
        * </pre>
        *
        * <code>string id = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearId() {
         
@@ -3157,6 +3330,8 @@ public final class Multicast {
        * </pre>
        *
        * <code>string id = 1;</code>
+       * @param value The bytes for id to set.
+       * @return This builder for chaining.
        */
       public Builder setIdBytes(
           com.google.protobuf.ByteString value) {
@@ -3177,7 +3352,9 @@ public final class Multicast {
        * </pre>
        *
        * <code>bytes data = 2;</code>
+       * @return The data.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getData() {
         return data_;
       }
@@ -3187,6 +3364,8 @@ public final class Multicast {
        * </pre>
        *
        * <code>bytes data = 2;</code>
+       * @param value The data to set.
+       * @return This builder for chaining.
        */
       public Builder setData(com.google.protobuf.ByteString value) {
         if (value == null) {
@@ -3203,6 +3382,7 @@ public final class Multicast {
        * </pre>
        *
        * <code>bytes data = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearData() {
         
@@ -3214,12 +3394,16 @@ public final class Multicast {
       private int index_ ;
       /**
        * <code>int32 index = 3;</code>
+       * @return The index.
        */
+      @java.lang.Override
       public int getIndex() {
         return index_;
       }
       /**
        * <code>int32 index = 3;</code>
+       * @param value The index to set.
+       * @return This builder for chaining.
        */
       public Builder setIndex(int value) {
         
@@ -3229,6 +3413,7 @@ public final class Multicast {
       }
       /**
        * <code>int32 index = 3;</code>
+       * @return This builder for chaining.
        */
       public Builder clearIndex() {
         
@@ -3240,12 +3425,16 @@ public final class Multicast {
       private int groupIndex_ ;
       /**
        * <code>int32 groupIndex = 4;</code>
+       * @return The groupIndex.
        */
+      @java.lang.Override
       public int getGroupIndex() {
         return groupIndex_;
       }
       /**
        * <code>int32 groupIndex = 4;</code>
+       * @param value The groupIndex to set.
+       * @return This builder for chaining.
        */
       public Builder setGroupIndex(int value) {
         
@@ -3255,6 +3444,7 @@ public final class Multicast {
       }
       /**
        * <code>int32 groupIndex = 4;</code>
+       * @return This builder for chaining.
        */
       public Builder clearGroupIndex() {
         
@@ -3272,7 +3462,9 @@ public final class Multicast {
        * </pre>
        *
        * <code>int32 shardNum = 5;</code>
+       * @return The shardNum.
        */
+      @java.lang.Override
       public int getShardNum() {
         return shardNum_;
       }
@@ -3284,6 +3476,8 @@ public final class Multicast {
        * </pre>
        *
        * <code>int32 shardNum = 5;</code>
+       * @param value The shardNum to set.
+       * @return This builder for chaining.
        */
       public Builder setShardNum(int value) {
         
@@ -3299,6 +3493,7 @@ public final class Multicast {
        * </pre>
        *
        * <code>int32 shardNum = 5;</code>
+       * @return This builder for chaining.
        */
       public Builder clearShardNum() {
         
@@ -3314,7 +3509,9 @@ public final class Multicast {
        * </pre>
        *
        * <code>int32 parityNum = 6;</code>
+       * @return The parityNum.
        */
+      @java.lang.Override
       public int getParityNum() {
         return parityNum_;
       }
@@ -3324,6 +3521,8 @@ public final class Multicast {
        * </pre>
        *
        * <code>int32 parityNum = 6;</code>
+       * @param value The parityNum to set.
+       * @return This builder for chaining.
        */
       public Builder setParityNum(int value) {
         
@@ -3337,6 +3536,7 @@ public final class Multicast {
        * </pre>
        *
        * <code>int32 parityNum = 6;</code>
+       * @return This builder for chaining.
        */
       public Builder clearParityNum() {
         
@@ -3347,7 +3547,7 @@ public final class Multicast {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -3403,10 +3603,12 @@ public final class Multicast {
 
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
     java.lang.String getId();
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
     com.google.protobuf.ByteString
         getIdBytes();
@@ -3414,7 +3616,7 @@ public final class Multicast {
   /**
    * Protobuf type {@code MulticastEnd}
    */
-  public  static final class MulticastEnd extends
+  public static final class MulticastEnd extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:MulticastEnd)
       MulticastEndOrBuilder {
@@ -3425,6 +3627,13 @@ public final class Multicast {
     }
     private MulticastEnd() {
       id_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new MulticastEnd();
     }
 
     @java.lang.Override
@@ -3440,7 +3649,6 @@ public final class Multicast {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -3458,7 +3666,7 @@ public final class Multicast {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -3493,7 +3701,9 @@ public final class Multicast {
     private volatile java.lang.Object id_;
     /**
      * <code>string id = 1;</code>
+     * @return The id.
      */
+    @java.lang.Override
     public java.lang.String getId() {
       java.lang.Object ref = id_;
       if (ref instanceof java.lang.String) {
@@ -3508,7 +3718,9 @@ public final class Multicast {
     }
     /**
      * <code>string id = 1;</code>
+     * @return The bytes for id.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getIdBytes() {
       java.lang.Object ref = id_;
@@ -3567,11 +3779,10 @@ public final class Multicast {
       }
       sjtu.opennet.textilepb.Multicast.MulticastEnd other = (sjtu.opennet.textilepb.Multicast.MulticastEnd) obj;
 
-      boolean result = true;
-      result = result && getId()
-          .equals(other.getId());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getId()
+          .equals(other.getId())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -3751,35 +3962,35 @@ public final class Multicast {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -3829,6 +4040,7 @@ public final class Multicast {
       private java.lang.Object id_ = "";
       /**
        * <code>string id = 1;</code>
+       * @return The id.
        */
       public java.lang.String getId() {
         java.lang.Object ref = id_;
@@ -3844,6 +4056,7 @@ public final class Multicast {
       }
       /**
        * <code>string id = 1;</code>
+       * @return The bytes for id.
        */
       public com.google.protobuf.ByteString
           getIdBytes() {
@@ -3860,6 +4073,8 @@ public final class Multicast {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The id to set.
+       * @return This builder for chaining.
        */
       public Builder setId(
           java.lang.String value) {
@@ -3873,6 +4088,7 @@ public final class Multicast {
       }
       /**
        * <code>string id = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearId() {
         
@@ -3882,6 +4098,8 @@ public final class Multicast {
       }
       /**
        * <code>string id = 1;</code>
+       * @param value The bytes for id to set.
+       * @return This builder for chaining.
        */
       public Builder setIdBytes(
           com.google.protobuf.ByteString value) {
@@ -3897,7 +4115,7 @@ public final class Multicast {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -3953,18 +4171,20 @@ public final class Multicast {
 
     /**
      * <code>int32 index = 1;</code>
+     * @return The index.
      */
     int getIndex();
 
     /**
      * <code>bytes data = 2;</code>
+     * @return The data.
      */
     com.google.protobuf.ByteString getData();
   }
   /**
    * Protobuf type {@code Shard}
    */
-  public  static final class Shard extends
+  public static final class Shard extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:Shard)
       ShardOrBuilder {
@@ -3974,8 +4194,14 @@ public final class Multicast {
       super(builder);
     }
     private Shard() {
-      index_ = 0;
       data_ = com.google.protobuf.ByteString.EMPTY;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new Shard();
     }
 
     @java.lang.Override
@@ -3991,7 +4217,6 @@ public final class Multicast {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -4013,7 +4238,7 @@ public final class Multicast {
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -4048,7 +4273,9 @@ public final class Multicast {
     private int index_;
     /**
      * <code>int32 index = 1;</code>
+     * @return The index.
      */
+    @java.lang.Override
     public int getIndex() {
       return index_;
     }
@@ -4057,7 +4284,9 @@ public final class Multicast {
     private com.google.protobuf.ByteString data_;
     /**
      * <code>bytes data = 2;</code>
+     * @return The data.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getData() {
       return data_;
     }
@@ -4114,13 +4343,12 @@ public final class Multicast {
       }
       sjtu.opennet.textilepb.Multicast.Shard other = (sjtu.opennet.textilepb.Multicast.Shard) obj;
 
-      boolean result = true;
-      result = result && (getIndex()
-          == other.getIndex());
-      result = result && getData()
-          .equals(other.getData());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (getIndex()
+          != other.getIndex()) return false;
+      if (!getData()
+          .equals(other.getData())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -4305,35 +4533,35 @@ public final class Multicast {
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -4385,12 +4613,16 @@ public final class Multicast {
       private int index_ ;
       /**
        * <code>int32 index = 1;</code>
+       * @return The index.
        */
+      @java.lang.Override
       public int getIndex() {
         return index_;
       }
       /**
        * <code>int32 index = 1;</code>
+       * @param value The index to set.
+       * @return This builder for chaining.
        */
       public Builder setIndex(int value) {
         
@@ -4400,6 +4632,7 @@ public final class Multicast {
       }
       /**
        * <code>int32 index = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearIndex() {
         
@@ -4411,12 +4644,16 @@ public final class Multicast {
       private com.google.protobuf.ByteString data_ = com.google.protobuf.ByteString.EMPTY;
       /**
        * <code>bytes data = 2;</code>
+       * @return The data.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getData() {
         return data_;
       }
       /**
        * <code>bytes data = 2;</code>
+       * @param value The data to set.
+       * @return This builder for chaining.
        */
       public Builder setData(com.google.protobuf.ByteString value) {
         if (value == null) {
@@ -4429,6 +4666,7 @@ public final class Multicast {
       }
       /**
        * <code>bytes data = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearData() {
         
@@ -4439,7 +4677,7 @@ public final class Multicast {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -4495,11 +4733,13 @@ public final class Multicast {
 
     /**
      * <code>int32 ShardNumber = 1;</code>
+     * @return The shardNumber.
      */
     int getShardNumber();
 
     /**
      * <code>int32 ParityNumber = 2;</code>
+     * @return The parityNumber.
      */
     int getParityNumber();
 
@@ -4530,7 +4770,7 @@ public final class Multicast {
   /**
    * Protobuf type {@code ShardList}
    */
-  public  static final class ShardList extends
+  public static final class ShardList extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ShardList)
       ShardListOrBuilder {
@@ -4540,9 +4780,14 @@ public final class Multicast {
       super(builder);
     }
     private ShardList() {
-      shardNumber_ = 0;
-      parityNumber_ = 0;
       shards_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new ShardList();
     }
 
     @java.lang.Override
@@ -4580,16 +4825,16 @@ public final class Multicast {
               break;
             }
             case 26: {
-              if (!((mutable_bitField0_ & 0x00000004) == 0x00000004)) {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
                 shards_ = new java.util.ArrayList<sjtu.opennet.textilepb.Multicast.Shard>();
-                mutable_bitField0_ |= 0x00000004;
+                mutable_bitField0_ |= 0x00000001;
               }
               shards_.add(
                   input.readMessage(sjtu.opennet.textilepb.Multicast.Shard.parser(), extensionRegistry));
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -4603,7 +4848,7 @@ public final class Multicast {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000004) == 0x00000004)) {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
           shards_ = java.util.Collections.unmodifiableList(shards_);
         }
         this.unknownFields = unknownFields.build();
@@ -4623,12 +4868,13 @@ public final class Multicast {
               sjtu.opennet.textilepb.Multicast.ShardList.class, sjtu.opennet.textilepb.Multicast.ShardList.Builder.class);
     }
 
-    private int bitField0_;
     public static final int SHARDNUMBER_FIELD_NUMBER = 1;
     private int shardNumber_;
     /**
      * <code>int32 ShardNumber = 1;</code>
+     * @return The shardNumber.
      */
+    @java.lang.Override
     public int getShardNumber() {
       return shardNumber_;
     }
@@ -4637,7 +4883,9 @@ public final class Multicast {
     private int parityNumber_;
     /**
      * <code>int32 ParityNumber = 2;</code>
+     * @return The parityNumber.
      */
+    @java.lang.Override
     public int getParityNumber() {
       return parityNumber_;
     }
@@ -4647,12 +4895,14 @@ public final class Multicast {
     /**
      * <code>repeated .Shard shards = 3;</code>
      */
+    @java.lang.Override
     public java.util.List<sjtu.opennet.textilepb.Multicast.Shard> getShardsList() {
       return shards_;
     }
     /**
      * <code>repeated .Shard shards = 3;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends sjtu.opennet.textilepb.Multicast.ShardOrBuilder> 
         getShardsOrBuilderList() {
       return shards_;
@@ -4660,18 +4910,21 @@ public final class Multicast {
     /**
      * <code>repeated .Shard shards = 3;</code>
      */
+    @java.lang.Override
     public int getShardsCount() {
       return shards_.size();
     }
     /**
      * <code>repeated .Shard shards = 3;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Multicast.Shard getShards(int index) {
       return shards_.get(index);
     }
     /**
      * <code>repeated .Shard shards = 3;</code>
      */
+    @java.lang.Override
     public sjtu.opennet.textilepb.Multicast.ShardOrBuilder getShardsOrBuilder(
         int index) {
       return shards_.get(index);
@@ -4736,15 +4989,14 @@ public final class Multicast {
       }
       sjtu.opennet.textilepb.Multicast.ShardList other = (sjtu.opennet.textilepb.Multicast.ShardList) obj;
 
-      boolean result = true;
-      result = result && (getShardNumber()
-          == other.getShardNumber());
-      result = result && (getParityNumber()
-          == other.getParityNumber());
-      result = result && getShardsList()
-          .equals(other.getShardsList());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (getShardNumber()
+          != other.getShardNumber()) return false;
+      if (getParityNumber()
+          != other.getParityNumber()) return false;
+      if (!getShardsList()
+          .equals(other.getShardsList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -4902,7 +5154,7 @@ public final class Multicast {
 
         if (shardsBuilder_ == null) {
           shards_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000004);
+          bitField0_ = (bitField0_ & ~0x00000001);
         } else {
           shardsBuilder_.clear();
         }
@@ -4933,54 +5185,52 @@ public final class Multicast {
       public sjtu.opennet.textilepb.Multicast.ShardList buildPartial() {
         sjtu.opennet.textilepb.Multicast.ShardList result = new sjtu.opennet.textilepb.Multicast.ShardList(this);
         int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
         result.shardNumber_ = shardNumber_;
         result.parityNumber_ = parityNumber_;
         if (shardsBuilder_ == null) {
-          if (((bitField0_ & 0x00000004) == 0x00000004)) {
+          if (((bitField0_ & 0x00000001) != 0)) {
             shards_ = java.util.Collections.unmodifiableList(shards_);
-            bitField0_ = (bitField0_ & ~0x00000004);
+            bitField0_ = (bitField0_ & ~0x00000001);
           }
           result.shards_ = shards_;
         } else {
           result.shards_ = shardsBuilder_.build();
         }
-        result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -5004,7 +5254,7 @@ public final class Multicast {
           if (!other.shards_.isEmpty()) {
             if (shards_.isEmpty()) {
               shards_ = other.shards_;
-              bitField0_ = (bitField0_ & ~0x00000004);
+              bitField0_ = (bitField0_ & ~0x00000001);
             } else {
               ensureShardsIsMutable();
               shards_.addAll(other.shards_);
@@ -5017,7 +5267,7 @@ public final class Multicast {
               shardsBuilder_.dispose();
               shardsBuilder_ = null;
               shards_ = other.shards_;
-              bitField0_ = (bitField0_ & ~0x00000004);
+              bitField0_ = (bitField0_ & ~0x00000001);
               shardsBuilder_ = 
                 com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
                    getShardsFieldBuilder() : null;
@@ -5059,12 +5309,16 @@ public final class Multicast {
       private int shardNumber_ ;
       /**
        * <code>int32 ShardNumber = 1;</code>
+       * @return The shardNumber.
        */
+      @java.lang.Override
       public int getShardNumber() {
         return shardNumber_;
       }
       /**
        * <code>int32 ShardNumber = 1;</code>
+       * @param value The shardNumber to set.
+       * @return This builder for chaining.
        */
       public Builder setShardNumber(int value) {
         
@@ -5074,6 +5328,7 @@ public final class Multicast {
       }
       /**
        * <code>int32 ShardNumber = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearShardNumber() {
         
@@ -5085,12 +5340,16 @@ public final class Multicast {
       private int parityNumber_ ;
       /**
        * <code>int32 ParityNumber = 2;</code>
+       * @return The parityNumber.
        */
+      @java.lang.Override
       public int getParityNumber() {
         return parityNumber_;
       }
       /**
        * <code>int32 ParityNumber = 2;</code>
+       * @param value The parityNumber to set.
+       * @return This builder for chaining.
        */
       public Builder setParityNumber(int value) {
         
@@ -5100,6 +5359,7 @@ public final class Multicast {
       }
       /**
        * <code>int32 ParityNumber = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearParityNumber() {
         
@@ -5111,9 +5371,9 @@ public final class Multicast {
       private java.util.List<sjtu.opennet.textilepb.Multicast.Shard> shards_ =
         java.util.Collections.emptyList();
       private void ensureShardsIsMutable() {
-        if (!((bitField0_ & 0x00000004) == 0x00000004)) {
+        if (!((bitField0_ & 0x00000001) != 0)) {
           shards_ = new java.util.ArrayList<sjtu.opennet.textilepb.Multicast.Shard>(shards_);
-          bitField0_ |= 0x00000004;
+          bitField0_ |= 0x00000001;
          }
       }
 
@@ -5263,7 +5523,7 @@ public final class Multicast {
       public Builder clearShards() {
         if (shardsBuilder_ == null) {
           shards_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000004);
+          bitField0_ = (bitField0_ & ~0x00000001);
           onChanged();
         } else {
           shardsBuilder_.clear();
@@ -5340,7 +5600,7 @@ public final class Multicast {
           shardsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
               sjtu.opennet.textilepb.Multicast.Shard, sjtu.opennet.textilepb.Multicast.Shard.Builder, sjtu.opennet.textilepb.Multicast.ShardOrBuilder>(
                   shards_,
-                  ((bitField0_ & 0x00000004) == 0x00000004),
+                  ((bitField0_ & 0x00000001) != 0),
                   getParentForChildren(),
                   isClean());
           shards_ = null;
@@ -5350,7 +5610,7 @@ public final class Multicast {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -5460,20 +5720,12 @@ public final class Multicast {
       "\003(\0132\006.ShardB\034\n\026sjtu.opennet.textilepbZ\002p" +
       "bb\006proto3"
     };
-    com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
-        new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
-          public com.google.protobuf.ExtensionRegistry assignDescriptors(
-              com.google.protobuf.Descriptors.FileDescriptor root) {
-            descriptor = root;
-            return null;
-          }
-        };
-    com.google.protobuf.Descriptors.FileDescriptor
+    descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           com.google.protobuf.TimestampProto.getDescriptor(),
           com.google.protobuf.AnyProto.getDescriptor(),
-        }, assigner);
+        });
     internal_static_MulticastPacket_descriptor =
       getDescriptor().getMessageTypes().get(0);
     internal_static_MulticastPacket_fieldAccessorTable = new
