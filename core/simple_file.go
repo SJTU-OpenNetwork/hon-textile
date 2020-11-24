@@ -5,6 +5,7 @@ package core
 import (
 	"bufio"
 	"errors"
+	"io/ioutil"
 
 	"os"
 
@@ -18,6 +19,10 @@ func (t *Textile) AddSimpleFile(path string, threadId string) (*pb.Block, error)
 
 func (t *Textile) AddSimplePicture(path string, threadId string) (*pb.Block, error) {
 	return t.addSimpleFile(path, threadId, pb.SimpleFile_PICTURE)
+}
+
+func (t *Textile) AddSimpleDirectory(path string, threadId string) (*pb.Block, error) {
+	return t.addSimpleFile(path, threadId, pb.SimpleFile_DIR)
 }
 
 // Add file to ipfs node
@@ -75,4 +80,74 @@ func (t *Textile) addSimpleFile(path string, threadId string, fileType pb.Simple
 		Size: fileInfo.Size(),
 		Type: fileType,
 	})
+}
+
+func (t *Textile) addDirectory(path string, threadId string, fileType pb.SimpleFile_Type) (*pb.Block, error) {
+	//hash, err := ipfs.AddData(t.node, reader, mill.Pin(), false)
+	log.Debugf("AddDirectory(%s, %s)", path, threadId)
+
+	thread := t.Thread(threadId)
+	if thread == nil {
+		return nil, ErrThreadNotFound
+	}
+
+	fileInfo, err := os.Stat(path)
+	if err != nil {
+		log.Error(err)
+		return nil, err
+	}
+	if !fileInfo.IsDir() {
+		err = errors.New("Thread2AddDirectory only supports adding directory to thread")
+		log.Error(err)
+		return nil, err
+	}
+	//var build strings.Builder
+
+	filein,err  := t.IpfsAddDirectory(path,"")
+	if err != nil{
+		return nil,err
+	}
+	res := "<dir>"+
+		"<dirName>" + fileInfo.Name() +"</dirName>" +
+		filein +
+		"</dir>"
+
+	return thread.AddSimpleFile(&pb.SimpleFile{
+		Name: fileInfo.Name(),
+		Path: res,
+		Size: fileInfo.Size(),
+		Type: fileType,
+	})
+}
+
+func (t *Textile) IpfsAddDirectory(pth string,xml string) (string, error) {
+	rd, err := ioutil.ReadDir(pth)
+	for _, fi := range rd {
+		if fi.IsDir() {
+			xml = xml + "<dir>" + "<dirName>" + fi.Name() + "</dirName>"
+			xml,err = t.IpfsAddDirectory(pth + "/" + fi.Name(),xml)
+			if err != nil{
+				return "",err
+			}
+			xml = xml + "</dir>"
+		} else {
+			// Open file and get reader for file
+			// Add file to ipfs
+			filePath := pth + "/" + fi.Name()
+			f, err := os.Open(filePath)
+			if err != nil{
+				return "",err
+			}
+			r := bufio.NewReader(f)
+			fileCid, err := ipfs.AddData(t.node, r, true, false)
+			if err != nil {
+				return "",err
+			}
+			xml = xml + "<file>" +
+				"<fileName>" + fi.Name() + "</fileName>" +
+				"<fileHash>" + fileCid.String() + "</fileHash>" +
+				"</file>"
+		}
+	}
+	return xml,nil
 }

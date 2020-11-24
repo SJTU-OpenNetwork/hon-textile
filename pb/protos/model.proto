@@ -490,6 +490,7 @@ message SimpleFile {
     enum Type {
         FILE = 0;
         PICTURE =1;
+        DIR = 2;
     }
 }
 

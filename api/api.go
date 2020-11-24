@@ -373,6 +373,7 @@ func (a *Api) Run() {
 		simpleFile := v0.Group("/simpleFile")
 		{
 			simpleFile.POST("/add", a.addSimpleFile)
+			simpleFile.POST("/addDir", a.addSimpleDir)
 		}
 
 		shadow := v0.Group("/shadow")

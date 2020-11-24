@@ -1041,6 +1041,13 @@ The response contains a base58 encoded version of the random bytes token.`).Alia
 	cmds[simpleAddCmd.FullCommand()] = func () error {
 		return AddSimpleFile(*simpleAddPath, *simpleAddThread)
 	}
+	simpleAddDirCmd := simpleCmd.Command("addDir", "Add a directory to a thread.")
+	simpleAddDirPath := simpleAddDirCmd.Arg("path", "Path of a local Dir").Required().String()
+	simpleAddDirThread := simpleAddDirCmd.Arg("threadId", "Thread ID").Required().String()
+	cmds[simpleAddCmd.FullCommand()] = func () error {
+		return AddSimpleDir(*simpleAddDirPath, *simpleAddDirThread)
+	}
+
 
 	hideGlobalsFlagsFor(
 		daemonCmd,
