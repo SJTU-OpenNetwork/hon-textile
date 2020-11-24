@@ -20,6 +20,48 @@ func (t *Textile) AddSimplePicture(path string, threadId string) (*pb.Block, err
 	return t.addSimpleFile(path, threadId, pb.SimpleFile_PICTURE)
 }
 
+func (t *Textile) AddSimpleDirectory(path string, threadId string) (*pb.Block, error) {
+	return t.addSimpleFile(path, threadId, pb.SimpleFile_DIR)
+}
+
+func (t *Textile) addDirectory(path string, threadId string) (*pb.Block, error) {
+	//hash, err := ipfs.AddData(t.node, reader, mill.Pin(), false)
+	log.Debugf("AddDirectory(%s, %s)", path, threadId)
+
+	thread := t.Thread(threadId)
+	if thread == nil {
+		return nil, ErrThreadNotFound
+	}
+
+	fileInfo, err := os.Stat(path)
+	if err != nil {
+		log.Error(err)
+		return nil, err
+	}
+	if !fileInfo.IsDir() {
+		err = errors.New("Thread2AddDirectory only supports adding directory to thread")
+		log.Error(err)
+		return nil, err
+	}
+	//var build strings.Builder
+
+	filein,err  := t.IpfsAddDirectory(path,"")
+	if err != nil{
+		return nil,err
+	}
+	res := "<dir>"+
+		"<dirName>" + fileInfo.Name() +"</dirName>" +
+		filein +
+		"</dir>"
+
+	return thread.AddSimpleFile(&pb.SimpleFile{
+		Name: fileInfo.Name(),
+		Path: res,
+		Size: fileInfo.Size(),
+		Type: fileType,
+	})
+}
+
 // Add file to ipfs node
 // Return hash
 // Note:

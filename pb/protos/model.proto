@@ -146,6 +146,7 @@ message Block {
         STREAMMETA  = 103;
         PICTURE     = 104;
         SIMPLE_FILE = 105;
+        //DIRECTORY   = 106;
     }
 
 	enum BlockStatus {
@@ -490,6 +491,7 @@ message SimpleFile {
     enum Type {
         FILE = 0;
         PICTURE =1;
+        DIR = 2;
     }
 }
 

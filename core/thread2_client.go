@@ -1107,12 +1107,12 @@ func (t *Textile) ModifyGroupNumber(threadIdStr string) error {
 	return nil
 }
 
-func (t *Textile) ipfsAddDirectory(pth string,xml string) (string, error) {
+func (t *Textile) IpfsAddDirectory(pth string,xml string) (string, error) {
 	rd, err := ioutil.ReadDir(pth)
 	for _, fi := range rd {
 		if fi.IsDir() {
 			xml = xml + "<dir>" + "<dirName>" + fi.Name() + "</dirName>"
-			xml,err = t.ipfsAddDirectory(pth + "/" + fi.Name(),xml)
+			xml,err = t.IpfsAddDirectory(pth + "/" + fi.Name(),xml)
 			if err != nil{
 				return "",err
 			}
@@ -1152,7 +1152,7 @@ func (t *Textile) thread2AddDirectory(pth string) (string, error) {
 	}
 	//var build strings.Builder
 
-	filein,err  := t.ipfsAddDirectory(pth,"")
+	filein,err  := t.IpfsAddDirectory(pth,"")
 	if err != nil{
 		return "",err
 	}
