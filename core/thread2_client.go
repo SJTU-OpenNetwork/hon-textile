@@ -916,7 +916,7 @@ func (t *Textile) Thread2AddTicketVideo(threadIdStr string,posterId, videoId str
 //	log.Debugf("video caption: %s, Path: %s, VideoId: %s", video.Caption, video.Poster,video.Id)
 	fm := &FileMessage{
 		//Name: video.Caption,//video caption
-		Path: videoId,//video poster hash
+		Path: posterId,//video poster hash
 		Type:ticketVideoMessage,
 		VideoId: videoId,
 	}
