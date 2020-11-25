@@ -200,11 +200,11 @@ func (m *Mobile) DataAtFeedSimpleFile(feed []byte, cb DataCallbackWithTime) {
 	}()
 }
 
-func (m *Mobile) DataAtFeedSimpleFolder(feed []byte, cb PathCallback){
+func (m *Mobile) DataAtFeedSimpleFolder(feed []byte, cb PathCallbackWithTime){
 	feedpb := &pb.FeedSimpleFile{}
 	err := proto.Unmarshal(feed, feedpb)
 	if err != nil {
-		cb.Call("","", err)
+		cb.Call("","", 0,err)
 	}
 	m.node.WaitAdd(1, "Mobile.DataAtFeedSimpleFolder")
 	go func() {
@@ -236,7 +236,7 @@ func (m *Mobile) DataAtFeedSimpleFolder(feed []byte, cb PathCallback){
 			}
 			recorder.RecordCh <- record2
 		}
-		cb.Call(path, "", err)
+		cb.Call(path, "",util.ProtoDuration(ipfsGetTime, ipfsDoneTime), err)
 	}()
 }
 
