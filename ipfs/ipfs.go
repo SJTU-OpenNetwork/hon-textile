@@ -324,7 +324,7 @@ func getUnixfsNode(path string) (files.Node, error) {
 		return nil, err
 	}
 
-	f, err := files.NewSerialFile(path, false, st)
+	f, err := files.NewSerialFile(path, true, st)
 	if err != nil {
 		return nil, err
 	}
