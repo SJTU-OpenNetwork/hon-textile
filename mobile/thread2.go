@@ -146,8 +146,8 @@ func (m *Mobile) Thread2AddDir(path string, threadId string,cb Thread2AddFileCal
 	}()
 }
 
-func (m *Mobile) Thread2AddTicketVideo(thread string, videoId string, cb Thread2AddFileCallback)  {
-	instanceId,err := m.node.Thread2AddTicketVideo(thread, videoId)
+func (m *Mobile) Thread2AddTicketVideo(thread string,posterId string, videoId string, cb Thread2AddFileCallback)  {
+	instanceId,err := m.node.Thread2AddTicketVideo(thread,posterId, videoId)
 	if err != nil {
 		log.Error(err)
 		return

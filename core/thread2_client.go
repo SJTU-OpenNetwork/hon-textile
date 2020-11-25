@@ -902,7 +902,7 @@ func (t *Textile) Thread2AddDirectory(threadIdStr string, pth string) (string, e
 	return Ids[0],nil
 }
 
-func (t *Textile) Thread2AddTicketVideo(threadIdStr string, videoId string) (string,error) {
+func (t *Textile) Thread2AddTicketVideo(threadIdStr string,posterId, videoId string) (string,error) {
 	threadId, err := thread.Decode(threadIdStr)
 	if err != nil {
 		return "",err
@@ -918,7 +918,7 @@ func (t *Textile) Thread2AddTicketVideo(threadIdStr string, videoId string) (str
 		//Name: video.Caption,//video caption
 		Path: videoId,//video poster hash
 		Type:ticketVideoMessage,
-		//VideoId: video.Id,
+		VideoId: videoId,
 	}
 	var contentStr string
 	if bytes,err := xml.Marshal(fm); err != nil {
