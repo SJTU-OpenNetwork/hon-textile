@@ -7,7 +7,6 @@ import (
 	"errors"
 	"fmt"
 	"github.com/SJTU-OpenNetwork/hon-textile/ipfs"
-	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 	"github.com/libp2p/go-libp2p-core/crypto"
 	ma "github.com/multiformats/go-multiaddr"
 	"github.com/textileio/go-threads/api/client"
