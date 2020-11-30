@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/SJTU-OpenNetwork/hon-textile/ipfs"
+	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 	"github.com/libp2p/go-libp2p-core/crypto"
 	ma "github.com/multiformats/go-multiaddr"
 	"github.com/textileio/go-threads/api/client"
@@ -577,6 +578,7 @@ func (t *Textile) CreateGroupInfoInstance2(id thread.ID, groupName string) ([]st
 }
 
 
+
 //Delete instance. Delete instance Through ID.
 //Assume we get ids from CreateInstance, then we can use ids[0] to delete it.
 func (t *Textile) DeleteMemberInstance(id string, instanceIDs string) error {
@@ -694,6 +696,198 @@ func (t *Textile) FindMemberByID(threadIdStr string, instanceID string) (string,
 
 }
 
+//Users can modify the message content.
+func (t *Textile) GroupInfo(threadid string, instanceId string) (string,error) {
+	threadId, err := thread.Decode(threadid)
+	if err != nil {
+		return "",err
+	}
+	//
+	//q := db.Where("").Eq("groupInfo")
+	//rawResults, err := t.threadclient.Find(t.ctx, threadId, collectionGroup, q, &ThreadGroup{})
+	//if err != nil {
+	//	fmt.Println("failed to find ", err)
+	//}
+	//results := rawResults.([]*ThreadGroup)
+	//if len(results) != 1 {
+	//	fmt.Println("expected 1 result, but got ", len(results))
+	//}
+	//groupName := results[0].Name
+	groupInfo := &ThreadGroup{}
+	err = t.threadclient.FindByID(t.ctx, threadId, collectionGroup, instanceId, groupInfo)
+	if err != nil {
+		fmt.Println("failed to find collection by id: ", err)
+	}
+	return groupInfo.Name, nil
+}
+
+func (t *Textile) GroupInfoName(threadIdStr string) (string, error) {
+	threadId, err := thread.Decode(threadIdStr)
+	if err != nil {
+		return "",err
+	}
+	q := db.Where("flag").Eq("groupInfo")
+	rawResults, err := t.threadclient.Find(t.ctx, threadId, collectionGroup, q, &ThreadGroup{})
+	if err != nil {
+		fmt.Println("failed to find: ", err)
+		return "",err
+	}
+	results := rawResults.([]*ThreadGroup)
+	if len(results) != 1 {
+		fmt.Println("expected 1 result, but got ", len(results))
+	}
+	name := results[0].Name
+	return name, nil
+}
+
+func (t *Textile) GroupInfoType(threadIdStr string) (string, error) {
+	threadId, err := thread.Decode(threadIdStr)
+	if err != nil {
+		return "",err
+	}
+	q := db.Where("flag").Eq("groupInfo")
+	rawResults, err := t.threadclient.Find(t.ctx, threadId, collectionGroup, q, &ThreadGroup{})
+	if err != nil {
+		fmt.Println("failed to find: ", err)
+		return "",err
+	}
+	results := rawResults.([]*ThreadGroup)
+	if len(results) != 1 {
+		fmt.Println("expected 1 result, but got ", len(results))
+	}
+	gType := results[0].Type
+	return gType, nil
+}
+
+//Return the member number in a threadDB.
+func (t *Textile) GroupInfoNumber(threadIdStr string) (int, error) {
+	threadId, err := thread.Decode(threadIdStr)
+	if err != nil {
+		return 0,err
+	}
+	q := db.Where("flag").Eq("groupInfo")
+	rawResults, err := t.threadclient.Find(t.ctx, threadId, collectionGroup, q, &ThreadGroup{})
+	if err != nil {
+		fmt.Println("failed to find: ", err)
+		return 0,err
+	}
+	results := rawResults.([]*ThreadGroup)
+	if len(results) != 1 {
+		fmt.Println("expected 1 result, but got ", len(results))
+	}
+	memNumber := results[0].Number
+	return memNumber, nil
+}
+
+//Users can modify the message content.
+func (t *Textile) ModifyGroupName(threadIdStr string, newName string) error {
+	// maybe we need add access control, only owner or admin can modify
+	threadId, err := thread.Decode(threadIdStr)
+	if err != nil {
+		return err
+	}
+	q := db.Where("flag").Eq("groupInfo")
+	rawResults, err := t.threadclient.Find(t.ctx, threadId, collectionGroup, q, &ThreadGroup{})
+	if err != nil {
+		fmt.Println("failed to find: ", err)
+		return err
+	}
+	results := rawResults.([]*ThreadGroup)
+	if len(results) != 1 {
+		fmt.Println("expected 1 result, but got ", len(results))
+	}
+	groupInfo := results[0]
+	groupInfo.Name = newName
+	err = t.threadclient.Save(t.ctx, threadId, collectionGroup, client.Instances{groupInfo})
+	if err != nil {
+		fmt.Println("failed to save a new name for group, ", err)
+		return err
+	}
+	return nil
+}
+
+//Used when join to a threadDB
+func (t *Textile) ModifyGroupNumber(threadIdStr string) error {
+	// maybe we need add access control, only owner or admin can modify
+	threadId, err := thread.Decode(threadIdStr)
+	if err != nil {
+		return err
+	}
+
+	q := db.Where("flag").Eq("groupInfo")
+	rawResults, err := t.threadclient.Find(t.ctx, threadId, collectionGroup, q, &ThreadGroup{})
+	if err != nil {
+		fmt.Println("failed to find: ", err)
+		return err
+	}
+	results := rawResults.([]*ThreadGroup)
+	if len(results) != 1 {
+		fmt.Println("expected 1 result, but got ", len(results))
+	}
+	groupInfo := results[0]
+	groupInfo.Number = groupInfo.Number + 1
+	err = t.threadclient.Save(t.ctx, threadId, collectionGroup, client.Instances{groupInfo})
+	if err != nil {
+		fmt.Println("failed to save a new name for group, ", err)
+		return err
+	}
+	return nil
+}
+
+func (t *Textile) Thread2RoleFindByAddr(threadIdStr string, address string) (string, error){
+	threadId, err := thread.Decode(threadIdStr)
+	if err != nil {
+		return "",err
+	}
+	q := db.Where("member_id").Eq(address)
+	rawResults, err := t.threadclient.Find(t.ctx, threadId, collectionMember, q, &ThreadMember{})
+	if err != nil {
+		return "",err
+	}
+	results := rawResults.([]*ThreadMember)
+	if len(results) != 1 {
+		fmt.Println("expected 1 result, but got ", len(results))
+	}
+	memRole := results[0].Role
+	return memRole,nil
+}
+
+
+func (t *Textile) Thread2PeersBySort(threadIdStr string, role string) (string, error){
+	threadId, err := thread.Decode(threadIdStr)
+	if err != nil {
+		return "",err
+	}
+	q := &db.Query{}
+	switch role {
+	case owner://find owner in thread
+		q = db.Where("role").Eq(owner)
+	case admin://find all admin in thread
+		q = db.Where("role").Eq(admin)
+	case member://find all general member in thread
+		q = db.Where("role").Eq(member)
+	default:
+		return "", nil
+	}
+	rawResults, err := t.threadclient.Find(t.ctx, threadId, collectionMember, q, &ThreadMember{})
+	if err != nil {
+		return "",err
+	}
+	results := rawResults.([]*ThreadMember)
+	xmlMesssage := "<peerList>"
+	for _,result := range results {
+		xmlMesssage = xmlMesssage+"<peer>"
+		xmlMesssage = xmlMesssage+"<peerId>"+result.MemberId+"</peerId>"
+		xmlMesssage = xmlMesssage+"<role>"+result.Role+"</role>"
+		xmlMesssage = xmlMesssage+"<name>"+result.Name+"</name>"
+		xmlMesssage = xmlMesssage+"</peer>"
+	}
+	xmlMesssage = xmlMesssage+"</peerList>"
+	return xmlMesssage,nil
+}
+
+
+//====================================================================//
 
 //add a string to the message collection of a thread
 func (t *Textile) Thread2AddMessage(id string, mes string) (string,error) {
@@ -966,144 +1160,6 @@ func (t *Textile) Thread2UpdateVideoChunk(threadIdStr string, instanceId string,
 		return err
 	}
 
-	return nil
-}
-
-//Users can modify the message content.
-func (t *Textile) GroupInfo(threadid string, instanceId string) (string,error) {
-	threadId, err := thread.Decode(threadid)
-	if err != nil {
-		return "",err
-	}
-	//
-	//q := db.Where("").Eq("groupInfo")
-	//rawResults, err := t.threadclient.Find(t.ctx, threadId, collectionGroup, q, &ThreadGroup{})
-	//if err != nil {
-	//	fmt.Println("failed to find ", err)
-	//}
-	//results := rawResults.([]*ThreadGroup)
-	//if len(results) != 1 {
-	//	fmt.Println("expected 1 result, but got ", len(results))
-	//}
-	//groupName := results[0].Name
-	groupInfo := &ThreadGroup{}
-	err = t.threadclient.FindByID(t.ctx, threadId, collectionGroup, instanceId, groupInfo)
-	if err != nil {
-		fmt.Println("failed to find collection by id: ", err)
-	}
-	return groupInfo.Name, nil
-}
-
-func (t *Textile) GroupInfoName(threadIdStr string) (string, error) {
-	threadId, err := thread.Decode(threadIdStr)
-	if err != nil {
-		return "",err
-	}
-	q := db.Where("flag").Eq("groupInfo")
-	rawResults, err := t.threadclient.Find(t.ctx, threadId, collectionGroup, q, &ThreadGroup{})
-	if err != nil {
-		fmt.Println("failed to find: ", err)
-		return "",err
-	}
-	results := rawResults.([]*ThreadGroup)
-	if len(results) != 1 {
-		fmt.Println("expected 1 result, but got ", len(results))
-	}
-	name := results[0].Name
-	return name, nil
-}
-
-func (t *Textile) GroupInfoType(threadIdStr string) (string, error) {
-	threadId, err := thread.Decode(threadIdStr)
-	if err != nil {
-		return "",err
-	}
-	q := db.Where("flag").Eq("groupInfo")
-	rawResults, err := t.threadclient.Find(t.ctx, threadId, collectionGroup, q, &ThreadGroup{})
-	if err != nil {
-		fmt.Println("failed to find: ", err)
-		return "",err
-	}
-	results := rawResults.([]*ThreadGroup)
-	if len(results) != 1 {
-		fmt.Println("expected 1 result, but got ", len(results))
-	}
-	gType := results[0].Type
-	return gType, nil
-}
-
-//Return the member number in a threadDB.
-func (t *Textile) GroupInfoNumber(threadIdStr string) (int, error) {
-	threadId, err := thread.Decode(threadIdStr)
-	if err != nil {
-		return 0,err
-	}
-	q := db.Where("flag").Eq("groupInfo")
-	rawResults, err := t.threadclient.Find(t.ctx, threadId, collectionGroup, q, &ThreadGroup{})
-	if err != nil {
-		fmt.Println("failed to find: ", err)
-		return 0,err
-	}
-	results := rawResults.([]*ThreadGroup)
-	if len(results) != 1 {
-		fmt.Println("expected 1 result, but got ", len(results))
-	}
-	memNumber := results[0].Number
-	return memNumber, nil
-}
-
-//Users can modify the message content.
-func (t *Textile) ModifyGroupName(threadIdStr string, newName string) error {
-	// maybe we need add access control, only owner or admin can modify
-	threadId, err := thread.Decode(threadIdStr)
-	if err != nil {
-		return err
-	}
-	q := db.Where("flag").Eq("groupInfo")
-	rawResults, err := t.threadclient.Find(t.ctx, threadId, collectionGroup, q, &ThreadGroup{})
-	if err != nil {
-		fmt.Println("failed to find: ", err)
-		return err
-	}
-	results := rawResults.([]*ThreadGroup)
-	if len(results) != 1 {
-		fmt.Println("expected 1 result, but got ", len(results))
-	}
-	groupInfo := results[0]
-	groupInfo.Name = newName
-	err = t.threadclient.Save(t.ctx, threadId, collectionGroup, client.Instances{groupInfo})
-	if err != nil {
-		fmt.Println("failed to save a new name for group, ", err)
-		return err
-	}
-	return nil
-}
-
-//Used when join to a threadDB
-func (t *Textile) ModifyGroupNumber(threadIdStr string) error {
-	// maybe we need add access control, only owner or admin can modify
-	threadId, err := thread.Decode(threadIdStr)
-	if err != nil {
-		return err
-	}
-
-	q := db.Where("flag").Eq("groupInfo")
-	rawResults, err := t.threadclient.Find(t.ctx, threadId, collectionGroup, q, &ThreadGroup{})
-	if err != nil {
-		fmt.Println("failed to find: ", err)
-		return err
-	}
-	results := rawResults.([]*ThreadGroup)
-	if len(results) != 1 {
-		fmt.Println("expected 1 result, but got ", len(results))
-	}
-	groupInfo := results[0]
-	groupInfo.Number = groupInfo.Number + 1
-	err = t.threadclient.Save(t.ctx, threadId, collectionGroup, client.Instances{groupInfo})
-	if err != nil {
-		fmt.Println("failed to save a new name for group, ", err)
-		return err
-	}
 	return nil
 }
 

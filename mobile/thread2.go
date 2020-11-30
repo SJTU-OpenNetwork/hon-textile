@@ -19,6 +19,9 @@ type Thread2AddMemCallBack interface {
 	Call(err error)
 }
 
+
+//=======================================thread2 operates DB api=========================================//
+
 func (m *Mobile) CreateGroup(name string) (string, error) {
 	threadid, err := m.node.CreateGroup(name)
 	if err != nil {
@@ -71,7 +74,7 @@ func (m *Mobile) DbAddrKey(threadId string) ([]byte, error) {
 	return 	proto.Marshal(inv)
 }
 
-//when starts app, listen all threads
+//when restarts app, listen all threads
 func (m *Mobile) ListenAllThreads() {
 	m.node.ListenThread2s()
 }
@@ -99,6 +102,43 @@ func (m *Mobile) ThreadModifyGroupInfo(threadId string, name string) error {
 	return m.node.ModifyGroupName(threadId,  name)
 }
 
+func (m *Mobile) Thread2AddMember(threadId string, peerId string, cb Thread2AddMemCallBack)  {
+	m.node.WaitAdd(1, "Mobile.Thread2AddMember")
+	go func() {
+		defer m.node.WaitDone("Mobile.Thread2AddMember")
+		cb.Call(m.node.Invite(threadId, peerId))
+	}()
+}
+
+func (m *Mobile) Thread2InvitePeer(threadId string, peerId string) error {
+	err := m.node.Invite(threadId,peerId)
+	if err!=nil{
+		return err
+	}
+	return nil
+}
+
+func (m *Mobile) Thread2DeleteMember(threadId string, instanceId string) error {
+	return m.node.DeleteMemberInstance(threadId,instanceId)
+}
+
+func (m *Mobile) Thead2MemberRole(threadId string, instanceId string) (string, error) {
+	return m.node.FindMemberByID(threadId, instanceId)
+}
+
+func (m *Mobile) Thead2MemberRoleChange(threadId string, instanceId string, role string) (string, error) {
+	return m.node.ModifyMemberInstance(threadId, instanceId, role)
+}
+
+func (m *Mobile) Thead2PeersBySort(threadId string, role string) (string, error) {
+	return m.node.Thread2PeersBySort(threadId,role)
+}
+
+func (m *Mobile) Thead2IsAdmin(threadId string, address string) (string, error) {
+	return m.node.Thread2RoleFindByAddr(threadId,address)
+}
+
+//=======================================thread2 operates files api=========================================//
 //message add,remove and find
 func (m *Mobile) Thread2AddMessage(threadId string, mes string) (string,error) {
 	return m.node.Thread2AddMessage(threadId, mes)
@@ -155,7 +195,6 @@ func (m *Mobile) Thread2AddTicketVideo(thread string,posterId string, videoId st
 	cb.Call(instanceId, nil)
 }
 
-
 //Thread2UpdateVideoChunk
 func (m *Mobile) Thread2UpdateVideoChunk(threadId string, instanceId string, videoId string, tsArray string){
 	err := m.node.Thread2UpdateVideoChunk(threadId, instanceId, videoId, tsArray)
@@ -165,41 +204,6 @@ func (m *Mobile) Thread2UpdateVideoChunk(threadId string, instanceId string, vid
 	}
 }
 
-
-//peer invite remove find modify
-func (m *Mobile) Thread2InviteMember(threadId string, peerid string) error {
-	return m.node.Invite(threadId, peerid)
-}
-
-func (m *Mobile) Thread2DeleteMember(threadId string, instanceId string) error {
-	return m.node.DeleteMemberInstance(threadId,instanceId)
-}
-
-func (m *Mobile) Thead2MemberRole(threadId string, instanceId string) (string, error) {
-	return m.node.FindMemberByID(threadId, instanceId)
-}
-
-func (m *Mobile) Thead2MemberRoleChange(threadId string, instanceId string, role string) (string, error) {
-	return m.node.ModifyMemberInstance(threadId, instanceId, role)
-}
-
-
-// updateVideoChunk()
-
-/*
-<ts>
-
-</ts>
-<ts>
-
-</ts>
-
-*/
-
-
-
-
-
 func (m *Mobile) Thread2AddStringMessage(threadId string, mes string, cb Thread2AddMesCallBack)  {
 	m.node.WaitAdd(1, "Mobile.Thread2AddStringMessage")
 	go func() {
@@ -208,23 +212,6 @@ func (m *Mobile) Thread2AddStringMessage(threadId string, mes string, cb Thread2
 	}()
 }
 
-
-
-func (m *Mobile) Thread2AddMember(threadId string, peerId string, cb Thread2AddMemCallBack)  {
-	m.node.WaitAdd(1, "Mobile.Thread2AddMember")
-	go func() {
-		defer m.node.WaitDone("Mobile.Thread2AddMember")
-		cb.Call(m.node.Invite(threadId, peerId))
-	}()
-}
-
-func (m *Mobile) Thread2InvitePeer(threadId string, peerId string) error {
-	err := m.node.Invite(threadId,peerId)
-	if err!=nil{
-		return err
-	}
-	return nil
-}
 //
 //func (m *Mobile) Thread2AcceptInvite(threadId string, peerId string) error {
 //	err := m.node.handleInvite(threadId,peerId)
