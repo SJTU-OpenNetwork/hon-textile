@@ -153,6 +153,7 @@ func (h *CafeService) Handle(env *pb.Envelope, pid peer.ID) (*pb.Envelope, error
 	case pb.Message_CAFE_PUBLISH_PEER:
 		return h.handlePublishPeer(env, pid)
 	case pb.Message_CAFE_PUBSUB_QUERY:
+		log.Debug("收到pb message cafe pubusub query， 准备处理***")
 		return h.handlePubSubQuery(env, pid)
 	case pb.Message_CAFE_PUBSUB_QUERY_RES:
 		return h.handlePubSubQueryResults(env, pid)

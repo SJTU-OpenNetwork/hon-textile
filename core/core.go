@@ -524,6 +524,8 @@ func (t *Textile) Start() error {
 		t.record.Start()
 		t.mail.Start()
 		go t.watchMailBox()
+
+
 		if t.config.Cafe.Host.Open {
 			go func() {
 				t.cafe.setAddrs(t.config)
