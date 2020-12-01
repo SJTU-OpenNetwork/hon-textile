@@ -561,21 +561,19 @@ func (t *Textile) Start() error {
 		t.variables.SwarmAddress = t.GetSwarmAddress(t.node.Identity.Pretty())
 	}()
 
+	//TODO
 	//之前的thread load过程，暂时注释掉
-	//for _, mod := range t.datastore.Threads().List().Items {
-	//	fmt.Println("==========",t.datastore.Threads().Count())
-	//	fmt.Println("==========",mod.Id)
-	//	fmt.Println("==========",mod.Sk)
-	//	_, err = t.loadThread(mod)
-	//	if err != nil {
-	//		if err == ErrThreadLoaded {
-	//			continue
-	//		} else {
-	//			return err
-	//		}
-	//	}
-	//}
-	//go t.loadThreadSchemas()
+	for _, mod := range t.datastore.Threads().List().Items {
+		_, err = t.loadThread(mod)
+		if err != nil {
+			if err == ErrThreadLoaded {
+				continue
+			} else {
+				return err
+			}
+		}
+	}
+	go t.loadThreadSchemas()
 
 	t.started = true
 
@@ -585,8 +583,9 @@ func (t *Textile) Start() error {
 	if t.config.IsAuto {
 		log.Info("This is an automatic node")
 	}
-	return nil
-	//return t.addAccountThread()
+	//TODO
+	//return nil
+	return t.addAccountThread()
 }
 
 type loggingWaitGroup struct {

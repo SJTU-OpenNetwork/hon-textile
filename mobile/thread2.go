@@ -122,6 +122,11 @@ func (m *Mobile) Thread2DeleteMember(threadId string, instanceId string) error {
 	return m.node.DeleteMemberInstance(threadId,instanceId)
 }
 
+//TODO: using node address as index to delete its member instance; send delete info to front so we can delete DB
+func (m *Mobile) Thread2DeleteMemberByAddr(threadId string, instanceId string) error {
+	return m.node.DeleteMemberInstance(threadId,instanceId)
+}
+
 func (m *Mobile) Thead2MemberRole(threadId string, instanceId string) (string, error) {
 	return m.node.FindMemberByID(threadId, instanceId)
 }
@@ -129,6 +134,11 @@ func (m *Mobile) Thead2MemberRole(threadId string, instanceId string) (string, e
 func (m *Mobile) Thead2MemberRoleChange(threadId string, instanceId string, role string) (string, error) {
 	return m.node.ModifyMemberInstance(threadId, instanceId, role)
 }
+
+//TODO: set general user as admin
+//func (m *Mobile) Thead2SetAdmin(threadId string, address string) error {
+//	return m.node.SetAdmin(threadId, address)
+//}
 
 func (m *Mobile) Thead2PeersBySort(threadId string, role string) (string, error) {
 	return m.node.Thread2PeersBySort(threadId,role)
