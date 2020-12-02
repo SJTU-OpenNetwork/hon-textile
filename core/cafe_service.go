@@ -133,24 +133,24 @@ func (h *CafeService) Handle(env *pb.Envelope, pid peer.ID) (*pb.Envelope, error
 		return h.handleDeregistration(env, pid)
 	case pb.Message_CAFE_REFRESH_SESSION:
 		return h.handleRefreshSession(env, pid)
-	// case pb.Message_CAFE_STORE:
-	// 	return h.handleStore(env, pid)
-	// case pb.Message_CAFE_UNSTORE:
-	// 	return h.handleUnstore(env, pid)
+	case pb.Message_CAFE_STORE:
+		return h.handleStore(env, pid)
+	case pb.Message_CAFE_UNSTORE:
+		return h.handleUnstore(env, pid)
 	case pb.Message_CAFE_OBJECT:
 		return h.handleObject(env, pid)
-	// case pb.Message_CAFE_STORE_THREAD:
-	// 	return h.handleStoreThread(env, pid)
-	// case pb.Message_CAFE_UNSTORE_THREAD:
-	// 	return h.handleUnstoreThread(env, pid)
+	case pb.Message_CAFE_STORE_THREAD:
+		return h.handleStoreThread(env, pid)
+	case pb.Message_CAFE_UNSTORE_THREAD:
+		return h.handleUnstoreThread(env, pid)
 	case pb.Message_CAFE_DELIVER_MESSAGE:
 		return h.handleDeliverMessage(env, pid)
 	case pb.Message_CAFE_CHECK_MESSAGES:
 		return h.handleCheckMessages(env, pid)
 	case pb.Message_CAFE_DELETE_MESSAGES:
 		return h.handleDeleteMessages(env, pid)
-	// case pb.Message_CAFE_YOU_HAVE_MAIL:
-	// 	return h.handleNotifyClient(env, pid)
+	case pb.Message_CAFE_YOU_HAVE_MAIL:
+		return h.handleNotifyClient(env, pid)
 	case pb.Message_CAFE_PUBLISH_PEER:
 		return h.handlePublishPeer(env, pid)
 	case pb.Message_CAFE_PUBSUB_QUERY:
@@ -158,14 +158,14 @@ func (h *CafeService) Handle(env *pb.Envelope, pid peer.ID) (*pb.Envelope, error
 		return h.handlePubSubQuery(env, pid)
 	case pb.Message_CAFE_PUBSUB_QUERY_RES:
 		return h.handlePubSubQueryResults(env, pid)
-	// case pb.Message_CAFE_PUBLISH_VIDEO:
-	// 	return h.handlePublishVideo(env, pid)
-	// case pb.Message_CAFE_PUBLISH_VIDEO_CHUNK:
-	// 	return h.handlePublishVideoChunk(env, pid)
-	//    case pb.Message_CAFE_GET_VIDEO_CHUNK:
-	//        return h.handleGetVideoChunk(env, pid)
-	// case pb.Message_CAFE_SYNC_FILE:
-	// 	return h.handleSyncFile(env, pid)
+	case pb.Message_CAFE_PUBLISH_VIDEO:
+		return h.handlePublishVideo(env, pid)
+	case pb.Message_CAFE_PUBLISH_VIDEO_CHUNK:
+		return h.handlePublishVideoChunk(env, pid)
+		//    case pb.Message_CAFE_GET_VIDEO_CHUNK:
+		//        return h.handleGetVideoChunk(env, pid)
+	case pb.Message_CAFE_SYNC_FILE:
+		return h.handleSyncFile(env, pid)
 	case pb.Message_CAFE_FIND_IPFS_ADDR:
 		return h.handleCafeFindIpfsAddr(env, pid)
 	case pb.Message_CAFE_PEER_DISCOVERY:
@@ -427,15 +427,15 @@ func (h *CafeService) PublishVideoChunk(vchunk *pb.VideoChunk, cafeId string) er
 //	return res.Chunks, nil
 //}
 
-// func (h *CafeService) PublishSyncFile(file *pb.SyncFile, cafeId string) error {
-// 	_, err := h.sendCafeRequest(cafeId, func(session *pb.CafeSession) (*pb.Envelope, error) {
-// 		return h.service.NewEnvelope(pb.Message_CAFE_SYNC_FILE, &pb.CafeSyncFile{
-// 			Token: session.Access,
-// 			File:  file,
-// 		}, nil, false)
-// 	})
-// 	return err
-// }
+func (h *CafeService) PublishSyncFile(file *pb.SyncFile, cafeId string) error {
+	_, err := h.sendCafeRequest(cafeId, func(session *pb.CafeSession) (*pb.Envelope, error) {
+		return h.service.NewEnvelope(pb.Message_CAFE_SYNC_FILE, &pb.CafeSyncFile{
+			Token: session.Access,
+			File:  file,
+		}, nil, false)
+	})
+	return err
+}
 
 func (h *CafeService) CafeFindIpfsAddr(query *pb.IpfsQuery, cafeId string) (*pb.IpfsQueryResult, error) {
 	renv, err := h.sendCafeRequest(cafeId, func(session *pb.CafeSession) (*pb.Envelope, error) {
@@ -789,12 +789,12 @@ func (h *CafeService) searchLocal(qtype pb.Query_Type, options *pb.QueryOptions,
 		}
 
 		meta := h.datastore.StreamMetas().Get(q.Id)
-
 		if meta == nil {
 			log.Debugf("[%s] Stream %s", stream.TAG_SEARCH_NOMETA, q.Id)
 			recorder.Hlog.Add(fmt.Sprintf("[%s] Stream %s", stream.TAG_SEARCH_NOMETA, q.Id))
 			break
 		}
+		log.Debugf("In local search, Stream %s has %d blocks", q.Id, meta.Nblocks)
 
 		//blocks := h.datastore.StreamBlocks().ListByStream(q.Id, int(q.Startindex),3)
 		//if len(blocks) == 0 {
@@ -2217,105 +2217,105 @@ func (h *CafeService) handleRequests(reqs []*pb.CafeRequest, rtype pb.CafeReques
 	switch rtype {
 
 	// store requests are handled in bulk
-	// case pb.CafeRequest_STORE:
-	// 	var cids []string
-	// 	for _, req := range reqs {
-	// 		cids = append(cids, req.Target)
-	// 	}
+	case pb.CafeRequest_STORE:
+		var cids []string
+		for _, req := range reqs {
+			cids = append(cids, req.Target)
+		}
 
-	// 	stored, err := h.store(cids, cafeId)
-	// 	for _, s := range stored {
-	// 		for _, r := range reqs {
-	// 			if r.Target == s {
-	// 				handled = append(handled, r.Id)
-	// 			}
-	// 		}
-	// 	}
-	// 	if err != nil {
-	// 		log.Errorf("cafe %s request to %s failed: %s", rtype.String(), cafeId, err)
-	// 		herr = err
-	// 		for _, r := range reqs {
-	// 			failed = append(failed, r.Id)
-	// 		}
-	// 	}
+		stored, err := h.store(cids, cafeId)
+		for _, s := range stored {
+			for _, r := range reqs {
+				if r.Target == s {
+					handled = append(handled, r.Id)
+				}
+			}
+		}
+		if err != nil {
+			log.Errorf("cafe %s request to %s failed: %s", rtype.String(), cafeId, err)
+			herr = err
+			for _, r := range reqs {
+				failed = append(failed, r.Id)
+			}
+		}
 
-	// case pb.CafeRequest_UNSTORE:
-	// 	var cids []string
-	// 	for _, req := range reqs {
-	// 		cids = append(cids, req.Target)
-	// 	}
+	case pb.CafeRequest_UNSTORE:
+		var cids []string
+		for _, req := range reqs {
+			cids = append(cids, req.Target)
+		}
 
-	// 	unstored, err := h.unstore(cids, cafeId)
-	// 	for _, u := range unstored {
-	// 		for _, r := range reqs {
-	// 			if r.Target == u {
-	// 				handled = append(handled, r.Id)
-	// 			}
-	// 		}
-	// 	}
-	// 	if err != nil {
-	// 		log.Errorf("cafe %s request to %s failed: %s", rtype.String(), cafeId, err)
-	// 		herr = err
-	// 		for _, r := range reqs {
-	// 			failed = append(failed, r.Id)
-	// 		}
-	// 	}
+		unstored, err := h.unstore(cids, cafeId)
+		for _, u := range unstored {
+			for _, r := range reqs {
+				if r.Target == u {
+					handled = append(handled, r.Id)
+				}
+			}
+		}
+		if err != nil {
+			log.Errorf("cafe %s request to %s failed: %s", rtype.String(), cafeId, err)
+			herr = err
+			for _, r := range reqs {
+				failed = append(failed, r.Id)
+			}
+		}
 
-	// case pb.CafeRequest_STORE_THREAD:
-	// 	for _, req := range reqs {
-	// 		thrd := h.datastore.Threads().Get(req.Target)
-	// 		if thrd == nil {
-	// 			log.Warningf("could not find thread: %s", req.Target)
-	// 			handled = append(handled, req.Id)
-	// 			continue
-	// 		}
+	case pb.CafeRequest_STORE_THREAD:
+		for _, req := range reqs {
+			thrd := h.datastore.Threads().Get(req.Target)
+			if thrd == nil {
+				log.Warningf("could not find thread: %s", req.Target)
+				handled = append(handled, req.Id)
+				continue
+			}
 
-	// 		err := h.storeThread(thrd, cafeId)
-	// 		if err != nil {
-	// 			log.Errorf("cafe %s request to %s failed: %s", rtype.String(), cafeId, err)
-	// 			herr = err
-	// 			failed = append(failed, req.Id)
-	// 			continue
-	// 		}
-	// 		handled = append(handled, req.Id)
-	// 	}
+			err := h.storeThread(thrd, cafeId)
+			if err != nil {
+				log.Errorf("cafe %s request to %s failed: %s", rtype.String(), cafeId, err)
+				herr = err
+				failed = append(failed, req.Id)
+				continue
+			}
+			handled = append(handled, req.Id)
+		}
 
-	// case pb.CafeRequest_UNSTORE_THREAD:
-	// 	var err error
-	// 	for _, req := range reqs {
-	// 		err = h.unstoreThread(req.Target, cafeId)
-	// 		if err != nil {
-	// 			log.Errorf("cafe %s request to %s failed: %s", rtype.String(), cafeId, err)
-	// 			herr = err
-	// 			failed = append(failed, req.Id)
-	// 			continue
-	// 		}
-	// 		handled = append(handled, req.Id)
-	// 	}
+	case pb.CafeRequest_UNSTORE_THREAD:
+		var err error
+		for _, req := range reqs {
+			err = h.unstoreThread(req.Target, cafeId)
+			if err != nil {
+				log.Errorf("cafe %s request to %s failed: %s", rtype.String(), cafeId, err)
+				herr = err
+				failed = append(failed, req.Id)
+				continue
+			}
+			handled = append(handled, req.Id)
+		}
 
-	//	case pb.CafeRequest_STORE_VIDEO: //TODO
-	//		for _, req := range reqs {
-	//			err := h.storeVideo(req.Target, cafeId)
-	//			if err != nil {
-	//				log.Errorf("cafe %s request to %s failed: %s", rtype.String(), cafeId, err)
-	//				herr = err
-	//				failed = append(failed, req.Id)
-	//				continue
-	//			}
-	//			handled = append(handled, req.Id)
-	//        }
-	//
-	//    case pb.CafeRequest_STORE_VIDEO_CHUNK: //TODO
-	//		for _, req := range reqs {
-	//			err := h.storeVideoChunk(req.Target, cafeId)
-	//			if err != nil {
-	//				log.Errorf("cafe %s request to %s failed: %s", rtype.String(), cafeId, err)
-	//				herr = err
-	//				failed = append(failed, req.Id)
-	//				continue
-	//			}
-	//			handled = append(handled, req.Id)
-	//        }
+		//	case pb.CafeRequest_STORE_VIDEO: //TODO
+		//		for _, req := range reqs {
+		//			err := h.storeVideo(req.Target, cafeId)
+		//			if err != nil {
+		//				log.Errorf("cafe %s request to %s failed: %s", rtype.String(), cafeId, err)
+		//				herr = err
+		//				failed = append(failed, req.Id)
+		//				continue
+		//			}
+		//			handled = append(handled, req.Id)
+		//        }
+		//
+		//    case pb.CafeRequest_STORE_VIDEO_CHUNK: //TODO
+		//		for _, req := range reqs {
+		//			err := h.storeVideoChunk(req.Target, cafeId)
+		//			if err != nil {
+		//				log.Errorf("cafe %s request to %s failed: %s", rtype.String(), cafeId, err)
+		//				herr = err
+		//				failed = append(failed, req.Id)
+		//				continue
+		//			}
+		//			handled = append(handled, req.Id)
+		//        }
 
 	case pb.CafeRequest_INBOX:
 		var err error
@@ -2335,105 +2335,105 @@ func (h *CafeService) handleRequests(reqs []*pb.CafeRequest, rtype pb.CafeReques
 	return handled, failed, herr
 }
 
-// // store stores (pins) content on a cafe and returns a list of successful cids
-// func (h *CafeService) store(cids []string, cafeId string) ([]string, error) {
-// 	var stored []string
+// store stores (pins) content on a cafe and returns a list of successful cids
+func (h *CafeService) store(cids []string, cafeId string) ([]string, error) {
+	var stored []string
 
-// 	var accessToken string
-// 	renv, err := h.sendCafeRequest(cafeId, func(session *pb.CafeSession) (*pb.Envelope, error) {
-// 		store := &pb.CafeStore{
-// 			Token: session.Access,
-// 			Cids:  cids,
-// 		}
-// 		accessToken = session.Access
-// 		return h.service.NewEnvelope(pb.Message_CAFE_STORE, store, nil, false)
-// 	})
-// 	if err != nil {
-// 		return stored, err
-// 	}
+	var accessToken string
+	renv, err := h.sendCafeRequest(cafeId, func(session *pb.CafeSession) (*pb.Envelope, error) {
+		store := &pb.CafeStore{
+			Token: session.Access,
+			Cids:  cids,
+		}
+		accessToken = session.Access
+		return h.service.NewEnvelope(pb.Message_CAFE_STORE, store, nil, false)
+	})
+	if err != nil {
+		return stored, err
+	}
 
-// 	// unpack response as a request list of cids the cafe is able/willing to store
-// 	req := new(pb.CafeObjectList)
-// 	err = ptypes.UnmarshalAny(renv.Message.Payload, req)
-// 	if err != nil {
-// 		return stored, err
-// 	}
-// 	if len(req.Cids) == 0 {
-// 		log.Debugf("peer %s requested zero objects", cafeId)
-// 		return cids, nil
-// 	}
+	// unpack response as a request list of cids the cafe is able/willing to store
+	req := new(pb.CafeObjectList)
+	err = ptypes.UnmarshalAny(renv.Message.Payload, req)
+	if err != nil {
+		return stored, err
+	}
+	if len(req.Cids) == 0 {
+		log.Debugf("peer %s requested zero objects", cafeId)
+		return cids, nil
+	}
 
-// 	// include not-requested (already stored) cids in result
-// loop:
-// 	for _, i := range cids {
-// 		for _, j := range req.Cids {
-// 			if j == i {
-// 				continue loop
-// 			}
-// 		}
-// 		stored = append(stored, i)
-// 	}
+	// include not-requested (already stored) cids in result
+loop:
+	for _, i := range cids {
+		for _, j := range req.Cids {
+			if j == i {
+				continue loop
+			}
+		}
+		stored = append(stored, i)
+	}
 
-// 	log.Debugf("sending %d objects to %s", len(req.Cids), cafeId)
+	log.Debugf("sending %d objects to %s", len(req.Cids), cafeId)
 
-// 	// send each object
-// 	for _, id := range req.Cids {
-// 		decoded, err := icid.Decode(id)
-// 		if err != nil {
-// 			return stored, err
-// 		}
-// 		err = h.sendObject(decoded, cafeId, accessToken)
-// 		if err != nil {
-// 			return stored, err
-// 		}
-// 		stored = append(stored, id)
-// 	}
-// 	return stored, nil
-// }
+	// send each object
+	for _, id := range req.Cids {
+		decoded, err := icid.Decode(id)
+		if err != nil {
+			return stored, err
+		}
+		err = h.sendObject(decoded, cafeId, accessToken)
+		if err != nil {
+			return stored, err
+		}
+		stored = append(stored, id)
+	}
+	return stored, nil
+}
 
-// // unstore unstores (unpins) content on a cafe and returns a list of successful cids
-// func (h *CafeService) unstore(cids []string, cafeId string) ([]string, error) {
-// 	renv, err := h.sendCafeRequest(cafeId, func(session *pb.CafeSession) (*pb.Envelope, error) {
-// 		return h.service.NewEnvelope(pb.Message_CAFE_UNSTORE, &pb.CafeUnstore{
-// 			Token: session.Access,
-// 			Cids:  cids,
-// 		}, nil, false)
-// 	})
-// 	if err != nil {
-// 		return nil, err
-// 	}
+// unstore unstores (unpins) content on a cafe and returns a list of successful cids
+func (h *CafeService) unstore(cids []string, cafeId string) ([]string, error) {
+	renv, err := h.sendCafeRequest(cafeId, func(session *pb.CafeSession) (*pb.Envelope, error) {
+		return h.service.NewEnvelope(pb.Message_CAFE_UNSTORE, &pb.CafeUnstore{
+			Token: session.Access,
+			Cids:  cids,
+		}, nil, false)
+	})
+	if err != nil {
+		return nil, err
+	}
 
-// 	req := new(pb.CafeUnstoreAck)
-// 	err = ptypes.UnmarshalAny(renv.Message.Payload, req)
-// 	if err != nil {
-// 		return nil, err
-// 	}
-// 	return req.Cids, nil
-// }
+	req := new(pb.CafeUnstoreAck)
+	err = ptypes.UnmarshalAny(renv.Message.Payload, req)
+	if err != nil {
+		return nil, err
+	}
+	return req.Cids, nil
+}
 
 // storeThread pushes a thread to a cafe snapshot
-// func (h *CafeService) storeThread(thrd *pb.Thread, cafeId string) error {
-// 	plaintext, err := proto.Marshal(thrd)
-// 	if err != nil {
-// 		return err
-// 	}
-// 	ciphertext, err := h.service.Account.Encrypt(plaintext)
-// 	if err != nil {
-// 		return err
-// 	}
+func (h *CafeService) storeThread(thrd *pb.Thread, cafeId string) error {
+	plaintext, err := proto.Marshal(thrd)
+	if err != nil {
+		return err
+	}
+	ciphertext, err := h.service.Account.Encrypt(plaintext)
+	if err != nil {
+		return err
+	}
 
-// 	_, err = h.sendCafeRequest(cafeId, func(session *pb.CafeSession) (*pb.Envelope, error) {
-// 		return h.service.NewEnvelope(pb.Message_CAFE_STORE_THREAD, &pb.CafeStoreThread{
-// 			Token:      session.Access,
-// 			Id:         thrd.Id,
-// 			Ciphertext: ciphertext,
-// 		}, nil, false)
-// 	})
-// 	if err != nil {
-// 		return err
-// 	}
-// 	return nil
-// }
+	_, err = h.sendCafeRequest(cafeId, func(session *pb.CafeSession) (*pb.Envelope, error) {
+		return h.service.NewEnvelope(pb.Message_CAFE_STORE_THREAD, &pb.CafeStoreThread{
+			Token:      session.Access,
+			Id:         thrd.Id,
+			Ciphertext: ciphertext,
+		}, nil, false)
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+}
 
 //func (h *CafeService) storeVideo(video *pb.Video, cafeId string) error {
 //	_, err = h.sendCafeRequest(cafeId, func(session *pb.CafeSession) (*pb.Envelope, error) {
@@ -2462,20 +2462,20 @@ func (h *CafeService) handleRequests(reqs []*pb.CafeRequest, rtype pb.CafeReques
 //}
 
 // unstoreThread removes a cafe's thread snapshot
-// func (h *CafeService) unstoreThread(id string, cafeId string) error {
-// 	renv, err := h.sendCafeRequest(cafeId, func(session *pb.CafeSession) (*pb.Envelope, error) {
-// 		return h.service.NewEnvelope(pb.Message_CAFE_UNSTORE_THREAD, &pb.CafeUnstoreThread{
-// 			Token: session.Access,
-// 			Id:    id,
-// 		}, nil, false)
-// 	})
-// 	if err != nil {
-// 		return err
-// 	}
+func (h *CafeService) unstoreThread(id string, cafeId string) error {
+	renv, err := h.sendCafeRequest(cafeId, func(session *pb.CafeSession) (*pb.Envelope, error) {
+		return h.service.NewEnvelope(pb.Message_CAFE_UNSTORE_THREAD, &pb.CafeUnstoreThread{
+			Token: session.Access,
+			Id:    id,
+		}, nil, false)
+	})
+	if err != nil {
+		return err
+	}
 
-// 	req := new(pb.CafeUnstoreThreadAck)
-// 	return ptypes.UnmarshalAny(renv.Message.Payload, req)
-// }
+	req := new(pb.CafeUnstoreThreadAck)
+	return ptypes.UnmarshalAny(renv.Message.Payload, req)
+}
 
 // deliverMessage delivers a message content id to a peer's cafe inbox
 func (h *CafeService) deliverMessage(mid string, peerId string, cafe *pb.Cafe) error {
