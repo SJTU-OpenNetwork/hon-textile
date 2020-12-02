@@ -322,7 +322,7 @@ func (t *Textile) CreateGroupFromToken(threadIdStr string, dbAddr string, dbKey 
 	}
 	//add myself info to the thread collection of member
 	_, err = t.CreateMemInstance(threadId,  client.Instances{
-		ThreadMember{MemberId: t.Account().Address(), Name: t.Name(), Role: owner}})
+		ThreadMember{MemberId: t.Account().Address(), Name: t.Name(), Role: member}})
 	if err != nil {
 		fmt.Println("Error when add myself info to the thread")
 		return err
@@ -371,7 +371,7 @@ func (t *Textile) CreateGroupFromToken1(threadname string)  (string, error) {
 	}
 	//add myself info to the thread collection of member
 	_, err = t.CreateMemInstance(threadId,  client.Instances{
-		ThreadMember{MemberId: t.Account().Address(), Name: t.Name(), Role: owner}})
+		ThreadMember{MemberId: t.Account().Address(), Name: t.Name(), Role: member}})
 	if err != nil {
 		fmt.Println("Error when add myself info to the thread")
 		return "",err
@@ -410,7 +410,7 @@ func (t *Textile) CreateGroupFromToken2(threadIdStr string, token string)  error
 	}
 	//add myself info to the thread collection of member
 	_, err = t.CreateMemInstance(threadId,  client.Instances{
-		ThreadMember{MemberId: t.Account().Address(), Name: t.Name(), Role: owner}})
+		ThreadMember{MemberId: t.Account().Address(), Name: t.Name(), Role: member}})
 	if err != nil {
 		fmt.Println("Error when add myself info to the thread")
 		return err
