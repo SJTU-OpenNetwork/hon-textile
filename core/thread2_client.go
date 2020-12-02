@@ -876,7 +876,7 @@ func (t *Textile) Thread2PeersBySort(threadIdStr string, role string) (string, e
 	xmlMesssage := "<peerList>"
 	for _,result := range results {
 		xmlMesssage = xmlMesssage+"<peer>"
-		xmlMesssage = xmlMesssage+"<peerId>"+result.MemberId+"</peerId>"
+		xmlMesssage = xmlMesssage+"<address>"+result.MemberId+"</address>"
 		xmlMesssage = xmlMesssage+"<role>"+result.Role+"</role>"
 		xmlMesssage = xmlMesssage+"<name>"+result.Name+"</name>"
 		xmlMesssage = xmlMesssage+"</peer>"
@@ -885,6 +885,29 @@ func (t *Textile) Thread2PeersBySort(threadIdStr string, role string) (string, e
 	return xmlMesssage,nil
 }
 
+func (t *Textile) SetAdmin(threadIdStr string, address string) error {
+	threadId, err := thread.Decode(threadIdStr)
+	if err != nil {
+		return err
+	}
+	q := db.Where("member_id").Eq(address)
+	rawResults, err := t.threadclient.Find(t.ctx, threadId, collectionMember, q, &ThreadMember{})
+	if err != nil {
+		return err
+	}
+	results := rawResults.([]*ThreadMember)
+	if len(results) != 1 {
+		fmt.Println("expected 1 result, but got ", len(results))
+	}
+	memberInfo := results[0]
+	memberInfo.Name = "ADMINISTRATOR"
+	err = t.threadclient.Save(t.ctx, threadId, collectionMember, client.Instances{memberInfo})
+	if err != nil {
+		fmt.Println("failed to set admin, ", err)
+		return err
+	}
+	return nil
+}
 
 //====================================================================//
 

@@ -127,24 +127,24 @@ func (m *Mobile) Thread2DeleteMemberByAddr(threadId string, instanceId string) e
 	return m.node.DeleteMemberInstance(threadId,instanceId)
 }
 
-func (m *Mobile) Thead2MemberRole(threadId string, instanceId string) (string, error) {
+func (m *Mobile) Thread2MemberRole(threadId string, instanceId string) (string, error) {
 	return m.node.FindMemberByID(threadId, instanceId)
 }
 
-func (m *Mobile) Thead2MemberRoleChange(threadId string, instanceId string, role string) (string, error) {
+func (m *Mobile) Thread2MemberRoleChange(threadId string, instanceId string, role string) (string, error) {
 	return m.node.ModifyMemberInstance(threadId, instanceId, role)
 }
 
 //TODO: set general user as admin
-//func (m *Mobile) Thead2SetAdmin(threadId string, address string) error {
-//	return m.node.SetAdmin(threadId, address)
-//}
+func (m *Mobile) Thead2SetAdmin(threadId string, address string) error {
+	return m.node.SetAdmin(threadId, address)
+}
 
-func (m *Mobile) Thead2PeersBySort(threadId string, role string) (string, error) {
+func (m *Mobile) Thread2PeersBySort(threadId string, role string) (string, error) {
 	return m.node.Thread2PeersBySort(threadId,role)
 }
 
-func (m *Mobile) Thead2IsAdmin(threadId string, address string) (string, error) {
+func (m *Mobile) Thread2IsAdmin(threadId string, address string) (string, error) {
 	return m.node.Thread2RoleFindByAddr(threadId,address)
 }
 
