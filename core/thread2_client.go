@@ -900,7 +900,7 @@ func (t *Textile) SetAdmin(threadIdStr string, address string) error {
 		fmt.Println("expected 1 result, but got ", len(results))
 	}
 	memberInfo := results[0]
-	memberInfo.Name = "ADMINISTRATOR"
+	memberInfo.Role = "ADMINISTRATOR"
 	err = t.threadclient.Save(t.ctx, threadId, collectionMember, client.Instances{memberInfo})
 	if err != nil {
 		fmt.Println("failed to set admin, ", err)

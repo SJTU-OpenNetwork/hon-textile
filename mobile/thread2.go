@@ -20,7 +20,7 @@ type Thread2AddMemCallBack interface {
 }
 
 
-//=======================================thread2 operates DB api=========================================//
+//=======================================thread2 apis for operating DB =========================================//
 
 func (m *Mobile) CreateGroup(name string) (string, error) {
 	threadid, err := m.node.CreateGroup(name)
@@ -148,7 +148,7 @@ func (m *Mobile) Thread2IsAdmin(threadId string, address string) (string, error)
 	return m.node.Thread2RoleFindByAddr(threadId,address)
 }
 
-//=======================================thread2 operates files api=========================================//
+//=======================================thread2 apis for operating files =========================================//
 //message add,remove and find
 func (m *Mobile) Thread2AddMessage(threadId string, mes string) (string,error) {
 	return m.node.Thread2AddMessage(threadId, mes)
