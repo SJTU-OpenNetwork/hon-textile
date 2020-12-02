@@ -120,25 +120,6 @@ func (t *Textile) handleInvite(env *pb.Envelope) error {
 		log.Errorf("error when listen one thread2", err)
 	}
 
-	//check type and number of group , return error when type == singleChat && number == 2
-	//gType, err := t.GroupInfoType(inform.ThreadId)
-	//if err != nil{
-	//	return err
-	//}
-	//gNumber, err := t.GroupInfoNumber(inform.ThreadId)
-	//if err != nil{
-	//	return err
-	//}
-	//if  gType == singleChat && gNumber == 2{
-	//	// stop listen to the threadDB or delete the thread new created***********************
-	//	err := t.DeleteDB(inform.ThreadId)
-	//	if err != nil {
-	//		return err
-	//	}
-	//	fmt.Println("error when join to  a single chat, it's full")
-	//	return nil
-	//}
-
 	//add myself info to the thread collection of member
 	_, err = t.CreateMemInstance(threadId, client.Instances{
 		ThreadMember{MemberId: t.Account().Address(), Name: t.Name(), Role: member}})
@@ -146,10 +127,10 @@ func (t *Textile) handleInvite(env *pb.Envelope) error {
 		fmt.Println("Error when add myself info to the thread, ", err)
 		return err
 	}
-	//modify the number of group member
-	err = t.ModifyGroupNumber(inform.ThreadId)
-	if err != nil {
-		return err
-	}
+	////modify the number of group member
+	//err = t.ModifyGroupNumber(inform.ThreadId)
+	//if err != nil {
+	//	return err
+	//}
 	return nil
 }

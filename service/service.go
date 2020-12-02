@@ -495,6 +495,7 @@ func (srv *Service) listen(tag string) {
 			log.Debugf("pubsub listener shutdown for %s", topic)
 			return
 		case msg, ok := <-msgs:
+			log.Debugf("receive msg from:",msg.From(),", topic:",msg.Topics())
 			if !ok {
 				log.Debugf("pubsub listener shutdown for %s", topic)
 				return
