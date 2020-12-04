@@ -116,6 +116,7 @@ func FolderAtPath(node *core.IpfsNode, pth string, repoPath string) (string, err
 
 	fileFolder := ospath.Join(repoPath, pth)
 
+    os.RemoveAll(fileFolder)
 	err = files.WriteTo(rootNodeDirectory, fileFolder)
 
 	if err != nil {
