@@ -950,8 +950,10 @@ func (h *CafeService) searchPubSub(query *pb.Query, reply func(*pb.QueryResults)
 	var rtype pb.PubSubQuery_ResponseType
 	if h.open && !fromCafe {
 		rtype = pb.PubSubQuery_PUBSUB
+		log.Debug("PubSubQuery_PUBSUB")
 	} else {
 		rtype = pb.PubSubQuery_P2P
+		log.Debug("PubSubQuery_P2P")
 	}
 
 	err := h.publishQuery(&pb.PubSubQuery{
@@ -1046,6 +1048,7 @@ func (h *CafeService) findLocalPeers(pid peer.ID) []*pb.Peer {
 
 // publishQuery publishes a search request to the network
 func (h *CafeService) publishQuery(req *pb.PubSubQuery) error {
+	log.Debugf("pubsub topic: ",req.Topic)
 	env, err := h.service.NewEnvelope(pb.Message_CAFE_PUBSUB_QUERY, req, nil, false)
 	if err != nil {
 		return err
