@@ -69,16 +69,9 @@ var DefaultOpennetBootstrapAddresses = []string{
 
     //"/ip6/2001:da8:8000:6084:1a31:bfff:fecf:e603/tcp/12589/ipfs/12D3KooWEBKQAdjyqa4iMp8Lu8NF9tMQSWZoninNNPhbGYJ1xvcH",
     //"/ip4/202.120.38.131/tcp/12589/ipfs/12D3KooWEBKQAdjyqa4iMp8Lu8NF9tMQSWZoninNNPhbGYJ1xvcH",
+    "/ip4/202.120.38.131/tcp/4001/ipfs/12D3KooWQ41gpmRvEhuAPoMPwQm6DLCSruQiVV1gpSdQL98UKgaZ",
     "/ip4/202.120.38.100/tcp/4001/ipfs/QmZt8jsim548Y5UFN24GL9nX9x3eSS8QFMsbSRNMBAqKBb",
-    //"/ip4/139.9.123.113/tcp/4001/ipfs/QmRHLRg5vihUgakbk7JnQFswWu7D92awdZnKiQRi1DmJhE",
-    //"/ip4/119.3.23.219/tcp/4001/ipfs/QmYBXdc56TrPqKWhAYJZneLpVeG4qMaV8Be6yox3fiqBYd",
-    //"/ip4/121.36.167.61/tcp/4001/ipfs/QmYL5AAcaGA2undBnRqWRTmndkL1YV3v7tML8DbakC8sTD",
-    //"/ip4/122.112.199.88/tcp/4001/ipfs/QmcwtfsFoJALLQwJWmsh5SmothbrniohPcW2PuggSVKurT",
-    //"/ip4/119.3.24.157/tcp/4001/ipfs/QmYCYQMhyDJV4BU9fRr5xBzFDEccnukuViUT7GJLngP7fj",
-    //"/ip4/159.138.3.74/tcp/4001/ipfs/QmYovpcqB12c56AjGRaMUcwfoZg1DYinCFmEAzFHYvLb6R/",
-	//"/ip4/159.138.130.129/tcp/4001/ipfs/QmZX8WVgJ3cQCW3bNcodXhmK34rmNkvqk8Zg9u7f3JEFgN",
-	//"/ip4/106.12.102.87/tcp/3001/p2p/QmYSGmQwQo7PWZmGNv2DWEqLdP437Ks1f87xmpkqueucbU", // p2p relay
-	//"/ip4/202.120.38.131/tcp/40102/ipfs/12D3KooWESfRkjTBSck59p6SrWMKpiGSgRD6XZ5peDwCr8q4JUBx",
+    "/ip4/159.138.3.74/tcp/4001/ipfs/QmYovpcqB12c56AjGRaMUcwfoZg1DYinCFmEAzFHYvLb6R",
 }
 
 var OpennetCafeAddresses = []string{
