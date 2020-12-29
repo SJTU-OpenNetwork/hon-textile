@@ -627,7 +627,7 @@ func ComparePath(node *core.IpfsNode, pth1 string, pth2 string) (int, int, int, 
 	k:=0
 	for i=0; i<n1; i++ {
 		for j=0; j<n2; j++ {
-			if strings.Compare(list1[j],list2[j])==0 {
+			if strings.Compare(list1[i],list2[j])==0 {
 				break
 			}
 		}
@@ -641,7 +641,7 @@ func ComparePath(node *core.IpfsNode, pth1 string, pth2 string) (int, int, int, 
 	k=0
 	for i=0; i<n2; i++ {
 		for j=0; j<n1; j++ {
-			if strings.Compare(list1[j],list2[j])==0 {
+			if strings.Compare(list2[i],list1[j])==0 {
 				break
 			}
 		}
