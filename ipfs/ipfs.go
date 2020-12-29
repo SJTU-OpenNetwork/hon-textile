@@ -598,40 +598,89 @@ func traverseAndList(node *core.IpfsNode, cid string) ([]string, error) {
 //	- number of cids in first path
 //	- number of cids in second path
 // 	- number of same cids
+//  - number of A minus B
+//	- number of B minus A
 //	- error
-func ComparePath(node *core.IpfsNode, pth1 string, pth2 string) (int, int, int, error){
+func ComparePath(node *core.IpfsNode, pth1 string, pth2 string) (int, int, int, int, int, error){
 	list1, err := traverseAndList(node, pth1)
 	if err != nil {
 		log.Error("Error when traverse node ", pth1, ": ", err)
 		//recorder.Hlog.Add("Error when traverse node "+ pth1+": " + err.Error())
-		return 0,0,0,err
+		return 0,0,0,0,0,err
 	}
-	sort.Strings(list1)
+	//sort.Strings(list1)
 
 	list2, err := traverseAndList(node, pth2)
 	if err != nil {
 		log.Error("Error when traverse node ", pth2, ": ", err)
 		//recorder.Hlog.Add("Error when traverse node "+ pth2+": " + err.Error())
-		return 0,0,0,err
+		return 0,0,0,0,0,err
 	}
-	sort.Strings(list2)
+	//sort.Strings(list2)
 
 	n1 := len(list1)
 	n2 := len(list2)
-	var same = 0
-	var i1 = 0
-	var i2 = 0
-	for i1<n1 && i2 < n2 {
-		if list1[i1] == list2[i2] {
-			same +=1
-			i1+=1
-			i2+=1
-		} else if list1[i1] < list2[i2] {
-			i1+=1
-		} else {
-			i2+=1
+	AminusB:=[]string{}
+	BminusA:=[]string{}
+	i:=0
+	j:=0
+	k:=0
+	for i=0; i<n1; i++ {
+		for j=0; j<n2; j++ {
+			if strings.Compare(list1[j],list2[j])==0 {
+				break
+			}
+		}
+		if j==n2 {
+			AminusB[k]=list1[i]
+			k++
+		}
+	}
+	i=0
+	j=0
+	k=0
+	for i=0; i<n2; i++ {
+		for j=0; j<n1; j++ {
+			if strings.Compare(list1[j],list2[j])==0 {
+				break
+			}
+		}
+		if j==n1 {
+			BminusA[k]=list2[i]
+			k++
 		}
 	}
 
-	return n1, n2, same, nil
+	same:=(n1+n2-len(AminusB)-len(BminusA))/2
+
+	var bytes []byte
+	dataSizeAminusB :=0
+	dataSizeBminusA :=0
+	for i=0; i<n1; i++ {
+		bytes,_=DataAtPath(node, AminusB[i])
+		dataSizeAminusB+=len(bytes)
+	}
+	for i=0; i<n2; i++ {
+		bytes,_= DataAtPath(node, BminusA[i])
+		dataSizeBminusA+=len(bytes)
+	}
+
+	//n1 := len(list1)
+	//n2 := len(list2)
+	//var same = 0
+	//var i1 = 0
+	//var i2 = 0
+	//for i1<n1 && i2 < n2 {
+	//	if list1[i1] == list2[i2] {
+	//		same +=1
+	//		i1+=1
+	//		i2+=1
+	//	} else if list1[i1] < list2[i2] {
+	//		i1+=1
+	//	} else {
+	//		i2+=1
+	//	}
+	//}
+
+	return n1, n2, same, dataSizeAminusB, dataSizeBminusA, nil
 }

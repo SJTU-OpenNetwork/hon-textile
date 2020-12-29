@@ -326,7 +326,7 @@ func (m *Mobile) ObjectAtPath(pth string) ([]byte, error) {
 
 func (m *Mobile) IpfsComparePath(pth1 string, pth2 string, cb IpfsCompareCallback) {
 	if !m.node.Started() {
-		cb.Call(0,0,0, core.ErrStopped)
+		cb.Call(0,0,0, 0,0,core.ErrStopped)
 	}
 	m.node.WaitAdd(1, "Mobile.IpfsComparePath")
 	go func() {

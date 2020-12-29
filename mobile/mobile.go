@@ -73,7 +73,7 @@ type IpfsCompareCallback interface {
 	// n1: number of cids in first path
 	// n2: number of cids in second path
 	// same: number of same cids
-	Call(n1 int, n2 int, same int, err error)
+	Call(n1 int, n2 int, same int, AminusB int, BminusA int, err error)
 }
 
 // Used by mobild.IpfsListCids
