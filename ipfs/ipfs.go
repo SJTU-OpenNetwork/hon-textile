@@ -626,7 +626,6 @@ func ComparePath(node *core.IpfsNode, pth1 string, pth2 string) (int, int, int, 
 	AminusB:=[]string{}
 	BminusA:=[]string{}
 	var i,j int
-	k:=0
 	for i=0; i<n1; i++ {
 		for j=0; j<n2; j++ {
 			if strings.Compare(list1[i],list2[j])==0 {
@@ -634,13 +633,11 @@ func ComparePath(node *core.IpfsNode, pth1 string, pth2 string) (int, int, int, 
 			}
 		}
 		if j==n2 {
-			AminusB[k]=list1[i]
-			k++
+			AminusB=append(AminusB,list1[i])
 		}
 	}
 	i=0
 	j=0
-	k=0
 	for i=0; i<n2; i++ {
 		for j=0; j<n1; j++ {
 			if strings.Compare(list2[i],list1[j])==0 {
@@ -648,8 +645,7 @@ func ComparePath(node *core.IpfsNode, pth1 string, pth2 string) (int, int, int, 
 			}
 		}
 		if j==n1 {
-			BminusA[k]=list2[i]
-			k++
+			BminusA=append(BminusA,list2[i]);
 		}
 	}
 
