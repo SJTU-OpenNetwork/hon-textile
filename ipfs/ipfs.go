@@ -593,6 +593,27 @@ func traverseAndList(node *core.IpfsNode, cid string) ([]string, error) {
 	return res, nil
 }
 
+func traverseAndGetLeaf(node *core.IpfsNode, cid string) ([]string,error){
+	res := []string{}
+	links, err := LinksAtPath(node, cid)
+	if err != nil {
+		return nil, err
+	}
+	if len(links) == 0 {
+		res = append(res,cid)
+		return res, nil
+	} else {
+		for _, l := range links {
+			list, err := traverseAndGetLeaf(node, l.Cid.String())
+			if err != nil {
+				return nil, err
+			}
+			res = append(res, list...)
+		}
+	}
+	return res, nil
+}
+
 // Note that ComparePath would not fetch or pin the cid.
 // return
 //	- number of cids in first path
@@ -602,7 +623,7 @@ func traverseAndList(node *core.IpfsNode, cid string) ([]string, error) {
 //	- number of B minus A
 //	- error
 func ComparePath(node *core.IpfsNode, pth1 string, pth2 string) (int, int, int, int, int, error){
-	list1, err := traverseAndList(node, pth1)
+	list1, err := traverseAndGetLeaf(node, pth1)
 	if err != nil {
 		log.Error("Error when traverse node ", pth1, ": ", err)
 		//recorder.Hlog.Add("Error when traverse node "+ pth1+": " + err.Error())
@@ -610,7 +631,7 @@ func ComparePath(node *core.IpfsNode, pth1 string, pth2 string) (int, int, int, 
 	}
 	//sort.Strings(list1)
 
-	list2, err := traverseAndList(node, pth2)
+	list2, err := traverseAndGetLeaf(node, pth2)
 	if err != nil {
 		log.Error("Error when traverse node ", pth2, ": ", err)
 		//recorder.Hlog.Add("Error when traverse node "+ pth2+": " + err.Error())
