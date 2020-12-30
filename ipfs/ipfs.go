@@ -654,11 +654,11 @@ func ComparePath(node *core.IpfsNode, pth1 string, pth2 string) (int, int, int, 
 	var bytes []byte
 	dataSizeAminusB :=0
 	dataSizeBminusA :=0
-	for i=0; i<n1; i++ {
+	for i=0; i<len(AminusB); i++ {
 		bytes,_=DataAtPath(node, AminusB[i])
 		dataSizeAminusB+=len(bytes)
 	}
-	for i=0; i<n2; i++ {
+	for i=0; i<len(BminusA); i++ {
 		bytes,_= DataAtPath(node, BminusA[i])
 		dataSizeBminusA+=len(bytes)
 	}
