@@ -620,10 +620,12 @@ func ComparePath(node *core.IpfsNode, pth1 string, pth2 string) (int, int, int, 
 
 	n1 := len(list1)
 	n2 := len(list2)
+	if n1==0 || n2==0 {
+		return 0, 0, 0, 0, 0, nil
+	}
 	AminusB:=[]string{}
 	BminusA:=[]string{}
-	i:=0
-	j:=0
+	var i,j int
 	k:=0
 	for i=0; i<n1; i++ {
 		for j=0; j<n2; j++ {
