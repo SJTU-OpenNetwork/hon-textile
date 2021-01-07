@@ -72,11 +72,13 @@ var DefaultOpennetBootstrapAddresses = []string{
     "/ip4/202.120.38.131/tcp/4001/ipfs/12D3KooWQ41gpmRvEhuAPoMPwQm6DLCSruQiVV1gpSdQL98UKgaZ",
     "/ip4/202.120.38.100/tcp/4001/ipfs/QmZt8jsim548Y5UFN24GL9nX9x3eSS8QFMsbSRNMBAqKBb",
     "/ip4/159.138.3.74/tcp/4001/ipfs/QmYovpcqB12c56AjGRaMUcwfoZg1DYinCFmEAzFHYvLb6R",
+    "/ip4/139.159.200.151/tcp/4001/ipfs/12D3KooWMdW1WhpG93uno4dY7mu6vRyJVv98y8WW1Q7T8FmWgoyF",
 }
 
 var OpennetCafeAddresses = []string{
     "/ip6/2001:da8:8000:6084:1a31:bfff:fecf:e603/tcp/12589/ipfs/12D3KooWEBKQAdjyqa4iMp8Lu8NF9tMQSWZoninNNPhbGYJ1xvcH",
     "/ip4/202.120.38.131/tcp/12589/ipfs/12D3KooWEBKQAdjyqa4iMp8Lu8NF9tMQSWZoninNNPhbGYJ1xvcH",
+    "/ip4/139.159.200.151/tcp/4001/ipfs/12D3KooWMdW1WhpG93uno4dY7mu6vRyJVv98y8WW1Q7T8FmWgoyF",
 //    "/ip4/159.138.58.61/tcp/26056/ipfs/12D3KooWKAwHi4WkUY5qbg2psSpDSZ4EsLwjaiCjC8ERajwZsXHc",
 }
 
@@ -231,7 +233,11 @@ func addressesConfig(server bool) native.Addresses {
 	//	noAnnounce = DefaultServerFilters
 	//}
 	return native.Addresses{
-		Swarm:      []string{"/ip4/0.0.0.0/udp/4001/quic","/ip6/::/udp/4001/quic"},
+		Swarm:      []string{
+			//"/ip4/0.0.0.0/udp/4001/quic",
+			"/ip6/::/udp/4001/quic",
+			//"/ip4/0.0.0.0/tcp/4001",
+			"/ip6/::/tcp/4001"},
 		Announce:   []string{},
 		NoAnnounce: noAnnounce,
 		API:        []string{"/ip4/127.0.0.1/tcp/5001"},
