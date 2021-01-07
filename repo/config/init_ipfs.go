@@ -231,7 +231,7 @@ func addressesConfig(server bool) native.Addresses {
 	//	noAnnounce = DefaultServerFilters
 	//}
 	return native.Addresses{
-		Swarm:      []string{"/ip6/::/tcp/4001"},
+		Swarm:      []string{"/ip4/0.0.0.0/udp/4001/quic","/ip6/::/udp/4001/quic"},
 		Announce:   []string{},
 		NoAnnounce: noAnnounce,
 		API:        []string{"/ip4/127.0.0.1/tcp/5001"},
