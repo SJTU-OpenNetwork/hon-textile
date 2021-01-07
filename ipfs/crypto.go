@@ -4,12 +4,9 @@ import (
 	"crypto/rand"
 	"encoding/base64"
 
-	"github.com/golang/protobuf/proto"
 	config "github.com/ipfs/go-ipfs-config"
 	libp2pc "github.com/libp2p/go-libp2p-core/crypto"
-	pb "github.com/libp2p/go-libp2p-core/crypto/pb"
 	peer "github.com/libp2p/go-libp2p-core/peer"
-	"golang.org/x/crypto/ed25519"
 )
 
 // IdentityConfig initializes a new identity.
@@ -40,27 +37,28 @@ func IdentityConfig(sk libp2pc.PrivKey) (config.Identity, error) {
 // UnmarshalPrivateKey converts a protobuf serialized private key into its
 // representative object
 func UnmarshalPrivateKey(data []byte) (libp2pc.PrivKey, error) {
-	pmes := new(pb.PrivateKey)
-	err := proto.Unmarshal(data, pmes)
-	if err != nil {
-		return nil, err
-	}
-
-	um, ok := libp2pc.PrivKeyUnmarshallers[pmes.GetType()]
-	if !ok {
-		return nil, libp2pc.ErrBadKeyType
-	}
-
-	// Manually shorten key length becuase libp2p backwards compat test will not catch our keys
-	// since they do not have the redundant public key, just empty bytes.
-	pd := pmes.GetData()
-	if len(pd) == ed25519.PrivateKeySize+ed25519.PublicKeySize {
-		k := make([]byte, ed25519.PrivateKeySize)
-		copy(k, pd[:ed25519.PrivateKeySize])
-		pd = k
-	}
-
-	return um(pd)
+	//pmes := new(pb.PrivateKey)
+	//err := proto.Unmarshal(data, pmes)
+	//if err != nil {
+	//	return nil, err
+	//}
+	//
+	//um, ok := libp2pc.PrivKeyUnmarshallers[pmes.GetType()]
+	//if !ok {
+	//	return nil, libp2pc.ErrBadKeyType
+	//}
+	//
+	//// Manually shorten key length becuase libp2p backwards compat test will not catch our keys
+	//// since they do not have the redundant public key, just empty bytes.
+	//pd := pmes.GetData()
+	//if len(pd) == ed25519.PrivateKeySize+ed25519.PublicKeySize {
+	//	k := make([]byte, ed25519.PrivateKeySize)
+	//	copy(k, pd[:ed25519.PrivateKeySize])
+	//	pd = k
+	//}
+	//
+	//return um(pd)
+	return libp2pc.UnmarshalPrivateKey(data)
 }
 
 // UnmarshalPrivateKeyFromString attempts to create a private key from a base64 encoded string

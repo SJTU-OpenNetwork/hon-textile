@@ -296,11 +296,11 @@ func (m *Mobile) DataAtStreamFile(feed []byte, cid []byte, cb DataCallback) {
 
 // IpfsAddData is the async version of ipfsAddData
 func (m *Mobile) IpfsAddData(data []byte, pin bool, hashOnly bool, cb IpfsAddDataCallback) {
-	m.node.WaitAdd(1, "Mobile.IpfsAddData")
-	go func() {
-		defer m.node.WaitDone("Mobile.IpfsAddData")
+//	m.node.WaitAdd(1, "Mobile.IpfsAddData")
+//	go func() {
+//		defer m.node.WaitDone("Mobile.IpfsAddData")
 		cb.Call(m.ipfsAddData(data, pin, hashOnly))
-	}()
+//	}()
 }
 
 // ipfsAddData calls core AddData
