@@ -230,13 +230,13 @@ func InitRepo(conf InitConfig) error {
 
 	// apply ipfs config opts
 	//    if conf.IsServer && !conf.IsMobile{
-	err = applySwarmPortConfigOption(rep, conf.SwarmPorts)
+	// err = applySwarmPortConfigOption(rep, conf.SwarmPorts)
 	//    } else {
 	//	    err = applySwarmPortConfigOptionIpv6(rep, conf.SwarmPorts)
 	//    }
-	if err != nil {
-		return err
-	}
+	// if err != nil {
+	// 	return err
+	// }
 
 	log.Debug("create db")
 	sqliteDb, err := db.Create(repoPath, conf.PinCode)
