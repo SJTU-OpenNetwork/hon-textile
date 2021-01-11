@@ -5,7 +5,7 @@ import (
 	"github.com/SJTU-OpenNetwork/hon-textile/pb"
 	"github.com/SJTU-OpenNetwork/hon-textile/recorder"
 	"github.com/SJTU-OpenNetwork/hon-textile/reedsolomon"
-	"github.com/gogo/protobuf/proto"
+	"github.com/golang/protobuf/proto"
 	logging "github.com/ipfs/go-log"
 )
 /*

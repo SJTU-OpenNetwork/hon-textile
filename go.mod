@@ -36,7 +36,7 @@ require (
 	github.com/ipfs/go-unixfs v0.2.4
 	github.com/ipfs/interface-go-ipfs-core v0.4.0
 	github.com/klauspost/cpuid v1.2.4 // indirect
-	github.com/klauspost/reedsolomon v1.9.10
+	github.com/klauspost/reedsolomon v1.9.9
 	github.com/libp2p/go-libp2p-core v0.6.1
 	github.com/libp2p/go-libp2p-peer v0.2.0
 	github.com/libp2p/go-libp2p-record v0.1.3
