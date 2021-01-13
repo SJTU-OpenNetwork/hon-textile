@@ -73,6 +73,7 @@ func (s *queryResultSet) Full() bool {
 func (t *Textile) searchByPubsub(query *pb.Query) (<-chan *pb.QueryResult, <-chan error, *broadcast.Broadcaster) {
 	query = queryDefaults(query)
 	query.Id = ksuid.New().String()
+	log.Debugf("search by pubsub, queryId:%s",query.Id)
 
 	var searchChs []chan *pb.QueryResult
 

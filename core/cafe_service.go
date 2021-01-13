@@ -946,7 +946,7 @@ func (h *CafeService) searchPubSub(query *pb.Query, reply func(*pb.QueryResults)
 
 	// respond pubsub if this is a cafe and the request is not from a cafe
 	var rtype pb.PubSubQuery_ResponseType
-	if h.open && !fromCafe {
+	if h.open && !fromCafe { // self is cafe , request is not from a cafe, then type is pubsub
 		rtype = pb.PubSubQuery_PUBSUB
 	} else {
 		rtype = pb.PubSubQuery_P2P
@@ -1050,7 +1050,7 @@ func (h *CafeService) publishQuery(req *pb.PubSubQuery) error {
 	}
 	topic := string(cafeServiceProtocol)
 
-	log.Debugf("sending pubsub %s to %s", env.Message.Type.String(), topic)
+	log.Debugf("sending pubsub query %s to %s", env.Message.Type.String(), topic)
 
 	payload, err := proto.Marshal(env)
 	if err != nil {
@@ -1971,6 +1971,7 @@ func (h *CafeService) handlePubSubQuery(env *pb.Envelope, pid peer.ID) (*pb.Enve
 	if err != nil {
 		return nil, err
 	}
+	log.Debugf("handle pubsub query, queryId:%s",query.Id)
 
 	if _, ok := h.inFlightQueries[query.Id]; ok {
 		return nil, nil
