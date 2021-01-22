@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"fmt"
 	"net/http"
 	"strconv"
 )
@@ -47,6 +48,7 @@ func IpfsCat(hash string, key string) error {
 	})
 }
 
+
 func IpfsPinCid(path string) error {
 	res, err := executeStringCmd(http.MethodPost, "ipfs/pin", params{
 		opts: map[string]string{"path":path},
@@ -70,3 +72,16 @@ func IpfsListCids(cid string, outPath string) error {
 	output(res)
 	return nil
 }
+
+func IpfsCompare(path1 string, path2 string) error{
+	fmt.Println("compare")
+	res,err:=executeStringCmd(http.MethodGet, "ipfs/compare", params{
+		opts: map[string]string{"path1": path1, "path2":path2},
+	})
+	if err != nil {
+		return err
+	}
+	output(res)
+	return nil
+}
+

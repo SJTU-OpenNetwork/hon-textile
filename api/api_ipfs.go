@@ -1,6 +1,7 @@
 package api
 
 import (
+	"fmt"
 	"net/http"
 	"os"
 
@@ -164,6 +165,19 @@ func (a *Api) ipfsPinCid(g *gin.Context) {
 	}
 	log.Debugf("Node at %s pinned recursively.", path)
 	g.Status(http.StatusOK)
+}
+
+func (a *Api) ipfsCompare(g *gin.Context){
+	opts, err := a.readOpts(g)
+	fmt.Println("opts:",opts)
+	if err != nil {
+		a.abort500(g, err)
+		return
+	}
+	path1 := opts["path1"]
+	path2 := opts["path2"]
+	n1,n2,same,sizeA_B, sizeB_A,err := ipfs.ComparePath(a.Node.Ipfs(),path1,path2)
+	fmt.Printf("n1:%d, n2:%d, same:%d, n2-same:%d, sizeA-B;%d, sizeB-A:%d\n",n1,n2,same,n2-same,sizeA_B,sizeB_A)
 }
 
 func (a *Api) ipfsListCids(g *gin.Context){

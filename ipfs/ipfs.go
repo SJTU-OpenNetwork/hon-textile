@@ -245,7 +245,9 @@ func AddData(node *core.IpfsNode, reader io.Reader, pin bool, hashOnly bool) (*i
 	defer cancel()
 
 	//pth, err := api.Unixfs().Add(ctx, files.NewReaderFile(reader), options.Unixfs.HashOnly(hashOnly), options.Unixfs.Chunker("size-1048576")) //size = 1M
-	pth, err := api.Unixfs().Add(ctx, files.NewReaderFile(reader), options.Unixfs.HashOnly(hashOnly), options.Unixfs.Chunker("rabin-16384-262144-1048576")) //size = 1M
+	pth, err := api.Unixfs().Add(ctx, files.NewReaderFile(reader), options.Unixfs.HashOnly(hashOnly), options.Unixfs.Chunker("rabin-65536-262144-1048576")) //size = 1M
+	//pth, err := api.Unixfs().Add(ctx, files.NewReaderFile(reader), options.Unixfs.HashOnly(hashOnly), options.Unixfs.Chunker("ram-65536-1048576-4")) //size = 1M
+	//pth, err := api.Unixfs().Add(ctx, files.NewReaderFile(reader), options.Unixfs.HashOnly(hashOnly), options.Unixfs.Chunker("hram-65536-1048576-4")) //size = 64k~1M
 	//pth, err := api.Unixfs().Add(ctx, files.NewReaderFile(reader), options.Unixfs.HashOnly(hashOnly)) //size = 256K
 	if err != nil {
 		return nil, err
@@ -666,7 +668,7 @@ func ComparePath(node *core.IpfsNode, pth1 string, pth2 string) (int, int, int, 
 			}
 		}
 		if j==n1 {
-			BminusA=append(BminusA,list2[i]);
+			BminusA=append(BminusA,list2[i])
 		}
 	}
 

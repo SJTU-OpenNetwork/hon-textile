@@ -604,6 +604,8 @@ There are two types of invites, direct account-to-account and external:
 		return IpfsCat(*ipfsCatHash, *ipfsCatKey)
 	}
 
+
+
 	// ipfs pin
 	ipfsPinCmd := ipfsCmd.Command("pin", "Fetch and pin an IPLD node according to an IPFS CID.")
 	ipfsPinPath := ipfsPinCmd.Arg("path", "IPFS path. Can be a cid.").Required().String()
@@ -617,6 +619,13 @@ There are two types of invites, direct account-to-account and external:
 	ipfsCidListOut := ipfsCidListCmd.Arg("out", "Output file path").String()
 	cmds[ipfsCidListCmd.FullCommand()] = func() error {
 		return IpfsListCids(*ipfsCidListCid, *ipfsCidListOut)
+	}
+
+	ipfsCompareCmd := ipfsCmd.Command("compare", "Compare two hash")
+	ipfsComparePath1 := ipfsCompareCmd.Arg("path1", "path1").Required().String()
+	ipfsComparePath2 := ipfsCompareCmd.Arg("path2", "path2").Required().String()
+	cmds[ipfsCompareCmd.FullCommand()] = func() error {
+		return IpfsCompare(*ipfsComparePath1, *ipfsComparePath2)
 	}
 
 	// ================================
@@ -1044,7 +1053,7 @@ The response contains a base58 encoded version of the random bytes token.`).Alia
 	simpleAddDirCmd := simpleCmd.Command("addDir", "Add a directory to a thread.")
 	simpleAddDirPath := simpleAddDirCmd.Arg("path", "Path of a local Dir").Required().String()
 	simpleAddDirThread := simpleAddDirCmd.Arg("threadId", "Thread ID").Required().String()
-	cmds[simpleAddCmd.FullCommand()] = func () error {
+	cmds[simpleAddDirCmd.FullCommand()] = func () error {
 		return AddSimpleDir(*simpleAddDirPath, *simpleAddDirThread)
 	}
 

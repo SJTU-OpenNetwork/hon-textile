@@ -10,6 +10,7 @@ func (a *Api) addSimpleFile(g *gin.Context) {
 	// Parse parameters
 	// params are defined in cmd/stream.go
 	opts, err := a.readOpts(g)
+	fmt.Println("opts:",opts)
 	if err != nil {
 		a.abort500(g, err)
 		return

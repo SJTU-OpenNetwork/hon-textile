@@ -5,7 +5,9 @@ package core
 import (
 	"bufio"
 	"errors"
+	"fmt"
 	"os"
+	"time"
 
 	"github.com/SJTU-OpenNetwork/hon-textile/ipfs"
 	"github.com/SJTU-OpenNetwork/hon-textile/pb"
@@ -35,6 +37,7 @@ func (t *Textile) addSimpleFile(path string, threadId string, fileType pb.Simple
 	log.Debugf("AddSimpleFile(%s, %s)", path, threadId)
 
 	thread := t.Thread(threadId)
+	fmt.Println("thread id:",thread, " ",threadId)
 	if thread == nil {
 		return nil, ErrThreadNotFound
 	}
@@ -65,7 +68,11 @@ func (t *Textile) addSimpleFile(path string, threadId string, fileType pb.Simple
 
 	// Add file to ipfs
 	r := bufio.NewReader(fi)
+	t1:=time.Now()
 	fileCid, err := ipfs.AddData(t.node, r, true, false)
+	t2:=time.Now()
+	t2.Sub(t1)
+	fmt.Printf("cid:%s, duration:%v \n",fileCid, (t2.Sub(t1)).Milliseconds())
 	// resolvedPath, err := api.Unixfs().Add(t.ctx, files.NewReaderFile(fi), options.Unixfs.HashOnly(false), options.Unixfs.Chunker("size-1048576"))
 	if err != nil {
 		log.Error(err)
