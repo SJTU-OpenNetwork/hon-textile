@@ -1,13 +1,12 @@
 package cmd
 
 import (
-	"fmt"
 	"net/http"
 )
 
 func AddSimpleFile(path string, threadId string) error {
 	cmdOpt := map[string]string{"path": path, "threadId": threadId}
-	fmt.Println("cmdOpts,",cmdOpt)
+	//fmt.Println("cmdOpts,",cmdOpt)
 	res, err := executeJsonCmd(http.MethodPost, "simpleFile/add", params{opts:cmdOpt}, nil)
 	if err != nil {
 		return err
@@ -17,7 +16,7 @@ func AddSimpleFile(path string, threadId string) error {
 }
 func AddSimpleDir(path string, threadId string) error {
 	cmdOpt := map[string]string{"path": path, "threadId": threadId}
-	fmt.Println("cmdOpts,",cmdOpt)
+	//fmt.Println("cmdOpts,",cmdOpt)
 
 	res, err := executeJsonCmd(http.MethodPost, "simpleFile/addDir", params{opts:cmdOpt}, nil)
 	if err != nil {
