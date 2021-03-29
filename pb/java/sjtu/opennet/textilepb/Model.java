@@ -51169,6 +51169,10 @@ public final class Model {
        * <code>VIDEO = 2;</code>
        */
       VIDEO(2),
+      /**
+       * <code>LIVE = 3;</code>
+       */
+      LIVE(3),
       UNRECOGNIZED(-1),
       ;
 
@@ -51184,6 +51188,10 @@ public final class Model {
        * <code>VIDEO = 2;</code>
        */
       public static final int VIDEO_VALUE = 2;
+      /**
+       * <code>LIVE = 3;</code>
+       */
+      public static final int LIVE_VALUE = 3;
 
 
       public final int getNumber() {
@@ -51213,6 +51221,7 @@ public final class Model {
           case 0: return FILE;
           case 1: return PICTURE;
           case 2: return VIDEO;
+          case 3: return LIVE;
           default: return null;
         }
       }
@@ -57190,23 +57199,24 @@ public final class Model {
       " \001(\t\022\020\n\010streamid\030\002 \001(\t\022\r\n\005index\030\003 \001(\004\022\014\n" +
       "\004size\030\004 \001(\005\022\016\n\006isRoot\030\005 \001(\010\022\023\n\013descripti" +
       "on\030\006 \001(\t\".\n\017StreamBlockList\022\033\n\005items\030\001 \003" +
-      "(\0132\014.StreamBlock\"\274\001\n\nStreamMeta\022\n\n\002id\030\001 " +
+      "(\0132\014.StreamBlock\"\306\001\n\nStreamMeta\022\n\n\002id\030\001 " +
       "\001(\t\022\023\n\013nsubstreams\030\002 \001(\005\022\017\n\007bitrate\030\003 \001(" +
       "\005\022\017\n\007caption\030\004 \001(\t\022\017\n\007nblocks\030\005 \001(\004\022\020\n\010p" +
       "osterid\030\006 \001(\t\022\036\n\004type\030\007 \001(\0162\020.StreamMeta" +
-      ".Type\"(\n\004Type\022\010\n\004FILE\020\000\022\013\n\007PICTURE\020\001\022\t\n\005" +
-      "VIDEO\020\002\",\n\016StreamMetaList\022\032\n\005items\030\001 \003(\013" +
-      "2\013.StreamMeta\"\024\n\006Stream\022\n\n\002id\030\001 \001(\t\"~\n\nS" +
-      "impleFile\022\014\n\004name\030\001 \001(\t\022\014\n\004path\030\002 \001(\t\022\014\n" +
-      "\004size\030\003 \001(\003\022\036\n\004type\030\004 \001(\0162\020.SimpleFile.T" +
-      "ype\"&\n\004Type\022\010\n\004FILE\020\000\022\013\n\007PICTURE\020\001\022\007\n\003DI" +
-      "R\020\002\"g\n\021CafeClientMessage\022\n\n\002id\030\001 \001(\t\022\014\n\004" +
-      "peer\030\002 \001(\t\022\016\n\006client\030\003 \001(\t\022(\n\004date\030\004 \001(\013" +
-      "2\032.google.protobuf.Timestamp\"}\n\005BotKV\022\013\n" +
-      "\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\014\022+\n\007created\030\003 \001" +
-      "(\0132\032.google.protobuf.Timestamp\022+\n\007update" +
-      "d\030\004 \001(\0132\032.google.protobuf.TimestampB\034\n\026s" +
-      "jtu.opennet.textilepbZ\002pbb\006proto3"
+      ".Type\"2\n\004Type\022\010\n\004FILE\020\000\022\013\n\007PICTURE\020\001\022\t\n\005" +
+      "VIDEO\020\002\022\010\n\004LIVE\020\003\",\n\016StreamMetaList\022\032\n\005i" +
+      "tems\030\001 \003(\0132\013.StreamMeta\"\024\n\006Stream\022\n\n\002id\030" +
+      "\001 \001(\t\"~\n\nSimpleFile\022\014\n\004name\030\001 \001(\t\022\014\n\004pat" +
+      "h\030\002 \001(\t\022\014\n\004size\030\003 \001(\003\022\036\n\004type\030\004 \001(\0162\020.Si" +
+      "mpleFile.Type\"&\n\004Type\022\010\n\004FILE\020\000\022\013\n\007PICTU" +
+      "RE\020\001\022\007\n\003DIR\020\002\"g\n\021CafeClientMessage\022\n\n\002id" +
+      "\030\001 \001(\t\022\014\n\004peer\030\002 \001(\t\022\016\n\006client\030\003 \001(\t\022(\n\004" +
+      "date\030\004 \001(\0132\032.google.protobuf.Timestamp\"}" +
+      "\n\005BotKV\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\014\022+\n\007c" +
+      "reated\030\003 \001(\0132\032.google.protobuf.Timestamp" +
+      "\022+\n\007updated\030\004 \001(\0132\032.google.protobuf.Time" +
+      "stampB\034\n\026sjtu.opennet.textilepbZ\002pbb\006pro" +
+      "to3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

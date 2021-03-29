@@ -341,6 +341,8 @@ func (h *StreamService) OnStreamMeta(meta *pb.StreamMeta, treePrevious []string)
 			body = "stream picture"
 		case pb.StreamMeta_VIDEO:
 			body = "stream video"
+		case pb.StreamMeta_LIVE:
+			body = "stream live"
 		}
 		log.Debugf(fmt.Sprintf("[%s] Block ID %s, Stream ID %s, Description %s", "[OnStreamMeta]", lastRoot.Id, lastRoot.Streamid, lastRoot.Description))
 		honlog.Hlog.Add(fmt.Sprintf("[%s] Block ID %s, Stream ID %s, Description %s", "[OnStreamMeta]", lastRoot.Id, lastRoot.Streamid, lastRoot.Description))
@@ -652,6 +654,8 @@ func (h *StreamService) handleRootBlk(pid peer.ID, blk *pb.StreamBlock) error {
 				body = "stream picture"
 			case pb.StreamMeta_VIDEO:
 				body = "stream video"
+			case pb.StreamMeta_LIVE:
+				body = "stream live"
 			}
 		}
 	}

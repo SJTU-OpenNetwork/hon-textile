@@ -197,7 +197,7 @@ func (t *Textile) feedItem(block *pb.Block, opts feedItemOpts) (*pb.FeedItem, er
 				Streammeta:   msg,
 				PeerId: block.Author,
 			}
-			if msg.Type != pb.StreamMeta_VIDEO {
+			if msg.Type != pb.StreamMeta_VIDEO && msg.Type!=pb.StreamMeta_LIVE{
 				// TODO: For now, Video does not support push.
 				//		In that case, call OnStreamMeta would cause a inform timeout.
 				//		So we only call OnStreamMeta when meta is not a VIDEO.

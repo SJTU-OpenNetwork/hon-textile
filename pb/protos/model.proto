@@ -470,6 +470,7 @@ message StreamMeta {
         FILE = 0;
         PICTURE =1;
         VIDEO = 2;
+        LIVE = 3;
     }
 }
 
