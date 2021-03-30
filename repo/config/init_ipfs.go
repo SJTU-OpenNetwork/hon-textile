@@ -217,10 +217,10 @@ func addressesConfig(server bool) native.Addresses {
 	//}
 	return native.Addresses{
 		Swarm:      []string{
-			"/ip4/0.0.0.0/udp/4001/quic",
-			"/ip6/::/udp/4001/quic",
 			"/ip4/0.0.0.0/tcp/4001",
-			"/ip6/::/tcp/4001"},
+			"/ip6/::/tcp/4001",
+			"/ip4/0.0.0.0/tcp/4001/ws",
+			"/ip6/::/tcp/4001/ws"},
 		Announce:   []string{},
 		NoAnnounce: noAnnounce,
 		API:        []string{"/ip4/127.0.0.1/tcp/5001"},
