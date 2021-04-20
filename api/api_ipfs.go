@@ -180,6 +180,17 @@ func (a *Api) ipfsCompare(g *gin.Context){
 	fmt.Printf("n1:%d, n2:%d, same:%d, n2-same:%d, sizeA-B;%d, sizeB-A:%d\n",n1,n2,same,n2-same,sizeA_B,sizeB_A)
 }
 
+func (a *Api) ipfsStatObject(g *gin.Context) {
+	opts, err := a.readOpts(g)
+	fmt.Println("opts:",opts)
+	if err != nil {
+		a.abort500(g, err)
+		return
+	}
+	path := opts["path"]
+	ipfs.StatObject(a.Node.Ipfs(), path)
+}
+
 func (a *Api) ipfsListCids(g *gin.Context){
 	opts, err := a.readOpts(g)
 	if err != nil {

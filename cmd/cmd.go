@@ -604,8 +604,6 @@ There are two types of invites, direct account-to-account and external:
 		return IpfsCat(*ipfsCatHash, *ipfsCatKey)
 	}
 
-
-
 	// ipfs pin
 	ipfsPinCmd := ipfsCmd.Command("pin", "Fetch and pin an IPLD node according to an IPFS CID.")
 	ipfsPinPath := ipfsPinCmd.Arg("path", "IPFS path. Can be a cid.").Required().String()
@@ -626,6 +624,12 @@ There are two types of invites, direct account-to-account and external:
 	ipfsComparePath2 := ipfsCompareCmd.Arg("path2", "path2").Required().String()
 	cmds[ipfsCompareCmd.FullCommand()] = func() error {
 		return IpfsCompare(*ipfsComparePath1, *ipfsComparePath2)
+	}
+
+	ipfsStatCmd := ipfsCmd.Command("stat", "Stat a object")
+	ipfsStatPath := ipfsStatCmd.Arg("path", "path").Required().String()
+	cmds[ipfsStatCmd.FullCommand()]=func() error {
+		return IpfsStatObject(*ipfsStatPath)
 	}
 
 	// ================================

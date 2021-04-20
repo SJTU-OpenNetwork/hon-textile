@@ -30,7 +30,7 @@ ios:
 
 android:
 	$(eval FLAGS := $$(shell govvv -flags | sed 's/main/github.com\/SJTU-OpenNetwork\/hon-textile\/common/g'))
-	env go111module=on gomobile bind -ldflags "-w $(FLAGS)" -v -target=android -o mobile.aar github.com/SJTU-OpenNetwork/hon-textile/mobile github.com/SJTU-OpenNetwork/hon-textile/core
+	env go111module=off gomobile bind -ldflags "-w $(FLAGS)" -v -target=android -o mobile.aar github.com/SJTU-OpenNetwork/hon-textile/mobile github.com/SJTU-OpenNetwork/hon-textile/core
 	mkdir -p mobile/dist/android/ && mv mobile.aar mobile/dist/android/
 
 protos:

@@ -85,3 +85,14 @@ func IpfsCompare(path1 string, path2 string) error{
 	return nil
 }
 
+func IpfsStatObject(cid string) error {
+	res, err := executeStringCmd(http.MethodGet, "ipfs/stat", params{
+		opts: map[string]string{"path":cid},
+	})
+	if err != nil {
+		return err
+	}
+	output(res)
+	return nil
+}
+

@@ -470,7 +470,7 @@ func (t *Textile) Start() error {
 	if err != nil {
 		return err
 	}
-
+	log.Debug("ipfs node created")
 	go func() {
 		defer func() {
 			close(t.online)
@@ -535,6 +535,7 @@ func (t *Textile) Start() error {
 	for _, mod := range t.datastore.Threads().List().Items {
 		_, err = t.loadThread(mod)
 		if err != nil {
+			log.Debug(err,"load thread error, thread id: ",mod.GetId())
 			if err == ErrThreadLoaded {
 				continue
 			} else {
@@ -1308,7 +1309,9 @@ func (t *Textile) threadByBlock(block *pb.Block) (*Thread, error) {
 
 // loadThread loads a thread into memory from the given on-disk model
 func (t *Textile) loadThread(mod *pb.Thread) (*Thread, error) {
+	log.Debug("start load thread: ",mod.Id)
 	if loaded := t.Thread(mod.Id); loaded != nil {
+		log.Error("load error")
 		return nil, ErrThreadLoaded
 	}
 

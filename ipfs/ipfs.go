@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"context"
 	"encoding/json"
+	"fmt"
 	"io"
 	"io/ioutil"
 	"os"
@@ -245,12 +246,12 @@ func AddData(node *core.IpfsNode, reader io.Reader, pin bool, hashOnly bool) (*i
 	defer cancel()
 
 	//pth, err := api.Unixfs().Add(ctx, files.NewReaderFile(reader), options.Unixfs.HashOnly(hashOnly), options.Unixfs.Chunker("size-1048576")) //size = 1M
-	pth, err := api.Unixfs().Add(ctx, files.NewReaderFile(reader), options.Unixfs.HashOnly(hashOnly), options.Unixfs.Chunker("rabin-65536-262144-1048576")) //size = 1M
+	//pth, err := api.Unixfs().Add(ctx, files.NewReaderFile(reader), options.Unixfs.HashOnly(hashOnly), options.Unixfs.Chunker("rabin-65536-262144-1048576")) //size = 1M
 	//pth, err := api.Unixfs().Add(ctx, files.NewReaderFile(reader), options.Unixfs.HashOnly(hashOnly), options.Unixfs.Chunker("honrabin-65536-1048576")) //size = 1M
 	//pth, err := api.Unixfs().Add(ctx, files.NewReaderFile(reader), options.Unixfs.HashOnly(hashOnly), options.Unixfs.Chunker("ram-65536-1048576-4")) //size = 1M
 	//pth, err := api.Unixfs().Add(ctx, files.NewReaderFile(reader), options.Unixfs.HashOnly(hashOnly), options.Unixfs.Chunker("newram2-65536-1048576-4")) //size = 1M
-	//pth, err := api.Unixfs().Add(ctx, files.NewReaderFile(reader), options.Unixfs.HashOnly(hashOnly), options.Unixfs.Chunker("hram-32768-1048576-4")) //size = 64k~1M
-	//pth, err := api.Unixfs().Add(ctx, files.NewReaderFile(reader), options.Unixfs.HashOnly(hashOnly)) //size = 256K
+	pth, err := api.Unixfs().Add(ctx, files.NewReaderFile(reader), options.Unixfs.HashOnly(hashOnly), options.Unixfs.Chunker("hram-32768-1048576-4")) //size = 64k~1M
+	//////pth, err := api.Unixfs().Add(ctx, files.NewReaderFile(reader), options.Unixfs.HashOnly(hashOnly)) //size = 256K
 	if err != nil {
 		return nil, err
 	}
@@ -707,3 +708,15 @@ func ComparePath(node *core.IpfsNode, pth1 string, pth2 string) (int, int, int, 
 
 	return n1, n2, same, dataSizeAminusB, dataSizeBminusA, nil
 }
+
+func StatObject(node *core.IpfsNode, path string) {
+	list1, _ := traverseAndGetLeaf(node, path)
+	for _, l := range list1 {
+		stat,err := StatObjectAtPath(node, l)
+		if err != nil {
+			log.Error("Error when traverse node ", l, ": ", err)
+		}
+		fmt.Printf("cid:%s,   linkNums:%d,   blockSize:%d,   cumulativeSize:%d,   dataSize:%d\n",stat.Cid, stat.NumLinks, stat.BlockSize, stat.CumulativeSize,stat.DataSize)
+	}
+}
+
